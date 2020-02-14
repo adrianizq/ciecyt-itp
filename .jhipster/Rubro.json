@@ -1,0 +1,20 @@
+{
+    "name": "Rubro",
+    "fields": [
+        {
+            "fieldName": "rubro",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [],
+    "changelogDate": "20200124174459",
+    "entityTableName": "rubro",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

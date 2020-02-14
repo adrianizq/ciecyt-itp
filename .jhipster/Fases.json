@@ -1,0 +1,32 @@
+{
+    "name": "Fases",
+    "fields": [
+        {
+            "fieldName": "fase",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "notificable",
+            "fieldType": "Boolean"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "modalidad",
+            "otherEntityRelationshipName": "fases",
+            "relationshipName": "fasesModalidad",
+            "otherEntityField": "modalidad"
+        }
+    ],
+    "changelogDate": "20200124174510",
+    "entityTableName": "fases",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

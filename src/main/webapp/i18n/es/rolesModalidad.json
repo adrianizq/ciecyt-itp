@@ -1,0 +1,25 @@
+{
+  "ciecytApp": {
+    "rolesModalidad": {
+      "home": {
+        "title": "Roles Modalidads",
+        "createLabel": "Crear nuevo Roles Modalidad",
+        "createOrEditLabel": "Crear o editar Roles Modalidad",
+        "notFound": "No Roles Modalidads found"
+      },
+      "created": "Un nuevo Roles Modalidad ha sido creado con el identificador {{ param }}",
+      "updated": "Un Roles Modalidad ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Roles Modalidad ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Roles Modalidad {{ id }}?"
+      },
+      "detail": {
+        "title": "Roles Modalidad"
+      },
+      "rol": "Rol",
+      "cantidad": "Cantidad",
+      "calificador": "Calificador",
+      "rolesModalidadModalidad": "Roles Modalidad Modalidad"
+    }
+  }
+}

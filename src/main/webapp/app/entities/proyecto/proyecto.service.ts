@@ -1,0 +1,49 @@
+import axios from 'axios';
+
+import buildPaginationQueryOpts from '@/shared/sort/sorts';
+
+import { IProyecto } from '@/shared/model/proyecto.model';
+
+const baseApiUrl = 'api/proyectos';
+
+export default class ProyectoService {
+  public find(id: number): Promise<IProyecto> {
+    return new Promise<IProyecto>(resolve => {
+      axios.get(`${baseApiUrl}/${id}`).then(function(res) {
+        resolve(res.data);
+      });
+    });
+  }
+
+  public retrieve(paginationQuery?: any): Promise<any> {
+    return new Promise<any>(resolve => {
+      axios.get(baseApiUrl + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function(res) {
+        resolve(res);
+      });
+    });
+  }
+
+  public delete(id: number): Promise<any> {
+    return new Promise<any>(resolve => {
+      axios.delete(`${baseApiUrl}/${id}`).then(function(res) {
+        resolve(res);
+      });
+    });
+  }
+
+  public create(entity: IProyecto): Promise<IProyecto> {
+    return new Promise<IProyecto>(resolve => {
+      axios.post(`${baseApiUrl}`, entity).then(function(res) {
+        resolve(res.data);
+      });
+    });
+  }
+
+  public update(entity: IProyecto): Promise<IProyecto> {
+    return new Promise<IProyecto>(resolve => {
+      axios.put(`${baseApiUrl}`, entity).then(function(res) {
+        resolve(res.data);
+      });
+    });
+  }
+}

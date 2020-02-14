@@ -1,0 +1,35 @@
+{
+    "name": "ElementoProyecto",
+    "fields": [
+        {
+            "fieldName": "dato",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "elemento",
+            "otherEntityRelationshipName": "elementoProyecto",
+            "relationshipName": "elementoProyectoElemento",
+            "otherEntityField": "elemento"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "proyecto",
+            "otherEntityRelationshipName": "elementoProyecto",
+            "relationshipName": "elementoProyectoProyecto",
+            "otherEntityField": "titulo"
+        }
+    ],
+    "changelogDate": "20200124174504",
+    "entityTableName": "elemento_proyecto",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

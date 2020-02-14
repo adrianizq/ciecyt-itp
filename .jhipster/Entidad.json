@@ -1,0 +1,24 @@
+{
+    "name": "Entidad",
+    "fields": [
+        {
+            "fieldName": "entidad",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "nit",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [],
+    "changelogDate": "20200124174501",
+    "entityTableName": "entidad",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

@@ -26,6 +26,146 @@
                         <font-awesome-icon icon="th-list" />
                         <span v-text="$t('global.menu.entities.main')">Entities</span>
                     </span>
+                    <b-dropdown-item to="/entity/proyecto">
+                        <font-awesome-icon icon="asterisk" />
+                        <span v-text="$t('global.menu.entities.proyecto')">Proyecto</span>
+                    </b-dropdown-item>
+                    <b-dropdown-item to="/entity/linea-investigacion">
+                        <font-awesome-icon icon="asterisk" />
+                        <span v-text="$t('global.menu.entities.lineaInvestigacion')">LineaInvestigacion</span>
+                    </b-dropdown-item>
+                    <b-dropdown-item to="/entity/grupo-semillero">
+                        <font-awesome-icon icon="asterisk" />
+                        <span v-text="$t('global.menu.entities.grupoSemillero')">GrupoSemillero</span>
+                    </b-dropdown-item>
+                    <b-dropdown-item to="/entity/facultad">
+                        <font-awesome-icon icon="asterisk" />
+                        <span v-text="$t('global.menu.entities.facultad')">Facultad</span>
+                    </b-dropdown-item>
+                    <b-dropdown-item to="/entity/modalidad">
+                        <font-awesome-icon icon="asterisk" />
+                        <span v-text="$t('global.menu.entities.modalidad')">Modalidad</span>
+                    </b-dropdown-item>
+                    <b-dropdown-item to="/entity/acuerdo">
+                        <font-awesome-icon icon="asterisk" />
+                        <span v-text="$t('global.menu.entities.acuerdo')">Acuerdo</span>
+                    </b-dropdown-item>
+                    <b-dropdown-item to="/entity/ciclo-propedeutico">
+                        <font-awesome-icon icon="asterisk" />
+                        <span v-text="$t('global.menu.entities.cicloPropedeutico')">CicloPropedeutico</span>
+                    </b-dropdown-item>
+                    <b-dropdown-item to="/entity/resultados-esperados">
+                        <font-awesome-icon icon="asterisk" />
+                        <span v-text="$t('global.menu.entities.resultadosEsperados')">ResultadosEsperados</span>
+                    </b-dropdown-item>
+                    <b-dropdown-item to="/entity/producto">
+                        <font-awesome-icon icon="asterisk" />
+                        <span v-text="$t('global.menu.entities.producto')">Producto</span>
+                    </b-dropdown-item>
+                    <b-dropdown-item to="/entity/producto-proyecto">
+                        <font-awesome-icon icon="asterisk" />
+                        <span v-text="$t('global.menu.entities.productoProyecto')">ProductoProyecto</span>
+                    </b-dropdown-item>
+                    <b-dropdown-item to="/entity/impactos-esperados">
+                        <font-awesome-icon icon="asterisk" />
+                        <span v-text="$t('global.menu.entities.impactosEsperados')">ImpactosEsperados</span>
+                    </b-dropdown-item>
+                    <b-dropdown-item to="/entity/cronograma">
+                        <font-awesome-icon icon="asterisk" />
+                        <span v-text="$t('global.menu.entities.cronograma')">Cronograma</span>
+                    </b-dropdown-item>
+                    <b-dropdown-item to="/entity/rubro">
+                        <font-awesome-icon icon="asterisk" />
+                        <span v-text="$t('global.menu.entities.rubro')">Rubro</span>
+                    </b-dropdown-item>
+                    <b-dropdown-item to="/entity/presupuesto-valor">
+                        <font-awesome-icon icon="asterisk" />
+                        <span v-text="$t('global.menu.entities.presupuestoValor')">PresupuestoValor</span>
+                    </b-dropdown-item>
+                    <b-dropdown-item to="/entity/entidad">
+                        <font-awesome-icon icon="asterisk" />
+                        <span v-text="$t('global.menu.entities.entidad')">Entidad</span>
+                    </b-dropdown-item>
+                    <b-dropdown-item to="/entity/entidad-financiadora">
+                        <font-awesome-icon icon="asterisk" />
+                        <span v-text="$t('global.menu.entities.entidadFinanciadora')">EntidadFinanciadora</span>
+                    </b-dropdown-item>
+                    <b-dropdown-item to="/entity/elemento">
+                        <font-awesome-icon icon="asterisk" />
+                        <span v-text="$t('global.menu.entities.elemento')">Elemento</span>
+                    </b-dropdown-item>
+                    <b-dropdown-item to="/entity/elemento-proyecto">
+                        <font-awesome-icon icon="asterisk" />
+                        <span v-text="$t('global.menu.entities.elementoProyecto')">ElementoProyecto</span>
+                    </b-dropdown-item>
+                    <b-dropdown-item to="/entity/formato">
+                        <font-awesome-icon icon="asterisk" />
+                        <span v-text="$t('global.menu.entities.formato')">Formato</span>
+                    </b-dropdown-item>
+                    <b-dropdown-item to="/entity/tipo-pregunta">
+                        <font-awesome-icon icon="asterisk" />
+                        <span v-text="$t('global.menu.entities.tipoPregunta')">TipoPregunta</span>
+                    </b-dropdown-item>
+                    <b-dropdown-item to="/entity/pregunta">
+                        <font-awesome-icon icon="asterisk" />
+                        <span v-text="$t('global.menu.entities.pregunta')">Pregunta</span>
+                    </b-dropdown-item>
+                    <b-dropdown-item to="/entity/proyecto-respuestas">
+                        <font-awesome-icon icon="asterisk" />
+                        <span v-text="$t('global.menu.entities.proyectoRespuestas')">ProyectoRespuestas</span>
+                    </b-dropdown-item>
+                    <b-dropdown-item to="/entity/roles-modalidad">
+                        <font-awesome-icon icon="asterisk" />
+                        <span v-text="$t('global.menu.entities.rolesModalidad')">RolesModalidad</span>
+                    </b-dropdown-item>
+                    <b-dropdown-item to="/entity/fases">
+                        <font-awesome-icon icon="asterisk" />
+                        <span v-text="$t('global.menu.entities.fases')">Fases</span>
+                    </b-dropdown-item>
+                    <b-dropdown-item to="/entity/proyecto-fase">
+                        <font-awesome-icon icon="asterisk" />
+                        <span v-text="$t('global.menu.entities.proyectoFase')">ProyectoFase</span>
+                    </b-dropdown-item>
+                    <b-dropdown-item to="/entity/cronograma-ciecyt">
+                        <font-awesome-icon icon="asterisk" />
+                        <span v-text="$t('global.menu.entities.cronogramaCiecyt')">CronogramaCiecyt</span>
+                    </b-dropdown-item>
+                    <b-dropdown-item to="/entity/cronograma-ciecyt-fases">
+                        <font-awesome-icon icon="asterisk" />
+                        <span v-text="$t('global.menu.entities.cronogramaCiecytFases')">CronogramaCiecytFases</span>
+                    </b-dropdown-item>
+                    <b-dropdown-item to="/entity/integrante-proyecto">
+                        <font-awesome-icon icon="asterisk" />
+                        <span v-text="$t('global.menu.entities.integranteProyecto')">IntegranteProyecto</span>
+                    </b-dropdown-item>
+                    <b-dropdown-item to="/entity/solicitud">
+                        <font-awesome-icon icon="asterisk" />
+                        <span v-text="$t('global.menu.entities.solicitud')">Solicitud</span>
+                    </b-dropdown-item>
+                    <b-dropdown-item to="/entity/adjunto-proyecto-fase">
+                        <font-awesome-icon icon="asterisk" />
+                        <span v-text="$t('global.menu.entities.adjuntoProyectoFase')">AdjuntoProyectoFase</span>
+                    </b-dropdown-item>
+                    <b-dropdown-item to="/entity/retroalimentacion">
+                        <font-awesome-icon icon="asterisk" />
+                        <span v-text="$t('global.menu.entities.retroalimentacion')">Retroalimentacion</span>
+                    </b-dropdown-item>
+                    <b-dropdown-item to="/entity/adjunto-retroalimentacion">
+                        <font-awesome-icon icon="asterisk" />
+                        <span v-text="$t('global.menu.entities.adjuntoRetroalimentacion')">AdjuntoRetroalimentacion</span>
+                    </b-dropdown-item>
+                    <b-dropdown-item to="/entity/ficha-tecnica">
+                        <font-awesome-icon icon="asterisk" />
+                        <span v-text="$t('global.menu.entities.fichaTecnica')">FichaTecnica</span>
+                    </b-dropdown-item>
+                    <b-dropdown-item to="/entity/categorizacion">
+                        <font-awesome-icon icon="asterisk" />
+                        <span v-text="$t('global.menu.entities.categorizacion')">Categorizacion</span>
+                    </b-dropdown-item>
+                    <b-dropdown-item to="/entity/usuario">
+                        <font-awesome-icon icon="asterisk" />
+                        <span v-text="$t('global.menu.entities.usuario')">Usuario</span>
+                    </b-dropdown-item>
                     <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
                 </b-nav-item-dropdown>
                 <b-nav-item-dropdown

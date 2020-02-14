@@ -1,0 +1,40 @@
+{
+    "name": "Cronograma",
+    "fields": [
+        {
+            "fieldName": "actividad",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "duracion",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "fechaInicio",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "fechaFin",
+            "fieldType": "LocalDate"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "proyecto",
+            "otherEntityRelationshipName": "cronograma",
+            "relationshipName": "cronogramaProyecto",
+            "otherEntityField": "titulo"
+        }
+    ],
+    "changelogDate": "20200124174458",
+    "entityTableName": "cronograma",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

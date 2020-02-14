@@ -25,6 +25,41 @@ import AlertService from '@/shared/alert/alert.service';
 import TranslationService from '@/locale/translation.service';
 import ConfigurationService from '@/admin/configuration/configuration.service';
 
+import ProyectoService from '@/entities/proyecto/proyecto.service';
+import LineaInvestigacionService from '@/entities/linea-investigacion/linea-investigacion.service';
+import GrupoSemilleroService from '@/entities/grupo-semillero/grupo-semillero.service';
+import FacultadService from '@/entities/facultad/facultad.service';
+import ModalidadService from '@/entities/modalidad/modalidad.service';
+import AcuerdoService from '@/entities/acuerdo/acuerdo.service';
+import CicloPropedeuticoService from '@/entities/ciclo-propedeutico/ciclo-propedeutico.service';
+import ResultadosEsperadosService from '@/entities/resultados-esperados/resultados-esperados.service';
+import ProductoService from '@/entities/producto/producto.service';
+import ProductoProyectoService from '@/entities/producto-proyecto/producto-proyecto.service';
+import ImpactosEsperadosService from '@/entities/impactos-esperados/impactos-esperados.service';
+import CronogramaService from '@/entities/cronograma/cronograma.service';
+import RubroService from '@/entities/rubro/rubro.service';
+import PresupuestoValorService from '@/entities/presupuesto-valor/presupuesto-valor.service';
+import EntidadService from '@/entities/entidad/entidad.service';
+import EntidadFinanciadoraService from '@/entities/entidad-financiadora/entidad-financiadora.service';
+import ElementoService from '@/entities/elemento/elemento.service';
+import ElementoProyectoService from '@/entities/elemento-proyecto/elemento-proyecto.service';
+import FormatoService from '@/entities/formato/formato.service';
+import TipoPreguntaService from '@/entities/tipo-pregunta/tipo-pregunta.service';
+import PreguntaService from '@/entities/pregunta/pregunta.service';
+import ProyectoRespuestasService from '@/entities/proyecto-respuestas/proyecto-respuestas.service';
+import RolesModalidadService from '@/entities/roles-modalidad/roles-modalidad.service';
+import FasesService from '@/entities/fases/fases.service';
+import ProyectoFaseService from '@/entities/proyecto-fase/proyecto-fase.service';
+import CronogramaCiecytService from '@/entities/cronograma-ciecyt/cronograma-ciecyt.service';
+import CronogramaCiecytFasesService from '@/entities/cronograma-ciecyt-fases/cronograma-ciecyt-fases.service';
+import IntegranteProyectoService from '@/entities/integrante-proyecto/integrante-proyecto.service';
+import SolicitudService from '@/entities/solicitud/solicitud.service';
+import AdjuntoProyectoFaseService from '@/entities/adjunto-proyecto-fase/adjunto-proyecto-fase.service';
+import RetroalimentacionService from '@/entities/retroalimentacion/retroalimentacion.service';
+import AdjuntoRetroalimentacionService from '@/entities/adjunto-retroalimentacion/adjunto-retroalimentacion.service';
+import FichaTecnicaService from '@/entities/ficha-tecnica/ficha-tecnica.service';
+import CategorizacionService from '@/entities/categorizacion/categorizacion.service';
+import UsuarioService from '@/entities/usuario/usuario.service';
 // jhipster-needle-add-entity-service-to-main-import - JHipster will import entities services here
 
 Vue.config.productionTip = false;
@@ -82,6 +117,41 @@ new Vue({
     metricsService: () => new MetricsService(),
     alertService: () => alertService,
     translationService: () => translationService,
+    proyectoService: () => new ProyectoService(),
+    lineaInvestigacionService: () => new LineaInvestigacionService(),
+    grupoSemilleroService: () => new GrupoSemilleroService(),
+    facultadService: () => new FacultadService(),
+    modalidadService: () => new ModalidadService(),
+    acuerdoService: () => new AcuerdoService(),
+    cicloPropedeuticoService: () => new CicloPropedeuticoService(),
+    resultadosEsperadosService: () => new ResultadosEsperadosService(),
+    productoService: () => new ProductoService(),
+    productoProyectoService: () => new ProductoProyectoService(),
+    impactosEsperadosService: () => new ImpactosEsperadosService(),
+    cronogramaService: () => new CronogramaService(),
+    rubroService: () => new RubroService(),
+    presupuestoValorService: () => new PresupuestoValorService(),
+    entidadService: () => new EntidadService(),
+    entidadFinanciadoraService: () => new EntidadFinanciadoraService(),
+    elementoService: () => new ElementoService(),
+    elementoProyectoService: () => new ElementoProyectoService(),
+    formatoService: () => new FormatoService(),
+    tipoPreguntaService: () => new TipoPreguntaService(),
+    preguntaService: () => new PreguntaService(),
+    proyectoRespuestasService: () => new ProyectoRespuestasService(),
+    rolesModalidadService: () => new RolesModalidadService(),
+    fasesService: () => new FasesService(),
+    proyectoFaseService: () => new ProyectoFaseService(),
+    cronogramaCiecytService: () => new CronogramaCiecytService(),
+    cronogramaCiecytFasesService: () => new CronogramaCiecytFasesService(),
+    integranteProyectoService: () => new IntegranteProyectoService(),
+    solicitudService: () => new SolicitudService(),
+    adjuntoProyectoFaseService: () => new AdjuntoProyectoFaseService(),
+    retroalimentacionService: () => new RetroalimentacionService(),
+    adjuntoRetroalimentacionService: () => new AdjuntoRetroalimentacionService(),
+    fichaTecnicaService: () => new FichaTecnicaService(),
+    categorizacionService: () => new CategorizacionService(),
+    usuarioService: () => new UsuarioService(),
     // jhipster-needle-add-entity-service-to-main - JHipster will import entities services here
     accountService: () => accountService
   },
