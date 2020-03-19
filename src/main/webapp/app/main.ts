@@ -60,6 +60,8 @@ import AdjuntoRetroalimentacionService from '@/entities/adjunto-retroalimentacio
 import FichaTecnicaService from '@/entities/ficha-tecnica/ficha-tecnica.service';
 import CategorizacionService from '@/entities/categorizacion/categorizacion.service';
 import UsuarioService from '@/entities/usuario/usuario.service';
+import MenuService from '@/entities/menu/menu.service';
+import RolMenuService from '@/entities/rol-menu/rol-menu.service';
 // jhipster-needle-add-entity-service-to-main-import - JHipster will import entities services here
 
 Vue.config.productionTip = false;
@@ -152,6 +154,8 @@ new Vue({
     fichaTecnicaService: () => new FichaTecnicaService(),
     categorizacionService: () => new CategorizacionService(),
     usuarioService: () => new UsuarioService(),
+    menuService: () => new MenuService(),
+    rolMenuService: () => new RolMenuService(),
     // jhipster-needle-add-entity-service-to-main - JHipster will import entities services here
     accountService: () => accountService
   },

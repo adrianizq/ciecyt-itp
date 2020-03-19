@@ -234,6 +234,18 @@ const Usuario = () => import('../entities/usuario/usuario.vue');
 const UsuarioUpdate = () => import('../entities/usuario/usuario-update.vue');
 // prettier-ignore
 const UsuarioDetails = () => import('../entities/usuario/usuario-details.vue');
+// prettier-ignore
+const Menu = () => import('../entities/menu/menu.vue');
+// prettier-ignore
+const MenuUpdate = () => import('../entities/menu/menu-update.vue');
+// prettier-ignore
+const MenuDetails = () => import('../entities/menu/menu-details.vue');
+// prettier-ignore
+const RolMenu = () => import('../entities/rol-menu/rol-menu.vue');
+// prettier-ignore
+const RolMenuUpdate = () => import('../entities/rol-menu/rol-menu-update.vue');
+// prettier-ignore
+const RolMenuDetails = () => import('../entities/rol-menu/rol-menu-details.vue');
 // jhipster-needle-add-entity-to-router-import - JHipster will import entities to the router here
 
 Vue.use(Router);
@@ -1224,6 +1236,56 @@ export default new Router({
       path: '/entity/usuario/:usuarioId/view',
       name: 'UsuarioView',
       component: UsuarioDetails,
+      meta: { authorities: ['ROLE_USER'] }
+    }
+    ,
+    {
+      path: '/entity/menu',
+      name: 'Menu',
+      component: Menu,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    {
+      path: '/entity/menu/new',
+      name: 'MenuCreate',
+      component: MenuUpdate,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    {
+      path: '/entity/menu/:menuId/edit',
+      name: 'MenuEdit',
+      component: MenuUpdate,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    {
+      path: '/entity/menu/:menuId/view',
+      name: 'MenuView',
+      component: MenuDetails,
+      meta: { authorities: ['ROLE_USER'] }
+    }
+    ,
+    {
+      path: '/entity/rol-menu',
+      name: 'RolMenu',
+      component: RolMenu,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    {
+      path: '/entity/rol-menu/new',
+      name: 'RolMenuCreate',
+      component: RolMenuUpdate,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    {
+      path: '/entity/rol-menu/:rolMenuId/edit',
+      name: 'RolMenuEdit',
+      component: RolMenuUpdate,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    {
+      path: '/entity/rol-menu/:rolMenuId/view',
+      name: 'RolMenuView',
+      component: RolMenuDetails,
       meta: { authorities: ['ROLE_USER'] }
     }
     // jhipster-needle-add-entity-to-router - JHipster will add entities to the router here

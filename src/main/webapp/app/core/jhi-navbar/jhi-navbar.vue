@@ -166,6 +166,14 @@
                         <font-awesome-icon icon="asterisk" />
                         <span v-text="$t('global.menu.entities.usuario')">Usuario</span>
                     </b-dropdown-item>
+                    <b-dropdown-item to="/entity/menu">
+                        <font-awesome-icon icon="asterisk" />
+                        <span v-text="$t('global.menu.entities.menu')">Menu</span>
+                    </b-dropdown-item>
+                    <b-dropdown-item to="/entity/rol-menu">
+                        <font-awesome-icon icon="asterisk" />
+                        <span v-text="$t('global.menu.entities.rolMenu')">RolMenu</span>
+                    </b-dropdown-item>
                     <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
                 </b-nav-item-dropdown>
                 <b-nav-item-dropdown

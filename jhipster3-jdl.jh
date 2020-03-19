@@ -1,0 +1,357 @@
+
+
+
+entity Proyecto {
+	titulo String,
+    url String,
+    lugarEjecucion String,
+    duracion String,
+    fechaIni LocalDate,
+    fechaFin LocalDate,
+    contrapartidaPesos Double,
+    contrapartidaEspecie Double,
+    palabrasClave String,
+    convocatoria String
+    //lineaInvestigacionId Integer,
+    //grupoSemilleroId Integer
+   
+}
+entity LineaInvestigacion {
+	linea String,
+    //facultadId Long,
+    codigoLinea String
+}
+
+relationship ManyToOne {
+	LineaInvestigacion{lineaPadre(linea)} to LineaInvestigacion,
+    Proyecto {proyectoLineaInvestigacion(linea)} to LineaInvestigacion, 
+    Proyecto {proyectoGrupoSemillero(nombre)} to  GrupoSemillero,
+    LineaInvestigacion{lineaInvestigacionFacultad(facultad)} to Facultad
+    
+}
+
+entity Menu{
+	nombre String,
+    url String,
+    icono String,
+    activo Boolean
+}
+
+entity RolMenu{
+	permitirAcceso Boolean,
+    permitirCrear Boolean,
+    permitirEditar Boolean,
+    permitirEliminar Boolean
+    
+}
+
+relationship ManyToOne {
+	Menu{menuPadre(nombre)} to Menu
+    RolMenu{RolMenuMenu(nombre)} to Menu
+    //RolMenu{RolMenuAuthority(name)} to Authority
+   
+}
+
+entity GrupoSemillero {
+	nombre String,
+    tipo Boolean
+}
+
+entity Facultad {
+	codigoFacultad String,
+    facultad String
+}
+relationship OneToMany {
+	Facultad{facultadProyecto(titulo)} to Proyecto
+    
+}
+
+
+entity Modalidad {
+	modalidad String
+}
+
+entity Acuerdo{
+	acuerdo String,
+    version String,
+    codigo String,
+    fecha LocalDate    
+}
+entity CicloPropedeutico{
+	ciclo String
+}
+
+
+relationship ManyToOne {
+	Modalidad{modalidadAcuerdo(acuerdo)} to Acuerdo,
+    Proyecto{proyectoModalidad(modalidad)} to Modalidad, 
+    CicloPropedeutico{cicloPropedeuticoAcuerdo(acuerdo)} to Acuerdo
+}
+
+relationship OneToMany {
+	Modalidad{modalidadCicloPropedeutico(ciclo)} to CicloPropedeutico //revisar
+    
+}
+
+entity ResultadosEsperados{
+	resultado String,
+    indicador String,
+    beneficiario String
+}
+
+relationship ManyToOne {
+	ResultadosEsperados{resultadosEsperadosProyecto(titulo)} to Proyecto
+}
+
+entity Producto{
+	producto String
+}
+entity ProductoProyecto{
+	aplica Boolean,
+    descripcion String
+}
+
+
+relationship ManyToOne {
+	ProductoProyecto{productoProyectoProducto(producto)} to Producto,
+    ProductoProyecto{productoProyectoProyecto(titulo)} to Proyecto,
+    ImpactosEsperados{impactosEsperadoProyecto(titulo)} to Proyecto,
+    Cronograma{cronogramaProyecto(titulo)} to Proyecto
+}
+
+entity ImpactosEsperados{
+	impacto String,
+    plazo Integer,
+    indicador String,
+    supuestos String
+}
+
+entity Cronograma{
+	actividad String,
+    duracion Integer,
+    fechaInicio LocalDate,
+    fechaFin LocalDate
+}
+
+entity Rubro{
+	rubro String
+}
+
+
+entity PresupuestoValor{
+	descripcion String,
+    justificacion String,
+    cantidad Integer,
+    valorUnitario Double,
+    especie Double,
+    dinero Double
+    //falta
+}
+
+relationship ManyToOne {
+	PresupuestoValor{presupuestoValorRubro(rubro)} to Rubro,
+    PresupuestoValor{presupuestoValorProyecto(titulo)} to Proyecto
+   
+}
+
+entity Entidad{
+	entidad String,
+    nit String
+}
+
+entity EntidadFinanciadora{
+	valor Double,
+    aprobada Boolean //V aprobada, F tramite
+}
+
+relationship ManyToOne {
+	EntidadFinanciadora{entidadFinanciadoraEntidad(entidad)} to Entidad,
+    PresupuestoValor{presupuestoValorEntidad(entidad)} to Entidad  
+}
+
+entity Elemento{
+	elemento String
+}
+entity ElementoProyecto{
+	dato String
+}
+entity Formato{
+	formato String,
+    version String,
+    codigo String,
+    fecha LocalDate
+}
+
+relationship ManyToOne {
+	Elemento{elementoFormato(formato)} to Formato,
+    Elemento{elementoModalidad(modalidad)} to Modalidad,  
+    ElementoProyecto{elementoProyectoElemento(elemento)} to Elemento,
+    ElementoProyecto{elementoProyectoProyecto(titulo)} to Proyecto
+}
+
+entity TipoPregunta{
+	tipoPregunta String,
+    tipoDato String //prodria ser ENUM
+}
+
+entity Pregunta{
+	encabezado String,
+    descripcion String,
+	pregunta String
+   
+}
+entity ProyectoRespuestas{
+	respuesta EnumRespuestas,
+	observaciones String,
+    viable Boolean
+    
+}
+relationship ManyToOne {
+	Pregunta{preguntaTipoPregunta(tipoPregunta)} to TipoPregunta,
+    Pregunta{preguntaModalidad(modalidad)} to Modalidad,
+    RolesModalidad{rolesModalidadModalidad(modalidad)} to Modalidad,
+    Pregunta{preguntaRolesModalidad(rol)} to RolesModalidad
+   
+    
+    
+}
+entity RolesModalidad{
+	rol String,
+    cantidad Integer,
+    calificador Boolean //Y Califica preguntas, N no califica
+}
+
+enum EnumRespuestas{
+	CUMPLE, NO_CUMPLE, NO_APLICA
+}
+
+relationship ManyToOne {
+	    ProyectoRespuestas{proyectoRespuestasPregunta(pregunta)} to Pregunta,
+        ProyectoRespuestas{proyectoRespuestasProyecto(titulo)} to Proyecto
+        
+  
+}
+
+entity Fases{
+	fase String,
+    notificable Boolean
+}
+
+entity ProyectoFase{
+	titulo String,
+	cumplida Boolean,
+    fechaCumplimiento LocalDate,
+    observaciones String
+}
+
+relationship ManyToOne {
+	 ProyectoFase{proyectoFaseFases(fase)} to Fases,
+     ProyectoFase{proyectoFaseProyecto(titulo)} to Proyecto,
+     Fases{fasesModalidad(modalidad)} to Modalidad
+ }
+
+entity CronogramaCiecyt{
+	tituloCronograma String,
+    fechaInicio LocalDate,
+    fechaFin LocalDate,
+    observaciones String
+}
+relationship ManyToOne {
+	 CronogramaCiecyt{cronogramaCiecytModalidad(modalidad)} to Modalidad,
+     CronogramaCiecytFases{cronogramaCiecytFasesCronogramaCiecyt(tituloCronograma)} to CronogramaCiecyt,
+     CronogramaCiecytFases{cronogramaCiecytFasesFases(fase)} to Fases
+}
+entity CronogramaCiecytFases{
+	inicioFase LocalDate,
+    finFase LocalDate,
+    textoExplicativo String
+}
+
+entity IntegranteProyecto{
+	integrante String,
+	descripcion String
+}
+
+entity Solicitud{
+	estado Boolean, //true vigente
+    asunto String,
+    textoSolicitud String,
+    fechaSolicitud LocalDate
+  }
+
+
+relationship ManyToOne {
+    IntegranteProyecto{integranteProyectoUser(login)} to User,
+    IntegranteProyecto{integranteProyectoProyecto(titulo)} to Proyecto,
+    IntegranteProyecto{integranteProyectoRolesModalidad(rol)} to RolesModalidad,
+    Solicitud{solicitudIntegranteProyecto(integrante)} to IntegranteProyecto
+    
+}
+
+entity AdjuntoProyectoFase{
+	nombreAdjunto String,
+    fechaCreacion LocalDate,
+    fechaModificacion LocalDate,
+    estadoAdjunto Integer,
+    adjuntoProyectoFase String,
+    nombreArchivoOriginal String,
+    fechaInicio LocalDate,
+    fechaFin LocalDate
+}
+
+relationship ManyToOne {
+    AdjuntoProyectoFase{adjuntoProyectoFaseProyectoFase(titulo)} to ProyectoFase
+    
+}
+
+entity Retroalimentacion{
+	titulo String, //titulo del proyecto
+	retroalimentacion String,
+    fechaRetroalimentacion LocalDate,
+    estadoRetroalimentacion LocalDate,
+    estadoProyectoFase Integer //como un jurado ve es estado?
+}
+
+relationship ManyToOne {
+    Retroalimentacion{retroalimentacionProyectoFase(titulo)} to ProyectoFase,
+    Retroalimentacion{retroalimentacionUser(login)} to User,
+    FichaTecnica{fichaTecnicaUser(login)} to User,
+    AdjuntoRetroalimentacion{adjuntoRetroalimentacionRetroalimentacion(titulo)} to Retroalimentacion
+}
+
+entity AdjuntoRetroalimentacion{
+	nombreAdjunto String,
+    fechaCreacion LocalDate,
+    fechaModificacion LocalDate,
+    estadoAdjunto Integer,
+    adjuntoRetroalimentacion String,
+    nombreArchivoOriginal String,
+    fechaInicio LocalDate,
+    fechaFin LocalDate
+}
+
+entity FichaTecnica{
+	tituloProfesional String,
+    tituloPostgrado String,
+    experiencia String
+}
+
+entity Categorizacion{
+	categoria String,
+    descripcion String
+}
+
+
+
+relationship ManyToOne {
+	Categorizacion{categorizacionProyecto(titulo)} to Proyecto
+}
+
+paginate all with pagination
+dto * with mapstruct
+service all with serviceImpl
+//search all  with elasticsearch
+//AdjuntoProyectoFase, 
+//CronogramaCiecytFases, 
+//AdjuntoRetroalimentacion with elasticsearch
+//angularSuffix * with mySuffix
