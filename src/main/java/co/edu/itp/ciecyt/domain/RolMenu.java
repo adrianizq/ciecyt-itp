@@ -35,11 +35,11 @@ public class RolMenu implements Serializable {
     @JsonIgnoreProperties("rolMenus")
     private Menu rolMenuMenu;
 
-    
+    /*
     @ManyToOne
     @JsonIgnoreProperties("rolMenus")
     private Authority rolMenuAuthority;
-
+    */
 
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
@@ -143,9 +143,9 @@ public class RolMenu implements Serializable {
             ", permitirEliminar='" + isPermitirEliminar() + "'" +
             "}";
     }
-
+/*
     public Authority getRolMenuAuthority() {
-        return rolMenuAuthority;
+        return rolMenuAuthority; 
     }
 
     public void setRolMenuAuthority(Authority rolMenuAuthority) {
@@ -156,7 +156,7 @@ public class RolMenu implements Serializable {
         this.rolMenuAuthority = authority;
         return this;
     }
-
+*/
 
 /* Viendo esta estructura de IntegranteProyecto.java como ejemplo
  public User getIntegranteProyectoUser() {
