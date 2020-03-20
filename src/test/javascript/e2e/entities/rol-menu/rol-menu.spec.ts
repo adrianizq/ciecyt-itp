@@ -98,6 +98,9 @@ describe('RolMenu e2e test', () => {
         expect(await updatePage.permitirEliminarInput.isSelected()).to.be.true;
       }
 
+      await updatePage.auth_nameInput.sendKeys('auth_name');
+      expect(await updatePage.auth_nameInput.getAttribute('value')).to.match(/auth_name/);
+
       // await  selectLastOption(updatePage.rolMenuMenuSelect);
 
       expect(await updatePage.saveButton.isEnabled()).to.be.true;
@@ -191,6 +194,10 @@ describe('RolMenu e2e test', () => {
           await updatePage.permitirEliminarInput.click();
           expect(await updatePage.permitirEliminarInput.isSelected()).to.be.true;
         }
+
+        await updatePage.auth_nameInput.clear();
+        await updatePage.auth_nameInput.sendKeys('modified');
+        expect(await updatePage.auth_nameInput.getAttribute('value')).to.match(/modified/);
 
         await updatePage.saveButton.click();
 

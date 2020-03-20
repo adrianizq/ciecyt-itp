@@ -29,6 +29,7 @@
                     <th v-on:click="changeOrder('permitirCrear')"><span v-text="$t('ciecytApp.rolMenu.permitirCrear')">Permitir Crear</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th v-on:click="changeOrder('permitirEditar')"><span v-text="$t('ciecytApp.rolMenu.permitirEditar')">Permitir Editar</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th v-on:click="changeOrder('permitirEliminar')"><span v-text="$t('ciecytApp.rolMenu.permitirEliminar')">Permitir Eliminar</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
+                    <th v-on:click="changeOrder('auth_name')"><span v-text="$t('ciecytApp.rolMenu.auth_name')">Auth Name</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th v-on:click="changeOrder('rolMenuMenuNombre')"><span v-text="$t('ciecytApp.rolMenu.rolMenuMenu')">Rol Menu Menu</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th></th>
                 </tr>
@@ -43,6 +44,7 @@
                     <td>{{rolMenu.permitirCrear}}</td>
                     <td>{{rolMenu.permitirEditar}}</td>
                     <td>{{rolMenu.permitirEliminar}}</td>
+                    <td>{{rolMenu.auth_name}}</td>
                     <td>
                         <div v-if="rolMenu.rolMenuMenuId">
                             <router-link :to="{name: 'MenuView', params: {rolMenuMenuId: rolMenu.rolMenuMenuId}}">{{rolMenu.rolMenuMenuNombre}}</router-link>

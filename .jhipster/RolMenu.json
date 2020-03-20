@@ -16,6 +16,10 @@
         {
             "fieldName": "permitirEliminar",
             "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "auth_name",
+            "fieldType": "String"
         }
     ],
     "relationships": [
@@ -36,5 +40,7 @@
     "fluentMethods": true,
     "readOnly": false,
     "clientRootFolder": "",
-    "applications": "*"
+    "applications": "*",
+    "searchEngine": false,
+    "databaseType": "sql"
 }

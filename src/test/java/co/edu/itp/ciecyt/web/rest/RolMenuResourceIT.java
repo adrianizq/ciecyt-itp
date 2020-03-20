@@ -48,6 +48,9 @@ public class RolMenuResourceIT {
     private static final Boolean DEFAULT_PERMITIR_ELIMINAR = false;
     private static final Boolean UPDATED_PERMITIR_ELIMINAR = true;
 
+    private static final String DEFAULT_AUTH_NAME = "AAAAAAAAAA";
+    private static final String UPDATED_AUTH_NAME = "BBBBBBBBBB";
+
     @Autowired
     private RolMenuRepository rolMenuRepository;
 
@@ -99,7 +102,8 @@ public class RolMenuResourceIT {
             .permitirAcceso(DEFAULT_PERMITIR_ACCESO)
             .permitirCrear(DEFAULT_PERMITIR_CREAR)
             .permitirEditar(DEFAULT_PERMITIR_EDITAR)
-            .permitirEliminar(DEFAULT_PERMITIR_ELIMINAR);
+            .permitirEliminar(DEFAULT_PERMITIR_ELIMINAR)
+            .auth_name(DEFAULT_AUTH_NAME);
         return rolMenu;
     }
     /**
@@ -113,7 +117,8 @@ public class RolMenuResourceIT {
             .permitirAcceso(UPDATED_PERMITIR_ACCESO)
             .permitirCrear(UPDATED_PERMITIR_CREAR)
             .permitirEditar(UPDATED_PERMITIR_EDITAR)
-            .permitirEliminar(UPDATED_PERMITIR_ELIMINAR);
+            .permitirEliminar(UPDATED_PERMITIR_ELIMINAR)
+            .auth_name(UPDATED_AUTH_NAME);
         return rolMenu;
     }
 
@@ -142,6 +147,7 @@ public class RolMenuResourceIT {
         assertThat(testRolMenu.isPermitirCrear()).isEqualTo(DEFAULT_PERMITIR_CREAR);
         assertThat(testRolMenu.isPermitirEditar()).isEqualTo(DEFAULT_PERMITIR_EDITAR);
         assertThat(testRolMenu.isPermitirEliminar()).isEqualTo(DEFAULT_PERMITIR_ELIMINAR);
+        assertThat(testRolMenu.getAuth_name()).isEqualTo(DEFAULT_AUTH_NAME);
     }
 
     @Test
@@ -179,7 +185,8 @@ public class RolMenuResourceIT {
             .andExpect(jsonPath("$.[*].permitirAcceso").value(hasItem(DEFAULT_PERMITIR_ACCESO.booleanValue())))
             .andExpect(jsonPath("$.[*].permitirCrear").value(hasItem(DEFAULT_PERMITIR_CREAR.booleanValue())))
             .andExpect(jsonPath("$.[*].permitirEditar").value(hasItem(DEFAULT_PERMITIR_EDITAR.booleanValue())))
-            .andExpect(jsonPath("$.[*].permitirEliminar").value(hasItem(DEFAULT_PERMITIR_ELIMINAR.booleanValue())));
+            .andExpect(jsonPath("$.[*].permitirEliminar").value(hasItem(DEFAULT_PERMITIR_ELIMINAR.booleanValue())))
+            .andExpect(jsonPath("$.[*].auth_name").value(hasItem(DEFAULT_AUTH_NAME)));
     }
     
     @Test
@@ -196,7 +203,8 @@ public class RolMenuResourceIT {
             .andExpect(jsonPath("$.permitirAcceso").value(DEFAULT_PERMITIR_ACCESO.booleanValue()))
             .andExpect(jsonPath("$.permitirCrear").value(DEFAULT_PERMITIR_CREAR.booleanValue()))
             .andExpect(jsonPath("$.permitirEditar").value(DEFAULT_PERMITIR_EDITAR.booleanValue()))
-            .andExpect(jsonPath("$.permitirEliminar").value(DEFAULT_PERMITIR_ELIMINAR.booleanValue()));
+            .andExpect(jsonPath("$.permitirEliminar").value(DEFAULT_PERMITIR_ELIMINAR.booleanValue()))
+            .andExpect(jsonPath("$.auth_name").value(DEFAULT_AUTH_NAME));
     }
 
     @Test
@@ -223,7 +231,8 @@ public class RolMenuResourceIT {
             .permitirAcceso(UPDATED_PERMITIR_ACCESO)
             .permitirCrear(UPDATED_PERMITIR_CREAR)
             .permitirEditar(UPDATED_PERMITIR_EDITAR)
-            .permitirEliminar(UPDATED_PERMITIR_ELIMINAR);
+            .permitirEliminar(UPDATED_PERMITIR_ELIMINAR)
+            .auth_name(UPDATED_AUTH_NAME);
         RolMenuDTO rolMenuDTO = rolMenuMapper.toDto(updatedRolMenu);
 
         restRolMenuMockMvc.perform(put("/api/rol-menus")
@@ -239,6 +248,7 @@ public class RolMenuResourceIT {
         assertThat(testRolMenu.isPermitirCrear()).isEqualTo(UPDATED_PERMITIR_CREAR);
         assertThat(testRolMenu.isPermitirEditar()).isEqualTo(UPDATED_PERMITIR_EDITAR);
         assertThat(testRolMenu.isPermitirEliminar()).isEqualTo(UPDATED_PERMITIR_ELIMINAR);
+        assertThat(testRolMenu.getAuth_name()).isEqualTo(UPDATED_AUTH_NAME);
     }
 
     @Test
