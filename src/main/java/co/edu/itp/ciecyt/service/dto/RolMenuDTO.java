@@ -17,6 +17,8 @@ public class RolMenuDTO implements Serializable {
 
     private Boolean permitirEliminar;
 
+    private String authName;
+
 
     private Long rolMenuMenuId;
 
@@ -60,6 +62,14 @@ public class RolMenuDTO implements Serializable {
 
     public void setPermitirEliminar(Boolean permitirEliminar) {
         this.permitirEliminar = permitirEliminar;
+    }
+
+    public String getAuthName() {
+        return authName;
+    }
+
+    public void setAuthName(String authName) {
+        this.authName = authName;
     }
 
     public Long getRolMenuMenuId() {
@@ -107,6 +117,7 @@ public class RolMenuDTO implements Serializable {
             ", permitirCrear='" + isPermitirCrear() + "'" +
             ", permitirEditar='" + isPermitirEditar() + "'" +
             ", permitirEliminar='" + isPermitirEliminar() + "'" +
+            ", authName='" + getAuthName() + "'" +
             ", rolMenuMenu=" + getRolMenuMenuId() +
             ", rolMenuMenu='" + getRolMenuMenuNombre() + "'" +
             "}";

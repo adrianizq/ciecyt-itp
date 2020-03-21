@@ -31,16 +31,12 @@ public class RolMenu implements Serializable {
     @Column(name = "permitir_eliminar")
     private Boolean permitirEliminar;
 
+    @Column(name = "auth_name")
+    private String authName;
+
     @ManyToOne
     @JsonIgnoreProperties("rolMenus")
     private Menu rolMenuMenu;
-
-    /*
-    @ManyToOne
-    @JsonIgnoreProperties("rolMenus")
-    private Authority rolMenuAuthority;
-    */
-
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -103,6 +99,19 @@ public class RolMenu implements Serializable {
         this.permitirEliminar = permitirEliminar;
     }
 
+    public String getAuthName() {
+        return authName;
+    }
+
+    public RolMenu authName(String authName) {
+        this.authName = authName;
+        return this;
+    }
+
+    public void setAuthName(String authName) {
+        this.authName = authName;
+    }
+
     public Menu getRolMenuMenu() {
         return rolMenuMenu;
     }
@@ -141,37 +150,7 @@ public class RolMenu implements Serializable {
             ", permitirCrear='" + isPermitirCrear() + "'" +
             ", permitirEditar='" + isPermitirEditar() + "'" +
             ", permitirEliminar='" + isPermitirEliminar() + "'" +
+            ", authName='" + getAuthName() + "'" +
             "}";
     }
-/*
-    public Authority getRolMenuAuthority() {
-        return rolMenuAuthority; 
-    }
-
-    public void setRolMenuAuthority(Authority rolMenuAuthority) {
-        this.rolMenuAuthority = rolMenuAuthority;
-    }
-
-    public RolMenu rolMenuAuthority(Authority authority) {
-        this.rolMenuAuthority = authority;
-        return this;
-    }
-*/
-
-/* Viendo esta estructura de IntegranteProyecto.java como ejemplo
- public User getIntegranteProyectoUser() {
-        return integranteProyectoUser;
-    }
-
-    public IntegranteProyecto integranteProyectoUser(User user) {
-        this.integranteProyectoUser = user;
-        return this;
-    }
-
-    public void setIntegranteProyectoUser(User user) {
-        this.integranteProyectoUser = user;
-    }
-
- */
-
 }

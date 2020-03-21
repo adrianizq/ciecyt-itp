@@ -30,6 +30,11 @@
                             :class="{'valid': !$v.rolMenu.permitirEliminar.$invalid, 'invalid': $v.rolMenu.permitirEliminar.$invalid }" v-model="$v.rolMenu.permitirEliminar.$model" />
                     </div>
                     <div class="form-group">
+                        <label class="form-control-label" v-text="$t('ciecytApp.rolMenu.authName')" for="rol-menu-authName">Auth Name</label>
+                        <input type="text" class="form-control" name="authName" id="rol-menu-authName"
+                            :class="{'valid': !$v.rolMenu.authName.$invalid, 'invalid': $v.rolMenu.authName.$invalid }" v-model="$v.rolMenu.authName.$model" />
+                    </div>
+                    <div class="form-group">
                         <label class="form-control-label" v-bind:value="$t('ciecytApp.rolMenu.rolMenuMenu')" for="rol-menu-rolMenuMenu">Rol Menu Menu</label>
                         <select class="form-control" id="rol-menu-rolMenuMenu" name="rolMenuMenu" v-model="rolMenu.rolMenuMenuId">
                             <option v-bind:value="null"></option>

@@ -21,7 +21,7 @@ describe('Service Tests', () => {
     beforeEach(() => {
       service = new RolMenuService();
 
-      elemDefault = new RolMenu(0, false, false, false, false);
+      elemDefault = new RolMenu(0, false, false, false, false, 'AAAAAAA');
     });
 
     describe('Service methods', () => {
@@ -54,7 +54,8 @@ describe('Service Tests', () => {
             permitirAcceso: true,
             permitirCrear: true,
             permitirEditar: true,
-            permitirEliminar: true
+            permitirEliminar: true,
+            authName: 'BBBBBB'
           },
           elemDefault
         );
@@ -72,7 +73,8 @@ describe('Service Tests', () => {
             permitirAcceso: true,
             permitirCrear: true,
             permitirEditar: true,
-            permitirEliminar: true
+            permitirEliminar: true,
+            authName: 'BBBBBB'
           },
           elemDefault
         );

@@ -1,11 +1,11 @@
-id;permitir_acceso;permitir_crear;permitir_editar;permitir_eliminar
-1;false;false;true;false
-2;false;false;true;false
-3;true;false;false;false
-4;false;false;true;false
-5;true;true;true;true
-6;true;true;false;true
-7;false;true;false;true
-8;true;true;true;false
-9;false;false;false;false
-10;false;true;false;true
+id;permitir_acceso;permitir_crear;permitir_editar;permitir_eliminar;auth_name
+1;false;true;true;false;multi-byte Savings Account Dam
+2;false;false;false;true;Savings Account alarm
+3;false;false;true;true;Implementation Electronics Officer
+4;true;false;true;true;web-readiness
+5;false;true;true;false;Gorgeous Frozen Pants
+6;false;false;false;true;grey Cambridgeshire
+7;true;false;false;true;Yuan Renminbi Centers
+8;false;true;true;true;cross-platform access
+9;false;false;true;false;Bahamian Dollar Investment Account
+10;true;false;false;true;Digitized invoice
