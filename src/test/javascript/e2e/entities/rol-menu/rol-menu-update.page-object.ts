@@ -16,7 +16,7 @@ export default class RolMenuUpdatePage extends AlertPage {
 
   permitirEliminarInput: ElementFinder = element(by.css('input#rol-menu-permitirEliminar'));
 
-  auth_nameInput: ElementFinder = element(by.css('input#rol-menu-auth_name'));
+  authNameInput: ElementFinder = element(by.css('input#rol-menu-authName'));
 
   rolMenuMenuSelect = element(by.css('select#rol-menu-rolMenuMenu'));
 }

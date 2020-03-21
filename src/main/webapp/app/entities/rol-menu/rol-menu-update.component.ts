@@ -15,7 +15,7 @@ const validations: any = {
     permitirCrear: {},
     permitirEditar: {},
     permitirEliminar: {},
-    auth_name: {}
+    authName: {}
   }
 };
 

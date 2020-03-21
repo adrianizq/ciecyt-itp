@@ -32,7 +32,7 @@ public class RolMenu implements Serializable {
     private Boolean permitirEliminar;
 
     @Column(name = "auth_name")
-    private String auth_name;
+    private String authName;
 
     @ManyToOne
     @JsonIgnoreProperties("rolMenus")
@@ -99,17 +99,17 @@ public class RolMenu implements Serializable {
         this.permitirEliminar = permitirEliminar;
     }
 
-    public String getAuth_name() {
-        return auth_name;
+    public String getAuthName() {
+        return authName;
     }
 
-    public RolMenu auth_name(String auth_name) {
-        this.auth_name = auth_name;
+    public RolMenu authName(String authName) {
+        this.authName = authName;
         return this;
     }
 
-    public void setAuth_name(String auth_name) {
-        this.auth_name = auth_name;
+    public void setAuthName(String authName) {
+        this.authName = authName;
     }
 
     public Menu getRolMenuMenu() {
@@ -150,7 +150,7 @@ public class RolMenu implements Serializable {
             ", permitirCrear='" + isPermitirCrear() + "'" +
             ", permitirEditar='" + isPermitirEditar() + "'" +
             ", permitirEliminar='" + isPermitirEliminar() + "'" +
-            ", auth_name='" + getAuth_name() + "'" +
+            ", authName='" + getAuthName() + "'" +
             "}";
     }
 }

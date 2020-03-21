@@ -29,10 +29,10 @@
                         <span>{{rolMenu.permitirEliminar}}</span>
                     </dd>
                     <dt>
-                        <span v-text="$t('ciecytApp.rolMenu.auth_name')">Auth Name</span>
+                        <span v-text="$t('ciecytApp.rolMenu.authName')">Auth Name</span>
                     </dt>
                     <dd>
-                        <span>{{rolMenu.auth_name}}</span>
+                        <span>{{rolMenu.authName}}</span>
                     </dd>
                     <dt>
                         <span v-text="$t('ciecytApp.rolMenu.rolMenuMenu')">Rol Menu Menu</span>

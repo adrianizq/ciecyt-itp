@@ -55,7 +55,7 @@ describe('Service Tests', () => {
             permitirCrear: true,
             permitirEditar: true,
             permitirEliminar: true,
-            auth_name: 'BBBBBB'
+            authName: 'BBBBBB'
           },
           elemDefault
         );
@@ -74,7 +74,7 @@ describe('Service Tests', () => {
             permitirCrear: true,
             permitirEditar: true,
             permitirEliminar: true,
-            auth_name: 'BBBBBB'
+            authName: 'BBBBBB'
           },
           elemDefault
         );

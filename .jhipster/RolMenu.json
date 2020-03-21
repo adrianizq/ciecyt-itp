@@ -18,7 +18,7 @@
             "fieldType": "Boolean"
         },
         {
-            "fieldName": "auth_name",
+            "fieldName": "authName",
             "fieldType": "String"
         }
     ],

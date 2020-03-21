@@ -4,7 +4,7 @@ export interface IRolMenu {
   permitirCrear?: boolean;
   permitirEditar?: boolean;
   permitirEliminar?: boolean;
-  auth_name?: string;
+  authName?: string;
   rolMenuMenuNombre?: string;
   rolMenuMenuId?: number;
 }
@@ -16,7 +16,7 @@ export class RolMenu implements IRolMenu {
     public permitirCrear?: boolean,
     public permitirEditar?: boolean,
     public permitirEliminar?: boolean,
-    public auth_name?: string,
+    public authName?: string,
     public rolMenuMenuNombre?: string,
     public rolMenuMenuId?: number
   ) {
