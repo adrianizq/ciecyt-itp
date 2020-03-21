@@ -1,7 +1,7 @@
 <template>
     <div>
         <h2 id="page-heading">
-            <span v-text="$t('ciecytApp.menu.home.title')" id="menu-heading">Menus</span>
+            <span  id="menu-heading">Aplicaciones</span>
             <router-link :to="{name: 'MenuCreate'}" tag="button" id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-menu">
                 <font-awesome-icon icon="plus"></font-awesome-icon>
                 <span  v-text="$t('ciecytApp.menu.home.createLabel')">
@@ -18,7 +18,7 @@
         </b-alert>
         <br/>
         <div class="alert alert-warning" v-if="!isFetching && menus && menus.length === 0">
-            <span v-text="$t('ciecytApp.menu.home.notFound')">No menus found</span>
+            <span v-text="$t('ciecytApp.general.notFound')">No menus found</span>
         </div>
         <div class="table-responsive" v-if="menus && menus.length > 0">
             <table class="table table-striped">
@@ -41,8 +41,19 @@
                     </td>
                     <td>{{menu.nombre}}</td>
                     <td>{{menu.url}}</td>
-                    <td>{{menu.icono}}</td>
-                    <td>{{menu.activo}}</td>
+                    <td>
+                        <font-awesome-icon :icon="menu.icono" />
+                    </td>
+                    <td>
+                        <button class="btn btn-danger btn-sm deactivated"
+                                v-on:click="setActive(menu, true)" v-if="!menu.activo">
+                                Inactivo
+                        </button>
+                        <button class="btn btn-success btn-sm" v-on:click="setActive(menu, false)" v-if="menu.activo">
+                                Activo
+                        </button>
+
+                    </td>
                     <td>
                         <div v-if="menu.menuPadreId">
                             <router-link :to="{name: 'MenuView', params: {menuPadreId: menu.menuPadreId}}">{{menu.menuPadreNombre}}</router-link>
@@ -74,7 +85,7 @@
         <b-modal ref="removeEntity" id="removeEntity" >
             <span slot="modal-title"><span id="ciecytApp.menu.delete.question" v-text="$t('entity.delete.title')">Confirm delete operation</span></span>
             <div class="modal-body">
-                <p id="jhi-delete-menu-heading" v-bind:title="$t('ciecytApp.menu.delete.question')">Are you sure you want to delete this Menu?</p>
+                <p id="jhi-delete-menu-heading" v-text="$t('ciecytApp.menu.delete.question', {name: removeName })">Are you sure you want to delete this Menu?</p>
             </div>
             <div slot="modal-footer">
                 <button type="button" class="btn btn-secondary" v-text="$t('entity.action.cancel')" v-on:click="closeDialog()">Cancel</button>

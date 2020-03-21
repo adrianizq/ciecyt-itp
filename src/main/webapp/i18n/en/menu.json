@@ -2,7 +2,7 @@
   "ciecytApp": {
     "menu": {
       "home": {
-        "title": "Menus",
+        "title": "Aplicaciones",
         "createLabel": "Create a new Menu",
         "createOrEditLabel": "Create or edit a Menu",
         "notFound": "No Menus found"

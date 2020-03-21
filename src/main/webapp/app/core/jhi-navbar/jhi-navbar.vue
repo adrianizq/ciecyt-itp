@@ -17,7 +17,7 @@
                         <span v-text="$t('global.menu.home')">Home</span>
                     </span>
                 </b-nav-item>
-                <b-nav-item-dropdown
+                <!--<b-nav-item-dropdown
                     id="entity-menu"
                     v-if="authenticated"
                     :class="{'router-link-active': subIsActive('/entity')}"
@@ -166,16 +166,11 @@
                         <font-awesome-icon icon="asterisk" />
                         <span v-text="$t('global.menu.entities.usuario')">Usuario</span>
                     </b-dropdown-item>
-                    <b-dropdown-item to="/entity/menu">
-                        <font-awesome-icon icon="asterisk" />
-                        <span v-text="$t('global.menu.entities.menu')">Menu</span>
-                    </b-dropdown-item>
                     <b-dropdown-item to="/entity/rol-menu">
                         <font-awesome-icon icon="asterisk" />
                         <span v-text="$t('global.menu.entities.rolMenu')">RolMenu</span>
                     </b-dropdown-item>
-                    <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
-                </b-nav-item-dropdown>
+                </b-nav-item-dropdown>-->
                 <b-nav-item-dropdown
                     id="admin-menu"
                     v-if="hasAnyAuthority('ROLE_ADMIN')"
@@ -186,11 +181,17 @@
                         <font-awesome-icon icon="user-plus" />
                         <span v-text="$t('global.menu.admin.main')">Administration</span>
                     </span>
+                    <b-dropdown-item to="/entity/menu">
+                        <font-awesome-icon icon="bars" />
+                        <!--<span v-text="$t('global.menu.entities.menu')">Aplicaciones</span>-->
+                        <span >Aplicaciones</span>
+                    </b-dropdown-item>
                     <b-dropdown-item to="/admin/user-management">
                         <font-awesome-icon icon="user" />
                         <span v-text="$t('global.menu.admin.userManagement')">User management</span>
                     </b-dropdown-item>
-                    <b-dropdown-item  to="/admin/jhi-metrics">
+
+                    <!--<b-dropdown-item  to="/admin/jhi-metrics">
                         <font-awesome-icon icon="tachometer-alt" />
                         <span v-text="$t('global.menu.admin.metrics')">Metrics</span>
                     </b-dropdown-item>
@@ -213,9 +214,9 @@
                     <b-dropdown-item v-if="swaggerEnabled"  to="/admin/docs">
                         <font-awesome-icon icon="book" />
                         <span v-text="$t('global.menu.admin.apidocs')">API</span>
-                    </b-dropdown-item>
+                    </b-dropdown-item>-->
                 </b-nav-item-dropdown>
-                <b-nav-item-dropdown id="languagesnavBarDropdown" right v-if="languages && Object.keys(languages).length > 1">
+                <!--<b-nav-item-dropdown id="languagesnavBarDropdown" right v-if="languages && Object.keys(languages).length > 1">
                     <span slot="button-content">
                         <font-awesome-icon icon="flag" />
                         <span v-text="$t('global.menu.language')">Language</span>
@@ -224,7 +225,7 @@
                         :class="{ active: isActiveLanguage(key)}">
                         {{value.name}}
                     </b-dropdown-item>
-                </b-nav-item-dropdown>
+                --></b-nav-item-dropdown>
                 <b-nav-item-dropdown
                     right
                     href="javascript:void(0);"

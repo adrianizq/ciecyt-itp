@@ -18,8 +18,8 @@
                     <dd>{{user.lastName}}</dd>
                     <dt><span v-text="$t('userManagement.email')">Email</span></dt>
                     <dd>{{user.email}}</dd>
-                    <dt><span v-text="$t('userManagement.langKey')">Lang Key</span></dt>
-                    <dd>{{user.langKey}}</dd>
+                    <!--<dt><span v-text="$t('userManagement.langKey')">Lang Key</span></dt>
+                    <dd>{{user.langKey}}</dd>-->
                     <dt><span v-text="$t('userManagement.createdBy')">Created By</span></dt>
                     <dd>{{user.createdBy}}</dd>
                     <dt><span v-text="$t('userManagement.createdDate')">Created Date</span></dt>

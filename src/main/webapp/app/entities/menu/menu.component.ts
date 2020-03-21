@@ -12,6 +12,7 @@ export default class Menu extends mixins(Vue2Filters.mixin) {
   @Inject('alertService') private alertService: () => AlertService;
   @Inject('menuService') private menuService: () => MenuService;
   private removeId: number = null;
+  private removeName: string = null;
   public itemsPerPage = 20;
   public queryCount: number = null;
   public page = 1;
@@ -73,6 +74,7 @@ export default class Menu extends mixins(Vue2Filters.mixin) {
 
   public prepareRemove(instance: IMenu): void {
     this.removeId = instance.id;
+    this.removeName = instance.nombre;
   }
 
   public removeMenu(): void {
@@ -116,5 +118,21 @@ export default class Menu extends mixins(Vue2Filters.mixin) {
 
   public closeDialog(): void {
     (<any>this.$refs.removeEntity).hide();
+  }
+
+  public setActive(menu, isActivated): void {
+    menu.activo = isActivated;
+    this.menuService()
+      .update(menu)
+      .then(() => {
+        /*this.error = null;
+        this.success = 'OK';
+        this.loadAll();*/
+      })
+      .catch(() => {
+        /*this.success = null;
+        this.error = 'ERROR';*/
+        menu.acivo = false;
+      });
   }
 }

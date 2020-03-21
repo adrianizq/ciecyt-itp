@@ -2,25 +2,25 @@
   "ciecytApp": {
     "menu": {
       "home": {
-        "title": "Menus",
-        "createLabel": "Crear nuevo Menu",
-        "createOrEditLabel": "Crear o editar Menu",
-        "notFound": "No Menus found"
+        "title": "Aplicaciones",
+        "createLabel": "Nueva aplicación",
+        "createOrEditLabel": "Crear o editar aplicación",
+        "notFound": "Registros no encontrados"
       },
-      "created": "Un nuevo Menu ha sido creado con el identificador {{ param }}",
-      "updated": "Un Menu ha sido actualizado con el identificador {{ param }}",
-      "deleted": "Un Menu ha sido eliminado con el identificador {{ param }}",
+      "created": "Una nueva aplicación ha sido creado con el identificador {{ param }}",
+      "updated": "Una aplicación ha sido actualizada con el identificador {{ param }}",
+      "deleted": "Una aplicación ha sido eliminado con el identificador {{ param }}",
       "delete": {
-        "question": "¿Seguro que quiere eliminar Menu {{ id }}?"
+        "question": "¿Seguro que quiere eliminar la aplicación {{ name }}?"
       },
       "detail": {
-        "title": "Menu"
+        "title": "Aplicación"
       },
       "nombre": "Nombre",
       "url": "Url",
       "icono": "Icono",
       "activo": "Activo",
-      "menuPadre": "Menu Padre"
+      "menuPadre": "Padre"
     }
   }
 }
