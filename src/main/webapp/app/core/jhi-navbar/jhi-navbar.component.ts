@@ -4,6 +4,9 @@ import LoginService from '@/account/login.service';
 import AccountService from '@/account/account.service';
 import TranslationService from '@/locale/translation.service';
 
+import MenuService from '@/entities/menu/menu.service';
+import { IMenu } from '@/shared/model/menu.model';
+
 @Component
 export default class JhiNavbar extends Vue {
   @Inject('loginService')
@@ -11,11 +14,47 @@ export default class JhiNavbar extends Vue {
   @Inject('translationService') private translationService: () => TranslationService;
 
   @Inject('accountService') private accountService: () => AccountService;
+
+  @Inject('menuService')
+  private menuService: () => MenuService;
+
   public version = VERSION ? 'v' + VERSION : '';
   private currentLanguage = this.$store.getters.currentLanguage;
   private languages: any = this.$store.getters.languages;
+  public menus: IMenu[] = [];
 
   created() {
+    const paginationQuery = {
+      page: 0,
+      size: 50,
+      sort: ['id,asc']
+    };
+    this.menuService()
+      .retrieve(paginationQuery)
+      .then(res => {
+        const menus: IMenu[] = res.data;
+
+        const parent = [];
+
+        menus.map(menu => {
+          if (!menu.menuPadreId) {
+            parent.push(menu);
+          }
+        });
+
+        parent.map(par => {
+          par.children = [];
+
+          menus.map(menu => {
+            if (menu.menuPadreId === par.id) {
+              par.children.push(menu);
+            }
+          });
+        });
+        console.log(JSON.stringify(parent));
+        this.menus = parent;
+      });
+
     this.translationService().refreshTranslation(this.currentLanguage);
   }
 
@@ -30,6 +69,19 @@ export default class JhiNavbar extends Vue {
     this.translationService().refreshTranslation(newLanguage);
   }
 
+  public isUrl(url: string): boolean {
+    if (url.indexOf('()') === -1) {
+      return true;
+    }
+
+    return false;
+  }
+
+  public actionMenu(callback: string): void {
+    callback = callback.replace('()', '');
+    this[callback]();
+  }
+
   public isActiveLanguage(key: string): boolean {
     return key === this.$store.getters.currentLanguage;
   }
@@ -38,7 +90,8 @@ export default class JhiNavbar extends Vue {
     localStorage.removeItem('jhi-authenticationToken');
     sessionStorage.removeItem('jhi-authenticationToken');
     this.$store.commit('logout');
-    this.$router.push('/');
+    // this.$router.push('/');
+    window.location.href = '';
   }
 
   public openLogin(): void {

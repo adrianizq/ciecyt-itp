@@ -1230,17 +1230,17 @@ export default new Router({
       path: '/entity/usuario/:usuarioId/edit',
       name: 'UsuarioEdit',
       component: UsuarioUpdate,
-      meta: { authorities: ['ROLE_USER'] }
+      //meta: { authorities: ['ROLE_USER'] }
     },
     {
       path: '/entity/usuario/:usuarioId/view',
       name: 'UsuarioView',
       component: UsuarioDetails,
-      meta: { authorities: ['ROLE_USER'] }
+      //meta: { authorities: ['ROLE_USER'] }
     }
     ,
     {
-      path: '/entity/menu',
+      path: '/admin/aplicaciones',
       name: 'Menu',
       component: Menu,
       meta: { authorities: ['ROLE_USER'] }

@@ -1,8 +1,9 @@
 <template>
     <b-navbar toggleable="md" type="dark" class="bg-primary">
         <div class="jh-logo-container float-left">
-            <b-navbar-toggle right class="jh-navbar-toggler d-lg-none float-right" href="javascript:void(0);"  data-toggle="collapse" target="header-tabs" aria-expanded="false" aria-label="Toggle navigation">
-                <font-awesome-icon icon="bars" />
+            <b-navbar-toggle right class="jh-navbar-toggler d-lg-none float-right" href="javascript:void(0);" data-toggle="collapse" target="header-tabs" aria-expanded="false"
+                             aria-label="Toggle navigation">
+                <font-awesome-icon icon="bars"/>
             </b-navbar-toggle>
             <b-navbar-brand class="logo float-left" b-link to="/">
                 <span class="logo-img"></span>
@@ -10,13 +11,52 @@
             </b-navbar-brand>
         </div>
         <b-collapse is-nav id="header-tabs">
+
             <b-navbar-nav class="ml-auto">
-                <b-nav-item to="/" exact>
+                <template v-for="menu in menus">
+                    <b-nav-item to="/" exact v-if="!menu.children.length">
+                        <span>
+                            <font-awesome-icon icon="home"/>
+                            <span v-text="$t('global.menu.home')">Home</span>
+                        </span>
+                    </b-nav-item>
+
+                    <b-nav-item-dropdown
+                        right
+                        href="javascript:void(0);"
+                        :id="menu.id.toString()"
+                        :class="{'router-link-active': subIsActive(menu.url)}"
+                        active-class="active"
+                        class="pointer"
+                        v-else>
+                    <span slot="button-content" class="navbar-dropdown-menu">
+                        <font-awesome-icon :icon="menu.icono"/>
+                        <span>
+                            {{ menu.nombre }}
+                        </span>
+                    </span>
+                        <template v-for="submenu in menu.children">
+                            <b-dropdown-item :to="submenu.url" tag="b-dropdown-item" v-if="isUrl(submenu.url)">
+                                <font-awesome-icon :icon="submenu.icono"/>
+                                <span>{{ submenu.nombre }}</span>
+                            </b-dropdown-item>
+
+                            <b-dropdown-item v-if="!isUrl(submenu.url)" @click="actionMenu(submenu.url)">
+                                <font-awesome-icon :icon="submenu.icono"/>
+                                <span>{{ submenu.nombre }}</span>
+                            </b-dropdown-item>
+                        </template>
+
+
+                    </b-nav-item-dropdown>
+                </template>
+
+                <!--b-nav-item to="/" exact>
                     <span>
-                        <font-awesome-icon icon="home" />
+                        <font-awesome-icon icon="home"/>
                         <span v-text="$t('global.menu.home')">Home</span>
                     </span>
-                </b-nav-item>
+                </b-nav-item-->
                 <!--<b-nav-item-dropdown
                     id="entity-menu"
                     v-if="authenticated"
@@ -171,27 +211,18 @@
                         <span v-text="$t('global.menu.entities.rolMenu')">RolMenu</span>
                     </b-dropdown-item>
                 </b-nav-item-dropdown>-->
-                <b-nav-item-dropdown
+
+                <!--<b-nav-item-dropdown
                     id="admin-menu"
                     v-if="hasAnyAuthority('ROLE_ADMIN')"
                     :class="{'router-link-active': subIsActive('/admin')}"
                     active-class="active"
                     class="pointer">
                     <span slot="button-content" class="navbar-dropdown-menu">
-                        <font-awesome-icon icon="user-plus" />
+                        <font-awesome-icon icon="user-plus"/>
                         <span v-text="$t('global.menu.admin.main')">Administration</span>
                     </span>
-                    <b-dropdown-item to="/entity/menu">
-                        <font-awesome-icon icon="bars" />
-                        <!--<span v-text="$t('global.menu.entities.menu')">Aplicaciones</span>-->
-                        <span >Aplicaciones</span>
-                    </b-dropdown-item>
-                    <b-dropdown-item to="/admin/user-management">
-                        <font-awesome-icon icon="user" />
-                        <span v-text="$t('global.menu.admin.userManagement')">User management</span>
-                    </b-dropdown-item>
-
-                    <!--<b-dropdown-item  to="/admin/jhi-metrics">
+                    <b-dropdown-item  to="/admin/jhi-metrics">
                         <font-awesome-icon icon="tachometer-alt" />
                         <span v-text="$t('global.menu.admin.metrics')">Metrics</span>
                     </b-dropdown-item>
@@ -214,8 +245,29 @@
                     <b-dropdown-item v-if="swaggerEnabled"  to="/admin/docs">
                         <font-awesome-icon icon="book" />
                         <span v-text="$t('global.menu.admin.apidocs')">API</span>
-                    </b-dropdown-item>-->
-                </b-nav-item-dropdown>
+                    </b-dropdown-item>
+                </b-nav-item-dropdown-->
+
+                <!--b-nav-item-dropdown--
+                    id="admin-menu"
+                    v-if="hasAnyAuthority('ROLE_ADMIN')"
+                    :class="{'router-link-active': subIsActive('/pendiente')}"
+                    active-class="active"
+                    class="pointer">
+                    <span slot="button-content" class="navbar-dropdown-menu">
+                        <font-awesome-icon icon="user-plus"/>
+                        <span>Pendientes por ubicar</span>
+                    </span>
+                    <b-dropdown-item to="/entity/menu">
+                        <font-awesome-icon icon="bars"/>
+                        <span>Aplicaciones</span>
+                    </b-dropdown-item>
+                    <b-dropdown-item to="/admin/user-management">
+                        <font-awesome-icon icon="user"/>
+                        <span v-text="$t('global.menu.admin.userManagement')">User management</span>
+                    </b-dropdown-item>
+
+                </b-nav-item-dropdown-->
                 <!--<b-nav-item-dropdown id="languagesnavBarDropdown" right v-if="languages && Object.keys(languages).length > 1">
                     <span slot="button-content">
                         <font-awesome-icon icon="flag" />
@@ -226,40 +278,8 @@
                         {{value.name}}
                     </b-dropdown-item>
                 ></b-nav-item-dropdown-->
-                <b-nav-item-dropdown
-                    right
-                    href="javascript:void(0);"
-                    id="account-menu"
-                    :class="{'router-link-active': subIsActive('/account')}"
-                    active-class="active"
-                    class="pointer">
-                    <span slot="button-content" class="navbar-dropdown-menu">
-                        <font-awesome-icon icon="user" />
-                        <span v-text="$t('global.menu.account.main')">
-                            Account
-                        </span>
-                    </span>
-                    <b-dropdown-item to="/account/settings" tag="b-dropdown-item" v-if="authenticated">
-                        <font-awesome-icon icon="wrench" />
-                        <span v-text="$t('global.menu.account.settings')">Settings</span>
-                    </b-dropdown-item>
-                    <b-dropdown-item to="/account/password" tag="b-dropdown-item" v-if="authenticated">
-                        <font-awesome-icon icon="lock" />
-                        <span v-text="$t('global.menu.account.password')">Password</span>
-                    </b-dropdown-item>
-                    <b-dropdown-item v-if="authenticated"  v-on:click="logout()" id="logout">
-                        <font-awesome-icon icon="sign-out-alt" />
-                        <span v-text="$t('global.menu.account.logout')">Sign out</span>
-                    </b-dropdown-item>
-                    <b-dropdown-item v-if="!authenticated"  v-on:click="openLogin()" id="login">
-                        <font-awesome-icon icon="sign-in-alt" />
-                        <span v-text="$t('global.menu.account.login')">Sign in</span>
-                    </b-dropdown-item>
-                    <b-dropdown-item to="/register" tag="b-dropdown-item" id="register" v-if="!authenticated">
-                        <font-awesome-icon icon="user-plus" />
-                        <span v-text="$t('global.menu.account.register')">Register</span>
-                    </b-dropdown-item>
-                </b-nav-item-dropdown>
+
+
             </b-navbar-nav>
         </b-collapse>
     </b-navbar>
@@ -270,62 +290,62 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-/* ==========================================================================
-    Navbar
-    ========================================================================== */
-.navbar-version {
-  font-size: 10px;
-}
+    /* ==========================================================================
+        Navbar
+        ========================================================================== */
+    .navbar-version {
+        font-size: 10px;
+    }
 
 
-@media screen and (min-width: 768px) {
-  .jh-navbar-toggler {
-    display: none;
-  }
-}
+    @media screen and (min-width: 768px) {
+        .jh-navbar-toggler {
+            display: none;
+        }
+    }
 
-@media screen and (min-width: 768px) and (max-width: 1150px) {
-  span span{
-    display:none;
-  }
-}
+    @media screen and (min-width: 768px) and (max-width: 1150px) {
+        span span {
+            display: none;
+        }
+    }
 
-@media screen and (max-width: 767px) {
-  .jh-logo-container {
-    width: 100%;
-  }
-}
+    @media screen and (max-width: 767px) {
+        .jh-logo-container {
+            width: 100%;
+        }
+    }
 
-.navbar-title {
-  display: inline-block;
-  vertical-align: middle;
-}
-/* waiting for bootstrap fix bug on nav-item-dropdown a:active
-https://github.com/bootstrap-vue/bootstrap-vue/issues/2219
-*/
-nav li.router-link-active .navbar-dropdown-menu {
-  cursor: pointer;
-}
+    .navbar-title {
+        display: inline-block;
+        vertical-align: middle;
+    }
 
-/* ==========================================================================
-    Logo styles
-    ========================================================================== */
-.navbar-brand.logo {
-  padding: 5px 15px;
-}
+    /* waiting for bootstrap fix bug on nav-item-dropdown a:active
+    https://github.com/bootstrap-vue/bootstrap-vue/issues/2219
+    */
+    nav li.router-link-active .navbar-dropdown-menu {
+        cursor: pointer;
+    }
 
-.logo .logo-img {
-  height: 45px;
-  display: inline-block;
-  vertical-align: middle;
-  width: 70px;
-}
+    /* ==========================================================================
+        Logo styles
+        ========================================================================== */
+    .navbar-brand.logo {
+        padding: 5px 15px;
+    }
 
-.logo-img {
-  height: 100%;
-  background: url("../../../content/images/logo-jhipster.png") no-repeat center
-    center;
-  background-size: contain;
-  width: 100%;
-}
+    .logo .logo-img {
+        height: 45px;
+        display: inline-block;
+        vertical-align: middle;
+        width: 70px;
+    }
+
+    .logo-img {
+        height: 100%;
+        background: url("../../../content/images/logo-jhipster.png") no-repeat center center;
+        background-size: contain;
+        width: 100%;
+    }
 </style>
