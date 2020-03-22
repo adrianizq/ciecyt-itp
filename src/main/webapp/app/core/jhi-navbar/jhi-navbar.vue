@@ -225,7 +225,7 @@
                         :class="{ active: isActiveLanguage(key)}">
                         {{value.name}}
                     </b-dropdown-item>
-                --></b-nav-item-dropdown>
+                ></b-nav-item-dropdown-->
                 <b-nav-item-dropdown
                     right
                     href="javascript:void(0);"
