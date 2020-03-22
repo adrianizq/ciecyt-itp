@@ -17,6 +17,10 @@ public class MenuDTO implements Serializable {
 
     private Boolean activo;
 
+    private Boolean esPublico;
+
+    private Integer orden;
+
 
     private Long menuPadreId;
 
@@ -60,6 +64,22 @@ public class MenuDTO implements Serializable {
 
     public void setActivo(Boolean activo) {
         this.activo = activo;
+    }
+
+    public Boolean isEsPublico() {
+        return esPublico;
+    }
+
+    public void setEsPublico(Boolean esPublico) {
+        this.esPublico = esPublico;
+    }
+
+    public Integer getOrden() {
+        return orden;
+    }
+
+    public void setOrden(Integer orden) {
+        this.orden = orden;
     }
 
     public Long getMenuPadreId() {
@@ -107,6 +127,8 @@ public class MenuDTO implements Serializable {
             ", url='" + getUrl() + "'" +
             ", icono='" + getIcono() + "'" +
             ", activo='" + isActivo() + "'" +
+            ", esPublico='" + isEsPublico() + "'" +
+            ", orden=" + getOrden() +
             ", menuPadre=" + getMenuPadreId() +
             ", menuPadre='" + getMenuPadreNombre() + "'" +
             "}";

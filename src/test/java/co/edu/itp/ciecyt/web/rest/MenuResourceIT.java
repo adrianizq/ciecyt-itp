@@ -48,6 +48,12 @@ public class MenuResourceIT {
     private static final Boolean DEFAULT_ACTIVO = false;
     private static final Boolean UPDATED_ACTIVO = true;
 
+    private static final Boolean DEFAULT_ES_PUBLICO = false;
+    private static final Boolean UPDATED_ES_PUBLICO = true;
+
+    private static final Integer DEFAULT_ORDEN = 1;
+    private static final Integer UPDATED_ORDEN = 2;
+
     @Autowired
     private MenuRepository menuRepository;
 
@@ -99,7 +105,9 @@ public class MenuResourceIT {
             .nombre(DEFAULT_NOMBRE)
             .url(DEFAULT_URL)
             .icono(DEFAULT_ICONO)
-            .activo(DEFAULT_ACTIVO);
+            .activo(DEFAULT_ACTIVO)
+            .esPublico(DEFAULT_ES_PUBLICO)
+            .orden(DEFAULT_ORDEN);
         return menu;
     }
     /**
@@ -113,7 +121,9 @@ public class MenuResourceIT {
             .nombre(UPDATED_NOMBRE)
             .url(UPDATED_URL)
             .icono(UPDATED_ICONO)
-            .activo(UPDATED_ACTIVO);
+            .activo(UPDATED_ACTIVO)
+            .esPublico(UPDATED_ES_PUBLICO)
+            .orden(UPDATED_ORDEN);
         return menu;
     }
 
@@ -142,6 +152,8 @@ public class MenuResourceIT {
         assertThat(testMenu.getUrl()).isEqualTo(DEFAULT_URL);
         assertThat(testMenu.getIcono()).isEqualTo(DEFAULT_ICONO);
         assertThat(testMenu.isActivo()).isEqualTo(DEFAULT_ACTIVO);
+        assertThat(testMenu.isEsPublico()).isEqualTo(DEFAULT_ES_PUBLICO);
+        assertThat(testMenu.getOrden()).isEqualTo(DEFAULT_ORDEN);
     }
 
     @Test
@@ -179,7 +191,9 @@ public class MenuResourceIT {
             .andExpect(jsonPath("$.[*].nombre").value(hasItem(DEFAULT_NOMBRE)))
             .andExpect(jsonPath("$.[*].url").value(hasItem(DEFAULT_URL)))
             .andExpect(jsonPath("$.[*].icono").value(hasItem(DEFAULT_ICONO)))
-            .andExpect(jsonPath("$.[*].activo").value(hasItem(DEFAULT_ACTIVO.booleanValue())));
+            .andExpect(jsonPath("$.[*].activo").value(hasItem(DEFAULT_ACTIVO.booleanValue())))
+            .andExpect(jsonPath("$.[*].esPublico").value(hasItem(DEFAULT_ES_PUBLICO.booleanValue())))
+            .andExpect(jsonPath("$.[*].orden").value(hasItem(DEFAULT_ORDEN)));
     }
     
     @Test
@@ -196,7 +210,9 @@ public class MenuResourceIT {
             .andExpect(jsonPath("$.nombre").value(DEFAULT_NOMBRE))
             .andExpect(jsonPath("$.url").value(DEFAULT_URL))
             .andExpect(jsonPath("$.icono").value(DEFAULT_ICONO))
-            .andExpect(jsonPath("$.activo").value(DEFAULT_ACTIVO.booleanValue()));
+            .andExpect(jsonPath("$.activo").value(DEFAULT_ACTIVO.booleanValue()))
+            .andExpect(jsonPath("$.esPublico").value(DEFAULT_ES_PUBLICO.booleanValue()))
+            .andExpect(jsonPath("$.orden").value(DEFAULT_ORDEN));
     }
 
     @Test
@@ -223,7 +239,9 @@ public class MenuResourceIT {
             .nombre(UPDATED_NOMBRE)
             .url(UPDATED_URL)
             .icono(UPDATED_ICONO)
-            .activo(UPDATED_ACTIVO);
+            .activo(UPDATED_ACTIVO)
+            .esPublico(UPDATED_ES_PUBLICO)
+            .orden(UPDATED_ORDEN);
         MenuDTO menuDTO = menuMapper.toDto(updatedMenu);
 
         restMenuMockMvc.perform(put("/api/menus")
@@ -239,6 +257,8 @@ public class MenuResourceIT {
         assertThat(testMenu.getUrl()).isEqualTo(UPDATED_URL);
         assertThat(testMenu.getIcono()).isEqualTo(UPDATED_ICONO);
         assertThat(testMenu.isActivo()).isEqualTo(UPDATED_ACTIVO);
+        assertThat(testMenu.isEsPublico()).isEqualTo(UPDATED_ES_PUBLICO);
+        assertThat(testMenu.getOrden()).isEqualTo(UPDATED_ORDEN);
     }
 
     @Test

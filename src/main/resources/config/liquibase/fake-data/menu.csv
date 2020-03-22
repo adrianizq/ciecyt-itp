@@ -1,11 +1,11 @@
-id;nombre;url;icono;activo
-1;mobile Fish;https://lavinia.name;Dam;false
-2;Trace;http://lazaro.com;deposit Tasty Metal Bacon Implementation;false
-3;Officer;https://elliott.name;Grocery Home;true
-4;enable Gorgeous Frozen Pants;http://jackson.com;Savings Account syndicate Planner;false
-5;HDD;https://cecile.info;Automotive;true
-6;South Dakota envisioneer Music;http://markus.biz;Bahamian Dollar Investment Account;true
-7;Salad;http://destiney.biz;copy convergence;false
-8;Georgia Industrial;https://opal.info;e-enable Communications capacitor;false
-9;Georgia;https://alvera.org;navigating;true
-10;South Georgia and the South Sandwich Islands;https://fletcher.org;Home Loan Account;false
+id;nombre;url;icono;activo;es_publico;orden
+1;mobile Fish;https://lavinia.name;Dam;false;false;45924
+2;seamless Metal deposit;http://waino.net;Implementation Electronics Officer;true;false;61165
+3;Grocery Home;https://leopold.info;Gorgeous Frozen Pants;false;false;9060
+4;Savings Account syndicate Planner;http://alyce.org;Yuan Renminbi Centers;false;true;94220
+5;South Dakota envisioneer Music;http://markus.biz;Bahamian Dollar Investment Account;true;false;17336
+6;incentivize Tuna copy;http://josianne.biz;Georgia Industrial;true;true;44975
+7;e-enable Communications capacitor;http://ashton.name;Aruba;true;false;84453
+8;compress South Georgia and the South Sandwich Islands;https://fletcher.org;Home Loan Account;false;false;29627
+9;Car Industrial deliverables;http://cloyd.biz;Jewelery;false;true;71134
+10;1080p Checking Account Identity;https://betty.org;generating Highway Ergonomic;false;false;66884

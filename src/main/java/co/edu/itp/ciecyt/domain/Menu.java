@@ -31,6 +31,12 @@ public class Menu implements Serializable {
     @Column(name = "activo")
     private Boolean activo;
 
+    @Column(name = "es_publico")
+    private Boolean esPublico;
+
+    @Column(name = "orden")
+    private Integer orden;
+
     @ManyToOne
     @JsonIgnoreProperties("menus")
     private Menu menuPadre;
@@ -96,6 +102,32 @@ public class Menu implements Serializable {
         this.activo = activo;
     }
 
+    public Boolean isEsPublico() {
+        return esPublico;
+    }
+
+    public Menu esPublico(Boolean esPublico) {
+        this.esPublico = esPublico;
+        return this;
+    }
+
+    public void setEsPublico(Boolean esPublico) {
+        this.esPublico = esPublico;
+    }
+
+    public Integer getOrden() {
+        return orden;
+    }
+
+    public Menu orden(Integer orden) {
+        this.orden = orden;
+        return this;
+    }
+
+    public void setOrden(Integer orden) {
+        this.orden = orden;
+    }
+
     public Menu getMenuPadre() {
         return menuPadre;
     }
@@ -134,6 +166,8 @@ public class Menu implements Serializable {
             ", url='" + getUrl() + "'" +
             ", icono='" + getIcono() + "'" +
             ", activo='" + isActivo() + "'" +
+            ", esPublico='" + isEsPublico() + "'" +
+            ", orden=" + getOrden() +
             "}";
     }
 }

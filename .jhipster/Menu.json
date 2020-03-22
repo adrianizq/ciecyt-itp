@@ -16,6 +16,14 @@
         {
             "fieldName": "activo",
             "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "esPublico",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "orden",
+            "fieldType": "Integer"
         }
     ],
     "relationships": [
@@ -36,5 +44,7 @@
     "fluentMethods": true,
     "readOnly": false,
     "clientRootFolder": "",
-    "applications": "*"
+    "applications": "*",
+    "searchEngine": false,
+    "databaseType": "sql"
 }
