@@ -80,5 +80,7 @@
     <include file="config/liquibase/changelog/20200124174520_added_entity_constraints_Categorizacion.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200319194600_added_entity_constraints_Menu.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200319194601_added_entity_constraints_RolMenu.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200322220730_modify_entity_Menu.xml" relativeToChangelogFile="false"/>
+    
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>
