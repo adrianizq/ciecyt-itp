@@ -490,7 +490,7 @@ export default new Router({
     }
     ,
     {
-      path: '/entity/acuerdo',
+      path: '/pendiente/acuerdo',
       name: 'Acuerdo',
       component: Acuerdo,
       meta: { authorities: ['ROLE_USER'] }

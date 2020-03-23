@@ -135,4 +135,21 @@ export default class Menu extends mixins(Vue2Filters.mixin) {
         menu.acivo = false;
       });
   }
+
+  public setAlcance(menu, alcance): void {
+    menu.esPublico = alcance;
+
+    this.menuService()
+      .update(menu)
+      .then(() => {
+        /*this.error = null;
+        this.success = 'OK';
+        this.loadAll();*/
+      })
+      .catch(() => {
+        /*this.success = null;
+        this.error = 'ERROR';*/
+        menu.acivo = false;
+      });
+  }
 }

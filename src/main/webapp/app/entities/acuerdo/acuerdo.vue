@@ -18,7 +18,7 @@
         </b-alert>
         <br/>
         <div class="alert alert-warning" v-if="!isFetching && acuerdos && acuerdos.length === 0">
-            <span v-text="$t('ciecytApp.acuerdo.home.notFound')">No acuerdos found</span>
+            <span v-text="$t('ciecytApp.general.notFound')">No acuerdos found</span>
         </div>
         <div class="table-responsive" v-if="acuerdos && acuerdos.length > 0">
             <table class="table table-striped">

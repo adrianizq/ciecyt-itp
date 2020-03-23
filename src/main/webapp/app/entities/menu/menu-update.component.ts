@@ -5,18 +5,23 @@ import { numeric, required, minLength, maxLength } from 'vuelidate/lib/validator
 import AlertService from '@/shared/alert/alert.service';
 import { IMenu, Menu } from '@/shared/model/menu.model';
 import MenuService from './menu.service';
+import Toggle from '@/components/toggle/toggle.vue';
 
 const validations: any = {
   menu: {
     nombre: {},
     url: {},
     icono: {},
-    activo: {}
+    activo: {},
+    esPublico: {}
   }
 };
 
 @Component({
-  validations
+  validations,
+  components: {
+    Toggle
+  }
 })
 export default class MenuUpdate extends Vue {
   @Inject('alertService') private alertService: () => AlertService;
@@ -37,6 +42,7 @@ export default class MenuUpdate extends Vue {
 
   public save(): void {
     this.isSaving = true;
+    console.log(this.menu);
     if (this.menu.id) {
       this.menuService()
         .update(this.menu)
@@ -76,5 +82,15 @@ export default class MenuUpdate extends Vue {
       .then(res => {
         this.menus = res.data;
       });
+  }
+
+  public changeEsPublico(value) {
+    this.menu.esPublico = !value;
+  }
+
+  public getAlcance() {
+    const esPublico = this.menu.esPublico ? false : true;
+    console.log('aqui!!!' + esPublico);
+    return esPublico;
   }
 }

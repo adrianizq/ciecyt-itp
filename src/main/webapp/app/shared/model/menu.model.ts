@@ -4,6 +4,7 @@ export interface IMenu {
   url?: string;
   icono?: string;
   activo?: boolean;
+  esPublico?: boolean;
   menuPadreNombre?: string;
   menuPadreId?: number;
 }
@@ -15,9 +16,11 @@ export class Menu implements IMenu {
     public url?: string,
     public icono?: string,
     public activo?: boolean,
+    public esPublico?: boolean,
     public menuPadreNombre?: string,
     public menuPadreId?: number
   ) {
-    this.activo = this.activo || false;
+    this.activo = this.activo || true;
+    this.esPublico = this.esPublico || false;
   }
 }

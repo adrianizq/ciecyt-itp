@@ -29,6 +29,8 @@
                     <th v-on:click="changeOrder('url')"><span v-text="$t('ciecytApp.menu.url')">Url</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th v-on:click="changeOrder('icono')"><span v-text="$t('ciecytApp.menu.icono')">Icono</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th v-on:click="changeOrder('activo')"><span v-text="$t('ciecytApp.menu.activo')">Activo</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
+                    <th v-on:click="changeOrder('es_publico')"><span v-text="$t('ciecytApp.menu.es_publico')">Alcance</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
+                    <th v-on:click="changeOrder('orden')"><span v-text="$t('ciecytApp.menu.orden')">Orden</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th v-on:click="changeOrder('menuPadreNombre')"><span v-text="$t('ciecytApp.menu.menuPadre')">Menu Padre</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th></th>
                 </tr>
@@ -54,6 +56,16 @@
                         </button>
 
                     </td>
+                    <td>
+                        <button class="btn btn-primary btn-sm deactivated"
+                                v-on:click="setAlcance(menu, true)" v-if="!menu.esPublico">
+                            Privado
+                        </button>
+                        <button class="btn btn-warning btn-sm" v-on:click="setAlcance(menu, false)" v-if="menu.esPublico">
+                            Público
+                        </button>
+                    </td>
+                    <td>Aqui el orden</td>
                     <td>
                         <div v-if="menu.menuPadreId">
                             <router-link :to="{name: 'MenuView', params: {menuPadreId: menu.menuPadreId}}">{{menu.menuPadreNombre}}</router-link>

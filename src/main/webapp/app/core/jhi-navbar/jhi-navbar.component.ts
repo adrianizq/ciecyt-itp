@@ -51,7 +51,7 @@ export default class JhiNavbar extends Vue {
             }
           });
         });
-        console.log(JSON.stringify(parent));
+
         this.menus = parent;
       });
 

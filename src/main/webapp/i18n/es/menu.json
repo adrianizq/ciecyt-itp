@@ -19,8 +19,10 @@
       "nombre": "Nombre",
       "url": "Url",
       "icono": "Icono",
-      "activo": "Activo",
-      "menuPadre": "Padre"
+      "activo": "Estado",
+      "menuPadre": "Padre",
+      "es_publico": "Alcance",
+      "orden": "Orden"
     }
   }
 }

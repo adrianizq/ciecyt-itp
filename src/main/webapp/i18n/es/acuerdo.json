@@ -3,7 +3,7 @@
     "acuerdo": {
       "home": {
         "title": "Acuerdos",
-        "createLabel": "Crear nuevo Acuerdo",
+        "createLabel": "Nuevo Acuerdo",
         "createOrEditLabel": "Crear o editar Acuerdo",
         "notFound": "No Acuerdos found"
       },
@@ -18,7 +18,7 @@
       },
       "acuerdo": "Acuerdo",
       "version": "Version",
-      "codigo": "Codigo",
+      "codigo": "Código",
       "fecha": "Fecha"
     }
   }
