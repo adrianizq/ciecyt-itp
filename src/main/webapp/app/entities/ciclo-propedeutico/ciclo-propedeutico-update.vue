@@ -18,11 +18,13 @@
                         <label class="form-control-label" v-bind:value="$t('ciecytApp.cicloPropedeutico.modalidad')" for="ciclo-propedeutico-modalidad">Modalidad</label>
                         <select class="form-control" id="ciclo-propedeutico-modalidad" name="modalidad" v-model="cicloPropedeutico.modalidadId">
                             <option v-bind:value="null"></option>
-                            <option v-bind:value="modalidadOption.id" v-for="modalidadOption in modalidads" :key="modalidadOption.id">{{modalidadOption.id}}</option>
+                            <option v-bind:value="modalidadOption.id" v-for="modalidadOption in modalidads" :key="modalidadOption.id">{{modalidadOption.modalidad}}</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label class="form-control-label" v-bind:value="$t('ciecytApp.cicloPropedeutico.cicloPropedeuticoAcuerdo')" for="ciclo-propedeutico-cicloPropedeuticoAcuerdo">Ciclo Propedeutico Acuerdo</label>
+                        <label class="form-control-label" v-bind:value="$t('ciecytApp.cicloPropedeutico.cicloPropedeuticoAcuerdo')" for="ciclo-propedeutico-cicloPropedeuticoAcuerdo">
+                            Acuerdo
+                        </label>
                         <select class="form-control" id="ciclo-propedeutico-cicloPropedeuticoAcuerdo" name="cicloPropedeuticoAcuerdo" v-model="cicloPropedeutico.cicloPropedeuticoAcuerdoId">
                             <option v-bind:value="null"></option>
                             <option v-bind:value="acuerdoOption.id" v-for="acuerdoOption in acuerdos" :key="acuerdoOption.id">{{acuerdoOption.acuerdo}}</option>

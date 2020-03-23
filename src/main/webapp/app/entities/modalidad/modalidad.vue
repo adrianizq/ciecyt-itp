@@ -39,7 +39,7 @@
                     <td>{{modalidad.modalidad}}</td>
                     <td>
                         <div v-if="modalidad.modalidadAcuerdoId">
-                            <router-link :to="{name: 'AcuerdoView', params: {modalidadAcuerdoId: modalidad.modalidadAcuerdoId}}">{{modalidad.modalidadAcuerdoAcuerdo}}</router-link>
+                            <router-link :to="{name: 'AcuerdoView', params: {acuerdoId: modalidad.modalidadAcuerdoId}}">{{modalidad.modalidadAcuerdoAcuerdo}}</router-link>
                         </div>
                     </td>
                     <td class="text-right">

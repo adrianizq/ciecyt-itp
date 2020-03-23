@@ -68,7 +68,7 @@
                     <td>{{ menu.orden }}</td>
                     <td>
                         <div v-if="menu.menuPadreId">
-                            <router-link :to="{name: 'MenuView', params: {menuPadreId: menu.menuPadreId}}">{{menu.menuPadreNombre}}</router-link>
+                            <router-link :to="{name: 'MenuView', params: {menuId: menu.menuPadreId}}">{{menu.menuPadreNombre}}</router-link>
                         </div>
                     </td>
                     <td class="text-right">

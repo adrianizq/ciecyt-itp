@@ -18,7 +18,7 @@
         </b-alert>
         <br/>
         <div class="alert alert-warning" v-if="!isFetching && cicloPropedeuticos && cicloPropedeuticos.length === 0">
-            <span v-text="$t('ciecytApp.cicloPropedeutico.home.notFound')">No cicloPropedeuticos found</span>
+            <span v-text="$t('ciecytApp.general.notFound')">No cicloPropedeuticos found</span>
         </div>
         <div class="table-responsive" v-if="cicloPropedeuticos && cicloPropedeuticos.length > 0">
             <table class="table table-striped">
@@ -45,7 +45,7 @@
                     </td>
                     <td>
                         <div v-if="cicloPropedeutico.cicloPropedeuticoAcuerdoId">
-                            <router-link :to="{name: 'AcuerdoView', params: {cicloPropedeuticoAcuerdoId: cicloPropedeutico.cicloPropedeuticoAcuerdoId}}">{{cicloPropedeutico.cicloPropedeuticoAcuerdoAcuerdo}}</router-link>
+                            <router-link :to="{name: 'AcuerdoView', params: {acuerdoId: cicloPropedeutico.cicloPropedeuticoAcuerdoId}}">{{cicloPropedeutico.cicloPropedeuticoAcuerdoAcuerdo}}</router-link>
                         </div>
                     </td>
                     <td class="text-right">

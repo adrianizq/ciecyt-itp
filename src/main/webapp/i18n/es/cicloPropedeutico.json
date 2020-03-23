@@ -2,7 +2,7 @@
   "ciecytApp": {
     "cicloPropedeutico": {
       "home": {
-        "title": "Ciclo Propedeuticos",
+        "title": "Ciclos Propedeuticos",
         "createLabel": "Crear nuevo Ciclo Propedeutico",
         "createOrEditLabel": "Crear o editar Ciclo Propedeutico",
         "notFound": "No Ciclo Propedeuticos found"
@@ -18,7 +18,7 @@
       },
       "ciclo": "Ciclo",
       "modalidad": "Modalidad",
-      "cicloPropedeuticoAcuerdo": "Ciclo Propedeutico Acuerdo"
+      "cicloPropedeuticoAcuerdo": "Acuerdo"
     }
   }
 }

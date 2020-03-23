@@ -465,7 +465,7 @@ export default new Router({
     }
     ,
     {
-      path: '/entity/modalidad',
+      path: '/pendiente/modalidad',
       name: 'Modalidad',
       component: Modalidad,
       meta: { authorities: ['ROLE_USER'] }
@@ -515,7 +515,7 @@ export default new Router({
     }
     ,
     {
-      path: '/entity/ciclo-propedeutico',
+      path: '/pendiente/ciclo-propedeutico',
       name: 'CicloPropedeutico',
       component: CicloPropedeutico,
       meta: { authorities: ['ROLE_USER'] }

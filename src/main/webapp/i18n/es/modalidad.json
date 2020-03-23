@@ -2,7 +2,7 @@
   "ciecytApp": {
     "modalidad": {
       "home": {
-        "title": "Modalidads",
+        "title": "Modalidades",
         "createLabel": "Crear nuevo Modalidad",
         "createOrEditLabel": "Crear o editar Modalidad",
         "notFound": "No Modalidads found"
@@ -17,8 +17,8 @@
         "title": "Modalidad"
       },
       "modalidad": "Modalidad",
-      "modalidadCicloPropedeutico": "Modalidad Ciclo Propedeutico",
-      "modalidadAcuerdo": "Modalidad Acuerdo"
+      "modalidadCicloPropedeutico": "Ciclo propedeutico",
+      "modalidadAcuerdo": "Acuerdo"
     }
   }
 }

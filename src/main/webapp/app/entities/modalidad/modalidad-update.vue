@@ -15,7 +15,7 @@
                             :class="{'valid': !$v.modalidad.modalidad.$invalid, 'invalid': $v.modalidad.modalidad.$invalid }" v-model="$v.modalidad.modalidad.$model" />
                     </div>
                     <div class="form-group">
-                        <label class="form-control-label" v-bind:value="$t('ciecytApp.modalidad.modalidadAcuerdo')" for="modalidad-modalidadAcuerdo">Modalidad Acuerdo</label>
+                        <label class="form-control-label" v-bind:value="$t('ciecytApp.modalidad.modalidadAcuerdo')" for="modalidad-modalidadAcuerdo">Acuerdo</label>
                         <select class="form-control" id="modalidad-modalidadAcuerdo" name="modalidadAcuerdo" v-model="modalidad.modalidadAcuerdoId">
                             <option v-bind:value="null"></option>
                             <option v-bind:value="acuerdoOption.id" v-for="acuerdoOption in acuerdos" :key="acuerdoOption.id">{{acuerdoOption.acuerdo}}</option>
