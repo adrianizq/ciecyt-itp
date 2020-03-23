@@ -13,7 +13,8 @@ const validations: any = {
     url: {},
     icono: {},
     activo: {},
-    esPublico: {}
+    esPublico: {},
+    orden: {}
   }
 };
 
@@ -42,7 +43,6 @@ export default class MenuUpdate extends Vue {
 
   public save(): void {
     this.isSaving = true;
-    console.log(this.menu);
     if (this.menu.id) {
       this.menuService()
         .update(this.menu)

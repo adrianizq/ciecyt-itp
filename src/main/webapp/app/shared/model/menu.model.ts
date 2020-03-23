@@ -7,6 +7,7 @@ export interface IMenu {
   esPublico?: boolean;
   menuPadreNombre?: string;
   menuPadreId?: number;
+  orden?: number;
 }
 
 export class Menu implements IMenu {
@@ -18,7 +19,8 @@ export class Menu implements IMenu {
     public activo?: boolean,
     public esPublico?: boolean,
     public menuPadreNombre?: string,
-    public menuPadreId?: number
+    public menuPadreId?: number,
+    public orden?: number
   ) {
     this.activo = this.activo || true;
     this.esPublico = this.esPublico || false;

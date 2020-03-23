@@ -44,7 +44,7 @@
                     <td>{{menu.nombre}}</td>
                     <td>{{menu.url}}</td>
                     <td>
-                        <font-awesome-icon :icon="menu.icono" />
+                        <font-awesome-icon :icon="menu.icono || 'asterisk'" />
                     </td>
                     <td>
                         <button class="btn btn-danger btn-sm deactivated"
@@ -65,7 +65,7 @@
                             Público
                         </button>
                     </td>
-                    <td>Aqui el orden</td>
+                    <td>{{ menu.orden }}</td>
                     <td>
                         <div v-if="menu.menuPadreId">
                             <router-link :to="{name: 'MenuView', params: {menuPadreId: menu.menuPadreId}}">{{menu.menuPadreNombre}}</router-link>

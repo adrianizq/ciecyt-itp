@@ -28,7 +28,7 @@
                                 <div class="input-group mb-2">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">
-                                            <font-awesome-icon :icon="menu.icono"></font-awesome-icon>
+                                            <font-awesome-icon :icon="menu.icono || 'asterisk'"></font-awesome-icon>
                                         </div>
                                     </div>
                                     <input type="text" class="form-control" name="icono" id="menu-icono"
@@ -37,6 +37,12 @@
 
 
                             </div>
+                        </div>
+
+                        <div class="col-sm-2">
+                            <label class="form-control-label" v-text="$t('ciecytApp.menu.orden')" for="menu-orden">Orden</label>
+                            <input type="text" class="form-control" name="orden" id="menu-orden"
+                                   :class="{'valid': !$v.menu.orden.$invalid, 'invalid': $v.menu.orden.$invalid }" v-model="$v.menu.orden.$model"/>
                         </div>
 
                         <div class="col-sm-2">
@@ -63,9 +69,6 @@
                             </div>
                         </div>
                     </div>
-
-
-
 
                     <div class="form-group">
                         <label class="form-control-label" v-bind:value="$t('ciecytApp.menu.menuPadre')" for="menu-menuPadre">Menu Padre</label>
