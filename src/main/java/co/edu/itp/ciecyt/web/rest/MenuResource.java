@@ -1,6 +1,7 @@
 package co.edu.itp.ciecyt.web.rest;
 
 import co.edu.itp.ciecyt.service.MenuService;
+import co.edu.itp.ciecyt.service.MenuUserService;
 import co.edu.itp.ciecyt.web.rest.errors.BadRequestAlertException;
 import co.edu.itp.ciecyt.service.dto.MenuDTO;
 
@@ -40,8 +41,11 @@ public class MenuResource {
 
     private final MenuService menuService;
 
+    
+
     public MenuResource(MenuService menuService) {
         this.menuService = menuService;
+        
     }
 
     /**
@@ -100,6 +104,8 @@ public class MenuResource {
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
+     
+
     /**
      * {@code GET  /menus/:id} : get the "id" menu.
      *
@@ -125,4 +131,7 @@ public class MenuResource {
         menuService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
+
+
+    
 }
