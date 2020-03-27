@@ -37,7 +37,11 @@ public class RolMenu implements Serializable {
     @ManyToOne
     @JsonIgnoreProperties("rolMenus")
     private Menu rolMenuMenu;
-
+/*
+    @ManyToOne
+    @JsonIgnoreProperties("rolAuthority")
+    private Authority rolAuthority;
+*/    
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
