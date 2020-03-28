@@ -1,5 +1,6 @@
 package co.edu.itp.ciecyt.web.rest;
 
+import co.edu.itp.ciecyt.domain.Menu;
 import co.edu.itp.ciecyt.service.MenuUserService;
 import co.edu.itp.ciecyt.service.UserService;
 import co.edu.itp.ciecyt.service.dto.MenuDTO;
@@ -68,6 +69,26 @@ public class MenuUserResource {
         Page <MenuDTO>  page = menuUserService.buscarAllByUser(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+
+    //ADR
+    /**
+     * {@code GET  /menus} : get all the menus.
+     *
+
+     * @param pageable the pagination information.
+
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of menus in body.
+     */
+
+   
+    @GetMapping("/menus-all-user-no-page")
+    //public ResponseEntity<List<MenuDTO>> getAllMenusUser(@PathVariable Long id, Pageable pageable) {
+    public List <Menu> getAllMenusUserNoPage() {
+        log.debug("REST request to get a page of Menus of User");
+        return   menuUserService.buscarAllByUserNoPage();
+        
     }
 
     

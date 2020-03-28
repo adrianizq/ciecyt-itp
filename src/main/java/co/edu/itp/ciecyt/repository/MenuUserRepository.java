@@ -30,6 +30,16 @@ public interface MenuUserRepository extends JpaRepository<Menu, Long> {
 " ORDER BY m.orden" 
  ,nativeQuery = true)
   public Page<Menu> buscarMenusUsuario(Long idUser, Pageable pageable);
+
+  @Query(value=" SELECT DISTINCT m.id, m.nombre, m.url, m.icono, m.activo,"+ 
+"m.menu_padre_id, m.es_publico, m.orden   " + 
+" FROM menu m  "+
+" INNER JOIN rol_menu rm ON rm.rol_menu_menu_id = m.id "+
+" INNER JOIN jhi_user_authority jua ON rm.auth_name = jua.authority_name " +
+" WHERE (jua.user_id=?1)  " +
+" ORDER BY m.orden" 
+ ,nativeQuery = true)
+  public List<Menu> buscarMenusUsuarioNoPage(Long idUser);
 /*
 
 @Query(value="SELECT DISTINCT rm.id, rm.permitir_acceso, rm.permitir_crear, "+
