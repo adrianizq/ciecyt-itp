@@ -1,3 +1,26 @@
+export interface MenuChildren {
+  id?: number;
+  nombre?: string;
+  url?: string;
+  icono?: string;
+  activo?: boolean;
+  esPublico?: boolean;
+  orden?: number;
+  menuPadreId?: any;
+}
+
+export interface MenuBar {
+  id?: number;
+  nombre?: string;
+  url?: string;
+  icono?: string;
+  activo?: boolean;
+  esPublico?: boolean;
+  orden?: number;
+  menuPadreId?: any;
+  children?: MenuChildren[];
+}
+
 export interface IMenu {
   id?: number;
   nombre?: string;

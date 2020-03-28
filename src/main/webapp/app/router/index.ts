@@ -1,11 +1,13 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
+
 Component.registerHooks([
   'beforeRouteEnter',
   'beforeRouteLeave',
   'beforeRouteUpdate' // for vue-router 2.2+
 ]);
 import Router from 'vue-router';
+
 const Home = () => import('../core/home/home.vue');
 const Error = () => import('../core/error/error.vue');
 const Register = () => import('../account/register/register.vue');
@@ -248,6 +250,9 @@ const RolMenuUpdate = () => import('../entities/rol-menu/rol-menu-update.vue');
 const RolMenuDetails = () => import('../entities/rol-menu/rol-menu-details.vue');
 // jhipster-needle-add-entity-to-router-import - JHipster will import entities to the router here
 
+const Rol = () => import('../pages/rol/rol.vue');
+const RolMenuPermisos = () => import('../pages/rol/rol_menu.vue');
+
 Vue.use(Router);
 
 // prettier-ignore
@@ -331,6 +336,18 @@ export default new Router({
       path: '/admin/docs',
       name: 'JhiDocsComponent',
       component: JhiDocsComponent,
+      meta: { authorities: ['ROLE_ADMIN'] }
+    },
+    {
+      path: '/admin/roles',
+      name: 'RolesComponent',
+      component: Rol,
+      meta: { authorities: ['ROLE_ADMIN'] }
+    },
+    {
+      path: '/admin/roles/:rol/permisos',
+      name: 'RolPermisos',
+      component: RolMenuPermisos,
       meta: { authorities: ['ROLE_ADMIN'] }
     },
     {
@@ -1229,13 +1246,13 @@ export default new Router({
     {
       path: '/entity/usuario/:usuarioId/edit',
       name: 'UsuarioEdit',
-      component: UsuarioUpdate,
+      component: UsuarioUpdate
       //meta: { authorities: ['ROLE_USER'] }
     },
     {
       path: '/entity/usuario/:usuarioId/view',
       name: 'UsuarioView',
-      component: UsuarioDetails,
+      component: UsuarioDetails
       //meta: { authorities: ['ROLE_USER'] }
     }
     ,

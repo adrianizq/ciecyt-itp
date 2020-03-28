@@ -7,6 +7,30 @@ import { IRolMenu } from '@/shared/model/rol-menu.model';
 const baseApiUrl = 'api/rol-menus';
 
 export default class RolMenuService {
+  public fromRol(rol: string): Promise<IRolMenu[]> {
+    return new Promise<IRolMenu[]>(resolve => {
+      const paginationQuery = {
+        page: 0,
+        size: 100,
+        sort: ['id,asc']
+      };
+
+      this.retrieve(paginationQuery).then(res => {
+        const rolMenu: IRolMenu[] = res.data;
+
+        const response: IRolMenu[] = [];
+
+        rolMenu.map(rm => {
+          if (rm.authName === rol) {
+            response[rm.rolMenuMenuId] = rm;
+          }
+        });
+
+        resolve(response);
+      });
+    });
+  }
+
   public find(id: number): Promise<IRolMenu> {
     return new Promise<IRolMenu>(resolve => {
       axios.get(`${baseApiUrl}/${id}`).then(function(res) {

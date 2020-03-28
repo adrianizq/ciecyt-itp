@@ -5,7 +5,7 @@ import AccountService from '@/account/account.service';
 import TranslationService from '@/locale/translation.service';
 
 import MenuService from '@/entities/menu/menu.service';
-import { IMenu } from '@/shared/model/menu.model';
+import { IMenu, MenuBar } from '@/shared/model/menu.model';
 
 @Component
 export default class JhiNavbar extends Vue {
@@ -21,38 +21,13 @@ export default class JhiNavbar extends Vue {
   public version = VERSION ? 'v' + VERSION : '';
   private currentLanguage = this.$store.getters.currentLanguage;
   private languages: any = this.$store.getters.languages;
-  public menus: IMenu[] = [];
+  public menus: MenuBar[] = [];
 
   created() {
-    const paginationQuery = {
-      page: 0,
-      size: 50,
-      sort: ['id,asc']
-    };
     this.menuService()
-      .retrieve(paginationQuery)
+      .all()
       .then(res => {
-        const menus: IMenu[] = res.data;
-
-        const parent = [];
-
-        menus.map(menu => {
-          if (!menu.menuPadreId) {
-            parent.push(menu);
-          }
-        });
-
-        parent.map(par => {
-          par.children = [];
-
-          menus.map(menu => {
-            if (menu.menuPadreId === par.id) {
-              par.children.push(menu);
-            }
-          });
-        });
-
-        this.menus = parent;
+        this.menus = res;
       });
 
     this.translationService().refreshTranslation(this.currentLanguage);
