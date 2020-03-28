@@ -61,15 +61,7 @@ public class MenuUserServiceImpl implements MenuUserService {
         }
         
 
-        
-        //List<String> listAuth = userService.getAuthorities();
-        
-        
-        
-        
-        //log.debug("Request to get all Menus of a User");
         return menuUserRepository.buscarMenusUsuario(userService.getUserWithAuthorities().get().getId(), pageable)
-        //return menuUserRepository.buscarMenusUsuario(user, pageable)
             .map(menuMapper::toDto);
     }
 

@@ -125,4 +125,23 @@ public class RolMenuResource {
         rolMenuService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
+
+    
+    /**ADR
+     * {@code GET  /rol-menus_authority} : get all the rolMenus.
+     *
+
+     * @param pageable the pagination information.
+
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of rolMenus in body.
+     */
+    @GetMapping("/rol-menus-authority/{authority}")
+    public ResponseEntity<List<RolMenuDTO>> getAllRolMenusAuthority(String auth, Pageable pageable) {
+        log.debug("REST request to get a page of RolMenus");
+        //Page<RolMenuDTO> page = rolMenuService.findAll(pageable);
+        Page<RolMenuDTO> page = rolMenuService.findAllByAuthority(auth, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
 }
