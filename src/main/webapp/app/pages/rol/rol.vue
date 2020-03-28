@@ -9,13 +9,13 @@
                 </span>
             </router-link>-->
         </h2>
-        <!--<b-alert :show="dismissCountDown"
+        <b-alert :show="dismissCountDown"
                  dismissible
                  :variant="alertType"
                  @dismissed="dismissCountDown=0"
                  @dismiss-count-down="countDownChanged">
             {{alertMessage}}
-        </b-alert>-->
+        </b-alert>
         <br/>
 
         <div class="table-responsive" v-if="ROLES && ROLES.length > 0">

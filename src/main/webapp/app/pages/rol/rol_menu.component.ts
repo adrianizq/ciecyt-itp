@@ -4,22 +4,17 @@ import RolMenuService from '@/entities/rol-menu/rol-menu.service';
 import MenuService from '@/entities/menu/menu.service';
 import { MenuBar } from '@/shared/model/menu.model';
 import { IRolMenu } from '@/shared/model/rol-menu.model';
+import AlertService from '@/shared/alert/alert.service';
 
 @Component
 export default class RolMenu extends Vue {
+  @Inject('alertService') private alertService: () => AlertService;
   @Inject('rolMenuService') private rolMenuService: () => RolMenuService;
   @Inject('menuService') private menuService: () => MenuService;
 
   menus: MenuBar[] = [];
   rolMenu: IRolMenu[] = [];
-
-  beforeRouteEnter(to, from, next) {
-    next(vm => {
-      if (to.params.rol) {
-        vm.retrieveRolMenu(to.params.rol);
-      }
-    });
-  }
+  public isSaving = false;
 
   created() {
     this.menuService()
@@ -52,6 +47,8 @@ export default class RolMenu extends Vue {
         });
 
         this.menus = res;
+
+        this.retrieveRolMenu(this.rolName);
       });
   }
 
@@ -63,7 +60,9 @@ export default class RolMenu extends Vue {
     this.rolMenuService()
       .fromRol(rol)
       .then(res => {
-        this.rolMenu = [...this.rolMenu, ...res];
+        res.forEach(r => {
+          Vue.set(this.rolMenu, r.rolMenuMenuId, r);
+        });
       });
   }
 
@@ -113,5 +112,23 @@ export default class RolMenu extends Vue {
         }
       }
     });
+  }
+
+  public save() {
+    this.isSaving = true;
+    const newRolMenu = [];
+
+    this.rolMenu.map(r => {
+      newRolMenu.push(r);
+    });
+
+    this.rolMenuService()
+      .batchUpdate(newRolMenu)
+      .then(res => {
+        this.isSaving = false;
+        this.$router.go(-1);
+        const message = 'Los permisos se han actualizado correctamente';
+        this.alertService().showAlert(message, 'success');
+      });
   }
 }

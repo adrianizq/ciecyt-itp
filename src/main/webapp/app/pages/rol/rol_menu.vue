@@ -49,7 +49,7 @@
                                 </tr>
 
                                 <tr v-for="submenu in menu.children" :key="submenu.id">
-                                    <td>&nbsp &nbsp{{ submenu.nombre }}</td>
+                                    <td>&nbsp &nbsp{{ submenu.nombre }} </td>
 
                                     <td class="text-center">
 
@@ -73,25 +73,15 @@
 
                         </table>
                     </div>
-                    <!--<div class="form-group" v-if="acuerdo.id">
-                        <label for="id" v-text="$t('global.field.id')">ID</label>
-                        <input type="text" class="form-control" id="id" name="id"
-                               v-model="acuerdo.id" readonly/>
-                    </div>-->
-                    <!--<div class="form-group">
-                        <label class="form-control-label" v-text="$t('ciecytApp.acuerdo.acuerdo')" for="acuerdo-acuerdo">Acuerdo</label>
-                        <input type="text" class="form-control" name="acuerdo" id="acuerdo-acuerdo"
-                               :class="{'valid': !$v.acuerdo.acuerdo.$invalid, 'invalid': $v.acuerdo.acuerdo.$invalid }" v-model="$v.acuerdo.acuerdo.$model"/>
-                    </div>-->
 
                 </div>
                 <div>
                     <button type="button" id="cancel-save" class="btn btn-secondary" v-on:click="previousState()">
                         <font-awesome-icon icon="ban"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.cancel')">Cancel</span>
                     </button>
-                    <!--<button type="submit" id="save-entity" :disabled="$v.acuerdo.$invalid || isSaving" class="btn btn-primary">
+                    <button type="submit" id="save-entity" :disabled="isSaving" class="btn btn-primary">
                         <font-awesome-icon icon="save"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.save')">Save</span>
-                    </button>-->
+                    </button>
                 </div>
             </form>
         </div>
