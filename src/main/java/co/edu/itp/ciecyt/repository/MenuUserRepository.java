@@ -20,7 +20,7 @@ import java.lang.Long;
 @SuppressWarnings("unused")
 @Repository
 public interface MenuUserRepository extends JpaRepository<Menu, Long> {
- 
+/* 
   @Query(value=" SELECT DISTINCT * " + 
 " FROM menu m  "+
 " INNER JOIN rol_menu rm ON rm.rol_menu_menu_id = m.id "+
@@ -31,3 +31,16 @@ public interface MenuUserRepository extends JpaRepository<Menu, Long> {
  ,nativeQuery = true)
   public Page<Menu> buscarMenusUsuario(Long idUser, Pageable pageable);
 }
+*/
+
+@Query(value=" SELECT DISTINCT m.id, m.nombre, m.url, m.icono, m.activo,"+ 
+"m.menu_padre_id, m.es_publico, m.orden   " + 
+" FROM menu m  "+
+" INNER JOIN rol_menu rm ON rm.rol_menu_menu_id = m.id "+
+" INNER JOIN jhi_user_authority jua ON rm.auth_name = jua.authority_name " +
+" WHERE (jua.user_id=?1)  " +
+" ORDER BY m.orden" 
+ ,nativeQuery = true)
+  public Page<Menu> buscarMenusUsuario(Long idUser, Pageable pageable);
+}
+
