@@ -139,7 +139,8 @@ public class RolMenuResource {
     public ResponseEntity<List<RolMenuDTO>> getAllRolMenusAuthority(String auth, Pageable pageable) {
         log.debug("REST request to get a page of RolMenus");
         //Page<RolMenuDTO> page = rolMenuService.findAll(pageable);
-        Page<RolMenuDTO> page = rolMenuService.findAllByAuthority(auth, pageable);
+        //Page<RolMenuDTO> page = rolMenuService.findAllByAuthority(auth, pageable);
+        Page<RolMenuDTO> page = rolMenuService.buscarAllByAuthority(auth, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }

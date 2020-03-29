@@ -86,11 +86,19 @@ public class RolMenuServiceImpl implements RolMenuService {
         log.debug("Request to delete RolMenu : {}", id);
         rolMenuRepository.deleteById(id);
     }
-
+/*
     @Override
     public Page<RolMenuDTO> findAllByAuthority(String authority, Pageable pageable) {
         log.debug("Request to get all RolMenus by Authority");
         return rolMenuRepository.findByAuthNameOrderById(authority, pageable)
             .map(rolMenuMapper::toDto);
     }
+*/
+
+@Override
+public Page<RolMenuDTO> buscarAllByAuthority(String authority, Pageable pageable) {
+    log.debug("Request to get all RolMenus by Authority");
+    return rolMenuRepository.buscarRolMenuAuthority(authority, pageable)
+        .map(rolMenuMapper::toDto);
+}
 }

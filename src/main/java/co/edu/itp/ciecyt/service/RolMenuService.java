@@ -35,7 +35,9 @@ public interface RolMenuService {
      * @param pageable the pagination information.
      * @return the list of entities.
      */
-    Page<RolMenuDTO> findAllByAuthority(String authority, Pageable pageable);
+    Page<RolMenuDTO> buscarAllByAuthority(String authority, Pageable pageable);
+    //Page<RolMenuDTO> buscarRolMenuAuthority(String authority, Pageable pageable);
+    
     /**
      * Get the "id" rolMenu.
      *
