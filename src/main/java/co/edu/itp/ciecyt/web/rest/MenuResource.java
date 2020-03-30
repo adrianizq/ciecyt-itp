@@ -1,5 +1,6 @@
 package co.edu.itp.ciecyt.web.rest;
 
+import co.edu.itp.ciecyt.domain.Menu;
 import co.edu.itp.ciecyt.service.MenuService;
 import co.edu.itp.ciecyt.service.MenuUserService;
 import co.edu.itp.ciecyt.web.rest.errors.BadRequestAlertException;
@@ -130,6 +131,18 @@ public class MenuResource {
         log.debug("REST request to delete Menu : {}", id);
         menuService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+    }
+
+     /**ADR
+     * {@code GET  /empleados} : get all the empleados.
+     *
+
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of empleados in body.
+     */
+    @GetMapping("/menus-padre")
+    public List<Menu> getAllMenuFather() {
+        log.debug("REST request to get all Empleados");
+        return menuService.findAllFathers();
     }
 
 

@@ -13,7 +13,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Service Implementation for managing {@link Menu}.
@@ -57,10 +61,8 @@ public class MenuServiceImpl implements MenuService {
     @Transactional(readOnly = true)
     public Page<MenuDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Menus");
-        return menuRepository.findAll(pageable)
-            .map(menuMapper::toDto);
+        return menuRepository.findAll(pageable).map(menuMapper::toDto);
     }
-
 
     /**
      * Get one menu by id.
@@ -72,8 +74,7 @@ public class MenuServiceImpl implements MenuService {
     @Transactional(readOnly = true)
     public Optional<MenuDTO> findOne(Long id) {
         log.debug("Request to get Menu : {}", id);
-        return menuRepository.findById(id)
-            .map(menuMapper::toDto);
+        return menuRepository.findById(id).map(menuMapper::toDto);
     }
 
     /**
@@ -86,4 +87,34 @@ public class MenuServiceImpl implements MenuService {
         log.debug("Request to delete Menu : {}", id);
         menuRepository.deleteById(id);
     }
+
+    /**
+     * ADR Get all the menus.
+     *
+     * @param pageable the pagination information.
+     * @return the list of entities.
+     */
+    @Override
+    @Transactional(readOnly = true)
+    public List<Menu> findAllFathers() {
+        log.debug("Request to get all Menus ");
+        List <Menu> lista_padres= menuRepository.buscarMenusPadre();
+        List <Menu> lista_hijos=null;
+        //return menuRepository.buscarMenusPadre();
+        
+        List <Menu> lm = new ArrayList<>();
+        for (Menu mp :lista_padres){
+            //agregar a cada item de lista menu primero el padre
+            //despues cada hijo
+           
+            if (mp.getMenuPadre()!=null){
+                lista_hijos = menuRepository.buscarMenusHijosDe(mp.getId());
+
+            }
+        }
+        //return lista_menu;
+    }
+
+    
+
 }
