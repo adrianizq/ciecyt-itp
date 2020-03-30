@@ -1,12 +1,8 @@
 package co.edu.itp.ciecyt.web.rest;
 
-import co.edu.itp.ciecyt.domain.Menu;
-import co.edu.itp.ciecyt.service.MenuUserService;
-import co.edu.itp.ciecyt.service.UserService;
-import co.edu.itp.ciecyt.service.dto.MenuDTO;
-
-
-import io.github.jhipster.web.util.PaginationUtil;
+import java.text.MessageFormat;
+import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,16 +10,19 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-
-import java.util.List;
-import java.util.Optional;
+import co.edu.itp.ciecyt.domain.User;
+import co.edu.itp.ciecyt.service.MenuUserService;
+import co.edu.itp.ciecyt.service.UserService;
+import co.edu.itp.ciecyt.service.dto.MenuDTO;
+import co.edu.itp.ciecyt.web.rest.model.ApiMessage;
+import io.github.jhipster.web.util.PaginationUtil;
 
 /**
  * REST controller for managing {@link co.edu.itp.ciecyt.domain.Menu}.
@@ -63,10 +62,12 @@ public class MenuUserResource {
      */
     @GetMapping("/menus-all-user")
     //public ResponseEntity<List<MenuDTO>> getAllMenusUser(@PathVariable Long id, Pageable pageable) {
-    public ResponseEntity<List<MenuDTO>> getAllMenusUser(Pageable pageable) {
+    public ResponseEntity<?> getAllMenusUser(Pageable pageable) {
         log.debug("REST request to get a page of Menus of User");
+        
+        Optional<User> user = userService.getUserWithAuthorities();
         //Page<MenuDTO> page = menuService.findAll(pageable);
-        Page <MenuDTO>  page = menuUserService.buscarAllByUser(pageable);
+        Page <MenuDTO>  page = menuUserService.buscarAllByUser(user.get().getId(), pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
@@ -85,9 +86,24 @@ public class MenuUserResource {
    
     @GetMapping("/menus-all-user-no-page")
     //public ResponseEntity<List<MenuDTO>> getAllMenusUser(@PathVariable Long id, Pageable pageable) {
-    public List <Menu> getAllMenusUserNoPage() {
+    public ResponseEntity<?> getAllMenusUserNoPage() {
         log.debug("REST request to get a page of Menus of User");
-        return   menuUserService.buscarAllByUserNoPage();
+        Optional<User> user = userService.getUserWithAuthorities();
+        try {
+			List<MenuDTO> list = menuUserService.buscarAllByUserNoPage(user.get().getId());
+			return new ResponseEntity<>(list, HttpStatus.OK);
+		} catch (Exception e) {
+			String det = "UserId: " +(user.isPresent()?user.get().getLogin():"");
+			String message = "Error de proceso: {0}. {1} "; //TODO ESTE SE DEBE CONSULTAR DE LOS MESSAGES DEL SISTEMA
+			String error = MessageFormat.format(message,  det, e.getMessage());
+			
+			log.error(error);
+			
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body( new ApiMessage("ERR_99", error));
+		}
+        
+        
+           
         
     }
 

@@ -49,30 +49,40 @@ public class MenuUserServiceImpl implements MenuUserService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Page<MenuDTO> buscarAllByUser(Pageable pageable) {
-        Optional<User> user = userService.getUserWithAuthorities();
+    public Page<MenuDTO> buscarAllByUser(Long userId, Pageable pageable) {
+    	log.debug("Consulta menus paginados para usuario: " + userId );
+       /* Optional<User> user = userService.getUserWithAuthorities();
         if (!user.isPresent()) {
             log.error("User is not logged in");
             return null;
         } else {
             log.debug("El usuario en MenuService tiene id = " + userService.getUserWithAuthorities().get().getId());
-        }
+        }*/
 
-        return menuUserRepository.buscarMenusUsuario(userService.getUserWithAuthorities().get().getId(), pageable)
-                .map(menuMapper::toDto);
+       /* return menuUserRepository.buscarMenusUsuario(userService.getUserWithAuthorities().get().getId(), pageable)
+                .map(menuMapper::toDto);*/
+    	
+    	 return menuUserRepository.buscarMenusUsuario(userId, pageable).map(menuMapper::toDto);
     }
 
     @Override
-    public List<Menu> buscarAllByUserNoPage() {
-        Optional<User> user = userService.getUserWithAuthorities();
-        if (!user.isPresent()) {
-            log.error("User is not logged in");
-            return null;
-        } else {
-            log.debug("El usuario en MenuService tiene id = " + userService.getUserWithAuthorities().get().getId());
-        }
-
-        return (List<Menu>) menuUserRepository.buscarMenusUsuarioNoPage(userService.getUserWithAuthorities().get().getId());
+    public List<MenuDTO> buscarAllByUserNoPage(Long userId) {
+        /*Optional<User> user = userService.getUserWithAuthorities();
+	        if (!user.isPresent()) {
+	            log.error("User is not logged in");
+	            return null;
+	        } else {
+	            log.debug("El usuario en MenuService tiene id = " + userService.getUserWithAuthorities().get().getId());
+	        }
+         */
+    	List<MenuDTO> listDto = new ArrayList<>();
+    	
+    	List<Menu> list = menuUserRepository.buscarMenusUsuarioNoPage( userId );
+    	for (Menu menu : list) {
+			listDto.add( menuMapper.toDto(menu));
+		}
+    	
+        return listDto;
                 
     }
 

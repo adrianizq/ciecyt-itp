@@ -17,8 +17,8 @@ public interface MenuUserService {
      */
     //Page<MenuDTO> findAllByUser(Long userId, Pageable pageable);
 
-	Page<MenuDTO> buscarAllByUser(Pageable pageable);
+	Page<MenuDTO> buscarAllByUser(Long userId, Pageable pageable);
 
-	List<Menu> buscarAllByUserNoPage();
+	List<MenuDTO> buscarAllByUserNoPage(Long userId);
 
 }
