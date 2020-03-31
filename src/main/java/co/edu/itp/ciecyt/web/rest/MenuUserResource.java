@@ -18,7 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import co.edu.itp.ciecyt.domain.User;
-import co.edu.itp.ciecyt.service.MenuUserService;
+import co.edu.itp.ciecyt.service.MenuService;
+
 import co.edu.itp.ciecyt.service.UserService;
 import co.edu.itp.ciecyt.service.dto.MenuDTO;
 import co.edu.itp.ciecyt.web.rest.model.ApiMessage;
@@ -41,11 +42,11 @@ public class MenuUserResource {
 
   
 
-    private final MenuUserService menuUserService; //agregada ADR
+    private final MenuService menuService; //agregada ADR
 
-    public MenuUserResource(MenuUserService menuUserService,  UserService userService) {
+    public MenuUserResource(MenuService menuService,  UserService userService) {
       
-        this.menuUserService = menuUserService;
+        this.menuService = menuService;
         this.userService = userService;
     }
 
@@ -67,7 +68,7 @@ public class MenuUserResource {
         
         Optional<User> user = userService.getUserWithAuthorities();
         //Page<MenuDTO> page = menuService.findAll(pageable);
-        Page <MenuDTO>  page = menuUserService.buscarAllByUser(user.get().getId(), pageable);
+        Page <MenuDTO>  page = menuService.buscarAllByUser(user.get().getId(), pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
@@ -90,7 +91,7 @@ public class MenuUserResource {
         log.debug("REST request to get a page of Menus of User");
         Optional<User> user = userService.getUserWithAuthorities();
         try {
-			List<MenuDTO> list = menuUserService.buscarAllByUserNoPage(user.get().getId());
+			List<MenuDTO> list = menuService.buscarAllByUserNoPage(user.get().getId());
 			return new ResponseEntity<>(list, HttpStatus.OK);
 		} catch (Exception e) {
 			String det = "UserId: " +(user.isPresent()?user.get().getLogin():"");

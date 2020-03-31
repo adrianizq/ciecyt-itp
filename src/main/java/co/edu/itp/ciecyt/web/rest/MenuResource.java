@@ -1,14 +1,11 @@
 package co.edu.itp.ciecyt.web.rest;
 
-import co.edu.itp.ciecyt.domain.Menu;
-import co.edu.itp.ciecyt.service.MenuService;
-import co.edu.itp.ciecyt.service.MenuUserService;
-import co.edu.itp.ciecyt.web.rest.errors.BadRequestAlertException;
-import co.edu.itp.ciecyt.service.dto.MenuDTO;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.text.MessageFormat;
+import java.util.List;
+import java.util.Optional;
 
-import io.github.jhipster.web.util.HeaderUtil;
-import io.github.jhipster.web.util.PaginationUtil;
-import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,15 +13,25 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-
-import java.util.List;
-import java.util.Optional;
+import co.edu.itp.ciecyt.domain.Menu;
+import co.edu.itp.ciecyt.service.MenuService;
+import co.edu.itp.ciecyt.service.dto.MenuDTO;
+import co.edu.itp.ciecyt.web.rest.errors.BadRequestAlertException;
+import co.edu.itp.ciecyt.web.rest.model.ApiMessage;
+import io.github.jhipster.web.util.HeaderUtil;
+import io.github.jhipster.web.util.PaginationUtil;
+import io.github.jhipster.web.util.ResponseUtil;
 
 /**
  * REST controller for managing {@link co.edu.itp.ciecyt.domain.Menu}.
@@ -134,15 +141,40 @@ public class MenuResource {
     }
 
      /**ADR
-     * {@code GET  /empleados} : get all the empleados.
+     * {@code GET  /menus-padre} : get all the parent menu.
      *
 
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of empleados in body.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of menu in body.
      */
     @GetMapping("/menus-padre")
     public List<Menu> getAllMenuFather() {
         log.debug("REST request to get all Empleados");
         return menuService.findAllFathers();
+    }
+    
+    //JLT
+    /**
+     * {@code GET  /menus-all} : get all the menu system tree.
+     *
+
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of menus in body.
+     */
+    @GetMapping("/menus-all")
+    public ResponseEntity<?> getAllMenusSystem() {
+        log.debug("REST request to get Menu All System");
+        
+        try {
+			List<MenuDTO> list = menuService.getAllMenuSystem();
+			return new ResponseEntity<>(list, HttpStatus.OK);
+		} catch (Exception e) {
+			String det = "";
+			String message = "Error de consultando menus: {0}. {1} "; //TODO ESTE SE DEBE CONSULTAR DE LOS MESSAGES DEL SISTEMA
+			String error = MessageFormat.format(message,  det, e.getMessage());
+			
+			log.error(error);
+			
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body( new ApiMessage("ERR_99", error));
+		}
     }
 
 

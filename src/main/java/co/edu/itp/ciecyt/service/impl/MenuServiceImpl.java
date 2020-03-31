@@ -1,23 +1,21 @@
 package co.edu.itp.ciecyt.service.impl;
 
-import co.edu.itp.ciecyt.service.MenuService;
-import co.edu.itp.ciecyt.domain.Menu;
-import co.edu.itp.ciecyt.repository.MenuRepository;
-import co.edu.itp.ciecyt.service.dto.MenuDTO;
-import co.edu.itp.ciecyt.service.mapper.MenuMapper;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import co.edu.itp.ciecyt.domain.Menu;
+import co.edu.itp.ciecyt.repository.MenuRepository;
+import co.edu.itp.ciecyt.service.MenuService;
+import co.edu.itp.ciecyt.service.dto.MenuDTO;
+import co.edu.itp.ciecyt.service.mapper.MenuMapper;
 
 /**
  * Service Implementation for managing {@link Menu}.
@@ -96,7 +94,7 @@ public class MenuServiceImpl implements MenuService {
      */
     @Override
     @Transactional(readOnly = true)
-    public List<Menu> findAllFathers() {
+    public List<Menu> findAllFathers() throws Exception {
         log.debug("Request to get all Menus ");
         List <Menu> lista_padres= menuRepository.buscarMenusPadre();
         List <Menu> lista_hijos=null;
@@ -108,12 +106,124 @@ public class MenuServiceImpl implements MenuService {
             //despues cada hijo
            
             if (mp.getMenuPadre()!=null){
-                lista_hijos = menuRepository.buscarMenusHijosDe(mp.getId());
+                //lista_hijos = menuRepository.buscarMenusHijosDe(mp.getId());
 
             }
         }
-        //return lista_menu;
+        return lista_padres;
     }
+    
+    
+    /**
+     * Get all the menus.
+     *
+     * @param pageable the pagination information.
+     * @return the list of entities.
+     */
+    @Override
+    @Transactional(readOnly = true)
+    public Page<MenuDTO> buscarAllByUser(Long userId, Pageable pageable) throws Exception {
+    	log.debug("Consulta menus paginados para usuario: " + userId );
+       /* Optional<User> user = userService.getUserWithAuthorities();
+        if (!user.isPresent()) {
+            log.error("User is not logged in");
+            return null;
+        } else {
+            log.debug("El usuario en MenuService tiene id = " + userService.getUserWithAuthorities().get().getId());
+        }*/
+
+       /* return menuUserRepository.buscarMenusUsuario(userService.getUserWithAuthorities().get().getId(), pageable)
+                .map(menuMapper::toDto);*/
+    	
+    	 return menuRepository.buscarMenusUsuario(userId, pageable).map(menuMapper::toDto);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<MenuDTO> buscarAllByUserNoPage(Long userId) throws Exception {
+        /*Optional<User> user = userService.getUserWithAuthorities();
+	        if (!user.isPresent()) {
+	            log.error("User is not logged in");
+	            return null;
+	        } else {
+	            log.debug("El usuario en MenuService tiene id = " + userService.getUserWithAuthorities().get().getId());
+	        }
+         */
+    	List<MenuDTO> listDto = new ArrayList<>();
+    	
+    	List<Menu> list = menuRepository.buscarMenusUsuarioNoPage( userId );
+    	for (Menu menu : list) {
+			listDto.add( menuMapper.toDto(menu));
+		}
+    	
+        return listDto;
+                
+    }
+
+
+    @Override
+    @Transactional(readOnly = true)
+	public List<MenuDTO> getAllMenuSystem() throws Exception {
+    	List<MenuDTO> listAll = new ArrayList<>();
+    	
+    	List<Menu> list = menuRepository.getAllMenuSystem();
+    	for (Menu menu : list) {
+    		listAll.add( menuMapper.toDto(menu));
+		}
+    	
+    	List<MenuDTO> listDTO = populateTree(null, listAll );
+    	
+        return listDTO;
+	}
+    
+    private List<MenuDTO> populateTree( MenuDTO nodo, List<MenuDTO> listAll ) throws Exception {
+		Long idParent = 0l;
+		if ( nodo == null){
+			idParent = null;
+		}
+		else{
+			idParent = nodo.getMenuPadreId();
+		}
+
+	
+		List<MenuDTO> list = findNodosByParent(listAll, idParent);
+
+		for (MenuDTO child : list) {
+
+
+			//Consulta recursiva
+			List<MenuDTO> listHijos =  populateTree(child, listAll);
+			child.setChildMenus(listHijos);
+
+
+		}
+
+		return list;
+	}
+
+	private List<MenuDTO> findNodosByParent(List<MenuDTO> listAll, Long idMenu ){
+		List<MenuDTO> list = new ArrayList<>();
+		if( idMenu == null ){
+			for (MenuDTO dto : listAll) {
+				if( dto.getMenuPadreId() == null ){
+					log.debug("ADD MENU: "+dto);
+					list.add(dto);
+				}
+			}
+		}else{
+			for (MenuDTO dto : listAll) {
+				if( idMenu.equals( dto.getMenuPadreId())){
+					log.debug("ADD MENU: "+dto);
+					list.add(dto);
+				}
+			}
+		}
+
+		//remueve los nodos encontrados de la lista original
+		listAll.removeAll(list);
+
+		return list;
+	}
 
     
 

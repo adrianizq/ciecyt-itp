@@ -1,5 +1,6 @@
 package co.edu.itp.ciecyt.service.dto;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -25,6 +26,8 @@ public class MenuDTO implements Serializable {
     private Long menuPadreId;
 
     private String menuPadreNombre;
+    
+    private List<MenuDTO> childMenus;
 
     public Long getId() {
         return id;
@@ -133,4 +136,12 @@ public class MenuDTO implements Serializable {
             ", menuPadre='" + getMenuPadreNombre() + "'" +
             "}";
     }
+
+	public List<MenuDTO> getChildMenus() {
+		return childMenus;
+	}
+
+	public void setChildMenus(List<MenuDTO> childMenus) {
+		this.childMenus = childMenus;
+	}
 }
