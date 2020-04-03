@@ -65,12 +65,17 @@ public class MenuUserResource {
     //public ResponseEntity<List<MenuDTO>> getAllMenusUser(@PathVariable Long id, Pageable pageable) {
     public ResponseEntity<?> getAllMenusUser(Pageable pageable) {
         log.debug("REST request to get a page of Menus of User");
-        
+        try{
         Optional<User> user = userService.getUserWithAuthorities();
         //Page<MenuDTO> page = menuService.findAll(pageable);
         Page <MenuDTO>  page = menuService.buscarAllByUser(user.get().getId(), pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
+        }
+        catch(Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body( e.getMessage());
+
+        }
     }
 
 
@@ -100,7 +105,8 @@ public class MenuUserResource {
 			
 			log.error(error);
 			
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body( new ApiMessage("ERR_99", error));
+            //return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body( new ApiMessage("ERR_99", error));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body( e.getMessage());
 		}
         
         
