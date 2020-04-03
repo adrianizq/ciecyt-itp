@@ -157,7 +157,7 @@ public class MenuResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of menu in body.
      */
     @GetMapping("/menus-padre")
-    public List<Menu> getAllMenuFather() {
+    public ResponseEntity<?> getAllMenuFather() {
         log.debug("REST request to get all Empleados");
         try{
         List<Menu> list = menuService.findAllFathers();
@@ -194,7 +194,9 @@ public class MenuResource {
 			
 			log.error(error);
 			
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body( new ApiMessage("ERR_99", error));
+            //return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body( new ApiMessage("ERR_99", error));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body( e.getMessage());
+
 		}
     }
 
