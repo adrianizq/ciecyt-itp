@@ -4,11 +4,13 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.MessageFormat;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
@@ -25,7 +27,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import co.edu.itp.ciecyt.domain.Menu;
+import co.edu.itp.ciecyt.domain.User;
 import co.edu.itp.ciecyt.service.MenuService;
+import co.edu.itp.ciecyt.service.UserService;
 import co.edu.itp.ciecyt.service.dto.MenuDTO;
 import co.edu.itp.ciecyt.web.rest.errors.BadRequestAlertException;
 import co.edu.itp.ciecyt.web.rest.model.ApiMessage;
@@ -48,11 +52,17 @@ public class MenuResource {
     private String applicationName;
 
     private final MenuService menuService;
+    
+    private final MessageSource messageSource;
+    
+    private final UserService userService;
 
     
 
-    public MenuResource(MenuService menuService) {
+    public MenuResource(MenuService menuService, MessageSource messageSource, UserService userService) {
         this.menuService = menuService;
+        this.messageSource = messageSource;
+        this.userService = userService;
         
     }
 
@@ -149,7 +159,14 @@ public class MenuResource {
     @GetMapping("/menus-padre")
     public List<Menu> getAllMenuFather() {
         log.debug("REST request to get all Empleados");
-        return menuService.findAllFathers();
+        try{
+        List<Menu> list = menuService.findAllFathers();
+        //return menuService.findAllFathers();
+        return new ResponseEntity<>(list, HttpStatus.OK);
+        }
+        catch(Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body( e.getMessage());
+        }
     }
     
     //JLT
@@ -163,13 +180,17 @@ public class MenuResource {
     public ResponseEntity<?> getAllMenusSystem() {
         log.debug("REST request to get Menu All System");
         
+        Optional<User> user = userService.getUserWithAuthorities();
+        Locale locale = Locale.forLanguageTag(user.get().getLangKey());
+        
         try {
 			List<MenuDTO> list = menuService.getAllMenuSystem();
 			return new ResponseEntity<>(list, HttpStatus.OK);
 		} catch (Exception e) {
 			String det = "";
-			String message = "Error de consultando menus: {0}. {1} "; //TODO ESTE SE DEBE CONSULTAR DE LOS MESSAGES DEL SISTEMA
-			String error = MessageFormat.format(message,  det, e.getMessage());
+			String message = "api.menus.search.error"; //TODO ESTE SE DEBE CONSULTAR DE LOS MESSAGES DEL SISTEMA
+			
+			String error = messageSource.getMessage(message, new String[] {det, e.getMessage()}, locale);
 			
 			log.error(error);
 			
