@@ -1,18 +1,26 @@
 package co.edu.itp.ciecyt.web.rest;
 
-import co.edu.itp.ciecyt.CiecytApp;
-import co.edu.itp.ciecyt.domain.Menu;
-import co.edu.itp.ciecyt.repository.MenuRepository;
-import co.edu.itp.ciecyt.service.MenuService;
-import co.edu.itp.ciecyt.service.dto.MenuDTO;
-import co.edu.itp.ciecyt.service.mapper.MenuMapper;
-import co.edu.itp.ciecyt.web.rest.errors.ExceptionTranslator;
+import static co.edu.itp.ciecyt.web.rest.TestUtil.createFormattingConversionService;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.MessageSource;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -21,14 +29,14 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Validator;
 
-import javax.persistence.EntityManager;
-import java.util.List;
-
-import static co.edu.itp.ciecyt.web.rest.TestUtil.createFormattingConversionService;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.hasItem;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import co.edu.itp.ciecyt.CiecytApp;
+import co.edu.itp.ciecyt.domain.Menu;
+import co.edu.itp.ciecyt.repository.MenuRepository;
+import co.edu.itp.ciecyt.service.MenuService;
+import co.edu.itp.ciecyt.service.UserService;
+import co.edu.itp.ciecyt.service.dto.MenuDTO;
+import co.edu.itp.ciecyt.service.mapper.MenuMapper;
+import co.edu.itp.ciecyt.web.rest.errors.ExceptionTranslator;
 
 /**
  * Integration tests for the {@link MenuResource} REST controller.
@@ -62,6 +70,13 @@ public class MenuResourceIT {
 
     @Autowired
     private MenuService menuService;
+    
+    @Autowired
+    private UserService userService;
+    
+    @Autowired
+    private MessageSource messageSource;
+    
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -85,7 +100,7 @@ public class MenuResourceIT {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final MenuResource menuResource = new MenuResource(menuService);
+        final MenuResource menuResource = new MenuResource(menuService, messageSource, userService);
         this.restMenuMockMvc = MockMvcBuilders.standaloneSetup(menuResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
