@@ -29,7 +29,7 @@ public interface MenuRepository extends JpaRepository<Menu, Long> {
 			" m.menu_padre_id, m.es_publico, m.orden "+
 			" from menu m "+
 			" LEFT JOIN menu me ON m.menu_padre_id = me.id "+
-			" ORDER BY m.orden, m.menu_padre_id "
+			" ORDER BY m.menu_padre_id desc, m.orden asc "
 			,nativeQuery = true)
 	public List<Menu> getAllMenuSystem();  
 

@@ -182,7 +182,7 @@ public class MenuServiceImpl implements MenuService {
 			idParent = null;
 		}
 		else{
-			idParent = nodo.getMenuPadreId();
+			idParent = nodo.getId();
 		}
 
 	
@@ -206,7 +206,7 @@ public class MenuServiceImpl implements MenuService {
 		if( idMenu == null ){
 			for (MenuDTO dto : listAll) {
 				if( dto.getMenuPadreId() == null ){
-					log.debug("ADD MENU: "+dto);
+					log.debug("ADD MENU PADRE: "+dto);
 					list.add(dto);
 				}
 			}
