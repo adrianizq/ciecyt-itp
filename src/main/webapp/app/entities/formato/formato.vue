@@ -1,7 +1,7 @@
 <template>
     <div>
         <h2 id="page-heading">
-            <span v-text="$t('ciecytApp.formato.home.title')" id="formato-heading">Formatoes</span>
+            <span v-text="$t('ciecytApp.formato.home.title')" id="formato-heading">Formatos</span>
             <router-link :to="{name: 'FormatoCreate'}" tag="button" id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-formato">
                 <font-awesome-icon icon="plus"></font-awesome-icon>
                 <span  v-text="$t('ciecytApp.formato.home.createLabel')">

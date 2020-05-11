@@ -46,10 +46,10 @@ export default class MenuService {
     });
 
     /*return new Promise<IMenu>(resolve => {
-        axios.get('api/menus-all-user').then(res => {
-          resolve(res.data);
-        });
-      });*/
+      axios.get('api/menus-padre').then(res => {
+        resolve(res.data);
+      });
+    });*/
   }
 
   public find(id: number): Promise<IMenu> {

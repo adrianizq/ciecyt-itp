@@ -832,25 +832,25 @@ export default new Router({
     }
     ,
     {
-      path: '/entity/formato',
+      path: '/pendiente/formato',
       name: 'Formato',
       component: Formato,
       meta: { authorities: ['ROLE_USER'] }
     },
     {
-      path: '/entity/formato/new',
+      path: '/pendiente/formato/new',
       name: 'FormatoCreate',
       component: FormatoUpdate,
       meta: { authorities: ['ROLE_USER'] }
     },
     {
-      path: '/entity/formato/:formatoId/edit',
+      path: '/pendiente/formato/:formatoId/edit',
       name: 'FormatoEdit',
       component: FormatoUpdate,
       meta: { authorities: ['ROLE_USER'] }
     },
     {
-      path: '/entity/formato/:formatoId/view',
+      path: '/pendiente/formato/:formatoId/view',
       name: 'FormatoView',
       component: FormatoDetails,
       meta: { authorities: ['ROLE_USER'] }

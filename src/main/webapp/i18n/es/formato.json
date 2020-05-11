@@ -2,7 +2,7 @@
   "ciecytApp": {
     "formato": {
       "home": {
-        "title": "Formatoes",
+        "title": "Formato",
         "createLabel": "Crear nuevo Formato",
         "createOrEditLabel": "Crear o editar Formato",
         "notFound": "No Formatoes found"
