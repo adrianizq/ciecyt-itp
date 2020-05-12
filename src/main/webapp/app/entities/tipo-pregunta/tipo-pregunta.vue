@@ -18,7 +18,7 @@
         </b-alert>
         <br/>
         <div class="alert alert-warning" v-if="!isFetching && tipoPreguntas && tipoPreguntas.length === 0">
-            <span v-text="$t('ciecytApp.tipoPregunta.home.notFound')">No tipoPreguntas found</span>
+            <span v-text="$t('ciecytApp.general.notFound')">No tipoPreguntas found</span>
         </div>
         <div class="table-responsive" v-if="tipoPreguntas && tipoPreguntas.length > 0">
             <table class="table table-striped">

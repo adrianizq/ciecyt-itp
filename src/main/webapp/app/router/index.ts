@@ -857,25 +857,25 @@ export default new Router({
     }
     ,
     {
-      path: '/entity/tipo-pregunta',
+      path: '/pendientes/tipos-pregunta',
       name: 'TipoPregunta',
       component: TipoPregunta,
       meta: { authorities: ['ROLE_USER'] }
     },
     {
-      path: '/entity/tipo-pregunta/new',
+      path: '/pendientes/tipos-pregunta/new',
       name: 'TipoPreguntaCreate',
       component: TipoPreguntaUpdate,
       meta: { authorities: ['ROLE_USER'] }
     },
     {
-      path: '/entity/tipo-pregunta/:tipoPreguntaId/edit',
+      path: '/pendientes/tipos-pregunta/:tipoPreguntaId/edit',
       name: 'TipoPreguntaEdit',
       component: TipoPreguntaUpdate,
       meta: { authorities: ['ROLE_USER'] }
     },
     {
-      path: '/entity/tipo-pregunta/:tipoPreguntaId/view',
+      path: '/pendientes/tipos-pregunta/:tipoPreguntaId/view',
       name: 'TipoPreguntaView',
       component: TipoPreguntaDetails,
       meta: { authorities: ['ROLE_USER'] }
