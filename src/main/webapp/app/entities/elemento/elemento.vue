@@ -18,7 +18,7 @@
         </b-alert>
         <br/>
         <div class="alert alert-warning" v-if="!isFetching && elementos && elementos.length === 0">
-            <span v-text="$t('ciecytApp.elemento.home.notFound')">No elementos found</span>
+            <span v-text="$t('ciecytApp.general.notFound')">No elementos found</span>
         </div>
         <div class="table-responsive" v-if="elementos && elementos.length > 0">
             <table class="table table-striped">
@@ -26,8 +26,8 @@
                 <tr>
                     <th v-on:click="changeOrder('id')"><span v-text="$t('global.field.id')">ID</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th v-on:click="changeOrder('elemento')"><span v-text="$t('ciecytApp.elemento.elemento')">Elemento</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
-                    <th v-on:click="changeOrder('elementoFormatoFormato')"><span v-text="$t('ciecytApp.elemento.elementoFormato')">Elemento Formato</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
-                    <th v-on:click="changeOrder('elementoModalidadModalidad')"><span v-text="$t('ciecytApp.elemento.elementoModalidad')">Elemento Modalidad</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
+                    <th v-on:click="changeOrder('elementoFormatoFormato')"><span v-text="$t('ciecytApp.elemento.elementoFormato')">Formato</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
+                    <th v-on:click="changeOrder('elementoModalidadModalidad')"><span v-text="$t('ciecytApp.elemento.elementoModalidad')">Modalidad</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th></th>
                 </tr>
                 </thead>
@@ -40,12 +40,12 @@
                     <td>{{elemento.elemento}}</td>
                     <td>
                         <div v-if="elemento.elementoFormatoId">
-                            <router-link :to="{name: 'FormatoView', params: {elementoFormatoId: elemento.elementoFormatoId}}">{{elemento.elementoFormatoFormato}}</router-link>
+                            <router-link :to="{name: 'FormatoView', params: {formatoId: elemento.elementoFormatoId}}">{{elemento.elementoFormatoFormato}}</router-link>
                         </div>
                     </td>
                     <td>
                         <div v-if="elemento.elementoModalidadId">
-                            <router-link :to="{name: 'ModalidadView', params: {elementoModalidadId: elemento.elementoModalidadId}}">{{elemento.elementoModalidadModalidad}}</router-link>
+                            <router-link :to="{name: 'ModalidadView', params: {modalidadId: elemento.elementoModalidadId}}">{{elemento.elementoModalidadModalidad}}</router-link>
                         </div>
                     </td>
                     <td class="text-right">

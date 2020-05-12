@@ -782,57 +782,57 @@ export default new Router({
     }
     ,
     {
-      path: '/entity/elemento',
+      path: '/pendientes/elementos',
       name: 'Elemento',
       component: Elemento,
       meta: { authorities: ['ROLE_USER'] }
     },
     {
-      path: '/entity/elemento/new',
+      path: '/pendientes/elementos/new',
       name: 'ElementoCreate',
       component: ElementoUpdate,
       meta: { authorities: ['ROLE_USER'] }
     },
     {
-      path: '/entity/elemento/:elementoId/edit',
+      path: '/pendientes/elementos/:elementoId/edit',
       name: 'ElementoEdit',
       component: ElementoUpdate,
       meta: { authorities: ['ROLE_USER'] }
     },
     {
-      path: '/entity/elemento/:elementoId/view',
+      path: '/pendientes/elementos/:elementoId/view',
       name: 'ElementoView',
       component: ElementoDetails,
       meta: { authorities: ['ROLE_USER'] }
     }
     ,
     {
-      path: '/entity/elemento-proyecto',
+      path: '/pendientes/elementos-proyecto',
       name: 'ElementoProyecto',
       component: ElementoProyecto,
       meta: { authorities: ['ROLE_USER'] }
     },
     {
-      path: '/entity/elemento-proyecto/new',
+      path: '/pendientes/elementos-proyecto/new',
       name: 'ElementoProyectoCreate',
       component: ElementoProyectoUpdate,
       meta: { authorities: ['ROLE_USER'] }
     },
     {
-      path: '/entity/elemento-proyecto/:elementoProyectoId/edit',
+      path: '/pendientes/elementos-proyecto/:elementoProyectoId/edit',
       name: 'ElementoProyectoEdit',
       component: ElementoProyectoUpdate,
       meta: { authorities: ['ROLE_USER'] }
     },
     {
-      path: '/entity/elemento-proyecto/:elementoProyectoId/view',
+      path: '/pendientes/elementos-proyecto/:elementoProyectoId/view',
       name: 'ElementoProyectoView',
       component: ElementoProyectoDetails,
       meta: { authorities: ['ROLE_USER'] }
     }
     ,
     {
-      path: '/pendiente/formato',
+      path: '/pendiente/formatos',
       name: 'Formato',
       component: Formato,
       meta: { authorities: ['ROLE_USER'] }
