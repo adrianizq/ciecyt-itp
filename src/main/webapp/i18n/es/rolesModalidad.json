@@ -2,9 +2,9 @@
   "ciecytApp": {
     "rolesModalidad": {
       "home": {
-        "title": "Roles Modalidads",
-        "createLabel": "Crear nuevo Roles Modalidad",
-        "createOrEditLabel": "Crear o editar Roles Modalidad",
+        "title": "Roles Modalidad",
+        "createLabel": "Crear nuevo Rol Modalidad",
+        "createOrEditLabel": "Crear o editar Rol Modalidad",
         "notFound": "No Roles Modalidads found"
       },
       "created": "Un nuevo Roles Modalidad ha sido creado con el identificador {{ param }}",
@@ -18,8 +18,8 @@
       },
       "rol": "Rol",
       "cantidad": "Cantidad",
-      "calificador": "Calificador",
-      "rolesModalidadModalidad": "Roles Modalidad Modalidad"
+      "calificador": "¿Es calificador?",
+      "rolesModalidadModalidad": "Modalidad"
     }
   }
 }

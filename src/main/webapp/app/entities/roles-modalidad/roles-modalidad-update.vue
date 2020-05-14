@@ -25,7 +25,7 @@
                             :class="{'valid': !$v.rolesModalidad.calificador.$invalid, 'invalid': $v.rolesModalidad.calificador.$invalid }" v-model="$v.rolesModalidad.calificador.$model" />
                     </div>
                     <div class="form-group">
-                        <label class="form-control-label" v-bind:value="$t('ciecytApp.rolesModalidad.rolesModalidadModalidad')" for="roles-modalidad-rolesModalidadModalidad">Roles Modalidad Modalidad</label>
+                        <label class="form-control-label" v-bind:value="$t('ciecytApp.rolesModalidad.rolesModalidadModalidad')" for="roles-modalidad-rolesModalidadModalidad">Modalidad</label>
                         <select class="form-control" id="roles-modalidad-rolesModalidadModalidad" name="rolesModalidadModalidad" v-model="rolesModalidad.rolesModalidadModalidadId">
                             <option v-bind:value="null"></option>
                             <option v-bind:value="modalidadOption.id" v-for="modalidadOption in modalidads" :key="modalidadOption.id">{{modalidadOption.modalidad}}</option>

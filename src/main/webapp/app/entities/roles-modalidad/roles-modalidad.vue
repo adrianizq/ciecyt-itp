@@ -18,7 +18,7 @@
         </b-alert>
         <br/>
         <div class="alert alert-warning" v-if="!isFetching && rolesModalidads && rolesModalidads.length === 0">
-            <span v-text="$t('ciecytApp.rolesModalidad.home.notFound')">No rolesModalidads found</span>
+            <span v-text="$t('ciecytApp.general.notFound')">No rolesModalidads found</span>
         </div>
         <div class="table-responsive" v-if="rolesModalidads && rolesModalidads.length > 0">
             <table class="table table-striped">
@@ -40,10 +40,10 @@
                     </td>
                     <td>{{rolesModalidad.rol}}</td>
                     <td>{{rolesModalidad.cantidad}}</td>
-                    <td>{{rolesModalidad.calificador}}</td>
+                    <td>{{rolesModalidad.calificador ? 'Si' : 'No' }}</td>
                     <td>
                         <div v-if="rolesModalidad.rolesModalidadModalidadId">
-                            <router-link :to="{name: 'ModalidadView', params: {rolesModalidadModalidadId: rolesModalidad.rolesModalidadModalidadId}}">{{rolesModalidad.rolesModalidadModalidadModalidad}}</router-link>
+                            <router-link :to="{name: 'ModalidadView', params: {modalidadId: rolesModalidad.rolesModalidadModalidadId}}">{{rolesModalidad.rolesModalidadModalidadModalidad}}</router-link>
                         </div>
                     </td>
                     <td class="text-right">

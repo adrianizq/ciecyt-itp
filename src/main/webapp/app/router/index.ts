@@ -932,25 +932,25 @@ export default new Router({
     }
     ,
     {
-      path: '/entity/roles-modalidad',
+      path: '/pendientes/roles-modalidad',
       name: 'RolesModalidad',
       component: RolesModalidad,
       meta: { authorities: ['ROLE_USER'] }
     },
     {
-      path: '/entity/roles-modalidad/new',
+      path: '/pendientes/roles-modalidad/new',
       name: 'RolesModalidadCreate',
       component: RolesModalidadUpdate,
       meta: { authorities: ['ROLE_USER'] }
     },
     {
-      path: '/entity/roles-modalidad/:rolesModalidadId/edit',
+      path: '/pendientes/roles-modalidad/:rolesModalidadId/edit',
       name: 'RolesModalidadEdit',
       component: RolesModalidadUpdate,
       meta: { authorities: ['ROLE_USER'] }
     },
     {
-      path: '/entity/roles-modalidad/:rolesModalidadId/view',
+      path: '/pendientes/roles-modalidad/:rolesModalidadId/view',
       name: 'RolesModalidadView',
       component: RolesModalidadDetails,
       meta: { authorities: ['ROLE_USER'] }
