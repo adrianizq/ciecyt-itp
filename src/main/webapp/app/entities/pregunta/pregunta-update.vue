@@ -25,21 +25,21 @@
                             :class="{'valid': !$v.pregunta.pregunta.$invalid, 'invalid': $v.pregunta.pregunta.$invalid }" v-model="$v.pregunta.pregunta.$model" />
                     </div>
                     <div class="form-group">
-                        <label class="form-control-label" v-bind:value="$t('ciecytApp.pregunta.preguntaTipoPregunta')" for="pregunta-preguntaTipoPregunta">Pregunta Tipo Pregunta</label>
+                        <label class="form-control-label" v-bind:value="$t('ciecytApp.pregunta.preguntaTipoPregunta')" for="pregunta-preguntaTipoPregunta">Tipo Pregunta</label>
                         <select class="form-control" id="pregunta-preguntaTipoPregunta" name="preguntaTipoPregunta" v-model="pregunta.preguntaTipoPreguntaId">
                             <option v-bind:value="null"></option>
                             <option v-bind:value="tipoPreguntaOption.id" v-for="tipoPreguntaOption in tipoPreguntas" :key="tipoPreguntaOption.id">{{tipoPreguntaOption.tipoPregunta}}</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label class="form-control-label" v-bind:value="$t('ciecytApp.pregunta.preguntaModalidad')" for="pregunta-preguntaModalidad">Pregunta Modalidad</label>
+                        <label class="form-control-label" v-bind:value="$t('ciecytApp.pregunta.preguntaModalidad')" for="pregunta-preguntaModalidad">Modalidad</label>
                         <select class="form-control" id="pregunta-preguntaModalidad" name="preguntaModalidad" v-model="pregunta.preguntaModalidadId">
                             <option v-bind:value="null"></option>
                             <option v-bind:value="modalidadOption.id" v-for="modalidadOption in modalidads" :key="modalidadOption.id">{{modalidadOption.modalidad}}</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label class="form-control-label" v-bind:value="$t('ciecytApp.pregunta.preguntaRolesModalidad')" for="pregunta-preguntaRolesModalidad">Pregunta Roles Modalidad</label>
+                        <label class="form-control-label" v-bind:value="$t('ciecytApp.pregunta.preguntaRolesModalidad')" for="pregunta-preguntaRolesModalidad">Rol Modalidad</label>
                         <select class="form-control" id="pregunta-preguntaRolesModalidad" name="preguntaRolesModalidad" v-model="pregunta.preguntaRolesModalidadId">
                             <option v-bind:value="null"></option>
                             <option v-bind:value="rolesModalidadOption.id" v-for="rolesModalidadOption in rolesModalidads" :key="rolesModalidadOption.id">{{rolesModalidadOption.rol}}</option>

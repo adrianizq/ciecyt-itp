@@ -18,7 +18,7 @@
         </b-alert>
         <br/>
         <div class="alert alert-warning" v-if="!isFetching && preguntas && preguntas.length === 0">
-            <span v-text="$t('ciecytApp.pregunta.home.notFound')">No preguntas found</span>
+            <span v-text="$t('ciecytApp.general.notFound')">No preguntas found</span>
         </div>
         <div class="table-responsive" v-if="preguntas && preguntas.length > 0">
             <table class="table table-striped">
@@ -45,17 +45,17 @@
                     <td>{{pregunta.pregunta}}</td>
                     <td>
                         <div v-if="pregunta.preguntaTipoPreguntaId">
-                            <router-link :to="{name: 'TipoPreguntaView', params: {preguntaTipoPreguntaId: pregunta.preguntaTipoPreguntaId}}">{{pregunta.preguntaTipoPreguntaTipoPregunta}}</router-link>
+                            <router-link :to="{name: 'TipoPreguntaView', params: {tipoPreguntaId: pregunta.preguntaTipoPreguntaId}}">{{pregunta.preguntaTipoPreguntaTipoPregunta}}</router-link>
                         </div>
                     </td>
                     <td>
                         <div v-if="pregunta.preguntaModalidadId">
-                            <router-link :to="{name: 'ModalidadView', params: {preguntaModalidadId: pregunta.preguntaModalidadId}}">{{pregunta.preguntaModalidadModalidad}}</router-link>
+                            <router-link :to="{name: 'ModalidadView', params: {modalidadId: pregunta.preguntaModalidadId}}">{{pregunta.preguntaModalidadModalidad}}</router-link>
                         </div>
                     </td>
                     <td>
                         <div v-if="pregunta.preguntaRolesModalidadId">
-                            <router-link :to="{name: 'RolesModalidadView', params: {preguntaRolesModalidadId: pregunta.preguntaRolesModalidadId}}">{{pregunta.preguntaRolesModalidadRol}}</router-link>
+                            <router-link :to="{name: 'RolesModalidadView', params: {rolesModalidadId: pregunta.preguntaRolesModalidadId}}">{{pregunta.preguntaRolesModalidadRol}}</router-link>
                         </div>
                     </td>
                     <td class="text-right">

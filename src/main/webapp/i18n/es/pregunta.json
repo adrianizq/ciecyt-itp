@@ -3,7 +3,7 @@
     "pregunta": {
       "home": {
         "title": "Preguntas",
-        "createLabel": "Crear nuevo Pregunta",
+        "createLabel": "Crear nueva Pregunta",
         "createOrEditLabel": "Crear o editar Pregunta",
         "notFound": "No Preguntas found"
       },
@@ -19,9 +19,9 @@
       "encabezado": "Encabezado",
       "descripcion": "Descripcion",
       "pregunta": "Pregunta",
-      "preguntaTipoPregunta": "Pregunta Tipo Pregunta",
-      "preguntaModalidad": "Pregunta Modalidad",
-      "preguntaRolesModalidad": "Pregunta Roles Modalidad"
+      "preguntaTipoPregunta": "Tipo Pregunta",
+      "preguntaModalidad": "Modalidad",
+      "preguntaRolesModalidad": "Rol Modalidad"
     }
   }
 }

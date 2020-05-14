@@ -882,25 +882,25 @@ export default new Router({
     }
     ,
     {
-      path: '/entity/pregunta',
+      path: '/pendientes/preguntas',
       name: 'Pregunta',
       component: Pregunta,
       meta: { authorities: ['ROLE_USER'] }
     },
     {
-      path: '/entity/pregunta/new',
+      path: '/pendientes/preguntas/new',
       name: 'PreguntaCreate',
       component: PreguntaUpdate,
       meta: { authorities: ['ROLE_USER'] }
     },
     {
-      path: '/entity/pregunta/:preguntaId/edit',
+      path: '/pendientes/preguntas/:preguntaId/edit',
       name: 'PreguntaEdit',
       component: PreguntaUpdate,
       meta: { authorities: ['ROLE_USER'] }
     },
     {
-      path: '/entity/pregunta/:preguntaId/view',
+      path: '/pendientes/preguntas/:preguntaId/view',
       name: 'PreguntaView',
       component: PreguntaDetails,
       meta: { authorities: ['ROLE_USER'] }
