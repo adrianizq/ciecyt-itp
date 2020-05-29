@@ -407,25 +407,25 @@ export default new Router({
     }
     ,
     {
-      path: '/entity/linea-investigacion',
+      path: '/pendientes/linea-investigacion',
       name: 'LineaInvestigacion',
       component: LineaInvestigacion,
       meta: { authorities: ['ROLE_USER'] }
     },
     {
-      path: '/entity/linea-investigacion/new',
+      path: '/pendientes/linea-investigacion/new',
       name: 'LineaInvestigacionCreate',
       component: LineaInvestigacionUpdate,
       meta: { authorities: ['ROLE_USER'] }
     },
     {
-      path: '/entity/linea-investigacion/:lineaInvestigacionId/edit',
+      path: '/pendientes/linea-investigacion/:lineaInvestigacionId/edit',
       name: 'LineaInvestigacionEdit',
       component: LineaInvestigacionUpdate,
       meta: { authorities: ['ROLE_USER'] }
     },
     {
-      path: '/entity/linea-investigacion/:lineaInvestigacionId/view',
+      path: '/pendientes/linea-investigacion/:lineaInvestigacionId/view',
       name: 'LineaInvestigacionView',
       component: LineaInvestigacionDetails,
       meta: { authorities: ['ROLE_USER'] }

@@ -2,8 +2,8 @@
   "ciecytApp": {
     "lineaInvestigacion": {
       "home": {
-        "title": "Linea Investigacions",
-        "createLabel": "Crear nuevo Linea Investigacion",
+        "title": "Lineas de Investigacion",
+        "createLabel": "Crear nueva Linea Investigacion",
         "createOrEditLabel": "Crear o editar Linea Investigacion",
         "notFound": "No Linea Investigacions found"
       },
@@ -17,9 +17,9 @@
         "title": "Linea Investigacion"
       },
       "linea": "Linea",
-      "codigoLinea": "Codigo Linea",
-      "lineaPadre": "Linea Padre",
-      "lineaInvestigacionFacultad": "Linea Investigacion Facultad"
+      "codigoLinea": "Código",
+      "lineaPadre": "Padre",
+      "lineaInvestigacionFacultad": "Facultad"
     }
   }
 }

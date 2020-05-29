@@ -18,7 +18,7 @@
         </b-alert>
         <br/>
         <div class="alert alert-warning" v-if="!isFetching && lineaInvestigacions && lineaInvestigacions.length === 0">
-            <span v-text="$t('ciecytApp.lineaInvestigacion.home.notFound')">No lineaInvestigacions found</span>
+            <span v-text="$t('ciecytApp.general.notFound')">No lineaInvestigacions found</span>
         </div>
         <div class="table-responsive" v-if="lineaInvestigacions && lineaInvestigacions.length > 0">
             <table class="table table-striped">
@@ -47,7 +47,7 @@
                     </td>
                     <td>
                         <div v-if="lineaInvestigacion.lineaInvestigacionFacultadId">
-                            <router-link :to="{name: 'FacultadView', params: {lineaInvestigacionFacultadId: lineaInvestigacion.lineaInvestigacionFacultadId}}">{{lineaInvestigacion.lineaInvestigacionFacultadFacultad}}</router-link>
+                            <router-link :to="{name: 'FacultadView', params: { facultadId: lineaInvestigacion.lineaInvestigacionFacultadId}}">{{lineaInvestigacion.lineaInvestigacionFacultadFacultad}}</router-link>
                         </div>
                     </td>
                     <td class="text-right">
