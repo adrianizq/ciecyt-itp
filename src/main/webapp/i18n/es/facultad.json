@@ -2,8 +2,8 @@
   "ciecytApp": {
     "facultad": {
       "home": {
-        "title": "Facultads",
-        "createLabel": "Crear nuevo Facultad",
+        "title": "Facultad",
+        "createLabel": "Crear nueva Facultad",
         "createOrEditLabel": "Crear o editar Facultad",
         "notFound": "No Facultads found"
       },
@@ -16,7 +16,7 @@
       "detail": {
         "title": "Facultad"
       },
-      "codigoFacultad": "Codigo Facultad",
+      "codigoFacultad": "Código",
       "facultad": "Facultad",
       "facultadProyecto": "Facultad Proyecto"
     }

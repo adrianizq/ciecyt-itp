@@ -457,25 +457,25 @@ export default new Router({
     }
     ,
     {
-      path: '/entity/facultad',
+      path: '/pendientes/facultad',
       name: 'Facultad',
       component: Facultad,
       meta: { authorities: ['ROLE_USER'] }
     },
     {
-      path: '/entity/facultad/new',
+      path: '/pendientes/facultad/new',
       name: 'FacultadCreate',
       component: FacultadUpdate,
       meta: { authorities: ['ROLE_USER'] }
     },
     {
-      path: '/entity/facultad/:facultadId/edit',
+      path: '/pendientes/facultad/:facultadId/edit',
       name: 'FacultadEdit',
       component: FacultadUpdate,
       meta: { authorities: ['ROLE_USER'] }
     },
     {
-      path: '/entity/facultad/:facultadId/view',
+      path: '/pendientes/facultad/:facultadId/view',
       name: 'FacultadView',
       component: FacultadDetails,
       meta: { authorities: ['ROLE_USER'] }
