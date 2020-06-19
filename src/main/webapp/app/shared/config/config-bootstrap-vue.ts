@@ -19,7 +19,14 @@ import bDropdownItem from 'bootstrap-vue/es/components/dropdown/dropdown-item';
 import bLink from 'bootstrap-vue/es/components/link/link';
 import bAlert from 'bootstrap-vue/es/components/alert/alert';
 import bModal from 'bootstrap-vue/es/components/modal/modal';
+import bCard from 'bootstrap-vue/es/components/card/card';
+import bCardHeader from 'bootstrap-vue/es/components/card/card-header';
+import bCardText from 'bootstrap-vue/es/components/card/card-text';
+import bCardBody from 'bootstrap-vue/es/components/card/card-body';
+
+/*Directivas*/
 import bModalDirective from 'bootstrap-vue/es/directives/modal/modal';
+import bToggleDirective from 'bootstrap-vue/es/directives/toggle/toggle';
 
 export function initBootstrapVue(vue) {
   vue.component('b-badge', bBadge);
@@ -43,5 +50,11 @@ export function initBootstrapVue(vue) {
   vue.component('b-collapse', bCollapse);
   vue.component('b-nav-item', bNavItem);
   vue.component('b-nav-item-dropdown', bNavItemDropdown);
+  vue.component('b-card-header', bCardHeader);
+  vue.component('b-card', bCard);
+  vue.component('b-card-text', bCardText);
+  vue.component('b-card-body', bCardBody);
+  /*Directivas*/
   vue.directive('b-modal', bModalDirective);
+  vue.directive('b-toggle', bToggleDirective);
 }

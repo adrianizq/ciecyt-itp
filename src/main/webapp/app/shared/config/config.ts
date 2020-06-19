@@ -114,7 +114,20 @@ export function initVueXStore(vue) {
         en: { name: 'English' },
         es: { name: 'Español' }
         // jhipster-needle-i18n-language-key-pipe - JHipster will add/remove languages in this object
-      }
+      },
+      /*Menu Lateral*/
+      menu_lateral: [
+        {
+          title: 'Información General',
+          description: 'Ingrese aquí los datos generales de la propuesta',
+          to: '/propuesta/informacion-general'
+        },
+        {
+          title: 'Integrantes',
+          description: 'En esta sección ingrese los integrantes de la propuesta Nota: Cada modalidad tiene un maximo de integrantes',
+          to: '/propuesta/integrantes'
+        }
+      ]
     },
     mutations: {
       initAlert(state) {
@@ -169,7 +182,8 @@ export function initVueXStore(vue) {
       account: state => state.userIdentity,
       authenticated: state => state.authenticated,
       activeProfiles: state => state.activeProfiles,
-      ribbonOnProfiles: state => state.ribbonOnProfiles
+      ribbonOnProfiles: state => state.ribbonOnProfiles,
+      menuLateral: state => state.menu_lateral
     }
   });
 }

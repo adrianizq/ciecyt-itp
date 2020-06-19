@@ -252,6 +252,8 @@ const RolMenuDetails = () => import('../entities/rol-menu/rol-menu-details.vue')
 
 const Rol = () => import('../pages/rol/rol.vue');
 const RolMenuPermisos = () => import('../pages/rol/rol_menu.vue');
+const PropuestaInformacionGeneral = () => import('../pages/propuesta/informacion_general.vue');
+const PropuestaIntegrantes = () => import('../pages/propuesta/integrantes.vue');
 
 Vue.use(Router);
 
@@ -1303,6 +1305,18 @@ export default new Router({
       path: '/entity/rol-menu/:rolMenuId/view',
       name: 'RolMenuView',
       component: RolMenuDetails,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    {
+      path: '/propuesta/informacion-general',
+      name: 'PropuestaInformacionGeneralView',
+      component: PropuestaInformacionGeneral,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    {
+      path: '/propuesta/integrantes',
+      name: 'PropuestaIntegrantesView',
+      component: PropuestaIntegrantes,
       meta: { authorities: ['ROLE_USER'] }
     }
     // jhipster-needle-add-entity-to-router - JHipster will add entities to the router here
