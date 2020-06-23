@@ -23,6 +23,7 @@ import bCard from 'bootstrap-vue/es/components/card/card';
 import bCardHeader from 'bootstrap-vue/es/components/card/card-header';
 import bCardText from 'bootstrap-vue/es/components/card/card-text';
 import bCardBody from 'bootstrap-vue/es/components/card/card-body';
+import bFormSelect from 'bootstrap-vue/es/components/form-select/form-select';
 
 /*Directivas*/
 import bModalDirective from 'bootstrap-vue/es/directives/modal/modal';
@@ -54,6 +55,7 @@ export function initBootstrapVue(vue) {
   vue.component('b-card', bCard);
   vue.component('b-card-text', bCardText);
   vue.component('b-card-body', bCardBody);
+  vue.component('b-form-select', bFormSelect);
   /*Directivas*/
   vue.directive('b-modal', bModalDirective);
   vue.directive('b-toggle', bToggleDirective);
