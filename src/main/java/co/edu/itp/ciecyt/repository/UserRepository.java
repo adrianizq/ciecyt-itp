@@ -68,5 +68,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     
 
     Page<User> findAll(Specification<User> where, Pageable pageable);
+    public List <User> findAll(Specification<User> where);
 
 }

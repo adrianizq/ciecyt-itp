@@ -9,6 +9,7 @@ import co.edu.itp.ciecyt.security.AuthoritiesConstants;
 import co.edu.itp.ciecyt.security.SecurityUtils;
 import co.edu.itp.ciecyt.service.dto.UserDTO;
 import co.edu.itp.ciecyt.service.util.RandomUtil;
+import co.edu.itp.ciecyt.service.mapper.UserMapper;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,12 +40,14 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
     private final AuthorityRepository authorityRepository;
+    private final UserMapper userMapper;
 
     public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder,
-            AuthorityRepository authorityRepository) {
+            AuthorityRepository authorityRepository, UserMapper userMapper) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authorityRepository = authorityRepository;
+        this.userMapper = userMapper;
     }
 
     public Optional<User> activateRegistration(String key) {
@@ -274,5 +277,22 @@ public class UserService {
         Authority asesor = authorityRepository.findById(AuthoritiesConstants.ASESOR).get();
         return userRepository.findAll(Specification.where(isAsesor(asesor)), pageable).map(UserDTO::new);
     }
+
+/////////////////
+@Transactional(readOnly = true)
+public List<UserDTO> getAllAsesoresNoPage() {
+    List <UserDTO> listDTO = new ArrayList<>();
+    Authority asesor = authorityRepository.findById(AuthoritiesConstants.ASESOR).get();
+    List <User> list= userRepository.findAll(Specification.where(isAsesor(asesor)));
+    //for(User user:list){
+        //Object userMapper;
+        //listDTO.add(userMapper.toDto(user));
+    //    listDto.add( userMapper.toDto(user));
+    //}
+    // cambiar de una lista User a una lista userDTO
+    listDTO = userMapper.usersToUserDTOs(list);
+    return listDTO;
+}
+
 
 }

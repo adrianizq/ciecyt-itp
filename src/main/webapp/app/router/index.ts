@@ -7,6 +7,8 @@ Component.registerHooks([
   'beforeRouteUpdate' // for vue-router 2.2+
 ]);
 import Router from 'vue-router';
+//import { User } from '@/shared/model/user.model';
+import UserManagementService from '@/admin/user-management/user-management.service';
 
 const Home = () => import('../core/home/home.vue');
 const Error = () => import('../core/error/error.vue');
@@ -232,6 +234,8 @@ const CategorizacionUpdate = () => import('../entities/categorizacion/categoriza
 const CategorizacionDetails = () => import('../entities/categorizacion/categorizacion-details.vue');
 // prettier-ignore
 const Usuario = () => import('../entities/usuario/usuario.vue');
+// prettier-ignore
+//const User = () => import('../entities/user/user.vue');
 // prettier-ignore
 const UsuarioUpdate = () => import('../entities/usuario/usuario-update.vue');
 // prettier-ignore
@@ -1233,6 +1237,12 @@ export default new Router({
       meta: { authorities: ['ROLE_USER'] }
     }
     ,
+    {
+      path: '/entity/user',
+      name: 'User',
+      //component: User,
+      meta: { authorities: ['ROLE_USER'] }
+    },
     {
       path: '/entity/usuario',
       name: 'Usuario',

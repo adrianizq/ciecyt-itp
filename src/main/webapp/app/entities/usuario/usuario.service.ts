@@ -46,4 +46,23 @@ export default class UsuarioService {
       });
     });
   }
+
+  /*
+  public retrieveAsesores(paginationQuery?: any): Promise<any> {
+    return new Promise<any>(resolve => {
+      axios.get(`api/users/asesores` + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function(res) {
+        resolve(res);
+      });
+    });
+  } */
+
+  public retrieveAsesores(paginationQuery?: any): Promise<any> {
+    return new Promise<any>(resolve => {
+      //axios.get(`api/users/asesores` + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function(res) {
+      //  resolve(res);
+      axios.get(`api/users/asesores`).then(function(res) {
+        resolve(res);
+      });
+    });
+  }
 }

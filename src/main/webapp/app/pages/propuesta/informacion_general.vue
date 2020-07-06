@@ -66,13 +66,22 @@
                             </b-form-select>
                         </b-form-group>
                     </div>
+                 
+                    <!-- ADR   -->
+                      <div class="col-md-6 col-12">
+                        <b-form-group
+                            label="Asesor"
+                            label-for="usuario"
+                        >
+                            
+                            <b-form-select :options="users" v-model="user" text-field="login" value-field="id" id="user">
+                                 
 
-                    <div class="col-12">
-                        <div class="form-group">
-                            <label class="form-control-label" for="asesor">Asesor</label>
-                            <input type="text" class="form-control" name="asesor" id="asesor"/>
-                        </div>
+                            </b-form-select>
+                        </b-form-group>
                     </div>
+
+
                 </div>
             </form>
         </div>
@@ -89,6 +98,9 @@
     import { IFacultad } from '@/shared/model/facultad.model';
     import LineaInvestigacionService from '@/entities/linea-investigacion/linea-investigacion.service';
     import { ILineaInvestigacion } from '@/shared/model/linea-investigacion.model';
+    import UsuarioService from '@/entities/usuario/usuario.service';
+    import { IUsuario } from '@/shared/model/usuario.model';
+    import { IUser } from '@/shared/model/user.model';
 
     @Component({
         components: { MenuLateral }
@@ -97,13 +109,17 @@
         @Inject('modalidadService') private modalidadService: () => ModalidadService;
         @Inject('facultadService') private facultadService: () => FacultadService;
         @Inject('lineaInvestigacionService') private lineaInvestigacionService: () => LineaInvestigacionService;
+        @Inject('usuarioService') private usuarioService: () => UsuarioService;
 
         public modalidads: IModalidad[] = [];
         public facultades: IFacultad[] = [];
         public lineas_investigacion: ILineaInvestigacion[] = [];
+        //public users: IUsuario[] = [];
+        public users: IUser[] = [];
 
         public linea_investigacion: number = null
         public facultad: number = null
+        public user: number = null
 
         beforeRouteEnter(to, from, next) {
             next(vm => {
@@ -146,7 +162,14 @@
                 .retrieve()
                 .then(res => {
                     this.lineas_investigacion = res.data
-                })
+                });
+
+            //Obteniendo los usuarios asesores
+            this.usuarioService()
+                .retrieveAsesores()
+                .then(res => {
+                    this.users = res.data;
+                });
         }
     }
 </script>

@@ -10,6 +10,7 @@ import co.edu.itp.ciecyt.service.dto.UserDTO;
 import co.edu.itp.ciecyt.web.rest.errors.BadRequestAlertException;
 import co.edu.itp.ciecyt.web.rest.errors.EmailAlreadyUsedException;
 import co.edu.itp.ciecyt.web.rest.errors.LoginAlreadyUsedException;
+import co.edu.itp.ciecyt.web.rest.model.ApiMessage;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
@@ -18,6 +19,7 @@ import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
@@ -70,12 +72,14 @@ public class UserResource {
     private final UserRepository userRepository;
 
     private final MailService mailService;
+    private final MessageSource messageSource;
 
-    public UserResource(UserService userService, UserRepository userRepository, MailService mailService) {
+    public UserResource(UserService userService, UserRepository userRepository, MailService mailService , MessageSource messageSource) {
 
         this.userService = userService;
         this.userRepository = userRepository;
         this.mailService = mailService;
+        this.messageSource = messageSource;
     }
 
     /**
@@ -190,10 +194,31 @@ public class UserResource {
 
 
     @GetMapping("/users/asesores")
-    public ResponseEntity<List<UserDTO>> getAllUsersAsesores(Pageable pageable) {
-        final Page<UserDTO> page = userService.getAllAsesores(pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
-        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    //public ResponseEntity<List<UserDTO>> getAllUsersAsesoresNoPage() {
+        public ResponseEntity<?> getAllUsersAsesoresNoPage() {
+        
+        //final Page<UserDTO> page = userService.getAllAsesores(pageable);
+        Optional<User> user = userService.getUserWithAuthorities();
+        Locale locale = Locale.forLanguageTag(user.get().getLangKey());
+        try{
+        final List<UserDTO> listAsesores = userService.getAllAsesoresNoPage();
+        //getAllAsesoresNoPage
+        //HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        //return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+        //return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(listAsesores, HttpStatus.OK);
+        
+        }catch (Exception e){
+            String det = "";
+			String message = "api.users.search.error"; //TODO ESTE SE DEBE CONSULTAR DE LOS MESSAGES DEL SISTEMA
+
+			String error = messageSource.getMessage(message, new String[] {det, e.getMessage()}, locale);
+
+			log.error(error);
+
+			//return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body( e.getMessage());
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body( new ApiMessage("ERR_99", error));
+        }
     }
 
 
