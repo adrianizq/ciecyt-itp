@@ -72,14 +72,15 @@ public class UserResource {
     private final UserRepository userRepository;
 
     private final MailService mailService;
-    private final MessageSource messageSource;
+    //private final MessageSource messageSource;
 
-    public UserResource(UserService userService, UserRepository userRepository, MailService mailService , MessageSource messageSource) {
+    //public UserResource(UserService userService, UserRepository userRepository, MailService mailService , MessageSource messageSource) {
+        public UserResource(UserService userService, UserRepository userRepository,  MailService mailService) {
 
         this.userService = userService;
         this.userRepository = userRepository;
         this.mailService = mailService;
-        this.messageSource = messageSource;
+        //this.messageSource = messageSource;
     }
 
     /**
@@ -194,30 +195,24 @@ public class UserResource {
 
 
     @GetMapping("/users/asesores")
-    //public ResponseEntity<List<UserDTO>> getAllUsersAsesoresNoPage() {
         public ResponseEntity<?> getAllUsersAsesoresNoPage() {
-        
-        //final Page<UserDTO> page = userService.getAllAsesores(pageable);
-        Optional<User> user = userService.getUserWithAuthorities();
-        Locale locale = Locale.forLanguageTag(user.get().getLangKey());
+        //Optional<User> user = userService.getUserWithAuthorities();
+        //Locale locale = Locale.forLanguageTag(user.get().getLangKey());
         try{
         final List<UserDTO> listAsesores = userService.getAllAsesoresNoPage();
-        //getAllAsesoresNoPage
-        //HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
-        //return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
-        //return new ResponseEntity<>(HttpStatus.OK);
+        
         return new ResponseEntity<>(listAsesores, HttpStatus.OK);
         
         }catch (Exception e){
-            String det = "";
-			String message = "api.users.search.error"; //TODO ESTE SE DEBE CONSULTAR DE LOS MESSAGES DEL SISTEMA
+          //  String det = "";
+		//	String message = "api.users.search.error"; //TODO ESTE SE DEBE CONSULTAR DE LOS MESSAGES DEL SISTEMA
 
-			String error = messageSource.getMessage(message, new String[] {det, e.getMessage()}, locale);
+		//	String error = messageSource.getMessage(message, new String[] {det, e.getMessage()}, locale);
 
-			log.error(error);
+		//	log.error(error);
 
-			//return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body( e.getMessage());
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body( new ApiMessage("ERR_99", error));
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body( e.getMessage());
+			//return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body( new ApiMessage("ERR_99", error));
         }
     }
 
