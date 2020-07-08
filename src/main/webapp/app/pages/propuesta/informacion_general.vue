@@ -15,11 +15,11 @@
                         </div>
                         -->
                         
-                       <div class="form-group">
-                            <label class="form-control-label" v-text="$t('ciecytApp.proyecto.titulo')" for="proyecto-titulo">Titulo</label>
-                            <input type="text" class="form-control" name="titulo" id="proyecto-titulo"
-                                 v-model=proyecto.titulo />
-                        </div>
+                      <div class="form-group">
+                        <label class="form-control-label" v-text="$t('ciecytApp.proyecto.titulo')" for="proyecto-titulo">Titulo</label>
+                        <input type="text" class="form-control" name="titulo" id="proyecto-titulo"
+                             v-model= "this.proyecto.titulo" />
+                    </div>
                     </div>
 
                     <div class="col-md-6 col-12">
@@ -105,8 +105,8 @@
 -->
                 <div>
                     
-                    <button type="submit" id="save-entity"  class="btn btn-primary">
-                        <font-awesome-icon icon="save"></font-awesome-icon>&nbsp;<span v-text="save">Save</span>
+                   <button type="submit" id="save-entity" class="btn btn-primary">
+                        <font-awesome-icon icon="save"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.save')">Save</span>
                     </button>
                     
 
