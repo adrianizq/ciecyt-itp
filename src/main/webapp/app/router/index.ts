@@ -388,25 +388,25 @@ export default new Router({
     }
     ,
     {
-      path: '/entity/proyecto',
+      path: '/pendientes/proyecto',
       name: 'Proyecto',
       component: Proyecto,
       meta: { authorities: ['ROLE_USER'] }
     },
     {
-      path: '/entity/proyecto/new',
+      path: '/pendientes/proyecto/new',
       name: 'ProyectoCreate',
       component: ProyectoUpdate,
       meta: { authorities: ['ROLE_USER'] }
     },
     {
-      path: '/entity/proyecto/:proyectoId/edit',
+      path: '/pendientes/proyecto/:proyectoId/edit',
       name: 'ProyectoEdit',
       component: ProyectoUpdate,
       meta: { authorities: ['ROLE_USER'] }
     },
     {
-      path: '/entity/proyecto/:proyectoId/view',
+      path: '/pendientes/proyecto/:proyectoId/view',
       name: 'ProyectoView',
       component: ProyectoDetails,
       meta: { authorities: ['ROLE_USER'] }
