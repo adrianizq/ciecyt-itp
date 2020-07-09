@@ -438,25 +438,25 @@ export default new Router({
     }
     ,
     {
-      path: '/entity/grupo-semillero',
+      path: '/pendientes/grupo-semillero',
       name: 'GrupoSemillero',
       component: GrupoSemillero,
       meta: { authorities: ['ROLE_USER'] }
     },
     {
-      path: '/entity/grupo-semillero/new',
+      path: '/pendientes/grupo-semillero/new',
       name: 'GrupoSemilleroCreate',
       component: GrupoSemilleroUpdate,
       meta: { authorities: ['ROLE_USER'] }
     },
     {
-      path: '/entity/grupo-semillero/:grupoSemilleroId/edit',
+      path: '/pendientes/grupo-semillero/:grupoSemilleroId/edit',
       name: 'GrupoSemilleroEdit',
       component: GrupoSemilleroUpdate,
       meta: { authorities: ['ROLE_USER'] }
     },
     {
-      path: '/entity/grupo-semillero/:grupoSemilleroId/view',
+      path: '/pendientes/grupo-semillero/:grupoSemilleroId/view',
       name: 'GrupoSemilleroView',
       component: GrupoSemilleroDetails,
       meta: { authorities: ['ROLE_USER'] }
