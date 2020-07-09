@@ -14,12 +14,20 @@
                             v-model=proyecto.titulo />
                         </div>
                         -->
-                        
-                      <div class="form-group">
-                        <label class="form-control-label" v-text="$t('ciecytApp.proyecto.titulo')" for="proyecto-titulo">Titulo</label>
-                        <input type="text" class="form-control" name="titulo" id="proyecto-titulo"
-                             v-model= "this.proyecto.titulo" />
-                    </div>
+
+                        <div class="form-group" v-if="proyecto.id">
+                            <label for="id" v-text="$t('global.field.id')">ID</label>
+                            <input type="text" class="form-control" id="id" name="id"
+                               v-model="proyecto.id" readonly />
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label" v-text="$t('ciecytApp.proyecto.titulo')" for="proyecto-titulo">Titulo</label>
+                            <input type="text" class="form-control" name="titulo" id="proyecto-titulo"
+                             v-model="proyecto.titulo" />
+                        </div>
+
+                   
+                    
                     </div>
 
                     <div class="col-md-6 col-12">
@@ -105,10 +113,12 @@
 -->
                 <div>
                     
-                   <button type="submit" id="save-entity" class="btn btn-primary">
+                    <button type="button" id="cancel-save" class="btn btn-secondary" v-on:click="previousState()">
+                        <font-awesome-icon icon="ban"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.cancel')">Cancel</span>
+                    </button>
+                    <button type="submit" id="save-entity"  class="btn btn-primary">
                         <font-awesome-icon icon="save"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.save')">Save</span>
                     </button>
-                    
 
                     
                 </div>
@@ -119,8 +129,9 @@
 </template>
 
 <script lang="ts">
-    import Component from 'vue-class-component';
-    import { Inject, Vue } from 'vue-property-decorator';
+    //import Component from 'vue-class-component';
+    //import { Inject, Vue } from 'vue-property-decorator';
+    import { Component, Inject, Vue } from 'vue-property-decorator';
     import AlertService from '@/shared/alert/alert.service';
 
     import MenuLateral from '@/components/propuesta/menu_lateral.vue';
@@ -136,7 +147,26 @@
     //ADR
     import { IProyecto, Proyecto } from '@/shared/model/proyecto.model';
     import ProyectoService from  '@/entities/proyecto/proyecto.service';
+import { numeric, required, minLength, maxLength } from 'vuelidate/lib/validators';
 
+const validations: any = {
+  proyecto: {
+    titulo: {},
+    url: {},
+    lugarEjecucion: {},
+    duracion: {},
+    fechaIni: {},
+    fechaFin: {},
+    contrapartidaPesos: {},
+    contrapartidaEspecie: {},
+    palabrasClave: {},
+    convocatoria: {}
+  }
+};
+
+@Component({
+  validations
+})
 
     
 
@@ -152,6 +182,7 @@
         @Inject('usuarioService') private usuarioService: () => UsuarioService;
         @Inject('proyectoService') private proyectoService: () => ProyectoService;
          @Inject('alertService') private alertService: () => AlertService;
+         
 
         public modalidads: IModalidad[] = [];
         public facultades: IFacultad[] = [];
@@ -180,17 +211,17 @@
         }
 
         public save(): void {
-            this.isSaving = true;
-            if (this.proyecto.id) {
-                this.proyectoService()
-                .update(this.proyecto)
-                .then(param => {
-                    this.isSaving = false;
-                    this.$router.go(-1);
-                    const message = this.$t('ciecytApp.proyecto.updated', { param: param.id });
-                    this.alertService().showAlert(message, 'info');
-                });
-            } else {
+            //this.isSaving = true;
+            //if (this.proyecto.id) {
+            //    this.proyectoService()
+            //    .update(this.proyecto)
+            //    .then(param => {
+            //        this.isSaving = false;
+            //        this.$router.go(-1);
+            //        const message = this.$t('ciecytApp.proyecto.updated', { param: param.id });
+            //        this.alertService().showAlert(message, 'info');
+            //    });
+            //} else {
             this.proyectoService()
                 .create(this.proyecto)
                 .then(param => {
@@ -199,7 +230,7 @@
                 const message = this.$t('ciecytApp.proyecto.created', { param: param.id });
                 this.alertService().showAlert(message, 'success');
                 });
-            }
+            //}
   }
 
 

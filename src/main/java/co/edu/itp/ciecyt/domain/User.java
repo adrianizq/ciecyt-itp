@@ -136,13 +136,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
         this.lastName = lastName;
     }
 
-    public void setNombresApellidos(String firstName, String lastName){
-        this.nombresApellidos = this.firstName + " "  + this.lastName;
-    }
-
-    public String getNombresApellidos(){
-        return this.nombresApellidos;
-    }
+   
 
     public String getEmail() {
         return email;
