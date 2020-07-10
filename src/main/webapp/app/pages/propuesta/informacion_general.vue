@@ -93,7 +93,7 @@
                             <!--
                             <b-form-select :options="users" v-model="user" text-field="firstName" value-field="id" id="user">
                              -->
-                            <b-form-select :options="users" v-model="user" text-field="nombresApellidos" value-field="id" id="user" >
+                            <b-form-select :options="users" v-model="proyecto.asesor_id" text-field="nombresApellidos" value-field="id" id="user" >
 
                             </b-form-select>
                         </b-form-group>
