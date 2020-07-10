@@ -1,6 +1,6 @@
 package co.edu.itp.ciecyt.web.rest;
 
-import co.edu.itp.ciecyt.service.IntegranteProyectoService;
+import co.edu.itp.ciecyt.service.IntegranteProyectoService; 
 import co.edu.itp.ciecyt.service.ProyectoService;
 import co.edu.itp.ciecyt.web.rest.errors.BadRequestAlertException;
 import co.edu.itp.ciecyt.service.dto.IntegranteProyectoDTO;
@@ -41,13 +41,14 @@ public class ProyectoResource {
     private String applicationName;
 
     private final ProyectoService proyectoService;
-    private final IntegranteProyectoService integranteProyectoService;    
+    //private final IntegranteProyectoService integranteProyectoService;    
 
    
 
-    public ProyectoResource(ProyectoService proyectoService,  IntegranteProyectoService integranteProyectoService) {
+    //public ProyectoResource(ProyectoService proyectoService,  IntegranteProyectoService integranteProyectoService) {
+        public ProyectoResource(ProyectoService proyectoService) {
         this.proyectoService = proyectoService;
-        this.integranteProyectoService = integranteProyectoService;
+        //this.integranteProyectoService = integranteProyectoService;
         
     }
 
@@ -59,7 +60,8 @@ public class ProyectoResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/proyectos")
-    public ResponseEntity<ProyectoDTO> createProyecto(@RequestBody ProyectoDTO proyectoDTO, Long  idIntegranteProyecto) throws URISyntaxException {
+    //public ResponseEntity<ProyectoDTO> createProyecto(@RequestBody ProyectoDTO proyectoDTO, @RequestBody IntegranteProyectoDTO integranteProyectoDTO) throws URISyntaxException {
+        public ResponseEntity<ProyectoDTO> createProyecto(@RequestBody ProyectoDTO proyectoDTO) throws URISyntaxException {
         //necesito
         //idIntegranteProyecto
         //idProyecto
@@ -68,9 +70,9 @@ public class ProyectoResource {
         if (proyectoDTO.getId() != null) {
             throw new BadRequestAlertException("A new proyecto cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        if(idIntegranteProyecto != null){
-            throw new BadRequestAlertException("A new integranteProyecto cannot already have an ID", ENTITY_NAME, "idexists");
-        }
+        //if(idIntegranteProyecto != null){
+        //    throw new BadRequestAlertException("A new integranteProyecto cannot already have an ID", ENTITY_NAME, "idexists");
+        //}
 
        //IntegranteProyectoDTO rI = IntegranteProyectoService.save
       //toca ver quien es ese usuario
@@ -80,12 +82,12 @@ public class ProyectoResource {
         Long idProyecto = result.getId();
         IntegranteProyectoDTO integDTO = new IntegranteProyectoDTO();
         integDTO.setIntegranteProyectoProyectoId(idProyecto);
-        integDTO.setIntegranteProyectoUserId(idIntegranteProyecto); //idAsesor
+        //integDTO.setIntegranteProyectoUserId(idIntegranteProyecto); //idAsesor
         //integDTO.setIntegranteProyectoRolesModalidadId();
         //integDTO.setIntegranteProyectoUserLogin();
 
 
-         integranteProyectoService.save(integDTO);
+         //integranteProyectoService.save(integDTO);
 
 
         return ResponseEntity.created(new URI("/api/proyectos/" + result.getId()))
