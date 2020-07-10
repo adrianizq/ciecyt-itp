@@ -1,7 +1,9 @@
 package co.edu.itp.ciecyt.web.rest;
 
+import co.edu.itp.ciecyt.service.IntegranteProyectoService;
 import co.edu.itp.ciecyt.service.ProyectoService;
 import co.edu.itp.ciecyt.web.rest.errors.BadRequestAlertException;
+import co.edu.itp.ciecyt.service.dto.IntegranteProyectoDTO;
 import co.edu.itp.ciecyt.service.dto.ProyectoDTO;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -39,9 +41,14 @@ public class ProyectoResource {
     private String applicationName;
 
     private final ProyectoService proyectoService;
+    private final IntegranteProyectoService integranteProyectoService;    
 
-    public ProyectoResource(ProyectoService proyectoService) {
+   
+
+    public ProyectoResource(ProyectoService proyectoService,  IntegranteProyectoService integranteProyectoService) {
         this.proyectoService = proyectoService;
+        this.integranteProyectoService = integranteProyectoService;
+        
     }
 
     /**
@@ -52,12 +59,35 @@ public class ProyectoResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/proyectos")
-    public ResponseEntity<ProyectoDTO> createProyecto(@RequestBody ProyectoDTO proyectoDTO) throws URISyntaxException {
+    public ResponseEntity<ProyectoDTO> createProyecto(@RequestBody ProyectoDTO proyectoDTO, Long  idIntegranteProyecto) throws URISyntaxException {
+        //necesito
+        //idIntegranteProyecto
+        //idProyecto
+
         log.debug("REST request to save Proyecto : {}", proyectoDTO);
         if (proyectoDTO.getId() != null) {
             throw new BadRequestAlertException("A new proyecto cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        if(idIntegranteProyecto != null){
+            throw new BadRequestAlertException("A new integranteProyecto cannot already have an ID", ENTITY_NAME, "idexists");
+        }
+
+       //IntegranteProyectoDTO rI = IntegranteProyectoService.save
+      //toca ver quien es ese usuario
+
         ProyectoDTO result = proyectoService.save(proyectoDTO);
+        
+        Long idProyecto = result.getId();
+        IntegranteProyectoDTO integDTO = new IntegranteProyectoDTO();
+        integDTO.setIntegranteProyectoProyectoId(idProyecto);
+        integDTO.setIntegranteProyectoUserId(idIntegranteProyecto); //idAsesor
+        //integDTO.setIntegranteProyectoRolesModalidadId();
+        //integDTO.setIntegranteProyectoUserLogin();
+
+
+         integranteProyectoService.save(integDTO);
+
+
         return ResponseEntity.created(new URI("/api/proyectos/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
