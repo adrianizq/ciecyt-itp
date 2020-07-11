@@ -20,6 +20,9 @@
                         </b-form-select>
                     </b-form-group>
                 </div>
+                <div class="col-md-6 col-12">
+                    ROLES DE MODALIDAD
+                </div>
             </div> 
             </form>
 
@@ -49,10 +52,13 @@
                 if (to.params.proyectoId) {
                     vm.retrieveProyecto(to.params.proyectoId);
                 }
+                console.log('Iniciando componente...');
                 /*if (to.params.cicloPropedeuticoId) {
                     vm.retrieveCicloPropedeutico(to.params.cicloPropedeuticoId);
                 }*/
                 vm.initRelationships();
+
+                console.log('Carga usuarios...'+this.users);
             });
         }
 
