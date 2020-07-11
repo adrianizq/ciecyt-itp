@@ -20,6 +20,8 @@ public interface ProyectoService {
      */
     ProyectoDTO save(ProyectoDTO proyectoDTO);
 
+    ProyectoDTO saveAsesorProyecto (ProyectoDTO proyectoDTO);
+
     /**
      * Get all the proyectos.
      *

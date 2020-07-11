@@ -1,8 +1,12 @@
 package co.edu.itp.ciecyt.service.impl;
 
+import co.edu.itp.ciecyt.service.IntegranteProyectoService;
 import co.edu.itp.ciecyt.service.ProyectoService;
+import co.edu.itp.ciecyt.domain.IntegranteProyecto;
 import co.edu.itp.ciecyt.domain.Proyecto;
+import co.edu.itp.ciecyt.repository.IntegranteProyectoRepository;
 import co.edu.itp.ciecyt.repository.ProyectoRepository;
+import co.edu.itp.ciecyt.service.dto.IntegranteProyectoDTO;
 import co.edu.itp.ciecyt.service.dto.ProyectoDTO;
 import co.edu.itp.ciecyt.service.mapper.ProyectoMapper;
 import org.slf4j.Logger;
@@ -25,12 +29,15 @@ public class ProyectoServiceImpl implements ProyectoService {
     private final Logger log = LoggerFactory.getLogger(ProyectoServiceImpl.class);
 
     private final ProyectoRepository proyectoRepository;
+    private final IntegranteProyectoService integranteProyectoService;
+
 
     private final ProyectoMapper proyectoMapper;
 
-    public ProyectoServiceImpl(ProyectoRepository proyectoRepository, ProyectoMapper proyectoMapper) {
+    public ProyectoServiceImpl(ProyectoRepository proyectoRepository, ProyectoMapper proyectoMapper, IntegranteProyectoService integranteProyectoService) {
         this.proyectoRepository = proyectoRepository;
         this.proyectoMapper = proyectoMapper;
+        this.integranteProyectoService = integranteProyectoService;
     }
 
     /**
@@ -46,6 +53,29 @@ public class ProyectoServiceImpl implements ProyectoService {
         proyecto = proyectoRepository.save(proyecto);
         return proyectoMapper.toDto(proyecto);
     }
+
+
+      /**
+     * Save a proyecto.
+     * 
+     * @param proyectoDTO the entity to save.
+     * @return the persisted entity.
+     */
+    @Override
+    public ProyectoDTO saveAsesorProyecto (ProyectoDTO proyectoDTO) {
+        log.debug("Request to save Proyecto : {}", proyectoDTO);
+        Proyecto proyecto = proyectoMapper.toEntity(proyectoDTO);
+        proyecto = proyectoRepository.save(proyecto);
+        //guadar integrante
+        IntegranteProyectoDTO asesorDTO = new IntegranteProyectoDTO();
+        asesorDTO.setIntegranteProyectoProyectoId(proyecto.getId());
+        asesorDTO.setIntegranteProyectoUserId(proyectoDTO.getAsesorId());
+        asesorDTO.setIntegranteProyectoRolesModalidadId(4451L);
+
+        integranteProyectoService.save(asesorDTO);
+        return proyectoMapper.toDto(proyecto);
+    }
+
 
     /**
      * Get all the proyectos.
