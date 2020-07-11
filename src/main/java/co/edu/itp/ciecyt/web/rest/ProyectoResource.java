@@ -41,14 +41,13 @@ public class ProyectoResource {
     private String applicationName;
 
     private final ProyectoService proyectoService;
-    //private final IntegranteProyectoService integranteProyectoService;    
+    private final IntegranteProyectoService integranteProyectoService;    
 
    
 
-    //public ProyectoResource(ProyectoService proyectoService,  IntegranteProyectoService integranteProyectoService) {
-        public ProyectoResource(ProyectoService proyectoService) {
-        this.proyectoService = proyectoService;
-        //this.integranteProyectoService = integranteProyectoService;
+    public ProyectoResource(ProyectoService proyectoService,  IntegranteProyectoService integranteProyectoService) {
+       this.proyectoService = proyectoService;
+       this.integranteProyectoService = integranteProyectoService;
         
     }
 

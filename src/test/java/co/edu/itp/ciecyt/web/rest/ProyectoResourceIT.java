@@ -2,9 +2,12 @@ package co.edu.itp.ciecyt.web.rest;
 
 import co.edu.itp.ciecyt.CiecytApp;
 import co.edu.itp.ciecyt.domain.Proyecto;
+import co.edu.itp.ciecyt.repository.IntegranteProyectoRepository;
 import co.edu.itp.ciecyt.repository.ProyectoRepository;
+import co.edu.itp.ciecyt.service.IntegranteProyectoService;
 import co.edu.itp.ciecyt.service.ProyectoService;
 import co.edu.itp.ciecyt.service.dto.ProyectoDTO;
+import co.edu.itp.ciecyt.service.mapper.IntegranteProyectoMapper;
 import co.edu.itp.ciecyt.service.mapper.ProyectoMapper;
 import co.edu.itp.ciecyt.web.rest.errors.ExceptionTranslator;
 
@@ -77,6 +80,17 @@ public class ProyectoResourceIT {
     @Autowired
     private ProyectoService proyectoService;
 
+    ///////////////////////7////
+    @Autowired
+    private IntegranteProyectoRepository integranteProyectoRepository;
+
+    @Autowired
+    private IntegranteProyectoMapper integranteProyectoMapper;
+
+    @Autowired
+    private IntegranteProyectoService integranteProyectoService;
+    /////////////////////////////77//
+
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
@@ -99,7 +113,7 @@ public class ProyectoResourceIT {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final ProyectoResource proyectoResource = new ProyectoResource(proyectoService);
+        final ProyectoResource proyectoResource = new ProyectoResource(proyectoService, integranteProyectoService);
         this.restProyectoMockMvc = MockMvcBuilders.standaloneSetup(proyectoResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
