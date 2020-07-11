@@ -56,7 +56,7 @@ public class ProyectoDTO implements Serializable {
         return asesorId;
     }
     
-    public void setIdAsesor(Long asesorId){
+    public void setAsesorId(Long asesorId){
         this.asesorId = asesorId;
     }
 // -----adr
