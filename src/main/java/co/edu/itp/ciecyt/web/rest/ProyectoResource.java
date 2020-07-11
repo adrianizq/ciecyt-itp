@@ -79,14 +79,16 @@ public class ProyectoResource {
         ProyectoDTO result = proyectoService.save(proyectoDTO);
         
         Long idProyecto = result.getId();
+        Long idAsesor = result.getAsesorId();
         IntegranteProyectoDTO integDTO = new IntegranteProyectoDTO();
         integDTO.setIntegranteProyectoProyectoId(idProyecto);
-        //integDTO.setIntegranteProyectoUserId(idIntegranteProyecto); //idAsesor
+        //integDTO.setIntegranteProyectoUserId((long) 5701); // si lo guarda
+        integDTO.setIntegranteProyectoUserId(idAsesor);
         //integDTO.setIntegranteProyectoRolesModalidadId();
         //integDTO.setIntegranteProyectoUserLogin();
 
 
-         //integranteProyectoService.save(integDTO);
+         integranteProyectoService.save(integDTO);
 
 
         return ResponseEntity.created(new URI("/api/proyectos/" + result.getId()))

@@ -3,6 +3,8 @@ import java.time.LocalDate;
 import java.io.Serializable;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * A DTO for the {@link co.edu.itp.ciecyt.domain.Proyecto} entity.
  */
@@ -44,6 +46,20 @@ public class ProyectoDTO implements Serializable {
     private String proyectoModalidadModalidad;
 
     private Long facultadId;
+
+    //adr
+    
+    private Long asesorId;
+
+    
+    public Long getAsesorId(){
+        return asesorId;
+    }
+    
+    public void setIdAsesor(Long asesorId){
+        this.asesorId = asesorId;
+    }
+// -----adr
 
     public Long getId() {
         return id;
