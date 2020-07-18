@@ -41,13 +41,13 @@ public class ProyectoResource {
     private String applicationName;
 
     private final ProyectoService proyectoService;
-    private final IntegranteProyectoService integranteProyectoService;    
+    //private final IntegranteProyectoService integranteProyectoService;    
 
    
 
-    public ProyectoResource(ProyectoService proyectoService,  IntegranteProyectoService integranteProyectoService) {
+    public ProyectoResource(ProyectoService proyectoService) {
        this.proyectoService = proyectoService;
-       this.integranteProyectoService = integranteProyectoService;
+      
         
     }
 
@@ -76,19 +76,14 @@ public class ProyectoResource {
        //IntegranteProyectoDTO rI = IntegranteProyectoService.save
       //toca ver quien es ese usuario
 
-        ProyectoDTO result = proyectoService.save(proyectoDTO);
+        ProyectoDTO result = proyectoService.saveAsesorProyecto(proyectoDTO);
         
-        Long idProyecto = result.getId();
-        Long idAsesor = result.getAsesorId();
-        IntegranteProyectoDTO integDTO = new IntegranteProyectoDTO();
-        integDTO.setIntegranteProyectoProyectoId(idProyecto);
-        //integDTO.setIntegranteProyectoUserId((long) 5701); // si lo guarda
-        integDTO.setIntegranteProyectoUserId(idAsesor);
-        //integDTO.setIntegranteProyectoRolesModalidadId();
-        //integDTO.setIntegranteProyectoUserLogin();
+        //ProyectoDTO result = proyectoService.save(proyectoDTO);
+        
+       
 
 
-         integranteProyectoService.save(integDTO);
+         //integranteProyectoService.save(integDTO);
 
 
         return ResponseEntity.created(new URI("/api/proyectos/" + result.getId()))

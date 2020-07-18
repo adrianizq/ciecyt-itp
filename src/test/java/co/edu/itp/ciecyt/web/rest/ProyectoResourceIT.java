@@ -80,16 +80,7 @@ public class ProyectoResourceIT {
     @Autowired
     private ProyectoService proyectoService;
 
-    ///////////////////////7////
-    @Autowired
-    private IntegranteProyectoRepository integranteProyectoRepository;
-
-    @Autowired
-    private IntegranteProyectoMapper integranteProyectoMapper;
-
-    @Autowired
-    private IntegranteProyectoService integranteProyectoService;
-    /////////////////////////////77//
+   
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -113,7 +104,7 @@ public class ProyectoResourceIT {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final ProyectoResource proyectoResource = new ProyectoResource(proyectoService, integranteProyectoService);
+        final ProyectoResource proyectoResource = new ProyectoResource(proyectoService);
         this.restProyectoMockMvc = MockMvcBuilders.standaloneSetup(proyectoResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

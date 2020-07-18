@@ -4,7 +4,7 @@
             <menu-lateral></menu-lateral>
         </div>
         <div class="col-sm-8">
-            <form @submit.prevent="save()">
+           <form @submit.prevent="save()"> 
                 <div class="row">
                     <div class="col-12">
                         <!-- Jeison
