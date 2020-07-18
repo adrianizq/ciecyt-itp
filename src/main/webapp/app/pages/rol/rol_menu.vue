@@ -7,7 +7,7 @@
                     <div class="col-sm-12">
                         <table class="table table-striped">
                             <tr>
-                                <th>Menu</th>
+                                <th>Menu aaa</th>
                                 <th>Permitir Acceso</th>
                                 <th>Permitir Crear</th>
                                 <th>Permitir Editar</th>

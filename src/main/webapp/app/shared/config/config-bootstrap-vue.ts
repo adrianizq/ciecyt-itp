@@ -1,33 +1,34 @@
-import bForm from 'bootstrap-vue/es/components/form/form';
-import bFormInput from 'bootstrap-vue/es/components/form-input/form-input';
-import bFormCheckbox from 'bootstrap-vue/es/components/form-checkbox/form-checkbox';
-import bFormGroup from 'bootstrap-vue/es/components/form-group/form-group';
-import bProgress from 'bootstrap-vue/es/components/progress/progress';
-import bProgressBar from 'bootstrap-vue/es/components/progress/progress-bar';
-import bPagination from 'bootstrap-vue/es/components/pagination/pagination';
-import bButton from 'bootstrap-vue/es/components/button/button';
-import bNavbar from 'bootstrap-vue/es/components/navbar/navbar';
-import bNavbarNav from 'bootstrap-vue/es/components/navbar/navbar-nav';
-import bNavbarBrand from 'bootstrap-vue/es/components/navbar/navbar-brand';
-import bNavbarToggle from 'bootstrap-vue/es/components/navbar/navbar-toggle';
-import bNavItem from 'bootstrap-vue/es/components/nav/nav-item';
-import bNavItemDropdown from 'bootstrap-vue/es/components/nav/nav-item-dropdown';
-import bCollapse from 'bootstrap-vue/es/components/collapse/collapse';
-import bBadge from 'bootstrap-vue/es/components/badge/badge';
-import bDropdown from 'bootstrap-vue/es/components/dropdown/dropdown';
-import bDropdownItem from 'bootstrap-vue/es/components/dropdown/dropdown-item';
-import bLink from 'bootstrap-vue/es/components/link/link';
-import bAlert from 'bootstrap-vue/es/components/alert/alert';
-import bModal from 'bootstrap-vue/es/components/modal/modal';
-import bCard from 'bootstrap-vue/es/components/card/card';
-import bCardHeader from 'bootstrap-vue/es/components/card/card-header';
-import bCardText from 'bootstrap-vue/es/components/card/card-text';
-import bCardBody from 'bootstrap-vue/es/components/card/card-body';
-import bFormSelect from 'bootstrap-vue/es/components/form-select/form-select';
-
+import bForm from 'bootstrap-vue/src/components/form/form';
+import bFormInput from 'bootstrap-vue/src/components/form-input/form-input';
+import bFormCheckbox from 'bootstrap-vue/src/components/form-checkbox/form-checkbox';
+import bFormGroup from 'bootstrap-vue/src/components/form-group/form-group';
+import bProgress from 'bootstrap-vue/src/components/progress/progress';
+import bProgressBar from 'bootstrap-vue/src/components/progress/progress-bar';
+import bPagination from 'bootstrap-vue/src/components/pagination/pagination';
+import bButton from 'bootstrap-vue/src/components/button/button';
+import bNavbar from 'bootstrap-vue/src/components/navbar/navbar';
+import bNavbarNav from 'bootstrap-vue/src/components/navbar/navbar-nav';
+import bNavbarBrand from 'bootstrap-vue/src/components/navbar/navbar-brand';
+import bNavbarToggle from 'bootstrap-vue/src/components/navbar/navbar-toggle';
+import bNavItem from 'bootstrap-vue/src/components/nav/nav-item';
+import bNavItemDropdown from 'bootstrap-vue/src/components/nav/nav-item-dropdown';
+import bCollapse from 'bootstrap-vue/src/components/collapse/collapse';
+import bBadge from 'bootstrap-vue/src/components/badge/badge';
+import bDropdown from 'bootstrap-vue/src/components/dropdown/dropdown';
+import bDropdownItem from 'bootstrap-vue/src/components/dropdown/dropdown-item';
+import bLink from 'bootstrap-vue/src/components/link/link';
+import bAlert from 'bootstrap-vue/src/components/alert/alert';
+import bModal from 'bootstrap-vue/src/components/modal/modal';
+import bCard from 'bootstrap-vue/src/components/card/card';
+import bCardHeader from 'bootstrap-vue/src/components/card/card-header';
+import bCardText from 'bootstrap-vue/src/components/card/card-text';
+import bCardBody from 'bootstrap-vue/src/components/card/card-body';
+import bFormSelect from 'bootstrap-vue/src/components/form-select/form-select';
+import bFormTextArea from 'bootstrap-vue/src/components/form-textarea/form-textarea';
+import BCalendar from 'bootstrap-vue/src/components/form-datepicker/form-datepicker';
 /*Directivas*/
-import bModalDirective from 'bootstrap-vue/es/directives/modal/modal';
-import bToggleDirective from 'bootstrap-vue/es/directives/toggle/toggle';
+import bModalDirective from 'bootstrap-vue/src/directives/modal/modal';
+import bToggleDirective from 'bootstrap-vue/src/directives/toggle/toggle';
 
 export function initBootstrapVue(vue) {
   vue.component('b-badge', bBadge);
@@ -56,6 +57,8 @@ export function initBootstrapVue(vue) {
   vue.component('b-card-text', bCardText);
   vue.component('b-card-body', bCardBody);
   vue.component('b-form-select', bFormSelect);
+  vue.component('b-form-textarea', bFormTextArea);
+  vue.component('b-form-datepicker', BCalendar);
   /*Directivas*/
   vue.directive('b-modal', bModalDirective);
   vue.directive('b-toggle', bToggleDirective);

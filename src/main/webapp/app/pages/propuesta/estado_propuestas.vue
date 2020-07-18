@@ -42,7 +42,7 @@
     @Component({
         components: { MenuLateral }
     })
-    export default class Integrantes extends Vue {
+    export default class Elementos extends Vue {
 
     }
 </script>

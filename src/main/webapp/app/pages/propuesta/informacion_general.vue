@@ -22,7 +22,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="form-control-label" v-text="$t('ciecytApp.proyecto.titulo')" for="proyecto-titulo">Titulo</label>
+                            <label class="form-control-label " v-text="$t('ciecytApp.proyecto.titulo')" for="proyecto-titulo">Titulo</label>
                             <input type="text" class="form-control" name="titulo" id="proyecto-titulo"
                                    v-model="proyecto.titulo"/>
                         </div>

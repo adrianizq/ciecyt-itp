@@ -258,6 +258,13 @@ const Rol = () => import('../pages/rol/rol.vue');
 const RolMenuPermisos = () => import('../pages/rol/rol_menu.vue');
 const PropuestaInformacionGeneral = () => import('../pages/propuesta/informacion_general.vue');
 const PropuestaIntegrantes = () => import('../pages/propuesta/integrantes.vue');
+const PropuestaElementos = () => import('../pages/propuesta/elementos.vue');
+const PropuestaPresupuesto = () => import('../pages/propuesta/presupuesto.vue');
+const PropuestaResultadosEsperados = () => import('../pages/propuesta/resultados_esperados.vue');
+const PropuestaImpactosEsperado = () => import('../pages/propuesta/impactos_esperados.vue');
+const PropuestaEntidades = () => import('../pages/propuesta/entidades.vue');
+const PropuestaCronograma = () => import('../pages/propuesta/cronograma.vue');
+const PropuestaEstadoPropuestas = () => import('../pages/propuesta/estado_propuestas.vue');
 
 Vue.use(Router);
 
@@ -1327,6 +1334,48 @@ export default new Router({
       path: '/propuesta/integrantes',
       name: 'PropuestaIntegrantesView',
       component: PropuestaIntegrantes,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    {
+      path: '/propuesta/elementos',
+      name: 'PropuestaElementosView',
+      component: PropuestaElementos,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    {
+      path: '/propuesta/cronograma',
+      name: 'PropuestaCronogramaView',
+      component: PropuestaCronograma,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    {
+      path: '/propuesta/estado_propuestas',
+      name: 'PropuestaEstadoPropuestasView',
+      component: PropuestaEstadoPropuestas,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    {
+      path: '/propuesta/entidades',
+      name: 'PropuestaEntidadesView',
+      component: PropuestaEntidades,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    {
+      path: '/propuesta/resultados_esperados',
+      name: 'PropuestaResultadosEsperadosView',
+      component: PropuestaResultadosEsperados,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    {
+      path: '/propuesta/presupuesto',
+      name: 'PropuestaPresupuestoView',
+      component: PropuestaPresupuesto,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    {
+      path: '/propuesta/impactos_esperados',
+      name: 'PPropuestaImpactosEsperadoView',
+      component: PropuestaImpactosEsperado,
       meta: { authorities: ['ROLE_USER'] }
     }
     // jhipster-needle-add-entity-to-router - JHipster will add entities to the router here

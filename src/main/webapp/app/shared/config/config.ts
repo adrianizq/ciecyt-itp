@@ -126,6 +126,42 @@ export function initVueXStore(vue) {
           title: 'Integrantes',
           description: 'En esta sección ingrese los integrantes de la propuesta Nota: Cada modalidad tiene un maximo de integrantes',
           to: '/propuesta/integrantes'
+        },
+        {
+          title: 'Elementos',
+          description:
+            'En este apartado diligencie: Resumen, Problema, Pregunta de Investigación, Objetivos, Marco de Referencia y Metodología esta sección ingrese los integrantes de la propuesta Nota: Cada modalidad tiene un maximo de integrantes',
+          to: '/propuesta/elementos'
+        },
+        {
+          title: 'Presupuesto',
+          description: 'Presupuesto',
+          to: '/propuesta/presupuesto'
+        },
+        {
+          title: 'Resultados Esperados',
+          description: 'Resultados o Productos Esperados del Proyecto',
+          to: '/propuesta/resultados_esperados'
+        },
+        {
+          title: 'Impactos Esperados',
+          description: 'Impactos Esperados del Proyecto',
+          to: '/propuesta/impactos_esperados'
+        },
+        {
+          title: 'Entidades Financiadoras',
+          description: 'Entidades Financiadoras',
+          to: '/propuesta/entidades'
+        },
+        {
+          title: 'Cronograma',
+          description: 'Cronograma de Actividades',
+          to: '/propuesta/cronograma'
+        },
+        {
+          title: 'Estado de Propuestas',
+          description: 'Muestra el estado de sus propuestas',
+          to: '/propuesta/estado_propuestas'
         }
       ]
     },
