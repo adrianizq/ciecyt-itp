@@ -7,13 +7,7 @@
            <form @submit.prevent="save()"> 
                 <div class="row">
                     <div class="col-12">
-                        <!-- Jeison
-                         <div class="form-group">
-                             <label class="form-control-label" for="titulo_proyecto">Titulo del proyecto</label>
-                             <input type="text" class="form-control" name="titulo_proyecto" id="titulo_proyecto"
-                             v-model=proyecto.titulo />
-                         </div>
-                         -->
+                      
 
                         <div class="form-group" v-if="proyecto.id">
                             <label for="id" v-text="$t('global.field.id')">ID</label>
@@ -90,15 +84,7 @@
                             label="Asesor"
                             label-for="usuario"
                         >
-                            <!--
-                            <b-form-select :options="users" v-model="user" text-field="firstName" value-field="id" id="user">
-
-
-                              <input type="text" class="form-control" name="titulo" id="proyecto-titulo"
-                                   v-model="proyecto.titulo"/>   
-                             -->
-
-
+                           
                             <b-form-select :options="users" v-model="proyecto.asesorId" text-field="nombresApellidos" value-field="id" id="proyecto-asesorId" >
 
                             </b-form-select>
@@ -108,15 +94,7 @@
 
                 </div>
 
-                <!--
-                                <div>
-                                    <button type="button" id="cancel-save" class="btn btn-secondary" v-on:click="previousState()">
-                                        <font-awesome-icon icon="ban"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.cancel')">Cancel</span>
-                                    </button>
-                                     <button type="submit" id="save-entity" :disabled="$v.proyecto.$invalid || isSaving" class="btn btn-primary">
-                                        <font-awesome-icon icon="save"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.save')">Save</span>
-                                    </button>
-                -->
+              
                 <div>
 
                     <button type="button" id="cancel-save" class="btn btn-secondary" v-on:click="previousState()">
@@ -208,26 +186,29 @@
         }
 
         public save(): void {
-            //this.isSaving = true;
-            //if (this.proyecto.id) {
-            //    this.proyectoService()
-            //    .update(this.proyecto)
-            //    .then(param => {
-            //        this.isSaving = false;
-            //        this.$router.go(-1);
-            //        const message = this.$t('ciecytApp.proyecto.updated', { param: param.id });
-            //        this.alertService().showAlert(message, 'info');
-            //    });
-            //} else {
+            this.isSaving = true;
+            if (this.proyecto.id) {
+                this.proyectoService()
+                .update(this.proyecto)
+                .then(param => {
+                    this.isSaving = false;
+                    this.$router.go(-1);
+                    const message = this.$t('ciecytApp.proyecto.updated', { param: param.id });
+                    this.alertService().showAlert(message, 'info');
+                });
+            } else {
             this.proyectoService()
                 .create(this.proyecto)
                 .then(param => {
                     this.isSaving = false;
-                    this.$router.go(-1);
+                    //this.$router.go(-1);
+                    // this.$router.go("http://localhost:9000/propuesta/integrantes/" + `${proyecto.getId()}` )
+                    this.$router.push({ name: 'PropuestaIntegrantesView', params: { proyectoId: `${this.proyecto.id}` }})
+                    
                     const message = this.$t('ciecytApp.proyecto.created', { param: param.id });
                     this.alertService().showAlert(message, 'success');
                 });
-            //}
+            }
         }
 
         get LineasInvestigacion() {

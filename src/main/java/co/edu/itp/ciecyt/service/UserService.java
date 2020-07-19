@@ -268,14 +268,14 @@ public class UserService {
      * userRepository.findAllByUserWithAuthoritiesByAuthorityName(authorityName); }
      */
 
-    static Specification<User> isAsesor(Authority role) {
+    static Specification<User> isRol(Authority role) {
         return (obj, cq, cb) -> cb.isMember(role, obj.get("authorities"));
     }
 
     @Transactional(readOnly = true)
     public Page<UserDTO> getAllAsesores(Pageable pageable) {
         Authority asesor = authorityRepository.findById(AuthoritiesConstants.ASESOR).get();
-        return userRepository.findAll(Specification.where(isAsesor(asesor)), pageable).map(UserDTO::new);
+        return userRepository.findAll(Specification.where(isRol(asesor)), pageable).map(UserDTO::new);
     }
 
 /////////////////
@@ -283,13 +283,22 @@ public class UserService {
 public List<UserDTO> getAllAsesoresNoPage() {
     List <UserDTO> listDTO = new ArrayList<>();
     Authority asesor = authorityRepository.findById(AuthoritiesConstants.ASESOR).get();
-    List <User> list= userRepository.findAll(Specification.where(isAsesor(asesor)));
-    //for(User user:list){
-        //Object userMapper;
-        //listDTO.add(userMapper.toDto(user));
-    //    listDto.add( userMapper.toDto(user));
-    //}
-    // cambiar de una lista User a una lista userDTO
+    List <User> list= userRepository.findAll(Specification.where(isRol(asesor)));
+    
+    listDTO = userMapper.usersToUserDTOs(list);
+    return listDTO;
+}
+
+/////////////////
+
+
+
+@Transactional(readOnly = true)
+public List<UserDTO> getAllEstudiantesNoPage() {
+    List <UserDTO> listDTO = new ArrayList<>();
+    Authority estudiante = authorityRepository.findById(AuthoritiesConstants.ESTUDIANTE).get();
+    List <User> list= userRepository.findAll(Specification.where(isRol(estudiante)));
+    
     listDTO = userMapper.usersToUserDTOs(list);
     return listDTO;
 }
