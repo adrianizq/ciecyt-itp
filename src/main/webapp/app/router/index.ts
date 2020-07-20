@@ -1331,13 +1331,11 @@ export default new Router({
       meta: { authorities: ['ROLE_USER'] }
     },
     {
+
       path: '/propuesta/integrantes/:proyectoId',
       name: 'PropuestaIntegrantesView',
       component: PropuestaIntegrantes,
-      //props: { 
-      //  type:[Number,String],
-      //  required:true
-      //},
+      props: true,
       meta: { authorities: ['ROLE_USER'] }
     },
     {

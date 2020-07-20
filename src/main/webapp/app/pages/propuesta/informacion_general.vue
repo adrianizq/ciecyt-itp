@@ -1,5 +1,13 @@
 <template>
+
     <div class="row">
+         <b-alert :show="dismissCountDown"
+            dismissible
+            :variant="alertType"
+            @dismissed="dismissCountDown=0"
+            @dismiss-count-down="countDownChanged">
+            {{alertMessage}}
+        </b-alert>
         <div class="col-sm-4">
             <menu-lateral></menu-lateral>
         </div>
@@ -100,10 +108,18 @@
                     <button type="button" id="cancel-save" class="btn btn-secondary" v-on:click="previousState()">
                         <font-awesome-icon icon="ban"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.cancel')">Cancel</span>
                     </button>
+
+<!--
+                    <router-link :to="{name: 'PropuestaIntegrantesView', query: {proyectoId: this.proyecto.id}}"  tag="button" class="btn btn-primary">
+                                <font-awesome-icon icon="save"></font-awesome-icon>
+                                <span class="d-none d-md-inline" v-text="$t('entity.action.save')">Save</span>
+                            </router-link>
+-->
+                    
                     <button type="submit" id="save-entity" class="btn btn-primary">
                         <font-awesome-icon icon="save"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.save')">Save</span>
                     </button>
-
+                    
 
                 </div>
 
@@ -130,9 +146,12 @@
     import { IProyecto, Proyecto } from '@/shared/model/proyecto.model';
     import ProyectoService from '@/entities/proyecto/proyecto.service';
     import { numeric, required, minLength, maxLength } from 'vuelidate/lib/validators';
+import { id } from 'date-fns/esm/locale';
+//import { id } from 'date-fns/locale';
 
     const validations: any = {
         proyecto: {
+            id: {},
             titulo: {},
             url: {},
             lugarEjecucion: {},
@@ -150,6 +169,8 @@
         components: { MenuLateral },
         validations
     })
+
+  
 
     export default class PropuestaInformacionGeneral extends Vue {
         @Inject('modalidadService') private modalidadService: () => ModalidadService;
@@ -170,13 +191,17 @@
         public user: number = null;
         public nombresApellidos: string = null;
         public proyecto: IProyecto = new Proyecto();
+        public proyId: string = null;
 
         public isSaving = false;
+
+        
 
         beforeRouteEnter(to, from, next) {
             next(vm => {
                 if (to.params.proyectoId) {
                     vm.retrieveProyecto(to.params.proyectoId);
+                    //vm.retrieveProyecto(to.params.id);
                 }
                 /*if (to.params.cicloPropedeuticoId) {
                     vm.retrieveCicloPropedeutico(to.params.cicloPropedeuticoId);
@@ -201,14 +226,19 @@
                 .create(this.proyecto)
                 .then(param => {
                     this.isSaving = false;
-                    //this.$router.go(-1);
-                    // this.$router.go("http://localhost:9000/propuesta/integrantes/" + `${proyecto.getId()}` )
-                    this.$router.push({ name: 'PropuestaIntegrantesView', params: { proyectoId: `${this.proyecto.id}` }})
+    
+                    this.proyId = String(param.id);
+
+                   this.$router.push({ name: 'PropuestaIntegrantesView',query:{ proyectoId: this.proyId}});
                     
                     const message = this.$t('ciecytApp.proyecto.created', { param: param.id });
                     this.alertService().showAlert(message, 'success');
+                    //console.log(message);
+                   
                 });
+                
             }
+             
         }
 
         get LineasInvestigacion() {

@@ -8,7 +8,7 @@
                 <div class="row">
                     <div class="col-12">
                       
-
+                            <h1>Este es el Proyectoid {{$route.query.proyectoId}}</h1>
                         <div class="form-group" v-if="proyecto.id">
                             <label for="id" v-text="$t('global.field.id')">ID</label>
                             <input type="text" class="form-control" id="id" name="id"
@@ -28,11 +28,11 @@
                     <!-- ADR   -->
                     <div class="col-md-6 col-12">
                         <b-form-group
-                            label="Estudiante"
+                            label="Integrante"
                             label-for="usuario"
                         >
                            
-                            <b-form-select :options="users" v-model="proyecto.estudianteId" text-field="nombresApellidos" value-field="id" id="proyecto-asesorId" >
+                            <b-form-select :options="users" v-model="proyecto.estudianteId" text-field="nombresApellidos" value-field="id" id="proyecto-estudianteId" >
 
                             </b-form-select>
                         </b-form-group>
@@ -109,7 +109,6 @@
         public modalidads: IModalidad[] = [];
         public facultades: IFacultad[] = [];
         public lineas_investigacion: ILineaInvestigacion[] = [];
-        //public users: IUsuario[] = [];
         public users: IUser[] = [];
 
         public linea_investigacion: number = null;
@@ -117,16 +116,19 @@
         public user: number = null;
         public nombresApellidos: string = null;
         public proyecto: IProyecto = new Proyecto();
-        public proyId: string = null; 
 
         public isSaving = false;
-
+        
+        
         beforeRouteEnter(to, from, next) {
+             //this.proyectoId = this.$route.params.proyectoId;
+              
 
-            this.proyId =  this.$route.params.proyectoId;
-            next(vm => {
+              next(vm => {
                 if (to.params.proyectoId) {
                     vm.retrieveProyecto(to.params.proyectoId);
+                    //this.proyectoId = to.params.proyectoId;
+                    //console.log(to.router.params.proyectoId);
                 }
                 /*if (to.params.cicloPropedeuticoId) {
                     vm.retrieveCicloPropedeutico(to.params.cicloPropedeuticoId);
@@ -143,6 +145,7 @@
                 .then(param => {
                     this.isSaving = false;
                     this.$router.go(-1);
+                    //console.log(this.proyecto.id);
                     //this.$router.go("http://localhost:9000/propuesta/integrantes")
                     const message = this.$t('ciecytApp.proyecto.updated', { param: param.id });
                     this.alertService().showAlert(message, 'info');
@@ -161,6 +164,20 @@
             }*/
         }
 
+
+        public retrieveProyecto(proyectoId): void {
+    this.proyectoService()
+      .find(proyectoId)
+      .then(res => {
+        this.proyecto = res;
+      });
+  }
+
+  public previousState(): void {
+    this.$router.go(-1);
+  }
+
+        /*
         get LineasInvestigacion() {
             return this.lineas_investigacion.filter(linea => {
                 return (!linea.lineaPadreId && linea.lineaInvestigacionFacultadId == this.proyecto.facultadId);
@@ -172,8 +189,9 @@
                 return (linea.lineaPadreId == this.proyecto.proyectoLineaInvestigacionId && linea.lineaPadreId);
             });
         }
-
+        */
         initRelationships() {
+            /*
             //Obtenienedo las modalidades
             this.modalidadService()
                 .retrieve()
@@ -194,7 +212,7 @@
                 .then(res => {
                     this.lineas_investigacion = res.data;
                 });
-
+            */
             //Obteniendo los usuarios asesores
             this.usuarioService()
                 .retrieveEstudiantes()
