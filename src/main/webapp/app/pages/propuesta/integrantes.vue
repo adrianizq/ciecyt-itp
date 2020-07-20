@@ -116,6 +116,7 @@
         public user: number = null;
         public nombresApellidos: string = null;
         public proyecto: IProyecto = new Proyecto();
+        public proyId: any;
 
         public isSaving = false;
         
@@ -165,17 +166,7 @@
         }
 
 
-        public retrieveProyecto(proyectoId): void {
-    this.proyectoService()
-      .find(proyectoId)
-      .then(res => {
-        this.proyecto = res;
-      });
-  }
-
-  public previousState(): void {
-    this.$router.go(-1);
-  }
+      
 
         /*
         get LineasInvestigacion() {
@@ -191,6 +182,14 @@
         }
         */
         initRelationships() {
+             //Obtenienedo las modalidades
+             //this.$route.query.name
+             this.proyId = this.$route.query.proyectoId;
+            this.proyectoService()
+                .find(this.proyId)
+                .then(res => {
+                    this.proyecto=res;
+                });
             /*
             //Obtenienedo las modalidades
             this.modalidadService()
