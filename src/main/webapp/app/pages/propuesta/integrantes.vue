@@ -7,36 +7,51 @@
            <form @submit.prevent="save()"> 
                 <div class="row">
                     <div class="col-12">
-                      
-                            <h1>Este es el Proyectoid {{$route.query.proyectoId}}</h1>
+                        <div><h1>{{this.cantEstudiantes}}</h1></div>
+
+                        <div>
+                             <span v-for="n in this.cantEstudiantes">{{ n }} </span>
+                        </div>
+                      <!--
                         <div class="form-group" v-if="proyecto.id">
                             <label for="id" v-text="$t('global.field.id')">ID</label>
                             <input type="text" class="form-control" id="id" name="id"
-                                   v-model="proyecto.id" readonly/>
+                                   v-model="integranteProyecto.id" readonly/>
                         </div>
-
+                        -->
+<!--
                         <div class="form-group">
                             <label class="form-control-label " v-text="$t('ciecytApp.proyecto.titulo')" for="proyecto-titulo">Titulo</label>
                             <input type="text" class="form-control" name="titulo" id="proyecto-titulo"
                                    v-model="proyecto.titulo"/>
                         </div>
-
+-->
 
                     </div>
 
 
-                    <!-- ADR   -->
-                    <div class="col-md-6 col-12">
-                        <b-form-group
+                   
+                    <div class="col-md-6 col-12" >
+                         <span v-for="n in this.cantEstudiantes">
+                       
+                       <b-form 
                             label="Integrante"
                             label-for="usuario"
                         >
-                           
-                            <b-form-select :options="users" v-model="proyecto.estudianteId" text-field="nombresApellidos" value-field="id" id="proyecto-estudianteId" >
+                            
+                            <b-form-select  :options="users" v-model="integranteProyecto.integranteProyectoUserId" text-field="nombresApellidos" value-field="id" id="proyecto-estudianteId" >
+                              </b-form-select>
+                               </b-form>
 
-                            </b-form-select>
-                        </b-form-group>
+                               <button type="submit" id="save-entity" class="btn btn-primary">
+                        <font-awesome-icon icon="save"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.save')">Agregar</span>
+                    </button>
+
+                                 </span>
+                                   
                     </div>
+               
+                 
 
 
                 </div>
@@ -47,9 +62,7 @@
                     <button type="button" id="cancel-save" class="btn btn-secondary" v-on:click="previousState()">
                         <font-awesome-icon icon="ban"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.cancel')">Cancel</span>
                     </button>
-                    <button type="submit" id="save-entity" class="btn btn-primary">
-                        <font-awesome-icon icon="save"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.save')">Save</span>
-                    </button>
+                    
 
 
                 </div>
@@ -64,8 +77,8 @@
     import AlertService from '@/shared/alert/alert.service';
 
     import MenuLateral from '@/components/propuesta/menu_lateral.vue';
-    import ModalidadService from '@/entities/modalidad/modalidad.service';
-    import { IModalidad } from '@/shared/model/modalidad.model';
+    import RolesModalidadService from '@/entities/roles-modalidad/roles-modalidad.service';
+    import { IRolesModalidad } from '@/shared/model/roles-modalidad.model';
     import FacultadService from '@/entities/facultad/facultad.service';
     import { IFacultad } from '@/shared/model/facultad.model';
     import LineaInvestigacionService from '@/entities/linea-investigacion/linea-investigacion.service';
@@ -76,22 +89,33 @@
     //ADR
     import { IProyecto, Proyecto } from '@/shared/model/proyecto.model';
     import ProyectoService from '@/entities/proyecto/proyecto.service';
+
+    import { IIntegranteProyecto, IntegranteProyecto } from '@/shared/model/integrante-proyecto.model';
+    import IntegranteProyectoService from '@/entities/integrante-proyecto/integrante-proyecto.service';
+
     import { numeric, required, minLength, maxLength } from 'vuelidate/lib/validators';
 
     const validations: any = {
-        proyecto: {
-            titulo: {},
-            url: {},
-            lugarEjecucion: {},
-            duracion: {},
-            fechaIni: {},
-            fechaFin: {},
-            contrapartidaPesos: {},
-            contrapartidaEspecie: {},
-            palabrasClave: {},
-            convocatoria: {}
+        integranteProyecto: {
+                
+            integrante: {},
+            descripcion: {},
+            integranteProyectoUserLogin: {},
+            integranteProyectoUserId: {},
+            integranteProyectoProyectoTitulo: {},
+            integranteProyectoProyectoId: {},
+            integranteProyectoRolesModalidadRol: {},
+            integranteProyectoRolesModalidadId: {},
         }
     };
+
+
+
+
+
+
+
+
 
     @Component({
         components: { MenuLateral },
@@ -99,49 +123,61 @@
     })
 
     export default class PropuestaIntegrantes extends Vue {
-        @Inject('modalidadService') private modalidadService: () => ModalidadService;
-        @Inject('facultadService') private facultadService: () => FacultadService;
-        @Inject('lineaInvestigacionService') private lineaInvestigacionService: () => LineaInvestigacionService;
         @Inject('usuarioService') private usuarioService: () => UsuarioService;
         @Inject('proyectoService') private proyectoService: () => ProyectoService;
+        @Inject('integranteProyectoService') private integranteProyectoService: () => IntegranteProyectoService;
+        @Inject('rolesModalidadService') private rolesModalidadService: () => RolesModalidadService;
         @Inject('alertService') private alertService: () => AlertService;
 
-        public modalidads: IModalidad[] = [];
-        public facultades: IFacultad[] = [];
-        public lineas_investigacion: ILineaInvestigacion[] = [];
         public users: IUser[] = [];
-
-        public linea_investigacion: number = null;
-        public facultad: number = null;
+        public rolesModalidads: IRolesModalidad[] = [];
+        public integranteProyecto: IIntegranteProyecto = new IntegranteProyecto();
         public user: number = null;
         public nombresApellidos: string = null;
         public proyecto: IProyecto = new Proyecto();
         public proyId: any;
-
         public isSaving = false;
+        public modalidadId: number =0;
+        public n: number =0;
+        public cantEstudiantes: number=0;
         
+          beforeCreate(){
+          //this.dato++; da 0
+        }
+
+        created(){
+          //this.dato++; //da 1
+         // this.modalidadId = this.proyecto.proyectoModalidadId;
+        }
+
+        mounted(){
+          
+        }
         
         beforeRouteEnter(to, from, next) {
+            // this.dato++;  //error vue-router.esm.js?8c4f:1924 TypeError: Cannot read property 'dato' of undefined
              //this.proyectoId = this.$route.params.proyectoId;
-              
+            //this.dato++; //undefined
+            //console.log("beforeRouteEnter");
+            //console.log("beforeRouteEnter" + this.dato);
 
               next(vm => {
                 if (to.params.proyectoId) {
                     vm.retrieveProyecto(to.params.proyectoId);
-                    //this.proyectoId = to.params.proyectoId;
-                    //console.log(to.router.params.proyectoId);
+                    
                 }
-                /*if (to.params.cicloPropedeuticoId) {
-                    vm.retrieveCicloPropedeutico(to.params.cicloPropedeuticoId);
-                }*/
+                
                 vm.initRelationships();
+
+               
+
             });
         }
 
         public save(): void {
             this.isSaving = true;
-            if (this.proyecto.id) {
-                this.proyectoService()
+            //if (this.proyecto.id) {
+                /*this.proyectoService()
                 .update(this.proyecto)
                 .then(param => {
                     this.isSaving = false;
@@ -150,68 +186,55 @@
                     //this.$router.go("http://localhost:9000/propuesta/integrantes")
                     const message = this.$t('ciecytApp.proyecto.updated', { param: param.id });
                     this.alertService().showAlert(message, 'info');
-                });
-            } /*else {
-            this.proyectoService()
-                .create(this.proyecto)
+                });*/
+                
+
+            //} else {
+
+            // this.modalidadId = this.proyecto.proyectoModalidadId;
+            //console.log(this.modalidadId); //funciona
+           
+
+                 this.integranteProyecto.integranteProyectoProyectoId =   this.proyId;
+                this.integranteProyectoService()
+                .create(this.integranteProyecto)
                 .then(param => {
                     this.isSaving = false;
                     //this.$router.go(-1);
                     // this.$router.go("http://localhost:9000/propuesta/integrantes/" + `${proyecto.getId()}` )
-                    this.$router.push({ name: 'PropuestaIntegrantesView', params: { proyectoId: `${this.proyecto.id}` } })
-                    const message = this.$t('ciecytApp.proyecto.created', { param: param.id });
-                    this.alertService().showAlert(message, 'success');
+                    //this.$router.push({ name: 'PropuestaIntegrantesView', params: { proyectoId: `${this.proyecto.id}` } })
+                    const message = this.$t('ciecytApp.integranteProyecto.created', { param: param.id });
+                    //this.alertService().showAlert(message, 'success');
                 });
-            }*/
+                
+         
+           
+           // }
         }
 
 
       
 
-        /*
-        get LineasInvestigacion() {
-            return this.lineas_investigacion.filter(linea => {
-                return (!linea.lineaPadreId && linea.lineaInvestigacionFacultadId == this.proyecto.facultadId);
-            });
-        }
-
-        get SubLineas() {
-            return this.lineas_investigacion.filter(linea => {
-                return (linea.lineaPadreId == this.proyecto.proyectoLineaInvestigacionId && linea.lineaPadreId);
-            });
-        }
-        */
         initRelationships() {
-             //Obtenienedo las modalidades
-             //this.$route.query.name
-             this.proyId = this.$route.query.proyectoId;
+            this.proyId = this.$route.query.proyectoId;
             this.proyectoService()
                 .find(this.proyId)
                 .then(res => {
                     this.proyecto=res;
+                     this.modalidadId = res.proyectoModalidadId;
                 });
-            /*
-            //Obtenienedo las modalidades
-            this.modalidadService()
+           
+            
+                       //Obteniendo las lineas de investigacion
+            this.rolesModalidadService()
                 .retrieve()
                 .then(res => {
-                    this.modalidads = res.data;
+                    this.rolesModalidads = res.data;
+                    const newArray = this.rolesModalidads.filter((value, index) => {
+                          if (value.rolesModalidadModalidadId == this.modalidadId && value.rol=="Estudiante") return true;
+                    });
+                    this.cantEstudiantes = newArray[0].cantidad;
                 });
-
-            //Obteniendo las facultadas
-            this.facultadService()
-                .retrieve()
-                .then(res => {
-                    this.facultades = res.data;
-                });
-
-            //Obteniendo las lineas de investigacion
-            this.lineaInvestigacionService()
-                .retrieve()
-                .then(res => {
-                    this.lineas_investigacion = res.data;
-                });
-            */
             //Obteniendo los usuarios asesores
             this.usuarioService()
                 .retrieveEstudiantes()
@@ -223,7 +246,14 @@
 
                 });
 
+            //cargar variables
+            
         }
+
+
+
+
+        
     }
 </script>
 

@@ -183,7 +183,6 @@ import { id } from 'date-fns/esm/locale';
         public modalidads: IModalidad[] = [];
         public facultades: IFacultad[] = [];
         public lineas_investigacion: ILineaInvestigacion[] = [];
-        //public users: IUsuario[] = [];
         public users: IUser[] = [];
 
         public linea_investigacion: number = null;
