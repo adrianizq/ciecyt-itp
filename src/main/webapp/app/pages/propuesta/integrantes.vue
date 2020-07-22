@@ -32,14 +32,14 @@
 
                    
                     <div class="col-md-6 col-12" >
-                         <span v-for="n in this.cantEstudiantes">
+                         <span v-for="ip in this.integrantesProyecto">
                        
                        <b-form 
                             label="Integrante"
                             label-for="usuario"
                         >
                             
-                            <b-form-select  :options="users" v-model="integranteProyecto.integranteProyectoUserId" text-field="nombresApellidos" value-field="id" id="proyecto-estudianteId" >
+                            <b-form-select  :options="users" v-model="ip.integranteProyectoUserId" text-field="nombresApellidos" value-field="id" id="proyecto-estudianteId" >
                               </b-form-select>
                                </b-form>
 
@@ -131,7 +131,8 @@
 
         public users: IUser[] = [];
         public rolesModalidads: IRolesModalidad[] = [];
-        public integranteProyecto: IIntegranteProyecto = new IntegranteProyecto();
+        public integrantesProyecto: IIntegranteProyecto[] = [];
+        public integranteProyecto = new IntegranteProyecto();
         public user: number = null;
         public nombresApellidos: string = null;
         public proyecto: IProyecto = new Proyecto();
@@ -196,6 +197,7 @@
            
 
                  this.integranteProyecto.integranteProyectoProyectoId =   this.proyId;
+                 //this.integranteProyecto.integranteProyectoUserId = this.integrantesProyecto[elegido].integranteProyectoUserId;
                 this.integranteProyectoService()
                 .create(this.integranteProyecto)
                 .then(param => {
@@ -234,6 +236,10 @@
                           if (value.rolesModalidadModalidadId == this.modalidadId && value.rol=="Estudiante") return true;
                     });
                     this.cantEstudiantes = newArray[0].cantidad;
+                    //crear los elementos para 
+                    for (var i = 0 ;i < this.cantEstudiantes; i++ ){
+                        this.integrantesProyecto[i] = new IntegranteProyecto();
+                    }
                 });
             //Obteniendo los usuarios asesores
             this.usuarioService()
@@ -247,6 +253,7 @@
                 });
 
             //cargar variables
+            
             
         }
 
