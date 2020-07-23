@@ -39,7 +39,7 @@
                             label-for="usuario"
                         >
                             
-                            <b-form-select  :options="users" v-model="ip.integranteProyectoUserId" text-field="nombresApellidos" value-field="id" id="proyecto-estudianteId" >
+                            <b-form-select  :options="users" v-model="ip.integranteProyectoUserId" text-field="nombresApellidos" value-field="id" id="proyecto-estudianteId" v-on:change="getSelectedItem(ip.integranteProyectoUserId)" >
                               </b-form-select>
                                </b-form>
 
@@ -141,6 +141,8 @@
         public modalidadId: number =0;
         public n: number =0;
         public cantEstudiantes: number=0;
+
+
         
           beforeCreate(){
           //this.dato++; da 0
@@ -214,7 +216,13 @@
            // }
         }
 
-
+getSelectedItem(selected)
+        {
+            //console.log("seleccionado" + selected.target.value);
+            console.log("seleccionado" + selected);
+            this.integranteProyecto.integranteProyectoUserId = selected;
+        }
+        
       
 
         initRelationships() {
