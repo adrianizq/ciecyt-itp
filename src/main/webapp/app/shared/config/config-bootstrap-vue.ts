@@ -26,6 +26,8 @@ import { BCardBody } from 'bootstrap-vue/src/components/card/card-body';
 import { BFormSelect } from 'bootstrap-vue/src/components/form-select/form-select';
 import { BFormTextarea } from 'bootstrap-vue/src/components/form-textarea/form-textarea';
 import { BFormDatepicker } from 'bootstrap-vue/src/components/form-datepicker/form-datepicker';
+import { BFormRadio } from 'bootstrap-vue/src/components/form-radio/form-radio';
+import { BFormRadioGroup } from 'bootstrap-vue/src/components/form-radio/form-radio-group';
 /*Directivas*/
 import { VBModal } from 'bootstrap-vue/src/directives/modal/modal';
 import { VBToggle } from 'bootstrap-vue/src/directives/toggle/toggle';
@@ -59,6 +61,8 @@ export function initBootstrapVue(vue) {
   vue.component('b-form-select', BFormSelect);
   vue.component('b-form-textarea', BFormTextarea);
   vue.component('b-form-datepicker', BFormDatepicker);
+  vue.component('b-form-radio', BFormRadio);
+  vue.component('b-form-radio-group', BFormRadioGroup);
   /*Directivas*/
   vue.directive('b-modal', VBModal);
   vue.directive('b-toggle', VBToggle);

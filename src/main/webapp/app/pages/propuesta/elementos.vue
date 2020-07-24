@@ -17,12 +17,13 @@
           <b-form-textarea id="textarea-rows" placeholder="Planteamiento del Problema" rows="6"></b-form-textarea>
         </div>
       </div>
-      <div class="col-12 text-left">
-        <button type="submit" id="save-entity" class="btn btn-primary">
+     
+       <!--<div class="col-12 text-left">
+        <button type="submit" id="save-entity" class="btn btn-primary ">
           <font-awesome-icon icon="save"></font-awesome-icon>&nbsp;
-          <span>Más Elementos</span>
+          <span class="left">Más Elementos</span>
         </button>
-      </div>
+      </div>-->
     </div>
   </div>
 </template>
