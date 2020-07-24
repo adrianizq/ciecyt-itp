@@ -228,7 +228,7 @@ import { id } from 'date-fns/esm/locale';
     
                     this.proyId = String(param.id);
 
-                   this.$router.push({ name: 'PropuestaIntegrantesView',query:{ proyectoId: this.proyId}});
+                   this.$router.push({ name: 'PropuestaIntegrantesView',params:{ proyectoId: this.proyId}});
                     
                     const message = this.$t('ciecytApp.proyecto.created', { param: param.id });
                     this.alertService().showAlert(message, 'success');

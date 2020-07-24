@@ -4,6 +4,7 @@ import co.edu.itp.ciecyt.domain.*;
 import co.edu.itp.ciecyt.service.dto.IntegranteProyectoDTO;
 
 import org.mapstruct.*;
+import java.util.List;
 
 /**
  * Mapper for the entity {@link IntegranteProyecto} and its DTO {@link IntegranteProyectoDTO}.
@@ -32,4 +33,5 @@ public interface IntegranteProyectoMapper extends EntityMapper<IntegranteProyect
         integranteProyecto.setId(id);
         return integranteProyecto;
     }
+
 }

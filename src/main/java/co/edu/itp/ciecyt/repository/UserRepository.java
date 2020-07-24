@@ -9,6 +9,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
@@ -67,7 +68,35 @@ public interface UserRepository extends JpaRepository<User, Long> {
     // List<User> findAllByCreatedDateBefore(String authority ,Instant dateTime, Predicate predicate);
     
 
-    Page<User> findAll(Specification<User> where, Pageable pageable);
+    //Page<User> findAll(Specification<User> where, Pageable pageable);
     public List <User> findAll(Specification<User> where);
+
+    /*
+    SELECT DISTINCT ju.id, ju.first_name, ju.last_name, ju.email, ju.image_url,
+                ju.activated, ju.lang_key
+    			 FROM jhi_user ju  
+    			 INNER JOIN integrante_proyecto i ON ju.id = i.integrante_proyecto_user_id 
+				 INNER JOIN roles_modalidad rm ON 
+				 	i.integrante_proyecto_roles_modalidad_id =rm.id
+    			 WHERE (i.integrante_proyecto_proyecto_id='11504' 
+						and rm.id = '10751') 
+    			 ORDER BY ju.last_name;
+    */
+
+/*
+    
+@Query(value=" SELECT DISTINCT ju.id, ju.first_name, ju.last_name, ju.email, ju.image_url, "+
+    " ju.activated, ju.lang_key "+
+    "  FROM jhi_user ju "+ 
+    "  INNER JOIN integrante_proyecto i ON ju.id = i.integrante_proyecto_user_id "+
+    "  INNER JOIN roles_modalidad rm ON "+
+    "      i.integrante_proyecto_roles_modalidad_id =rm.id "+
+    "  WHERE (i.integrante_proyecto_proyecto_id=?1 "+
+    "         and rm.id =?2) "+
+    "  ORDER BY ju.last_name"
+    ,nativeQuery = true)
+public List<User> findEstudiantesIntegrantesProyecto(Long idProyecto, Long idRolModalidad);
+*/   
+
 
 }

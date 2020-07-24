@@ -215,7 +215,6 @@ public class UserResource {
 			//return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body( new ApiMessage("ERR_99", error));
         }
     }
-
     
     @GetMapping("/users/estudiantes")
         public ResponseEntity<?> getAllUsersEstudiantesNoPage() {
@@ -223,21 +222,29 @@ public class UserResource {
         //Locale locale = Locale.forLanguageTag(user.get().getLangKey());
         try{
         final List<UserDTO> list = userService.getAllEstudiantesNoPage();
-        
         return new ResponseEntity<>(list, HttpStatus.OK);
-        
         }catch (Exception e){
           //  String det = "";
 		//	String message = "api.users.search.error"; //TODO ESTE SE DEBE CONSULTAR DE LOS MESSAGES DEL SISTEMA
-
 		//	String error = messageSource.getMessage(message, new String[] {det, e.getMessage()}, locale);
-
 		//	log.error(error);
-
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body( e.getMessage());
 			//return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body( new ApiMessage("ERR_99", error));
         }
     }
 
+    //getAllEstudiantesIntegrantesProyectoNoPage
+/*
+    @GetMapping("/users/estudiantes/{idProy}/{idRolMod}")
+    public ResponseEntity<?> getAllEstudiantesIntegrantesProyectoNoPage(@PathVariable Long idProy, @PathVariable Long idRolMod) {
+    try{
+    final List<UserDTO> list = userService.getAllEstudiantesIntegrantesProyectoNoPage(idProy,idRolMod);
+    return new ResponseEntity<>(list, HttpStatus.OK);
+    }catch (Exception e){
+             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body( e.getMessage());
+     
+        }
+    }
+*/
 
 }
