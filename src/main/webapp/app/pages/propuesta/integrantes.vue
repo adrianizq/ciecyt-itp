@@ -1,92 +1,165 @@
 <template>
-  <div class="row">
-    <div class="col-sm-4">
-      <menu-lateral></menu-lateral>
-    </div>
-    <div class="col-sm-8">
-      
-        <div class="row">
-          <div :key="key" v-for="(item, key) in integrantes">
-            <b-card>
-              <div class="row">
-                <div class="col-12">
-                  <div class="form-group">
-                    <b-form-radio-group id="radio-group-2" name="radio-sub-component">
-                      <b-form-radio value="first">Documento</b-form-radio>
-                      <b-form-radio value="second">Codigo ITP</b-form-radio>
-                      <label class="float-right" id="contar">#{{key+1}}</label>
-                      <!--<b-form-radio value="third" disabled>This one is Disabled</b-form-radio>
-                      <b-form-radio :value="{ fourth: 4 }">This is the 4th radio</b-form-radio>-->
-                    </b-form-radio-group>
-                    
-                  </div>
-                </div>
-                <div class="col-12">
-                  <div class="form-group">
-                    <input type="text" class="form-control" name="titulo" id="proyecto-documento" />
-                  </div>
-                </div>
-                <div class="col-12">
-                  <div class="form-group">
-                    <label class="form-control-label" for="proyecto-nombre">Nombres</label>
-                    <input type="text" class="form-control" name="titulo" id="proyecto-nombre" />
-                  </div>
-                </div>
-                <div class="col-12">
-                  <div class="form-group">
-                    <label class="form-control-label" for="proyecto-apellido">Apellidos</label>
-                    <input type="text" class="form-control" name="titulo" id="proyecto-apellido" />
-                  </div>
-                </div>
-              </div>
-            </b-card>
-            <hr>
-          </div>
-          
+    <div class="row">
+        <div class="col-sm-4">
+            <menu-lateral></menu-lateral>
         </div>
-        <button
-            type="submit"
-            id="save-entity"
-            class="btn btn-primary float-right"
-          >
-            <font-awesome-icon :icon="['fas', 'save']"></font-awesome-icon>&nbsp;
-            <span>Nuevo Integrante</span>
-          </button>
-        <button
-            type="submit"
-            id="save-entity"
-            class="btn btn-primary float-right"
-            @click="nuevo_integrante()"
-          >
-            <font-awesome-icon :icon="['fas', 'plus']"></font-awesome-icon>&nbsp;
-            <span></span>
-          </button>
+        <div class="col-sm-8">
+            <form @submit.prevent="save()">
+                <div class="row">
+                    <div class="col-12" v-for="(integrante, i) in integrantesProyecto" :key="i">
+                        <b-form-group
+                            :label="`Integrante # ${i + 1}`"
+                            :label-for="`integrante-${i}`"
+                        >
+                            <b-form-select
+                                :options="users"
+                                text-field="nombresApellidos"
+                                value-field="id" :id="`integrante-${i}`" v-model="integrante.integranteProyectoUserId">
 
+                            </b-form-select>
+                        </b-form-group>
+                    </div>
+
+                </div>
+
+
+                <div class="row">
+                    <div class="col-12">
+                        <!--<button type="button" id="cancel-save" class="btn btn-secondary" v-on:click="previousState()">
+                            <font-awesome-icon icon="ban"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.cancel')">Cancel</span>
+                        </button>-->
+                        <button type="button" id="cancel-save" class="btn btn-primary" v-on:click="save()">
+                            <font-awesome-icon icon="save"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.save')">Guardar</span>
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
     </div>
-  </div>
 </template>
 
 <script lang="ts">
-import Component from 'vue-class-component';
-import { Vue } from 'vue-property-decorator';
-import MenuLateral from '@/components/propuesta/menu_lateral.vue';
+    import { Component, Inject, Vue } from 'vue-property-decorator';
+    import AlertService from '@/shared/alert/alert.service';
 
-@Component({
-  components: { MenuLateral }
-})
-export default class Integrantes extends Vue {
-  resultado = '';
-  integrantes = [{ mensaje: 'mundo' }];
-  nuevo_integrante() {
-    //contar++;
-    //console.log(contar);
-    //document.getElementById('mostrar').innerHTML = contar;
-    this.integrantes.push({
-      mensaje: 'mundo'
-    });
-  }
-}
+    import MenuLateral from '@/components/propuesta/menu_lateral.vue';
+    import RolesModalidadService from '@/entities/roles-modalidad/roles-modalidad.service';
+    import { IRolesModalidad } from '@/shared/model/roles-modalidad.model';
+    import UsuarioService from '@/entities/usuario/usuario.service';
+    import { IUser } from '@/shared/model/user.model';
+    import { IProyecto, Proyecto } from '@/shared/model/proyecto.model';
+    import ProyectoService from '@/entities/proyecto/proyecto.service';
+
+    import { IIntegranteProyecto, IntegranteProyecto } from '@/shared/model/integrante-proyecto.model';
+    import IntegranteProyectoService from '@/entities/integrante-proyecto/integrante-proyecto.service';
+
+    const validations: any = {};
+
+    @Component({
+        components: { MenuLateral },
+        validations
+    })
+
+    export default class PropuestaIntegrantes extends Vue {
+        @Inject('usuarioService') private usuarioService: () => UsuarioService;
+        @Inject('proyectoService') private proyectoService: () => ProyectoService;
+        @Inject('integranteProyectoService') private integranteProyectoService: () => IntegranteProyectoService;
+        @Inject('rolesModalidadService') private rolesModalidadService: () => RolesModalidadService;
+        @Inject('alertService') private alertService: () => AlertService;
+
+        public users: IUser[] = [];
+        public rolesModalidads: IRolesModalidad[] = [];
+        public integrantesProyecto: IIntegranteProyecto[] = [];
+        public user: number = null;
+        public proyecto: IProyecto = new Proyecto();
+        public proyId?: number;
+        public isSaving = false;
+        public modalidadId: number = 0;
+        public n: number = 0;
+        public cantEstudiantes: number = 0;
+        public rolModalidadId?: number;
+
+
+        beforeRouteEnter(to, from, next) {
+            next(async vm => {
+
+                vm.initRelationships();
+
+            });
+        }
+
+        public save(): void {
+            try {
+                this.isSaving = true;
+                for (let integrante of this.integrantesProyecto) {
+                    //Actualizando el integrante
+                    if (integrante.id) {
+                        this.integranteProyectoService().update(integrante);
+                    } else {
+                        //Creando un nuevo integrante
+                        this.integranteProyectoService().create(integrante);
+                    }
+
+                }
+
+            } catch (e) {
+                //TODO: mostrar mensajes de error
+            }
+        }
+
+        async initRelationships() {
+            try {
+                //Obteniendo los usuarios asesores
+                this.usuarioService()
+                    .retrieveEstudiantes()
+                    .then(res => {
+                        res.data.forEach((item) => {
+                            item.nombresApellidos = item.firstName + ' ' + item.lastName;
+                            this.users.push(item);
+                        });
+
+                    });
+
+                this.proyId = parseInt(this.$route.params.proyectoId);
+
+                this.proyecto = await this.proyectoService().find(this.proyId);
+
+                this.modalidadId = this.proyecto.proyectoModalidadId;
+
+                //Obteniendo las lineas de investigacion
+                this.rolesModalidadService()
+                    .retrieve()
+                    .then(res => {
+                        this.rolesModalidads = res.data;
+                        const newArray = this.rolesModalidads.filter((value, index) => {
+                            if (value.rolesModalidadModalidadId == this.modalidadId && value.rol == 'Estudiante') {
+                                return true;
+                            }
+                        });
+                        this.cantEstudiantes = newArray[0].cantidad;
+                        this.rolModalidadId = newArray[0].id;
+
+                        //crear los elementos para
+                        for (var i = 0; i < this.cantEstudiantes; i++) {
+                            let integrante = new IntegranteProyecto();
+
+                            integrante.integranteProyectoProyectoId = this.proyId;
+                            integrante.integranteProyectoRolesModalidadId = this.rolModalidadId;
+
+                            this.integrantesProyecto.push(integrante);
+                        }
+
+                    });
+
+            } catch (e) {
+
+            }
+        }
+
+    }
 </script>
 
 <style scoped>
+
 </style>

@@ -7,6 +7,8 @@ import { IProyecto } from '@/shared/model/proyecto.model';
 const baseApiUrl = 'api/proyectos';
 
 export default class ProyectoService {
+  //public proyectoId: number;
+
   public find(id: number): Promise<IProyecto> {
     return new Promise<IProyecto>(resolve => {
       axios.get(`${baseApiUrl}/${id}`).then(function(res) {
@@ -35,6 +37,8 @@ export default class ProyectoService {
     return new Promise<IProyecto>(resolve => {
       axios.post(`${baseApiUrl}`, entity).then(function(res) {
         resolve(res.data);
+        //this.proyectoId = entity.id;
+        //this.proyectoId = 20;
       });
     });
   }

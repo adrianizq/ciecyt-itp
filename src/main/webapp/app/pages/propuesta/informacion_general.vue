@@ -1,5 +1,13 @@
 <template>
+
     <div class="row">
+         <b-alert :show="dismissCountDown"
+            dismissible
+            :variant="alertType"
+            @dismissed="dismissCountDown=0"
+            @dismiss-count-down="countDownChanged">
+            {{alertMessage}}
+        </b-alert>
         <div class="col-sm-4">
             <menu-lateral></menu-lateral>
         </div>
@@ -7,13 +15,7 @@
            <form @submit.prevent="save()"> 
                 <div class="row">
                     <div class="col-12">
-                        <!-- Jeison
-                         <div class="form-group">
-                             <label class="form-control-label" for="titulo_proyecto">Titulo del proyecto</label>
-                             <input type="text" class="form-control" name="titulo_proyecto" id="titulo_proyecto"
-                             v-model=proyecto.titulo />
-                         </div>
-                         -->
+                      
 
                         <div class="form-group" v-if="proyecto.id">
                             <label for="id" v-text="$t('global.field.id')">ID</label>
@@ -90,15 +92,7 @@
                             label="Asesor"
                             label-for="usuario"
                         >
-                            <!--
-                            <b-form-select :options="users" v-model="user" text-field="firstName" value-field="id" id="user">
-
-
-                              <input type="text" class="form-control" name="titulo" id="proyecto-titulo"
-                                   v-model="proyecto.titulo"/>   
-                             -->
-
-
+                           
                             <b-form-select :options="users" v-model="proyecto.asesorId" text-field="nombresApellidos" value-field="id" id="proyecto-asesorId" >
 
                             </b-form-select>
@@ -108,24 +102,24 @@
 
                 </div>
 
-                <!--
-                                <div>
-                                    <button type="button" id="cancel-save" class="btn btn-secondary" v-on:click="previousState()">
-                                        <font-awesome-icon icon="ban"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.cancel')">Cancel</span>
-                                    </button>
-                                     <button type="submit" id="save-entity" :disabled="$v.proyecto.$invalid || isSaving" class="btn btn-primary">
-                                        <font-awesome-icon icon="save"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.save')">Save</span>
-                                    </button>
-                -->
+              
                 <div>
 
                     <button type="button" id="cancel-save" class="btn btn-secondary" v-on:click="previousState()">
                         <font-awesome-icon icon="ban"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.cancel')">Cancel</span>
                     </button>
+
+<!--
+                    <router-link :to="{name: 'PropuestaIntegrantesView', query: {proyectoId: this.proyecto.id}}"  tag="button" class="btn btn-primary">
+                                <font-awesome-icon icon="save"></font-awesome-icon>
+                                <span class="d-none d-md-inline" v-text="$t('entity.action.save')">Save</span>
+                            </router-link>
+-->
+                    
                     <button type="submit" id="save-entity" class="btn btn-primary">
                         <font-awesome-icon icon="save"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.save')">Save</span>
                     </button>
-
+                    
 
                 </div>
 
@@ -152,9 +146,12 @@
     import { IProyecto, Proyecto } from '@/shared/model/proyecto.model';
     import ProyectoService from '@/entities/proyecto/proyecto.service';
     import { numeric, required, minLength, maxLength } from 'vuelidate/lib/validators';
+import { id } from 'date-fns/esm/locale';
+//import { id } from 'date-fns/locale';
 
     const validations: any = {
         proyecto: {
+            id: {},
             titulo: {},
             url: {},
             lugarEjecucion: {},
@@ -173,6 +170,8 @@
         validations
     })
 
+  
+
     export default class PropuestaInformacionGeneral extends Vue {
         @Inject('modalidadService') private modalidadService: () => ModalidadService;
         @Inject('facultadService') private facultadService: () => FacultadService;
@@ -184,7 +183,6 @@
         public modalidads: IModalidad[] = [];
         public facultades: IFacultad[] = [];
         public lineas_investigacion: ILineaInvestigacion[] = [];
-        //public users: IUsuario[] = [];
         public users: IUser[] = [];
 
         public linea_investigacion: number = null;
@@ -192,13 +190,17 @@
         public user: number = null;
         public nombresApellidos: string = null;
         public proyecto: IProyecto = new Proyecto();
+        public proyId: string = null;
 
         public isSaving = false;
+
+        
 
         beforeRouteEnter(to, from, next) {
             next(vm => {
                 if (to.params.proyectoId) {
                     vm.retrieveProyecto(to.params.proyectoId);
+                    //vm.retrieveProyecto(to.params.id);
                 }
                 /*if (to.params.cicloPropedeuticoId) {
                     vm.retrieveCicloPropedeutico(to.params.cicloPropedeuticoId);
@@ -208,26 +210,34 @@
         }
 
         public save(): void {
-            //this.isSaving = true;
-            //if (this.proyecto.id) {
-            //    this.proyectoService()
-            //    .update(this.proyecto)
-            //    .then(param => {
-            //        this.isSaving = false;
-            //        this.$router.go(-1);
-            //        const message = this.$t('ciecytApp.proyecto.updated', { param: param.id });
-            //        this.alertService().showAlert(message, 'info');
-            //    });
-            //} else {
+            this.isSaving = true;
+            if (this.proyecto.id) {
+                this.proyectoService()
+                .update(this.proyecto)
+                .then(param => {
+                    this.isSaving = false;
+                    this.$router.go(-1);
+                    const message = this.$t('ciecytApp.proyecto.updated', { param: param.id });
+                    this.alertService().showAlert(message, 'info');
+                });
+            } else {
             this.proyectoService()
                 .create(this.proyecto)
                 .then(param => {
                     this.isSaving = false;
-                    this.$router.go(-1);
+    
+                    this.proyId = String(param.id);
+
+                   this.$router.push({ name: 'PropuestaIntegrantesView',query:{ proyectoId: this.proyId}});
+                    
                     const message = this.$t('ciecytApp.proyecto.created', { param: param.id });
                     this.alertService().showAlert(message, 'success');
+                    //console.log(message);
+                   
                 });
-            //}
+                
+            }
+             
         }
 
         get LineasInvestigacion() {

@@ -18,6 +18,7 @@
     @Component
     export default class PropuestaMenuLateral extends Vue {
         items = this.$store.getters.menuLateral;
+        
 
         isActive(to){
             return to == this.$route.path
