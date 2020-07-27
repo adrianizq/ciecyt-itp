@@ -1,6 +1,7 @@
 package co.edu.itp.ciecyt.web.rest;
 
 import co.edu.itp.ciecyt.service.ElementoService;
+import co.edu.itp.ciecyt.service.dto.IntegranteProyectoDTO;
 import co.edu.itp.ciecyt.web.rest.errors.BadRequestAlertException;
 import co.edu.itp.ciecyt.service.dto.ElementoDTO;
 
@@ -125,4 +126,27 @@ public class ElementoResource {
         elementoService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
+
+
+    //////////////////////////////////////////////////////////77777777777777777777
+    /////////////777777777777777777777777777777777777777777777
+    /**
+     * {@code GET  /integrante-proyectos/:id} : get the "id" idProyecto.
+     *
+     * @param id the id of the elementoDTO to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the elementooDTO, or with status {@code 404 (Not Found)}.
+     */
+    @GetMapping("/elemento-modalidad/{idModalidad}")
+    public ResponseEntity<?> getElementoModalidad(@PathVariable Long idModalidad) {
+        log.debug("REST request to get Elemento Modalidad : {}", idModalidad);
+        try{
+            final List<ElementoDTO> elementoDTO = elementoService.findByElementoModalidadId(idModalidad);
+            return new ResponseEntity<>(elementoDTO, HttpStatus.OK);
+
+        }catch (Exception e){
+
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body( e.getMessage());
+        }
+    }
+
 }

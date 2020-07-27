@@ -102,7 +102,7 @@ public class IntegranteProyectoServiceImpl implements IntegranteProyectoService 
 			listDTO.add( integranteProyectoMapper.toDto(integrante));
 		}
         return listDTO;
-           
+
     }
 
     @Override
@@ -117,6 +117,6 @@ public class IntegranteProyectoServiceImpl implements IntegranteProyectoService 
 			listDTO.add( integranteProyectoMapper.toDto(integrante));
 		}
         return listDTO;
-           
+
     }
 }

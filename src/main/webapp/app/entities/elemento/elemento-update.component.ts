@@ -14,7 +14,8 @@ import ElementoService from './elemento.service';
 
 const validations: any = {
   elemento: {
-    elemento: {}
+    elemento: {},
+    descripcion: {}
   }
 };
 

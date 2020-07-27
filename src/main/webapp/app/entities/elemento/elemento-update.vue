@@ -15,6 +15,11 @@
                             :class="{'valid': !$v.elemento.elemento.$invalid, 'invalid': $v.elemento.elemento.$invalid }" v-model="$v.elemento.elemento.$model" />
                     </div>
                     <div class="form-group">
+                        <label class="form-control-label" v-text="$t('ciecytApp.elemento.descripcion')" for="elemento-descripcion">Descripcion</label>
+                        <input type="text" class="form-control" name="descripcion" id="elemento-descripcion"
+                            :class="{'valid': !$v.elemento.descripcion.$invalid, 'invalid': $v.elemento.descripcion.$invalid }" v-model="$v.elemento.descripcion.$model" />
+                    </div>
+                    <div class="form-group">
                         <label class="form-control-label" v-bind:value="$t('ciecytApp.elemento.elementoFormato')" for="elemento-elementoFormato">Elemento Formato</label>
                         <select class="form-control" id="elemento-elementoFormato" name="elementoFormato" v-model="elemento.elementoFormatoId">
                             <option v-bind:value="null"></option>

@@ -18,6 +18,9 @@
             <column name="elemento" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
+            <column name="descripcion" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
             <column name="elemento_formato_id" type="bigint">
                 <constraints nullable="true" />
             </column>
@@ -48,6 +51,7 @@
                   tableName="elemento">
             <column name="id" type="numeric"/>
             <column name="elemento" type="string"/>
+            <column name="descripcion" type="string"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here, do not remove-->
         </loadData>
     </changeSet>
