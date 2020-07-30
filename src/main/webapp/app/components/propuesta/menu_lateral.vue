@@ -1,6 +1,5 @@
 <template>
   <div role="tablist">
-      {{proyectoId}}
     <div v-for="(item, index) in items" :key="index">
       <b-button
         :disabled='proyectoId ? false : true'
