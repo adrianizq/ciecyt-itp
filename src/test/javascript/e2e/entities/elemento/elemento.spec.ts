@@ -65,6 +65,9 @@ describe('Elemento e2e test', () => {
       await updatePage.elementoInput.sendKeys('elemento');
       expect(await updatePage.elementoInput.getAttribute('value')).to.match(/elemento/);
 
+      await updatePage.descripcionInput.sendKeys('descripcion');
+      expect(await updatePage.descripcionInput.getAttribute('value')).to.match(/descripcion/);
+
       // await  selectLastOption(updatePage.elementoFormatoSelect);
       // await  selectLastOption(updatePage.elementoModalidadSelect);
 
@@ -127,6 +130,10 @@ describe('Elemento e2e test', () => {
         await updatePage.elementoInput.clear();
         await updatePage.elementoInput.sendKeys('modified');
         expect(await updatePage.elementoInput.getAttribute('value')).to.match(/modified/);
+
+        await updatePage.descripcionInput.clear();
+        await updatePage.descripcionInput.sendKeys('modified');
+        expect(await updatePage.descripcionInput.getAttribute('value')).to.match(/modified/);
 
         await updatePage.saveButton.click();
 

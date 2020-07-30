@@ -11,6 +11,8 @@ public class ElementoDTO implements Serializable {
 
     private String elemento;
 
+    private String descripcion;
+
 
     private Long elementoFormatoId;
 
@@ -34,6 +36,14 @@ public class ElementoDTO implements Serializable {
 
     public void setElemento(String elemento) {
         this.elemento = elemento;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public Long getElementoFormatoId() {
@@ -94,6 +104,7 @@ public class ElementoDTO implements Serializable {
         return "ElementoDTO{" +
             "id=" + getId() +
             ", elemento='" + getElemento() + "'" +
+            ", descripcion='" + getDescripcion() + "'" +
             ", elementoFormato=" + getElementoFormatoId() +
             ", elementoFormato='" + getElementoFormatoFormato() + "'" +
             ", elementoModalidad=" + getElementoModalidadId() +

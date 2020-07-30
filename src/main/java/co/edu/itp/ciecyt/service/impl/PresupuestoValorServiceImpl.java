@@ -14,7 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
-
+import java.util.List;
+import java.util.ArrayList;
 /**
  * Service Implementation for managing {@link PresupuestoValor}.
  */
@@ -85,5 +86,21 @@ public class PresupuestoValorServiceImpl implements PresupuestoValorService {
     public void delete(Long id) {
         log.debug("Request to delete PresupuestoValor : {}", id);
         presupuestoValorRepository.deleteById(id);
+    }
+
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<PresupuestoValorDTO> findByPresupuestoValorProyectoId(Long idProyecto) throws Exception {
+        log.debug("Request to get all PresupuestoValor whit a idProyecto");
+        List <PresupuestoValorDTO> listDTO = new ArrayList<>();
+        List <PresupuestoValor> list = presupuestoValorRepository.findByPresupuestoValorProyectoId( idProyecto);
+       
+
+        for (PresupuestoValor presupuesto : list) {
+			listDTO.add( presupuestoValorMapper.toDto(presupuesto));
+		}
+        return listDTO;
+
     }
 }

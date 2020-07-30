@@ -1,46 +1,177 @@
 <template>
-  <div class="row">
-    <div class="col-sm-4">
-      <menu-lateral :proyectoId='$route.params.proyectoId'></menu-lateral>
-    </div>
-    <div class="col-sm-8">
-      <div class="col-12">
-        <div class="form-group">
-          <label class="form-control-label" for="proyecto-documento">Resúmen Ejecutivo</label>
-          <b-form-textarea id="textarea-rows" placeholder="Resúmen Ejecutivo" rows="6"></b-form-textarea>
-        </div>
-      </div>
 
-      <div class="col-12">
-        <div class="form-group">
-          <label class="form-control-label" for="proyecto-documento">Planteamiento del Problema</label>
-          <b-form-textarea id="textarea-rows" placeholder="Planteamiento del Problema" rows="6"></b-form-textarea>
-        </div>
-      </div>
+    <div class="row">
 
-      <div class="col-12 text-left">
-        <button type="submit" id="save-entity" class="btn btn-primary">
-          <font-awesome-icon icon="save"></font-awesome-icon>&nbsp;
-          <span class="left">Más Elementos</span>
-        </button>
-        <button type="button" id="cancel-save" class="btn btn-primary" v-on:click="save()">
-          <font-awesome-icon icon="save"></font-awesome-icon>&nbsp;
-          <span v-text="$t('entity.action.save')">Guardar</span>
-        </button>
-      </div>
+        <div class="col-sm-4">
+            <menu-lateral :proyectoId='$route.params.proyectoId'></menu-lateral>
+        </div>
+        <div class="col-sm-8">
+           <form @submit.prevent="save()">
+                <div class="row">
+                     <div class="col-12" v-for="(ep, e) in elementosProyecto" :key="e">
+
+                       <b-form-group
+                            :label="ep.elementoProyectoElementoElemento"
+                            :label-for="`ep-${i}`"
+                       >
+                       <div class="form-group">
+
+                            <b-form-textarea rows="5"  max-rows="10" class="form-control" :name="`ep-${i}`"
+                            :id="`ep-${i}`"
+                                   v-model="ep.dato" />
+
+
+                        </div>
+
+                        </b-form-group>
+                    </div>
+                </div>
+
+
+                <div>
+
+                    <button type="button" id="cancel-save" class="btn btn-secondary" v-on:click="previousState()">
+                        <font-awesome-icon icon="ban"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.cancel')">Cancel</span>
+                    </button>
+
+<!--
+                    <router-link :to="{name: 'PropuestaIntegrantesView', query: {proyectoId: this.proyecto.id}}"  tag="button" class="btn btn-primary">
+                                <font-awesome-icon icon="save"></font-awesome-icon>
+                                <span class="d-none d-md-inline" v-text="$t('entity.action.save')">Save</span>
+                            </router-link>
+-->
+
+                    <button type="submit" id="save-entity" class="btn btn-primary">
+                        <font-awesome-icon icon="save"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.save')">Save</span>
+                    </button>
+
+
+                </div>
+
+            </form>
+        </div>
     </div>
-  </div>
 </template>
 
 <script lang="ts">
-import Component from 'vue-class-component';
-import { Vue } from 'vue-property-decorator';
+import { Component, Inject, Vue } from 'vue-property-decorator';
 import MenuLateral from '@/components/propuesta/menu_lateral.vue';
+import AlertService from '@/shared/alert/alert.service';
+import ElementoService from '@/entities/elemento/elemento.service';
+import { IElemento, Elemento } from '@/shared/model/elemento.model';
+import ElementoProyectoService from '@/entities/elemento-proyecto/elemento-proyecto.service';
+import { IElementoProyecto, ElementoProyecto } from '@/shared/model/elemento-proyecto.model';
+import { IProyecto, Proyecto } from '@/shared/model/proyecto.model';
+import ProyectoService from '@/entities/proyecto/proyecto.service';
 
-@Component({
-  components: { MenuLateral }
-})
-export default class Elementos extends Vue {}
+
+    const validations: any = {};
+
+   @Component({
+        components: { MenuLateral },
+        validations
+    })
+
+
+export default class Elementos extends Vue {
+
+
+   @Inject('proyectoService') private proyectoService: () => ProyectoService;
+   @Inject('elementoService') private elementoService: () => ElementoService;
+   @Inject('elementoProyectoService') private elementoProyectoService: () => ElementoProyectoService;
+   @Inject('alertService') private alertService: () => AlertService;
+
+
+    public elements: IElemento[] = [];
+    public elementosProyecto: IElementoProyecto[] =[];
+    //public elemProy: ElementoProyecto;
+    public proyecto: IProyecto = new Proyecto();
+    public proyId: any = null;
+    public modalidadId: number = 0;
+
+    public isSaving = false;
+
+
+        beforeRouteEnter(to, from, next) {
+            next(vm => {
+
+                    vm.initRelationships();
+            });
+        }
+
+        public save(): void {//debo guardar un elemento proyecto
+            try {
+                this.isSaving = true;
+
+                for (let e of this.elementosProyecto) {
+                    //Actualizando el integrante
+
+                    if (e.id) {
+                        this.elementoProyectoService().update(e); //envio un elemento
+                    } else {
+                        //Creando un nuevo integrante
+                        this.elementoProyectoService().create(e)
+                        .then(param => {
+                            this.$router.push({ name: 'PropuestaPresupuestoView',params:{ proyectoId: this.proyId}});
+                        });
+                    }
+                }
+
+            } catch (e) {
+                //TODO: mostrar mensajes de error
+            }
+        }
+
+        async initRelationships() {
+           try {
+
+
+               this.proyId = parseInt(this.$route.params.proyectoId);
+
+
+                //this.proyecto = await this.proyectoService().find(this.proyId);
+                this.proyecto = await this.proyectoService().find(this.proyId);
+
+                this.modalidadId = this.proyecto.proyectoModalidadId;
+
+              console.log("iniciando a obtner los elementos");
+            //Obtenienedo los elementos
+            this.elementoService()
+                .retrieveElementosModalidad( this.modalidadId)
+                .then(res => {
+                    this.elements = res.data;
+
+
+                    //copiar los datos de elementos a elemento-proyecto
+            console.log("inicializando elementosProyecto");
+
+             this.elements.forEach(e => {
+                  var elemProy: IElementoProyecto = new ElementoProyecto();
+                  elemProy.elementoProyectoElementoElemento= e.elemento;
+                  elemProy.elementoProyectoElementoId = e.id;
+                  elemProy.elementoProyectoProyectoId = this.proyId;
+                  this.elementosProyecto.push(elemProy);
+
+                  //console.log("dentro del ciclo");
+
+            });
+
+
+                });
+
+
+
+            }
+            catch(e){
+              console.log("error al recuperar la informacion de elemento ");
+            }
+
+
+
+        }
+
+
+}
 </script>
 
 <style scoped>

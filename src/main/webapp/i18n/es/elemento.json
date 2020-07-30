@@ -17,8 +17,9 @@
         "title": "Elemento"
       },
       "elemento": "Elemento",
-      "elementoFormato": "Formato",
-      "elementoModalidad": "Modalidad"
+      "descripcion": "Descripcion",
+      "elementoFormato": "Elemento Formato",
+      "elementoModalidad": "Elemento Modalidad"
     }
   }
 }

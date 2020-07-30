@@ -794,6 +794,7 @@ export default new Router({
       meta: { authorities: ['ROLE_USER'] }
     }
     ,
+    /*
     {
       path: '/pendientes/elementos',
       name: 'Elemento',
@@ -844,6 +845,7 @@ export default new Router({
       meta: { authorities: ['ROLE_USER'] }
     }
     ,
+    */
     {
       path: '/pendiente/formatos',
       name: 'Formato',
@@ -1348,6 +1350,7 @@ export default new Router({
       path: '/propuesta/elementos/:proyectoId',
       name: 'PropuestaElementosView',
       component: PropuestaElementos,
+      props: true,
       meta: { authorities: ['ROLE_USER'] }
     },
     {
@@ -1384,6 +1387,31 @@ export default new Router({
       path: '/propuesta/impactos_esperados/:proyectoId',
       name: 'PPropuestaImpactosEsperadoView',
       component: PropuestaImpactosEsperado,
+      meta: { authorities: ['ROLE_USER'] }
+    }
+    ,
+    {
+      path: '/entity/elemento',
+      name: 'Elemento',
+      component: Elemento,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    {
+      path: '/entity/elemento/new',
+      name: 'ElementoCreate',
+      component: ElementoUpdate,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    {
+      path: '/entity/elemento/:elementoId/edit',
+      name: 'ElementoEdit',
+      component: ElementoUpdate,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    {
+      path: '/entity/elemento/:elementoId/view',
+      name: 'ElementoView',
+      component: ElementoDetails,
       meta: { authorities: ['ROLE_USER'] }
     }
     // jhipster-needle-add-entity-to-router - JHipster will add entities to the router here

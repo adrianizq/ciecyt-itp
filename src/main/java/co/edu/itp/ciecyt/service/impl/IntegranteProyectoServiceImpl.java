@@ -7,6 +7,8 @@ import co.edu.itp.ciecyt.service.dto.IntegranteProyectoDTO;
 import co.edu.itp.ciecyt.service.mapper.IntegranteProyectoMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.List;
+import java.util.ArrayList;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -85,5 +87,36 @@ public class IntegranteProyectoServiceImpl implements IntegranteProyectoService 
     public void delete(Long id) {
         log.debug("Request to delete IntegranteProyecto : {}", id);
         integranteProyectoRepository.deleteById(id);
+    }
+
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<IntegranteProyectoDTO> findByIntegranteProyectoProyectoId(Long idProyecto) throws Exception {
+        log.debug("Request to get all IntegranteProyectos whit a idProyecto");
+        List <IntegranteProyectoDTO> listDTO = new ArrayList<>();
+        List <IntegranteProyecto> list = integranteProyectoRepository.findByIntegranteProyectoProyectoId(idProyecto);
+        //listDTO = integranteProyectoMapper.usersToUserDTOs(list);
+
+        for (IntegranteProyecto integrante : list) {
+			listDTO.add( integranteProyectoMapper.toDto(integrante));
+		}
+        return listDTO;
+
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<IntegranteProyectoDTO> findByIntegranteProyectoProyectoIdAndIntegranteProyectoRolesModalidadIdIn(Long idProyecto, Long idRolModalidad) throws Exception {
+        log.debug("Request to get all IntegranteProyectos whit a idProyecto");
+        List <IntegranteProyectoDTO> listDTO = new ArrayList<>();
+        List <IntegranteProyecto> list = integranteProyectoRepository.findByIntegranteProyectoProyectoIdAndIntegranteProyectoRolesModalidadIdIn( idProyecto,idRolModalidad);
+        //listDTO = integranteProyectoMapper.usersToUserDTOs(list);
+
+        for (IntegranteProyecto integrante : list) {
+			listDTO.add( integranteProyectoMapper.toDto(integrante));
+		}
+        return listDTO;
+
     }
 }

@@ -4,6 +4,7 @@ import co.edu.itp.ciecyt.service.ElementoService;
 import co.edu.itp.ciecyt.domain.Elemento;
 import co.edu.itp.ciecyt.repository.ElementoRepository;
 import co.edu.itp.ciecyt.service.dto.ElementoDTO;
+import co.edu.itp.ciecyt.service.dto.IntegranteProyectoDTO;
 import co.edu.itp.ciecyt.service.mapper.ElementoMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +14,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -85,5 +88,21 @@ public class ElementoServiceImpl implements ElementoService {
     public void delete(Long id) {
         log.debug("Request to delete Elemento : {}", id);
         elementoRepository.deleteById(id);
+    }
+
+
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<ElementoDTO> findByElementoModalidadId(Long idModalidad) throws Exception {
+        log.debug("Request to get all Elementos de una modalidad con una idModalidad");
+        List<ElementoDTO> listDTO = new ArrayList<>();
+        List<Elemento> list = elementoRepository.findByElementoModalidadId(idModalidad);
+        //listDTO = integranteProyectoMapper.usersToUserDTOs(list);
+
+        for (Elemento elemento : list) {
+            listDTO.add(elementoMapper.toDto(elemento));
+        }
+        return listDTO;
     }
 }

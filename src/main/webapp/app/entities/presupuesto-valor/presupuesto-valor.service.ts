@@ -46,4 +46,11 @@ export default class PresupuestoValorService {
       });
     });
   }
+  public retrievePresupuetoProyecto(id?: number, paginationQuery?: any): Promise<any> {
+    return new Promise<any>(resolve => {
+      axios.get('api/presupuesto-valor-proyecto' + `/${id}` + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function(res) {
+        resolve(res);
+      });
+    });
+  }
 }

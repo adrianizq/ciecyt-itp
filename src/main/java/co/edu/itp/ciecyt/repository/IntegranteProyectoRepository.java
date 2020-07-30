@@ -14,5 +14,7 @@ public interface IntegranteProyectoRepository extends JpaRepository<IntegrantePr
 
     @Query("select integranteProyecto from IntegranteProyecto integranteProyecto where integranteProyecto.integranteProyectoUser.login = ?#{principal.username}")
     List<IntegranteProyecto> findByIntegranteProyectoUserIsCurrentUser();
+    List<IntegranteProyecto> findByIntegranteProyectoProyectoId(Long idProyecto);
+    List<IntegranteProyecto> findByIntegranteProyectoProyectoIdAndIntegranteProyectoRolesModalidadIdIn(Long idProyecto, Long idRolModalidad);
 
 }

@@ -73,7 +73,7 @@
         public integrantesProyecto: IIntegranteProyecto[] = [];
         public user: number = null;
         public proyecto: IProyecto = new Proyecto();
-        public proyId?: number;
+        public proyId?: any;
         public isSaving = false;
         public modalidadId: number = 0;
         public n: number = 0;
@@ -98,7 +98,10 @@
                         this.integranteProyectoService().update(integrante);
                     } else {
                         //Creando un nuevo integrante
-                        this.integranteProyectoService().create(integrante);
+                        this.integranteProyectoService().create(integrante)
+                        .then(param => {
+                            this.$router.push({ name: 'PropuestaElementosView',params:{ proyectoId: this.proyId}});
+                        });
                     }
                     console.log(this.proyId);
                     console.log('holasss');
@@ -107,10 +110,9 @@
                    // this.proyId = toString(this.$route.params.proyectoId);
 
                    this.$router.push({ name: 'PropuestaElementosView',params:{ proyectoId: proyId}});
-                    
+
 
                 }
-                 
 
             } catch (e) {
                 //TODO: mostrar mensajes de error

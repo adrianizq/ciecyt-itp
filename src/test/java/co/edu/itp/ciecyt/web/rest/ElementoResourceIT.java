@@ -39,6 +39,9 @@ public class ElementoResourceIT {
     private static final String DEFAULT_ELEMENTO = "AAAAAAAAAA";
     private static final String UPDATED_ELEMENTO = "BBBBBBBBBB";
 
+    private static final String DEFAULT_DESCRIPCION = "AAAAAAAAAA";
+    private static final String UPDATED_DESCRIPCION = "BBBBBBBBBB";
+
     @Autowired
     private ElementoRepository elementoRepository;
 
@@ -87,7 +90,8 @@ public class ElementoResourceIT {
      */
     public static Elemento createEntity(EntityManager em) {
         Elemento elemento = new Elemento()
-            .elemento(DEFAULT_ELEMENTO);
+            .elemento(DEFAULT_ELEMENTO)
+            .descripcion(DEFAULT_DESCRIPCION);
         return elemento;
     }
     /**
@@ -98,7 +102,8 @@ public class ElementoResourceIT {
      */
     public static Elemento createUpdatedEntity(EntityManager em) {
         Elemento elemento = new Elemento()
-            .elemento(UPDATED_ELEMENTO);
+            .elemento(UPDATED_ELEMENTO)
+            .descripcion(UPDATED_DESCRIPCION);
         return elemento;
     }
 
@@ -124,6 +129,7 @@ public class ElementoResourceIT {
         assertThat(elementoList).hasSize(databaseSizeBeforeCreate + 1);
         Elemento testElemento = elementoList.get(elementoList.size() - 1);
         assertThat(testElemento.getElemento()).isEqualTo(DEFAULT_ELEMENTO);
+        assertThat(testElemento.getDescripcion()).isEqualTo(DEFAULT_DESCRIPCION);
     }
 
     @Test
@@ -158,7 +164,8 @@ public class ElementoResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(elemento.getId().intValue())))
-            .andExpect(jsonPath("$.[*].elemento").value(hasItem(DEFAULT_ELEMENTO)));
+            .andExpect(jsonPath("$.[*].elemento").value(hasItem(DEFAULT_ELEMENTO)))
+            .andExpect(jsonPath("$.[*].descripcion").value(hasItem(DEFAULT_DESCRIPCION)));
     }
     
     @Test
@@ -172,7 +179,8 @@ public class ElementoResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(elemento.getId().intValue()))
-            .andExpect(jsonPath("$.elemento").value(DEFAULT_ELEMENTO));
+            .andExpect(jsonPath("$.elemento").value(DEFAULT_ELEMENTO))
+            .andExpect(jsonPath("$.descripcion").value(DEFAULT_DESCRIPCION));
     }
 
     @Test
@@ -196,7 +204,8 @@ public class ElementoResourceIT {
         // Disconnect from session so that the updates on updatedElemento are not directly saved in db
         em.detach(updatedElemento);
         updatedElemento
-            .elemento(UPDATED_ELEMENTO);
+            .elemento(UPDATED_ELEMENTO)
+            .descripcion(UPDATED_DESCRIPCION);
         ElementoDTO elementoDTO = elementoMapper.toDto(updatedElemento);
 
         restElementoMockMvc.perform(put("/api/elementos")
@@ -209,6 +218,7 @@ public class ElementoResourceIT {
         assertThat(elementoList).hasSize(databaseSizeBeforeUpdate);
         Elemento testElemento = elementoList.get(elementoList.size() - 1);
         assertThat(testElemento.getElemento()).isEqualTo(UPDATED_ELEMENTO);
+        assertThat(testElemento.getDescripcion()).isEqualTo(UPDATED_DESCRIPCION);
     }
 
     @Test

@@ -3,6 +3,7 @@ package co.edu.itp.ciecyt.web.rest;
 import co.edu.itp.ciecyt.service.IntegranteProyectoService;
 import co.edu.itp.ciecyt.web.rest.errors.BadRequestAlertException;
 import co.edu.itp.ciecyt.service.dto.IntegranteProyectoDTO;
+import co.edu.itp.ciecyt.domain.IntegranteProyecto;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
@@ -125,4 +126,50 @@ public class IntegranteProyectoResource {
         integranteProyectoService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
+
+
+
+
+    /////////////777777777777777777777777777777777777777777777
+    /**
+     * {@code GET  /integrante-proyectos/:id} : get the "id" idProyecto.
+     *
+     * @param id the id of the integranteProyectoDTO to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the integranteProyectoDTO, or with status {@code 404 (Not Found)}.
+     */
+    @GetMapping("/integrante-proyectos-proyecto/{idProyecto}")
+    public ResponseEntity<?> getIntegranteProyectosProyecto(@PathVariable Long idProyecto) {
+        log.debug("REST request to get IntegranteProyecto : {}", idProyecto);
+        try{
+        final List<IntegranteProyectoDTO> integranteProyectoDTO = integranteProyectoService.findByIntegranteProyectoProyectoId(idProyecto);
+        return new ResponseEntity<>(integranteProyectoDTO, HttpStatus.OK);
+        
+    }catch (Exception e){
+      
+          return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body( e.getMessage());
+      }
+    }
+
+
+
+
+     /**
+     * {@code GET  /integrante-proyectos/:id} : get the "id" idProyecto.
+     *
+     * @param id the id of the integranteProyectoDTO to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the integranteProyectoDTO, or with status {@code 404 (Not Found)}.
+     */
+    @GetMapping("/integrante-proyectos-proyecto-modalidad/{idProyecto}/{idRolModalidad}")
+    public ResponseEntity<?> findByIntegranteProyectoProyectoIdAndIntegranteProyectoRolesModalidadIdIn(@PathVariable Long idProyecto, @PathVariable Long idRolModalidad) {
+        log.debug("REST request to get IntegranteProyecto : {}", idProyecto);
+        try{
+        final List<IntegranteProyectoDTO> integranteProyectoDTO = integranteProyectoService.findByIntegranteProyectoProyectoIdAndIntegranteProyectoRolesModalidadIdIn(idProyecto,idRolModalidad);
+        return new ResponseEntity<>(integranteProyectoDTO, HttpStatus.OK);
+        
+    }catch (Exception e){
+      
+          return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body( e.getMessage());
+      }
+    }
+    ////////////////////////////////////////////////////////777
 }

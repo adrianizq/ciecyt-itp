@@ -12,10 +12,10 @@
             <menu-lateral :proyectoId='$route.params.proyectoId'></menu-lateral>
         </div>
         <div class="col-sm-8">
-           <form @submit.prevent="save()"> 
+           <form @submit.prevent="save()">
                 <div class="row">
                     <div class="col-12">
-                      
+
 
                         <div class="form-group" v-if="proyecto.id">
                             <label for="id" v-text="$t('global.field.id')">ID</label>
@@ -92,7 +92,7 @@
                             label="Asesor"
                             label-for="usuario"
                         >
-                           
+
                             <b-form-select :options="users" v-model="proyecto.asesorId" text-field="nombresApellidos" value-field="id" id="proyecto-asesorId" >
 
                             </b-form-select>
@@ -102,7 +102,7 @@
 
                 </div>
 
-              
+
                 <div>
 
                     <button type="button" id="cancel-save" class="btn btn-secondary" v-on:click="previousState()">
@@ -115,11 +115,11 @@
                                 <span class="d-none d-md-inline" v-text="$t('entity.action.save')">Save</span>
                             </router-link>
 -->
-                    
+
                     <button type="submit" id="save-entity" class="btn btn-primary">
                         <font-awesome-icon icon="save"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.save')">Save</span>
                     </button>
-                    
+
 
                 </div>
 
@@ -170,7 +170,7 @@ import { id } from 'date-fns/esm/locale';
         validations
     })
 
-  
+
 
     export default class PropuestaInformacionGeneral extends Vue {
         @Inject('modalidadService') private modalidadService: () => ModalidadService;
@@ -194,7 +194,7 @@ import { id } from 'date-fns/esm/locale';
 
         public isSaving = false;
 
-        
+
 
         beforeRouteEnter(to, from, next) {
             next(vm => {
@@ -211,6 +211,7 @@ import { id } from 'date-fns/esm/locale';
 
         public save(): void {
             this.isSaving = true;
+
             if (this.proyecto.id) {
                 this.proyectoService()
                 .update(this.proyecto)
@@ -225,19 +226,20 @@ import { id } from 'date-fns/esm/locale';
                 .create(this.proyecto)
                 .then(param => {
                     this.isSaving = false;
-    
+
                     this.proyId = String(param.id);
 
                    this.$router.push({ name: 'PropuestaIntegrantesView',params:{ proyectoId: this.proyId}});
-                    
-                    const message = this.$t('ciecytApp.proyecto.created', { param: param.id });
+
+                    //const message = this.$t('ciecytApp.proyecto.created', { param: param.id });
+                    const message = "Se ha creado un nuevo proyecto";
                     this.alertService().showAlert(message, 'success');
                     //console.log(message);
-                   console.log(this.proyId);
+console.log(this.proyId);
                 });
-                
+
             }
-             
+
         }
 
         get LineasInvestigacion() {

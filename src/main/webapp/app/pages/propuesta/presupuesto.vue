@@ -16,6 +16,18 @@
               </div>
             </div>
 
+
+                <div class="col-md-3 col-3">
+                  <b-form-group label="Rubro" label-for="rubro">
+                    <b-form-select :options="rubros"
+                      text-field="rubro"
+                      value-field="id"
+                      id="rubro"
+                    ></b-form-select>
+                  </b-form-group>
+                </div>
+
+
             <div class="col-12">
               <div class="form-group">
                 <label class="form-control-label" for="proyecto-documento">Justificación</label>
@@ -43,11 +55,11 @@
                 </div>
 
                 <div class="col-md-3 col-3">
-                  <b-form-group label="Entidad Financiadora" label-for="usuario">
-                    <b-form-select
-                      text-field="nombresApellidos"
+                  <b-form-group label="Entidad Financiadora" label-for="entidad">
+                    <b-form-select :options="entidads"
+                      text-field="entidad"
                       value-field="id"
-                      id="proyecto-asesorId"
+                      id="entidad"
                     ></b-form-select>
                   </b-form-group>
                 </div>
@@ -103,14 +115,38 @@
 </template>
 
 <script lang="ts">
-import Component from 'vue-class-component';
-import { Vue } from 'vue-property-decorator';
+
+import { Component, Inject, Vue } from 'vue-property-decorator';
 import MenuLateral from '@/components/propuesta/menu_lateral.vue';
+import AlertService from '@/shared/alert/alert.service';
+
+import { IPresupuestoValor, PresupuestoValor } from '@/shared/model/presupuesto-valor.model';
+import PresupuestoValorService from '@/entities/presupuesto-valor/presupuesto-valor.service';
+import { IEntidad, Entidad } from '@/shared/model/entidad.model';
+import EntidadService from '@/entities/entidad/entidad.service';
+import { IRubro, Rubro } from '@/shared/model/rubro.model';
+import RubroService from '@/entities/rubro/rubro.service';
+import { IProyecto, Proyecto } from '@/shared/model/proyecto.model';
+import ProyectoService from '@/entities/proyecto/proyecto.service';
+
+const validations: any = {};
+
+
 
 @Component({
   components: { MenuLateral }
 })
 export default class Presupuesto extends Vue {
+
+  @Inject('presupuestoValorService') private presupuestoValorService: () => PresupuestoValorService;
+  @Inject('entidadService') private entidadService: () => EntidadService;
+  @Inject('rubroService') private rubroService: () => RubroService;
+  @Inject('proyectoService') private proyectoService: () => ProyectoService;
+   
+  
+  @Inject('alertService') private alertService: () => AlertService;
+
+
   presupuestos = [{ mensaje: 'mundo' }];
   nuevo_presupuesto() {
     //contar++;
@@ -120,6 +156,88 @@ export default class Presupuesto extends Vue {
       mensaje: 'mundo'
     });
   }
+
+
+    public entidads: IEntidad[] = [];
+    public rubros: IRubro[] = [];
+    public presupuestoValors: IPresupuestoValor[] =[];
+    //public elemProy: ElementoProyecto;
+    public proyecto: IProyecto = new Proyecto();
+    public proyId: any = null;
+    public modalidadId: number = 0;
+
+    public entidad: number = null;
+    public rubro: number = null;
+
+    public isSaving = false;
+
+
+        beforeRouteEnter(to, from, next) {
+            next(vm => {
+              
+                    vm.initRelationships();
+            });
+        }
+
+        async initRelationships() {
+           try {
+
+
+             this.proyId = parseInt(this.$route.params.proyectoId);
+
+              
+                //this.proyecto = await this.proyectoService().find(this.proyId);
+
+                //this.modalidadId = this.proyecto.proyectoModalidadId;   
+
+              console.log(this.proyId);
+            //Obtenienedo las entidades
+            this.entidadService()
+                .retrieve()
+                .then(res => {
+                    this.entidads = res.data;
+
+            console.log("inicializando entidades");
+            });
+
+             //Obtenienedo las entidades
+            this.rubroService()
+                .retrieve()
+                .then(res => {
+                    this.rubros = res.data;
+
+            console.log("inicializando rubros");
+            });
+
+            //recuperar los presupuestos enviando un idProyecto (api)
+            //retrievePresupuetoProyecto
+            this.presupuestoValorService()
+                .retrievePresupuetoProyecto(this.proyId)
+                .then(res=> {
+
+                    this.presupuestoValors = res.data;
+                    console.log(this.proyId);
+                })
+
+                 //Obteniendo las lineas de investigacion
+            this.entidadService()
+                .retrieve()
+                .then(res => {
+                    this.entidads = res.data;
+                });
+
+
+            }
+            catch(e){ 
+              console.log("error al recuperar la informacion de presupuesto ");
+            }
+
+            
+            
+        }
+
+
+
 }
 </script>
 

@@ -11,6 +11,12 @@
                         <span>{{elemento.elemento}}</span>
                     </dd>
                     <dt>
+                        <span v-text="$t('ciecytApp.elemento.descripcion')">Descripcion</span>
+                    </dt>
+                    <dd>
+                        <span>{{elemento.descripcion}}</span>
+                    </dd>
+                    <dt>
                         <span v-text="$t('ciecytApp.elemento.elementoFormato')">Elemento Formato</span>
                     </dt>
                     <dd>

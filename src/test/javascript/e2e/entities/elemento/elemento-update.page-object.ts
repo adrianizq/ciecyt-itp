@@ -10,6 +10,8 @@ export default class ElementoUpdatePage extends AlertPage {
 
   elementoInput: ElementFinder = element(by.css('input#elemento-elemento'));
 
+  descripcionInput: ElementFinder = element(by.css('input#elemento-descripcion'));
+
   elementoFormatoSelect = element(by.css('select#elemento-elementoFormato'));
 
   elementoModalidadSelect = element(by.css('select#elemento-elementoModalidad'));

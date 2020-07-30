@@ -22,6 +22,9 @@ public class Elemento implements Serializable {
     @Column(name = "elemento")
     private String elemento;
 
+    @Column(name = "descripcion")
+    private String descripcion;
+
     @ManyToOne
     @JsonIgnoreProperties("elementos")
     private Formato elementoFormato;
@@ -50,6 +53,19 @@ public class Elemento implements Serializable {
 
     public void setElemento(String elemento) {
         this.elemento = elemento;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public Elemento descripcion(String descripcion) {
+        this.descripcion = descripcion;
+        return this;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public Formato getElementoFormato() {
@@ -100,6 +116,7 @@ public class Elemento implements Serializable {
         return "Elemento{" +
             "id=" + getId() +
             ", elemento='" + getElemento() + "'" +
+            ", descripcion='" + getDescripcion() + "'" +
             "}";
     }
 }
