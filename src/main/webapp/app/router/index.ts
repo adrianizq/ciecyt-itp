@@ -1334,7 +1334,7 @@ export default new Router({
     },
     {
       path: '/propuesta/informacion-general/:proyectoId',
-      name: 'PropuestaInformacionGeneralView',
+      name: 'PropuestaInformacionGeneraEditlView',
       component: PropuestaInformacionGeneral,
       meta: { authorities: ['ROLE_USER'] }
     },
