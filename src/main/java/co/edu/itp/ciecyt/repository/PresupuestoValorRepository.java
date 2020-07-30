@@ -2,6 +2,7 @@ package co.edu.itp.ciecyt.repository;
 import co.edu.itp.ciecyt.domain.PresupuestoValor;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
+import java.util.List;
 
 
 /**
@@ -10,5 +11,6 @@ import org.springframework.stereotype.Repository;
 @SuppressWarnings("unused")
 @Repository
 public interface PresupuestoValorRepository extends JpaRepository<PresupuestoValor, Long> {
+    List<PresupuestoValor> findByPresupuestoValorProyectoId(Long idProyecto);
 
 }

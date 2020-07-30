@@ -231,7 +231,8 @@ import { id } from 'date-fns/esm/locale';
 
                    this.$router.push({ name: 'PropuestaIntegrantesView',params:{ proyectoId: this.proyId}});
 
-                    const message = this.$t('ciecytApp.proyecto.created', { param: param.id });
+                    //const message = this.$t('ciecytApp.proyecto.created', { param: param.id });
+                    const message = "Se ha creado un nuevo proyecto";
                     this.alertService().showAlert(message, 'success');
                     //console.log(message);
 

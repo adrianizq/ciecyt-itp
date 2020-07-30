@@ -125,4 +125,18 @@ public class PresupuestoValorResource {
         presupuestoValorService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
+
+
+    @GetMapping("/presupuesto-valor-proyecto/{idProyecto}")
+    public ResponseEntity<?> getIntegranteProyectosProyecto(@PathVariable Long idProyecto) {
+        log.debug("REST request to get PresupuestoValor : {}", idProyecto);
+        try{
+        final List<PresupuestoValorDTO> presupuestoValorDTO = presupuestoValorService.findByPresupuestoValorProyectoId(idProyecto);
+        return new ResponseEntity<>(presupuestoValorDTO, HttpStatus.OK);
+        
+    }catch (Exception e){
+      
+          return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body( e.getMessage());
+      }
+    }
 }

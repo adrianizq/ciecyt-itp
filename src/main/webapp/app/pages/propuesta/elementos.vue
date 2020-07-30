@@ -111,9 +111,9 @@ export default class Elementos extends Vue {
                     } else {
                         //Creando un nuevo integrante
                         this.elementoProyectoService().create(e)
-                        //.then(param => {
-                        //    this.$router.push({ name: 'PropuestaElementosView',params:{ proyectoId: this.proyId}});
-                        //});
+                        .then(param => {
+                            this.$router.push({ name: 'PropuestaPresupuestoView',params:{ proyectoId: this.proyId}});
+                        });
                     }
                 }
 
@@ -126,7 +126,8 @@ export default class Elementos extends Vue {
            try {
 
 
-             this.proyId = parseInt(this.$route.params.proyectoId);
+               this.proyId = parseInt(this.$route.params.proyectoId);
+               
 
                 //this.proyecto = await this.proyectoService().find(this.proyId);
                 this.proyecto = await this.proyectoService().find(this.proyId);
