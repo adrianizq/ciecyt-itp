@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="col-sm-4">
-      <menu-lateral></menu-lateral>
+      <menu-lateral :proyectoId='$route.params.proyectoId'></menu-lateral>
     </div>
     <div class="col-sm-8">
       <div :key="key" v-for="(item, key) in cronogramas">
@@ -68,13 +68,16 @@
 
 <script lang="ts">
 import Component from 'vue-class-component';
-import { Vue } from 'vue-property-decorator';
+import { Vue  } from 'vue-property-decorator';
 import MenuLateral from '@/components/propuesta/menu_lateral.vue';
 //import { CalendarPlugin } from 'bootstrap-vue';
+
 @Component({
   components: { MenuLateral }
 })
 export default class Cronograma extends Vue {
+  
+
   cronogramas = [{ mensaje: 'mundo' }];
   nuevo_cronograma() {
     //contar++;

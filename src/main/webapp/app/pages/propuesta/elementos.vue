@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="col-sm-4">
-      <menu-lateral></menu-lateral>
+      <menu-lateral :proyectoId='$route.params.proyectoId'></menu-lateral>
     </div>
     <div class="col-sm-8">
       <div class="col-12">
@@ -17,13 +17,17 @@
           <b-form-textarea id="textarea-rows" placeholder="Planteamiento del Problema" rows="6"></b-form-textarea>
         </div>
       </div>
-     
-       <!--<div class="col-12 text-left">
-        <button type="submit" id="save-entity" class="btn btn-primary ">
+
+      <div class="col-12 text-left">
+        <button type="submit" id="save-entity" class="btn btn-primary">
           <font-awesome-icon icon="save"></font-awesome-icon>&nbsp;
           <span class="left">Más Elementos</span>
         </button>
-      </div>-->
+        <button type="button" id="cancel-save" class="btn btn-primary" v-on:click="save()">
+          <font-awesome-icon icon="save"></font-awesome-icon>&nbsp;
+          <span v-text="$t('entity.action.save')">Guardar</span>
+        </button>
+      </div>
     </div>
   </div>
 </template>

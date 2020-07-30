@@ -9,7 +9,7 @@
             {{alertMessage}}
         </b-alert>
         <div class="col-sm-4">
-            <menu-lateral></menu-lateral>
+            <menu-lateral :proyectoId='$route.params.proyectoId'></menu-lateral>
         </div>
         <div class="col-sm-8">
            <form @submit.prevent="save()"> 
@@ -228,12 +228,12 @@ import { id } from 'date-fns/esm/locale';
     
                     this.proyId = String(param.id);
 
-                   this.$router.push({ name: 'PropuestaIntegrantesView',query:{ proyectoId: this.proyId}});
+                   this.$router.push({ name: 'PropuestaIntegrantesView',params:{ proyectoId: this.proyId}});
                     
                     const message = this.$t('ciecytApp.proyecto.created', { param: param.id });
                     this.alertService().showAlert(message, 'success');
                     //console.log(message);
-                   
+                   console.log(this.proyId);
                 });
                 
             }

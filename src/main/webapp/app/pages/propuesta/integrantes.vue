@@ -1,7 +1,7 @@
 <template>
     <div class="row">
         <div class="col-sm-4">
-            <menu-lateral></menu-lateral>
+            <menu-lateral :proyectoId='$route.params.proyectoId'></menu-lateral>
         </div>
         <div class="col-sm-8">
             <form @submit.prevent="save()">
@@ -79,7 +79,7 @@
         public n: number = 0;
         public cantEstudiantes: number = 0;
         public rolModalidadId?: number;
-
+//public proyId: string = null;
 
         beforeRouteEnter(to, from, next) {
             next(async vm => {
@@ -100,8 +100,17 @@
                         //Creando un nuevo integrante
                         this.integranteProyectoService().create(integrante);
                     }
+                    console.log(this.proyId);
+                    console.log('holasss');
+                    console.log(parseInt(this.$route.params.proyectoId))
+                    var proyId: string = String(this.proyId);
+                   // this.proyId = toString(this.$route.params.proyectoId);
+
+                   this.$router.push({ name: 'PropuestaElementosView',params:{ proyectoId: proyId}});
+                    
 
                 }
+                 
 
             } catch (e) {
                 //TODO: mostrar mensajes de error
