@@ -65,7 +65,7 @@
                   <b-form-group label="Entidad Financiadora" label-for="entidad">
                     <b-form-select :options="entidads"
                       text-field="entidad"
-                      value-field="entidad"
+                      value-field="id"
                       id="id"
                        v-model="item.presupuestoValorEntidadId"
                     ></b-form-select>
@@ -94,9 +94,9 @@
                 </div>
                 -->
                  <div class="col-sm-3 col-3">
-                  <b-form-group label="Contrapartida en Especie" label-for="epecie">
+                  <b-form-group label="Contrapartida en Especie" label-for="especie">
                     <input type="text" class="form-control" id="especie"
-                     name="epecie"  v-model="item.epecie" />
+                     name="especie"  v-model="item.especie" />
                   </b-form-group>
                  </div>
                   <div class="col-sm-3 col-3">
@@ -112,7 +112,9 @@
         <hr />
       </div>
       <div class="col-12 text-left">
-        <button type="submit" id="save-entity" class="btn btn-primary float-right">
+        <button type="submit" id="save-entity" 
+        class="btn btn-primary float-right"
+        @click="save()">
           <font-awesome-icon :icon="['fas', 'save']"></font-awesome-icon>&nbsp;
           <span>Nuevo Rubro</span>
         </button>
@@ -169,16 +171,15 @@ export default class Presupuesto extends Vue {
   @Inject('alertService') private alertService: () => AlertService;
 
 
-  presupuestos = [{ mensaje: 'mundo' }];
+  presupuestos = [];
   nuevo_presupuesto() {
     //contar++;
     //console.log(contar);
     //document.getElementById('mostrar').innerHTML = contar;
     
     this.presupuestos.push({
-      
-      mensaje: 'mundo'
-    });
+      presupuestoValorProyectoId: this.proyId      
+     });
   }
 
 
@@ -209,28 +210,17 @@ export default class Presupuesto extends Vue {
             try {
                 this.isSaving = true;
                 
-                for (let e of this.presupuestoValors) {
+                for (let e of this.presupuestos) {
                     //Actualizando el integrante
                      var presupuesto = new PresupuestoValor();
 
-                        presupuesto.presupuestoValorProyectoId = this.proyId;
-                        presupuesto.descripcion = e.descripcion;
-                        //presupuesto.presupuestoValorProyectoId = e.presupuestoValorProyectoId
-                        presupuesto.presupuestoValorEntidadId = e.presupuestoValorEntidadId;
-                        presupuesto.justificacion = e.justificacion;
-                        presupuesto.cantidad = e.cantidad;
-                        presupuesto.valorUnitario = e.valorUnitario;
-                        presupuesto.especie = e.especie;
-                        presupuesto.dinero = e.dinero;
-                        presupuesto.presupuestoValorRubroId = e.presupuestoValorRubroId;
-
-                    this.presupuestoValors.push(presupuesto);
+                       
             
-                    if (presupuesto.id) {
-                        this.presupuestoValorService().update(presupuesto); //envio un elemento
+                    if (e.id) {
+                        this.presupuestoValorService().update(e); //envio un elemento
                     } else {
                         
-                        this.presupuestoValorService().create(presupuesto)
+                        this.presupuestoValorService().create(e)
                         .then(param => {
                             this.$router.push({ name: 'PropuestaPresupuestoView',params:{ proyectoId: this.proyId}});
                         });
