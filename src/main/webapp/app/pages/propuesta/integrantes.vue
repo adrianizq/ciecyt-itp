@@ -1,7 +1,7 @@
 <template>
     <div class="row">
         <div class="col-sm-4">
-            <menu-lateral></menu-lateral>
+            <menu-lateral :proyectoId='$route.params.proyectoId'></menu-lateral>
         </div>
         <div class="col-sm-8">
             <form @submit.prevent="save()">
@@ -25,10 +25,10 @@
 
                 <div class="row">
                     <div class="col-12">
-                        <!--<button type="button" id="cancel-save" class="btn btn-secondary" v-on:click="previousState()">
-                            <font-awesome-icon icon="ban"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.cancel')">Cancel</span>
-                        </button>-->
-                        <button type="button" id="cancel-save" class="btn btn-primary" v-on:click="save()">
+                        <button type="button" id="cancel" class="btn btn-secondary" v-on:click="back">
+                            <font-awesome-icon icon="arrow-left"></font-awesome-icon>&nbsp;Volver
+                        </button>
+                        <button type="button" id="save" class="btn btn-primary" v-on:click="save()">
                             <font-awesome-icon icon="save"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.save')">Guardar</span>
                         </button>
                     </div>
@@ -80,6 +80,7 @@
         public cantEstudiantes: number = 0;
         public rolModalidadId?: number;
 
+//public proyId: string = null;
 
         beforeRouteEnter(to, from, next) {
             next(async vm => {
@@ -87,6 +88,14 @@
                 vm.initRelationships();
 
             });
+        }
+
+        mounted() {
+            this.proyId = this.$route.params.proyectoId;
+        }
+
+        public back() {
+            this.$router.push({ name: 'PropuestaInformacionGeneraEditlView', params: { proyectoId: this.proyId } });
         }
 
         public save(): void {
@@ -99,14 +108,19 @@
                     } else {
                         //Creando un nuevo integrante
                         this.integranteProyectoService().create(integrante)
-                        .then(param => {
-                            this.$router.push({ name: 'PropuestaElementosView',params:{ proyectoId: this.proyId}});
-                        });
+                            .then(param => {
+                                this.$router.push({ name: 'PropuestaElementosView', params: { proyectoId: this.proyId } });
+                            });
                     }
-                    //this.$router.push({ name: 'PropuestaElementosView',params:{ proyectoId: this.proyId}});
+                    console.log(this.proyId);
+                    console.log('holasss');
+                    console.log(parseInt(this.$route.params.proyectoId));
+                    var proyId: string = String(this.proyId);
+                    // this.proyId = toString(this.$route.params.proyectoId);
+
+                    this.$router.push({ name: 'PropuestaElementosView', params: { proyectoId: proyId } });
 
                 }
-               // this.$router.push({ name: 'PropuestaElementosView',params:{ proyectoId: this.proyId}});
 
             } catch (e) {
                 //TODO: mostrar mensajes de error

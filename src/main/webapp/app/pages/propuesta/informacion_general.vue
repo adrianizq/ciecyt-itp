@@ -1,18 +1,11 @@
 <template>
 
     <div class="row">
-         <b-alert :show="dismissCountDown"
-            dismissible
-            :variant="alertType"
-            @dismissed="dismissCountDown=0"
-            @dismiss-count-down="countDownChanged">
-            {{alertMessage}}
-        </b-alert>
         <div class="col-sm-4">
-            <menu-lateral></menu-lateral>
+            <menu-lateral :proyectoId='$route.params.proyectoId'></menu-lateral>
         </div>
         <div class="col-sm-8">
-           <form @submit.prevent="save()">
+            <form @submit.prevent="save()">
                 <div class="row">
                     <div class="col-12">
 
@@ -75,7 +68,7 @@
                             label="Sub línea"
                             label-for="sub_linea"
                         >
-                            <b-form-select text-field="linea" value-field="id" id="linea_investigacion" >
+                            <b-form-select text-field="linea" value-field="id" id="linea_investigacion">
                                 <option v-for="(selectOption, indexOpt) in SubLineas"
                                         :key="indexOpt"
                                         :value="selectOption.id"
@@ -93,7 +86,7 @@
                             label-for="usuario"
                         >
 
-                            <b-form-select :options="users" v-model="proyecto.asesorId" text-field="nombresApellidos" value-field="id" id="proyecto-asesorId" >
+                            <b-form-select :options="users" v-model="proyecto.asesorId" text-field="nombresApellidos" value-field="id" id="proyecto-asesorId">
 
                             </b-form-select>
                         </b-form-group>
@@ -105,21 +98,13 @@
 
                 <div>
 
-                    <button type="button" id="cancel-save" class="btn btn-secondary" v-on:click="previousState()">
+                    <!--<button type="button" id="cancel-save" class="btn btn-secondary" v-on:click="previousState()">
                         <font-awesome-icon icon="ban"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.cancel')">Cancel</span>
-                    </button>
-
-<!--
-                    <router-link :to="{name: 'PropuestaIntegrantesView', query: {proyectoId: this.proyecto.id}}"  tag="button" class="btn btn-primary">
-                                <font-awesome-icon icon="save"></font-awesome-icon>
-                                <span class="d-none d-md-inline" v-text="$t('entity.action.save')">Save</span>
-                            </router-link>
--->
+                    </button>-->
 
                     <button type="submit" id="save-entity" class="btn btn-primary">
                         <font-awesome-icon icon="save"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.save')">Save</span>
                     </button>
-
 
                 </div>
 
@@ -146,8 +131,8 @@
     import { IProyecto, Proyecto } from '@/shared/model/proyecto.model';
     import ProyectoService from '@/entities/proyecto/proyecto.service';
     import { numeric, required, minLength, maxLength } from 'vuelidate/lib/validators';
-import { id } from 'date-fns/esm/locale';
-//import { id } from 'date-fns/locale';
+    import { id } from 'date-fns/esm/locale';
+    //import { id } from 'date-fns/locale';
 
     const validations: any = {
         proyecto: {
@@ -194,17 +179,11 @@ import { id } from 'date-fns/esm/locale';
 
         public isSaving = false;
 
-
-
         beforeRouteEnter(to, from, next) {
             next(vm => {
                 if (to.params.proyectoId) {
                     vm.retrieveProyecto(to.params.proyectoId);
-                    //vm.retrieveProyecto(to.params.id);
                 }
-                /*if (to.params.cicloPropedeuticoId) {
-                    vm.retrieveCicloPropedeutico(to.params.cicloPropedeuticoId);
-                }*/
                 vm.initRelationships();
             });
         }
@@ -214,29 +193,26 @@ import { id } from 'date-fns/esm/locale';
 
             if (this.proyecto.id) {
                 this.proyectoService()
-                .update(this.proyecto)
-                .then(param => {
-                    this.isSaving = false;
-                    this.$router.go(-1);
-                    const message = this.$t('ciecytApp.proyecto.updated', { param: param.id });
-                    this.alertService().showAlert(message, 'info');
-                });
+                    .update(this.proyecto)
+                    .then(param => {
+                        this.isSaving = false;
+                        this.$router.push({ name: 'PropuestaIntegrantesView', params: { proyectoId: this.proyecto.id.toString() } });
+                        const message = this.$t('ciecytApp.proyecto.updated', { param: param.id });
+                        this.alertService().showAlert(message, 'info');
+                    });
             } else {
-            this.proyectoService()
-                .create(this.proyecto)
-                .then(param => {
-                    this.isSaving = false;
+                this.proyectoService()
+                    .create(this.proyecto)
+                    .then(param => {
+                        this.isSaving = false;
 
-                    this.proyId = String(param.id);
+                        this.proyId = String(param.id);
 
-                   this.$router.push({ name: 'PropuestaIntegrantesView',params:{ proyectoId: this.proyId}});
+                        this.$router.push({ name: 'PropuestaIntegrantesView', params: { proyectoId: this.proyId } });
 
-                    //const message = this.$t('ciecytApp.proyecto.created', { param: param.id });
-                    const message = "Se ha creado un nuevo proyecto";
-                    this.alertService().showAlert(message, 'success');
-                    //console.log(message);
-
-                });
+                        const message = 'Se ha creado un nuevo proyecto';
+                        this.alertService().showAlert(message, 'success');
+                    });
 
             }
 
@@ -251,6 +227,12 @@ import { id } from 'date-fns/esm/locale';
         get SubLineas() {
             return this.lineas_investigacion.filter(linea => {
                 return (linea.lineaPadreId == this.proyecto.proyectoLineaInvestigacionId && linea.lineaPadreId);
+            });
+        }
+
+        retrieveProyecto() {
+            this.proyectoService().find(parseInt(this.$route.params.proyectoId)).then((res) => {
+                this.proyecto = res;
             });
         }
 

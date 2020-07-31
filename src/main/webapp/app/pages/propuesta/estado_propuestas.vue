@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="col-sm-4">
-      <menu-lateral></menu-lateral>
+      <menu-lateral :proyectoId='$route.params.proyectoId'></menu-lateral>
     </div>
     <div class="col-sm-8">
       <div class="row">

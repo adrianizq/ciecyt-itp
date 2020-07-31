@@ -1333,6 +1333,12 @@ export default new Router({
       meta: { authorities: ['ROLE_USER'] }
     },
     {
+      path: '/propuesta/informacion-general/:proyectoId',
+      name: 'PropuestaInformacionGeneraEditlView',
+      component: PropuestaInformacionGeneral,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    {
 
       path: '/propuesta/integrantes/:proyectoId',
       name: 'PropuestaIntegrantesView',
@@ -1348,37 +1354,37 @@ export default new Router({
       meta: { authorities: ['ROLE_USER'] }
     },
     {
-      path: '/propuesta/cronograma',
+      path: '/propuesta/cronograma/:proyectoId',
       name: 'PropuestaCronogramaView',
       component: PropuestaCronograma,
       meta: { authorities: ['ROLE_USER'] }
     },
     {
-      path: '/propuesta/estado_propuestas',
+      path: '/propuesta/estado_propuestas/:proyectoId',
       name: 'PropuestaEstadoPropuestasView',
       component: PropuestaEstadoPropuestas,
       meta: { authorities: ['ROLE_USER'] }
     },
     {
-      path: '/propuesta/entidades',
+      path: '/propuesta/entidades/:proyectoId',
       name: 'PropuestaEntidadesView',
       component: PropuestaEntidades,
       meta: { authorities: ['ROLE_USER'] }
     },
     {
-      path: '/propuesta/resultados_esperados',
+      path: '/propuesta/resultados_esperados/:proyectoId',
       name: 'PropuestaResultadosEsperadosView',
       component: PropuestaResultadosEsperados,
       meta: { authorities: ['ROLE_USER'] }
     },
     {
-      path: '/propuesta/presupuesto',
+      path: '/propuesta/presupuesto/:proyectoId',
       name: 'PropuestaPresupuestoView',
       component: PropuestaPresupuesto,
       meta: { authorities: ['ROLE_USER'] }
     },
     {
-      path: '/propuesta/impactos_esperados',
+      path: '/propuesta/impactos_esperados/:proyectoId',
       name: 'PPropuestaImpactosEsperadoView',
       component: PropuestaImpactosEsperado,
       meta: { authorities: ['ROLE_USER'] }

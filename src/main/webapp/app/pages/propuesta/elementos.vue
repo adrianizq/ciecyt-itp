@@ -1,30 +1,30 @@
 <template>
 
     <div class="row">
-         
+
         <div class="col-sm-4">
-            <menu-lateral></menu-lateral>
+            <menu-lateral :proyectoId='$route.params.proyectoId'></menu-lateral>
         </div>
         <div class="col-sm-8">
            <form @submit.prevent="save()">
                 <div class="row">
-                     <div class="col-12" v-for="(ep, e) in elementosProyecto" :key="e"> 
-                      
+                     <div class="col-12" v-for="(ep, e) in elementosProyecto" :key="e">
+
                        <b-form-group
                             :label="ep.elementoProyectoElementoElemento"
-                            :label-for="`ep-${i}`"                      
+                            :label-for="`ep-${i}`"
                        >
                        <div class="form-group">
-                           
+
                             <b-form-textarea rows="5"  max-rows="10" class="form-control" :name="`ep-${i}`"
-                            :id="`ep-${i}`" 
+                            :id="`ep-${i}`"
                                    v-model="ep.dato" />
 
-                           
-                        </div> 
+
+                        </div>
 
                         </b-form-group>
-                    </div> 
+                    </div>
                 </div>
 
 
@@ -75,13 +75,13 @@ import ProyectoService from '@/entities/proyecto/proyecto.service';
 
 export default class Elementos extends Vue {
 
-   
+
    @Inject('proyectoService') private proyectoService: () => ProyectoService;
    @Inject('elementoService') private elementoService: () => ElementoService;
    @Inject('elementoProyectoService') private elementoProyectoService: () => ElementoProyectoService;
    @Inject('alertService') private alertService: () => AlertService;
 
-  
+
     public elements: IElemento[] = [];
     public elementosProyecto: IElementoProyecto[] =[];
     //public elemProy: ElementoProyecto;
@@ -94,7 +94,7 @@ export default class Elementos extends Vue {
 
         beforeRouteEnter(to, from, next) {
             next(vm => {
-              
+
                     vm.initRelationships();
             });
         }
@@ -102,10 +102,10 @@ export default class Elementos extends Vue {
         public save(): void {//debo guardar un elemento proyecto
             try {
                 this.isSaving = true;
-                
+
                 for (let e of this.elementosProyecto) {
                     //Actualizando el integrante
-            
+
                     if (e.id) {
                         this.elementoProyectoService().update(e); //envio un elemento
                     } else {
@@ -127,12 +127,12 @@ export default class Elementos extends Vue {
 
 
                this.proyId = parseInt(this.$route.params.proyectoId);
-               
+
 
                 //this.proyecto = await this.proyectoService().find(this.proyId);
                 this.proyecto = await this.proyectoService().find(this.proyId);
 
-                this.modalidadId = this.proyecto.proyectoModalidadId;   
+                this.modalidadId = this.proyecto.proyectoModalidadId;
 
               console.log("iniciando a obtner los elementos");
             //Obtenienedo los elementos
@@ -144,30 +144,30 @@ export default class Elementos extends Vue {
 
                     //copiar los datos de elementos a elemento-proyecto
             console.log("inicializando elementosProyecto");
-            
+
              this.elements.forEach(e => {
                   var elemProy: IElementoProyecto = new ElementoProyecto();
                   elemProy.elementoProyectoElementoElemento= e.elemento;
                   elemProy.elementoProyectoElementoId = e.id;
                   elemProy.elementoProyectoProyectoId = this.proyId;
                   this.elementosProyecto.push(elemProy);
-                  
+
                   //console.log("dentro del ciclo");
-                
-            });            
-            
-                   
+
+            });
+
+
                 });
 
-                
+
 
             }
-            catch(e){ 
+            catch(e){
               console.log("error al recuperar la informacion de elemento ");
             }
 
-            
-            
+
+
         }
 
 
