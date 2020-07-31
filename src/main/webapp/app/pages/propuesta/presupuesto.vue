@@ -11,8 +11,9 @@
               <div class="form-group">
                 <label class="form-control-label" for="proyecto-documento">Descripción</label>
 
-                <label class="float-right" id="contar">#{{key+1}}</label>
-                <b-form-textarea id="textarea-rows" placeholder="Descripción" rows="2"></b-form-textarea>
+                <label class="float-right" id="descripcion">#{{key+1}}</label>
+                <b-form-textarea id="descripcion" placeholder="Descripción" rows="2" v-model="item.descripcion">
+                </b-form-textarea>
               </div>
             </div>
 
@@ -22,7 +23,8 @@
                     <b-form-select :options="rubros"
                       text-field="rubro"
                       value-field="id"
-                      id="rubro"
+                      id="id"
+                      v-model="item.presupuestoValorRubroId"
                     ></b-form-select>
                   </b-form-group>
                 </div>
@@ -30,36 +32,42 @@
 
             <div class="col-12">
               <div class="form-group">
-                <label class="form-control-label" for="proyecto-documento">Justificación</label>
-                <b-form-textarea id="textarea-rows" placeholder="Justificación" rows="4"></b-form-textarea>
+                <label class="form-control-label" for="justificacion">Justificación</label>
+                <b-form-textarea id="justificacion" 
+                placeholder="Justificación" rows="4"  v-model="item.justificacion">
+                </b-form-textarea>
               </div>
             </div>
             <div class="col-12 justify-content-center align-items-center">
               <div class="row">
                 <div class="col-sm-3 col-3 align-items-center">
-                  <b-form-group label="Cantidad" label-for="modalidad">
-                    <input type="text" class="form-control" id="id" name="id" />
+                  <b-form-group label="Cantidad" label-for="cantidad">
+                    <input type="text" class="form-control" 
+                    id="cantidad" name="cantidad"  v-model="item.cantidad" />
                   </b-form-group>
                 </div>
 
                 <div class="col-sm-3 col-3">
-                  <b-form-group label="Valor Unitario" label-for="modalidad">
-                    <input type="text" class="form-control" id="id" name="id" />
+                  <b-form-group label="Valor Unitario" label-for="valor-unitario">
+                    <input type="text" class="form-control" id="valor-unitario"
+                     name="valor-unitario"  v-model="item.valorUnitario" />
                   </b-form-group>
                 </div>
-
+                <!--
                 <div class="col-sm-3 col-3">
-                  <b-form-group label="Valor Total" label-for="modalidad">
-                    <input type="text" class="form-control" id="id" name="id" />
+                  <b-form-group label="Valor Total" label-for="valor-total">
+                    <input type="text" class="form-control" 
+                    id="valor-total" name="valor-total"  v-model="item.presupuestoValorRubroId" />
                   </b-form-group>
                 </div>
-
+                -->
                 <div class="col-md-3 col-3">
                   <b-form-group label="Entidad Financiadora" label-for="entidad">
                     <b-form-select :options="entidads"
                       text-field="entidad"
-                      value-field="id"
-                      id="entidad"
+                      value-field="entidad"
+                      id="id"
+                       v-model="item.presupuestoValorEntidadId"
                     ></b-form-select>
                   </b-form-group>
                 </div>
@@ -75,13 +83,27 @@
               >Contrapartida En Especie</b-form-radio>
               <b-form-radio aria-orientation="horizontal" name="some-radios" value="B">En Efectivo</b-form-radio>
                 </div>-->
+                <!--
                 <div>
                   <b-form-radio-group id="radio-group-2" name="radio-sub-component">
                     <b-form-radio value="first">Contrapartida En Especie</b-form-radio>
                     <b-form-radio value="second">En Efectivo</b-form-radio>
-                    <!--<b-form-radio value="third" disabled>This one is Disabled</b-form-radio>
-                    <b-form-radio :value="{ fourth: 4 }">This is the 4th radio</b-form-radio>-->
+                    <b-form-radio value="third" disabled>This one is Disabled</b-form-radio>
+                    <b-form-radio :value="{ fourth: 4 }">This is the 4th radio</b-form-radio>
                   </b-form-radio-group>
+                </div>
+                -->
+                 <div class="col-sm-3 col-3">
+                  <b-form-group label="Contrapartida en Especie" label-for="epecie">
+                    <input type="text" class="form-control" id="especie"
+                     name="epecie"  v-model="item.epecie" />
+                  </b-form-group>
+                 </div>
+                  <div class="col-sm-3 col-3">
+                  <b-form-group label="Contrapartida en Dinero" label-for="dinero">
+                    <input type="text" class="form-control" id="dinero"
+                     name="dinero"  v-model="item.dinero" />
+                  </b-form-group>
                 </div>
               </div>
             </div>
@@ -152,7 +174,9 @@ export default class Presupuesto extends Vue {
     //contar++;
     //console.log(contar);
     //document.getElementById('mostrar').innerHTML = contar;
+    
     this.presupuestos.push({
+      
       mensaje: 'mundo'
     });
   }
@@ -161,6 +185,7 @@ export default class Presupuesto extends Vue {
     public entidads: IEntidad[] = [];
     public rubros: IRubro[] = [];
     public presupuestoValors: IPresupuestoValor[] =[];
+    
     //public elemProy: ElementoProyecto;
     public proyecto: IProyecto = new Proyecto();
     public proyId: any = null;
@@ -179,16 +204,54 @@ export default class Presupuesto extends Vue {
             });
         }
 
+
+        public save(): void {//debo guardar un elemento proyecto
+            try {
+                this.isSaving = true;
+                
+                for (let e of this.presupuestoValors) {
+                    //Actualizando el integrante
+                     var presupuesto = new PresupuestoValor();
+
+                        presupuesto.presupuestoValorProyectoId = this.proyId;
+                        presupuesto.descripcion = e.descripcion;
+                        //presupuesto.presupuestoValorProyectoId = e.presupuestoValorProyectoId
+                        presupuesto.presupuestoValorEntidadId = e.presupuestoValorEntidadId;
+                        presupuesto.justificacion = e.justificacion;
+                        presupuesto.cantidad = e.cantidad;
+                        presupuesto.valorUnitario = e.valorUnitario;
+                        presupuesto.especie = e.especie;
+                        presupuesto.dinero = e.dinero;
+                        presupuesto.presupuestoValorRubroId = e.presupuestoValorRubroId;
+
+                    this.presupuestoValors.push(presupuesto);
+            
+                    if (presupuesto.id) {
+                        this.presupuestoValorService().update(presupuesto); //envio un elemento
+                    } else {
+                        
+                        this.presupuestoValorService().create(presupuesto)
+                        .then(param => {
+                            this.$router.push({ name: 'PropuestaPresupuestoView',params:{ proyectoId: this.proyId}});
+                        });
+                    }
+                }
+
+            } catch (e) {
+                //TODO: mostrar mensajes de error
+            }
+        }
+
+
         async initRelationships() {
            try {
 
 
              this.proyId = parseInt(this.$route.params.proyectoId);
 
-              
-                //this.proyecto = await this.proyectoService().find(this.proyId);
+             //this.proyecto = await this.proyectoService().find(this.proyId);
+             this.proyecto = await this.proyectoService().find(this.proyId);
 
-                //this.modalidadId = this.proyecto.proyectoModalidadId;   
 
               console.log(this.proyId);
             //Obtenienedo las entidades
