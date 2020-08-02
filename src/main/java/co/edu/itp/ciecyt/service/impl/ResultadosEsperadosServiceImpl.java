@@ -1,8 +1,10 @@
 package co.edu.itp.ciecyt.service.impl;
 
+import co.edu.itp.ciecyt.domain.IntegranteProyecto;
 import co.edu.itp.ciecyt.service.ResultadosEsperadosService;
 import co.edu.itp.ciecyt.domain.ResultadosEsperados;
 import co.edu.itp.ciecyt.repository.ResultadosEsperadosRepository;
+import co.edu.itp.ciecyt.service.dto.IntegranteProyectoDTO;
 import co.edu.itp.ciecyt.service.dto.ResultadosEsperadosDTO;
 import co.edu.itp.ciecyt.service.mapper.ResultadosEsperadosMapper;
 import org.slf4j.Logger;
@@ -13,6 +15,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -85,5 +89,20 @@ public class ResultadosEsperadosServiceImpl implements ResultadosEsperadosServic
     public void delete(Long id) {
         log.debug("Request to delete ResultadosEsperados : {}", id);
         resultadosEsperadosRepository.deleteById(id);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<ResultadosEsperadosDTO> findByResultadosEsperadosProyectoId(Long idProyecto) throws Exception {
+        log.debug("Request to get all ResultadosEsperados whit a idProyecto");
+        List <ResultadosEsperadosDTO> listDTO = new ArrayList<>();
+        List <ResultadosEsperados> list = resultadosEsperadosRepository.findByResultadosEsperadosProyectoId(idProyecto);
+        //listDTO = integranteProyectoMapper.usersToUserDTOs(list);
+
+        for (ResultadosEsperados resultado : list) {
+            listDTO.add( resultadosEsperadosMapper.toDto(resultado));
+        }
+        return listDTO;
+
     }
 }

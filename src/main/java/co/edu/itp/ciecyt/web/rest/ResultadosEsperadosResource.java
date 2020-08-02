@@ -1,6 +1,7 @@
 package co.edu.itp.ciecyt.web.rest;
 
 import co.edu.itp.ciecyt.service.ResultadosEsperadosService;
+import co.edu.itp.ciecyt.service.dto.IntegranteProyectoDTO;
 import co.edu.itp.ciecyt.web.rest.errors.BadRequestAlertException;
 import co.edu.itp.ciecyt.service.dto.ResultadosEsperadosDTO;
 
@@ -87,9 +88,7 @@ public class ResultadosEsperadosResource {
     /**
      * {@code GET  /resultados-esperados} : get all the resultadosEsperados.
      *
-
      * @param pageable the pagination information.
-
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of resultadosEsperados in body.
      */
     @GetMapping("/resultados-esperados")
@@ -124,5 +123,27 @@ public class ResultadosEsperadosResource {
         log.debug("REST request to delete ResultadosEsperados : {}", id);
         resultadosEsperadosService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+    }
+
+
+    /////////////777777777777777777777777777777777777777777777
+
+    /**
+     * {@code GET  /integrante-proyectos/:id} : get the "id" idProyecto.
+     *
+     * @param idProyecto the id of the integranteProyectoDTO to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the integranteProyectoDTO, or with status {@code 404 (Not Found)}.
+     */
+    @GetMapping("/resultados-esperados-proyecto/{idProyecto}")
+    public ResponseEntity<?> getResultadosEsperadosProyecto(@PathVariable Long idProyecto) {
+        log.debug("REST request to get IntegranteProyecto : {}", idProyecto);
+        try {
+            final List<ResultadosEsperadosDTO> resultadosEsperadosDTO = resultadosEsperadosService.findByResultadosEsperadosProyectoId(idProyecto);
+            return new ResponseEntity<>(resultadosEsperadosDTO, HttpStatus.OK);
+
+        } catch (Exception e) {
+
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
     }
 }

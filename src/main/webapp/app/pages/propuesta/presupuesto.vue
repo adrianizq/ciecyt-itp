@@ -173,9 +173,7 @@ export default class Presupuesto extends Vue {
 
   presupuestos = [];
   nuevo_presupuesto() {
-    //contar++;
-    //console.log(contar);
-    //document.getElementById('mostrar').innerHTML = contar;
+    
     
     this.presupuestos.push({
       presupuestoValorProyectoId: this.proyId      
@@ -222,7 +220,7 @@ export default class Presupuesto extends Vue {
                         
                         this.presupuestoValorService().create(e)
                         .then(param => {
-                            this.$router.push({ name: 'PropuestaPresupuestoView',params:{ proyectoId: this.proyId}});
+                            this.$router.push({ name: 'PropuestaResultadosEsperadosView',params:{ proyectoId: this.proyId}});
                         });
                     }
                 }
@@ -236,7 +234,7 @@ export default class Presupuesto extends Vue {
         async initRelationships() {
            try {
 
-
+              this.nuevo_presupuesto() ; //crea una primera tarjeta
              this.proyId = parseInt(this.$route.params.proyectoId);
 
              //this.proyecto = await this.proyectoService().find(this.proyId);

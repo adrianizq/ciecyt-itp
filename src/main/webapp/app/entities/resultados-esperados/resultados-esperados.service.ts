@@ -46,4 +46,12 @@ export default class ResultadosEsperadosService {
       });
     });
   }
+
+  public retrieveResultadosEsperados(id?: number, paginationQuery?: any): Promise<any> {
+    return new Promise<any>(resolve => {
+      axios.get('api/resultados-esperados-proyecto' + `/${id}` + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function(res) {
+        resolve(res);
+      });
+    });
+  }
 }

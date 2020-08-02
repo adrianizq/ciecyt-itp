@@ -1,7 +1,10 @@
 package co.edu.itp.ciecyt.repository;
+import co.edu.itp.ciecyt.domain.IntegranteProyecto;
 import co.edu.itp.ciecyt.domain.ResultadosEsperados;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 
 /**
@@ -10,5 +13,6 @@ import org.springframework.stereotype.Repository;
 @SuppressWarnings("unused")
 @Repository
 public interface ResultadosEsperadosRepository extends JpaRepository<ResultadosEsperados, Long> {
+    List<ResultadosEsperados> findByResultadosEsperadosProyectoId(Long idProyecto);
 
 }

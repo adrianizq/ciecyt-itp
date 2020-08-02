@@ -4,6 +4,7 @@ export interface IElementoProyecto {
   elementoProyectoElementoElemento?: string;
   elementoProyectoElementoId?: number;
   elementoProyectoProyectoTitulo?: string;
+  elementoProyectoProyectoDescripcion?: string;
   elementoProyectoProyectoId?: number;
 }
 
@@ -14,6 +15,7 @@ export class ElementoProyecto implements IElementoProyecto {
     public elementoProyectoElementoElemento?: string,
     public elementoProyectoElementoId?: number,
     public elementoProyectoProyectoTitulo?: string,
+    public elementoProyectoProyectoDescripcion?: string,
     public elementoProyectoProyectoId?: number
   ) {}
 }

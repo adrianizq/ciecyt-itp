@@ -1,10 +1,12 @@
 package co.edu.itp.ciecyt.service;
 
+import co.edu.itp.ciecyt.service.dto.IntegranteProyectoDTO;
 import co.edu.itp.ciecyt.service.dto.ResultadosEsperadosDTO;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -43,4 +45,6 @@ public interface ResultadosEsperadosService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+    List<ResultadosEsperadosDTO> findByResultadosEsperadosProyectoId(Long idProyecto) throws Exception ;
 }

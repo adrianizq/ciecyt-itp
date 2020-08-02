@@ -9,15 +9,26 @@
            <form @submit.prevent="save()">
                 <div class="row">
                      <div class="col-12" v-for="(ep, e) in elementosProyecto" :key="e">
+                       
+
+                         <div class="form-group">
+
+                           <!-- <b-form-textarea rows="5"  max-rows="10" class="form-control" 
+                            
+                                   v-model="ep.elementoProyectoProyectoDescripcion" />
+                            -->
+
+                        </div>
 
                        <b-form-group
                             :label="ep.elementoProyectoElementoElemento"
-                            :label-for="`ep-${i}`"
+                            :label-for="`ep-${i}`" 
+                            :description="ep.elementoProyectoProyectoDescripcion"
                        >
-                       <div class="form-group">
+                       <div class="form-group" >
 
                             <b-form-textarea rows="5"  max-rows="10" class="form-control" :name="`ep-${i}`"
-                            :id="`ep-${i}`"
+                            :id="`ep-${i}`" 
                                    v-model="ep.dato" />
 
 
@@ -148,6 +159,7 @@ export default class Elementos extends Vue {
              this.elements.forEach(e => {
                   var elemProy: IElementoProyecto = new ElementoProyecto();
                   elemProy.elementoProyectoElementoElemento= e.elemento;
+                  elemProy.elementoProyectoProyectoDescripcion = e.descripcion;
                   elemProy.elementoProyectoElementoId = e.id;
                   elemProy.elementoProyectoProyectoId = this.proyId;
                   this.elementosProyecto.push(elemProy);
