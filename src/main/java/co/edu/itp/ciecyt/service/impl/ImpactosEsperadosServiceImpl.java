@@ -1,9 +1,11 @@
 package co.edu.itp.ciecyt.service.impl;
 
+import co.edu.itp.ciecyt.domain.ResultadosEsperados;
 import co.edu.itp.ciecyt.service.ImpactosEsperadosService;
 import co.edu.itp.ciecyt.domain.ImpactosEsperados;
 import co.edu.itp.ciecyt.repository.ImpactosEsperadosRepository;
 import co.edu.itp.ciecyt.service.dto.ImpactosEsperadosDTO;
+import co.edu.itp.ciecyt.service.dto.ResultadosEsperadosDTO;
 import co.edu.itp.ciecyt.service.mapper.ImpactosEsperadosMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +15,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -85,5 +89,19 @@ public class ImpactosEsperadosServiceImpl implements ImpactosEsperadosService {
     public void delete(Long id) {
         log.debug("Request to delete ImpactosEsperados : {}", id);
         impactosEsperadosRepository.deleteById(id);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<ImpactosEsperadosDTO> findByImpactosEsperadoProyectoId(Long idProyecto) throws Exception {
+        log.debug("Request to get all ImpactosEsperados whit a idProyecto");
+        List<ImpactosEsperadosDTO> listDTO = new ArrayList<>();
+        List<ImpactosEsperados> list = impactosEsperadosRepository.findByImpactosEsperadoProyectoId(idProyecto);
+
+
+        for (ImpactosEsperados obj : list) {
+            listDTO.add(impactosEsperadosMapper.toDto(obj));
+        }
+        return listDTO;
     }
 }

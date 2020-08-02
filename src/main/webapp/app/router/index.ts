@@ -1385,7 +1385,7 @@ export default new Router({
     },
     {
       path: '/propuesta/impactos_esperados/:proyectoId',
-      name: 'PPropuestaImpactosEsperadoView',
+      name: 'PropuestaImpactosEsperadoView',
       component: PropuestaImpactosEsperado,
       meta: { authorities: ['ROLE_USER'] }
     }

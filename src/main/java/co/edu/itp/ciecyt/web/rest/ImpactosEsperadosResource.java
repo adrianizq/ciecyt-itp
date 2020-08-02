@@ -125,4 +125,25 @@ public class ImpactosEsperadosResource {
         impactosEsperadosService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
+
+    /////////////777777777777777777777777777777777777777777777
+
+    /**
+     * {@code GET  /impactos-esperados-proyectos/:id} : get the "id" idProyecto.
+     *
+     * @param idProyecto the id of the impactosEsperadosProyectoDTO to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the impactosEsperadosProyectoDTO, or with status {@code 404 (Not Found)}.
+     */
+    @GetMapping("/impactos-esperados-proyecto/{idProyecto}")
+    public ResponseEntity<?> getImpactosEsperadosProyecto(@PathVariable Long idProyecto) {
+        log.debug("REST request to get ImpactosEsperadosProyecto : {}", idProyecto);
+        try {
+            final List<ImpactosEsperadosDTO> impactosEsperadosDTO = impactosEsperadosService.findByImpactosEsperadoProyectoId(idProyecto);
+            return new ResponseEntity<>(impactosEsperadosDTO, HttpStatus.OK);
+
+        } catch (Exception e) {
+
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
 }

@@ -46,4 +46,12 @@ export default class ImpactosEsperadosService {
       });
     });
   }
+
+  public retrieveImpactosEsperados(id?: number, paginationQuery?: any): Promise<any> {
+    return new Promise<any>(resolve => {
+      axios.get('api/impactos-esperados-proyecto' + `/${id}` + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function(res) {
+        resolve(res);
+      });
+    });
+  }
 }

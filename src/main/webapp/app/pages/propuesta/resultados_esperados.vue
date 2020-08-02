@@ -103,7 +103,7 @@ export default class Resultados_esperados extends Vue {
             });
     }
 
-            public save(): void {//debo guardar un elemento proyecto
+      public save(): void {//debo guardar un elemento proyecto
             try {
                 this.isSaving = true;
                 
@@ -111,7 +111,7 @@ export default class Resultados_esperados extends Vue {
                     //Actualizando el integrante
                      var resultado = new ResultadosEsperados();
 
-                       
+                         e.resultadosEsperadosProyectoId = this.proyId  
             
                     if (e.id) {
                         this.resultadosEsperadosService().update(e); //envio un elemento
@@ -119,7 +119,7 @@ export default class Resultados_esperados extends Vue {
                         
                         this.resultadosEsperadosService().create(e)
                         .then(param => {
-                            this.$router.push({ name: 'PropuestaResultadosEsperadosView',params:{ proyectoId: this.proyId}});
+                            this.$router.push({ name: 'PropuestaImpactosEsperadoView',params:{ proyectoId: this.proyId}});
                         });
                     }
                 }
