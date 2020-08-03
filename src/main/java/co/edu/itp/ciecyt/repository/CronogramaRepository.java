@@ -1,7 +1,10 @@
 package co.edu.itp.ciecyt.repository;
 import co.edu.itp.ciecyt.domain.Cronograma;
+import co.edu.itp.ciecyt.domain.ImpactosEsperados;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 
 /**
@@ -10,5 +13,5 @@ import org.springframework.stereotype.Repository;
 @SuppressWarnings("unused")
 @Repository
 public interface CronogramaRepository extends JpaRepository<Cronograma, Long> {
-
+    List<Cronograma> findByCronogramaProyectoId(Long idProyecto);
 }

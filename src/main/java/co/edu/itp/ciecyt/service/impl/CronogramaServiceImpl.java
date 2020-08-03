@@ -1,9 +1,11 @@
 package co.edu.itp.ciecyt.service.impl;
 
+import co.edu.itp.ciecyt.domain.ImpactosEsperados;
 import co.edu.itp.ciecyt.service.CronogramaService;
 import co.edu.itp.ciecyt.domain.Cronograma;
 import co.edu.itp.ciecyt.repository.CronogramaRepository;
 import co.edu.itp.ciecyt.service.dto.CronogramaDTO;
+import co.edu.itp.ciecyt.service.dto.ImpactosEsperadosDTO;
 import co.edu.itp.ciecyt.service.mapper.CronogramaMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +15,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -85,5 +89,19 @@ public class CronogramaServiceImpl implements CronogramaService {
     public void delete(Long id) {
         log.debug("Request to delete Cronograma : {}", id);
         cronogramaRepository.deleteById(id);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<CronogramaDTO> findByCronogramaProyectoId(Long idProyecto) throws Exception {
+        log.debug("Request to get all Cronograma whit a idProyecto");
+        List<CronogramaDTO> listDTO = new ArrayList<>();
+        List<Cronograma> list = cronogramaRepository.findByCronogramaProyectoId(idProyecto);
+
+
+        for (Cronograma obj : list) {
+            listDTO.add(cronogramaMapper.toDto(obj));
+        }
+        return listDTO;
     }
 }

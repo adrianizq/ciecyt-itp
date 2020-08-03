@@ -46,4 +46,12 @@ export default class CronogramaService {
       });
     });
   }
+
+  public retrieveCronograma(id?: number, paginationQuery?: any): Promise<any> {
+    return new Promise<any>(resolve => {
+      axios.get('api/cronograma-proyecto' + `/${id}` + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function(res) {
+        resolve(res);
+      });
+    });
+  }
 }

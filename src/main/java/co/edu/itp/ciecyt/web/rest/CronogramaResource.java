@@ -1,6 +1,7 @@
 package co.edu.itp.ciecyt.web.rest;
 
 import co.edu.itp.ciecyt.service.CronogramaService;
+import co.edu.itp.ciecyt.service.dto.ImpactosEsperadosDTO;
 import co.edu.itp.ciecyt.web.rest.errors.BadRequestAlertException;
 import co.edu.itp.ciecyt.service.dto.CronogramaDTO;
 
@@ -124,5 +125,27 @@ public class CronogramaResource {
         log.debug("REST request to delete Cronograma : {}", id);
         cronogramaService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+    }
+
+    /////////////777777777777777777777777777777777777777777777
+
+    /**
+     * {@code GET  /cronograma-proyectos/:id} : get the "id" idProyecto.
+     *
+     * @param idProyecto the id of the cronogramaProyectoDTO to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the cronogramaProyectoDTO, or with status {@code 404 (Not Found)}.
+     */
+    @GetMapping("/cronograma-proyecto/{idProyecto}")
+    public ResponseEntity<?> getCronogramaProyecto(@PathVariable Long idProyecto) {
+        log.debug("REST request to get CronogramaProyecto : {}", idProyecto);
+        try {
+            final List<CronogramaDTO> cronogramaDTO = cronogramaService.findByCronogramaProyectoId(idProyecto);
+            ResponseEntity<List<CronogramaDTO>> listResponseEntity = new ResponseEntity<>(cronogramaDTO, HttpStatus.OK);
+            return listResponseEntity;
+
+        } catch (Exception e) {
+
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
     }
 }
