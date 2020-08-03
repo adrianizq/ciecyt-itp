@@ -28,6 +28,7 @@
                     <th v-on:click="changeOrder('valor')"><span v-text="$t('ciecytApp.entidadFinanciadora.valor')">Valor</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th v-on:click="changeOrder('aprobada')"><span v-text="$t('ciecytApp.entidadFinanciadora.aprobada')">Aprobada</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th v-on:click="changeOrder('entidadFinanciadoraEntidadEntidad')"><span v-text="$t('ciecytApp.entidadFinanciadora.entidadFinanciadoraEntidad')">Entidad Financiadora Entidad</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
+                    <th v-on:click="changeOrder('entidadFinanciadoraProyectoTitulo')"><span v-text="$t('ciecytApp.entidadFinanciadora.entidadFinanciadoraProyecto')">Entidad Financiadora Proyecto</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th></th>
                 </tr>
                 </thead>
@@ -42,6 +43,11 @@
                     <td>
                         <div v-if="entidadFinanciadora.entidadFinanciadoraEntidadId">
                             <router-link :to="{name: 'EntidadView', params: {entidadFinanciadoraEntidadId: entidadFinanciadora.entidadFinanciadoraEntidadId}}">{{entidadFinanciadora.entidadFinanciadoraEntidadEntidad}}</router-link>
+                        </div>
+                    </td>
+                    <td>
+                        <div v-if="entidadFinanciadora.entidadFinanciadoraProyectoId">
+                            <router-link :to="{name: 'ProyectoView', params: {entidadFinanciadoraProyectoId: entidadFinanciadora.entidadFinanciadoraProyectoId}}">{{entidadFinanciadora.entidadFinanciadoraProyectoTitulo}}</router-link>
                         </div>
                     </td>
                     <td class="text-right">

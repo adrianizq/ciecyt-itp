@@ -1,6 +1,7 @@
 package co.edu.itp.ciecyt.web.rest;
 
 import co.edu.itp.ciecyt.service.EntidadFinanciadoraService;
+import co.edu.itp.ciecyt.service.dto.ImpactosEsperadosDTO;
 import co.edu.itp.ciecyt.web.rest.errors.BadRequestAlertException;
 import co.edu.itp.ciecyt.service.dto.EntidadFinanciadoraDTO;
 
@@ -124,5 +125,26 @@ public class EntidadFinanciadoraResource {
         log.debug("REST request to delete EntidadFinanciadora : {}", id);
         entidadFinanciadoraService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+    }
+
+    /////////////777777777777777777777777777777777777777777777
+
+    /**
+     * {@code GET  /entidad-financiadora-proyectos/:id} : get the "id" idProyecto.
+     *
+     * @param idProyecto the id of the entidadFinanciadoraProyectoDTO to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the entidadFinanciadoraProyectoDTO, or with status {@code 404 (Not Found)}.
+     */
+    @GetMapping("/entidad-financiadora-proyecto/{idProyecto}")
+    public ResponseEntity<?> getEntidadFinanciadoraProyecto(@PathVariable Long idProyecto) {
+        log.debug("REST request to get EntidadFinanciadoraProyecto : {}", idProyecto);
+        try {
+            final List<EntidadFinanciadoraDTO> entidadFinanciadoraDTO = entidadFinanciadoraService.findByEntidadFinanciadoraProyectoId(idProyecto);
+            return new ResponseEntity<>(entidadFinanciadoraDTO, HttpStatus.OK);
+
+        } catch (Exception e) {
+
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
     }
 }

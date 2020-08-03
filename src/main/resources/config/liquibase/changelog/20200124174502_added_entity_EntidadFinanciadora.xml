@@ -24,6 +24,9 @@
             <column name="entidad_financiadora_entidad_id" type="bigint">
                 <constraints nullable="true" />
             </column>
+            <column name="entidad_financiadora_proyecto_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
     </changeSet>

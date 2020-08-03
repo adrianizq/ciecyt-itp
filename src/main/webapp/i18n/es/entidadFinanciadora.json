@@ -18,7 +18,8 @@
       },
       "valor": "Valor",
       "aprobada": "Aprobada",
-      "entidadFinanciadoraEntidad": "Entidad Financiadora Entidad"
+      "entidadFinanciadoraEntidad": "Entidad Financiadora Entidad",
+      "entidadFinanciadoraProyecto": "Entidad Financiadora Proyecto"
     }
   }
 }

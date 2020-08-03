@@ -46,4 +46,12 @@ export default class EntidadFinanciadoraService {
       });
     });
   }
+
+  public retrieveEntidadFinanciadora(id?: number, paginationQuery?: any): Promise<any> {
+    return new Promise<any>(resolve => {
+      axios.get('api/entidad-financiadora-proyecto' + `/${id}` + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function(res) {
+        resolve(res);
+      });
+    });
+  }
 }

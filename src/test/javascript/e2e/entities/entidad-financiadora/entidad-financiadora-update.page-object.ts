@@ -12,4 +12,6 @@ export default class EntidadFinanciadoraUpdatePage extends AlertPage {
 
   aprobadaInput: ElementFinder = element(by.css('input#entidad-financiadora-aprobada'));
   entidadFinanciadoraEntidadSelect = element(by.css('select#entidad-financiadora-entidadFinanciadoraEntidad'));
+
+  entidadFinanciadoraProyectoSelect = element(by.css('select#entidad-financiadora-entidadFinanciadoraProyecto'));
 }

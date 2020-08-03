@@ -4,6 +4,8 @@ export interface IEntidadFinanciadora {
   aprobada?: boolean;
   entidadFinanciadoraEntidadEntidad?: string;
   entidadFinanciadoraEntidadId?: number;
+  entidadFinanciadoraProyectoTitulo?: string;
+  entidadFinanciadoraProyectoId?: number;
 }
 
 export class EntidadFinanciadora implements IEntidadFinanciadora {
@@ -12,7 +14,9 @@ export class EntidadFinanciadora implements IEntidadFinanciadora {
     public valor?: number,
     public aprobada?: boolean,
     public entidadFinanciadoraEntidadEntidad?: string,
-    public entidadFinanciadoraEntidadId?: number
+    public entidadFinanciadoraEntidadId?: number,
+    public entidadFinanciadoraProyectoTitulo?: string,
+    public entidadFinanciadoraProyectoId?: number
   ) {
     this.aprobada = this.aprobada || false;
   }

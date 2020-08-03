@@ -24,6 +24,14 @@
                             <router-link :to="{name: 'EntidadView', params: {entidadFinanciadoraEntidadId: entidadFinanciadora.entidadFinanciadoraEntidadId}}">{{entidadFinanciadora.entidadFinanciadoraEntidadEntidad}}</router-link>
                         </div>
                     </dd>
+                    <dt>
+                        <span v-text="$t('ciecytApp.entidadFinanciadora.entidadFinanciadoraProyecto')">Entidad Financiadora Proyecto</span>
+                    </dt>
+                    <dd>
+                        <div v-if="entidadFinanciadora.entidadFinanciadoraProyectoId">
+                            <router-link :to="{name: 'ProyectoView', params: {entidadFinanciadoraProyectoId: entidadFinanciadora.entidadFinanciadoraProyectoId}}">{{entidadFinanciadora.entidadFinanciadoraProyectoTitulo}}</router-link>
+                        </div>
+                    </dd>
                 </dl>
                 <button type="submit"
                         v-on:click.prevent="previousState()"

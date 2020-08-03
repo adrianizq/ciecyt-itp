@@ -5,6 +5,9 @@ import { numeric, required, minLength, maxLength } from 'vuelidate/lib/validator
 import EntidadService from '../entidad/entidad.service';
 import { IEntidad } from '@/shared/model/entidad.model';
 
+import ProyectoService from '../proyecto/proyecto.service';
+import { IProyecto } from '@/shared/model/proyecto.model';
+
 import AlertService from '@/shared/alert/alert.service';
 import { IEntidadFinanciadora, EntidadFinanciadora } from '@/shared/model/entidad-financiadora.model';
 import EntidadFinanciadoraService from './entidad-financiadora.service';
@@ -27,6 +30,10 @@ export default class EntidadFinanciadoraUpdate extends Vue {
   @Inject('entidadService') private entidadService: () => EntidadService;
 
   public entidads: IEntidad[] = [];
+
+  @Inject('proyectoService') private proyectoService: () => ProyectoService;
+
+  public proyectos: IProyecto[] = [];
   public isSaving = false;
 
   beforeRouteEnter(to, from, next) {
@@ -78,6 +85,11 @@ export default class EntidadFinanciadoraUpdate extends Vue {
       .retrieve()
       .then(res => {
         this.entidads = res.data;
+      });
+    this.proyectoService()
+      .retrieve()
+      .then(res => {
+        this.proyectos = res.data;
       });
   }
 }

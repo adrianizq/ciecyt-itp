@@ -29,6 +29,10 @@ public class EntidadFinanciadora implements Serializable {
     @JsonIgnoreProperties("entidadFinanciadoras")
     private Entidad entidadFinanciadoraEntidad;
 
+    @ManyToOne
+    @JsonIgnoreProperties("entidadFinanciadoras")
+    private Proyecto entidadFinanciadoraProyecto;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -75,6 +79,19 @@ public class EntidadFinanciadora implements Serializable {
 
     public void setEntidadFinanciadoraEntidad(Entidad entidad) {
         this.entidadFinanciadoraEntidad = entidad;
+    }
+
+    public Proyecto getEntidadFinanciadoraProyecto() {
+        return entidadFinanciadoraProyecto;
+    }
+
+    public EntidadFinanciadora entidadFinanciadoraProyecto(Proyecto proyecto) {
+        this.entidadFinanciadoraProyecto = proyecto;
+        return this;
+    }
+
+    public void setEntidadFinanciadoraProyecto(Proyecto proyecto) {
+        this.entidadFinanciadoraProyecto = proyecto;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

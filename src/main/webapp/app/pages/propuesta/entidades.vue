@@ -7,38 +7,30 @@
       <div :key="key" v-for="(item, key) in entidades">
         <b-card>
           <div class="row">
-            <div class="col-12">
-              <div class="form-group">
-                <label
-                  class="form-control-label"
-                  for="proyecto-documento"
-                >Entidades que financian el proyecto</label>
-                <input type="text" class="form-control" name="titulo" id="proyecto-documento" />
-              </div>
-            </div>
-            <div class="col-3">
-              <div class="form-group">
-                <!-- <label class="form-control-label" for="proyecto-nombre">Nombres</label>-->
-                <b-form-group label="Entidad " label-for="usuario">
-                  <b-form-select
-                    text-field="nombresApellidos"
-                    value-field="id"
-                    id="proyecto-asesorId"
-                  ></b-form-select>
-                </b-form-group>
-              </div>
-            </div>
+            
+            <div class="col-md-3 col-3">
+                  <b-form-group label="Entidad Financiadora" label-for="entidad">
+                    <b-form-select :options="entidads"
+                      text-field="entidad"
+                      value-field="id"
+                      id="id"
+                       v-model="item.entidadFinanciadoraEntidadId"
+                    ></b-form-select>
+                  </b-form-group>
+                </div>
             <div class="col-3">
               <div class="form-group">
                 <label class="form-control-label" for="proyecto-apellido">Valor</label>
-                <input type="text" class="form-control" name="titulo" id="proyecto-apellido" />
+                <input type="text" class="form-control" name="valor"
+                 id="valor"  v-model="item.valor"/>
               </div>
             </div>
             <div class="col-12">
-              <b-form-radio-group id="radio-group-2" name="radio-sub-component">
+              <b-form-radio-group :id="`aprobada-${key}`" 
+                  :name="`aprobada-${key}`"    v-model="item.aprobada">
                 Estado &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <b-form-radio value="first">Aprobada</b-form-radio>
-                <b-form-radio value="second">En Trámite</b-form-radio>
+                <b-form-radio value="true">Aprobada</b-form-radio>
+                <b-form-radio value="false">En Trámite</b-form-radio>
                 <!--<b-form-radio value="third" disabled>This one is Disabled</b-form-radio>
                 <b-form-radio :value="{ fourth: 4 }">This is the 4th radio</b-form-radio>-->
               </b-form-radio-group>
@@ -49,7 +41,9 @@
         </b-card>
         <hr>
       </div>
-      <button type="submit" id="save-entity" class="btn btn-primary float-right" >
+      <button type="submit" id="save-entity"
+              class="btn btn-primary float-right"
+               @click="save()" >
               <font-awesome-icon icon="save"></font-awesome-icon>&nbsp;
               <span>Nueva Entidad</span>
             </button>
@@ -62,21 +56,117 @@
 </template>
 
 <script lang="ts">
-import Component from 'vue-class-component';
-import { Vue } from 'vue-property-decorator';
+import { Component, Inject, Vue } from 'vue-property-decorator';
 import MenuLateral from '@/components/propuesta/menu_lateral.vue';
+import { IEntidadFinanciadora, EntidadFinanciadora } from '@/shared/model/entidad-financiadora.model';
+import EntidadFinanciadoraService from '@/entities/entidad-financiadora/entidad-financiadora.service';
+import EntidadService from '@/entities/entidad/entidad.service';
+import { IEntidad, Entidad } from '@/shared/model/entidad.model';
+import { IProyecto, Proyecto } from '@/shared/model/proyecto.model';
+import ProyectoService from '@/entities/proyecto/proyecto.service';
+
+const validations: any = {};
+
 
 @Component({
   components: { MenuLateral }
 })
 export default class Entidades extends Vue {
-  entidades = [{ mensaje: 'mundo' }];
+ 
+  @Inject('proyectoService') private proyectoService: () => ProyectoService;
+  @Inject('entidadFinanciadoraService') private entidadFinanciadoraService: () => EntidadFinanciadoraService;
+  @Inject('entidadService') private entidadService: () => EntidadService;
+  
+  
+
+  entidades = [];
   nuevo_entidad() {
-    //contar++;
     this.entidades.push({
-      mensaje: 'mundo'
-    });
+      entidadFinanciadoraProyectoId: this.proyId      
+     });
+
   }
+
+   public proyecto: IProyecto = new Proyecto();
+   public proyId: any = null;
+   public entidadesFinanciadors: IEntidadFinanciadora[] = [];
+    public entidads: IEntidad[] = [];
+   public isSaving = false;
+
+  beforeRouteEnter(to, from, next) {
+            next(vm => {
+              
+                    vm.initRelationships();
+                   
+            });
+    }
+
+             public save(): void {//debo guardar un elemento proyecto
+            try {
+                this.isSaving = true;
+                
+                for (let e of this.entidades) {
+                    //Actualizando el impacto
+                     var resultado = new EntidadFinanciadora();
+                     e.entidadFinanciadoraProyectoId = this.proyId;
+                       
+
+                       
+            
+                    if (e.id) {
+                        this.entidadFinanciadoraService().update(e); //envio un elemento
+                    } else {
+                        
+                        this.entidadFinanciadoraService().create(e)
+                        .then(param => {
+                            this.$router.push({ name: 'PropuestaCronogramaView',params:{ proyectoId: this.proyId}});
+                        });
+                    }
+                }
+
+            } catch (e) {
+                //TODO: mostrar mensajes de error
+            }
+        }
+
+        async initRelationships() {
+           try {
+
+               this.nuevo_entidad() ; //crea una primera tarjeta
+             this.proyId = parseInt(this.$route.params.proyectoId);
+            
+
+             //this.proyecto = await this.proyectoService().find(this.proyId);
+             this.proyecto = await this.proyectoService().find(this.proyId);
+
+
+              console.log(this.proyId);
+            
+            //recuperar las entidadesFinanciadores enviando un idProyecto (api)
+            //retrieveImpactsEsperadosProyecto
+            
+            this.entidadFinanciadoraService()
+                .retrieveEntidadFinanciadora(this.proyId)
+                .then(res=> {
+
+                    this.entidadesFinanciadors = res.data;
+                    console.log(res.data);
+                })
+            
+  
+                 //Obteniendo las lineas de investigacion
+            this.entidadService()
+                .retrieve()
+                .then(res => {
+                    this.entidads = res.data;
+                });
+
+            }
+            catch(e){ 
+              console.log("error al recuperar la informacion de impactos esperados ");
+            }
+ 
+        }
 }
 </script>
 

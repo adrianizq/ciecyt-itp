@@ -11,6 +11,8 @@ import EntidadFinanciadoraService from '@/entities/entidad-financiadora/entidad-
 
 import EntidadService from '@/entities/entidad/entidad.service';
 
+import ProyectoService from '@/entities/proyecto/proyecto.service';
+
 const localVue = createLocalVue();
 
 config.initVueApp(localVue);
@@ -38,7 +40,9 @@ describe('Component Tests', () => {
           alertService: () => new AlertService(store),
           entidadFinanciadoraService: () => entidadFinanciadoraServiceStub,
 
-          entidadService: () => new EntidadService()
+          entidadService: () => new EntidadService(),
+
+          proyectoService: () => new ProyectoService()
         }
       });
       comp = wrapper.vm;

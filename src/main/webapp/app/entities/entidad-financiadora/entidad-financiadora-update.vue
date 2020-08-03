@@ -26,6 +26,13 @@
                             <option v-bind:value="entidadOption.id" v-for="entidadOption in entidads" :key="entidadOption.id">{{entidadOption.entidad}}</option>
                         </select>
                     </div>
+                    <div class="form-group">
+                        <label class="form-control-label" v-bind:value="$t('ciecytApp.entidadFinanciadora.entidadFinanciadoraProyecto')" for="entidad-financiadora-entidadFinanciadoraProyecto">Entidad Financiadora Proyecto</label>
+                        <select class="form-control" id="entidad-financiadora-entidadFinanciadoraProyecto" name="entidadFinanciadoraProyecto" v-model="entidadFinanciadora.entidadFinanciadoraProyectoId">
+                            <option v-bind:value="null"></option>
+                            <option v-bind:value="proyectoOption.id" v-for="proyectoOption in proyectos" :key="proyectoOption.id">{{proyectoOption.titulo}}</option>
+                        </select>
+                    </div>
                 </div>
                 <div>
                     <button type="button" id="cancel-save" class="btn btn-secondary" v-on:click="previousState()">

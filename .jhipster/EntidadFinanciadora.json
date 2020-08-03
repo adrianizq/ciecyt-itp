@@ -17,6 +17,13 @@
             "otherEntityRelationshipName": "entidadFinanciadora",
             "relationshipName": "entidadFinanciadoraEntidad",
             "otherEntityField": "entidad"
+        },
+        {
+            "relationshipName": "entidadFinanciadoraProyecto",
+            "otherEntityName": "proyecto",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "titulo",
+            "otherEntityRelationshipName": "entidadFinanciadora"
         }
     ],
     "changelogDate": "20200124174502",
@@ -28,5 +35,7 @@
     "fluentMethods": true,
     "readOnly": false,
     "clientRootFolder": "",
-    "applications": "*"
+    "applications": "*",
+    "searchEngine": false,
+    "databaseType": "sql"
 }

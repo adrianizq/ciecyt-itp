@@ -119,7 +119,7 @@ export default class Impactos_esperados extends Vue {
                         
                         this.impactosEsperadosService().create(e)
                         .then(param => {
-                            this.$router.push({ name: 'PropuestaImpactosEsperadoView',params:{ proyectoId: this.proyId}});
+                            this.$router.push({ name: 'PropuestaEntidadesView',params:{ proyectoId: this.proyId}});
                         });
                     }
                 }

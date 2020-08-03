@@ -75,6 +75,7 @@ describe('EntidadFinanciadora e2e test', () => {
       }
 
       // await  selectLastOption(updatePage.entidadFinanciadoraEntidadSelect);
+      // await  selectLastOption(updatePage.entidadFinanciadoraProyectoSelect);
 
       expect(await updatePage.saveButton.isEnabled()).to.be.true;
       await updatePage.saveButton.click();

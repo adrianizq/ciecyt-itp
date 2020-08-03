@@ -18,6 +18,10 @@ public class EntidadFinanciadoraDTO implements Serializable {
 
     private String entidadFinanciadoraEntidadEntidad;
 
+    private Long entidadFinanciadoraProyectoId;
+
+    private String entidadFinanciadoraProyectoTitulo;
+
     public Long getId() {
         return id;
     }
@@ -58,6 +62,22 @@ public class EntidadFinanciadoraDTO implements Serializable {
         this.entidadFinanciadoraEntidadEntidad = entidadEntidad;
     }
 
+    public Long getEntidadFinanciadoraProyectoId() {
+        return entidadFinanciadoraProyectoId;
+    }
+
+    public void setEntidadFinanciadoraProyectoId(Long proyectoId) {
+        this.entidadFinanciadoraProyectoId = proyectoId;
+    }
+
+    public String getEntidadFinanciadoraProyectoTitulo() {
+        return entidadFinanciadoraProyectoTitulo;
+    }
+
+    public void setEntidadFinanciadoraProyectoTitulo(String proyectoTitulo) {
+        this.entidadFinanciadoraProyectoTitulo = proyectoTitulo;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -87,6 +107,8 @@ public class EntidadFinanciadoraDTO implements Serializable {
             ", aprobada='" + isAprobada() + "'" +
             ", entidadFinanciadoraEntidad=" + getEntidadFinanciadoraEntidadId() +
             ", entidadFinanciadoraEntidad='" + getEntidadFinanciadoraEntidadEntidad() + "'" +
+            ", entidadFinanciadoraProyecto=" + getEntidadFinanciadoraProyectoId() +
+            ", entidadFinanciadoraProyecto='" + getEntidadFinanciadoraProyectoTitulo() + "'" +
             "}";
     }
 }
