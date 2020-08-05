@@ -16,5 +16,7 @@ export default class CronogramaUpdatePage extends AlertPage {
 
   fechaFinInput: ElementFinder = element(by.css('input#cronograma-fechaFin'));
 
+  ordenVistaInput: ElementFinder = element(by.css('input#cronograma-ordenVista'));
+
   cronogramaProyectoSelect = element(by.css('select#cronograma-cronogramaProyecto'));
 }

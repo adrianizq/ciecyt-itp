@@ -22,6 +22,12 @@
                                    v-model="proyecto.titulo"/>
                         </div>
 
+                         <div class="form-group">
+                            <label class="form-control-label " v-text="$t('ciecytApp.proyecto.palabrasClave')" for="proyecto-titulo">Palabras Clave</label>
+                            <b-form-textarea  rows="5"  max-rows="10" class="form-control" name="palabrasClave" id="proyecto-palabras-clave"
+                                   v-model="proyecto.palabrasClave"/>
+                        </div>
+
 
                     </div>
 

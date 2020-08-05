@@ -74,6 +74,9 @@ describe('Cronograma e2e test', () => {
       await updatePage.fechaFinInput.sendKeys('01-01-2001');
       expect(await updatePage.fechaFinInput.getAttribute('value')).to.eq('2001-01-01');
 
+      await updatePage.ordenVistaInput.sendKeys('5');
+      expect(await updatePage.ordenVistaInput.getAttribute('value')).to.eq('5');
+
       // await  selectLastOption(updatePage.cronogramaProyectoSelect);
 
       expect(await updatePage.saveButton.isEnabled()).to.be.true;
@@ -147,6 +150,10 @@ describe('Cronograma e2e test', () => {
         await updatePage.fechaFinInput.clear();
         await updatePage.fechaFinInput.sendKeys('01-01-2019');
         expect(await updatePage.fechaFinInput.getAttribute('value')).to.eq('2019-01-01');
+
+        await clear(updatePage.ordenVistaInput);
+        await updatePage.ordenVistaInput.sendKeys('6');
+        expect(await updatePage.ordenVistaInput.getAttribute('value')).to.eq('6');
 
         await updatePage.saveButton.click();
 

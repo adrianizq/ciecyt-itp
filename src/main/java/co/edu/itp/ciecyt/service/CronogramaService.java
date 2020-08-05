@@ -2,7 +2,6 @@ package co.edu.itp.ciecyt.service;
 
 import co.edu.itp.ciecyt.service.dto.CronogramaDTO;
 
-import co.edu.itp.ciecyt.service.dto.ImpactosEsperadosDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -46,5 +45,5 @@ public interface CronogramaService {
      */
     void delete(Long id);
 
-    List<CronogramaDTO> findByCronogramaProyectoId(Long idProyecto) throws Exception ;
+    public List<CronogramaDTO> findByCronogramaProyectoId(Long idProyecto) throws Exception;
 }

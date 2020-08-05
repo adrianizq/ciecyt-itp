@@ -27,6 +27,9 @@
             <column name="fecha_fin" type="date">
                 <constraints nullable="true" />
             </column>
+            <column name="orden_vista" type="integer">
+                <constraints nullable="true" />
+            </column>
             <column name="cronograma_proyecto_id" type="bigint">
                 <constraints nullable="true" />
             </column>
@@ -57,6 +60,7 @@
             <column name="duracion" type="numeric"/>
             <column name="fecha_inicio" type="date"/>
             <column name="fecha_fin" type="date"/>
+            <column name="orden_vista" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here, do not remove-->
         </loadData>
     </changeSet>

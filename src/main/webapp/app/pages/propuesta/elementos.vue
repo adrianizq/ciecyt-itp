@@ -145,8 +145,22 @@ export default class Elementos extends Vue {
 
                 this.modalidadId = this.proyecto.proyectoModalidadId;
 
-              console.log("iniciando a obtner los elementos");
-            //Obtenienedo los elementos
+
+            ///////////////////////////////////////////////////////7
+              //recuperar las elementosProyecto enviando un idProyecto (api)
+            //
+            
+            this.elementoProyectoService()
+                .retrieveElementoProyecto(this.proyId)
+                .then(res=> {
+
+                    this.elementosProyecto = res.data;
+                    console.log(res.data);
+                })
+            ////////////////////////////////////////////////////77    
+
+              
+            //Obtenienedo los elementos de acuerdo a la modalidad
             this.elementoService()
                 .retrieveElementosModalidad( this.modalidadId)
                 .then(res => {
@@ -154,7 +168,7 @@ export default class Elementos extends Vue {
 
 
                     //copiar los datos de elementos a elemento-proyecto
-            console.log("inicializando elementosProyecto");
+           
 
              this.elements.forEach(e => {
                   var elemProy: IElementoProyecto = new ElementoProyecto();
@@ -168,20 +182,13 @@ export default class Elementos extends Vue {
 
             });
 
-
                 });
-
-
-
             }
             catch(e){
               console.log("error al recuperar la informacion de elemento ");
             }
 
-
-
         }
-
 
 }
 </script>

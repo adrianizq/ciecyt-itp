@@ -29,6 +29,12 @@
                         <span>{{cronograma.fechaFin}}</span>
                     </dd>
                     <dt>
+                        <span v-text="$t('ciecytApp.cronograma.ordenVista')">Orden Vista</span>
+                    </dt>
+                    <dd>
+                        <span>{{cronograma.ordenVista}}</span>
+                    </dd>
+                    <dt>
                         <span v-text="$t('ciecytApp.cronograma.cronogramaProyecto')">Cronograma Proyecto</span>
                     </dt>
                     <dd>

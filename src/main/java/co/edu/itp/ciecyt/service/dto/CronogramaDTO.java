@@ -18,6 +18,8 @@ public class CronogramaDTO implements Serializable {
 
     private LocalDate fechaFin;
 
+    private Integer ordenVista;
+
 
     private Long cronogramaProyectoId;
 
@@ -61,6 +63,14 @@ public class CronogramaDTO implements Serializable {
 
     public void setFechaFin(LocalDate fechaFin) {
         this.fechaFin = fechaFin;
+    }
+
+    public Integer getOrdenVista() {
+        return ordenVista;
+    }
+
+    public void setOrdenVista(Integer ordenVista) {
+        this.ordenVista = ordenVista;
     }
 
     public Long getCronogramaProyectoId() {
@@ -108,6 +118,7 @@ public class CronogramaDTO implements Serializable {
             ", duracion=" + getDuracion() +
             ", fechaInicio='" + getFechaInicio() + "'" +
             ", fechaFin='" + getFechaFin() + "'" +
+            ", ordenVista=" + getOrdenVista() +
             ", cronogramaProyecto=" + getCronogramaProyectoId() +
             ", cronogramaProyecto='" + getCronogramaProyectoTitulo() + "'" +
             "}";

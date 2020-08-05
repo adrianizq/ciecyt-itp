@@ -2,9 +2,11 @@ package co.edu.itp.ciecyt.service;
 
 import co.edu.itp.ciecyt.service.dto.ElementoProyectoDTO;
 
+import co.edu.itp.ciecyt.service.dto.ImpactosEsperadosDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -43,4 +45,7 @@ public interface ElementoProyectoService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+    List<ElementoProyectoDTO> findByElementoProyectoProyectoId(Long idProyecto) throws Exception ;
+
 }

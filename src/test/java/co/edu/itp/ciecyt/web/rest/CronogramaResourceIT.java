@@ -50,6 +50,9 @@ public class CronogramaResourceIT {
     private static final LocalDate DEFAULT_FECHA_FIN = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_FECHA_FIN = LocalDate.now(ZoneId.systemDefault());
 
+    private static final Integer DEFAULT_ORDEN_VISTA = 1;
+    private static final Integer UPDATED_ORDEN_VISTA = 2;
+
     @Autowired
     private CronogramaRepository cronogramaRepository;
 
@@ -101,7 +104,8 @@ public class CronogramaResourceIT {
             .actividad(DEFAULT_ACTIVIDAD)
             .duracion(DEFAULT_DURACION)
             .fechaInicio(DEFAULT_FECHA_INICIO)
-            .fechaFin(DEFAULT_FECHA_FIN);
+            .fechaFin(DEFAULT_FECHA_FIN)
+            .ordenVista(DEFAULT_ORDEN_VISTA);
         return cronograma;
     }
     /**
@@ -115,7 +119,8 @@ public class CronogramaResourceIT {
             .actividad(UPDATED_ACTIVIDAD)
             .duracion(UPDATED_DURACION)
             .fechaInicio(UPDATED_FECHA_INICIO)
-            .fechaFin(UPDATED_FECHA_FIN);
+            .fechaFin(UPDATED_FECHA_FIN)
+            .ordenVista(UPDATED_ORDEN_VISTA);
         return cronograma;
     }
 
@@ -144,6 +149,7 @@ public class CronogramaResourceIT {
         assertThat(testCronograma.getDuracion()).isEqualTo(DEFAULT_DURACION);
         assertThat(testCronograma.getFechaInicio()).isEqualTo(DEFAULT_FECHA_INICIO);
         assertThat(testCronograma.getFechaFin()).isEqualTo(DEFAULT_FECHA_FIN);
+        assertThat(testCronograma.getOrdenVista()).isEqualTo(DEFAULT_ORDEN_VISTA);
     }
 
     @Test
@@ -181,7 +187,8 @@ public class CronogramaResourceIT {
             .andExpect(jsonPath("$.[*].actividad").value(hasItem(DEFAULT_ACTIVIDAD)))
             .andExpect(jsonPath("$.[*].duracion").value(hasItem(DEFAULT_DURACION)))
             .andExpect(jsonPath("$.[*].fechaInicio").value(hasItem(DEFAULT_FECHA_INICIO.toString())))
-            .andExpect(jsonPath("$.[*].fechaFin").value(hasItem(DEFAULT_FECHA_FIN.toString())));
+            .andExpect(jsonPath("$.[*].fechaFin").value(hasItem(DEFAULT_FECHA_FIN.toString())))
+            .andExpect(jsonPath("$.[*].ordenVista").value(hasItem(DEFAULT_ORDEN_VISTA)));
     }
     
     @Test
@@ -198,7 +205,8 @@ public class CronogramaResourceIT {
             .andExpect(jsonPath("$.actividad").value(DEFAULT_ACTIVIDAD))
             .andExpect(jsonPath("$.duracion").value(DEFAULT_DURACION))
             .andExpect(jsonPath("$.fechaInicio").value(DEFAULT_FECHA_INICIO.toString()))
-            .andExpect(jsonPath("$.fechaFin").value(DEFAULT_FECHA_FIN.toString()));
+            .andExpect(jsonPath("$.fechaFin").value(DEFAULT_FECHA_FIN.toString()))
+            .andExpect(jsonPath("$.ordenVista").value(DEFAULT_ORDEN_VISTA));
     }
 
     @Test
@@ -225,7 +233,8 @@ public class CronogramaResourceIT {
             .actividad(UPDATED_ACTIVIDAD)
             .duracion(UPDATED_DURACION)
             .fechaInicio(UPDATED_FECHA_INICIO)
-            .fechaFin(UPDATED_FECHA_FIN);
+            .fechaFin(UPDATED_FECHA_FIN)
+            .ordenVista(UPDATED_ORDEN_VISTA);
         CronogramaDTO cronogramaDTO = cronogramaMapper.toDto(updatedCronograma);
 
         restCronogramaMockMvc.perform(put("/api/cronogramas")
@@ -241,6 +250,7 @@ public class CronogramaResourceIT {
         assertThat(testCronograma.getDuracion()).isEqualTo(UPDATED_DURACION);
         assertThat(testCronograma.getFechaInicio()).isEqualTo(UPDATED_FECHA_INICIO);
         assertThat(testCronograma.getFechaFin()).isEqualTo(UPDATED_FECHA_FIN);
+        assertThat(testCronograma.getOrdenVista()).isEqualTo(UPDATED_ORDEN_VISTA);
     }
 
     @Test

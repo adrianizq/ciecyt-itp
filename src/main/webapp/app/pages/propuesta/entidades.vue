@@ -4,7 +4,7 @@
       <menu-lateral :proyectoId='$route.params.proyectoId'></menu-lateral>
     </div>
     <div class="col-sm-8">
-      <div :key="key" v-for="(item, key) in entidades">
+      <div :key="key" v-for="(item, key) in entidadesFinanciadors">
         <b-card>
           <div class="row">
             
@@ -79,9 +79,10 @@ export default class Entidades extends Vue {
   
   
 
-  entidades = [];
+  //entidades = [];
+  public entidadesFinanciadors: IEntidadFinanciadora[] = [];
   nuevo_entidad() {
-    this.entidades.push({
+    this.entidadesFinanciadors.push({
       entidadFinanciadoraProyectoId: this.proyId      
      });
 
@@ -89,7 +90,7 @@ export default class Entidades extends Vue {
 
    public proyecto: IProyecto = new Proyecto();
    public proyId: any = null;
-   public entidadesFinanciadors: IEntidadFinanciadora[] = [];
+   //public entidadesFinanciadors: IEntidadFinanciadora[] = [];
     public entidads: IEntidad[] = [];
    public isSaving = false;
 
@@ -105,7 +106,7 @@ export default class Entidades extends Vue {
             try {
                 this.isSaving = true;
                 
-                for (let e of this.entidades) {
+                for (let e of this.entidadesFinanciadors) {
                     //Actualizando el impacto
                      var resultado = new EntidadFinanciadora();
                      e.entidadFinanciadoraProyectoId = this.proyId;

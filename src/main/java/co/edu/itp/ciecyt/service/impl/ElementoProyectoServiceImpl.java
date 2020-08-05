@@ -1,9 +1,11 @@
 package co.edu.itp.ciecyt.service.impl;
 
+import co.edu.itp.ciecyt.domain.ImpactosEsperados;
 import co.edu.itp.ciecyt.service.ElementoProyectoService;
 import co.edu.itp.ciecyt.domain.ElementoProyecto;
 import co.edu.itp.ciecyt.repository.ElementoProyectoRepository;
 import co.edu.itp.ciecyt.service.dto.ElementoProyectoDTO;
+import co.edu.itp.ciecyt.service.dto.ImpactosEsperadosDTO;
 import co.edu.itp.ciecyt.service.mapper.ElementoProyectoMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +15,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -85,5 +89,20 @@ public class ElementoProyectoServiceImpl implements ElementoProyectoService {
     public void delete(Long id) {
         log.debug("Request to delete ElementoProyecto : {}", id);
         elementoProyectoRepository.deleteById(id);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<ElementoProyectoDTO> findByElementoProyectoProyectoId(Long idProyecto) throws Exception {
+        log.debug("Request to get all ElementoProyecto whit a idProyecto");
+        List<ElementoProyectoDTO> listDTO = new ArrayList<>();
+        //List<ElementoProyecto> list = elementoProyectoRepository.findByElementoProyectoProyectoId(idProyecto);
+        List<ElementoProyecto> list = elementoProyectoRepository.findByElementoProyectoProyectoIdOrderByElementoProyectoElementoId(idProyecto);
+
+
+        for (ElementoProyecto obj : list) {
+            listDTO.add(elementoProyectoMapper.toDto(obj));
+        }
+        return listDTO;
     }
 }

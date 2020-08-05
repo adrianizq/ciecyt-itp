@@ -34,6 +34,11 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label class="form-control-label" v-text="$t('ciecytApp.cronograma.ordenVista')" for="cronograma-ordenVista">Orden Vista</label>
+                        <input type="number" class="form-control" name="ordenVista" id="cronograma-ordenVista"
+                            :class="{'valid': !$v.cronograma.ordenVista.$invalid, 'invalid': $v.cronograma.ordenVista.$invalid }" v-model.number="$v.cronograma.ordenVista.$model" />
+                    </div>
+                    <div class="form-group">
                         <label class="form-control-label" v-bind:value="$t('ciecytApp.cronograma.cronogramaProyecto')" for="cronograma-cronogramaProyecto">Cronograma Proyecto</label>
                         <select class="form-control" id="cronograma-cronogramaProyecto" name="cronogramaProyecto" v-model="cronograma.cronogramaProyectoId">
                             <option v-bind:value="null"></option>

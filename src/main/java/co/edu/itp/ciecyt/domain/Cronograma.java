@@ -32,6 +32,9 @@ public class Cronograma implements Serializable {
     @Column(name = "fecha_fin")
     private LocalDate fechaFin;
 
+    @Column(name = "orden_vista")
+    private Integer ordenVista;
+
     @ManyToOne
     @JsonIgnoreProperties("cronogramas")
     private Proyecto cronogramaProyecto;
@@ -97,6 +100,19 @@ public class Cronograma implements Serializable {
         this.fechaFin = fechaFin;
     }
 
+    public Integer getOrdenVista() {
+        return ordenVista;
+    }
+
+    public Cronograma ordenVista(Integer ordenVista) {
+        this.ordenVista = ordenVista;
+        return this;
+    }
+
+    public void setOrdenVista(Integer ordenVista) {
+        this.ordenVista = ordenVista;
+    }
+
     public Proyecto getCronogramaProyecto() {
         return cronogramaProyecto;
     }
@@ -135,6 +151,7 @@ public class Cronograma implements Serializable {
             ", duracion=" + getDuracion() +
             ", fechaInicio='" + getFechaInicio() + "'" +
             ", fechaFin='" + getFechaFin() + "'" +
+            ", ordenVista=" + getOrdenVista() +
             "}";
     }
 }

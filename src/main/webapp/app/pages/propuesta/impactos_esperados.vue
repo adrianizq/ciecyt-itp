@@ -4,7 +4,7 @@
       <menu-lateral :proyectoId='$route.params.proyectoId'></menu-lateral>
     </div>
     <div class="col-sm-8">
-      <div :key="key" v-for="(item, key) in impactos">
+      <div :key="key" v-for="(item, key) in impactosEsperads">
         <b-card>
           <div class="row">
             
@@ -80,9 +80,9 @@ export default class Impactos_esperados extends Vue {
 
   @Inject('impactosEsperadosService') private impactosEsperadosService: () => ImpactosEsperadosService;
   @Inject('proyectoService') private proyectoService: () => ProyectoService;
-  impactos = [];
+  public impactosEsperads: IImpactosEsperados[] = [];
   nuevo_impacto() {
-    this.impactos.push({
+    this.impactosEsperads.push({
       impactosEsperadoProyectoId: this.proyId      
      });
 
@@ -90,7 +90,7 @@ export default class Impactos_esperados extends Vue {
 
    public proyecto: IProyecto = new Proyecto();
    public proyId: any = null;
-   public impactosEsperads: IImpactosEsperados[] = [];
+   //public impactosEsperads: IImpactosEsperados[] = [];
    public isSaving = false;
 
   beforeRouteEnter(to, from, next) {
@@ -105,7 +105,7 @@ export default class Impactos_esperados extends Vue {
             try {
                 this.isSaving = true;
                 
-                for (let e of this.impactos) {
+                for (let e of this.impactosEsperads) {
                     //Actualizando el impacto
                      var resultado = new ImpactosEsperados();
 

@@ -24,7 +24,7 @@ describe('Service Tests', () => {
       service = new CronogramaService();
       currentDate = new Date();
 
-      elemDefault = new Cronograma(0, 'AAAAAAA', 0, currentDate, currentDate);
+      elemDefault = new Cronograma(0, 'AAAAAAA', 0, currentDate, currentDate, 0);
     });
 
     describe('Service methods', () => {
@@ -71,7 +71,8 @@ describe('Service Tests', () => {
             actividad: 'BBBBBB',
             duracion: 1,
             fechaInicio: format(currentDate, DATE_FORMAT),
-            fechaFin: format(currentDate, DATE_FORMAT)
+            fechaFin: format(currentDate, DATE_FORMAT),
+            ordenVista: 1
           },
           elemDefault
         );
@@ -95,7 +96,8 @@ describe('Service Tests', () => {
             actividad: 'BBBBBB',
             duracion: 1,
             fechaInicio: format(currentDate, DATE_FORMAT),
-            fechaFin: format(currentDate, DATE_FORMAT)
+            fechaFin: format(currentDate, DATE_FORMAT),
+            ordenVista: 1
           },
           elemDefault
         );

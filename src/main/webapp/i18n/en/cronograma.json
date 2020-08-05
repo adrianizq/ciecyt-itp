@@ -20,6 +20,7 @@
       "duracion": "Duracion",
       "fechaInicio": "Fecha Inicio",
       "fechaFin": "Fecha Fin",
+      "ordenVista": "Orden Vista",
       "cronogramaProyecto": "Cronograma Proyecto"
     }
   }

@@ -4,15 +4,20 @@
       <menu-lateral :proyectoId='$route.params.proyectoId'></menu-lateral>
     </div>
     <div class="col-sm-8">
-      <div :key="key" v-for="(item, key) in cronogramas">
-        <b-card>
+      <div :key="key" v-for="(item, key) in cronograms">
+        <b-card  :header="`Actividad Número ${key+1}`" 
+         border-variant="primary"
+
+        header-bg-variant="primary"
+        header-text-variant="white"
+       >
           <div class="row">
             <div class="col-12">
               <div class="form-group">
                 <label
                   class="form-control-label"
                   for="proyecto-documento"
-                >Activdad # {{key +1}} </label>
+                >Descripción de la Activdad  </label>
                 <input type="text" class="form-control" 
                 name="actividad" id="actividad"  v-model="item.actividad"/>
               </div>
@@ -83,7 +88,7 @@
 
       <button type="submit" id="save-entity" 
        class="btn btn-primary float-right"
-        @click="save()" :disabled="$v.cronograma.$invalid || isSaving">
+         @click="save()" > 
         <font-awesome-icon :icon="['fas', 'save']"></font-awesome-icon>&nbsp;
         <span>Guardar</span>
       </button>
@@ -109,6 +114,8 @@ import { ICronograma, Cronograma } from '@/shared/model/cronograma.model';
 import { IProyecto, Proyecto } from '@/shared/model/proyecto.model';
 import ProyectoService from '@/entities/proyecto/proyecto.service';
 import AlertService from '@/shared/alert/alert.service';
+//import { mixins } from 'vue-class-component';
+//import Vue2Filters from 'vue2-filters';
 //import { CalendarPlugin } from 'bootstrap-vue';
 
 const validations: any = {
@@ -130,9 +137,10 @@ export default class CronogramaPropuesta extends Vue {
   @Inject('cronogramaService') private cronogramaService: () => CronogramaService;
   
   
-cronogramas = [];
+//cronogramas = [];
+public cronograms: ICronograma[] = [];
    nuevo_cronograma() {
-    this.cronogramas.push({
+    this.cronograms.push({
       cronogramaProyectoId: this.proyId      
      });
 
@@ -141,7 +149,7 @@ cronogramas = [];
 
    public proyecto: IProyecto = new Proyecto();
    public proyId: any = null;
-   public cronograms: ICronograma[] = [];
+   //public cronograms: ICronograma[] = [];
    public isSaving = false;
   public  value: any= '';
   public context: any= null;
@@ -157,12 +165,13 @@ cronogramas = [];
              public save(): void {//debo guardar un elemento proyecto
             try {
                 this.isSaving = true;
-                
-                for (let e of this.cronogramas) {
+                var i=this.cronograms.length;
+                //var i=0;
+                for (let e of this.cronograms) {
                     //Actualizando el cronograma
                      var resultado = new Cronograma();
                      e.cronogramaProyectoId = this.proyId;
-                       
+                     e.ordenVista = i++;  
 
                        
             
@@ -205,6 +214,7 @@ cronogramas = [];
                 .retrieveCronograma(this.proyId)
                 .then(res=> {
 
+                    //this.cronograms = res.data;
                     this.cronograms = res.data;
                     console.log(res.data);
                 })

@@ -29,6 +29,7 @@
                     <th v-on:click="changeOrder('duracion')"><span v-text="$t('ciecytApp.cronograma.duracion')">Duracion</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th v-on:click="changeOrder('fechaInicio')"><span v-text="$t('ciecytApp.cronograma.fechaInicio')">Fecha Inicio</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th v-on:click="changeOrder('fechaFin')"><span v-text="$t('ciecytApp.cronograma.fechaFin')">Fecha Fin</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
+                    <th v-on:click="changeOrder('ordenVista')"><span v-text="$t('ciecytApp.cronograma.ordenVista')">Orden Vista</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th v-on:click="changeOrder('cronogramaProyectoTitulo')"><span v-text="$t('ciecytApp.cronograma.cronogramaProyecto')">Cronograma Proyecto</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th></th>
                 </tr>
@@ -43,6 +44,7 @@
                     <td>{{cronograma.duracion}}</td>
                     <td>{{cronograma.fechaInicio}}</td>
                     <td>{{cronograma.fechaFin}}</td>
+                    <td>{{cronograma.ordenVista}}</td>
                     <td>
                         <div v-if="cronograma.cronogramaProyectoId">
                             <router-link :to="{name: 'ProyectoView', params: {cronogramaProyectoId: cronograma.cronogramaProyectoId}}">{{cronograma.cronogramaProyectoTitulo}}</router-link>

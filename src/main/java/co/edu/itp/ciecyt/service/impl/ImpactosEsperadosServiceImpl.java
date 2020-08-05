@@ -96,7 +96,7 @@ public class ImpactosEsperadosServiceImpl implements ImpactosEsperadosService {
     public List<ImpactosEsperadosDTO> findByImpactosEsperadoProyectoId(Long idProyecto) throws Exception {
         log.debug("Request to get all ImpactosEsperados whit a idProyecto");
         List<ImpactosEsperadosDTO> listDTO = new ArrayList<>();
-        List<ImpactosEsperados> list = impactosEsperadosRepository.findByImpactosEsperadoProyectoId(idProyecto);
+        List<ImpactosEsperados> list = impactosEsperadosRepository.findByImpactosEsperadoProyectoIdOrderById(idProyecto);
 
 
         for (ImpactosEsperados obj : list) {

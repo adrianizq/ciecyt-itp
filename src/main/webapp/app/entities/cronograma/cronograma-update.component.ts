@@ -14,7 +14,8 @@ const validations: any = {
     actividad: {},
     duracion: {},
     fechaInicio: {},
-    fechaFin: {}
+    fechaFin: {},
+    ordenVista: {}
   }
 };
 
