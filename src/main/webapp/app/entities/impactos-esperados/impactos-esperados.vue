@@ -29,6 +29,7 @@
                     <th v-on:click="changeOrder('plazo')"><span v-text="$t('ciecytApp.impactosEsperados.plazo')">Plazo</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th v-on:click="changeOrder('indicador')"><span v-text="$t('ciecytApp.impactosEsperados.indicador')">Indicador</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th v-on:click="changeOrder('supuestos')"><span v-text="$t('ciecytApp.impactosEsperados.supuestos')">Supuestos</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
+                    <th v-on:click="changeOrder('ordenVista')"><span v-text="$t('ciecytApp.impactosEsperados.ordenVista')">Orden Vista</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th v-on:click="changeOrder('impactosEsperadoProyectoTitulo')"><span v-text="$t('ciecytApp.impactosEsperados.impactosEsperadoProyecto')">Impactos Esperado Proyecto</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th></th>
                 </tr>
@@ -43,6 +44,7 @@
                     <td>{{impactosEsperados.plazo}}</td>
                     <td>{{impactosEsperados.indicador}}</td>
                     <td>{{impactosEsperados.supuestos}}</td>
+                    <td>{{impactosEsperados.ordenVista}}</td>
                     <td>
                         <div v-if="impactosEsperados.impactosEsperadoProyectoId">
                             <router-link :to="{name: 'ProyectoView', params: {impactosEsperadoProyectoId: impactosEsperados.impactosEsperadoProyectoId}}">{{impactosEsperados.impactosEsperadoProyectoTitulo}}</router-link>

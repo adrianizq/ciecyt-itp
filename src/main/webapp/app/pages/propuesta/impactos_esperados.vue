@@ -5,12 +5,16 @@
     </div>
     <div class="col-sm-8">
       <div :key="key" v-for="(item, key) in impactosEsperads">
-        <b-card>
+        <b-card :header="`Impacto ${key+1}`" 
+         border-variant="primary"
+
+        header-bg-variant="primary"
+        header-text-variant="white">
           <div class="row">
             
             <div class="col-12">
               <div class="form-group">
-                <label class="form-control-label" for="proyecto-nombre">Impactos Esperados</label>
+                <label class="form-control-label" for="proyecto-nombre">Describa el Impactos Esperado</label>
                 <label class="float-right" id="contar">#{{key+1}}</label>
 
                 <input type="text" class="form-control" name="impacto" 
@@ -104,13 +108,13 @@ export default class Impactos_esperados extends Vue {
           public save(): void {//debo guardar un elemento proyecto
             try {
                 this.isSaving = true;
-                
+                 var i=this.impactosEsperads.length;                
                 for (let e of this.impactosEsperads) {
                     //Actualizando el impacto
                      var resultado = new ImpactosEsperados();
 
-                     e.impactosEsperadoProyectoId = this.proyId  
-
+                     e.impactosEsperadoProyectoId = this.proyId;  
+                    e.ordenVista = i++;
                        
             
                     if (e.id) {

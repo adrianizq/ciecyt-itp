@@ -31,6 +31,9 @@ public class ImpactosEsperados implements Serializable {
     @Column(name = "supuestos")
     private String supuestos;
 
+    @Column(name = "orden_vista")
+    private Integer ordenVista;
+
     @ManyToOne
     @JsonIgnoreProperties("impactosEsperados")
     private Proyecto impactosEsperadoProyecto;
@@ -96,6 +99,19 @@ public class ImpactosEsperados implements Serializable {
         this.supuestos = supuestos;
     }
 
+    public Integer getOrdenVista() {
+        return ordenVista;
+    }
+
+    public ImpactosEsperados ordenVista(Integer ordenVista) {
+        this.ordenVista = ordenVista;
+        return this;
+    }
+
+    public void setOrdenVista(Integer ordenVista) {
+        this.ordenVista = ordenVista;
+    }
+
     public Proyecto getImpactosEsperadoProyecto() {
         return impactosEsperadoProyecto;
     }
@@ -134,6 +150,7 @@ public class ImpactosEsperados implements Serializable {
             ", plazo=" + getPlazo() +
             ", indicador='" + getIndicador() + "'" +
             ", supuestos='" + getSupuestos() + "'" +
+            ", ordenVista=" + getOrdenVista() +
             "}";
     }
 }

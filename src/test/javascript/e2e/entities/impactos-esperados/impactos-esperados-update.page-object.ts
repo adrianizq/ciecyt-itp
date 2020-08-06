@@ -16,5 +16,7 @@ export default class ImpactosEsperadosUpdatePage extends AlertPage {
 
   supuestosInput: ElementFinder = element(by.css('input#impactos-esperados-supuestos'));
 
+  ordenVistaInput: ElementFinder = element(by.css('input#impactos-esperados-ordenVista'));
+
   impactosEsperadoProyectoSelect = element(by.css('select#impactos-esperados-impactosEsperadoProyecto'));
 }

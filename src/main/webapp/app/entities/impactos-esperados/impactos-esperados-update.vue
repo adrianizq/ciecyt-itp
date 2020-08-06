@@ -30,6 +30,11 @@
                             :class="{'valid': !$v.impactosEsperados.supuestos.$invalid, 'invalid': $v.impactosEsperados.supuestos.$invalid }" v-model="$v.impactosEsperados.supuestos.$model" />
                     </div>
                     <div class="form-group">
+                        <label class="form-control-label" v-text="$t('ciecytApp.impactosEsperados.ordenVista')" for="impactos-esperados-ordenVista">Orden Vista</label>
+                        <input type="number" class="form-control" name="ordenVista" id="impactos-esperados-ordenVista"
+                            :class="{'valid': !$v.impactosEsperados.ordenVista.$invalid, 'invalid': $v.impactosEsperados.ordenVista.$invalid }" v-model.number="$v.impactosEsperados.ordenVista.$model" />
+                    </div>
+                    <div class="form-group">
                         <label class="form-control-label" v-bind:value="$t('ciecytApp.impactosEsperados.impactosEsperadoProyecto')" for="impactos-esperados-impactosEsperadoProyecto">Impactos Esperado Proyecto</label>
                         <select class="form-control" id="impactos-esperados-impactosEsperadoProyecto" name="impactosEsperadoProyecto" v-model="impactosEsperados.impactosEsperadoProyectoId">
                             <option v-bind:value="null"></option>

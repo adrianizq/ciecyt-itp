@@ -14,7 +14,8 @@ const validations: any = {
     impacto: {},
     plazo: {},
     indicador: {},
-    supuestos: {}
+    supuestos: {},
+    ordenVista: {}
   }
 };
 

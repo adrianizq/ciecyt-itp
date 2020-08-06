@@ -74,6 +74,9 @@ describe('ImpactosEsperados e2e test', () => {
       await updatePage.supuestosInput.sendKeys('supuestos');
       expect(await updatePage.supuestosInput.getAttribute('value')).to.match(/supuestos/);
 
+      await updatePage.ordenVistaInput.sendKeys('5');
+      expect(await updatePage.ordenVistaInput.getAttribute('value')).to.eq('5');
+
       // await  selectLastOption(updatePage.impactosEsperadoProyectoSelect);
 
       expect(await updatePage.saveButton.isEnabled()).to.be.true;
@@ -147,6 +150,10 @@ describe('ImpactosEsperados e2e test', () => {
         await updatePage.supuestosInput.clear();
         await updatePage.supuestosInput.sendKeys('modified');
         expect(await updatePage.supuestosInput.getAttribute('value')).to.match(/modified/);
+
+        await clear(updatePage.ordenVistaInput);
+        await updatePage.ordenVistaInput.sendKeys('6');
+        expect(await updatePage.ordenVistaInput.getAttribute('value')).to.eq('6');
 
         await updatePage.saveButton.click();
 

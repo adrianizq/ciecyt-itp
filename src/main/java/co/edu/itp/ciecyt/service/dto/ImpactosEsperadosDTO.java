@@ -17,6 +17,8 @@ public class ImpactosEsperadosDTO implements Serializable {
 
     private String supuestos;
 
+    private Integer ordenVista;
+
 
     private Long impactosEsperadoProyectoId;
 
@@ -60,6 +62,14 @@ public class ImpactosEsperadosDTO implements Serializable {
 
     public void setSupuestos(String supuestos) {
         this.supuestos = supuestos;
+    }
+
+    public Integer getOrdenVista() {
+        return ordenVista;
+    }
+
+    public void setOrdenVista(Integer ordenVista) {
+        this.ordenVista = ordenVista;
     }
 
     public Long getImpactosEsperadoProyectoId() {
@@ -107,6 +117,7 @@ public class ImpactosEsperadosDTO implements Serializable {
             ", plazo=" + getPlazo() +
             ", indicador='" + getIndicador() + "'" +
             ", supuestos='" + getSupuestos() + "'" +
+            ", ordenVista=" + getOrdenVista() +
             ", impactosEsperadoProyecto=" + getImpactosEsperadoProyectoId() +
             ", impactosEsperadoProyecto='" + getImpactosEsperadoProyectoTitulo() + "'" +
             "}";

@@ -48,6 +48,9 @@ public class ImpactosEsperadosResourceIT {
     private static final String DEFAULT_SUPUESTOS = "AAAAAAAAAA";
     private static final String UPDATED_SUPUESTOS = "BBBBBBBBBB";
 
+    private static final Integer DEFAULT_ORDEN_VISTA = 1;
+    private static final Integer UPDATED_ORDEN_VISTA = 2;
+
     @Autowired
     private ImpactosEsperadosRepository impactosEsperadosRepository;
 
@@ -99,7 +102,8 @@ public class ImpactosEsperadosResourceIT {
             .impacto(DEFAULT_IMPACTO)
             .plazo(DEFAULT_PLAZO)
             .indicador(DEFAULT_INDICADOR)
-            .supuestos(DEFAULT_SUPUESTOS);
+            .supuestos(DEFAULT_SUPUESTOS)
+            .ordenVista(DEFAULT_ORDEN_VISTA);
         return impactosEsperados;
     }
     /**
@@ -113,7 +117,8 @@ public class ImpactosEsperadosResourceIT {
             .impacto(UPDATED_IMPACTO)
             .plazo(UPDATED_PLAZO)
             .indicador(UPDATED_INDICADOR)
-            .supuestos(UPDATED_SUPUESTOS);
+            .supuestos(UPDATED_SUPUESTOS)
+            .ordenVista(UPDATED_ORDEN_VISTA);
         return impactosEsperados;
     }
 
@@ -142,6 +147,7 @@ public class ImpactosEsperadosResourceIT {
         assertThat(testImpactosEsperados.getPlazo()).isEqualTo(DEFAULT_PLAZO);
         assertThat(testImpactosEsperados.getIndicador()).isEqualTo(DEFAULT_INDICADOR);
         assertThat(testImpactosEsperados.getSupuestos()).isEqualTo(DEFAULT_SUPUESTOS);
+        assertThat(testImpactosEsperados.getOrdenVista()).isEqualTo(DEFAULT_ORDEN_VISTA);
     }
 
     @Test
@@ -179,7 +185,8 @@ public class ImpactosEsperadosResourceIT {
             .andExpect(jsonPath("$.[*].impacto").value(hasItem(DEFAULT_IMPACTO)))
             .andExpect(jsonPath("$.[*].plazo").value(hasItem(DEFAULT_PLAZO)))
             .andExpect(jsonPath("$.[*].indicador").value(hasItem(DEFAULT_INDICADOR)))
-            .andExpect(jsonPath("$.[*].supuestos").value(hasItem(DEFAULT_SUPUESTOS)));
+            .andExpect(jsonPath("$.[*].supuestos").value(hasItem(DEFAULT_SUPUESTOS)))
+            .andExpect(jsonPath("$.[*].ordenVista").value(hasItem(DEFAULT_ORDEN_VISTA)));
     }
     
     @Test
@@ -196,7 +203,8 @@ public class ImpactosEsperadosResourceIT {
             .andExpect(jsonPath("$.impacto").value(DEFAULT_IMPACTO))
             .andExpect(jsonPath("$.plazo").value(DEFAULT_PLAZO))
             .andExpect(jsonPath("$.indicador").value(DEFAULT_INDICADOR))
-            .andExpect(jsonPath("$.supuestos").value(DEFAULT_SUPUESTOS));
+            .andExpect(jsonPath("$.supuestos").value(DEFAULT_SUPUESTOS))
+            .andExpect(jsonPath("$.ordenVista").value(DEFAULT_ORDEN_VISTA));
     }
 
     @Test
@@ -223,7 +231,8 @@ public class ImpactosEsperadosResourceIT {
             .impacto(UPDATED_IMPACTO)
             .plazo(UPDATED_PLAZO)
             .indicador(UPDATED_INDICADOR)
-            .supuestos(UPDATED_SUPUESTOS);
+            .supuestos(UPDATED_SUPUESTOS)
+            .ordenVista(UPDATED_ORDEN_VISTA);
         ImpactosEsperadosDTO impactosEsperadosDTO = impactosEsperadosMapper.toDto(updatedImpactosEsperados);
 
         restImpactosEsperadosMockMvc.perform(put("/api/impactos-esperados")
@@ -239,6 +248,7 @@ public class ImpactosEsperadosResourceIT {
         assertThat(testImpactosEsperados.getPlazo()).isEqualTo(UPDATED_PLAZO);
         assertThat(testImpactosEsperados.getIndicador()).isEqualTo(UPDATED_INDICADOR);
         assertThat(testImpactosEsperados.getSupuestos()).isEqualTo(UPDATED_SUPUESTOS);
+        assertThat(testImpactosEsperados.getOrdenVista()).isEqualTo(UPDATED_ORDEN_VISTA);
     }
 
     @Test

@@ -29,6 +29,12 @@
                         <span>{{impactosEsperados.supuestos}}</span>
                     </dd>
                     <dt>
+                        <span v-text="$t('ciecytApp.impactosEsperados.ordenVista')">Orden Vista</span>
+                    </dt>
+                    <dd>
+                        <span>{{impactosEsperados.ordenVista}}</span>
+                    </dd>
+                    <dt>
                         <span v-text="$t('ciecytApp.impactosEsperados.impactosEsperadoProyecto')">Impactos Esperado Proyecto</span>
                     </dt>
                     <dd>
