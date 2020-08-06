@@ -1,11 +1,9 @@
 package co.edu.itp.ciecyt.service.impl;
 
-import co.edu.itp.ciecyt.domain.ResultadosEsperados;
 import co.edu.itp.ciecyt.service.ImpactosEsperadosService;
 import co.edu.itp.ciecyt.domain.ImpactosEsperados;
 import co.edu.itp.ciecyt.repository.ImpactosEsperadosRepository;
 import co.edu.itp.ciecyt.service.dto.ImpactosEsperadosDTO;
-import co.edu.itp.ciecyt.service.dto.ResultadosEsperadosDTO;
 import co.edu.itp.ciecyt.service.mapper.ImpactosEsperadosMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -96,7 +94,7 @@ public class ImpactosEsperadosServiceImpl implements ImpactosEsperadosService {
     public List<ImpactosEsperadosDTO> findByImpactosEsperadoProyectoId(Long idProyecto) throws Exception {
         log.debug("Request to get all ImpactosEsperados whit a idProyecto");
         List<ImpactosEsperadosDTO> listDTO = new ArrayList<>();
-        List<ImpactosEsperados> list = impactosEsperadosRepository.findByImpactosEsperadoProyectoIdOrderById(idProyecto);
+        List<ImpactosEsperados> list = impactosEsperadosRepository.findByImpactosEsperadoProyectoIdOrderByOrdenVista(idProyecto);
 
 
         for (ImpactosEsperados obj : list) {

@@ -13,6 +13,6 @@ import java.util.List;
 @SuppressWarnings("unused")
 @Repository
 public interface ImpactosEsperadosRepository extends JpaRepository<ImpactosEsperados, Long> {
-    List<ImpactosEsperados> findByImpactosEsperadoProyectoIdOrderById(Long idProyecto);
+    List<ImpactosEsperados> findByImpactosEsperadoProyectoIdOrderByOrdenVista(Long idProyecto);
 
 }

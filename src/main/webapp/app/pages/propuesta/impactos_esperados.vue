@@ -136,7 +136,7 @@ export default class Impactos_esperados extends Vue {
           async initRelationships() {
            try {
 
-               this.nuevo_impacto() ; //crea una primera tarjeta
+               //this.nuevo_impacto() ; //crea una primera tarjeta
              this.proyId = parseInt(this.$route.params.proyectoId);
 
              //this.proyecto = await this.proyectoService().find(this.proyId);
