@@ -94,8 +94,8 @@ public class PresupuestoValorServiceImpl implements PresupuestoValorService {
     public List<PresupuestoValorDTO> findByPresupuestoValorProyectoId(Long idProyecto) throws Exception {
         log.debug("Request to get all PresupuestoValor whit a idProyecto");
         List <PresupuestoValorDTO> listDTO = new ArrayList<>();
-        List <PresupuestoValor> list = presupuestoValorRepository.findByPresupuestoValorProyectoId( idProyecto);
-       
+        List <PresupuestoValor> list = presupuestoValorRepository.findByPresupuestoValorProyectoIdOrderByOrdenVista( idProyecto);
+
 
         for (PresupuestoValor presupuesto : list) {
 			listDTO.add( presupuestoValorMapper.toDto(presupuesto));

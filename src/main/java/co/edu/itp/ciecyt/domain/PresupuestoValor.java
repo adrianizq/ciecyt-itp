@@ -37,6 +37,9 @@ public class PresupuestoValor implements Serializable {
     @Column(name = "dinero")
     private Double dinero;
 
+    @Column(name = "orden_vista")
+    private Integer ordenVista;
+
     @ManyToOne
     @JsonIgnoreProperties("presupuestoValors")
     private Rubro presupuestoValorRubro;
@@ -136,6 +139,19 @@ public class PresupuestoValor implements Serializable {
         this.dinero = dinero;
     }
 
+    public Integer getOrdenVista() {
+        return ordenVista;
+    }
+
+    public PresupuestoValor ordenVista(Integer ordenVista) {
+        this.ordenVista = ordenVista;
+        return this;
+    }
+
+    public void setOrdenVista(Integer ordenVista) {
+        this.ordenVista = ordenVista;
+    }
+
     public Rubro getPresupuestoValorRubro() {
         return presupuestoValorRubro;
     }
@@ -202,6 +218,7 @@ public class PresupuestoValor implements Serializable {
             ", valorUnitario=" + getValorUnitario() +
             ", especie=" + getEspecie() +
             ", dinero=" + getDinero() +
+            ", ordenVista=" + getOrdenVista() +
             "}";
     }
 }

@@ -24,6 +24,9 @@
             <column name="beneficiario" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
+            <column name="orden_vista" type="integer">
+                <constraints nullable="true" />
+            </column>
             <column name="resultados_esperados_proyecto_id" type="bigint">
                 <constraints nullable="true" />
             </column>
@@ -53,6 +56,7 @@
             <column name="resultado" type="string"/>
             <column name="indicador" type="string"/>
             <column name="beneficiario" type="string"/>
+            <column name="orden_vista" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here, do not remove-->
         </loadData>
     </changeSet>

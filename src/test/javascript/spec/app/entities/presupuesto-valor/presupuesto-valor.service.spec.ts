@@ -21,7 +21,7 @@ describe('Service Tests', () => {
     beforeEach(() => {
       service = new PresupuestoValorService();
 
-      elemDefault = new PresupuestoValor(0, 'AAAAAAA', 'AAAAAAA', 0, 0, 0, 0);
+      elemDefault = new PresupuestoValor(0, 'AAAAAAA', 'AAAAAAA', 0, 0, 0, 0, 0);
     });
 
     describe('Service methods', () => {
@@ -56,7 +56,8 @@ describe('Service Tests', () => {
             cantidad: 1,
             valorUnitario: 1,
             especie: 1,
-            dinero: 1
+            dinero: 1,
+            ordenVista: 1
           },
           elemDefault
         );
@@ -76,7 +77,8 @@ describe('Service Tests', () => {
             cantidad: 1,
             valorUnitario: 1,
             especie: 1,
-            dinero: 1
+            dinero: 1,
+            ordenVista: 1
           },
           elemDefault
         );

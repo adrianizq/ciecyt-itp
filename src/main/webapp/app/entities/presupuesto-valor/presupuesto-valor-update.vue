@@ -40,6 +40,11 @@
                             :class="{'valid': !$v.presupuestoValor.dinero.$invalid, 'invalid': $v.presupuestoValor.dinero.$invalid }" v-model.number="$v.presupuestoValor.dinero.$model" />
                     </div>
                     <div class="form-group">
+                        <label class="form-control-label" v-text="$t('ciecytApp.presupuestoValor.ordenVista')" for="presupuesto-valor-ordenVista">Orden Vista</label>
+                        <input type="number" class="form-control" name="ordenVista" id="presupuesto-valor-ordenVista"
+                            :class="{'valid': !$v.presupuestoValor.ordenVista.$invalid, 'invalid': $v.presupuestoValor.ordenVista.$invalid }" v-model.number="$v.presupuestoValor.ordenVista.$model" />
+                    </div>
+                    <div class="form-group">
                         <label class="form-control-label" v-bind:value="$t('ciecytApp.presupuestoValor.presupuestoValorRubro')" for="presupuesto-valor-presupuestoValorRubro">Presupuesto Valor Rubro</label>
                         <select class="form-control" id="presupuesto-valor-presupuestoValorRubro" name="presupuestoValorRubro" v-model="presupuestoValor.presupuestoValorRubroId">
                             <option v-bind:value="null"></option>

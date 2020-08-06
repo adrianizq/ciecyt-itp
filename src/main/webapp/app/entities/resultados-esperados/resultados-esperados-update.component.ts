@@ -13,7 +13,8 @@ const validations: any = {
   resultadosEsperados: {
     resultado: {},
     indicador: {},
-    beneficiario: {}
+    beneficiario: {},
+    ordenVista: {}
   }
 };
 

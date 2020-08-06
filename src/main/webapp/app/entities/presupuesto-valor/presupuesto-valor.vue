@@ -31,6 +31,7 @@
                     <th v-on:click="changeOrder('valorUnitario')"><span v-text="$t('ciecytApp.presupuestoValor.valorUnitario')">Valor Unitario</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th v-on:click="changeOrder('especie')"><span v-text="$t('ciecytApp.presupuestoValor.especie')">Especie</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th v-on:click="changeOrder('dinero')"><span v-text="$t('ciecytApp.presupuestoValor.dinero')">Dinero</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
+                    <th v-on:click="changeOrder('ordenVista')"><span v-text="$t('ciecytApp.presupuestoValor.ordenVista')">Orden Vista</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th v-on:click="changeOrder('presupuestoValorRubroRubro')"><span v-text="$t('ciecytApp.presupuestoValor.presupuestoValorRubro')">Presupuesto Valor Rubro</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th v-on:click="changeOrder('presupuestoValorProyectoTitulo')"><span v-text="$t('ciecytApp.presupuestoValor.presupuestoValorProyecto')">Presupuesto Valor Proyecto</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th v-on:click="changeOrder('presupuestoValorEntidadEntidad')"><span v-text="$t('ciecytApp.presupuestoValor.presupuestoValorEntidad')">Presupuesto Valor Entidad</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
@@ -49,6 +50,7 @@
                     <td>{{presupuestoValor.valorUnitario}}</td>
                     <td>{{presupuestoValor.especie}}</td>
                     <td>{{presupuestoValor.dinero}}</td>
+                    <td>{{presupuestoValor.ordenVista}}</td>
                     <td>
                         <div v-if="presupuestoValor.presupuestoValorRubroId">
                             <router-link :to="{name: 'RubroView', params: {presupuestoValorRubroId: presupuestoValor.presupuestoValorRubroId}}">{{presupuestoValor.presupuestoValorRubroRubro}}</router-link>

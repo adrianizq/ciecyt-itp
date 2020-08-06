@@ -25,6 +25,11 @@
                             :class="{'valid': !$v.resultadosEsperados.beneficiario.$invalid, 'invalid': $v.resultadosEsperados.beneficiario.$invalid }" v-model="$v.resultadosEsperados.beneficiario.$model" />
                     </div>
                     <div class="form-group">
+                        <label class="form-control-label" v-text="$t('ciecytApp.resultadosEsperados.ordenVista')" for="resultados-esperados-ordenVista">Orden Vista</label>
+                        <input type="number" class="form-control" name="ordenVista" id="resultados-esperados-ordenVista"
+                            :class="{'valid': !$v.resultadosEsperados.ordenVista.$invalid, 'invalid': $v.resultadosEsperados.ordenVista.$invalid }" v-model.number="$v.resultadosEsperados.ordenVista.$model" />
+                    </div>
+                    <div class="form-group">
                         <label class="form-control-label" v-bind:value="$t('ciecytApp.resultadosEsperados.resultadosEsperadosProyecto')" for="resultados-esperados-resultadosEsperadosProyecto">Resultados Esperados Proyecto</label>
                         <select class="form-control" id="resultados-esperados-resultadosEsperadosProyecto" name="resultadosEsperadosProyecto" v-model="resultadosEsperados.resultadosEsperadosProyectoId">
                             <option v-bind:value="null"></option>

@@ -23,6 +23,12 @@
                         <span>{{resultadosEsperados.beneficiario}}</span>
                     </dd>
                     <dt>
+                        <span v-text="$t('ciecytApp.resultadosEsperados.ordenVista')">Orden Vista</span>
+                    </dt>
+                    <dd>
+                        <span>{{resultadosEsperados.ordenVista}}</span>
+                    </dd>
+                    <dt>
                         <span v-text="$t('ciecytApp.resultadosEsperados.resultadosEsperadosProyecto')">Resultados Esperados Proyecto</span>
                     </dt>
                     <dd>

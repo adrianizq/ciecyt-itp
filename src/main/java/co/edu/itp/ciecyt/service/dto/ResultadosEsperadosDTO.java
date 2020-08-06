@@ -15,6 +15,8 @@ public class ResultadosEsperadosDTO implements Serializable {
 
     private String beneficiario;
 
+    private Integer ordenVista;
+
 
     private Long resultadosEsperadosProyectoId;
 
@@ -50,6 +52,14 @@ public class ResultadosEsperadosDTO implements Serializable {
 
     public void setBeneficiario(String beneficiario) {
         this.beneficiario = beneficiario;
+    }
+
+    public Integer getOrdenVista() {
+        return ordenVista;
+    }
+
+    public void setOrdenVista(Integer ordenVista) {
+        this.ordenVista = ordenVista;
     }
 
     public Long getResultadosEsperadosProyectoId() {
@@ -96,6 +106,7 @@ public class ResultadosEsperadosDTO implements Serializable {
             ", resultado='" + getResultado() + "'" +
             ", indicador='" + getIndicador() + "'" +
             ", beneficiario='" + getBeneficiario() + "'" +
+            ", ordenVista=" + getOrdenVista() +
             ", resultadosEsperadosProyecto=" + getResultadosEsperadosProyectoId() +
             ", resultadosEsperadosProyecto='" + getResultadosEsperadosProyectoTitulo() + "'" +
             "}";

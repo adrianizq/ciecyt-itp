@@ -21,7 +21,7 @@ describe('Service Tests', () => {
     beforeEach(() => {
       service = new ResultadosEsperadosService();
 
-      elemDefault = new ResultadosEsperados(0, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA');
+      elemDefault = new ResultadosEsperados(0, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 0);
     });
 
     describe('Service methods', () => {
@@ -53,7 +53,8 @@ describe('Service Tests', () => {
           {
             resultado: 'BBBBBB',
             indicador: 'BBBBBB',
-            beneficiario: 'BBBBBB'
+            beneficiario: 'BBBBBB',
+            ordenVista: 1
           },
           elemDefault
         );
@@ -70,7 +71,8 @@ describe('Service Tests', () => {
           {
             resultado: 'BBBBBB',
             indicador: 'BBBBBB',
-            beneficiario: 'BBBBBB'
+            beneficiario: 'BBBBBB',
+            ordenVista: 1
           },
           elemDefault
         );

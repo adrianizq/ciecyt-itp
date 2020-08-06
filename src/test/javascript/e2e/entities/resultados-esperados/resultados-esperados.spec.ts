@@ -71,6 +71,9 @@ describe('ResultadosEsperados e2e test', () => {
       await updatePage.beneficiarioInput.sendKeys('beneficiario');
       expect(await updatePage.beneficiarioInput.getAttribute('value')).to.match(/beneficiario/);
 
+      await updatePage.ordenVistaInput.sendKeys('5');
+      expect(await updatePage.ordenVistaInput.getAttribute('value')).to.eq('5');
+
       // await  selectLastOption(updatePage.resultadosEsperadosProyectoSelect);
 
       expect(await updatePage.saveButton.isEnabled()).to.be.true;
@@ -140,6 +143,10 @@ describe('ResultadosEsperados e2e test', () => {
         await updatePage.beneficiarioInput.clear();
         await updatePage.beneficiarioInput.sendKeys('modified');
         expect(await updatePage.beneficiarioInput.getAttribute('value')).to.match(/modified/);
+
+        await clear(updatePage.ordenVistaInput);
+        await updatePage.ordenVistaInput.sendKeys('6');
+        expect(await updatePage.ordenVistaInput.getAttribute('value')).to.eq('6');
 
         await updatePage.saveButton.click();
 

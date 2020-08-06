@@ -14,5 +14,7 @@ export default class ResultadosEsperadosUpdatePage extends AlertPage {
 
   beneficiarioInput: ElementFinder = element(by.css('input#resultados-esperados-beneficiario'));
 
+  ordenVistaInput: ElementFinder = element(by.css('input#resultados-esperados-ordenVista'));
+
   resultadosEsperadosProyectoSelect = element(by.css('select#resultados-esperados-resultadosEsperadosProyecto'));
 }

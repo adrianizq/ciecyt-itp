@@ -21,6 +21,8 @@ public class PresupuestoValorDTO implements Serializable {
 
     private Double dinero;
 
+    private Integer ordenVista;
+
 
     private Long presupuestoValorRubroId;
 
@@ -88,6 +90,14 @@ public class PresupuestoValorDTO implements Serializable {
 
     public void setDinero(Double dinero) {
         this.dinero = dinero;
+    }
+
+    public Integer getOrdenVista() {
+        return ordenVista;
+    }
+
+    public void setOrdenVista(Integer ordenVista) {
+        this.ordenVista = ordenVista;
     }
 
     public Long getPresupuestoValorRubroId() {
@@ -169,6 +179,7 @@ public class PresupuestoValorDTO implements Serializable {
             ", valorUnitario=" + getValorUnitario() +
             ", especie=" + getEspecie() +
             ", dinero=" + getDinero() +
+            ", ordenVista=" + getOrdenVista() +
             ", presupuestoValorRubro=" + getPresupuestoValorRubroId() +
             ", presupuestoValorRubro='" + getPresupuestoValorRubroRubro() + "'" +
             ", presupuestoValorProyecto=" + getPresupuestoValorProyectoId() +

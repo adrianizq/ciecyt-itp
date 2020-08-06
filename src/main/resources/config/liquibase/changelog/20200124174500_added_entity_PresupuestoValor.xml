@@ -33,6 +33,9 @@
             <column name="dinero" type="double">
                 <constraints nullable="true" />
             </column>
+            <column name="orden_vista" type="integer">
+                <constraints nullable="true" />
+            </column>
             <column name="presupuesto_valor_rubro_id" type="bigint">
                 <constraints nullable="true" />
             </column>
@@ -71,6 +74,7 @@
             <column name="valor_unitario" type="numeric"/>
             <column name="especie" type="numeric"/>
             <column name="dinero" type="numeric"/>
+            <column name="orden_vista" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here, do not remove-->
         </loadData>
     </changeSet>

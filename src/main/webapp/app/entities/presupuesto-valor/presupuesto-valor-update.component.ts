@@ -22,7 +22,8 @@ const validations: any = {
     cantidad: {},
     valorUnitario: {},
     especie: {},
-    dinero: {}
+    dinero: {},
+    ordenVista: {}
   }
 };
 

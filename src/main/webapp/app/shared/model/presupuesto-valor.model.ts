@@ -6,6 +6,7 @@ export interface IPresupuestoValor {
   valorUnitario?: number;
   especie?: number;
   dinero?: number;
+  ordenVista?: number;
   presupuestoValorRubroRubro?: string;
   presupuestoValorRubroId?: number;
   presupuestoValorProyectoTitulo?: string;
@@ -23,6 +24,7 @@ export class PresupuestoValor implements IPresupuestoValor {
     public valorUnitario?: number,
     public especie?: number,
     public dinero?: number,
+    public ordenVista?: number,
     public presupuestoValorRubroRubro?: string,
     public presupuestoValorRubroId?: number,
     public presupuestoValorProyectoTitulo?: string,

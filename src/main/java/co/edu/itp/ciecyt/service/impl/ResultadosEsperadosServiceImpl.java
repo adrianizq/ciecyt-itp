@@ -96,7 +96,7 @@ public class ResultadosEsperadosServiceImpl implements ResultadosEsperadosServic
     public List<ResultadosEsperadosDTO> findByResultadosEsperadosProyectoId(Long idProyecto) throws Exception {
         log.debug("Request to get all ResultadosEsperados whit a idProyecto");
         List <ResultadosEsperadosDTO> listDTO = new ArrayList<>();
-        List <ResultadosEsperados> list = resultadosEsperadosRepository.findByResultadosEsperadosProyectoId(idProyecto);
+        List <ResultadosEsperados> list = resultadosEsperadosRepository.findByResultadosEsperadosProyectoIdOrderByOrdenVista(idProyecto);
         //listDTO = integranteProyectoMapper.usersToUserDTOs(list);
 
         for (ResultadosEsperados resultado : list) {

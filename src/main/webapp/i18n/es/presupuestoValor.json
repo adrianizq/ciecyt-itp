@@ -22,6 +22,7 @@
       "valorUnitario": "Valor Unitario",
       "especie": "Especie",
       "dinero": "Dinero",
+      "ordenVista": "Orden Vista",
       "presupuestoValorRubro": "Presupuesto Valor Rubro",
       "presupuestoValorProyecto": "Presupuesto Valor Proyecto",
       "presupuestoValorEntidad": "Presupuesto Valor Entidad"

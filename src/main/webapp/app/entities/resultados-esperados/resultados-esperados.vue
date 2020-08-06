@@ -28,6 +28,7 @@
                     <th v-on:click="changeOrder('resultado')"><span v-text="$t('ciecytApp.resultadosEsperados.resultado')">Resultado</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th v-on:click="changeOrder('indicador')"><span v-text="$t('ciecytApp.resultadosEsperados.indicador')">Indicador</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th v-on:click="changeOrder('beneficiario')"><span v-text="$t('ciecytApp.resultadosEsperados.beneficiario')">Beneficiario</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
+                    <th v-on:click="changeOrder('ordenVista')"><span v-text="$t('ciecytApp.resultadosEsperados.ordenVista')">Orden Vista</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th v-on:click="changeOrder('resultadosEsperadosProyectoTitulo')"><span v-text="$t('ciecytApp.resultadosEsperados.resultadosEsperadosProyecto')">Resultados Esperados Proyecto</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th></th>
                 </tr>
@@ -41,6 +42,7 @@
                     <td>{{resultadosEsperados.resultado}}</td>
                     <td>{{resultadosEsperados.indicador}}</td>
                     <td>{{resultadosEsperados.beneficiario}}</td>
+                    <td>{{resultadosEsperados.ordenVista}}</td>
                     <td>
                         <div v-if="resultadosEsperados.resultadosEsperadosProyectoId">
                             <router-link :to="{name: 'ProyectoView', params: {resultadosEsperadosProyectoId: resultadosEsperados.resultadosEsperadosProyectoId}}">{{resultadosEsperados.resultadosEsperadosProyectoTitulo}}</router-link>

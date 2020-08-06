@@ -3,6 +3,7 @@ export interface IResultadosEsperados {
   resultado?: string;
   indicador?: string;
   beneficiario?: string;
+  ordenVista?: number;
   resultadosEsperadosProyectoTitulo?: string;
   resultadosEsperadosProyectoId?: number;
 }
@@ -13,6 +14,7 @@ export class ResultadosEsperados implements IResultadosEsperados {
     public resultado?: string,
     public indicador?: string,
     public beneficiario?: string,
+    public ordenVista?: number,
     public resultadosEsperadosProyectoTitulo?: string,
     public resultadosEsperadosProyectoId?: number
   ) {}

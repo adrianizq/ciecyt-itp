@@ -11,6 +11,6 @@ import java.util.List;
 @SuppressWarnings("unused")
 @Repository
 public interface PresupuestoValorRepository extends JpaRepository<PresupuestoValor, Long> {
-    List<PresupuestoValor> findByPresupuestoValorProyectoId(Long idProyecto);
+    List<PresupuestoValor> findByPresupuestoValorProyectoIdOrderByOrdenVista(Long idProyecto);
 
 }

@@ -13,6 +13,6 @@ import java.util.List;
 @SuppressWarnings("unused")
 @Repository
 public interface ResultadosEsperadosRepository extends JpaRepository<ResultadosEsperados, Long> {
-    List<ResultadosEsperados> findByResultadosEsperadosProyectoId(Long idProyecto);
+    List<ResultadosEsperados> findByResultadosEsperadosProyectoIdOrderByOrdenVista(Long idProyecto);
 
 }

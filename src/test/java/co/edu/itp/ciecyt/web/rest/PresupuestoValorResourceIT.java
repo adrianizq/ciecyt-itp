@@ -54,6 +54,9 @@ public class PresupuestoValorResourceIT {
     private static final Double DEFAULT_DINERO = 1D;
     private static final Double UPDATED_DINERO = 2D;
 
+    private static final Integer DEFAULT_ORDEN_VISTA = 1;
+    private static final Integer UPDATED_ORDEN_VISTA = 2;
+
     @Autowired
     private PresupuestoValorRepository presupuestoValorRepository;
 
@@ -107,7 +110,8 @@ public class PresupuestoValorResourceIT {
             .cantidad(DEFAULT_CANTIDAD)
             .valorUnitario(DEFAULT_VALOR_UNITARIO)
             .especie(DEFAULT_ESPECIE)
-            .dinero(DEFAULT_DINERO);
+            .dinero(DEFAULT_DINERO)
+            .ordenVista(DEFAULT_ORDEN_VISTA);
         return presupuestoValor;
     }
     /**
@@ -123,7 +127,8 @@ public class PresupuestoValorResourceIT {
             .cantidad(UPDATED_CANTIDAD)
             .valorUnitario(UPDATED_VALOR_UNITARIO)
             .especie(UPDATED_ESPECIE)
-            .dinero(UPDATED_DINERO);
+            .dinero(UPDATED_DINERO)
+            .ordenVista(UPDATED_ORDEN_VISTA);
         return presupuestoValor;
     }
 
@@ -154,6 +159,7 @@ public class PresupuestoValorResourceIT {
         assertThat(testPresupuestoValor.getValorUnitario()).isEqualTo(DEFAULT_VALOR_UNITARIO);
         assertThat(testPresupuestoValor.getEspecie()).isEqualTo(DEFAULT_ESPECIE);
         assertThat(testPresupuestoValor.getDinero()).isEqualTo(DEFAULT_DINERO);
+        assertThat(testPresupuestoValor.getOrdenVista()).isEqualTo(DEFAULT_ORDEN_VISTA);
     }
 
     @Test
@@ -193,7 +199,8 @@ public class PresupuestoValorResourceIT {
             .andExpect(jsonPath("$.[*].cantidad").value(hasItem(DEFAULT_CANTIDAD)))
             .andExpect(jsonPath("$.[*].valorUnitario").value(hasItem(DEFAULT_VALOR_UNITARIO.doubleValue())))
             .andExpect(jsonPath("$.[*].especie").value(hasItem(DEFAULT_ESPECIE.doubleValue())))
-            .andExpect(jsonPath("$.[*].dinero").value(hasItem(DEFAULT_DINERO.doubleValue())));
+            .andExpect(jsonPath("$.[*].dinero").value(hasItem(DEFAULT_DINERO.doubleValue())))
+            .andExpect(jsonPath("$.[*].ordenVista").value(hasItem(DEFAULT_ORDEN_VISTA)));
     }
     
     @Test
@@ -212,7 +219,8 @@ public class PresupuestoValorResourceIT {
             .andExpect(jsonPath("$.cantidad").value(DEFAULT_CANTIDAD))
             .andExpect(jsonPath("$.valorUnitario").value(DEFAULT_VALOR_UNITARIO.doubleValue()))
             .andExpect(jsonPath("$.especie").value(DEFAULT_ESPECIE.doubleValue()))
-            .andExpect(jsonPath("$.dinero").value(DEFAULT_DINERO.doubleValue()));
+            .andExpect(jsonPath("$.dinero").value(DEFAULT_DINERO.doubleValue()))
+            .andExpect(jsonPath("$.ordenVista").value(DEFAULT_ORDEN_VISTA));
     }
 
     @Test
@@ -241,7 +249,8 @@ public class PresupuestoValorResourceIT {
             .cantidad(UPDATED_CANTIDAD)
             .valorUnitario(UPDATED_VALOR_UNITARIO)
             .especie(UPDATED_ESPECIE)
-            .dinero(UPDATED_DINERO);
+            .dinero(UPDATED_DINERO)
+            .ordenVista(UPDATED_ORDEN_VISTA);
         PresupuestoValorDTO presupuestoValorDTO = presupuestoValorMapper.toDto(updatedPresupuestoValor);
 
         restPresupuestoValorMockMvc.perform(put("/api/presupuesto-valors")
@@ -259,6 +268,7 @@ public class PresupuestoValorResourceIT {
         assertThat(testPresupuestoValor.getValorUnitario()).isEqualTo(UPDATED_VALOR_UNITARIO);
         assertThat(testPresupuestoValor.getEspecie()).isEqualTo(UPDATED_ESPECIE);
         assertThat(testPresupuestoValor.getDinero()).isEqualTo(UPDATED_DINERO);
+        assertThat(testPresupuestoValor.getOrdenVista()).isEqualTo(UPDATED_ORDEN_VISTA);
     }
 
     @Test

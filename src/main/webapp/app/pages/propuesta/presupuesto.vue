@@ -4,8 +4,12 @@
       <menu-lateral :proyectoId='$route.params.proyectoId'></menu-lateral>
     </div>
     <div class="col-sm-8">
-      <div :key="key" v-for="(item, key) in presupuestos">
-        <b-card>
+      <div :key="key" v-for="(item, key) in presupuestoValors">
+        <b-card :header="`Presupuesto Item ${key+1}`" 
+         border-variant="primary"
+
+        header-bg-variant="primary"
+        header-text-variant="white">
           <div class="row">
             <div class="col-12">
               <div class="form-group">
@@ -171,11 +175,12 @@ export default class Presupuesto extends Vue {
   @Inject('alertService') private alertService: () => AlertService;
 
 
-  presupuestos = [];
+  //presupuestos = [];
+  public presupuestoValors: IPresupuestoValor[] =[];
   nuevo_presupuesto() {
     
-    
-    this.presupuestos.push({
+  
+    this.presupuestoValors.push({
       presupuestoValorProyectoId: this.proyId      
      });
   }
@@ -183,7 +188,7 @@ export default class Presupuesto extends Vue {
 
     public entidads: IEntidad[] = [];
     public rubros: IRubro[] = [];
-    public presupuestoValors: IPresupuestoValor[] =[];
+   
     
     //public elemProy: ElementoProyecto;
     public proyecto: IProyecto = new Proyecto();
@@ -207,11 +212,13 @@ export default class Presupuesto extends Vue {
         public save(): void {//debo guardar un elemento proyecto
             try {
                 this.isSaving = true;
+                  var i=this.presupuestoValors.length;
                 
-                for (let e of this.presupuestos) {
+                for (let e of this.presupuestoValors) {
                     //Actualizando el integrante
                      var presupuesto = new PresupuestoValor();
-
+                     e.presupuestoValorProyectoId = this.proyId; 
+                          e.ordenVista = i++; 
                        
             
                     if (e.id) {

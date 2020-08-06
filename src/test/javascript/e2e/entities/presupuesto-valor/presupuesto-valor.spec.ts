@@ -80,6 +80,9 @@ describe('PresupuestoValor e2e test', () => {
       await updatePage.dineroInput.sendKeys('5');
       expect(await updatePage.dineroInput.getAttribute('value')).to.eq('5');
 
+      await updatePage.ordenVistaInput.sendKeys('5');
+      expect(await updatePage.ordenVistaInput.getAttribute('value')).to.eq('5');
+
       // await  selectLastOption(updatePage.presupuestoValorRubroSelect);
       // await  selectLastOption(updatePage.presupuestoValorProyectoSelect);
       // await  selectLastOption(updatePage.presupuestoValorEntidadSelect);
@@ -163,6 +166,10 @@ describe('PresupuestoValor e2e test', () => {
         await clear(updatePage.dineroInput);
         await updatePage.dineroInput.sendKeys('6');
         expect(await updatePage.dineroInput.getAttribute('value')).to.eq('6');
+
+        await clear(updatePage.ordenVistaInput);
+        await updatePage.ordenVistaInput.sendKeys('6');
+        expect(await updatePage.ordenVistaInput.getAttribute('value')).to.eq('6');
 
         await updatePage.saveButton.click();
 

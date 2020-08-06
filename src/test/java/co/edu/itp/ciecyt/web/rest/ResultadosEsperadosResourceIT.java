@@ -45,6 +45,9 @@ public class ResultadosEsperadosResourceIT {
     private static final String DEFAULT_BENEFICIARIO = "AAAAAAAAAA";
     private static final String UPDATED_BENEFICIARIO = "BBBBBBBBBB";
 
+    private static final Integer DEFAULT_ORDEN_VISTA = 1;
+    private static final Integer UPDATED_ORDEN_VISTA = 2;
+
     @Autowired
     private ResultadosEsperadosRepository resultadosEsperadosRepository;
 
@@ -95,7 +98,8 @@ public class ResultadosEsperadosResourceIT {
         ResultadosEsperados resultadosEsperados = new ResultadosEsperados()
             .resultado(DEFAULT_RESULTADO)
             .indicador(DEFAULT_INDICADOR)
-            .beneficiario(DEFAULT_BENEFICIARIO);
+            .beneficiario(DEFAULT_BENEFICIARIO)
+            .ordenVista(DEFAULT_ORDEN_VISTA);
         return resultadosEsperados;
     }
     /**
@@ -108,7 +112,8 @@ public class ResultadosEsperadosResourceIT {
         ResultadosEsperados resultadosEsperados = new ResultadosEsperados()
             .resultado(UPDATED_RESULTADO)
             .indicador(UPDATED_INDICADOR)
-            .beneficiario(UPDATED_BENEFICIARIO);
+            .beneficiario(UPDATED_BENEFICIARIO)
+            .ordenVista(UPDATED_ORDEN_VISTA);
         return resultadosEsperados;
     }
 
@@ -136,6 +141,7 @@ public class ResultadosEsperadosResourceIT {
         assertThat(testResultadosEsperados.getResultado()).isEqualTo(DEFAULT_RESULTADO);
         assertThat(testResultadosEsperados.getIndicador()).isEqualTo(DEFAULT_INDICADOR);
         assertThat(testResultadosEsperados.getBeneficiario()).isEqualTo(DEFAULT_BENEFICIARIO);
+        assertThat(testResultadosEsperados.getOrdenVista()).isEqualTo(DEFAULT_ORDEN_VISTA);
     }
 
     @Test
@@ -172,7 +178,8 @@ public class ResultadosEsperadosResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(resultadosEsperados.getId().intValue())))
             .andExpect(jsonPath("$.[*].resultado").value(hasItem(DEFAULT_RESULTADO)))
             .andExpect(jsonPath("$.[*].indicador").value(hasItem(DEFAULT_INDICADOR)))
-            .andExpect(jsonPath("$.[*].beneficiario").value(hasItem(DEFAULT_BENEFICIARIO)));
+            .andExpect(jsonPath("$.[*].beneficiario").value(hasItem(DEFAULT_BENEFICIARIO)))
+            .andExpect(jsonPath("$.[*].ordenVista").value(hasItem(DEFAULT_ORDEN_VISTA)));
     }
     
     @Test
@@ -188,7 +195,8 @@ public class ResultadosEsperadosResourceIT {
             .andExpect(jsonPath("$.id").value(resultadosEsperados.getId().intValue()))
             .andExpect(jsonPath("$.resultado").value(DEFAULT_RESULTADO))
             .andExpect(jsonPath("$.indicador").value(DEFAULT_INDICADOR))
-            .andExpect(jsonPath("$.beneficiario").value(DEFAULT_BENEFICIARIO));
+            .andExpect(jsonPath("$.beneficiario").value(DEFAULT_BENEFICIARIO))
+            .andExpect(jsonPath("$.ordenVista").value(DEFAULT_ORDEN_VISTA));
     }
 
     @Test
@@ -214,7 +222,8 @@ public class ResultadosEsperadosResourceIT {
         updatedResultadosEsperados
             .resultado(UPDATED_RESULTADO)
             .indicador(UPDATED_INDICADOR)
-            .beneficiario(UPDATED_BENEFICIARIO);
+            .beneficiario(UPDATED_BENEFICIARIO)
+            .ordenVista(UPDATED_ORDEN_VISTA);
         ResultadosEsperadosDTO resultadosEsperadosDTO = resultadosEsperadosMapper.toDto(updatedResultadosEsperados);
 
         restResultadosEsperadosMockMvc.perform(put("/api/resultados-esperados")
@@ -229,6 +238,7 @@ public class ResultadosEsperadosResourceIT {
         assertThat(testResultadosEsperados.getResultado()).isEqualTo(UPDATED_RESULTADO);
         assertThat(testResultadosEsperados.getIndicador()).isEqualTo(UPDATED_INDICADOR);
         assertThat(testResultadosEsperados.getBeneficiario()).isEqualTo(UPDATED_BENEFICIARIO);
+        assertThat(testResultadosEsperados.getOrdenVista()).isEqualTo(UPDATED_ORDEN_VISTA);
     }
 
     @Test

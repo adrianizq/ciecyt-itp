@@ -20,6 +20,8 @@ export default class PresupuestoValorUpdatePage extends AlertPage {
 
   dineroInput: ElementFinder = element(by.css('input#presupuesto-valor-dinero'));
 
+  ordenVistaInput: ElementFinder = element(by.css('input#presupuesto-valor-ordenVista'));
+
   presupuestoValorRubroSelect = element(by.css('select#presupuesto-valor-presupuestoValorRubro'));
 
   presupuestoValorProyectoSelect = element(by.css('select#presupuesto-valor-presupuestoValorProyecto'));

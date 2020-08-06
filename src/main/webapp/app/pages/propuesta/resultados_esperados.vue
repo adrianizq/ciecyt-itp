@@ -4,8 +4,12 @@
       <menu-lateral :proyectoId='$route.params.proyectoId'></menu-lateral>
     </div>
     <div class="col-sm-8">
-      <div :key="key" v-for="(item, key) in resultados">
-        <b-card>
+      <div :key="key" v-for="(item, key) in resultadosEsperads">
+        <b-card :header="`Resultado ${key+1}`" 
+         border-variant="primary"
+
+        header-bg-variant="primary"
+        header-text-variant="white">
           <div class="row">
             <!--java se coloco :key-->
 
@@ -79,11 +83,11 @@ export default class Resultados_esperados extends Vue {
    @Inject('resultadosEsperadosService') private resultadosEsperadosService: () => ResultadosEsperadosService;
    @Inject('proyectoService') private proyectoService: () => ProyectoService;
 
- resultados = [];
+ public resultadosEsperads: IResultadosEsperados[] = [];
   nuevo_resultado() {
    
     
-    this.resultados.push({
+    this.resultadosEsperads.push({
       resultadosEsperadosProyectoId: this.proyId      
      });
 
@@ -92,7 +96,7 @@ export default class Resultados_esperados extends Vue {
   }
    public proyecto: IProyecto = new Proyecto();
    public proyId: any = null;
-   public resultadosEsperads: IResultadosEsperados[] = [];
+   
    public isSaving = false;
    
     beforeRouteEnter(to, from, next) {
@@ -106,12 +110,14 @@ export default class Resultados_esperados extends Vue {
       public save(): void {//debo guardar un elemento proyecto
             try {
                 this.isSaving = true;
-                
-                for (let e of this.resultados) {
+                  var i=this.resultadosEsperads.length;
+                    
+                for (let e of this.resultadosEsperads) {
                     //Actualizando el integrante
                      var resultado = new ResultadosEsperados();
 
-                         e.resultadosEsperadosProyectoId = this.proyId  
+                         e.resultadosEsperadosProyectoId = this.proyId; 
+                          e.ordenVista = i++; 
             
                     if (e.id) {
                         this.resultadosEsperadosService().update(e); //envio un elemento
@@ -133,7 +139,7 @@ export default class Resultados_esperados extends Vue {
           async initRelationships() {
            try {
 
-               this.nuevo_resultado() ; //crea una primera tarjeta
+               //this.nuevo_resultado() ; //crea una primera tarjeta
              this.proyId = parseInt(this.$route.params.proyectoId);
 
              //this.proyecto = await this.proyectoService().find(this.proyId);

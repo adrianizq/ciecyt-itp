@@ -41,6 +41,12 @@
                         <span>{{presupuestoValor.dinero}}</span>
                     </dd>
                     <dt>
+                        <span v-text="$t('ciecytApp.presupuestoValor.ordenVista')">Orden Vista</span>
+                    </dt>
+                    <dd>
+                        <span>{{presupuestoValor.ordenVista}}</span>
+                    </dd>
+                    <dt>
                         <span v-text="$t('ciecytApp.presupuestoValor.presupuestoValorRubro')">Presupuesto Valor Rubro</span>
                     </dt>
                     <dd>
