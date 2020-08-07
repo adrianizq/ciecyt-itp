@@ -143,9 +143,9 @@ public class IntegranteProyectoResource {
         try{
         final List<IntegranteProyectoDTO> integranteProyectoDTO = integranteProyectoService.findByIntegranteProyectoProyectoId(idProyecto);
         return new ResponseEntity<>(integranteProyectoDTO, HttpStatus.OK);
-        
+
     }catch (Exception e){
-      
+
           return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body( e.getMessage());
       }
     }
@@ -165,11 +165,18 @@ public class IntegranteProyectoResource {
         try{
         final List<IntegranteProyectoDTO> integranteProyectoDTO = integranteProyectoService.findByIntegranteProyectoProyectoIdAndIntegranteProyectoRolesModalidadIdIn(idProyecto,idRolModalidad);
         return new ResponseEntity<>(integranteProyectoDTO, HttpStatus.OK);
-        
+
     }catch (Exception e){
-      
+
           return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body( e.getMessage());
       }
     }
     ////////////////////////////////////////////////////////777
+
+
+
+
+
+
+
 }

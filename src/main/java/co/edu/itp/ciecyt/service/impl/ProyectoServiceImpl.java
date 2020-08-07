@@ -2,9 +2,7 @@ package co.edu.itp.ciecyt.service.impl;
 
 import co.edu.itp.ciecyt.service.IntegranteProyectoService;
 import co.edu.itp.ciecyt.service.ProyectoService;
-import co.edu.itp.ciecyt.domain.IntegranteProyecto;
 import co.edu.itp.ciecyt.domain.Proyecto;
-import co.edu.itp.ciecyt.repository.IntegranteProyectoRepository;
 import co.edu.itp.ciecyt.repository.ProyectoRepository;
 import co.edu.itp.ciecyt.service.dto.IntegranteProyectoDTO;
 import co.edu.itp.ciecyt.service.dto.ProyectoDTO;
@@ -17,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -31,13 +30,20 @@ public class ProyectoServiceImpl implements ProyectoService {
     private final ProyectoRepository proyectoRepository;
     private final IntegranteProyectoService integranteProyectoService;
 
-
     private final ProyectoMapper proyectoMapper;
 
-    public ProyectoServiceImpl(ProyectoRepository proyectoRepository, ProyectoMapper proyectoMapper, IntegranteProyectoService integranteProyectoService) {
+
+
+    public ProyectoServiceImpl(ProyectoRepository proyectoRepository,
+                               ProyectoMapper proyectoMapper,
+                               IntegranteProyectoService integranteProyectoService
+                               ) {
         this.proyectoRepository = proyectoRepository;
         this.proyectoMapper = proyectoMapper;
         this.integranteProyectoService = integranteProyectoService;
+
+
+
     }
 
     /**
@@ -57,7 +63,7 @@ public class ProyectoServiceImpl implements ProyectoService {
 
       /**
      * Save a proyecto.
-     * 
+     *
      * @param proyectoDTO the entity to save.
      * @return the persisted entity.
      */
@@ -70,6 +76,7 @@ public class ProyectoServiceImpl implements ProyectoService {
         IntegranteProyectoDTO asesorDTO = new IntegranteProyectoDTO();
         asesorDTO.setIntegranteProyectoProyectoId(proyecto.getId());
         asesorDTO.setIntegranteProyectoUserId(proyectoDTO.getAsesorId());
+        //arreglar ...
         asesorDTO.setIntegranteProyectoRolesModalidadId(4451L);
 
         integranteProyectoService.save(asesorDTO);
@@ -104,6 +111,39 @@ public class ProyectoServiceImpl implements ProyectoService {
         log.debug("Request to get Proyecto : {}", id);
         return proyectoRepository.findById(id)
             .map(proyectoMapper::toDto);
+    }
+
+
+
+    /**
+     * Get one proyecto con asesor by id.
+     *
+     * @param idProyecto  the id of the entity.
+     * @param idRolModalidad  the id of the entity.
+     * @return the entity.
+     */
+    @Override
+    @Transactional(readOnly = true)
+    public ProyectoDTO findOneWithAsesor(Long idProyecto, Long idRolModalidad) throws Exception {
+        log.debug("Request to get Proyecto : {}", idProyecto);
+        Proyecto p = new Proyecto();
+        p = proyectoRepository.findByIdOrderById(idProyecto);
+
+        IntegranteProyectoDTO integranteProyectoDTO;
+        //integranteProyectoDTO.setIntegranteProyectoProyectoId(id);
+
+        ProyectoDTO proyectoDTO;
+
+        final List<IntegranteProyectoDTO> lIntegranteProyectoDTO = integranteProyectoService.findByIntegranteProyectoProyectoIdAndIntegranteProyectoRolesModalidadIdIn(idProyecto,idRolModalidad);
+        integranteProyectoDTO = lIntegranteProyectoDTO.get(0);
+
+
+        proyectoDTO = proyectoMapper.toDto(p);
+        //proyectoDTO.setAsesorId(asesorDTO.getIntegranteProyectoUserId());
+
+        proyectoDTO.setAsesorId(integranteProyectoDTO.getIntegranteProyectoUserId());
+
+        return proyectoDTO;
     }
 
     /**

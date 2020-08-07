@@ -1,7 +1,8 @@
 package co.edu.itp.ciecyt.web.rest;
 
-import co.edu.itp.ciecyt.service.IntegranteProyectoService; 
+import co.edu.itp.ciecyt.service.IntegranteProyectoService;
 import co.edu.itp.ciecyt.service.ProyectoService;
+import co.edu.itp.ciecyt.service.dto.CronogramaDTO;
 import co.edu.itp.ciecyt.web.rest.errors.BadRequestAlertException;
 import co.edu.itp.ciecyt.service.dto.IntegranteProyectoDTO;
 import co.edu.itp.ciecyt.service.dto.ProyectoDTO;
@@ -41,14 +42,14 @@ public class ProyectoResource {
     private String applicationName;
 
     private final ProyectoService proyectoService;
-    //private final IntegranteProyectoService integranteProyectoService;    
+    //private final IntegranteProyectoService integranteProyectoService;
 
-   
+
 
     public ProyectoResource(ProyectoService proyectoService) {
        this.proyectoService = proyectoService;
-      
-        
+
+
     }
 
     /**
@@ -77,10 +78,10 @@ public class ProyectoResource {
       //toca ver quien es ese usuario
 
         ProyectoDTO result = proyectoService.saveAsesorProyecto(proyectoDTO);
-        
+
         //ProyectoDTO result = proyectoService.save(proyectoDTO);
-        
-       
+
+
 
 
          //integranteProyectoService.save(integDTO);
@@ -128,18 +129,46 @@ public class ProyectoResource {
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
-    /**
-     * {@code GET  /proyectos/:id} : get the "id" proyecto.
-     *
-     * @param id the id of the proyectoDTO to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the proyectoDTO, or with status {@code 404 (Not Found)}.
-     */
     @GetMapping("/proyectos/{id}")
     public ResponseEntity<ProyectoDTO> getProyecto(@PathVariable Long id) {
         log.debug("REST request to get Proyecto : {}", id);
         Optional<ProyectoDTO> proyectoDTO = proyectoService.findOne(id);
         return ResponseUtil.wrapOrNotFound(proyectoDTO);
     }
+
+
+
+    /** ADR
+     * {@code GET  /proyectos/:id} : get the "id" proyecto.
+     *
+     * @param idProyecto the id of the proyectoDTO to retrieve.
+     * @param idRolModalidad the id of the proyectoDTO to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the proyectoDTO, or with status {@code 404 (Not Found)}.
+     */
+    @GetMapping("/proyectosWithAsesor/{idProyecto}/{idRolModalidad}")
+    public ResponseEntity<?> getProyectoWithAsesor(@PathVariable Long idProyecto, @PathVariable Long idRolModalidad) {
+        log.debug("REST request to get Proyecto : {}", idProyecto);
+
+       //ProyectoDTO proyectoDTO = proyectoService.findOne(id);
+
+        try {
+           // proyectoDTO = proyectoService.findOneWithAsesor(id);
+
+            final ProyectoDTO proyectoDTO = proyectoService.findOneWithAsesor(idProyecto,idRolModalidad);
+            ResponseEntity<ProyectoDTO> responseEntity = new ResponseEntity(proyectoDTO, HttpStatus.OK);
+            return responseEntity;
+
+
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+
+    }
+
+
+
+
 
     /**
      * {@code DELETE  /proyectos/:id} : delete the "id" proyecto.

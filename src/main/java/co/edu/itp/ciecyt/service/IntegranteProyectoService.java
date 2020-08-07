@@ -47,5 +47,7 @@ public interface IntegranteProyectoService {
 
     List<IntegranteProyectoDTO> findByIntegranteProyectoProyectoId(Long idProyecto) throws Exception ;
     List<IntegranteProyectoDTO> findByIntegranteProyectoProyectoIdAndIntegranteProyectoRolesModalidadIdIn(Long idProyecto, Long idRolModalidad) throws Exception ;
+    IntegranteProyectoDTO findOneOrderById(Long id)  throws Exception;
+
 
 }

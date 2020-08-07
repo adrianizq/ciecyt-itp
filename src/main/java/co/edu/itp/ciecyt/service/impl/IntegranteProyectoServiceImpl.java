@@ -79,6 +79,22 @@ public class IntegranteProyectoServiceImpl implements IntegranteProyectoService 
     }
 
     /**
+     * Get one integranteProyecto by id.
+     *
+     * @param id the id of the entity.
+     * @return the entity.
+     */
+
+    @Transactional(readOnly = true)
+    public IntegranteProyectoDTO findOneOrderById(Long id)  throws Exception {
+        log.debug("Request to get IntegranteProyecto : {}", id);
+        IntegranteProyecto i = new IntegranteProyecto();
+        i= integranteProyectoRepository.findByIdOrderById(id);
+        return integranteProyectoMapper.toDto(i);
+
+    }
+
+    /**
      * Delete the integranteProyecto by id.
      *
      * @param id the id of the entity.
@@ -119,4 +135,5 @@ public class IntegranteProyectoServiceImpl implements IntegranteProyectoService 
         return listDTO;
 
     }
+
 }

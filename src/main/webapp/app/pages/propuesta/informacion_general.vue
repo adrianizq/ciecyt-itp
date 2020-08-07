@@ -182,6 +182,8 @@
         public nombresApellidos: string = null;
         public proyecto: IProyecto = new Proyecto();
         public proyId: string = null;
+        public rolModalidadId: string = "4451";
+        
 
         public isSaving = false;
 
@@ -243,12 +245,30 @@
         }
 
         initRelationships() {
+
+            this.proyId = this.$route.params.proyectoId;
+            console.log(this.proyId);
             //Obtenienedo las modalidades
             this.modalidadService()
                 .retrieve()
                 .then(res => {
                     this.modalidads = res.data;
                 });
+
+            //Obtenienedo los proyectos
+
+           this.proyectoService()
+                .retrieveWithAsesor(this.proyId, this.rolModalidadId)
+                .then(res=> {
+
+                    this.proyecto = res.data;
+                    console.log(this.rolModalidadId);
+                })
+
+            
+           
+
+
 
             //Obteniendo las facultadas
             this.facultadService()

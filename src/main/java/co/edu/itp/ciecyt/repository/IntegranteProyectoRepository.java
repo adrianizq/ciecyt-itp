@@ -1,9 +1,11 @@
 package co.edu.itp.ciecyt.repository;
 import co.edu.itp.ciecyt.domain.IntegranteProyecto;
+import co.edu.itp.ciecyt.service.dto.IntegranteProyectoDTO;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Spring Data  repository for the IntegranteProyecto entity.
@@ -16,5 +18,7 @@ public interface IntegranteProyectoRepository extends JpaRepository<IntegrantePr
     List<IntegranteProyecto> findByIntegranteProyectoUserIsCurrentUser();
     List<IntegranteProyecto> findByIntegranteProyectoProyectoId(Long idProyecto);
     List<IntegranteProyecto> findByIntegranteProyectoProyectoIdAndIntegranteProyectoRolesModalidadIdIn(Long idProyecto, Long idRolModalidad);
+    IntegranteProyecto findByIdOrderById(Long id);
+
 
 }

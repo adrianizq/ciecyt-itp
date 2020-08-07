@@ -1,9 +1,11 @@
 package co.edu.itp.ciecyt.service;
 
+import co.edu.itp.ciecyt.domain.Proyecto;
 import co.edu.itp.ciecyt.service.dto.ProyectoDTO;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -38,6 +40,10 @@ public interface ProyectoService {
      * @return the entity.
      */
     Optional<ProyectoDTO> findOne(Long id);
+
+    @Transactional(readOnly = true)
+    ProyectoDTO findOneWithAsesor(Long idProyecto, Long idRolModalidad) throws Exception;
+    //Proyecto findOneWithAsesor(Long id);
 
     /**
      * Delete the "id" proyecto.
