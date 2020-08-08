@@ -22,7 +22,7 @@ public interface ProyectoService {
      */
     ProyectoDTO save(ProyectoDTO proyectoDTO);
 
-    ProyectoDTO saveAsesorProyecto (ProyectoDTO proyectoDTO);
+    ProyectoDTO saveAsesorProyecto (ProyectoDTO proyectoDTO) throws Exception;
 
     /**
      * Get all the proyectos.

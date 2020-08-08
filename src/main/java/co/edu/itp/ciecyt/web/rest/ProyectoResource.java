@@ -77,7 +77,12 @@ public class ProyectoResource {
        //IntegranteProyectoDTO rI = IntegranteProyectoService.save
       //toca ver quien es ese usuario
 
-        ProyectoDTO result = proyectoService.saveAsesorProyecto(proyectoDTO);
+        ProyectoDTO result = null;
+        try {
+            result = proyectoService.saveAsesorProyecto(proyectoDTO);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         //ProyectoDTO result = proyectoService.save(proyectoDTO);
 

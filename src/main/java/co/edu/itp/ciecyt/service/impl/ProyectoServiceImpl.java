@@ -71,7 +71,7 @@ public class ProyectoServiceImpl implements ProyectoService {
      * @return the persisted entity.
      */
     @Override
-    public ProyectoDTO saveAsesorProyecto (ProyectoDTO proyectoDTO) {
+    public ProyectoDTO saveAsesorProyecto (ProyectoDTO proyectoDTO) throws Exception {
         log.debug("Request to save Proyecto : {}", proyectoDTO);
         Proyecto proyecto = proyectoMapper.toEntity(proyectoDTO);
         proyecto = proyectoRepository.save(proyecto);
@@ -80,7 +80,15 @@ public class ProyectoServiceImpl implements ProyectoService {
         asesorDTO.setIntegranteProyectoProyectoId(proyecto.getId());
         asesorDTO.setIntegranteProyectoUserId(proyectoDTO.getAsesorId());
         //arreglar ...
-        asesorDTO.setIntegranteProyectoRolesModalidadId(4451L);
+
+        Modalidad modalidad = proyecto.getProyectoModalidad();
+        Long modalidadId= modalidad.getId(); //eje 1551
+
+        List <RolesModalidadDTO>  rolesModalidad;
+        rolesModalidad = rolesModalidadService.findByRolAndRolesModalidadModalidadId("Asesor", modalidadId);
+        Long rolesModalidadId= rolesModalidad.get(0).getId();
+        //asesorDTO.setIntegranteProyectoRolesModalidadId(4451L);
+        asesorDTO.setIntegranteProyectoRolesModalidadId(rolesModalidadId);
 
         integranteProyectoService.save(asesorDTO);
         return proyectoMapper.toDto(proyecto);
@@ -122,7 +130,6 @@ public class ProyectoServiceImpl implements ProyectoService {
      * Get one proyecto con asesor by id.
      *
      * @param idProyecto  the id of the entity.
-     * @param idRolModalidad  the id of the entity.
      * @return the entity.
      */
     @Override
