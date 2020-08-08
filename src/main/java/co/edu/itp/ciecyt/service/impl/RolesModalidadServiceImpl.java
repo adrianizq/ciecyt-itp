@@ -1,8 +1,10 @@
 package co.edu.itp.ciecyt.service.impl;
 
+import co.edu.itp.ciecyt.domain.ImpactosEsperados;
 import co.edu.itp.ciecyt.service.RolesModalidadService;
 import co.edu.itp.ciecyt.domain.RolesModalidad;
 import co.edu.itp.ciecyt.repository.RolesModalidadRepository;
+import co.edu.itp.ciecyt.service.dto.ImpactosEsperadosDTO;
 import co.edu.itp.ciecyt.service.dto.RolesModalidadDTO;
 import co.edu.itp.ciecyt.service.mapper.RolesModalidadMapper;
 import org.slf4j.Logger;
@@ -13,6 +15,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -85,5 +89,20 @@ public class RolesModalidadServiceImpl implements RolesModalidadService {
     public void delete(Long id) {
         log.debug("Request to delete RolesModalidad : {}", id);
         rolesModalidadRepository.deleteById(id);
+    }
+
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<RolesModalidadDTO> findByRolAndRolesModalidadModalidadId(String rol, Long rolModalidad) throws Exception{
+        log.debug("Request to get all ImpactosEsperados whit a idProyecto");
+        List<RolesModalidadDTO> listDTO = new ArrayList<>();
+        List<RolesModalidad> list = rolesModalidadRepository.findByRolAndRolesModalidadModalidadId(rol, rolModalidad);
+
+
+        for (RolesModalidad obj : list) {
+            listDTO.add(rolesModalidadMapper.toDto(obj));
+        }
+        return listDTO;
     }
 }

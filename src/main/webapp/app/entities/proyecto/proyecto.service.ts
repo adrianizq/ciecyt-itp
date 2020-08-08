@@ -17,13 +17,11 @@ export default class ProyectoService {
     });
   }
 
-  public retrieveWithAsesor(idProy?: any, idRolMod?: any, paginationQuery?: any): Promise<any> {
+  public retrieveWithAsesor(idProy?: any, paginationQuery?: any): Promise<any> {
     return new Promise<any>(resolve => {
-      axios
-        .get('api/proyectosWithAsesor' + `/${idProy}` + `/${idRolMod}` + `?${buildPaginationQueryOpts(paginationQuery)}`)
-        .then(function(res) {
-          resolve(res);
-        });
+      axios.get('api/proyectosWithAsesor' + `/${idProy}` + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function(res) {
+        resolve(res);
+      });
     });
   }
 

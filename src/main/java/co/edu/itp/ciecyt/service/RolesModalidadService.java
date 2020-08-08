@@ -1,10 +1,12 @@
 package co.edu.itp.ciecyt.service;
 
+import co.edu.itp.ciecyt.domain.RolesModalidad;
 import co.edu.itp.ciecyt.service.dto.RolesModalidadDTO;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -43,4 +45,7 @@ public interface RolesModalidadService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+
+    List<RolesModalidadDTO> findByRolAndRolesModalidadModalidadId(String rol, Long rolModalidad) throws Exception;
 }

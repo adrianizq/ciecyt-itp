@@ -1,6 +1,7 @@
 package co.edu.itp.ciecyt.web.rest;
 
 import co.edu.itp.ciecyt.service.RolesModalidadService;
+import co.edu.itp.ciecyt.service.dto.ImpactosEsperadosDTO;
 import co.edu.itp.ciecyt.web.rest.errors.BadRequestAlertException;
 import co.edu.itp.ciecyt.service.dto.RolesModalidadDTO;
 
@@ -124,5 +125,19 @@ public class RolesModalidadResource {
         log.debug("REST request to delete RolesModalidad : {}", id);
         rolesModalidadService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+    }
+
+    //ADR
+    @GetMapping("/roles-modalidad-rol-modalidad/{rol}/{idModalidad}")
+    public ResponseEntity<?> findByRolAndRolesModalidadModalidadId(@PathVariable String rol, @PathVariable Long idModalidad) {
+        log.debug("REST request to get RolesModalidad : {}", rol);
+        try {
+            final List<RolesModalidadDTO> dto = rolesModalidadService.findByRolAndRolesModalidadModalidadId(rol,idModalidad);
+            return new ResponseEntity<>(dto, HttpStatus.OK);
+
+        } catch (Exception e) {
+
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
     }
 }

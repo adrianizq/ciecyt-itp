@@ -42,8 +42,9 @@ public interface ProyectoService {
     Optional<ProyectoDTO> findOne(Long id);
 
     @Transactional(readOnly = true)
-    ProyectoDTO findOneWithAsesor(Long idProyecto, Long idRolModalidad) throws Exception;
-    //Proyecto findOneWithAsesor(Long id);
+    //ProyectoDTO findOneWithAsesor(Long idProyecto, Long idRolModalidad) throws Exception;
+    ProyectoDTO findOneWithAsesor(Long idProyecto) throws Exception;
+
 
     /**
      * Delete the "id" proyecto.

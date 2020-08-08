@@ -1,11 +1,15 @@
 package co.edu.itp.ciecyt.service.impl;
 
+import co.edu.itp.ciecyt.domain.Modalidad;
+import co.edu.itp.ciecyt.domain.RolesModalidad;
 import co.edu.itp.ciecyt.service.IntegranteProyectoService;
 import co.edu.itp.ciecyt.service.ProyectoService;
 import co.edu.itp.ciecyt.domain.Proyecto;
 import co.edu.itp.ciecyt.repository.ProyectoRepository;
+import co.edu.itp.ciecyt.service.RolesModalidadService;
 import co.edu.itp.ciecyt.service.dto.IntegranteProyectoDTO;
 import co.edu.itp.ciecyt.service.dto.ProyectoDTO;
+import co.edu.itp.ciecyt.service.dto.RolesModalidadDTO;
 import co.edu.itp.ciecyt.service.mapper.ProyectoMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +33,7 @@ public class ProyectoServiceImpl implements ProyectoService {
 
     private final ProyectoRepository proyectoRepository;
     private final IntegranteProyectoService integranteProyectoService;
+    private final RolesModalidadService rolesModalidadService;
 
     private final ProyectoMapper proyectoMapper;
 
@@ -36,14 +41,12 @@ public class ProyectoServiceImpl implements ProyectoService {
 
     public ProyectoServiceImpl(ProyectoRepository proyectoRepository,
                                ProyectoMapper proyectoMapper,
-                               IntegranteProyectoService integranteProyectoService
-                               ) {
+                               IntegranteProyectoService integranteProyectoService,
+                               RolesModalidadService rolesModalidadService) {
         this.proyectoRepository = proyectoRepository;
         this.proyectoMapper = proyectoMapper;
         this.integranteProyectoService = integranteProyectoService;
-
-
-
+        this.rolesModalidadService = rolesModalidadService;
     }
 
     /**
@@ -124,24 +127,29 @@ public class ProyectoServiceImpl implements ProyectoService {
      */
     @Override
     @Transactional(readOnly = true)
-    public ProyectoDTO findOneWithAsesor(Long idProyecto, Long idRolModalidad) throws Exception {
+   // public ProyectoDTO findOneWithAsesor(Long idProyecto, Long idRolModalkidad) throws Exception {
+    public ProyectoDTO findOneWithAsesor(Long idProyecto) throws Exception {
         log.debug("Request to get Proyecto : {}", idProyecto);
         Proyecto p = new Proyecto();
         p = proyectoRepository.findByIdOrderById(idProyecto);
 
+        Modalidad modalidad = p.getProyectoModalidad();
+        Long modalidadId= modalidad.getId(); //eje 1551
+
+        List <RolesModalidadDTO>  rolesModalidad;
+        rolesModalidad = rolesModalidadService.findByRolAndRolesModalidadModalidadId("Asesor", modalidadId);
+        Long rolesModalidadId= rolesModalidad.get(0).getId();
+
         IntegranteProyectoDTO integranteProyectoDTO;
-        //integranteProyectoDTO.setIntegranteProyectoProyectoId(id);
+        final List<IntegranteProyectoDTO> lIntegranteProyectoDTO = integranteProyectoService.findByIntegranteProyectoProyectoIdAndIntegranteProyectoRolesModalidadIdIn(idProyecto,rolesModalidadId);
+        integranteProyectoDTO = lIntegranteProyectoDTO.get(0);
+        Long integranteProyectoId = integranteProyectoDTO.getIntegranteProyectoUserId();
 
         ProyectoDTO proyectoDTO;
 
-        final List<IntegranteProyectoDTO> lIntegranteProyectoDTO = integranteProyectoService.findByIntegranteProyectoProyectoIdAndIntegranteProyectoRolesModalidadIdIn(idProyecto,idRolModalidad);
-        integranteProyectoDTO = lIntegranteProyectoDTO.get(0);
-
-
         proyectoDTO = proyectoMapper.toDto(p);
-        //proyectoDTO.setAsesorId(asesorDTO.getIntegranteProyectoUserId());
 
-        proyectoDTO.setAsesorId(integranteProyectoDTO.getIntegranteProyectoUserId());
+        proyectoDTO.setAsesorId(integranteProyectoId);
 
         return proyectoDTO;
     }

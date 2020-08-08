@@ -142,11 +142,11 @@ public class ProyectoResource {
      * {@code GET  /proyectos/:id} : get the "id" proyecto.
      *
      * @param idProyecto the id of the proyectoDTO to retrieve.
-     * @param idRolModalidad the id of the proyectoDTO to retrieve.
+     *
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the proyectoDTO, or with status {@code 404 (Not Found)}.
      */
-    @GetMapping("/proyectosWithAsesor/{idProyecto}/{idRolModalidad}")
-    public ResponseEntity<?> getProyectoWithAsesor(@PathVariable Long idProyecto, @PathVariable Long idRolModalidad) {
+    @GetMapping("/proyectosWithAsesor/{idProyecto}")
+    public ResponseEntity<?> getProyectoWithAsesor(@PathVariable Long idProyecto) {
         log.debug("REST request to get Proyecto : {}", idProyecto);
 
        //ProyectoDTO proyectoDTO = proyectoService.findOne(id);
@@ -154,7 +154,7 @@ public class ProyectoResource {
         try {
            // proyectoDTO = proyectoService.findOneWithAsesor(id);
 
-            final ProyectoDTO proyectoDTO = proyectoService.findOneWithAsesor(idProyecto,idRolModalidad);
+            final ProyectoDTO proyectoDTO = proyectoService.findOneWithAsesor(idProyecto);
             ResponseEntity<ProyectoDTO> responseEntity = new ResponseEntity(proyectoDTO, HttpStatus.OK);
             return responseEntity;
 

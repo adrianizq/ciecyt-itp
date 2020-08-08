@@ -182,7 +182,7 @@
         public nombresApellidos: string = null;
         public proyecto: IProyecto = new Proyecto();
         public proyId: string = null;
-        public rolModalidadId: string = "4451";
+      
         
 
         public isSaving = false;
@@ -198,6 +198,7 @@
 
         public save(): void {
             this.isSaving = true;
+            
 
             if (this.proyecto.id) {
                 this.proyectoService()
@@ -253,16 +254,18 @@
                 .retrieve()
                 .then(res => {
                     this.modalidads = res.data;
+                    
                 });
 
             //Obtenienedo los proyectos
+          
 
            this.proyectoService()
-                .retrieveWithAsesor(this.proyId, this.rolModalidadId)
+                .retrieveWithAsesor(this.proyId)
                 .then(res=> {
 
                     this.proyecto = res.data;
-                    console.log(this.rolModalidadId);
+                    
                 })
 
             
