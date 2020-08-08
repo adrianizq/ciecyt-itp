@@ -136,6 +136,9 @@
     //ADR
     import { IProyecto, Proyecto } from '@/shared/model/proyecto.model';
     import ProyectoService from '@/entities/proyecto/proyecto.service';
+
+   
+
     import { numeric, required, minLength, maxLength } from 'vuelidate/lib/validators';
     import { id } from 'date-fns/esm/locale';
     //import { id } from 'date-fns/locale';
@@ -169,6 +172,7 @@
         @Inject('lineaInvestigacionService') private lineaInvestigacionService: () => LineaInvestigacionService;
         @Inject('usuarioService') private usuarioService: () => UsuarioService;
         @Inject('proyectoService') private proyectoService: () => ProyectoService;
+         
         @Inject('alertService') private alertService: () => AlertService;
 
         public modalidads: IModalidad[] = [];

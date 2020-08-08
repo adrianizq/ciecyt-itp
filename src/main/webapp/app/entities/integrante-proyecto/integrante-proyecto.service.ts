@@ -23,6 +23,21 @@ export default class IntegranteProyectoService {
     });
   }
 
+  public retrieveEstudiantes(idProyecto?: number, idRolModalidad?: number, paginationQuery?: any): Promise<any> {
+    return new Promise<any>(resolve => {
+      axios
+        .get(
+          '/api/integrante-proyectos-proyecto-modalidad' +
+            `/${idProyecto}` +
+            `/${idRolModalidad}` +
+            `?${buildPaginationQueryOpts(paginationQuery)}`
+        )
+        .then(function(res) {
+          resolve(res);
+        });
+    });
+  }
+
   public delete(id: number): Promise<any> {
     return new Promise<any>(resolve => {
       axios.delete(`${baseApiUrl}/${id}`).then(function(res) {

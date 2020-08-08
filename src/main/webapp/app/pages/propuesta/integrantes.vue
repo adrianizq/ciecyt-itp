@@ -78,7 +78,7 @@
         public modalidadId: number = 0;
         public n: number = 0;
         public cantEstudiantes: number = 0;
-        public rolModalidadId?: number;
+        public rolModalidadId?: number =0;
 
 //public proyId: string = null;
 
@@ -86,12 +86,14 @@
             next(async vm => {
 
                 vm.initRelationships();
+                
 
             });
         }
 
         mounted() {
             this.proyId = this.$route.params.proyectoId;
+          
         }
 
         public back() {
@@ -112,13 +114,8 @@
                                 this.$router.push({ name: 'PropuestaElementosView', params: { proyectoId: this.proyId } });
                             });
                     }
-                    console.log(this.proyId);
-                    console.log('holasss');
-                    console.log(parseInt(this.$route.params.proyectoId));
-                    var proyId: string = String(this.proyId);
-                    // this.proyId = toString(this.$route.params.proyectoId);
-
-                    this.$router.push({ name: 'PropuestaElementosView', params: { proyectoId: proyId } });
+                     var proyId: string = String(this.proyId);
+                     this.$router.push({ name: 'PropuestaElementosView', params: { proyectoId: proyId } });
 
                 }
 
@@ -139,15 +136,19 @@
                         });
 
                     });
+                
+
+                  
 
                 this.proyId = parseInt(this.$route.params.proyectoId);
 
                 this.proyecto = await this.proyectoService().find(this.proyId);
 
-                this.modalidadId = this.proyecto.proyectoModalidadId;
+                this.modalidadId =  this.proyecto.proyectoModalidadId;
+         
 
-                //Obteniendo las lineas de investigacion
-                this.rolesModalidadService()
+                //Obteniendo los integrantes
+                await this.rolesModalidadService()
                     .retrieve()
                     .then(res => {
                         this.rolesModalidads = res.data;
@@ -158,6 +159,7 @@
                         });
                         this.cantEstudiantes = newArray[0].cantidad;
                         this.rolModalidadId = newArray[0].id;
+                        console.log(this.rolModalidadId );
 
                         //crear los elementos para
                         for (var i = 0; i < this.cantEstudiantes; i++) {
@@ -167,9 +169,21 @@
                             integrante.integranteProyectoRolesModalidadId = this.rolModalidadId;
 
                             this.integrantesProyecto.push(integrante);
+                           
                         }
 
                     });
+
+                           
+                //obteniendo los integrantes del proyecto
+                 this.integranteProyectoService()
+                    .retrieveEstudiantes(this.proyId, this.rolModalidadId )
+                    .then(res => {
+                       this.integrantesProyecto = res.data;
+                       //console.log(this.proyId);
+                       console.log(this.rolModalidadId );
+                       //console.log(res.data);
+                });
 
             } catch (e) {
 
