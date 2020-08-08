@@ -7,9 +7,11 @@
             <form @submit.prevent="save()">
                 <div class="row">
                     <div class="col-12" v-for="(integrante, i) in integrantesProyecto" :key="i">
-                        <b-form-group
-                            :label="`Integrante # ${i + 1}`"
-                            :label-for="`integrante-${i}`"
+                        <b-card
+                            :header="`Integrante # ${i + 1}`"
+                            border-variant="primary"
+                            header-bg-variant="primary"
+                            header-text-variant="white"
                         >
                             <b-form-select
                                 :options="users"
@@ -17,7 +19,8 @@
                                 value-field="id" :id="`integrante-${i}`" v-model="integrante.integranteProyectoUserId">
 
                             </b-form-select>
-                        </b-form-group>
+                        </b-card>
+                         <hr>
                     </div>
 
                 </div>
