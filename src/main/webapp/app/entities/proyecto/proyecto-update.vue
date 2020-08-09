@@ -91,6 +91,13 @@
                             <option v-bind:value="facultadOption.id" v-for="facultadOption in facultads" :key="facultadOption.id">{{facultadOption.id}}</option>
                         </select>
                     </div>
+                    <div class="form-group">
+                        <label class="form-control-label" v-bind:value="$t('ciecytApp.proyecto.subLineaLineaInvestigacion')" for="proyecto-subLineaLineaInvestigacion">Sub Linea Linea Investigacion</label>
+                        <select class="form-control" id="proyecto-subLineaLineaInvestigacion" name="subLineaLineaInvestigacion" v-model="proyecto.subLineaLineaInvestigacionId">
+                            <option v-bind:value="null"></option>
+                            <option v-bind:value="lineaInvestigacionOption.id" v-for="lineaInvestigacionOption in lineaInvestigacions" :key="lineaInvestigacionOption.id">{{lineaInvestigacionOption.linea}}</option>
+                        </select>
+                    </div>
                 </div>
                 <div>
                     <button type="button" id="cancel-save" class="btn btn-secondary" v-on:click="previousState()">

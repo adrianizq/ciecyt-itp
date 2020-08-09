@@ -66,6 +66,10 @@ public class Proyecto implements Serializable {
     @JsonIgnoreProperties("proyectos")
     private Facultad facultad;
 
+    @ManyToOne
+    @JsonIgnoreProperties("proyectos")
+    private LineaInvestigacion subLineaLineaInvestigacion;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -255,6 +259,19 @@ public class Proyecto implements Serializable {
 
     public void setFacultad(Facultad facultad) {
         this.facultad = facultad;
+    }
+
+    public LineaInvestigacion getSubLineaLineaInvestigacion() {
+        return subLineaLineaInvestigacion;
+    }
+
+    public Proyecto subLineaLineaInvestigacion(LineaInvestigacion lineaInvestigacion) {
+        this.subLineaLineaInvestigacion = lineaInvestigacion;
+        return this;
+    }
+
+    public void setSubLineaLineaInvestigacion(LineaInvestigacion lineaInvestigacion) {
+        this.subLineaLineaInvestigacion = lineaInvestigacion;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

@@ -123,5 +123,10 @@ export default class ProyectoUpdate extends Vue {
       .then(res => {
         this.facultads = res.data;
       });
+    this.lineaInvestigacionService()
+      .retrieve()
+      .then(res => {
+        this.lineaInvestigacions = res.data;
+      });
   }
 }

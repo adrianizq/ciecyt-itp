@@ -96,6 +96,7 @@ describe('Proyecto e2e test', () => {
       // await  selectLastOption(updatePage.proyectoGrupoSemilleroSelect);
       // await  selectLastOption(updatePage.proyectoModalidadSelect);
       // await  selectLastOption(updatePage.facultadSelect);
+      // await  selectLastOption(updatePage.subLineaLineaInvestigacionSelect);
 
       expect(await updatePage.saveButton.isEnabled()).to.be.true;
       await updatePage.saveButton.click();

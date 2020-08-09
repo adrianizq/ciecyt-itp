@@ -39,6 +39,7 @@
                     <th v-on:click="changeOrder('proyectoGrupoSemilleroNombre')"><span v-text="$t('ciecytApp.proyecto.proyectoGrupoSemillero')">Proyecto Grupo Semillero</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th v-on:click="changeOrder('proyectoModalidadModalidad')"><span v-text="$t('ciecytApp.proyecto.proyectoModalidad')">Proyecto Modalidad</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th v-on:click="changeOrder('facultadId')"><span v-text="$t('ciecytApp.proyecto.facultad')">Facultad</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
+                    <th v-on:click="changeOrder('subLineaLineaInvestigacionLinea')"><span v-text="$t('ciecytApp.proyecto.subLineaLineaInvestigacion')">Sub Linea Linea Investigacion</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th></th>
                 </tr>
                 </thead>
@@ -76,6 +77,11 @@
                     <td>
                         <div v-if="proyecto.facultadId">
                             <router-link :to="{name: 'FacultadView', params: {facultadId: proyecto.facultadId}}">{{proyecto.facultadId}}</router-link>
+                        </div>
+                    </td>
+                    <td>
+                        <div v-if="proyecto.subLineaLineaInvestigacionId">
+                            <router-link :to="{name: 'LineaInvestigacionView', params: {subLineaLineaInvestigacionId: proyecto.subLineaLineaInvestigacionId}}">{{proyecto.subLineaLineaInvestigacionLinea}}</router-link>
                         </div>
                     </td>
                     <td class="text-right">

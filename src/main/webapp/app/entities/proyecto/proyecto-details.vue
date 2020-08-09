@@ -96,6 +96,14 @@
                             <router-link :to="{name: 'FacultadView', params: {facultadId: proyecto.facultadId}}">{{proyecto.facultadId}}</router-link>
                         </div>
                     </dd>
+                    <dt>
+                        <span v-text="$t('ciecytApp.proyecto.subLineaLineaInvestigacion')">Sub Linea Linea Investigacion</span>
+                    </dt>
+                    <dd>
+                        <div v-if="proyecto.subLineaLineaInvestigacionId">
+                            <router-link :to="{name: 'LineaInvestigacionView', params: {subLineaLineaInvestigacionId: proyecto.subLineaLineaInvestigacionId}}">{{proyecto.subLineaLineaInvestigacionLinea}}</router-link>
+                        </div>
+                    </dd>
                 </dl>
                 <button type="submit"
                         v-on:click.prevent="previousState()"

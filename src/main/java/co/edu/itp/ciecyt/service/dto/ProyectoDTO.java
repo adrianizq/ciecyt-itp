@@ -3,8 +3,6 @@ import java.time.LocalDate;
 import java.io.Serializable;
 import java.util.Objects;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 /**
  * A DTO for the {@link co.edu.itp.ciecyt.domain.Proyecto} entity.
  */
@@ -47,15 +45,20 @@ public class ProyectoDTO implements Serializable {
 
     private Long facultadId;
 
+    private Long subLineaLineaInvestigacionId;
+
+    private String subLineaLineaInvestigacionLinea;
+
+
     //adr
-    
+
     private Long asesorId;
 
-    
+
     public Long getAsesorId(){
         return asesorId;
     }
-    
+
     public void setAsesorId(Long asesorId){
         this.asesorId = asesorId;
     }
@@ -205,6 +208,22 @@ public class ProyectoDTO implements Serializable {
         this.facultadId = facultadId;
     }
 
+    public Long getSubLineaLineaInvestigacionId() {
+        return subLineaLineaInvestigacionId;
+    }
+
+    public void setSubLineaLineaInvestigacionId(Long lineaInvestigacionId) {
+        this.subLineaLineaInvestigacionId = lineaInvestigacionId;
+    }
+
+    public String getSubLineaLineaInvestigacionLinea() {
+        return subLineaLineaInvestigacionLinea;
+    }
+
+    public void setSubLineaLineaInvestigacionLinea(String lineaInvestigacionLinea) {
+        this.subLineaLineaInvestigacionLinea = lineaInvestigacionLinea;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -247,6 +266,8 @@ public class ProyectoDTO implements Serializable {
             ", proyectoModalidad=" + getProyectoModalidadId() +
             ", proyectoModalidad='" + getProyectoModalidadModalidad() + "'" +
             ", facultad=" + getFacultadId() +
+            ", subLineaLineaInvestigacion=" + getSubLineaLineaInvestigacionId() +
+            ", subLineaLineaInvestigacion='" + getSubLineaLineaInvestigacionLinea() + "'" +
             "}";
     }
 }

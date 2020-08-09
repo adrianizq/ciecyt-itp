@@ -35,4 +35,6 @@ export default class ProyectoUpdatePage extends AlertPage {
   proyectoModalidadSelect = element(by.css('select#proyecto-proyectoModalidad'));
 
   facultadSelect = element(by.css('select#proyecto-facultad'));
+
+  subLineaLineaInvestigacionSelect = element(by.css('select#proyecto-subLineaLineaInvestigacion'));
 }

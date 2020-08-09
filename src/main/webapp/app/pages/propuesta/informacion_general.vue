@@ -74,7 +74,7 @@
                             label="Sub línea"
                             label-for="sub_linea"
                         >
-                            <b-form-select text-field="linea" value-field="id" id="linea_investigacion">
+                            <b-form-select text-field="linea" v-model="proyecto.subLineaLineaInvestigacionId" value-field="id" id="sub_linea_linea_investigacion">
                                 <option v-for="(selectOption, indexOpt) in SubLineas"
                                         :key="indexOpt"
                                         :value="selectOption.id"

@@ -79,7 +79,7 @@ public class ProyectoServiceImpl implements ProyectoService {
         IntegranteProyectoDTO asesorDTO = new IntegranteProyectoDTO();
         asesorDTO.setIntegranteProyectoProyectoId(proyecto.getId());
         asesorDTO.setIntegranteProyectoUserId(proyectoDTO.getAsesorId());
-        //arreglar ...
+        //arreglado
 
         Modalidad modalidad = proyecto.getProyectoModalidad();
         Long modalidadId= modalidad.getId(); //eje 1551

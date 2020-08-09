@@ -68,7 +68,15 @@
             "relationshipName": "facultad",
             "otherEntityName": "facultad",
             "relationshipType": "many-to-one",
-            "otherEntityField": "id"
+            "otherEntityField": "id",
+            "otherEntityRelationshipName": "proyecto"
+        },
+        {
+            "relationshipName": "subLineaLineaInvestigacion",
+            "otherEntityName": "lineaInvestigacion",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "linea",
+            "otherEntityRelationshipName": "proyecto"
         }
     ],
     "changelogDate": "20200124174447",
@@ -80,5 +88,7 @@
     "fluentMethods": true,
     "readOnly": false,
     "clientRootFolder": "",
-    "applications": "*"
+    "applications": "*",
+    "searchEngine": false,
+    "databaseType": "sql"
 }
