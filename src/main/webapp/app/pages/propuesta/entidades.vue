@@ -5,7 +5,14 @@
     </div>
     <div class="col-sm-8">
       <div :key="key" v-for="(item, key) in entidadesFinanciadors">
-        <b-card>
+        <b-card
+        :header="`Entidad numero ${key+1}`" 
+         border-variant="primary"
+        
+        header-bg-variant="light"
+        body-bg-variant="light"
+        header-text-variant="info"
+        >
           <div class="row">
             
             <div class="col-md-3 col-3">

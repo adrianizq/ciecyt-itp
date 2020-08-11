@@ -6,10 +6,12 @@
     <div class="col-sm-8">
       <div :key="key" v-for="(item, key) in cronograms">
         <b-card  :header="`Actividad Número ${key+1}`" 
+       
          border-variant="primary"
-
-        header-bg-variant="primary"
-        header-text-variant="white"
+        
+        header-bg-variant="light"
+        body-bg-variant="light"
+        header-text-variant="info"
        >
           <div class="row">
             <div class="col-12">

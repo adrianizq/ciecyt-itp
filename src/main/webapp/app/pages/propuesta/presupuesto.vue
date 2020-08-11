@@ -7,9 +7,10 @@
       <div :key="key" v-for="(item, key) in presupuestoValors">
         <b-card :header="`Presupuesto Item ${key+1}`" 
          border-variant="primary"
-
-        header-bg-variant="primary"
-        header-text-variant="white">
+        
+        header-bg-variant="light"
+        body-bg-variant="light"
+        header-text-variant="info">
           <div class="row">
             <div class="col-12">
               <div class="form-group">
