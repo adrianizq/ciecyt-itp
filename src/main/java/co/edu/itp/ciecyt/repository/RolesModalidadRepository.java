@@ -13,6 +13,7 @@ import java.util.List;
 @SuppressWarnings("unused")
 @Repository
 public interface RolesModalidadRepository extends JpaRepository<RolesModalidad, Long> {
-    List<RolesModalidad> findByRolAndRolesModalidadModalidadId(String rol, Long rolModalidad);
+    RolesModalidad findByRolAndRolesModalidadModalidadId(String rol, Long rolModalidad);
+
 
 }

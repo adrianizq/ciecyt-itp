@@ -132,7 +132,7 @@ public class RolesModalidadResource {
     public ResponseEntity<?> findByRolAndRolesModalidadModalidadId(@PathVariable String rol, @PathVariable Long idModalidad) {
         log.debug("REST request to get RolesModalidad : {}", rol);
         try {
-            final List<RolesModalidadDTO> dto = rolesModalidadService.findByRolAndRolesModalidadModalidadId(rol,idModalidad);
+            final RolesModalidadDTO dto = rolesModalidadService.findByRolAndRolesModalidadModalidadId(rol,idModalidad);
             return new ResponseEntity<>(dto, HttpStatus.OK);
 
         } catch (Exception e) {

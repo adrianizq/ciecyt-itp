@@ -94,15 +94,10 @@ public class RolesModalidadServiceImpl implements RolesModalidadService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<RolesModalidadDTO> findByRolAndRolesModalidadModalidadId(String rol, Long rolModalidad) throws Exception{
+    public RolesModalidadDTO findByRolAndRolesModalidadModalidadId(String rol, Long rolModalidad) throws Exception{
         log.debug("Request to get all ImpactosEsperados whit a idProyecto");
-        List<RolesModalidadDTO> listDTO = new ArrayList<>();
-        List<RolesModalidad> list = rolesModalidadRepository.findByRolAndRolesModalidadModalidadId(rol, rolModalidad);
+         RolesModalidad rolesModalidad = rolesModalidadRepository.findByRolAndRolesModalidadModalidadId(rol, rolModalidad);
+         return rolesModalidadMapper.toDto(rolesModalidad);
 
-
-        for (RolesModalidad obj : list) {
-            listDTO.add(rolesModalidadMapper.toDto(obj));
-        }
-        return listDTO;
     }
 }

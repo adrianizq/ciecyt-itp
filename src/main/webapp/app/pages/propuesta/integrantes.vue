@@ -7,11 +7,9 @@
             <form @submit.prevent="save()">
                 <div class="row">
                     <div class="col-12" v-for="(integrante, i) in integrantesProyecto" :key="i">
-                        <b-card
-                            :header="`Integrante # ${i + 1}`"
-                            border-variant="primary"
-                            header-bg-variant="primary"
-                            header-text-variant="white"
+                        <b-form-group
+                            :label="`Integrante # ${i + 1}`"
+                            :label-for="`integrante-${i}`"
                         >
                             <b-form-select
                                 :options="users"
@@ -19,8 +17,7 @@
                                 value-field="id" :id="`integrante-${i}`" v-model="integrante.integranteProyectoUserId">
 
                             </b-form-select>
-                        </b-card>
-                         <hr>
+                        </b-form-group>
                     </div>
 
                 </div>
@@ -72,7 +69,7 @@
         @Inject('alertService') private alertService: () => AlertService;
 
         public users: IUser[] = [];
-        public rolesModalidads: IRolesModalidad[] = [];
+        public rolesModalidad: IRolesModalidad;
         public integrantesProyecto: IIntegranteProyecto[] = [];
         public user: number = null;
         public proyecto: IProyecto = new Proyecto();
@@ -89,13 +86,22 @@
             next(async vm => {
 
                 vm.initRelationships();
+
+                
                 
 
             });
         }
-
+       
         mounted() {
             this.proyId = this.$route.params.proyectoId;
+             
+
+          
+        }
+        beforeMount() {
+            
+       
           
         }
 
@@ -127,45 +133,54 @@
             }
         }
 
-        async initRelationships() {
+         async initRelationships() {
             try {
-                //Obteniendo los usuarios asesores
+                //Obteniendo los usuarios estudiantes
+                
                 this.usuarioService()
                     .retrieveEstudiantes()
                     .then(res => {
+                      
                         res.data.forEach((item) => {
                             item.nombresApellidos = item.firstName + ' ' + item.lastName;
                             this.users.push(item);
+
                         });
 
                     });
                 
-
+               
                   
 
                 this.proyId = parseInt(this.$route.params.proyectoId);
 
                 this.proyecto = await this.proyectoService().find(this.proyId);
 
-                this.modalidadId =  this.proyecto.proyectoModalidadId;
-         
+                /*await this.proyectoService().find(this.proyId).then
+                    (res=> {
+                            this.proyecto = res;
+                    });
+                */
+                this.modalidadId = this.proyecto.proyectoModalidadId;
 
-                //Obteniendo los integrantes
-                await this.rolesModalidadService()
-                    .retrieve()
+                
+                            
+                 await this.integranteProyectoService()
+                    .retrieveEstudiantesProyecto(this.proyId )
                     .then(res => {
-                        this.rolesModalidads = res.data;
-                        const newArray = this.rolesModalidads.filter((value, index) => {
-                            if (value.rolesModalidadModalidadId == this.modalidadId && value.rol == 'Estudiante') {
-                                return true;
-                            }
-                        });
-                        this.cantEstudiantes = newArray[0].cantidad;
-                        this.rolModalidadId = newArray[0].id;
-                        console.log(this.rolModalidadId );
-
-                        //crear los elementos para
-                        for (var i = 0; i < this.cantEstudiantes; i++) {
+                       this.integrantesProyecto = res.data;
+                       console.log(res.data);
+                   });
+                    
+                  if(this.integrantesProyecto.length==0){  
+                  await this.rolesModalidadService()
+                    .findRolModalidad("Estudiante", this.modalidadId )
+                    .then(res => {
+                        this.rolesModalidad = res;
+                        this.cantEstudiantes = res.cantidad;
+                        this.rolModalidadId = res.id;
+                        
+                         for (var i = 0; i < this.cantEstudiantes; i++) {
                             let integrante = new IntegranteProyecto();
 
                             integrante.integranteProyectoProyectoId = this.proyId;
@@ -174,19 +189,16 @@
                             this.integrantesProyecto.push(integrante);
                            
                         }
+                        
 
+                      
                     });
+               
+                  }
+               
 
-                           
-                //obteniendo los integrantes del proyecto
-                 this.integranteProyectoService()
-                    .retrieveEstudiantes(this.proyId, this.rolModalidadId )
-                    .then(res => {
-                       this.integrantesProyecto = res.data;
-                       //console.log(this.proyId);
-                       console.log(this.rolModalidadId );
-                       //console.log(res.data);
-                });
+               
+               
 
             } catch (e) {
 
@@ -197,5 +209,3 @@
 </script>
 
 <style scoped>
-
-</style>

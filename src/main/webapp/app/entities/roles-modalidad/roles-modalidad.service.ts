@@ -15,6 +15,14 @@ export default class RolesModalidadService {
     });
   }
 
+  public findRolModalidad(rol: any, idModalidad: number): Promise<IRolesModalidad> {
+    return new Promise<IRolesModalidad>(resolve => {
+      axios.get(`/api/roles-modalidad-rol-modalidad/${rol}/${idModalidad}`).then(function(res) {
+        resolve(res.data);
+      });
+    });
+  }
+
   public retrieve(paginationQuery?: any): Promise<any> {
     return new Promise<any>(resolve => {
       axios.get(baseApiUrl + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function(res) {

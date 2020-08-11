@@ -84,9 +84,9 @@ public class ProyectoServiceImpl implements ProyectoService {
         Modalidad modalidad = proyecto.getProyectoModalidad();
         Long modalidadId= modalidad.getId(); //eje 1551
 
-        List <RolesModalidadDTO>  rolesModalidad;
+        RolesModalidadDTO  rolesModalidad;
         rolesModalidad = rolesModalidadService.findByRolAndRolesModalidadModalidadId("Asesor", modalidadId);
-        Long rolesModalidadId= rolesModalidad.get(0).getId();
+        Long rolesModalidadId= rolesModalidad.getId();
         //asesorDTO.setIntegranteProyectoRolesModalidadId(4451L);
         asesorDTO.setIntegranteProyectoRolesModalidadId(rolesModalidadId);
 
@@ -143,9 +143,9 @@ public class ProyectoServiceImpl implements ProyectoService {
         Modalidad modalidad = p.getProyectoModalidad();
         Long modalidadId= modalidad.getId(); //eje 1551
 
-        List <RolesModalidadDTO>  rolesModalidad;
+        RolesModalidadDTO  rolesModalidad;
         rolesModalidad = rolesModalidadService.findByRolAndRolesModalidadModalidadId("Asesor", modalidadId);
-        Long rolesModalidadId= rolesModalidad.get(0).getId();
+        Long rolesModalidadId= rolesModalidad.getId();
 
         IntegranteProyectoDTO integranteProyectoDTO;
         final List<IntegranteProyectoDTO> lIntegranteProyectoDTO = integranteProyectoService.findByIntegranteProyectoProyectoIdAndIntegranteProyectoRolesModalidadIdIn(idProyecto,rolesModalidadId);

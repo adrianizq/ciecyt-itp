@@ -47,5 +47,5 @@ public interface RolesModalidadService {
     void delete(Long id);
 
 
-    List<RolesModalidadDTO> findByRolAndRolesModalidadModalidadId(String rol, Long rolModalidad) throws Exception;
+    RolesModalidadDTO findByRolAndRolesModalidadModalidadId(String rol, Long rolModalidad) throws Exception;
 }

@@ -174,9 +174,25 @@ public class IntegranteProyectoResource {
     ////////////////////////////////////////////////////////777
 
 
+    /////////////777777777777777777777777777777777777777777777
+    /**
+     * {@code GET  /integrante-proyectos/:id} : get the "id" idProyecto.
+     *
+     * @param idProyecto the id of the integranteProyectoDTO to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the integranteProyectoDTO, or with status {@code 404 (Not Found)}.
+     */
+    @GetMapping("/integrante-proyectos-estudiantes/{idProyecto}")
+    public ResponseEntity<?> findEstudiantesIntegranteProyectoId(@PathVariable Long idProyecto) {
+        log.debug("REST request to get IntegranteProyecto : {}", idProyecto);
+        try{
+            final List<IntegranteProyectoDTO> dto = integranteProyectoService.findEstudiantesIntegranteProyectoId(idProyecto);
+            return new ResponseEntity<>(dto, HttpStatus.OK);
 
+        }catch (Exception e){
 
-
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body( e.getMessage());
+        }
+    }
 
 
 }

@@ -2,6 +2,7 @@ package co.edu.itp.ciecyt.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -20,6 +21,7 @@ public class Proyecto implements Serializable {
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
+    //@NotBlank(message = "titulo no puede ser vacio")
     @Column(name = "titulo")
     private String titulo;
 

@@ -1,14 +1,20 @@
 package co.edu.itp.ciecyt.service.impl;
 
+import co.edu.itp.ciecyt.domain.Modalidad;
+import co.edu.itp.ciecyt.domain.Proyecto;
 import co.edu.itp.ciecyt.service.IntegranteProyectoService;
 import co.edu.itp.ciecyt.domain.IntegranteProyecto;
 import co.edu.itp.ciecyt.repository.IntegranteProyectoRepository;
+import co.edu.itp.ciecyt.service.RolesModalidadService;
 import co.edu.itp.ciecyt.service.dto.IntegranteProyectoDTO;
+import co.edu.itp.ciecyt.service.dto.RolesModalidadDTO;
 import co.edu.itp.ciecyt.service.mapper.IntegranteProyectoMapper;
+import co.edu.itp.ciecyt.repository.ProyectoRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.List;
 import java.util.ArrayList;
+
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -29,10 +35,16 @@ public class IntegranteProyectoServiceImpl implements IntegranteProyectoService 
     private final IntegranteProyectoRepository integranteProyectoRepository;
 
     private final IntegranteProyectoMapper integranteProyectoMapper;
+    private final ProyectoRepository proyectoRepository;
+    private final RolesModalidadService rolesModalidadService;
 
-    public IntegranteProyectoServiceImpl(IntegranteProyectoRepository integranteProyectoRepository, IntegranteProyectoMapper integranteProyectoMapper) {
+    public IntegranteProyectoServiceImpl(IntegranteProyectoRepository integranteProyectoRepository,
+                                         IntegranteProyectoMapper integranteProyectoMapper, ProyectoRepository proyectoRepository,
+                                        RolesModalidadService rolesModalidadService) {
         this.integranteProyectoRepository = integranteProyectoRepository;
         this.integranteProyectoMapper = integranteProyectoMapper;
+        this.proyectoRepository = proyectoRepository;
+        this.rolesModalidadService =rolesModalidadService;
     }
 
     /**
@@ -135,5 +147,30 @@ public class IntegranteProyectoServiceImpl implements IntegranteProyectoService 
         return listDTO;
 
     }
+//findEstudiantesIntegranteProyectoId
 
+    @Override
+    @Transactional(readOnly = true)
+    public List<IntegranteProyectoDTO> findEstudiantesIntegranteProyectoId(Long idProyecto) throws Exception {
+        log.debug("Request to get Estudiantes IntegranteProyectos whit a idProyecto");
+
+
+        Proyecto p = new Proyecto();
+        p = proyectoRepository.findByIdOrderById(idProyecto);
+
+        Modalidad modalidad = p.getProyectoModalidad();
+        Long modalidadId= modalidad.getId(); //eje 1551
+
+        RolesModalidadDTO  rolesModalidad;
+        rolesModalidad = rolesModalidadService.findByRolAndRolesModalidadModalidadId("Estudiante", modalidadId);
+        Long rolesModalidadId= rolesModalidad.getId();
+        List <IntegranteProyectoDTO> listDTO = new ArrayList<>();
+        List <IntegranteProyecto> list = integranteProyectoRepository.findByIntegranteProyectoProyectoIdAndIntegranteProyectoRolesModalidadIdIn(idProyecto, rolesModalidadId);
+
+        for (IntegranteProyecto integrante : list) {
+            listDTO.add( integranteProyectoMapper.toDto(integrante));
+        }
+        return listDTO;
+
+    }
 }

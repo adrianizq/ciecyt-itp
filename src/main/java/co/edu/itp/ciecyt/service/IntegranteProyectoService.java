@@ -46,6 +46,7 @@ public interface IntegranteProyectoService {
     void delete(Long id);
 
     List<IntegranteProyectoDTO> findByIntegranteProyectoProyectoId(Long idProyecto) throws Exception ;
+    List<IntegranteProyectoDTO> findEstudiantesIntegranteProyectoId (Long idProyecto) throws Exception ;
     List<IntegranteProyectoDTO> findByIntegranteProyectoProyectoIdAndIntegranteProyectoRolesModalidadIdIn(Long idProyecto, Long idRolModalidad) throws Exception ;
     IntegranteProyectoDTO findOneOrderById(Long id)  throws Exception;
 
