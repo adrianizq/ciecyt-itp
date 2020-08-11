@@ -26,6 +26,7 @@
                 <tr>
                     <th v-on:click="changeOrder('id')"><span v-text="$t('global.field.id')">ID</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th v-on:click="changeOrder('dato')"><span v-text="$t('ciecytApp.elementoProyecto.dato')">Dato</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
+                    <th v-on:click="changeOrder('elementoProyectoProyectoDescripcion')"><span v-text="$t('ciecytApp.elementoProyecto.elementoProyectoProyectoDescripcion')">Elemento Proyecto Proyecto Descripcion</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th v-on:click="changeOrder('elementoProyectoElementoElemento')"><span v-text="$t('ciecytApp.elementoProyecto.elementoProyectoElemento')">Elemento Proyecto Elemento</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th v-on:click="changeOrder('elementoProyectoProyectoTitulo')"><span v-text="$t('ciecytApp.elementoProyecto.elementoProyectoProyecto')">Elemento Proyecto Proyecto</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th></th>
@@ -38,6 +39,7 @@
                         <router-link :to="{name: 'ElementoProyectoView', params: {elementoProyectoId: elementoProyecto.id}}">{{elementoProyecto.id}}</router-link>
                     </td>
                     <td>{{elementoProyecto.dato}}</td>
+                    <td>{{elementoProyecto.elementoProyectoProyectoDescripcion}}</td>
                     <td>
                         <div v-if="elementoProyecto.elementoProyectoElementoId">
                             <router-link :to="{name: 'ElementoView', params: {elementoProyectoElementoId: elementoProyecto.elementoProyectoElementoId}}">{{elementoProyecto.elementoProyectoElementoElemento}}</router-link>

@@ -39,6 +39,9 @@ public class ElementoProyectoResourceIT {
     private static final String DEFAULT_DATO = "AAAAAAAAAA";
     private static final String UPDATED_DATO = "BBBBBBBBBB";
 
+    private static final String DEFAULT_ELEMENTO_PROYECTO_PROYECTO_DESCRIPCION = "AAAAAAAAAA";
+    private static final String UPDATED_ELEMENTO_PROYECTO_PROYECTO_DESCRIPCION = "BBBBBBBBBB";
+
     @Autowired
     private ElementoProyectoRepository elementoProyectoRepository;
 
@@ -87,7 +90,8 @@ public class ElementoProyectoResourceIT {
      */
     public static ElementoProyecto createEntity(EntityManager em) {
         ElementoProyecto elementoProyecto = new ElementoProyecto()
-            .dato(DEFAULT_DATO);
+            .dato(DEFAULT_DATO)
+            .elementoProyectoProyectoDescripcion(DEFAULT_ELEMENTO_PROYECTO_PROYECTO_DESCRIPCION);
         return elementoProyecto;
     }
     /**
@@ -98,7 +102,8 @@ public class ElementoProyectoResourceIT {
      */
     public static ElementoProyecto createUpdatedEntity(EntityManager em) {
         ElementoProyecto elementoProyecto = new ElementoProyecto()
-            .dato(UPDATED_DATO);
+            .dato(UPDATED_DATO)
+            .elementoProyectoProyectoDescripcion(UPDATED_ELEMENTO_PROYECTO_PROYECTO_DESCRIPCION);
         return elementoProyecto;
     }
 
@@ -124,6 +129,7 @@ public class ElementoProyectoResourceIT {
         assertThat(elementoProyectoList).hasSize(databaseSizeBeforeCreate + 1);
         ElementoProyecto testElementoProyecto = elementoProyectoList.get(elementoProyectoList.size() - 1);
         assertThat(testElementoProyecto.getDato()).isEqualTo(DEFAULT_DATO);
+        assertThat(testElementoProyecto.getElementoProyectoProyectoDescripcion()).isEqualTo(DEFAULT_ELEMENTO_PROYECTO_PROYECTO_DESCRIPCION);
     }
 
     @Test
@@ -158,7 +164,8 @@ public class ElementoProyectoResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(elementoProyecto.getId().intValue())))
-            .andExpect(jsonPath("$.[*].dato").value(hasItem(DEFAULT_DATO)));
+            .andExpect(jsonPath("$.[*].dato").value(hasItem(DEFAULT_DATO)))
+            .andExpect(jsonPath("$.[*].elementoProyectoProyectoDescripcion").value(hasItem(DEFAULT_ELEMENTO_PROYECTO_PROYECTO_DESCRIPCION)));
     }
     
     @Test
@@ -172,7 +179,8 @@ public class ElementoProyectoResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(elementoProyecto.getId().intValue()))
-            .andExpect(jsonPath("$.dato").value(DEFAULT_DATO));
+            .andExpect(jsonPath("$.dato").value(DEFAULT_DATO))
+            .andExpect(jsonPath("$.elementoProyectoProyectoDescripcion").value(DEFAULT_ELEMENTO_PROYECTO_PROYECTO_DESCRIPCION));
     }
 
     @Test
@@ -196,7 +204,8 @@ public class ElementoProyectoResourceIT {
         // Disconnect from session so that the updates on updatedElementoProyecto are not directly saved in db
         em.detach(updatedElementoProyecto);
         updatedElementoProyecto
-            .dato(UPDATED_DATO);
+            .dato(UPDATED_DATO)
+            .elementoProyectoProyectoDescripcion(UPDATED_ELEMENTO_PROYECTO_PROYECTO_DESCRIPCION);
         ElementoProyectoDTO elementoProyectoDTO = elementoProyectoMapper.toDto(updatedElementoProyecto);
 
         restElementoProyectoMockMvc.perform(put("/api/elemento-proyectos")
@@ -209,6 +218,7 @@ public class ElementoProyectoResourceIT {
         assertThat(elementoProyectoList).hasSize(databaseSizeBeforeUpdate);
         ElementoProyecto testElementoProyecto = elementoProyectoList.get(elementoProyectoList.size() - 1);
         assertThat(testElementoProyecto.getDato()).isEqualTo(UPDATED_DATO);
+        assertThat(testElementoProyecto.getElementoProyectoProyectoDescripcion()).isEqualTo(UPDATED_ELEMENTO_PROYECTO_PROYECTO_DESCRIPCION);
     }
 
     @Test

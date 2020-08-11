@@ -1439,6 +1439,31 @@ export default new Router({
       component: ProyectoDetails,
       meta: { authorities: ['ROLE_USER'] }
     }
+    ,
+    {
+      path: '/entity/elemento-proyecto',
+      name: 'ElementoProyecto',
+      component: ElementoProyecto,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    {
+      path: '/entity/elemento-proyecto/new',
+      name: 'ElementoProyectoCreate',
+      component: ElementoProyectoUpdate,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    {
+      path: '/entity/elemento-proyecto/:elementoProyectoId/edit',
+      name: 'ElementoProyectoEdit',
+      component: ElementoProyectoUpdate,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    {
+      path: '/entity/elemento-proyecto/:elementoProyectoId/view',
+      name: 'ElementoProyectoView',
+      component: ElementoProyectoDetails,
+      meta: { authorities: ['ROLE_USER'] }
+    }
     // jhipster-needle-add-entity-to-router - JHipster will add entities to the router here
   ]
 });

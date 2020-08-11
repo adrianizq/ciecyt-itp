@@ -25,11 +25,14 @@
                             :label-for="`ep-${i}`" 
                             :description="ep.elementoProyectoProyectoDescripcion"
                        >
+
+                        
                        <div class="form-group" >
 
                             <b-form-textarea rows="5"  max-rows="10" class="form-control" :name="`ep-${i}`"
                             :id="`ep-${i}`" 
-                                   v-model="ep.dato" />
+                                   v-model="ep.dato"   />
+                             
 
 
                         </div>
@@ -141,36 +144,37 @@ export default class Elementos extends Vue {
 
 
                 //this.proyecto = await this.proyectoService().find(this.proyId);
-                this.proyecto = await this.proyectoService().find(this.proyId);
+               await this.proyectoService()
+                    .find(this.proyId)
+                    .then(res=> {
+                        this.proyecto = res;
+                    })
 
                 this.modalidadId = this.proyecto.proyectoModalidadId;
 
-
-            ///////////////////////////////////////////////////////7
+ 
               //recuperar las elementosProyecto enviando un idProyecto (api)
             //
             
-            this.elementoProyectoService()
+              this.elementoProyectoService()
                 .retrieveElementoProyecto(this.proyId)
                 .then(res=> {
 
                     this.elementosProyecto = res.data;
-                    console.log(res.data);
-                })
+
+                   
+               
+                });
             ////////////////////////////////////////////////////77    
 
-              
-            //Obtenienedo los elementos de acuerdo a la modalidad
-            this.elementoService()
+                       //Obtenienedo los elementos de acuerdo a la modalidad
+           
+              this.elementoService()
                 .retrieveElementosModalidad( this.modalidadId)
                 .then(res => {
                     this.elements = res.data;
-
-
-                    //copiar los datos de elementos a elemento-proyecto
-           
-
-             this.elements.forEach(e => {
+                  //copiar los datos de elementos a elemento-proyecto
+                  this.elements.forEach(e => {
                   var elemProy: IElementoProyecto = new ElementoProyecto();
                   elemProy.elementoProyectoElementoElemento= e.elemento;
                   elemProy.elementoProyectoProyectoDescripcion = e.descripcion;
@@ -178,11 +182,14 @@ export default class Elementos extends Vue {
                   elemProy.elementoProyectoProyectoId = this.proyId;
                   this.elementosProyecto.push(elemProy);
 
-                  //console.log("dentro del ciclo");
+                  }); 
+                   console.log("elements");
+                 });
+            
+            ///////////////////////////////////////////////////////7
 
-            });
+              
 
-                });
             }
             catch(e){
               console.log("error al recuperar la informacion de elemento ");

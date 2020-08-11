@@ -11,6 +11,8 @@ public class ElementoProyectoDTO implements Serializable {
 
     private String dato;
 
+    private String elementoProyectoProyectoDescripcion;
+
 
     private Long elementoProyectoElementoId;
 
@@ -34,6 +36,14 @@ public class ElementoProyectoDTO implements Serializable {
 
     public void setDato(String dato) {
         this.dato = dato;
+    }
+
+    public String getElementoProyectoProyectoDescripcion() {
+        return elementoProyectoProyectoDescripcion;
+    }
+
+    public void setElementoProyectoProyectoDescripcion(String elementoProyectoProyectoDescripcion) {
+        this.elementoProyectoProyectoDescripcion = elementoProyectoProyectoDescripcion;
     }
 
     public Long getElementoProyectoElementoId() {
@@ -94,6 +104,7 @@ public class ElementoProyectoDTO implements Serializable {
         return "ElementoProyectoDTO{" +
             "id=" + getId() +
             ", dato='" + getDato() + "'" +
+            ", elementoProyectoProyectoDescripcion='" + getElementoProyectoProyectoDescripcion() + "'" +
             ", elementoProyectoElemento=" + getElementoProyectoElementoId() +
             ", elementoProyectoElemento='" + getElementoProyectoElementoElemento() + "'" +
             ", elementoProyectoProyecto=" + getElementoProyectoProyectoId() +

@@ -10,6 +10,8 @@ export default class ElementoProyectoUpdatePage extends AlertPage {
 
   datoInput: ElementFinder = element(by.css('input#elemento-proyecto-dato'));
 
+  elementoProyectoProyectoDescripcionInput: ElementFinder = element(by.css('input#elemento-proyecto-elementoProyectoProyectoDescripcion'));
+
   elementoProyectoElementoSelect = element(by.css('select#elemento-proyecto-elementoProyectoElemento'));
 
   elementoProyectoProyectoSelect = element(by.css('select#elemento-proyecto-elementoProyectoProyecto'));

@@ -22,6 +22,9 @@ public class ElementoProyecto implements Serializable {
     @Column(name = "dato")
     private String dato;
 
+    @Column(name = "elemento_proyecto_proyecto_descripcion")
+    private String elementoProyectoProyectoDescripcion;
+
     @ManyToOne
     @JsonIgnoreProperties("elementoProyectos")
     private Elemento elementoProyectoElemento;
@@ -50,6 +53,19 @@ public class ElementoProyecto implements Serializable {
 
     public void setDato(String dato) {
         this.dato = dato;
+    }
+
+    public String getElementoProyectoProyectoDescripcion() {
+        return elementoProyectoProyectoDescripcion;
+    }
+
+    public ElementoProyecto elementoProyectoProyectoDescripcion(String elementoProyectoProyectoDescripcion) {
+        this.elementoProyectoProyectoDescripcion = elementoProyectoProyectoDescripcion;
+        return this;
+    }
+
+    public void setElementoProyectoProyectoDescripcion(String elementoProyectoProyectoDescripcion) {
+        this.elementoProyectoProyectoDescripcion = elementoProyectoProyectoDescripcion;
     }
 
     public Elemento getElementoProyectoElemento() {
@@ -100,6 +116,7 @@ public class ElementoProyecto implements Serializable {
         return "ElementoProyecto{" +
             "id=" + getId() +
             ", dato='" + getDato() + "'" +
+            ", elementoProyectoProyectoDescripcion='" + getElementoProyectoProyectoDescripcion() + "'" +
             "}";
     }
 }

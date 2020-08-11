@@ -11,6 +11,12 @@
                         <span>{{elementoProyecto.dato}}</span>
                     </dd>
                     <dt>
+                        <span v-text="$t('ciecytApp.elementoProyecto.elementoProyectoProyectoDescripcion')">Elemento Proyecto Proyecto Descripcion</span>
+                    </dt>
+                    <dd>
+                        <span>{{elementoProyecto.elementoProyectoProyectoDescripcion}}</span>
+                    </dd>
+                    <dt>
                         <span v-text="$t('ciecytApp.elementoProyecto.elementoProyectoElemento')">Elemento Proyecto Elemento</span>
                     </dt>
                     <dd>

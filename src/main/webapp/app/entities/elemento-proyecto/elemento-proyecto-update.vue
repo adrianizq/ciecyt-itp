@@ -15,6 +15,11 @@
                             :class="{'valid': !$v.elementoProyecto.dato.$invalid, 'invalid': $v.elementoProyecto.dato.$invalid }" v-model="$v.elementoProyecto.dato.$model" />
                     </div>
                     <div class="form-group">
+                        <label class="form-control-label" v-text="$t('ciecytApp.elementoProyecto.elementoProyectoProyectoDescripcion')" for="elemento-proyecto-elementoProyectoProyectoDescripcion">Elemento Proyecto Proyecto Descripcion</label>
+                        <input type="text" class="form-control" name="elementoProyectoProyectoDescripcion" id="elemento-proyecto-elementoProyectoProyectoDescripcion"
+                            :class="{'valid': !$v.elementoProyecto.elementoProyectoProyectoDescripcion.$invalid, 'invalid': $v.elementoProyecto.elementoProyectoProyectoDescripcion.$invalid }" v-model="$v.elementoProyecto.elementoProyectoProyectoDescripcion.$model" />
+                    </div>
+                    <div class="form-group">
                         <label class="form-control-label" v-bind:value="$t('ciecytApp.elementoProyecto.elementoProyectoElemento')" for="elemento-proyecto-elementoProyectoElemento">Elemento Proyecto Elemento</label>
                         <select class="form-control" id="elemento-proyecto-elementoProyectoElemento" name="elementoProyectoElemento" v-model="elementoProyecto.elementoProyectoElementoId">
                             <option v-bind:value="null"></option>

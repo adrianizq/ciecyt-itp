@@ -14,7 +14,8 @@ import ElementoProyectoService from './elemento-proyecto.service';
 
 const validations: any = {
   elementoProyecto: {
-    dato: {}
+    dato: {},
+    elementoProyectoProyectoDescripcion: {}
   }
 };
 

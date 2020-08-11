@@ -65,6 +65,11 @@ describe('ElementoProyecto e2e test', () => {
       await updatePage.datoInput.sendKeys('dato');
       expect(await updatePage.datoInput.getAttribute('value')).to.match(/dato/);
 
+      await updatePage.elementoProyectoProyectoDescripcionInput.sendKeys('elementoProyectoProyectoDescripcion');
+      expect(await updatePage.elementoProyectoProyectoDescripcionInput.getAttribute('value')).to.match(
+        /elementoProyectoProyectoDescripcion/
+      );
+
       // await  selectLastOption(updatePage.elementoProyectoElementoSelect);
       // await  selectLastOption(updatePage.elementoProyectoProyectoSelect);
 
@@ -127,6 +132,10 @@ describe('ElementoProyecto e2e test', () => {
         await updatePage.datoInput.clear();
         await updatePage.datoInput.sendKeys('modified');
         expect(await updatePage.datoInput.getAttribute('value')).to.match(/modified/);
+
+        await updatePage.elementoProyectoProyectoDescripcionInput.clear();
+        await updatePage.elementoProyectoProyectoDescripcionInput.sendKeys('modified');
+        expect(await updatePage.elementoProyectoProyectoDescripcionInput.getAttribute('value')).to.match(/modified/);
 
         await updatePage.saveButton.click();
 

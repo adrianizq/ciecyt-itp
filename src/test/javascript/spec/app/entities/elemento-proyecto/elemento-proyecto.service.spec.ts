@@ -21,7 +21,7 @@ describe('Service Tests', () => {
     beforeEach(() => {
       service = new ElementoProyectoService();
 
-      elemDefault = new ElementoProyecto(0, 'AAAAAAA');
+      elemDefault = new ElementoProyecto(0, 'AAAAAAA', 'AAAAAAA');
     });
 
     describe('Service methods', () => {
@@ -51,7 +51,8 @@ describe('Service Tests', () => {
       it('should update a ElementoProyecto', async () => {
         const returnedFromService = Object.assign(
           {
-            dato: 'BBBBBB'
+            dato: 'BBBBBB',
+            elementoProyectoProyectoDescripcion: 'BBBBBB'
           },
           elemDefault
         );
@@ -66,7 +67,8 @@ describe('Service Tests', () => {
       it('should return a list of ElementoProyecto', async () => {
         const returnedFromService = Object.assign(
           {
-            dato: 'BBBBBB'
+            dato: 'BBBBBB',
+            elementoProyectoProyectoDescripcion: 'BBBBBB'
           },
           elemDefault
         );
