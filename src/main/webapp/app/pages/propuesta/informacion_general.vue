@@ -16,32 +16,58 @@
                                    v-model="proyecto.id" readonly/>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group" :class="{ 'form-group--error': $v.proyecto.titulo.$error }">
                             <label class="form-control-label " v-text="$t('ciecytApp.proyecto.titulo')" for="proyecto-titulo">Titulo</label>
                             <input type="text" class="form-control" name="titulo" id="proyecto-titulo"
-                                   v-model="proyecto.titulo"/>
-                        </div>
+                                   v-model="proyecto.titulo"
+                                      @input="setTitulo($event.target.value)"
 
-                         <div class="form-group">
-                            <label class="form-control-label " v-text="$t('ciecytApp.proyecto.palabrasClave')" for="proyecto-titulo">Palabras Clave</label>
-                            <b-form-textarea  rows="5"  max-rows="10" class="form-control" name="palabrasClave" id="proyecto-palabras-clave"
-                                   v-model="proyecto.palabrasClave"/>
+                                      placeholder="Ingrese el Titulo del Proyecto"
+                                   />
+                                
                         </div>
+                        <div class="error" v-if="!$v.proyecto.titulo.required&&!iniciandoTitulo">El Título es requerido</div>
+
+                         <div class="form-group"  :class="{ 'form-group--error': $v.proyecto.palabrasClave.$error }">
+                            <label class="form-control-label " v-text="$t('ciecytApp.proyecto.palabrasClave')" for="proyecto-palabras-clave">Palabras Clave</label>
+                            <textarea   rows="3" cols="6" class="form-control" name="palabrasClave" id="proyecto-palabras-clave"
+                                   v-model="proyecto.palabrasClave"
+                                   @input="setPalabrasClave($event.target.value)"
+                                    placeholder="Ingrese las palabras clave separadas por comas"/>
+                        </div>
+                        <div class="error" v-if="!$v.proyecto.palabrasClave.required&&!iniciandoPalabrasClave">Las palabra clave son requeridas</div>
 
 
                     </div>
 
-                    <div class="col-md-6 col-12">
-                        <b-form-group
-                            label="Modalidad"
-                            label-for="modalidad"
-                        >
-                            <b-form-select :options="modalidads" text-field="modalidad" value-field="id" id="modalidad" v-model="proyecto.proyectoModalidadId">
+<!--                    <div class="col-md-6 col-12">
+                        <div class="form-group"  :class="{ 'form-group--error': $v.proyecto.modalidad.$error }">
+                                              
+                            <b-form-select :options="modalidads" text-field="modalidad" value-field="id" id="modalidad" 
+                            v-model="proyecto.proyectoModalidadId"
+                             @input="setModalidad"
+                            >
 
                             </b-form-select>
-                        </b-form-group>
+                            <span v-if="!iniciandoModalidad">
+                             <div class="error" v-if="!$v.proyecto.modalidad.valor">Una modalidad de trabajo de grado es requerida</div>
+                            </span>
+                        </div>
                     </div>
+-->
 
+ <div class="col-md-6 col-12">
+                        <div class="form-group"  :class="{ 'form-group--error': $v.proyecto.modalidad.$error }">
+                                              
+                            <b-form-select :options="modalidads" text-field="modalidad" value-field="id" id="modalidad" 
+                            v-model="proyecto.proyectoModalidadId"
+                            
+                            >
+
+                            </b-form-select>
+                           
+                        </div>
+                    </div>
                     <div class="col-md-6 col-12">
                         <b-form-group
                             label="Facultad"
@@ -104,13 +130,29 @@
 
                 <div>
 
-                    <!--<button type="button" id="cancel-save" class="btn btn-secondary" v-on:click="previousState()">
+                    <button type="button" id="cancel-save" class="btn btn-secondary" v-on:click="previousState()">
                         <font-awesome-icon icon="ban"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.cancel')">Cancel</span>
-                    </button>-->
+                    </button>
 
-                    <button type="submit" id="save-entity" class="btn btn-primary">
+                    <button type="submit" id="save-entity" 
+                    class="btn btn-primary"
+                    :disabled="this.submitStatus === 'PENDING'"
+                    >
                         <font-awesome-icon icon="save"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.save')">Save</span>
                     </button>
+
+                    <p class="typo__p" v-if="this.submitStatus === 'OK'">Listo para guardar la infomacion general!</p>
+                    <p class="typo__p" v-if="this.submitStatus === 'ERROR'">¡Existen campos sin llenar!.</p>
+                    <p class="typo__p" v-if="this.submitStatus === 'PENDING'">En Proceso...</p>
+      
+<!--
+        <button type="submit" id="save-entity" 
+                    class="btn btn-primary"
+                    >
+                        <font-awesome-icon icon="save"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.save')">Save</span>
+                    </button>
+
+   -->
 
                 </div>
 
@@ -122,7 +164,8 @@
 <script lang="ts">
     import { Component, Inject, Vue } from 'vue-property-decorator';
     import AlertService from '@/shared/alert/alert.service';
-
+   
+    
     import MenuLateral from '@/components/propuesta/menu_lateral.vue';
     import ModalidadService from '@/entities/modalidad/modalidad.service';
     import { IModalidad } from '@/shared/model/modalidad.model';
@@ -143,10 +186,18 @@
     import { id } from 'date-fns/esm/locale';
     //import { id } from 'date-fns/locale';
 
+    /*validators: {
+        titulo: (value)=> {
+    return value(value).required().titulo();
+        }
+    }*/
+
     const validations: any = {
-        proyecto: {
+        proyecto:{
             id: {},
-            titulo: {},
+            titulo: { required, maxLength: maxLength(500) },
+            palabrasClave: { required, maxLength: maxLength(500) },
+            modalidad: {valor:0},
             url: {},
             lugarEjecucion: {},
             duracion: {},
@@ -154,13 +205,16 @@
             fechaFin: {},
             contrapartidaPesos: {},
             contrapartidaEspecie: {},
-            palabrasClave: {},
             convocatoria: {}
         }
-    };
+           }
+     
+    
+     
 
     @Component({
         components: { MenuLateral },
+         
         validations
     })
 
@@ -187,9 +241,16 @@
         public proyecto: IProyecto = new Proyecto();
         public proyId: string = null;
       
-        
+       
 
         public isSaving = false;
+
+        public submitStatus:string =  'PENDING';
+        public iniciandoTitulo: boolean = true;
+        public iniciandoPalabrasClave: boolean = true;
+        public iniciandoModalidad: boolean = true;
+        
+          
 
         beforeRouteEnter(to, from, next) {
             next(vm => {
@@ -203,7 +264,14 @@
         public save(): void {
             this.isSaving = true;
             
+            this.$v.$touch();
+            if (this.$v.$invalid) {
+              this.submitStatus = 'ERROR';
+            }
+            else{ 
 
+                
+              
             if (this.proyecto.id) {
                 this.proyectoService()
                     .update(this.proyecto)
@@ -225,10 +293,17 @@
 
                         const message = 'Se ha creado un nuevo proyecto';
                         this.alertService().showAlert(message, 'success');
+                        
                     });
 
+            
             }
-
+            this.submitStatus = 'PENDING';
+            setTimeout(() => {
+                this.submitStatus = 'OK';
+                }, 500)
+            }
+            console.log(this.submitStatus);
         }
 
         get LineasInvestigacion() {
@@ -252,7 +327,7 @@
         initRelationships() {
 
             this.proyId = this.$route.params.proyectoId;
-            console.log(this.proyId);
+            //console.log(this.proyId);
             //Obtenienedo las modalidades
             this.modalidadService()
                 .retrieve()
@@ -303,7 +378,54 @@
                 });
 
         }
+
+/*
+          get tituloErrors () {
+            const errors: string[] = []
+            if (this.proyecto.titulo) return errors
+            !titulo!.maxLength && errors.push('Character name must be at most 11 characters long')
+            !titulo!.required && errors.push('Character name is required.')
+            return errors
+        } */
+
+        
+
+        
+        setTitulo(value) {
+        this.proyecto.titulo = value;
+        this.$v.proyecto.titulo.$touch();
+        if(value){
+            this.iniciandoTitulo= false;
+            //console.log("titulo");
+            //console.log(value);
+            this.submitStatus = 'OK';
+            }
+        }
+
+        setPalabrasClave(value) {
+        this.proyecto.palabrasClave = value;
+        this.$v.proyecto.palabrasClave.$touch();
+        if(value){
+             this.iniciandoPalabrasClave= false;
+              // console.log("palabras clave");
+            //console.log(value);
+            this.submitStatus = 'OK';
+            }
+        }
+
+        setModalidad(value) {
+            this.proyecto.proyectoModalidadModalidad = value;
+             if(value!=0){
+            this.iniciandoModalidad= false;
+            //console.log(value);
+            this.submitStatus = 'OK';
+             }
+        }
+        
+        
     }
+
+    
 </script>
 
 <style scoped>
