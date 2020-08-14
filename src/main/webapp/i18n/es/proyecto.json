@@ -18,19 +18,19 @@
       },
       "titulo": "Titulo",
       "url": "Url",
-      "lugarEjecucion": "Lugar Ejecucion",
+      "lugarEjecucion": "Lugar de Ejecución",
       "duracion": "Duracion",
-      "fechaIni": "Fecha Ini",
-      "fechaFin": "Fecha Fin",
-      "contrapartidaPesos": "Contrapartida Pesos",
-      "contrapartidaEspecie": "Contrapartida Especie",
+      "fechaIni": "Fecha de Inicio",
+      "fechaFin": "Fecha de Finalización",
+      "contrapartidaPesos": "Contrapartida en Pesos",
+      "contrapartidaEspecie": "Contrapartida en Especie",
       "palabrasClave": "Palabras Clave",
       "convocatoria": "Convocatoria",
-      "proyectoLineaInvestigacion": "Proyecto Linea Investigacion",
-      "proyectoGrupoSemillero": "Proyecto Grupo Semillero",
-      "proyectoModalidad": "Proyecto Modalidad",
+      "proyectoLineaInvestigacion": "Linea de Investigacion",
+      "proyectoGrupoSemillero": "Grupo o Semillero",
+      "proyectoModalidad": "Modalidad",
       "facultad": "Facultad",
-      "subLineaLineaInvestigacion": "Sub Linea Linea Investigacion"
+      "subLineaLineaInvestigacion": "Sub Linea de Investigacion"
     }
   }
 }

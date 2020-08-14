@@ -24,9 +24,9 @@
 
                                       placeholder="Ingrese el Titulo del Proyecto"
                                    />
-                                
+                                <div class="error" v-if="!$v.proyecto.titulo.required&&!iniciandoTitulo">El Título es requerido</div>
                         </div>
-                        <div class="error" v-if="!$v.proyecto.titulo.required&&!iniciandoTitulo">El Título es requerido</div>
+                        
 
                          <div class="form-group"  :class="{ 'form-group--error': $v.proyecto.palabrasClave.$error }">
                             <label class="form-control-label " v-text="$t('ciecytApp.proyecto.palabrasClave')" for="proyecto-palabras-clave">Palabras Clave</label>
@@ -34,49 +34,36 @@
                                    v-model="proyecto.palabrasClave"
                                    @input="setPalabrasClave($event.target.value)"
                                     placeholder="Ingrese las palabras clave separadas por comas"/>
+                                     <div class="error" v-if="!$v.proyecto.palabrasClave.required&&!iniciandoPalabrasClave">Las palabra clave son requeridas</div>
                         </div>
-                        <div class="error" v-if="!$v.proyecto.palabrasClave.required&&!iniciandoPalabrasClave">Las palabra clave son requeridas</div>
+                       
 
 
                     </div>
 
-<!--                    <div class="col-md-6 col-12">
-                        <div class="form-group"  :class="{ 'form-group--error': $v.proyecto.modalidad.$error }">
-                                              
+                  <div class="col-md-6 col-12">
+                        <div class="form-group"  :class="{ 'form-group--error': $v.proyecto.proyectoModalidadId.$error }">
+                               <label class="form-control-label "  v-text="$t('ciecytApp.proyecto.proyectoModalidad')" for="proyecto-modalidad">Modalidad</label>                 
                             <b-form-select :options="modalidads" text-field="modalidad" value-field="id" id="modalidad" 
                             v-model="proyecto.proyectoModalidadId"
                              @input="setModalidad"
                             >
-
-                            </b-form-select>
-                            <span v-if="!iniciandoModalidad">
-                             <div class="error" v-if="!$v.proyecto.modalidad.valor">Una modalidad de trabajo de grado es requerida</div>
-                            </span>
-                        </div>
-                    </div>
--->
-
- <div class="col-md-6 col-12">
-                        <div class="form-group"  :class="{ 'form-group--error': $v.proyecto.modalidad.$error }">
-                                              
-                            <b-form-select :options="modalidads" text-field="modalidad" value-field="id" id="modalidad" 
-                            v-model="proyecto.proyectoModalidadId"
-                            
-                            >
-
                             </b-form-select>
                            
+                                <div class="error" v-if="!$v.proyecto.proyectoModalidadId.required && !iniciandoModalidad">Una modalidad de trabajo de grado es requerida</div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-12">
-                        <b-form-group
-                            label="Facultad"
-                            label-for="facultad"
-                        >
-                            <b-form-select :options="facultades" v-model="proyecto.facultadId" text-field="facultad" value-field="id" id="facultad">
 
+                    <div class="col-md-6 col-12">
+                        <div class="form-group"  :class="{ 'form-group--error': $v.proyecto.facultad.$error }">
+                               <label class="form-control-label "  v-text="$t('ciecytApp.proyecto.facultad')" for="proyecto-facultad">Facultad</label> 
+                            <b-form-select :options="facultades"  text-field="facultad" value-field="id" id="facultad"
+                            v-model="proyecto.facultadId"
+                              @input="setFacultad"
+                            >
                             </b-form-select>
-                        </b-form-group>
+                            <div class="error" v-if="!$v.proyecto.facultad.valor&&!iniciandoFacultad">La facultad es requerida</div>
+                        </div>
                     </div>
 
                     <div class="col-md-6 col-12">
@@ -141,18 +128,10 @@
                         <font-awesome-icon icon="save"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.save')">Save</span>
                     </button>
 
-                    <p class="typo__p" v-if="this.submitStatus === 'OK'">Listo para guardar la infomacion general!</p>
                     <p class="typo__p" v-if="this.submitStatus === 'ERROR'">¡Existen campos sin llenar!.</p>
-                    <p class="typo__p" v-if="this.submitStatus === 'PENDING'">En Proceso...</p>
+                   
       
-<!--
-        <button type="submit" id="save-entity" 
-                    class="btn btn-primary"
-                    >
-                        <font-awesome-icon icon="save"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.save')">Save</span>
-                    </button>
 
-   -->
 
                 </div>
 
@@ -182,7 +161,7 @@
 
    
 
-    import { numeric, required, minLength, maxLength } from 'vuelidate/lib/validators';
+    import { numeric, required, minLength, maxLength, between } from 'vuelidate/lib/validators';
     import { id } from 'date-fns/esm/locale';
     //import { id } from 'date-fns/locale';
 
@@ -195,9 +174,10 @@
     const validations: any = {
         proyecto:{
             id: {},
-            titulo: { required, maxLength: maxLength(500) },
-            palabrasClave: { required, maxLength: maxLength(500) },
-            modalidad: {valor:0},
+            titulo: { required, maxLength: maxLength(100000) },
+            palabrasClave: { required, maxLength: maxLength(100000) },
+            proyectoModalidadId: { required, between: between(1, 10000000)},
+            facultad:  {valor:0},
             url: {},
             lugarEjecucion: {},
             duracion: {},
@@ -249,6 +229,8 @@
         public iniciandoTitulo: boolean = true;
         public iniciandoPalabrasClave: boolean = true;
         public iniciandoModalidad: boolean = true;
+        public iniciandoFacultad: boolean = true;
+        
         
           
 
@@ -263,10 +245,26 @@
 
         public save(): void {
             this.isSaving = true;
-            
+
+/*if (this.$v.proyecto.proyectoModalidadId.$params.valor==null){
+                 this.submitStatus = 'ERROR';
+                 //console.log("Error en modalidad");
+                 this.setModalidad(this.$v.proyecto.proyectoModalidadId.$params.valor);
+            }*/
             this.$v.$touch();
             if (this.$v.$invalid) {
-              this.submitStatus = 'ERROR';
+            
+                if(this.$v.proyecto.titulo.$invalid){
+                    this.setTitulo("");
+                }
+                if(this.$v.proyecto.palabrasClave.$invalid){
+                    this.setPalabrasClave("");
+                }
+                if(this.$v.proyecto.proyectoModalidadId.$invalid){
+                    this.setModalidad(0);
+                }
+            
+                this.submitStatus = 'ERROR';
             }
             else{ 
 
@@ -394,33 +392,44 @@
         setTitulo(value) {
         this.proyecto.titulo = value;
         this.$v.proyecto.titulo.$touch();
-        if(value){
+        //if(value){
             this.iniciandoTitulo= false;
             //console.log("titulo");
             //console.log(value);
-            this.submitStatus = 'OK';
-            }
+         //   this.submitStatus = 'OK';
+        //    }
+        this.submitStatus='ERROR';
         }
 
         setPalabrasClave(value) {
         this.proyecto.palabrasClave = value;
         this.$v.proyecto.palabrasClave.$touch();
-        if(value){
-             this.iniciandoPalabrasClave= false;
-              // console.log("palabras clave");
-            //console.log(value);
-            this.submitStatus = 'OK';
-            }
+        //if(value){
+            this.iniciandoPalabrasClave= false;
+        //}
+        this.submitStatus='ERROR';
         }
 
         setModalidad(value) {
             this.proyecto.proyectoModalidadModalidad = value;
-             if(value!=0){
-            this.iniciandoModalidad= false;
-            //console.log(value);
-            this.submitStatus = 'OK';
-             }
+            //if(value==0){
+               this.iniciandoModalidad= false;
+            //}
+             //else{
+                 this.submitStatus='ERROR';
+                 //}
         }
+
+          setFacultad(value) {
+            this.proyecto.facultadId = value;
+            if(value!=0){
+            this.iniciandoFacultad= false;
+            console.log("facultad");
+            console.log(value);
+            }
+             else{this.submitStatus='ERROR';}
+        }
+        
         
         
     }
