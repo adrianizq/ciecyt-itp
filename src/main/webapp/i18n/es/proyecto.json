@@ -30,7 +30,8 @@
       "proyectoGrupoSemillero": "Grupo o Semillero",
       "proyectoModalidad": "Modalidad",
       "facultad": "Facultad",
-      "subLineaLineaInvestigacion": "Sub Linea de Investigacion"
+      "subLineaLineaInvestigacion": "Sub Linea de Investigacion",
+      "asesor": "Asesor del Proyecto"
     }
   }
 }

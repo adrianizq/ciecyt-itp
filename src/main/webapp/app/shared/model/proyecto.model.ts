@@ -43,5 +43,7 @@ export class Proyecto implements IProyecto {
     public facultadId?: number,
     public subLineaLineaInvestigacionLinea?: string,
     public subLineaLineaInvestigacionId?: number
-  ) {}
+  ) //public asesorId?: number,
+
+  {}
 }
