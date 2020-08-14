@@ -26,6 +26,32 @@
                                    />
                                 <div class="error" v-if="!$v.proyecto.titulo.required&&!iniciandoTitulo">El Título es requerido</div>
                         </div>
+
+                        <div class="form-group"  :class="{ 'form-group--error': $v.proyecto.url.$error }">
+                            <label class="form-control-label " v-text="$t('ciecytApp.proyecto.url')" for="proyecto-url">Url</label>
+                            <input type="text" class="form-control" name="url" id="proyecto-url"
+                                   v-model="proyecto.url"
+                                        placeholder="Ingrese la Url del proyecto si existe"
+                                   />
+                            <div class="error" v-if="!$v.proyecto.url.url">La URL no es válida, ej: http://www.itp.edu.co</div>       
+                                
+                        </div>     
+                        
+                        <div class="form-group"  >
+                            <label class="form-control-label " v-text="$t('ciecytApp.proyecto.lugarEjecucion')" for="proyecto-url">Lugar de Ejecución</label>
+                            <input type="text" class="form-control" name="lugar-ejecucion" id="proyecto-lugar-ejecucion"
+                                   v-model="proyecto.lugarEjecucion"
+                                        placeholder="Ingrese el lugar (ciduad, ubicación) donde se ejecutará el proyecto"
+                                   />
+                        </div>   
+
+                        <div class="form-group"  >
+                            <label class="form-control-label " v-text="$t('ciecytApp.proyecto.duracion')" for="proyecto-duracion">Duración en meses</label>
+                            <input type="text" class="form-control" name="duracion" id="proyecto-duracion"
+                                   v-model="proyecto.duracion"
+                                        placeholder="Duración en meses"
+                                   />
+                        </div>                             
                         
 
                          <div class="form-group"  :class="{ 'form-group--error': $v.proyecto.palabrasClave.$error }">
@@ -166,7 +192,7 @@
 
    
 
-    import { numeric, required, minLength, maxLength, between } from 'vuelidate/lib/validators';
+    import { numeric, required, minLength, maxLength, between, url } from 'vuelidate/lib/validators';
     import { id } from 'date-fns/esm/locale';
 import { IIntegranteProyecto, IntegranteProyecto } from '@/shared/model/integrante-proyecto.model';
     //import { id } from 'date-fns/locale';
@@ -182,7 +208,7 @@ import { IIntegranteProyecto, IntegranteProyecto } from '@/shared/model/integran
             proyectoLineaInvestigacionId:  { required, between: between(1, 100000000)},
             subLineaLineaInvestigacionId:  { required, between: between(1, 100000000)},
             //asesorId:  { required, between: between(1, 100000000)},
-            url: {},
+            url: { url},
             lugarEjecucion: {},
             duracion: {},
             fechaIni: {},
