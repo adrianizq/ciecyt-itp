@@ -32,7 +32,8 @@
       "facultad": "Facultad",
       "subLineaLineaInvestigacion": "Sub Linea de Investigacion",
       "asesor": "Asesor del Proyecto",
-      "referencias": "Referencias Bibliográficas"
+      "referencias": "Referencias Bibliográficas",
+      "tipo": "Tipo de Investigación"
     }
   }
 }

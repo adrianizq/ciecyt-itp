@@ -53,6 +53,14 @@
                                    />
                         </div>        
 
+                         <div class="form-group"  >
+                            <label class="form-control-label " v-text="$t('ciecytApp.proyecto.tipo')" for="proyecto-tipo">Tipo de Investigación</label>
+                            <input type="text" class="form-control" name="tipo" id="proyecto-tipo"
+                                   v-model="proyecto.tipo"
+                                        placeholder="Investigación Básica, Investigación Aplicada, Desarrollo Tecnológico o Experimental, etc"
+                                   />
+                        </div>        
+
                        
               <div class="form-group">
                 
