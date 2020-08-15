@@ -1,50 +1,50 @@
 {
-    "name": "Pregunta",
-    "fields": [
-        {
-            "fieldName": "encabezado",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "descripcion",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "pregunta",
-            "fieldType": "String"
-        }
-    ],
-    "relationships": [
-        {
-            "relationshipType": "many-to-one",
-            "otherEntityName": "tipoPregunta",
-            "otherEntityRelationshipName": "pregunta",
-            "relationshipName": "preguntaTipoPregunta",
-            "otherEntityField": "tipoPregunta"
-        },
-        {
-            "relationshipType": "many-to-one",
-            "otherEntityName": "modalidad",
-            "otherEntityRelationshipName": "pregunta",
-            "relationshipName": "preguntaModalidad",
-            "otherEntityField": "modalidad"
-        },
-        {
-            "relationshipType": "many-to-one",
-            "otherEntityName": "rolesModalidad",
-            "otherEntityRelationshipName": "pregunta",
-            "relationshipName": "preguntaRolesModalidad",
-            "otherEntityField": "rol"
-        }
-    ],
-    "changelogDate": "20200124174507",
-    "entityTableName": "pregunta",
-    "dto": "mapstruct",
-    "pagination": "pagination",
-    "service": "serviceImpl",
-    "jpaMetamodelFiltering": false,
-    "fluentMethods": true,
-    "readOnly": false,
-    "clientRootFolder": "",
-    "applications": "*"
+  "name": "Pregunta",
+  "fields": [
+    {
+      "fieldName": "encabezado",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "descripcion",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "pregunta",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "tipoPregunta",
+      "otherEntityRelationshipName": "pregunta",
+      "relationshipName": "preguntaTipoPregunta",
+      "otherEntityField": "tipoPregunta"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "modalidad",
+      "otherEntityRelationshipName": "pregunta",
+      "relationshipName": "preguntaModalidad",
+      "otherEntityField": "modalidad"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "rolesModalidad",
+      "otherEntityRelationshipName": "pregunta",
+      "relationshipName": "preguntaRolesModalidad",
+      "otherEntityField": "rol"
+    }
+  ],
+  "changelogDate": "20200124174507",
+  "entityTableName": "pregunta",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "clientRootFolder": "",
+  "applications": "*"
 }

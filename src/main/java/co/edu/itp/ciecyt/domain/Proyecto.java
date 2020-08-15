@@ -1,8 +1,8 @@
 package co.edu.itp.ciecyt.domain;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -21,7 +21,6 @@ public class Proyecto implements Serializable {
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
-    //@NotBlank(message = "titulo no puede ser vacio")
     @Column(name = "titulo")
     private String titulo;
 
@@ -52,27 +51,33 @@ public class Proyecto implements Serializable {
     @Column(name = "convocatoria")
     private String convocatoria;
 
+    @Column(name = "tipo")
+    private String tipo;
+
+    @Column(name = "referencias")
+    private String referencias;
+
     @ManyToOne
-    @JsonIgnoreProperties("proyectos")
+    @JsonIgnoreProperties(value = "proyectos", allowSetters = true)
     private LineaInvestigacion proyectoLineaInvestigacion;
 
     @ManyToOne
-    @JsonIgnoreProperties("proyectos")
+    @JsonIgnoreProperties(value = "proyectos", allowSetters = true)
     private GrupoSemillero proyectoGrupoSemillero;
 
     @ManyToOne
-    @JsonIgnoreProperties("proyectos")
+    @JsonIgnoreProperties(value = "proyectos", allowSetters = true)
     private Modalidad proyectoModalidad;
 
     @ManyToOne
-    @JsonIgnoreProperties("proyectos")
+    @JsonIgnoreProperties(value = "facultadProyectos", allowSetters = true)
     private Facultad facultad;
 
     @ManyToOne
-    @JsonIgnoreProperties("proyectos")
+    @JsonIgnoreProperties(value = "proyectos", allowSetters = true)
     private LineaInvestigacion subLineaLineaInvestigacion;
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
+    // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
         return id;
     }
@@ -211,6 +216,32 @@ public class Proyecto implements Serializable {
         this.convocatoria = convocatoria;
     }
 
+    public String getTipo() {
+        return tipo;
+    }
+
+    public Proyecto tipo(String tipo) {
+        this.tipo = tipo;
+        return this;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public String getReferencias() {
+        return referencias;
+    }
+
+    public Proyecto referencias(String referencias) {
+        this.referencias = referencias;
+        return this;
+    }
+
+    public void setReferencias(String referencias) {
+        this.referencias = referencias;
+    }
+
     public LineaInvestigacion getProyectoLineaInvestigacion() {
         return proyectoLineaInvestigacion;
     }
@@ -275,7 +306,7 @@ public class Proyecto implements Serializable {
     public void setSubLineaLineaInvestigacion(LineaInvestigacion lineaInvestigacion) {
         this.subLineaLineaInvestigacion = lineaInvestigacion;
     }
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
+    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
     public boolean equals(Object o) {
@@ -293,6 +324,7 @@ public class Proyecto implements Serializable {
         return 31;
     }
 
+    // prettier-ignore
     @Override
     public String toString() {
         return "Proyecto{" +
@@ -307,6 +339,8 @@ public class Proyecto implements Serializable {
             ", contrapartidaEspecie=" + getContrapartidaEspecie() +
             ", palabrasClave='" + getPalabrasClave() + "'" +
             ", convocatoria='" + getConvocatoria() + "'" +
+            ", tipo='" + getTipo() + "'" +
+            ", referencias='" + getReferencias() + "'" +
             "}";
     }
 }

@@ -1,31 +1,31 @@
 {
-    "name": "Facultad",
-    "fields": [
-        {
-            "fieldName": "codigoFacultad",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "facultad",
-            "fieldType": "String"
-        }
-    ],
-    "relationships": [
-        {
-            "relationshipType": "one-to-many",
-            "otherEntityName": "proyecto",
-            "otherEntityRelationshipName": "facultad",
-            "relationshipName": "facultadProyecto"
-        }
-    ],
-    "changelogDate": "20200124174450",
-    "entityTableName": "facultad",
-    "dto": "mapstruct",
-    "pagination": "pagination",
-    "service": "serviceImpl",
-    "jpaMetamodelFiltering": false,
-    "fluentMethods": true,
-    "readOnly": false,
-    "clientRootFolder": "",
-    "applications": "*"
+  "name": "Facultad",
+  "fields": [
+    {
+      "fieldName": "codigoFacultad",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "facultad",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "proyecto",
+      "otherEntityRelationshipName": "facultad",
+      "relationshipName": "facultadProyecto"
+    }
+  ],
+  "changelogDate": "20200124174450",
+  "entityTableName": "facultad",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "clientRootFolder": "",
+  "applications": "*"
 }

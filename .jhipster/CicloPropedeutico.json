@@ -1,34 +1,34 @@
 {
-    "name": "CicloPropedeutico",
-    "fields": [
-        {
-            "fieldName": "ciclo",
-            "fieldType": "String"
-        }
-    ],
-    "relationships": [
-        {
-            "relationshipName": "modalidad",
-            "otherEntityName": "modalidad",
-            "relationshipType": "many-to-one",
-            "otherEntityField": "id"
-        },
-        {
-            "relationshipType": "many-to-one",
-            "otherEntityName": "acuerdo",
-            "otherEntityRelationshipName": "cicloPropedeutico",
-            "relationshipName": "cicloPropedeuticoAcuerdo",
-            "otherEntityField": "acuerdo"
-        }
-    ],
-    "changelogDate": "20200124174453",
-    "entityTableName": "ciclo_propedeutico",
-    "dto": "mapstruct",
-    "pagination": "pagination",
-    "service": "serviceImpl",
-    "jpaMetamodelFiltering": false,
-    "fluentMethods": true,
-    "readOnly": false,
-    "clientRootFolder": "",
-    "applications": "*"
+  "name": "CicloPropedeutico",
+  "fields": [
+    {
+      "fieldName": "ciclo",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipName": "modalidad",
+      "otherEntityName": "modalidad",
+      "relationshipType": "many-to-one",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "acuerdo",
+      "otherEntityRelationshipName": "cicloPropedeutico",
+      "relationshipName": "cicloPropedeuticoAcuerdo",
+      "otherEntityField": "acuerdo"
+    }
+  ],
+  "changelogDate": "20200124174453",
+  "entityTableName": "ciclo_propedeutico",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "clientRootFolder": "",
+  "applications": "*"
 }

@@ -1,13 +1,13 @@
 package co.edu.itp.ciecyt.service.dto;
+
 import java.time.LocalDate;
 import java.io.Serializable;
-import java.util.Objects;
 
 /**
  * A DTO for the {@link co.edu.itp.ciecyt.domain.Proyecto} entity.
  */
 public class ProyectoDTO implements Serializable {
-
+    
     private Long id;
 
     private String titulo;
@@ -30,6 +30,10 @@ public class ProyectoDTO implements Serializable {
 
     private String convocatoria;
 
+    private String tipo;
+
+    private String referencias;
+
 
     private Long proyectoLineaInvestigacionId;
 
@@ -49,21 +53,21 @@ public class ProyectoDTO implements Serializable {
 
     private String subLineaLineaInvestigacionLinea;
 
+      //adr
 
-    //adr
-
-    private Long asesorId;
+      private Long asesorId;
 
 
-    public Long getAsesorId(){
-        return asesorId;
-    }
-
-    public void setAsesorId(Long asesorId){
-        this.asesorId = asesorId;
-    }
-// -----adr
-
+      public Long getAsesorId(){
+          return asesorId;
+      }
+  
+      public void setAsesorId(Long asesorId){
+          this.asesorId = asesorId;
+      }
+  // -----adr
+  
+    
     public Long getId() {
         return id;
     }
@@ -152,6 +156,22 @@ public class ProyectoDTO implements Serializable {
         this.convocatoria = convocatoria;
     }
 
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public String getReferencias() {
+        return referencias;
+    }
+
+    public void setReferencias(String referencias) {
+        this.referencias = referencias;
+    }
+
     public Long getProyectoLineaInvestigacionId() {
         return proyectoLineaInvestigacionId;
     }
@@ -229,22 +249,19 @@ public class ProyectoDTO implements Serializable {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof ProyectoDTO)) {
             return false;
         }
 
-        ProyectoDTO proyectoDTO = (ProyectoDTO) o;
-        if (proyectoDTO.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), proyectoDTO.getId());
+        return id != null && id.equals(((ProyectoDTO) o).id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return 31;
     }
 
+    // prettier-ignore
     @Override
     public String toString() {
         return "ProyectoDTO{" +
@@ -259,15 +276,17 @@ public class ProyectoDTO implements Serializable {
             ", contrapartidaEspecie=" + getContrapartidaEspecie() +
             ", palabrasClave='" + getPalabrasClave() + "'" +
             ", convocatoria='" + getConvocatoria() + "'" +
-            ", proyectoLineaInvestigacion=" + getProyectoLineaInvestigacionId() +
-            ", proyectoLineaInvestigacion='" + getProyectoLineaInvestigacionLinea() + "'" +
-            ", proyectoGrupoSemillero=" + getProyectoGrupoSemilleroId() +
-            ", proyectoGrupoSemillero='" + getProyectoGrupoSemilleroNombre() + "'" +
-            ", proyectoModalidad=" + getProyectoModalidadId() +
-            ", proyectoModalidad='" + getProyectoModalidadModalidad() + "'" +
-            ", facultad=" + getFacultadId() +
-            ", subLineaLineaInvestigacion=" + getSubLineaLineaInvestigacionId() +
-            ", subLineaLineaInvestigacion='" + getSubLineaLineaInvestigacionLinea() + "'" +
+            ", tipo='" + getTipo() + "'" +
+            ", referencias='" + getReferencias() + "'" +
+            ", proyectoLineaInvestigacionId=" + getProyectoLineaInvestigacionId() +
+            ", proyectoLineaInvestigacionLinea='" + getProyectoLineaInvestigacionLinea() + "'" +
+            ", proyectoGrupoSemilleroId=" + getProyectoGrupoSemilleroId() +
+            ", proyectoGrupoSemilleroNombre='" + getProyectoGrupoSemilleroNombre() + "'" +
+            ", proyectoModalidadId=" + getProyectoModalidadId() +
+            ", proyectoModalidadModalidad='" + getProyectoModalidadModalidad() + "'" +
+            ", facultadId=" + getFacultadId() +
+            ", subLineaLineaInvestigacionId=" + getSubLineaLineaInvestigacionId() +
+            ", subLineaLineaInvestigacionLinea='" + getSubLineaLineaInvestigacionLinea() + "'" +
             "}";
     }
 }

@@ -1,42 +1,42 @@
 {
-    "name": "ResultadosEsperados",
-    "fields": [
-        {
-            "fieldName": "resultado",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "indicador",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "beneficiario",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "ordenVista",
-            "fieldType": "Integer"
-        }
-    ],
-    "relationships": [
-        {
-            "relationshipType": "many-to-one",
-            "otherEntityName": "proyecto",
-            "otherEntityRelationshipName": "resultadosEsperados",
-            "relationshipName": "resultadosEsperadosProyecto",
-            "otherEntityField": "titulo"
-        }
-    ],
-    "changelogDate": "20200124174454",
-    "entityTableName": "resultados_esperados",
-    "dto": "mapstruct",
-    "pagination": "pagination",
-    "service": "serviceImpl",
-    "jpaMetamodelFiltering": false,
-    "fluentMethods": true,
-    "readOnly": false,
-    "clientRootFolder": "",
-    "applications": "*",
-    "searchEngine": false,
-    "databaseType": "sql"
+  "name": "ResultadosEsperados",
+  "fields": [
+    {
+      "fieldName": "resultado",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "indicador",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "beneficiario",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "ordenVista",
+      "fieldType": "Integer"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "proyecto",
+      "otherEntityRelationshipName": "resultadosEsperados",
+      "relationshipName": "resultadosEsperadosProyecto",
+      "otherEntityField": "titulo"
+    }
+  ],
+  "changelogDate": "20200124174454",
+  "entityTableName": "resultados_esperados",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "clientRootFolder": "",
+  "applications": "*",
+  "searchEngine": false,
+  "databaseType": "sql"
 }

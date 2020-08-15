@@ -1,40 +1,40 @@
 {
-    "name": "Solicitud",
-    "fields": [
-        {
-            "fieldName": "estado",
-            "fieldType": "Boolean"
-        },
-        {
-            "fieldName": "asunto",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "textoSolicitud",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "fechaSolicitud",
-            "fieldType": "LocalDate"
-        }
-    ],
-    "relationships": [
-        {
-            "relationshipType": "many-to-one",
-            "otherEntityName": "integranteProyecto",
-            "otherEntityRelationshipName": "solicitud",
-            "relationshipName": "solicitudIntegranteProyecto",
-            "otherEntityField": "integrante"
-        }
-    ],
-    "changelogDate": "20200124174515",
-    "entityTableName": "solicitud",
-    "dto": "mapstruct",
-    "pagination": "pagination",
-    "service": "serviceImpl",
-    "jpaMetamodelFiltering": false,
-    "fluentMethods": true,
-    "readOnly": false,
-    "clientRootFolder": "",
-    "applications": "*"
+  "name": "Solicitud",
+  "fields": [
+    {
+      "fieldName": "estado",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "asunto",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "textoSolicitud",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "fechaSolicitud",
+      "fieldType": "LocalDate"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "integranteProyecto",
+      "otherEntityRelationshipName": "solicitud",
+      "relationshipName": "solicitudIntegranteProyecto",
+      "otherEntityField": "integrante"
+    }
+  ],
+  "changelogDate": "20200124174515",
+  "entityTableName": "solicitud",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "clientRootFolder": "",
+  "applications": "*"
 }

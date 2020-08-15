@@ -1,20 +1,20 @@
 {
-    "name": "Producto",
-    "fields": [
-        {
-            "fieldName": "producto",
-            "fieldType": "String"
-        }
-    ],
-    "relationships": [],
-    "changelogDate": "20200124174455",
-    "entityTableName": "producto",
-    "dto": "mapstruct",
-    "pagination": "pagination",
-    "service": "serviceImpl",
-    "jpaMetamodelFiltering": false,
-    "fluentMethods": true,
-    "readOnly": false,
-    "clientRootFolder": "",
-    "applications": "*"
+  "name": "Producto",
+  "fields": [
+    {
+      "fieldName": "producto",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [],
+  "changelogDate": "20200124174455",
+  "entityTableName": "producto",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "clientRootFolder": "",
+  "applications": "*"
 }

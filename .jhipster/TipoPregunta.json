@@ -1,24 +1,24 @@
 {
-    "name": "TipoPregunta",
-    "fields": [
-        {
-            "fieldName": "tipoPregunta",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "tipoDato",
-            "fieldType": "String"
-        }
-    ],
-    "relationships": [],
-    "changelogDate": "20200124174506",
-    "entityTableName": "tipo_pregunta",
-    "dto": "mapstruct",
-    "pagination": "pagination",
-    "service": "serviceImpl",
-    "jpaMetamodelFiltering": false,
-    "fluentMethods": true,
-    "readOnly": false,
-    "clientRootFolder": "",
-    "applications": "*"
+  "name": "TipoPregunta",
+  "fields": [
+    {
+      "fieldName": "tipoPregunta",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "tipoDato",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [],
+  "changelogDate": "20200124174506",
+  "entityTableName": "tipo_pregunta",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "clientRootFolder": "",
+  "applications": "*"
 }

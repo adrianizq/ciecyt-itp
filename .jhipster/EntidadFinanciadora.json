@@ -1,41 +1,41 @@
 {
-    "name": "EntidadFinanciadora",
-    "fields": [
-        {
-            "fieldName": "valor",
-            "fieldType": "Double"
-        },
-        {
-            "fieldName": "aprobada",
-            "fieldType": "Boolean"
-        }
-    ],
-    "relationships": [
-        {
-            "relationshipType": "many-to-one",
-            "otherEntityName": "entidad",
-            "otherEntityRelationshipName": "entidadFinanciadora",
-            "relationshipName": "entidadFinanciadoraEntidad",
-            "otherEntityField": "entidad"
-        },
-        {
-            "relationshipName": "entidadFinanciadoraProyecto",
-            "otherEntityName": "proyecto",
-            "relationshipType": "many-to-one",
-            "otherEntityField": "titulo",
-            "otherEntityRelationshipName": "entidadFinanciadora"
-        }
-    ],
-    "changelogDate": "20200124174502",
-    "entityTableName": "entidad_financiadora",
-    "dto": "mapstruct",
-    "pagination": "pagination",
-    "service": "serviceImpl",
-    "jpaMetamodelFiltering": false,
-    "fluentMethods": true,
-    "readOnly": false,
-    "clientRootFolder": "",
-    "applications": "*",
-    "searchEngine": false,
-    "databaseType": "sql"
+  "name": "EntidadFinanciadora",
+  "fields": [
+    {
+      "fieldName": "valor",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "aprobada",
+      "fieldType": "Boolean"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "entidad",
+      "otherEntityRelationshipName": "entidadFinanciadora",
+      "relationshipName": "entidadFinanciadoraEntidad",
+      "otherEntityField": "entidad"
+    },
+    {
+      "relationshipName": "entidadFinanciadoraProyecto",
+      "otherEntityName": "proyecto",
+      "relationshipType": "many-to-one",
+      "otherEntityField": "titulo",
+      "otherEntityRelationshipName": "entidadFinanciadora"
+    }
+  ],
+  "changelogDate": "20200124174502",
+  "entityTableName": "entidad_financiadora",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "clientRootFolder": "",
+  "applications": "*",
+  "searchEngine": false,
+  "databaseType": "sql"
 }

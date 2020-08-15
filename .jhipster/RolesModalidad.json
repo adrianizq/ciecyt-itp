@@ -1,36 +1,36 @@
 {
-    "name": "RolesModalidad",
-    "fields": [
-        {
-            "fieldName": "rol",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "cantidad",
-            "fieldType": "Integer"
-        },
-        {
-            "fieldName": "calificador",
-            "fieldType": "Boolean"
-        }
-    ],
-    "relationships": [
-        {
-            "relationshipType": "many-to-one",
-            "otherEntityName": "modalidad",
-            "otherEntityRelationshipName": "rolesModalidad",
-            "relationshipName": "rolesModalidadModalidad",
-            "otherEntityField": "modalidad"
-        }
-    ],
-    "changelogDate": "20200124174509",
-    "entityTableName": "roles_modalidad",
-    "dto": "mapstruct",
-    "pagination": "pagination",
-    "service": "serviceImpl",
-    "jpaMetamodelFiltering": false,
-    "fluentMethods": true,
-    "readOnly": false,
-    "clientRootFolder": "",
-    "applications": "*"
+  "name": "RolesModalidad",
+  "fields": [
+    {
+      "fieldName": "rol",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "cantidad",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "calificador",
+      "fieldType": "Boolean"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "modalidad",
+      "otherEntityRelationshipName": "rolesModalidad",
+      "relationshipName": "rolesModalidadModalidad",
+      "otherEntityField": "modalidad"
+    }
+  ],
+  "changelogDate": "20200124174509",
+  "entityTableName": "roles_modalidad",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "clientRootFolder": "",
+  "applications": "*"
 }
