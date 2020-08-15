@@ -84,6 +84,15 @@
                                     placeholder="Ingrese las palabras clave separadas por comas"/>
                                      <div class="error" v-if="!$v.proyecto.palabrasClave.required&&!iniciandoPalabrasClave">Las palabra clave son requeridas</div>
                         </div>
+
+                          <div class="form-group"  >
+                            <label class="form-control-label " v-text="$t('ciecytApp.proyecto.proyectoReferencias')" for="proyecto-referencias">Referencias</label>
+                            <textarea   rows="3" cols="6" class="form-control" name="referencias" id="proyecto-referencias"
+                                   v-model="proyecto.referencias"
+                                  
+                                    placeholder="Ingrese las referencias bibliográficas"/>
+                                     
+                        </div>
                        
 
 
