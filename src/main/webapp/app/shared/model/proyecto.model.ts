@@ -19,6 +19,8 @@ export interface IProyecto {
   facultadId?: number;
   subLineaLineaInvestigacionLinea?: string;
   subLineaLineaInvestigacionId?: number;
+  tipo?: string;
+  referencias?: string;
 }
 
 export class Proyecto implements IProyecto {
@@ -42,6 +44,8 @@ export class Proyecto implements IProyecto {
     public proyectoModalidadId?: number,
     public facultadId?: number,
     public subLineaLineaInvestigacionLinea?: string,
-    public subLineaLineaInvestigacionId?: number
+    public subLineaLineaInvestigacionId?: number,
+    public tipo?: string,
+    public referencias?: string
   ) {}
 }
