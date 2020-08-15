@@ -19,7 +19,7 @@
       "titulo": "Titulo",
       "url": "Url",
       "lugarEjecucion": "Lugar de Ejecución",
-      "duracion": "Duracion",
+      "duracion": "Duracion en meses",
       "fechaIni": "Fecha de Inicio",
       "fechaFin": "Fecha de Finalización",
       "contrapartidaPesos": "Contrapartida en Pesos",

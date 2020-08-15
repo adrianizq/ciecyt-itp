@@ -32,10 +32,10 @@
                 name="duracion" id="duracion" v-model="item.duracion" />
               </div>
             </div>
+            
             <div class="col-4">
               <div class="form-group">
                 <label class="form-control-label" for="proyecto-apellido">Fecha</label>
-
                 <label for="datepicker-sm">Fecha de Inicio</label>
                  <b-form-datepicker size="sm-6" local="ESP" 
                     :id="`fecha-inicio-${key}`"
@@ -44,21 +44,7 @@
                     v-model="item.fechaInicio">
                 </b-form-datepicker>
                 
-<!--
-                <label class="form-control-label" for="fecha_inicio">Fecha Inicio</label>
-                        <div class="input-group">
-                           <input 
-                            :id="`fecha_inicio_${key}`"
-                      :name="`fecha_inicio_${key}`"
-                     type="date" 
-                     class="form-control" 
-                     v-model="item.fechaInicio"
-                              /> 
-                               
-                         </div>
-            </div>
--->
-            
+          
               <label for="datepicker-lg">Fecha de Finalización</label>
               <b-form-datepicker size="sm-6" local="ESP"
                 :id="`fecha-fin-${key}`"
@@ -67,21 +53,7 @@
               v-model="item.fechaFin">
               </b-form-datepicker>
               
-              <!--
-              <div class="form-group">
-              <label class="form-control-label" text="Fecha de Finalizacion" for="fecha_fin">Fecha de Finalizacion</label>
-              <div class="input-group">
-                  <input 
-                   :id="`fecha_fin_${key}`"
-                    :name="`fecha_fin_${key}`"
-                     type="date" 
-                     class="form-control" 
-                     v-model="item.fechaFin"
-                    />
-                    
-                    
-               </div> -->
-              </div>
+            </div>
           </div>
           </div>
         </b-card>

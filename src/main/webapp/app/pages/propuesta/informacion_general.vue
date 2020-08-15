@@ -51,8 +51,30 @@
                                    v-model="proyecto.duracion"
                                         placeholder="Duración en meses"
                                    />
-                        </div>                             
-                        
+                        </div>        
+
+                       
+              <div class="form-group">
+                
+                <label for="datepicker-sm">Fecha de Inicio</label>
+                 <b-form-datepicker size="sm-6" local="ESP" 
+                    id="fecha-inicio"
+                    name="fecha-inicio"
+                    value="value"
+                    v-model="proyecto.fechaIni">
+                </b-form-datepicker>
+                         
+                 <label for="datepicker-lg">Fecha de Finalización</label>
+                 <b-form-datepicker size="sm-6" local="ESP"
+                    id="fecha-fin"
+                    name="fecha-fin" 
+                    value="value"
+                    v-model="proyecto.fechaFin">
+                  </b-form-datepicker>
+              
+                </div>
+                                             
+                                 
 
                          <div class="form-group"  :class="{ 'form-group--error': $v.proyecto.palabrasClave.$error }">
                             <label class="form-control-label " v-text="$t('ciecytApp.proyecto.palabrasClave')" for="proyecto-palabras-clave">Palabras Clave</label>
