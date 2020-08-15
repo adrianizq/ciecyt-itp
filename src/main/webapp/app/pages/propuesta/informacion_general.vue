@@ -86,7 +86,7 @@
                         </div>
 
                           <div class="form-group"  >
-                            <label class="form-control-label " v-text="$t('ciecytApp.proyecto.proyectoReferencias')" for="proyecto-referencias">Referencias</label>
+                            <label class="form-control-label " v-text="$t('ciecytApp.proyecto.referencias')" for="proyecto-referencias">Referencias</label>
                             <textarea   rows="3" cols="6" class="form-control" name="referencias" id="proyecto-referencias"
                                    v-model="proyecto.referencias"
                                   
