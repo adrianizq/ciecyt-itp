@@ -155,7 +155,9 @@ export default class Impactos_esperados extends Vue {
                 .then(res=> {
 
                     this.impactosEsperads = res.data;
-                    console.log(res.data);
+                    if(res.data.length ==0){
+                     this.nuevo_impacto();
+                   }
                 })
             
          

@@ -158,7 +158,9 @@ export default class Entidades extends Vue {
                 .then(res=> {
 
                     this.entidadesFinanciadors = res.data;
-                    console.log(res.data);
+                    if(res.data.length ==0){
+                     this.nuevo_entidad();
+                   }
                 })
             
   

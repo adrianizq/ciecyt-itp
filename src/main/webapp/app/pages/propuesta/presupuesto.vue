@@ -242,7 +242,7 @@ export default class Presupuesto extends Vue {
         async initRelationships() {
            try {
 
-              this.nuevo_presupuesto() ; //crea una primera tarjeta
+             // this.nuevo_presupuesto() ; //crea una primera tarjeta
              this.proyId = parseInt(this.$route.params.proyectoId);
 
              //this.proyecto = await this.proyectoService().find(this.proyId);
@@ -275,7 +275,10 @@ export default class Presupuesto extends Vue {
                 .then(res=> {
 
                     this.presupuestoValors = res.data;
-                    console.log(this.proyId);
+                    console.log(res.data);
+                   if(res.data.length ==0){
+                     this.nuevo_presupuesto() ;
+                   }
                 })
 
                  //Obteniendo las lineas de investigacion

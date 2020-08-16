@@ -158,7 +158,9 @@ export default class Resultados_esperados extends Vue {
                 .then(res=> {
 
                     this.resultadosEsperads = res.data;
-                    console.log(res.data);
+                   if(res.data.length ==0){
+                     this.nuevo_resultado();
+                   }
                 })
             
          

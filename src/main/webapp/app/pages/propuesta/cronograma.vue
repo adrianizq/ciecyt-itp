@@ -190,7 +190,9 @@ public cronograms: ICronograma[] = [];
 
                     //this.cronograms = res.data;
                     this.cronograms = res.data;
-                    console.log(res.data);
+                   if(res.data.length ==0){
+                     this.nuevo_cronograma();
+                   }
                 })
             
   
