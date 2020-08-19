@@ -51,6 +51,7 @@
     <include file="config/liquibase/changelog/20200124174521_added_entity_Usuario.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200319194600_added_entity_Menu.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200319194601_added_entity_RolMenu.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200818161136_added_entity_InformacionPasantia.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20200124174447_added_entity_constraints_Proyecto.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200124174448_added_entity_constraints_LineaInvestigacion.xml" relativeToChangelogFile="false"/>
@@ -85,5 +86,6 @@
 
 
     
+    <include file="config/liquibase/changelog/20200818161136_added_entity_constraints_InformacionPasantia.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>

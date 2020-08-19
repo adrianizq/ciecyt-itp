@@ -44,6 +44,7 @@
         "usuario": "Usuario",
         "menu": "Menu",
         "rolMenu": "Rol Menu",
+        "informacionPasantia": "Informacion Pasantia",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

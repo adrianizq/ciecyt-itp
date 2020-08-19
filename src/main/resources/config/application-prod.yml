@@ -42,7 +42,7 @@ spring:
     type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:postgresql://localhost:5432/ciecyt_db
     username: postgres
-    password: adr45661
+    password: ciecyt2020
     hikari:
       poolName: Hikari
       auto-commit: false

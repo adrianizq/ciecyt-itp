@@ -20,8 +20,25 @@
                     <span v-text="$t('global.messages.info.register.noaccount')">You don't have an account yet?</span>&nbsp;
                     <router-link class="alert-link" to="/register" v-text="$t('global.messages.info.register.link')">Register a new account</router-link>
                 </div>
-            </div>
+                <div class="alert alert-success" v-if="authenticated">
+                    <!--<span v-if="authorities" v-text="$t('home.logged.message', { 'authorities': authorities})">You are logged in as user "{{authorities}}"</span> -->
+                   Ingrese el Rol de Usuario que va a trabajar
 
+                    
+                       
+                            <b-form-select
+                                :options="authorities"
+                                text-field="roles"
+                                value-field="id" :id="`rol-${i}`" >
+
+                            </b-form-select>
+                       
+                  
+
+                    
+                </div>
+            </div>
+<!--
             <p v-text="$t('home.question')">
                 If you have any question on JHipster:
             </p>
@@ -37,6 +54,7 @@
             <p>
                 <span v-text="$t('home.like')">If you like JHipster, don't forget to give us a star on</span> <a href="https://github.com/jhipster/generator-jhipster" target="_blank" rel="noopener" v-text="$t('home.github')">GitHub</a>!
             </p>
+            -->
         </div>
     </div>
 </template>

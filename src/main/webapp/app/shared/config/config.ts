@@ -163,6 +163,15 @@ export function initVueXStore(vue) {
           description: 'Muestra el estado de sus propuestas',
           to: '/propuesta/estado_propuestas'
         }
+      ],
+
+      /*Menu Lateral Ciecyt*/
+      menu_lateral_pasantia: [
+        {
+          title: 'Informacion General',
+          description: 'Ingrese aquí los datos generales de la propuesta de pasantía',
+          to: '/propuesta-pasantia/informacion-general-pasantia'
+        }
       ]
     },
     mutations: {
@@ -219,7 +228,8 @@ export function initVueXStore(vue) {
       authenticated: state => state.authenticated,
       activeProfiles: state => state.activeProfiles,
       ribbonOnProfiles: state => state.ribbonOnProfiles,
-      menuLateral: state => state.menu_lateral
+      menuLateral: state => state.menu_lateral,
+      menuLateralPasantia: state => state.menu_lateral_pasantia
     }
   });
 }

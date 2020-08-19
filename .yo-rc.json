@@ -60,6 +60,7 @@
     "clientPackageManager": "npm",
     "clientFramework": "vue",
     "clientTheme": "materia",
-    "clientThemeVariant": "primary"
+    "clientThemeVariant": "primary",
+    "lastLiquibaseTimestamp": 1597767096000
   }
 }

@@ -14,8 +14,8 @@ public class Usuario implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
-    @SequenceGenerator(name = "sequenceGenerator")
+    //@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
+    //@SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
     @Column(name = "usuario")
@@ -84,4 +84,11 @@ public class Usuario implements Serializable {
             ", descripcion='" + getDescripcion() + "'" +
             "}";
     }
+
+    //ADR mapear con la clase user el id de usuario
+    //https://www.jhipster.tech/tips/022_tip_registering_user_with_additional_information.html
+    //falta terminar
+    @OneToOne
+    @MapsId
+    private User user;
 }

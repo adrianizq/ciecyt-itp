@@ -18,4 +18,9 @@ export default class Home extends Vue {
   public get username(): string {
     return this.$store.getters.account ? this.$store.getters.account.login : '';
   }
+
+  public get authorities(): string {
+    console.log(this.$store.getters.account);
+    return this.$store.getters.account ? this.$store.getters.account.authorities : '';
+  }
 }

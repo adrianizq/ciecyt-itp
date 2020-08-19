@@ -77,6 +77,8 @@ public class Proyecto implements Serializable {
     @JsonIgnoreProperties(value = "proyectos", allowSetters = true)
     private LineaInvestigacion subLineaLineaInvestigacion;
 
+    
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
         return id;
@@ -306,7 +308,9 @@ public class Proyecto implements Serializable {
     public void setSubLineaLineaInvestigacion(LineaInvestigacion lineaInvestigacion) {
         this.subLineaLineaInvestigacion = lineaInvestigacion;
     }
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
+
+
+   // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
     public boolean equals(Object o) {
