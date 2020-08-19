@@ -42,5 +42,6 @@
   "clientRootFolder": "",
   "applications": "*",
   "searchEngine": false,
-  "databaseType": "sql"
+  "databaseType": "sql",
+  "embedded": false
 }

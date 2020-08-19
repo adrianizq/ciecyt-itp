@@ -1,5 +1,7 @@
 package co.edu.itp.ciecyt.domain;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 
@@ -10,6 +12,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "informacion_pasantia")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class InformacionPasantia implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -112,8 +115,9 @@ public class InformacionPasantia implements Serializable {
     @Column(name = "celular_asesor_empresa")
     private String celularAsesorEmpresa;
 
-    @Column(name = "proyecto_id")
-    private Long proyectoId;
+    @OneToOne
+    @JoinColumn(unique = true)
+    private Proyecto informacionPasantiaProyecto;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -527,17 +531,17 @@ public class InformacionPasantia implements Serializable {
         this.celularAsesorEmpresa = celularAsesorEmpresa;
     }
 
-    public Long getProyectoId() {
-        return proyectoId;
+    public Proyecto getInformacionPasantiaProyecto() {
+        return informacionPasantiaProyecto;
     }
 
-    public InformacionPasantia proyectoId(Long proyectoId) {
-        this.proyectoId = proyectoId;
+    public InformacionPasantia informacionPasantiaProyecto(Proyecto proyecto) {
+        this.informacionPasantiaProyecto = proyecto;
         return this;
     }
 
-    public void setProyectoId(Long proyectoId) {
-        this.proyectoId = proyectoId;
+    public void setInformacionPasantiaProyecto(Proyecto proyecto) {
+        this.informacionPasantiaProyecto = proyecto;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
@@ -593,7 +597,6 @@ public class InformacionPasantia implements Serializable {
             ", identificacionRepresentanteLegal='" + getIdentificacionRepresentanteLegal() + "'" +
             ", profesionAsesorEmpresa='" + getProfesionAsesorEmpresa() + "'" +
             ", celularAsesorEmpresa='" + getCelularAsesorEmpresa() + "'" +
-            ", proyectoId=" + getProyectoId() +
             "}";
     }
 }

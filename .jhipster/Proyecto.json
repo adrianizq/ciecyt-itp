@@ -73,18 +73,25 @@
       "otherEntityField": "modalidad"
     },
     {
-      "relationshipName": "facultad",
-      "otherEntityName": "facultad",
       "relationshipType": "many-to-one",
-      "otherEntityField": "id",
-      "otherEntityRelationshipName": "proyecto"
+      "otherEntityName": "lineaInvestigacion",
+      "otherEntityRelationshipName": "proyecto",
+      "relationshipName": "subLineaLineaInvestigacion",
+      "otherEntityField": "linea"
     },
     {
-      "relationshipName": "subLineaLineaInvestigacion",
-      "otherEntityName": "lineaInvestigacion",
+      "relationshipType": "one-to-one",
+      "otherEntityName": "informacionPasantia",
+      "otherEntityRelationshipName": "informacionPasantiaProyecto",
+      "relationshipName": "id",
+      "ownerSide": false
+    },
+    {
       "relationshipType": "many-to-one",
-      "otherEntityField": "linea",
-      "otherEntityRelationshipName": "proyecto"
+      "otherEntityName": "facultad",
+      "otherEntityRelationshipName": "facultadProyecto",
+      "relationshipName": "facultad",
+      "otherEntityField": "id"
     }
   ],
   "changelogDate": "20200124174447",
@@ -98,5 +105,6 @@
   "clientRootFolder": "",
   "applications": "*",
   "searchEngine": false,
-  "databaseType": "sql"
+  "databaseType": "sql",
+  "embedded": false
 }

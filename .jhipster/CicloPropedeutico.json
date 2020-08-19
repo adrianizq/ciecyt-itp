@@ -8,17 +8,18 @@
   ],
   "relationships": [
     {
-      "relationshipName": "modalidad",
-      "otherEntityName": "modalidad",
-      "relationshipType": "many-to-one",
-      "otherEntityField": "id"
-    },
-    {
       "relationshipType": "many-to-one",
       "otherEntityName": "acuerdo",
       "otherEntityRelationshipName": "cicloPropedeutico",
       "relationshipName": "cicloPropedeuticoAcuerdo",
       "otherEntityField": "acuerdo"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "modalidad",
+      "otherEntityRelationshipName": "modalidadCicloPropedeutico",
+      "relationshipName": "modalidad",
+      "otherEntityField": "id"
     }
   ],
   "changelogDate": "20200124174453",
@@ -30,5 +31,6 @@
   "fluentMethods": true,
   "readOnly": false,
   "clientRootFolder": "",
-  "applications": "*"
+  "applications": "*",
+  "embedded": false
 }

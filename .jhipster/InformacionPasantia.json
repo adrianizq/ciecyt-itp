@@ -1,7 +1,16 @@
 {
   "fluentMethods": true,
   "clientRootFolder": "",
-  "relationships": [],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "proyecto",
+      "otherEntityRelationshipName": "id",
+      "relationshipName": "informacionPasantiaProyecto",
+      "otherEntityField": "id",
+      "ownerSide": true
+    }
+  ],
   "fields": [
     {
       "fieldName": "duracionHoras",
@@ -126,10 +135,6 @@
     {
       "fieldName": "celularAsesorEmpresa",
       "fieldType": "String"
-    },
-    {
-      "fieldName": "proyectoId",
-      "fieldType": "Long"
     }
   ],
   "changelogDate": "20200818161136",
@@ -140,5 +145,8 @@
   "databaseType": "sql",
   "readOnly": false,
   "jpaMetamodelFiltering": false,
-  "pagination": "no"
+  "pagination": "no",
+  "name": "InformacionPasantia",
+  "embedded": false,
+  "applications": "*"
 }
