@@ -1,5 +1,3 @@
-import { IProyecto } from '@/shared/model/proyecto.model';
-
 export interface IInformacionPasantia {
   id?: number;
   duracionHoras?: number;
@@ -33,7 +31,9 @@ export interface IInformacionPasantia {
   identificacionRepresentanteLegal?: string;
   profesionAsesorEmpresa?: string;
   celularAsesorEmpresa?: string;
-  informacionPasantiaProyecto?: IProyecto;
+  //informacionPasantiaProyecto?: IProyecto;
+  informacionPasantiaProyectoTitulo?: string;
+  informacionPasantiaProyectoId?: number;
 }
 
 export class InformacionPasantia implements IInformacionPasantia {
@@ -70,7 +70,8 @@ export class InformacionPasantia implements IInformacionPasantia {
     public identificacionRepresentanteLegal?: string,
     public profesionAsesorEmpresa?: string,
     public celularAsesorEmpresa?: string,
-    public informacionPasantiaProyecto?: IProyecto
+    public informacionPasantiaProyectoId?: number,
+    public informacionPasantiaProyectoTitulo?: string
   ) {
     this.lunes = this.lunes || false;
     this.martes = this.martes || false;

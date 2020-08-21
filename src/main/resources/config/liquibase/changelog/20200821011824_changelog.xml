@@ -1,9 +1,8 @@
 <?xml version="1.1" encoding="UTF-8" standalone="no"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
-    <changeSet author="ITPLAP-06 (generated)" id="1597803171429-4">
+    <changeSet author="ITPLAP-06 (generated)" id="1597972729963-4">
         <createTable tableName="informacion_pasantia">
-            <column name="id" type="BIGINT">
-                <!--<constraints primaryKey="true" primaryKeyName="informacion_pasantiaPK"/>-->
+            <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true" primaryKeyName="informacion_pasantiaPK"/>
             </column>
             <column name="apoyo_economico" type="BOOLEAN"/>
@@ -37,98 +36,90 @@
             <column name="sector_economico_empresa" type="VARCHAR(255)"/>
             <column name="telefono_contacto_empresa" type="VARCHAR(255)"/>
             <column name="viernes" type="BOOLEAN"/>
-             <column name="informacion_pasantia_proyecto_id" type="BIGINT">
+            <column name="informacion_pasantia_proyecto_id" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="ITPLAP-06 (generated)" id="1597803171429-5">
+    <changeSet author="ITPLAP-06 (generated)" id="1597972729963-5">
         <addColumn tableName="elemento_proyecto">
             <column name="elemento_proyecto_proyecto_descripcion" type="varchar(255)"/>
         </addColumn>
     </changeSet>
-    <changeSet author="ITPLAP-06 (generated)" id="1597803171429-6">
+    <changeSet author="ITPLAP-06 (generated)" id="1597972729963-6">
         <addColumn tableName="entidad_financiadora">
             <column name="entidad_financiadora_proyecto_id" type="int8"/>
         </addColumn>
     </changeSet>
-    <changeSet author="ITPLAP-06 (generated)" id="1597803171429-7">
-        <addColumn tableName="proyecto">
-            <column name="informacion_pasantia_id" type="int8"/>
-        </addColumn>
-    </changeSet>
-    <changeSet author="ITPLAP-06 (generated)" id="1597803171429-8">
+    <changeSet author="ITPLAP-06 (generated)" id="1597972729963-7">
         <addColumn tableName="cronograma">
             <column name="orden_vista" type="int4"/>
         </addColumn>
     </changeSet>
-    <changeSet author="ITPLAP-06 (generated)" id="1597803171429-9">
+    <changeSet author="ITPLAP-06 (generated)" id="1597972729963-8">
         <addColumn tableName="impactos_esperados">
             <column name="orden_vista" type="int4"/>
         </addColumn>
     </changeSet>
-    <changeSet author="ITPLAP-06 (generated)" id="1597803171429-10">
+    <changeSet author="ITPLAP-06 (generated)" id="1597972729963-9">
         <addColumn tableName="presupuesto_valor">
             <column name="orden_vista" type="int4"/>
         </addColumn>
     </changeSet>
-    <changeSet author="ITPLAP-06 (generated)" id="1597803171429-11">
+    <changeSet author="ITPLAP-06 (generated)" id="1597972729963-10">
         <addColumn tableName="resultados_esperados">
             <column name="orden_vista" type="int4"/>
         </addColumn>
     </changeSet>
-    <changeSet author="ITPLAP-06 (generated)" id="1597803171429-12">
+    <changeSet author="ITPLAP-06 (generated)" id="1597972729963-11">
         <addColumn tableName="proyecto">
             <column name="referencias" type="varchar(255)"/>
         </addColumn>
     </changeSet>
-    <changeSet author="ITPLAP-06 (generated)" id="1597803171429-13">
+    <changeSet author="ITPLAP-06 (generated)" id="1597972729963-12">
         <addColumn tableName="proyecto">
             <column name="sub_linea_linea_investigacion_id" type="int8"/>
         </addColumn>
     </changeSet>
-    <changeSet author="ITPLAP-06 (generated)" id="1597803171429-14">
+    <changeSet author="ITPLAP-06 (generated)" id="1597972729963-13">
         <addColumn tableName="proyecto">
             <column name="tipo" type="varchar(255)"/>
         </addColumn>
     </changeSet>
-    <changeSet author="ITPLAP-06 (generated)" id="1597803171429-15">
+    <changeSet author="ITPLAP-06 (generated)" id="1597972729963-14">
         <addColumn tableName="usuario">
             <column name="user_id" type="int8">
                 <constraints nullable="false"/>
             </column>
         </addColumn>
     </changeSet>
-    <changeSet author="ITPLAP-06 (generated)" id="1597803171429-16">
+    <changeSet author="ITPLAP-06 (generated)" id="1597972729963-15">
         <createIndex indexName="IX_usuarioPK" tableName="usuario" unique="true">
             <column name="user_id"/>
         </createIndex>
     </changeSet>
-    <changeSet author="ITPLAP-06 (generated)" id="1597803171429-17">
+    <changeSet author="ITPLAP-06 (generated)" id="1597972729963-16">
         <addForeignKeyConstraint baseColumnNames="sub_linea_linea_investigacion_id" baseTableName="proyecto" constraintName="FK2sbpigu421h34q1bed2kwaemf" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="linea_investigacion" validate="true"/>
     </changeSet>
-    <changeSet author="ITPLAP-06 (generated)" id="1597803171429-18">
-        <addForeignKeyConstraint baseColumnNames="id" baseTableName="informacion_pasantia" constraintName="FK5b8thnjond861x2m07x9gd13v" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="proyecto" validate="true"/>
-    </changeSet>
-    <changeSet author="ITPLAP-06 (generated)" id="1597803171429-19">
+    <changeSet author="ITPLAP-06 (generated)" id="1597972729963-17">
         <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="usuario" constraintName="FKb8byajvdw0k6mgal9ih48a171" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="jhi_user" validate="true"/>
     </changeSet>
-    <changeSet author="ITPLAP-06 (generated)" id="1597803171429-20">
-        <addForeignKeyConstraint baseColumnNames="informacion_pasantia_id" baseTableName="proyecto" constraintName="FKbb3shiulnvh733i1h0uajo3nl" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="informacion_pasantia" validate="true"/>
+    <changeSet author="ITPLAP-06 (generated)" id="1597972729963-18">
+        <addForeignKeyConstraint baseColumnNames="informacion_pasantia_proyecto_id" baseTableName="informacion_pasantia" constraintName="FKlxt4vhis5372ud3w4xfdwypak" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="proyecto" validate="true"/>
     </changeSet>
-    <changeSet author="ITPLAP-06 (generated)" id="1597803171429-21">
+    <changeSet author="ITPLAP-06 (generated)" id="1597972729963-19">
         <addForeignKeyConstraint baseColumnNames="entidad_financiadora_proyecto_id" baseTableName="entidad_financiadora" constraintName="FKmj8ghcaa9ef7cwg115e4f8cpe" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="proyecto" validate="true"/>
     </changeSet>
-    <changeSet author="ITPLAP-06 (generated)" id="1597803171429-22">
+    <changeSet author="ITPLAP-06 (generated)" id="1597972729963-20">
         <dropColumn columnName="id" tableName="usuario"/>
     </changeSet>
-    <changeSet author="ITPLAP-06 (generated)" id="1597803171429-1">
+    <changeSet author="ITPLAP-06 (generated)" id="1597972729963-1">
         <dropPrimaryKey tableName="usuario"/>
         <addPrimaryKey columnNames="user_id" constraintName="usuarioPK" tableName="usuario"/>
     </changeSet>
-    <changeSet author="ITPLAP-06 (generated)" id="1597803171429-2">
+    <changeSet author="ITPLAP-06 (generated)" id="1597972729963-2">
         <dropUniqueConstraint constraintName="UC_JHI_USEREMAIL_COL" tableName="jhi_user"/>
         <addUniqueConstraint columnNames="email" constraintName="UC_JHI_USEREMAIL_COL" tableName="jhi_user"/>
     </changeSet>
-    <changeSet author="ITPLAP-06 (generated)" id="1597803171429-3">
+    <changeSet author="ITPLAP-06 (generated)" id="1597972729963-3">
         <dropUniqueConstraint constraintName="UC_JHI_USERLOGIN_COL" tableName="jhi_user"/>
         <addUniqueConstraint columnNames="login" constraintName="UC_JHI_USERLOGIN_COL" tableName="jhi_user"/>
     </changeSet>

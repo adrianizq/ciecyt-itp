@@ -22,7 +22,7 @@
                                    v-model="proyecto.titulo"
                                       @input="setTitulo($event.target.value)"
 
-                                      placeholder="Ingrese el Titulo de la pasantia"
+                                      placeholder="Ingrese el Titulo del Proyecto"
                                    />
                                 <div class="error" v-if="!$v.proyecto.titulo.required&&!iniciandoTitulo">El Título es requerido</div>
                         </div>
@@ -31,7 +31,7 @@
                             <label class="form-control-label " v-text="$t('ciecytApp.proyecto.url')" for="proyecto-url">Url</label>
                             <input type="text" class="form-control" name="url" id="proyecto-url"
                                    v-model="proyecto.url"
-                                        placeholder="Ingrese la Url de la pasantia si existe"
+                                        placeholder="Ingrese la Url del proyecto si existe"
                                    />
                             <div class="error" v-if="!$v.proyecto.url.url">La URL no es válida, ej: http://www.itp.edu.co</div>       
                                 
@@ -46,10 +46,10 @@
                         </div>   
 
                         <div class="form-group"  >
-                            <label class="form-control-label " v-text="$t('ciecytApp.proyecto.duracion')" for="proyecto-duracion">Horas</label>
+                            <label class="form-control-label " v-text="$t('ciecytApp.proyecto.duracion')" for="proyecto-duracion">Duración en meses</label>
                             <input type="text" class="form-control" name="duracion" id="proyecto-duracion"
                                    v-model="proyecto.duracion"
-                                        placeholder="Duración en horas: tecnólogo 680, profesional 880 "
+                                        placeholder="Duración en meses"
                                    />
                         </div>        
 
@@ -209,6 +209,7 @@
         </div>
     </div>
 </template>
+
 <script lang="ts">
     import { Component, Inject, Vue } from 'vue-property-decorator';
     import AlertService from '@/shared/alert/alert.service';
@@ -271,7 +272,7 @@ import { IIntegranteProyecto, IntegranteProyecto } from '@/shared/model/integran
 
 
 
-    export default class PropuestaPasantiaInformacionGeneral extends Vue {
+    export default class PasantiaInformacionGeneral extends Vue {
         @Inject('modalidadService') private modalidadService: () => ModalidadService;
         @Inject('facultadService') private facultadService: () => FacultadService;
         @Inject('lineaInvestigacionService') private lineaInvestigacionService: () => LineaInvestigacionService;
@@ -359,7 +360,7 @@ import { IIntegranteProyecto, IntegranteProyecto } from '@/shared/model/integran
                     .update(this.proyecto)
                     .then(param => {
                         this.isSaving = false;
-                        this.$router.push({ name: 'PropuestaIntegrantesView', params: { proyectoId: this.proyecto.id.toString() } });
+                        this.$router.push({ name: 'PropuestaPasantiaInformacionEmpresaView', params: { proyectoId: this.proyecto.id.toString() } });
                         const message = this.$t('ciecytApp.proyecto.updated', { param: param.id });
                         this.alertService().showAlert(message, 'info');
                     });
@@ -371,7 +372,7 @@ import { IIntegranteProyecto, IntegranteProyecto } from '@/shared/model/integran
 
                         this.proyId = String(param.id);
 
-                        this.$router.push({ name: 'PropuestaIntegrantesView', params: { proyectoId: this.proyId } });
+                        this.$router.push({ name: 'PropuestaPasantiaInformacionEmpresaView', params: { proyectoId: this.proyId } });
 
                         const message = 'Se ha creado un nuevo proyecto';
                         this.alertService().showAlert(message, 'success');

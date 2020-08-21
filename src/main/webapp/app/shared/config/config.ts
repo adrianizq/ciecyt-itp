@@ -171,6 +171,11 @@ export function initVueXStore(vue) {
           title: 'Informacion General',
           description: 'Ingrese aquí los datos generales de la propuesta de pasantía',
           to: '/propuesta-pasantia/informacion-general-pasantia'
+        },
+        {
+          title: 'Información de la Empresa',
+          description: 'En este apartado diligencie: La información de la Empresa donde realizará su pasantia',
+          to: '/propuesta-pasantia/informacion-empresa'
         }
       ]
     },

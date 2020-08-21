@@ -53,6 +53,7 @@ import ProyectoFaseService from '@/entities/proyecto-fase/proyecto-fase.service'
 import CronogramaCiecytService from '@/entities/cronograma-ciecyt/cronograma-ciecyt.service';
 import CronogramaCiecytFasesService from '@/entities/cronograma-ciecyt-fases/cronograma-ciecyt-fases.service';
 import IntegranteProyectoService from '@/entities/integrante-proyecto/integrante-proyecto.service';
+import InformacionPasantiaService from '@/entities/informacion-pasantia/informacion-pasantia.service';
 import SolicitudService from '@/entities/solicitud/solicitud.service';
 import AdjuntoProyectoFaseService from '@/entities/adjunto-proyecto-fase/adjunto-proyecto-fase.service';
 import RetroalimentacionService from '@/entities/retroalimentacion/retroalimentacion.service';
@@ -147,6 +148,7 @@ new Vue({
     cronogramaCiecytService: () => new CronogramaCiecytService(),
     cronogramaCiecytFasesService: () => new CronogramaCiecytFasesService(),
     integranteProyectoService: () => new IntegranteProyectoService(),
+    informacionPasantiaService: () => new InformacionPasantiaService(),
     solicitudService: () => new SolicitudService(),
     adjuntoProyectoFaseService: () => new AdjuntoProyectoFaseService(),
     retroalimentacionService: () => new RetroalimentacionService(),

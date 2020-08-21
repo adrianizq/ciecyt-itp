@@ -197,6 +197,13 @@ const IntegranteProyectoUpdate = () => import('../entities/integrante-proyecto/i
 // prettier-ignore
 const IntegranteProyectoDetails = () => import('../entities/integrante-proyecto/integrante-proyecto-details.vue');
 // prettier-ignore
+const InformacionPasantia = () => import('../entities/informacion-pasantia/informacion-pasantia.vue');
+// prettier-ignore
+const InformacionPasantiaUpdate = () => import('../entities/informacion-pasantia/informacion-pasantia-update.vue');
+// prettier-ignore
+const InformacionPasantiaDetails = () => import('../entities/informacion-pasantia/informacion-pasantia-details.vue');
+
+// prettier-ignore
 const Solicitud = () => import('../entities/solicitud/solicitud.vue');
 // prettier-ignore
 const SolicitudUpdate = () => import('../entities/solicitud/solicitud-update.vue');
@@ -258,6 +265,7 @@ const Rol = () => import('../pages/rol/rol.vue');
 const RolMenuPermisos = () => import('../pages/rol/rol_menu.vue');
 const PropuestaInformacionGeneral = () => import('../pages/propuesta/informacion_general.vue');
 const PropuestaPasantiaInformacionGeneral = () => import('../pages/propuesta_pasantia/informacion_general_pasantia.vue');
+const PropuestaPasantiaInformacionEmpresa = () => import('../pages/propuesta_pasantia/informacion_empresa.vue');
 const PropuestaIntegrantes = () => import('../pages/propuesta/integrantes.vue');
 const PropuestaElementos = () => import('../pages/propuesta/elementos.vue');
 const PropuestaPresupuesto = () => import('../pages/propuesta/presupuesto.vue');
@@ -1095,7 +1103,33 @@ export default new Router({
       name: 'IntegranteProyectoView',
       component: IntegranteProyectoDetails,
       meta: { authorities: ['ROLE_USER'] }
+    },
+    /////////////////////////////////////////////////////
+    {
+      path: '/entity/informacion-pasantia',
+      name: 'InformacionPasantia',
+      component: InformacionPasantia,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    {
+      path: '/entity/informacion-pasantia/new',
+      name: 'InformacionPasantiaCreate',
+      component: InformacionPasantiaUpdate,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    {
+      path: '/entity/informacion-pasantia/:informacionPasantiaId/edit',
+      name: 'InformacionPasantiaEdit',
+      component: InformacionPasantiaUpdate,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    {
+      path: '/entity/informacion-pasantia/:informacionPasantiaId/view',
+      name: 'InformacionPasantiaView',
+      component: InformacionPasantiaDetails,
+      meta: { authorities: ['ROLE_USER'] }
     }
+    //////////////////////////////////////////////////7
     ,
     {
       path: '/entity/solicitud',
@@ -1345,6 +1379,20 @@ export default new Router({
       component: PropuestaPasantiaInformacionGeneral,
       meta: { authorities: ['ROLE_USER'] }
     },
+    {
+      path: '/propuesta-pasantia/informacion-general-pasantia/:proyectoId',
+      name: 'PropuestaPasantiaInformacionGeneraEditlView',
+      component: PropuestaPasantiaInformacionGeneral,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    {
+      path: '/propuesta-pasantia/informacion-empresa/:proyectoId',
+      name: 'PropuestaPasantiaInformacionEmpresaView',
+      component: PropuestaPasantiaInformacionEmpresa,
+      props: true,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+
     {
 
       path: '/propuesta/integrantes/:proyectoId',

@@ -1,39 +1,70 @@
 import { mixins } from 'vue-class-component';
 
-import { Component, Vue, Inject } from 'vue-property-decorator';
+import { Component, Inject } from 'vue-property-decorator';
 import Vue2Filters from 'vue2-filters';
 import { IInformacionPasantia } from '@/shared/model/informacion-pasantia.model';
-import AlertMixin from '@/shared/alert/alert.mixin';
+import AlertService from '@/shared/alert/alert.service';
 
 import InformacionPasantiaService from './informacion-pasantia.service';
 
-@Component({
-  mixins: [Vue2Filters.mixin]
-})
-export default class InformacionPasantia extends mixins(AlertMixin) {
+@Component
+export default class InformacionPasantia extends mixins(Vue2Filters.mixin) {
+  @Inject('alertService') private alertService: () => AlertService;
   @Inject('informacionPasantiaService') private informacionPasantiaService: () => InformacionPasantiaService;
+
   private removeId: number = null;
+  public itemsPerPage = 20;
+  public queryCount: number = null;
+  public page = 1;
+  public previousPage = 1;
+  public propOrder = 'id';
+  public reverse = false;
+  public totalItems = 0;
 
   public informacionPasantias: IInformacionPasantia[] = [];
 
   public isFetching = false;
+  public dismissCountDown: number = this.$store.getters.dismissCountDown;
+  public dismissSecs: number = this.$store.getters.dismissSecs;
+  public alertType: string = this.$store.getters.alertType;
+  public alertMessage: any = this.$store.getters.alertMessage;
+
+  public getAlertFromStore() {
+    this.dismissCountDown = this.$store.getters.dismissCountDown;
+    this.dismissSecs = this.$store.getters.dismissSecs;
+    this.alertType = this.$store.getters.alertType;
+    this.alertMessage = this.$store.getters.alertMessage;
+  }
+
+  public countDownChanged(dismissCountDown: number) {
+    this.alertService().countDownChanged(dismissCountDown);
+    this.getAlertFromStore();
+  }
 
   public mounted(): void {
     this.retrieveAllInformacionPasantias();
   }
 
   public clear(): void {
+    this.page = 1;
     this.retrieveAllInformacionPasantias();
   }
 
   public retrieveAllInformacionPasantias(): void {
     this.isFetching = true;
 
+    const paginationQuery = {
+      page: this.page - 1,
+      size: this.itemsPerPage,
+      sort: this.sort()
+    };
     this.informacionPasantiaService()
-      .retrieve()
+      .retrieve(paginationQuery)
       .then(
         res => {
           this.informacionPasantias = res.data;
+          this.totalItems = Number(res.headers['x-total-count']);
+          this.queryCount = this.totalItems;
           this.isFetching = false;
         },
         err => {
@@ -44,9 +75,6 @@ export default class InformacionPasantia extends mixins(AlertMixin) {
 
   public prepareRemove(instance: IInformacionPasantia): void {
     this.removeId = instance.id;
-    if (<any>this.$refs.removeEntity) {
-      (<any>this.$refs.removeEntity).show();
-    }
   }
 
   public removeInformacionPasantia(): void {
@@ -60,6 +88,31 @@ export default class InformacionPasantia extends mixins(AlertMixin) {
         this.retrieveAllInformacionPasantias();
         this.closeDialog();
       });
+  }
+
+  public sort(): Array<any> {
+    const result = [this.propOrder + ',' + (this.reverse ? 'asc' : 'desc')];
+    if (this.propOrder !== 'id') {
+      result.push('id');
+    }
+    return result;
+  }
+
+  public loadPage(page: number): void {
+    if (page !== this.previousPage) {
+      this.previousPage = page;
+      this.transition();
+    }
+  }
+
+  public transition(): void {
+    this.retrieveAllInformacionPasantias();
+  }
+
+  public changeOrder(propOrder): void {
+    this.propOrder = propOrder;
+    this.reverse = !this.reverse;
+    this.transition();
   }
 
   public closeDialog(): void {
