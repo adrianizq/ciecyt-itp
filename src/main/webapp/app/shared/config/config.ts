@@ -181,6 +181,11 @@ export function initVueXStore(vue) {
           title: 'Elementos de la Pasantía',
           description: 'Elementos de Pasantía, estos elementos son calificables por los jurados',
           to: '/propuesta-pasantia/elementos-pasantia'
+        },
+        {
+          title: 'Cronograma',
+          description: 'En el cronograma se deben crear items para: avance del 50%, informe final 100% y sustentacion',
+          to: '/propuesta-pasantia/cronograma-pasantia'
         }
       ]
     },

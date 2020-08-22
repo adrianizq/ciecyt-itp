@@ -126,7 +126,7 @@ export default class ElementosPasantia extends Vue {
                         //Creando un nuevo integrante
                         this.elementoProyectoService().create(e)
                         .then(param => {
-                            this.$router.push({ name: 'PropuestaPresupuestoView',params:{ proyectoId: this.proyId}});
+                            this.$router.push({ name: 'PropuestaPasantiaCronogramaView',params:{ proyectoId: this.proyId}});
                         });
                     }
                 }
