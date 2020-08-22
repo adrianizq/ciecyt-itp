@@ -266,6 +266,7 @@ const RolMenuPermisos = () => import('../pages/rol/rol_menu.vue');
 const PropuestaInformacionGeneral = () => import('../pages/propuesta/informacion_general.vue');
 const PropuestaPasantiaInformacionGeneral = () => import('../pages/propuesta_pasantia/informacion_general_pasantia.vue');
 const PropuestaPasantiaInformacionEmpresa = () => import('../pages/propuesta_pasantia/informacion_empresa.vue');
+const PropuestaPasantiaElementos = () => import('../pages/propuesta_pasantia/elementos_pasantia.vue');
 const PropuestaIntegrantes = () => import('../pages/propuesta/integrantes.vue');
 const PropuestaElementos = () => import('../pages/propuesta/elementos.vue');
 const PropuestaPresupuesto = () => import('../pages/propuesta/presupuesto.vue');
@@ -1392,7 +1393,14 @@ export default new Router({
       props: true,
       meta: { authorities: ['ROLE_USER'] }
     },
-
+    
+    {
+      path: '/propuesta-pasantia/elementos-pasantia/:proyectoId',
+      name: 'PropuestaPasantiaElementosView',
+      component: PropuestaPasantiaElementos,
+      props: true,
+      meta: { authorities: ['ROLE_USER'] }
+    },
     {
 
       path: '/propuesta/integrantes/:proyectoId',

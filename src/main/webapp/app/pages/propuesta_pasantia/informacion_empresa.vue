@@ -58,13 +58,13 @@
                              <tbody>
           
                                     <tr>
-                                        <td > Lunes </td>
-                                        <td > Martes </td>
-                                        <td > Miércoles </td>
-                                        <td > Jueves </td>
-                                        <td > Viernes </td>
-                                        <td > Sábado </td>
-                                        <td > Domingo </td>
+                                        <td > Lun </td>
+                                        <td > Mar </td>
+                                        <td > Mie </td>
+                                        <td > Jue </td>
+                                        <td > Vie </td>
+                                        <td > Sab </td>
+                                        <td > Dom </td>
                                     </tr>
                             <tr>
                                 <td>
@@ -98,14 +98,9 @@
                     </tr>
                 </tbody>
             </table>
+          </div>
 
-                           
-
-                        </div>
-                                
-                        
-
-                        <div class="form-group" >
+                                 <div class="form-group" >
                             <label class="form-control-label " for="informacion-pasantia-horas-mes">Horas al Mes </label>
                             <input type="text" class="form-control" name="horas-mes" id="informacion-pasantia-horas-mes"
                                    v-model="informacionPasantia.horasMes"
@@ -115,6 +110,177 @@
                                    />
                                 
                         </div>
+  <!-- --------------------------------------------------------------->
+  <div  class="form-group" >
+                        
+                            <span>Apoyos de la empresa</span>
+                            <table style="width:100%">
+                             <tbody>
+          
+                                    <tr>
+                                        <td > Bono Alimenticio </td>
+                                        <td > Apoyo Económico </td>
+                                        <td > Auxilio de Transporte </td>
+                                        <td > Capacitación </td>
+                                        
+                                    </tr>
+                            <tr>
+                                <td>
+                                <input type="checkbox" class="form-control" name="dias" id="informacion-pasantia-lunes"
+                                    v-model="informacionPasantia.bonoAlimenticio" />
+                                </td>
+                                <td>
+                                <input type="checkbox" class="form-control" name="dias" id="informacion-pasantia-lunes"
+                                v-model="informacionPasantia.apoyoEconomico"/>
+                                </td>
+                                 <td>
+                                <input type="checkbox" class="form-control" name="dias" id="informacion-pasantia-lunes"
+                                v-model="informacionPasantia.auxilioTransporte"/>
+                                </td>
+                                <td>
+                                <input type="checkbox" class="form-control" name="dias" id="informacion-pasantia-lunes"
+                                v-model="informacionPasantia.capacitacion"/>
+                                </td>
+                               
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                    Otro apoyo de la empresa
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                 <input type="text" class="form-control" name="horas-mes" id="informacion-pasantia-horas-mes"
+                                   v-model="informacionPasantia.otroApoyo"
+                                      placeholder="Otro tipo de apoyo"
+                                   />
+                                </td>
+                            </tr>
+                 </tbody>
+                </table>
+
+     </div>
+     <hr>
+
+       <div class="form-group" >
+            <label class="form-control-label " for="informacion-pasantia-nombre-empresa">Nombre de la empresa </label>
+            <input type="text" class="form-control" name="nombre-empresa" id="informacion-pasantia-nombre-empresa"
+             v-model="informacionPasantia.nombreEmpresa"
+             placeholder="Nombre de la empresa donde realizará la pasantía"
+            />
+        </div>
+
+        <div class="form-group" >
+            <label class="form-control-label " for="informacion-pasantia-nit-empresa">Nit de la empresa </label>
+            <input type="text" class="form-control" name="nit-empresa" id="informacion-pasantia-nit-empresa"
+             v-model="informacionPasantia.nitEmpresa"
+             placeholder="NIT de la empresa donde realizará la pasantía"
+            />
+        </div>
+
+        <div class="form-group" >
+            <label class="form-control-label " for="informacion-pasantia-direccion-empresa">Dirección de la empresa </label>
+            <input type="text" class="form-control" name="direccion-empresa" id="informacion-pasantia-direccion-empresa"
+             v-model="informacionPasantia.direccionEmpresa"
+             placeholder="Direccion de la empresa"
+            />
+        </div>
+
+        <div class="form-group" >
+            <label class="form-control-label " for="informacion-pasantia-municipio-empresa">Municipio de la empresa </label>
+            <input type="text" class="form-control" name="municipio-empresa" id="informacion-pasantia-municipio-empresa"
+             v-model="informacionPasantia.municipioEmpresa"
+             placeholder="Municipio donde está ubicada la empresa"
+            />
+        </div>
+
+         <div class="form-group" >
+            <label class="form-control-label " for="informacion-pasantia-telefono-contacto-empresa">Teléfono de contacto de la empresa </label>
+            <input type="text" class="form-control" name="telefono-contacto-empresa" id="informacion-pasantia-telefono-contacto"
+             v-model="informacionPasantia.telefonoContactoEmpresa"
+             placeholder="Telefono de la empresa"
+            />
+        </div>
+
+        <div class="form-group" >
+            <label class="form-control-label " for="informacion-pasantia-email-empresa">Email de la empresa </label>
+            <input type="text" class="form-control" name="email-empresa" id="informacion-pasantia-email-contacto"
+             v-model="informacionPasantia.emailEmpresa"
+             placeholder="Correo electrónico de la empresa"
+            />
+        </div>
+
+        <div class="form-group" >
+            <label class="form-control-label " for="informacion-pasantia-departamento-empresa">Departamento de la empresa </label>
+            <input type="text" class="form-control" name="departamento-empresa" id="informacion-pasantia-departamento-empresa"
+             v-model="informacionPasantia.departamentoEmpresa"
+             placeholder="Departamento de la empresa"
+            />
+        </div>
+
+        <div class="form-group" >
+            <label class="form-control-label " for="informacion-pasantia-sector-economico">Sector económico de la empresa </label>
+            <input type="text" class="form-control" name="sector-economico" id="informacion-pasantia-sector-economico"
+             v-model="informacionPasantia.sectorEconomicoEmpresa"
+             placeholder="Sectores: primario, secundario, terciario"
+            />
+        </div>
+        <hr>
+        <div class="form-group" >
+            <label class="form-control-label " for="informacion-pasantia-representante-legal">Representante Legal de la empresa </label>
+            <input type="text" class="form-control" name="representante-legal" id="informacion-pasantia-representante-legal"
+             v-model="informacionPasantia.representanteLegalEmpresa"
+             placeholder="Nombres y apellidos del representante legal de la empresa"
+            />
+        </div>
+
+        <div class="form-group" >
+            <label class="form-control-label " for="informacion-pasantia-identificacion-representante-legal">Identificacion del Representante Legal de la empresa </label>
+            <input type="text" class="form-control" name="identificacion-representante-legal" id="informacion-pasantia-identificacion-representante-legal"
+             v-model="informacionPasantia.identificacionRepresentanteLegal"
+             placeholder="Ejemplos: CC:110.323.232, CE:5.323.232"
+            />
+        </div>
+        <hr>
+        <div class="form-group" >
+            <label class="form-control-label " for="informacion-pasantia-asesor-empresa">Asesor de la empresa </label>
+            <input type="text" class="form-control" name="asesor-empresa" id="informacion-pasantia-asesor-empresa"
+             v-model="informacionPasantia.asesorEmpresa"
+             placeholder="Nombres y Apellidos del Asesor asignado por parte de la empresa"
+            />
+        </div>
+        <div class="form-group" >
+            <label class="form-control-label " for="informacion-pasantia-cargo-asesor-empresa">Cargo del asesor de la empresa </label>
+            <input type="text" class="form-control" name="cargo-asesor-empresa" id="informacion-pasantia-cargo-asesor-empresa"
+             v-model="informacionPasantia.cargoAsesorEmpresa"
+             placeholder="Cargo del Asesor en la empresa"
+            />
+        </div>
+        <div class="form-group" >
+            <label class="form-control-label " for="informacion-pasantia-email-asesor-empresa">Email del asesor de la empresa </label>
+            <input type="text" class="form-control" name="email-asesor-empresa" id="informacion-pasantia-email-asesor-empresa"
+             v-model="informacionPasantia.emailAsesorEmpresa"
+             placeholder="Correo electrónico del Asesor de la empresa"
+            />
+        </div>
+        <div class="form-group" >
+            <label class="form-control-label " for="informacion-pasantia-profesion-asesor-empresa">Profesión del asesor de la empresa </label>
+            <input type="text" class="form-control" name="profesion-asesor-empresa" id="informacion-pasantia-profesion-asesor-empresa"
+             v-model="informacionPasantia.profesionAsesorEmpresa"
+             placeholder="Profesión del Asesor de la empresa"
+            />
+        </div>
+        <div class="form-group" >
+            <label class="form-control-label " for="informacion-pasantia-celular-asesor-empresa">Celular del asesor de la empresa </label>
+            <input type="text" class="form-control" name="celular-asesor-empresa" id="informacion-pasantia-celular-asesor-empresa"
+             v-model="informacionPasantia.celularAsesorEmpresa"
+             placeholder="Número de celular del Asesor de la empresa"
+            />
+        </div>
+                                                    
+                        
+
+ 
                     </div>
                 </div>
 

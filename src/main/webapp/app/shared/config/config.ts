@@ -176,6 +176,11 @@ export function initVueXStore(vue) {
           title: 'Información de la Empresa',
           description: 'En este apartado diligencie: La información de la Empresa donde realizará su pasantia',
           to: '/propuesta-pasantia/informacion-empresa'
+        },
+        {
+          title: 'Elementos de la Pasantía',
+          description: 'Elementos de Pasantía, estos elementos son calificables por los jurados',
+          to: '/propuesta-pasantia/elementos-pasantia'
         }
       ]
     },
