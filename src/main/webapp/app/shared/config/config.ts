@@ -187,6 +187,24 @@ export function initVueXStore(vue) {
           description: 'En el cronograma se deben crear items para: avance del 50%, informe final 100% y sustentacion',
           to: '/propuesta-pasantia/cronograma-pasantia'
         }
+      ],
+      /*Menu Lateral Diplomado*/
+      menu_lateral_diplomado: [
+        {
+          title: 'Informacion General Diplomado',
+          description: 'Ingrese aquí los datos generales del diplomado',
+          to: '/propuesta-diplomado/informacion-general-diplomado'
+        },
+        {
+          title: 'Elementos del Diplomado',
+          description: 'Elementos de Diplomado, estos elementos son calificables por los jurados',
+          to: '/propuesta-diplomado/elementos-diplomado'
+        },
+        {
+          title: 'Cronograma',
+          description: 'En el cronograma se deben crear items para: avance del 50%, informe final 100% y sustentacion',
+          to: '/propuesta-diplomado/cronograma-diplomado'
+        }
       ]
     },
     mutations: {
@@ -244,7 +262,8 @@ export function initVueXStore(vue) {
       activeProfiles: state => state.activeProfiles,
       ribbonOnProfiles: state => state.ribbonOnProfiles,
       menuLateral: state => state.menu_lateral,
-      menuLateralPasantia: state => state.menu_lateral_pasantia
+      menuLateralPasantia: state => state.menu_lateral_pasantia,
+      menuLateralDiplomado: state => state.menu_lateral_diplomado
     }
   });
 }

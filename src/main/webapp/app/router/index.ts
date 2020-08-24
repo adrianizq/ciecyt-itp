@@ -268,6 +268,11 @@ const PropuestaPasantiaInformacionGeneral = () => import('../pages/propuesta_pas
 const PropuestaPasantiaInformacionEmpresa = () => import('../pages/propuesta_pasantia/informacion_empresa.vue');
 const PropuestaPasantiaElementos = () => import('../pages/propuesta_pasantia/elementos_pasantia.vue');
 const PropuestaPasantiaCronograma = () => import('../pages/propuesta_pasantia/cronograma_pasantia.vue');
+
+const PropuestaDiplomadoInformacionGeneral = () => import('../pages/propuesta_diplomado/informacion_general_diplomado.vue');
+const PropuestaDiplomadoElementos = () => import('../pages/propuesta_diplomado/elementos_diplomado.vue');
+const PropuestaDiplomadoCronograma = () => import('../pages/propuesta_diplomado/cronograma_diplomado.vue');
+
 const PropuestaIntegrantes = () => import('../pages/propuesta/integrantes.vue');
 const PropuestaElementos = () => import('../pages/propuesta/elementos.vue');
 const PropuestaPresupuesto = () => import('../pages/propuesta/presupuesto.vue');
@@ -1375,6 +1380,7 @@ export default new Router({
       component: PropuestaInformacionGeneral,
       meta: { authorities: ['ROLE_USER'] }
     },
+    //Pasantia
     {
       path: '/propuesta-pasantia/informacion-general-pasantia',
       name: 'PropuestaPasantiaInformacionGeneraEditlView',
@@ -1410,6 +1416,37 @@ export default new Router({
       props: true,
       meta: { authorities: ['ROLE_USER'] }
     },
+    ////////////////////////////////////////7
+    //Pasantia
+    {
+      path: '/propuesta-diplomado/informacion-general-diplomado',
+      name: 'PropuestaDiplomadoInformacionGeneraEditlView',
+      component: PropuestaDiplomadoInformacionGeneral,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    {
+      path: '/propuesta-diplomado/informacion-general-diplomado/:proyectoId',
+      name: 'PropuestaDiplomadoInformacionGeneraEditlView',
+      component: PropuestaDiplomadoInformacionGeneral,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+   
+    {
+      path: '/propuesta-diplomado/elementos-diplomado/:proyectoId',
+      name: 'PropuestaDiplomadoElementosView',
+      component: PropuestaDiplomadoElementos,
+      props: true,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    
+    {
+      path: '/propuesta-diplomado/cronograma-diplomado/:proyectoId',
+      name: 'PropuestaDiplomadoCronogramaView',
+      component: PropuestaDiplomadoCronograma,
+      props: true,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    //////////////
     {
 
       path: '/propuesta/integrantes/:proyectoId',
