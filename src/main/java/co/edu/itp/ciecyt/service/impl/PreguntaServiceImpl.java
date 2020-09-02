@@ -33,12 +33,6 @@ public class PreguntaServiceImpl implements PreguntaService {
         this.preguntaMapper = preguntaMapper;
     }
 
-    /**
-     * Save a pregunta.
-     *
-     * @param preguntaDTO the entity to save.
-     * @return the persisted entity.
-     */
     @Override
     public PreguntaDTO save(PreguntaDTO preguntaDTO) {
         log.debug("Request to save Pregunta : {}", preguntaDTO);
@@ -47,12 +41,6 @@ public class PreguntaServiceImpl implements PreguntaService {
         return preguntaMapper.toDto(pregunta);
     }
 
-    /**
-     * Get all the preguntas.
-     *
-     * @param pageable the pagination information.
-     * @return the list of entities.
-     */
     @Override
     @Transactional(readOnly = true)
     public Page<PreguntaDTO> findAll(Pageable pageable) {
@@ -62,12 +50,6 @@ public class PreguntaServiceImpl implements PreguntaService {
     }
 
 
-    /**
-     * Get one pregunta by id.
-     *
-     * @param id the id of the entity.
-     * @return the entity.
-     */
     @Override
     @Transactional(readOnly = true)
     public Optional<PreguntaDTO> findOne(Long id) {
@@ -76,11 +58,6 @@ public class PreguntaServiceImpl implements PreguntaService {
             .map(preguntaMapper::toDto);
     }
 
-    /**
-     * Delete the pregunta by id.
-     *
-     * @param id the id of the entity.
-     */
     @Override
     public void delete(Long id) {
         log.debug("Request to delete Pregunta : {}", id);

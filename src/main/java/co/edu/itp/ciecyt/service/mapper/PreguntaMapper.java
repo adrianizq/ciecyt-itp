@@ -1,5 +1,6 @@
 package co.edu.itp.ciecyt.service.mapper;
 
+
 import co.edu.itp.ciecyt.domain.*;
 import co.edu.itp.ciecyt.service.dto.PreguntaDTO;
 

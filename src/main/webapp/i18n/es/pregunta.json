@@ -21,7 +21,8 @@
       "pregunta": "Pregunta",
       "preguntaTipoPregunta": "Tipo Pregunta",
       "preguntaModalidad": "Modalidad",
-      "preguntaRolesModalidad": "Rol Modalidad"
+      "preguntaRolesModalidad": "Rol Modalidad",
+      "elemento": "Elemento del proyecto"
     }
   }
 }

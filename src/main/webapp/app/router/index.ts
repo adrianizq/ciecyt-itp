@@ -282,6 +282,16 @@ const PropuestaEntidades = () => import('../pages/propuesta/entidades.vue');
 const PropuestaCronograma = () => import('../pages/propuesta/cronograma.vue');
 const PropuestaEstadoPropuestas = () => import('../pages/propuesta/estado_propuestas.vue');
 
+const PropuestaLineaInformacionGeneral = () => import('../pages/propuesta_linea/informacion_general_linea.vue');
+const PropuestaLineaIntegrantes = () => import('../pages/propuesta_linea/integrantes_linea.vue');
+const PropuestaLineaElementos = () => import('../pages/propuesta_linea/elementos_linea.vue');
+const PropuestaLineaPresupuesto = () => import('../pages/propuesta_linea/presupuesto_linea.vue');
+const PropuestaLineaResultadosEsperados = () => import('../pages/propuesta_linea/resultados_esperados_linea.vue');
+const PropuestaLineaImpactosEsperado = () => import('../pages/propuesta_linea/impactos_esperados_linea.vue');
+const PropuestaLineaEntidades = () => import('../pages/propuesta_linea/entidades_linea.vue');
+const PropuestaLineaCronograma = () => import('../pages/propuesta_linea/cronograma_linea.vue');
+const PropuestaLineaEstadoPropuestas = () => import('../pages/propuesta_linea/estado_propuestas_linea.vue');
+
 Vue.use(Router);
 
 // prettier-ignore
@@ -1368,18 +1378,7 @@ export default new Router({
       component: RolMenuDetails,
       meta: { authorities: ['ROLE_USER'] }
     },
-    {
-      path: '/propuesta/informacion-general',
-      name: 'PropuestaInformacionGeneralView',
-      component: PropuestaInformacionGeneral,
-      meta: { authorities: ['ROLE_USER'] }
-    },
-    {
-      path: '/propuesta/informacion-general/:proyectoId',
-      name: 'PropuestaInformacionGeneraEditlView',
-      component: PropuestaInformacionGeneral,
-      meta: { authorities: ['ROLE_USER'] }
-    },
+  
     //Pasantia
     {
       path: '/propuesta-pasantia/informacion-general-pasantia',
@@ -1417,20 +1416,22 @@ export default new Router({
       meta: { authorities: ['ROLE_USER'] }
     },
     ////////////////////////////////////////7
-    //Pasantia
+    //Diplomado
     {
       path: '/propuesta-diplomado/informacion-general-diplomado',
-      name: 'PropuestaDiplomadoInformacionGeneraEditlView',
+      name: 'PropuestaDiplomadoInformacionGeneralEditView',
       component: PropuestaDiplomadoInformacionGeneral,
       meta: { authorities: ['ROLE_USER'] }
     },
+     
     {
       path: '/propuesta-diplomado/informacion-general-diplomado/:proyectoId',
-      name: 'PropuestaDiplomadoInformacionGeneraEditlView',
+      name: 'PropuestaDiplomadoInformacionGeneralEditView',
       component: PropuestaDiplomadoInformacionGeneral,
+      props: true,
       meta: { authorities: ['ROLE_USER'] }
     },
-   
+      
     {
       path: '/propuesta-diplomado/elementos-diplomado/:proyectoId',
       name: 'PropuestaDiplomadoElementosView',
@@ -1447,6 +1448,19 @@ export default new Router({
       meta: { authorities: ['ROLE_USER'] }
     },
     //////////////
+     ////////////////////////////////////////////////////////7777777
+    {
+      path: '/propuesta/informacion-general',
+      name: 'PropuestaInformacionGeneralView',
+      component: PropuestaInformacionGeneral,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    {
+      path: '/propuesta/informacion-general/:proyectoId',
+      name: 'PropuestaInformacionGeneraEditlView',
+      component: PropuestaInformacionGeneral,
+      meta: { authorities: ['ROLE_USER'] }
+    },
     {
 
       path: '/propuesta/integrantes/:proyectoId',
@@ -1497,8 +1511,79 @@ export default new Router({
       name: 'PropuestaImpactosEsperadoView',
       component: PropuestaImpactosEsperado,
       meta: { authorities: ['ROLE_USER'] }
-    }
-    ,
+    },
+
+    ////////////////////////////////////////////////////////777777777
+
+     ////        LINEA          ///7777777
+     //http://localhost:9000/propuesta-linea/informacion-general-linea
+     {
+      path: '/propuesta-linea/informacion-general-linea',
+      name: 'PropuestaLineaInformacionGeneralView',
+      component: PropuestaLineaInformacionGeneral,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    {
+      path: '/propuesta-linea/informacion-general-linea/:proyectoId',
+      name: 'PropuestaLineaInformacionGeneralEditView',
+      component: PropuestaLineaInformacionGeneral,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    {
+
+      path: '/propuesta-linea/integrantes-linea/:proyectoId',
+      name: 'PropuestaLineaIntegrantesView',
+      component: PropuestaLineaIntegrantes,
+      props: true,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    {
+      path: '/propuesta-linea/elementos-linea/:proyectoId',
+      name: 'PropuestaLineaElementosView',
+      component: PropuestaLineaElementos,
+      props: true,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    {
+      path: '/propuesta-linea/cronograma-linea/:proyectoId',
+      name: 'PropuestaLineaCronogramaView',
+      component: PropuestaLineaCronograma,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    {
+      path: '/propuesta-linea/estado_propuestas-linea/:proyectoId',
+      name: 'PropuestaLineaEstadoPropuestasView',
+      component: PropuestaLineaEstadoPropuestas,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    {
+      path: '/propuesta-linea/entidades-linea/:proyectoId',
+      name: 'PropuestaLineaEntidadesView',
+      component: PropuestaLineaEntidades,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    {
+      path: '/propuesta-linea/resultados-esperados-linea/:proyectoId',
+      name: 'PropuestaLineaResultadosEsperadosView',
+      component: PropuestaLineaResultadosEsperados,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    {
+      path: '/propuesta-linea/presupuesto-linea/:proyectoId',
+      name: 'PropuestaLineaPresupuestoView',
+      component: PropuestaLineaPresupuesto,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    {
+      path: '/propuesta-linea/impactos_esperados-linea/:proyectoId',
+      name: 'PropuestaLineaImpactosEsperadoView',
+      component: PropuestaLineaImpactosEsperado,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+
+    ////////////////////////////////////////////////////////777777777
+
+   
     {
       path: '/entity/elemento',
       name: 'Elemento',

@@ -1,5 +1,8 @@
 package co.edu.itp.ciecyt.domain;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 
@@ -10,6 +13,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "pregunta")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Pregunta implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -25,22 +29,28 @@ public class Pregunta implements Serializable {
     @Column(name = "descripcion")
     private String descripcion;
 
+    @Column(name = "elemento")
+    private String elemento;
+
+    @Column(name = "elemento_id")
+    private Long elementoId;
+
     @Column(name = "pregunta")
     private String pregunta;
 
     @ManyToOne
-    @JsonIgnoreProperties("preguntas")
+    @JsonIgnoreProperties(value = "preguntas", allowSetters = true)
     private TipoPregunta preguntaTipoPregunta;
 
     @ManyToOne
-    @JsonIgnoreProperties("preguntas")
+    @JsonIgnoreProperties(value = "preguntas", allowSetters = true)
     private Modalidad preguntaModalidad;
 
     @ManyToOne
-    @JsonIgnoreProperties("preguntas")
+    @JsonIgnoreProperties(value = "preguntas", allowSetters = true)
     private RolesModalidad preguntaRolesModalidad;
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
+    // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
         return id;
     }
@@ -73,6 +83,32 @@ public class Pregunta implements Serializable {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public String getElemento() {
+        return elemento;
+    }
+
+    public Pregunta elemento(String elemento) {
+        this.elemento = elemento;
+        return this;
+    }
+
+    public void setElemento(String elemento) {
+        this.elemento = elemento;
+    }
+
+    public Long getElementoId() {
+        return elementoId;
+    }
+
+    public Pregunta elementoId(Long elementoId) {
+        this.elementoId = elementoId;
+        return this;
+    }
+
+    public void setElementoId(Long elementoId) {
+        this.elementoId = elementoId;
     }
 
     public String getPregunta() {
@@ -126,7 +162,7 @@ public class Pregunta implements Serializable {
     public void setPreguntaRolesModalidad(RolesModalidad rolesModalidad) {
         this.preguntaRolesModalidad = rolesModalidad;
     }
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
+    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
     public boolean equals(Object o) {
@@ -144,12 +180,15 @@ public class Pregunta implements Serializable {
         return 31;
     }
 
+    // prettier-ignore
     @Override
     public String toString() {
         return "Pregunta{" +
             "id=" + getId() +
             ", encabezado='" + getEncabezado() + "'" +
             ", descripcion='" + getDescripcion() + "'" +
+            ", elemento='" + getElemento() + "'" +
+            ", elementoId=" + getElementoId() +
             ", pregunta='" + getPregunta() + "'" +
             "}";
     }

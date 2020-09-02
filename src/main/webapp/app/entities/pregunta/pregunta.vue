@@ -31,6 +31,7 @@
                     <th v-on:click="changeOrder('preguntaTipoPreguntaTipoPregunta')"><span v-text="$t('ciecytApp.pregunta.preguntaTipoPregunta')">Pregunta Tipo Pregunta</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th v-on:click="changeOrder('preguntaModalidadModalidad')"><span v-text="$t('ciecytApp.pregunta.preguntaModalidad')">Pregunta Modalidad</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th v-on:click="changeOrder('preguntaRolesModalidadRol')"><span v-text="$t('ciecytApp.pregunta.preguntaRolesModalidad')">Pregunta Roles Modalidad</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
+                    <th v-on:click="changeOrder('elemento')"><span v-text="$t('ciecytApp.pregunta.elemento')">Elemento</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th></th>
                 </tr>
                 </thead>
@@ -56,6 +57,11 @@
                     <td>
                         <div v-if="pregunta.preguntaRolesModalidadId">
                             <router-link :to="{name: 'RolesModalidadView', params: {rolesModalidadId: pregunta.preguntaRolesModalidadId}}">{{pregunta.preguntaRolesModalidadRol}}</router-link>
+                        </div>
+                    </td>
+                     <td>
+                        <div v-if="pregunta.elementoId">
+                            <router-link :to="{name: 'ElementoView', params: {elementoId: pregunta.elementoId}}">{{pregunta.elementoId}}</router-link>
                         </div>
                     </td>
                     <td class="text-right">

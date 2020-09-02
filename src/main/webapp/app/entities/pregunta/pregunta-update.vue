@@ -46,6 +46,26 @@
                         </select>
                     </div>
                 </div>
+
+                <!--------------------------------------------->
+                 <div class="col-md-6 col-12">
+                      <div class="form-group" >
+                            <label class="form-control-label "  for="pregunta-elemento">Elemento</label> 
+                            <b-form-select text-field="pregunta-elemento" value-field="id" id="elemento"
+                            v-model="pregunta.elementoId"
+                            
+                             >
+                                <option v-for="(selectOption, indexOpt) in Elementos"
+                                        :key="indexOpt"
+                                        :value="selectOption.id"
+                                >
+                                    ({{ selectOption.id }}) {{ selectOption.elemento }}
+                                </option>
+                            </b-form-select>
+                            
+                        </div>
+                    </div>
+                <!--------------------------------------------->
                 <div>
                     <button type="button" id="cancel-save" class="btn btn-secondary" v-on:click="previousState()">
                         <font-awesome-icon icon="ban"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.cancel')">Cancel</span>

@@ -11,6 +11,9 @@ import { IModalidad } from '@/shared/model/modalidad.model';
 import RolesModalidadService from '../roles-modalidad/roles-modalidad.service';
 import { IRolesModalidad } from '@/shared/model/roles-modalidad.model';
 
+import ElementoService from '../elemento/elemento.service';
+import { IElemento, Elemento } from '@/shared/model/elemento.model';
+
 import AlertService from '@/shared/alert/alert.service';
 import { IPregunta, Pregunta } from '@/shared/model/pregunta.model';
 import PreguntaService from './pregunta.service';
@@ -42,6 +45,13 @@ export default class PreguntaUpdate extends Vue {
   @Inject('rolesModalidadService') private rolesModalidadService: () => RolesModalidadService;
 
   public rolesModalidads: IRolesModalidad[] = [];
+
+  @Inject('elementoService') private elementoService: () => ElementoService;
+
+  public elements: IElemento[] = [];
+
+  public elemento: IElemento = new Elemento();
+
   public isSaving = false;
 
   beforeRouteEnter(to, from, next) {
@@ -76,6 +86,12 @@ export default class PreguntaUpdate extends Vue {
     }
   }
 
+  get Elementos() {
+    return this.elements.filter(elemento => {
+      return elemento.elementoModalidadId == this.pregunta.preguntaModalidadId;
+    });
+  }
+
   public retrievePregunta(preguntaId): void {
     this.preguntaService()
       .find(preguntaId)
@@ -103,6 +119,11 @@ export default class PreguntaUpdate extends Vue {
       .retrieve()
       .then(res => {
         this.rolesModalidads = res.data;
+      });
+    this.elementoService()
+      .retrieve()
+      .then(res => {
+        this.elements = res.data;
       });
   }
 }

@@ -1,17 +1,21 @@
 package co.edu.itp.ciecyt.service.dto;
+
 import java.io.Serializable;
-import java.util.Objects;
 
 /**
  * A DTO for the {@link co.edu.itp.ciecyt.domain.Pregunta} entity.
  */
 public class PreguntaDTO implements Serializable {
-
+    
     private Long id;
 
     private String encabezado;
 
     private String descripcion;
+
+    private String elemento;
+
+    private Long elementoId;
 
     private String pregunta;
 
@@ -27,7 +31,7 @@ public class PreguntaDTO implements Serializable {
     private Long preguntaRolesModalidadId;
 
     private String preguntaRolesModalidadRol;
-
+    
     public Long getId() {
         return id;
     }
@@ -50,6 +54,22 @@ public class PreguntaDTO implements Serializable {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public String getElemento() {
+        return elemento;
+    }
+
+    public void setElemento(String elemento) {
+        this.elemento = elemento;
+    }
+
+    public Long getElementoId() {
+        return elementoId;
+    }
+
+    public void setElementoId(Long elementoId) {
+        this.elementoId = elementoId;
     }
 
     public String getPregunta() {
@@ -113,35 +133,34 @@ public class PreguntaDTO implements Serializable {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof PreguntaDTO)) {
             return false;
         }
 
-        PreguntaDTO preguntaDTO = (PreguntaDTO) o;
-        if (preguntaDTO.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), preguntaDTO.getId());
+        return id != null && id.equals(((PreguntaDTO) o).id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return 31;
     }
 
+    // prettier-ignore
     @Override
     public String toString() {
         return "PreguntaDTO{" +
             "id=" + getId() +
             ", encabezado='" + getEncabezado() + "'" +
             ", descripcion='" + getDescripcion() + "'" +
+            ", elemento='" + getElemento() + "'" +
+            ", elementoId=" + getElementoId() +
             ", pregunta='" + getPregunta() + "'" +
-            ", preguntaTipoPregunta=" + getPreguntaTipoPreguntaId() +
-            ", preguntaTipoPregunta='" + getPreguntaTipoPreguntaTipoPregunta() + "'" +
-            ", preguntaModalidad=" + getPreguntaModalidadId() +
-            ", preguntaModalidad='" + getPreguntaModalidadModalidad() + "'" +
-            ", preguntaRolesModalidad=" + getPreguntaRolesModalidadId() +
-            ", preguntaRolesModalidad='" + getPreguntaRolesModalidadRol() + "'" +
+            ", preguntaTipoPreguntaId=" + getPreguntaTipoPreguntaId() +
+            ", preguntaTipoPreguntaTipoPregunta='" + getPreguntaTipoPreguntaTipoPregunta() + "'" +
+            ", preguntaModalidadId=" + getPreguntaModalidadId() +
+            ", preguntaModalidadModalidad='" + getPreguntaModalidadModalidad() + "'" +
+            ", preguntaRolesModalidadId=" + getPreguntaRolesModalidadId() +
+            ", preguntaRolesModalidadRol='" + getPreguntaRolesModalidadRol() + "'" +
             "}";
     }
 }

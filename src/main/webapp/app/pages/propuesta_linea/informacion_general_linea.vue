@@ -2,7 +2,7 @@
 
     <div class="row">
         <div class="col-sm-4">
-            <menu-lateral-diplomado :proyectoId='$route.params.proyectoId'></menu-lateral-diplomado>
+            <menu-lateral-linea :proyectoId='$route.params.proyectoId'></menu-lateral-linea>
         </div>
         <div class="col-sm-8">
             <form @submit.prevent="save()">
@@ -215,7 +215,7 @@
     import AlertService from '@/shared/alert/alert.service';
    
     
-    import MenuLateralDiplomado from '@/components/propuesta_diplomado/menu_lateral_diplomado.vue';
+    import MenuLateralLinea from '@/components/propuesta_linea/menu_lateral_linea.vue';
     import ModalidadService from '@/entities/modalidad/modalidad.service';
     import { IModalidad } from '@/shared/model/modalidad.model';
     import FacultadService from '@/entities/facultad/facultad.service';
@@ -265,14 +265,14 @@ import { IIntegranteProyecto, IntegranteProyecto } from '@/shared/model/integran
      
 
     @Component({
-        components: { MenuLateralDiplomado },
+        components: { MenuLateralLinea },
          
         validations
     })
 
 
 
-    export default class DiplomadoInformacionGeneral extends Vue {
+    export default class PropuestaInformacionGeneralLinea extends Vue {
         @Inject('modalidadService') private modalidadService: () => ModalidadService;
         @Inject('facultadService') private facultadService: () => FacultadService;
         @Inject('lineaInvestigacionService') private lineaInvestigacionService: () => LineaInvestigacionService;
@@ -350,7 +350,6 @@ import { IIntegranteProyecto, IntegranteProyecto } from '@/shared/model/integran
                 }
             
                 this.submitStatus = 'ERROR';
-                console.log(this.submitStatus);
             }
             else{ 
 
@@ -361,7 +360,7 @@ import { IIntegranteProyecto, IntegranteProyecto } from '@/shared/model/integran
                     .update(this.proyecto)
                     .then(param => {
                         this.isSaving = false;
-                        this.$router.push({ name: 'PropuestaDiplomadoElementosView', params: { proyectoId: this.proyecto.id.toString() } });
+                        this.$router.push({ name: 'PropuestaLineaIntegrantesView', params: { proyectoId: this.proyecto.id.toString() } });
                         const message = this.$t('ciecytApp.proyecto.updated', { param: param.id });
                         this.alertService().showAlert(message, 'info');
                     });
@@ -373,9 +372,9 @@ import { IIntegranteProyecto, IntegranteProyecto } from '@/shared/model/integran
 
                         this.proyId = String(param.id);
 
-                        this.$router.push({ name: 'PropuestaDiplomadoElementosView', params: { proyectoId: this.proyId } });
+                        this.$router.push({ name: 'PropuestaLineaIntegrantesView', params: { proyectoId: this.proyId } });
 
-                        const message = 'Se ha creado un nuevo  proyecto de Diplomado';
+                        const message = 'Se ha creado un nuevo proyecto';
                         this.alertService().showAlert(message, 'success');
                         
                     });

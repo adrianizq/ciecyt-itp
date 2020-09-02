@@ -165,7 +165,58 @@ export function initVueXStore(vue) {
         }
       ],
 
-      /*Menu Lateral Ciecyt*/
+      //Menu Lateral Linea //
+      /*Menu Lateral*/
+      menu_lateral_linea: [
+        {
+          title: 'Información General',
+          description: 'Ingrese aquí los datos generales de la propuesta',
+          to: '/propuesta-linea/informacion-general-linea'
+        },
+        {
+          title: 'Integrantes',
+          description: 'En esta sección ingrese los integrantes de la propuesta Nota: Cada modalidad tiene un maximo de integrantes',
+          to: '/propuesta-linea/integrantes-linea'
+        },
+        {
+          title: 'Elementos',
+          description:
+            'En este apartado diligencie: Resumen, Problema, Pregunta de Investigación, Objetivos, Marco de Referencia y Metodología esta sección ingrese los integrantes de la propuesta Nota: Cada modalidad tiene un maximo de integrantes',
+          to: '/propuesta-linea/elementos-linea'
+        },
+        {
+          title: 'Presupuesto',
+          description: 'Presupuesto',
+          to: '/propuesta-linea/presupuesto-linea'
+        },
+        {
+          title: 'Resultados Esperados',
+          description: 'Resultados o Productos Esperados del Proyecto',
+          to: '/propuesta-linea/resultados_esperados-linea'
+        },
+        {
+          title: 'Impactos Esperados',
+          description: 'Impactos Esperados del Proyecto',
+          to: '/propuesta-linea/impactos_esperados-linea'
+        },
+        {
+          title: 'Entidades Financiadoras',
+          description: 'Entidades Financiadoras',
+          to: '/propuesta-linea/entidades-linea'
+        },
+        {
+          title: 'Cronograma',
+          description: 'Cronograma de Actividades',
+          to: '/propuesta-linea/cronograma-linea'
+        },
+        {
+          title: 'Estado de Propuestas',
+          description: 'Muestra el estado de sus propuestas',
+          to: '/propuesta-linea/estado_propuestas-linea'
+        }
+      ],
+
+      /*Menu Lateral Pasantia*/
       menu_lateral_pasantia: [
         {
           title: 'Informacion General',
@@ -263,7 +314,8 @@ export function initVueXStore(vue) {
       ribbonOnProfiles: state => state.ribbonOnProfiles,
       menuLateral: state => state.menu_lateral,
       menuLateralPasantia: state => state.menu_lateral_pasantia,
-      menuLateralDiplomado: state => state.menu_lateral_diplomado
+      menuLateralDiplomado: state => state.menu_lateral_diplomado,
+      menuLateralLinea: state => state.menu_lateral_linea
     }
   });
 }

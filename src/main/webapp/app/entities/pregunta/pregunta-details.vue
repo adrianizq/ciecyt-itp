@@ -46,6 +46,18 @@
                             <router-link :to="{name: 'RolesModalidadView', params: {preguntaRolesModalidadId: pregunta.preguntaRolesModalidadId}}">{{pregunta.preguntaRolesModalidadRol}}</router-link>
                         </div>
                     </dd>
+                    
+                    <dt>
+                        <span v-text="$t('ciecytApp.pregunta.elemento')">Elemento</span>
+                    </dt>
+                    <dd>
+                        <div v-if="pregunta.elementoId">
+                            <router-link :to="{name: 'ElementoView', params: {elementoId: pregunta.elementoId}}">{{pregunta.elementoId}}</router-link>
+                        </div>
+                    </dd>
+                    
+                   
+
                 </dl>
                 <button type="submit"
                         v-on:click.prevent="previousState()"
