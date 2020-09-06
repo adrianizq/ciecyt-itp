@@ -256,6 +256,14 @@ export function initVueXStore(vue) {
           description: 'En el cronograma se deben crear items para: avance del 50%, informe final 100% y sustentacion',
           to: '/propuesta-diplomado/cronograma-diplomado'
         }
+      ],
+
+      menu_lateral_listado: [
+        {
+          title: 'Listado de Propuestas',
+          description: 'Espacio para evalular las propuestas a cargo',
+          to: '/viabilidad-propuesta/listado'
+        }
       ]
     },
     mutations: {
@@ -315,7 +323,8 @@ export function initVueXStore(vue) {
       menuLateral: state => state.menu_lateral,
       menuLateralPasantia: state => state.menu_lateral_pasantia,
       menuLateralDiplomado: state => state.menu_lateral_diplomado,
-      menuLateralLinea: state => state.menu_lateral_linea
+      menuLateralLinea: state => state.menu_lateral_linea,
+      menuLateralListado: state => state.menu_lateral_listado
     }
   });
 }

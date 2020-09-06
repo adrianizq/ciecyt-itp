@@ -292,6 +292,8 @@ const PropuestaLineaEntidades = () => import('../pages/propuesta_linea/entidades
 const PropuestaLineaCronograma = () => import('../pages/propuesta_linea/cronograma_linea.vue');
 const PropuestaLineaEstadoPropuestas = () => import('../pages/propuesta_linea/estado_propuestas_linea.vue');
 
+const PropuestaListado = () => import('../pages/viabilidad_propuesta/listado.vue');
+
 Vue.use(Router);
 
 // prettier-ignore
@@ -1582,6 +1584,12 @@ export default new Router({
     },
 
     ////////////////////////////////////////////////////////777777777
+    {
+      path: '/viabilidad-propuesta/listado',
+      name: 'PropuestaListadoView',
+      component: PropuestaListado,
+      meta: { authorities: ['ROLE_USER'] }
+    },
 
    
     {

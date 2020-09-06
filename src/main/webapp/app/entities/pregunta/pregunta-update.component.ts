@@ -65,6 +65,19 @@ export default class PreguntaUpdate extends Vue {
 
   public save(): void {
     this.isSaving = true;
+
+    //console.log(this.pregunta.elementoId); //si reporta
+
+    if (this.pregunta.elementoId) {
+      this.elements.forEach(item => {
+        if (item.id == this.pregunta.elementoId) this.elemento = item;
+        // do something
+      });
+      //console.log(this.elemento); //si lo recupera
+      this.pregunta.elemento = this.elemento.elemento; //error al guardar
+      console.log(this.pregunta.elemento);
+    }
+
     if (this.pregunta.id) {
       this.preguntaService()
         .update(this.pregunta)
