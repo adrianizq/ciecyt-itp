@@ -136,7 +136,8 @@
       "edit": "Editar",
       "open": "Abrir",
       "save": "Guardar",
-      "view": "Vista"
+      "view": "Vista",
+      "eval": "Evaluar"
     },
     "detail": {
       "field": "Campo",

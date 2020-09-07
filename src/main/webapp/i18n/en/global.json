@@ -136,7 +136,8 @@
       "edit": "Edit",
       "open": "Open",
       "save": "Save",
-      "view": "View"
+      "view": "View",
+      "eval": "Evaluate"
     },
     "detail": {
       "field": "Field",
