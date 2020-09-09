@@ -1,5 +1,8 @@
 package co.edu.itp.ciecyt.domain;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 
@@ -12,6 +15,7 @@ import co.edu.itp.ciecyt.domain.enumeration.EnumRespuestas;
  */
 @Entity
 @Table(name = "proyecto_respuestas")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class ProyectoRespuestas implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -31,15 +35,18 @@ public class ProyectoRespuestas implements Serializable {
     @Column(name = "viable")
     private Boolean viable;
 
+    @Column(name = "proyecto_respuestas_pregunta_pregunta")
+    private String proyectoRespuestasPreguntaPregunta;
+
     @ManyToOne
-    @JsonIgnoreProperties("proyectoRespuestas")
+    @JsonIgnoreProperties(value = "proyectoRespuestas", allowSetters = true)
     private Pregunta proyectoRespuestasPregunta;
 
     @ManyToOne
-    @JsonIgnoreProperties("proyectoRespuestas")
+    @JsonIgnoreProperties(value = "proyectoRespuestas", allowSetters = true)
     private Proyecto proyectoRespuestasProyecto;
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
+    // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
         return id;
     }
@@ -87,6 +94,19 @@ public class ProyectoRespuestas implements Serializable {
         this.viable = viable;
     }
 
+    public String getProyectoRespuestasPreguntaPregunta() {
+        return proyectoRespuestasPreguntaPregunta;
+    }
+
+    public ProyectoRespuestas proyectoRespuestasPreguntaPregunta(String proyectoRespuestasPreguntaPregunta) {
+        this.proyectoRespuestasPreguntaPregunta = proyectoRespuestasPreguntaPregunta;
+        return this;
+    }
+
+    public void setProyectoRespuestasPreguntaPregunta(String proyectoRespuestasPreguntaPregunta) {
+        this.proyectoRespuestasPreguntaPregunta = proyectoRespuestasPreguntaPregunta;
+    }
+
     public Pregunta getProyectoRespuestasPregunta() {
         return proyectoRespuestasPregunta;
     }
@@ -112,7 +132,7 @@ public class ProyectoRespuestas implements Serializable {
     public void setProyectoRespuestasProyecto(Proyecto proyecto) {
         this.proyectoRespuestasProyecto = proyecto;
     }
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
+    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
     public boolean equals(Object o) {
@@ -130,6 +150,7 @@ public class ProyectoRespuestas implements Serializable {
         return 31;
     }
 
+    // prettier-ignore
     @Override
     public String toString() {
         return "ProyectoRespuestas{" +
@@ -137,6 +158,7 @@ public class ProyectoRespuestas implements Serializable {
             ", respuesta='" + getRespuesta() + "'" +
             ", observaciones='" + getObservaciones() + "'" +
             ", viable='" + isViable() + "'" +
+            ", proyectoRespuestasPreguntaPregunta='" + getProyectoRespuestasPreguntaPregunta() + "'" +
             "}";
     }
 }

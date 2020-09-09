@@ -33,12 +33,6 @@ public class ProyectoRespuestasServiceImpl implements ProyectoRespuestasService 
         this.proyectoRespuestasMapper = proyectoRespuestasMapper;
     }
 
-    /**
-     * Save a proyectoRespuestas.
-     *
-     * @param proyectoRespuestasDTO the entity to save.
-     * @return the persisted entity.
-     */
     @Override
     public ProyectoRespuestasDTO save(ProyectoRespuestasDTO proyectoRespuestasDTO) {
         log.debug("Request to save ProyectoRespuestas : {}", proyectoRespuestasDTO);
@@ -47,12 +41,6 @@ public class ProyectoRespuestasServiceImpl implements ProyectoRespuestasService 
         return proyectoRespuestasMapper.toDto(proyectoRespuestas);
     }
 
-    /**
-     * Get all the proyectoRespuestas.
-     *
-     * @param pageable the pagination information.
-     * @return the list of entities.
-     */
     @Override
     @Transactional(readOnly = true)
     public Page<ProyectoRespuestasDTO> findAll(Pageable pageable) {
@@ -62,12 +50,6 @@ public class ProyectoRespuestasServiceImpl implements ProyectoRespuestasService 
     }
 
 
-    /**
-     * Get one proyectoRespuestas by id.
-     *
-     * @param id the id of the entity.
-     * @return the entity.
-     */
     @Override
     @Transactional(readOnly = true)
     public Optional<ProyectoRespuestasDTO> findOne(Long id) {
@@ -76,11 +58,6 @@ public class ProyectoRespuestasServiceImpl implements ProyectoRespuestasService 
             .map(proyectoRespuestasMapper::toDto);
     }
 
-    /**
-     * Delete the proyectoRespuestas by id.
-     *
-     * @param id the id of the entity.
-     */
     @Override
     public void delete(Long id) {
         log.debug("Request to delete ProyectoRespuestas : {}", id);

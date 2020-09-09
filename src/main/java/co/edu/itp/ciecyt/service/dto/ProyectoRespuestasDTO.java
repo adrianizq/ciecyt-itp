@@ -1,13 +1,13 @@
 package co.edu.itp.ciecyt.service.dto;
+
 import java.io.Serializable;
-import java.util.Objects;
 import co.edu.itp.ciecyt.domain.enumeration.EnumRespuestas;
 
 /**
  * A DTO for the {@link co.edu.itp.ciecyt.domain.ProyectoRespuestas} entity.
  */
 public class ProyectoRespuestasDTO implements Serializable {
-
+    
     private Long id;
 
     private EnumRespuestas respuesta;
@@ -16,7 +16,6 @@ public class ProyectoRespuestasDTO implements Serializable {
 
     private Boolean viable;
 
-
     private Long proyectoRespuestasPreguntaId;
 
     private String proyectoRespuestasPreguntaPregunta;
@@ -24,7 +23,7 @@ public class ProyectoRespuestasDTO implements Serializable {
     private Long proyectoRespuestasProyectoId;
 
     private String proyectoRespuestasProyectoTitulo;
-
+    
     public Long getId() {
         return id;
     }
@@ -57,6 +56,14 @@ public class ProyectoRespuestasDTO implements Serializable {
         this.viable = viable;
     }
 
+    public String getProyectoRespuestasPreguntaPregunta() {
+        return proyectoRespuestasPreguntaPregunta;
+    }
+
+    public void setProyectoRespuestasPreguntaPregunta(String proyectoRespuestasPreguntaPregunta) {
+        this.proyectoRespuestasPreguntaPregunta = proyectoRespuestasPreguntaPregunta;
+    }
+
     public Long getProyectoRespuestasPreguntaId() {
         return proyectoRespuestasPreguntaId;
     }
@@ -65,13 +72,9 @@ public class ProyectoRespuestasDTO implements Serializable {
         this.proyectoRespuestasPreguntaId = preguntaId;
     }
 
-    public String getProyectoRespuestasPreguntaPregunta() {
-        return proyectoRespuestasPreguntaPregunta;
-    }
+   
 
-    public void setProyectoRespuestasPreguntaPregunta(String preguntaPregunta) {
-        this.proyectoRespuestasPreguntaPregunta = preguntaPregunta;
-    }
+    
 
     public Long getProyectoRespuestasProyectoId() {
         return proyectoRespuestasProyectoId;
@@ -94,22 +97,19 @@ public class ProyectoRespuestasDTO implements Serializable {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof ProyectoRespuestasDTO)) {
             return false;
         }
 
-        ProyectoRespuestasDTO proyectoRespuestasDTO = (ProyectoRespuestasDTO) o;
-        if (proyectoRespuestasDTO.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), proyectoRespuestasDTO.getId());
+        return id != null && id.equals(((ProyectoRespuestasDTO) o).id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return 31;
     }
 
+    // prettier-ignore
     @Override
     public String toString() {
         return "ProyectoRespuestasDTO{" +
@@ -117,10 +117,10 @@ public class ProyectoRespuestasDTO implements Serializable {
             ", respuesta='" + getRespuesta() + "'" +
             ", observaciones='" + getObservaciones() + "'" +
             ", viable='" + isViable() + "'" +
-            ", proyectoRespuestasPregunta=" + getProyectoRespuestasPreguntaId() +
-            ", proyectoRespuestasPregunta='" + getProyectoRespuestasPreguntaPregunta() + "'" +
-            ", proyectoRespuestasProyecto=" + getProyectoRespuestasProyectoId() +
-            ", proyectoRespuestasProyecto='" + getProyectoRespuestasProyectoTitulo() + "'" +
+            ", proyectoRespuestasPreguntaPregunta='" + getProyectoRespuestasPreguntaPregunta() + "'" +
+            ", proyectoRespuestasPreguntaId=" + getProyectoRespuestasPreguntaId() +
+            ", proyectoRespuestasProyectoId=" + getProyectoRespuestasProyectoId() +
+            ", proyectoRespuestasProyectoTitulo='" + getProyectoRespuestasProyectoTitulo() + "'" +
             "}";
     }
 }

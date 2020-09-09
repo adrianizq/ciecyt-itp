@@ -293,6 +293,7 @@ const PropuestaLineaCronograma = () => import('../pages/propuesta_linea/cronogra
 const PropuestaLineaEstadoPropuestas = () => import('../pages/propuesta_linea/estado_propuestas_linea.vue');
 
 const PropuestaListado = () => import('../pages/viabilidad_propuesta/listado.vue');
+const PropuestaEvaluar = () => import('../pages/viabilidad_propuesta/propuesta_evaluar.vue');
 
 Vue.use(Router);
 
@@ -1588,6 +1589,13 @@ export default new Router({
       path: '/viabilidad-propuesta/listado',
       name: 'PropuestaListadoView',
       component: PropuestaListado,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+
+    {
+      path: '/viabilidad-propuesta/propuesta-evaluar',
+      name: 'PropuestaEvaluarView',
+      component: PropuestaEvaluar,
       meta: { authorities: ['ROLE_USER'] }
     },
 
