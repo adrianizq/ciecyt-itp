@@ -46,4 +46,12 @@ export default class PreguntaService {
       });
     });
   }
+
+  public retrievePreguntasModalidad(id: number, paginationQuery?: any): Promise<any> {
+    return new Promise<any>(resolve => {
+      axios.get('api/pregunta-modalidad' + `/${id}` + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function(res) {
+        resolve(res);
+      });
+    });
+  }
 }

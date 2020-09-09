@@ -46,4 +46,12 @@ export default class ProyectoRespuestasService {
       });
     });
   }
+
+  public retrieveProyectoRespuestas(id?: number, paginationQuery?: any): Promise<any> {
+    return new Promise<any>(resolve => {
+      axios.get('api/proyecto-respuestas-proyecto' + `/${id}` + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function(res) {
+        resolve(res);
+      });
+    });
+  }
 }

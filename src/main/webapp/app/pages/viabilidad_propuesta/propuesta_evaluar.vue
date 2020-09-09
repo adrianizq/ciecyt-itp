@@ -165,8 +165,7 @@ export default class PropuestaEvaluar extends Vue {
             //
             
               this.proyectoRespuestasService()
-                //.retrieveProyectoRespuestas(this.proyId)   //recup los proyresp con un idproy
-                .retrieve(this.proyId)
+                .retrieveProyectoRespuestas(this.proyId)   //recup los proyresp con un idproy
                 .then(res=> {
 
                     this.proyectoRespuests = res.data;
@@ -180,8 +179,8 @@ export default class PropuestaEvaluar extends Vue {
            
               this.preguntaService()
                 //.retrieveElementosModalidad( this.modalidadId) 
-                //.retrievePreguntasModalidad( this.modalidadId) //recup pregs por molalid 
-                .retrieve( this.modalidadId)
+                .retrievePreguntasModalidad( this.modalidadId) //recup pregs por molalid 
+                //.retrieve( this.modalidadId)
                 .then(res => {
                     this.pregunts = res.data;
                   //copiar los datos de pregunta a proyecto-respuestas

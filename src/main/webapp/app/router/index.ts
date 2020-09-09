@@ -1643,13 +1643,14 @@ export default new Router({
       component: ProyectoUpdate,
       meta: { authorities: ['ROLE_USER'] }
     },
+    /*
     {
       path: '/entity/proyecto/:proyectoId/view',
       name: 'ProyectoView',
       component: ProyectoDetails,
       meta: { authorities: ['ROLE_USER'] }
     }
-    ,
+   ,*/
     {
       path: '/entity/elemento-proyecto',
       name: 'ElementoProyecto',
