@@ -12,21 +12,7 @@
                      <div class="col-12" v-for="(ep, e) in proyectoRespuests" :key="e">
                        
 
-                         <div class="form-group">
-
-                           <!-- <b-form-textarea rows="5"  max-rows="10" class="form-control" 
-                            
-                                   v-model="ep.elementoProyectoProyectoDescripcion" />
-                            -->
-
-                        </div>
-                        <!--
-                       <b-form-group
-                            :label="ep.proyectoRespuestasPreguntaPregunta"
-                            :label-for="`ep-${i}`" 
-                            :description="ep.elemento"
-                       >
-                       -->
+                    
 
                          <b-form-group
                             :label="ep.proyectoRespuestasPreguntaPregunta"
@@ -149,6 +135,7 @@ export default class PropuestaEvaluar extends Vue {
 
 
                this.proyId = parseInt(this.$route.params.proyectoId);
+               //console.log(this.proyId); //funciona
 
 
                 //this.proyecto = await this.proyectoService().find(this.proyId);
@@ -193,9 +180,10 @@ export default class PropuestaEvaluar extends Vue {
                   //elemProy.elemento = e.elemento;
                   pregProy.proyectoRespuestasProyectoId = this.proyId;
                   this.proyectoRespuests.push(pregProy);
+                  
 
                   }); 
-                   console.log("elements");
+                   console.log(this.proyectoRespuests);
                  });
             
             ///////////////////////////////////////////////////////7

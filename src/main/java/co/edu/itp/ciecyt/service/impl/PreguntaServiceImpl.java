@@ -1,8 +1,10 @@
 package co.edu.itp.ciecyt.service.impl;
 
+import co.edu.itp.ciecyt.domain.Elemento;
 import co.edu.itp.ciecyt.service.PreguntaService;
 import co.edu.itp.ciecyt.domain.Pregunta;
 import co.edu.itp.ciecyt.repository.PreguntaRepository;
+import co.edu.itp.ciecyt.service.dto.ElementoDTO;
 import co.edu.itp.ciecyt.service.dto.PreguntaDTO;
 import co.edu.itp.ciecyt.service.mapper.PreguntaMapper;
 import org.slf4j.Logger;
@@ -13,6 +15,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -62,5 +66,18 @@ public class PreguntaServiceImpl implements PreguntaService {
     public void delete(Long id) {
         log.debug("Request to delete Pregunta : {}", id);
         preguntaRepository.deleteById(id);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<PreguntaDTO> findByPreguntaModalidadId(Long idModalidad) throws Exception {
+        log.debug("Request to get all Preguntas de una modalidad con una idModalidad");
+        List<PreguntaDTO> listDTO = new ArrayList<>();
+        List<Pregunta> list = preguntaRepository.findByPreguntaModalidadId(idModalidad);
+
+        for (Pregunta pregunta : list) {
+            listDTO.add(preguntaMapper.toDto(pregunta));
+        }
+        return listDTO;
     }
 }

@@ -1593,7 +1593,7 @@ export default new Router({
     },
 
     {
-      path: '/viabilidad-propuesta/propuesta-evaluar',
+      path: '/viabilidad-propuesta/propuesta-evaluar/:proyectoId',
       name: 'PropuestaEvaluarView',
       component: PropuestaEvaluar,
       meta: { authorities: ['ROLE_USER'] }

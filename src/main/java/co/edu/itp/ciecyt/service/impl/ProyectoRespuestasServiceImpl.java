@@ -1,8 +1,10 @@
 package co.edu.itp.ciecyt.service.impl;
 
+import co.edu.itp.ciecyt.domain.ElementoProyecto;
 import co.edu.itp.ciecyt.service.ProyectoRespuestasService;
 import co.edu.itp.ciecyt.domain.ProyectoRespuestas;
 import co.edu.itp.ciecyt.repository.ProyectoRespuestasRepository;
+import co.edu.itp.ciecyt.service.dto.ElementoProyectoDTO;
 import co.edu.itp.ciecyt.service.dto.ProyectoRespuestasDTO;
 import co.edu.itp.ciecyt.service.mapper.ProyectoRespuestasMapper;
 import org.slf4j.Logger;
@@ -13,6 +15,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -62,5 +66,17 @@ public class ProyectoRespuestasServiceImpl implements ProyectoRespuestasService 
     public void delete(Long id) {
         log.debug("Request to delete ProyectoRespuestas : {}", id);
         proyectoRespuestasRepository.deleteById(id);
+    }
+
+    @Override
+    public List<ProyectoRespuestasDTO> findByProyectoRespuestasProyectoId(Long idProyecto) throws Exception {
+        log.debug("Request to get all ElementoProyecto whit a idProyecto");
+        List<ProyectoRespuestasDTO> listDTO = new ArrayList<>();
+        List<ProyectoRespuestas> list = proyectoRespuestasRepository.findByProyectoRespuestasProyectoIdOrderByProyectoRespuestasProyectoId(idProyecto);
+
+        for (ProyectoRespuestas obj : list) {
+            listDTO.add(proyectoRespuestasMapper.toDto(obj));
+        }
+        return listDTO;
     }
 }

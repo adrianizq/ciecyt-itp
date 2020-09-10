@@ -1,6 +1,7 @@
 package co.edu.itp.ciecyt.web.rest;
 
 import co.edu.itp.ciecyt.service.ProyectoRespuestasService;
+import co.edu.itp.ciecyt.service.dto.ElementoProyectoDTO;
 import co.edu.itp.ciecyt.web.rest.errors.BadRequestAlertException;
 import co.edu.itp.ciecyt.service.dto.ProyectoRespuestasDTO;
 
@@ -124,5 +125,27 @@ public class ProyectoRespuestasResource {
         log.debug("REST request to delete ProyectoRespuestas : {}", id);
         proyectoRespuestasService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+    }
+
+
+    /////////////777777777777777777777777777777777777777777777
+
+    /**
+     * {@code GET  /proyecto-respuestas-proyectos/:id} : get the "id" idProyecto.
+     *
+     * @param idProyecto the id of the proyectoRespuestasDTO to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the proyectoRespuestasDTO, or with status {@code 404 (Not Found)}.
+     */
+    @GetMapping("/proyecto-respuestas-proyecto/{idProyecto}")
+    public ResponseEntity<?> getProyectoRespuestasProyecto(@PathVariable Long idProyecto) {
+        log.debug("REST request to get ProyectoRespuestasProyecto : {}", idProyecto);
+        try {
+            final List<ProyectoRespuestasDTO> proyectoRespuestasDTO = proyectoRespuestasService.findByProyectoRespuestasProyectoId(idProyecto);
+            return new ResponseEntity<>(proyectoRespuestasDTO, HttpStatus.OK);
+
+        } catch (Exception e) {
+
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
     }
 }
