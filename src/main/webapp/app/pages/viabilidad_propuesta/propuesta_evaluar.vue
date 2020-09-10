@@ -138,12 +138,12 @@ export default class PropuestaEvaluar extends Vue {
                //console.log(this.proyId); //funciona
 
 
-                //this.proyecto = await this.proyectoService().find(this.proyId);
-               await this.proyectoService()
-                    .find(this.proyId)
-                    .then(res=> {
-                        this.proyecto = res;
-                    })
+                this.proyecto = await this.proyectoService().find(this.proyId);
+               //await this.proyectoService()
+               //     .find(this.proyId)
+               //     .then(res=> {
+               //         this.proyecto = res;
+                //    })
 
                 this.modalidadId = this.proyecto.proyectoModalidadId;
 
