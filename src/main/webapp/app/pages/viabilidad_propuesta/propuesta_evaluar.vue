@@ -11,26 +11,16 @@
                 <div class="row">
                      <div class="col-12" v-for="(ep, i) in proyectoRespuests" :key="i">
     
-                      <!--<b-form-group
-                            :label="ep.proyectoRespuestasPreguntaPregunta"
-                            :label-for="`ep-${i}`" 
-                                                   
-                       >
-                       <div class="form-group" >
-
-                            <b-form-textarea rows="2"  max-rows="10" class="form-control" :name="`ep-${i}`"
-                            :id="`ep-${i}`" 
-                                   v-model="ep.respuesta"   />
-                            </div>
-                       </b-form-group> -->
-
+                    <b-card  
+       
+                    border-variant="primary"
+        
+                    header-bg-variant="light"
+                     body-bg-variant="light"
+                    header-text-variant="info">
                       
 
-                       
-
-
-
-                        <b-form-group
+                     <b-form-group
                             :label="ep.elemento"
                             :label-for="`ep-${i}`" 
                             :description="ep.proyectoRespuestasPreguntaPregunta"
@@ -41,7 +31,7 @@
                             <b-form-textarea rows="2"  max-rows="10" class="form-control" :name="`ep-${i}`"
                             :id="`ep-${i}`" 
                                    v-model="ep.elemento"   />
-                            </div>
+                       </div>
                        </b-form-group>
 
 
@@ -67,11 +57,14 @@
                             <option value="NO_APLICA" v-bind:label="$t('ciecytApp.EnumRespuestas.NO_APLICA')">NO_APLICA</option>
                         </select>
                     </div>
-                       <!------------------------------------------------->
-   
-                    </div>
-                </div>
 
+                     </b-card>
+                       <!------------------------------------------------->
+    
+                    </div>
+                     
+                </div>
+              
 
                 <div>
 
