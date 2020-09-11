@@ -11,7 +11,7 @@
                 <div class="row">
                      <div class="col-12" v-for="(ep, i) in proyectoRespuests" :key="i">
     
-                     <!--  <b-form-group
+                      <!--<b-form-group
                             :label="ep.proyectoRespuestasPreguntaPregunta"
                             :label-for="`ep-${i}`" 
                                                    
@@ -24,6 +24,8 @@
                             </div>
                        </b-form-group> -->
 
+                      
+
                        
 
 
@@ -31,6 +33,7 @@
                         <b-form-group
                             :label="ep.elemento"
                             :label-for="`ep-${i}`" 
+                            :description="ep.proyectoRespuestasPreguntaPregunta"
                                                    
                        >
                        <div class="form-group" >
@@ -54,6 +57,17 @@
                                    v-model="ep.dato"   />
                             </div>
                        </b-form-group>
+
+                        <!----------------------------------------------->
+                        <div class="form-group">
+                        <label class="form-control-label" v-text="$t('ciecytApp.proyectoRespuestas.respuesta')" for="proyecto-respuestas-respuesta">Respuesta</label>
+                        <select class="form-control" name="respuesta"  v-model="ep.respuesta" id="proyecto-respuestas-respuesta" >
+                            <option value="CUMPLE" v-bind:label="$t('ciecytApp.EnumRespuestas.CUMPLE')">CUMPLE</option>
+                            <option value="NO_CUMPLE" v-bind:label="$t('ciecytApp.EnumRespuestas.NO_CUMPLE')">NO_CUMPLE</option>
+                            <option value="NO_APLICA" v-bind:label="$t('ciecytApp.EnumRespuestas.NO_APLICA')">NO_APLICA</option>
+                        </select>
+                    </div>
+                       <!------------------------------------------------->
    
                     </div>
                 </div>
@@ -89,7 +103,7 @@ import { Component, Inject, Vue } from 'vue-property-decorator';
 import MenuLateral from '@/components/propuesta/menu_lateral.vue';
 import AlertService from '@/shared/alert/alert.service';
 import ProyectoRespuestasService from '@/entities/proyecto-respuestas/proyecto-respuestas.service';
-import { IProyectoRespuestas, ProyectoRespuestas } from '@/shared/model/proyecto-respuestas.model';
+import { EnumRespuestas, IProyectoRespuestas, ProyectoRespuestas } from '@/shared/model/proyecto-respuestas.model';
 import PreguntaService from '@/entities/pregunta/pregunta.service';
 import { IPregunta, Pregunta } from '@/shared/model/pregunta.model';
 import { IProyecto, Proyecto } from '@/shared/model/proyecto.model';
@@ -123,19 +137,21 @@ export default class PropuestaEvaluar extends Vue {
     public proyecto: IProyecto = new Proyecto();
     public proyId: any = null;
     public modalidadId: number = 0;
+    public enumRespuestas: EnumRespuestas;
 
     public isSaving = false;
 
 
         beforeRouteEnter(to, from, next) {
             next(vm => {
-
+                    
                     vm.initRelationships();
             });
         }
 
         public save(): void {//debo guardar un elemento proyecto
             try {
+                //this.enumRespuestas.
                 this.isSaving = true;
                 for (let e of this.proyectoRespuests) {
                     if (e.id) {
@@ -206,10 +222,7 @@ export default class PropuestaEvaluar extends Vue {
               console.log("error al recuperar la informacion de elemento ");
             }
         }
-         get Respuests() {
-            return this.
-            });
-        }
+        
 }
 </script>
 
