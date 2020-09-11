@@ -13,6 +13,8 @@ export interface IProyectoRespuestas {
   proyectoRespuestasPreguntaId?: number;
   proyectoRespuestasProyectoTitulo?: string;
   proyectoRespuestasProyectoId?: number;
+  elemento?: string;
+  dato?: string;
 }
 
 export class ProyectoRespuestas implements IProyectoRespuestas {
@@ -24,7 +26,9 @@ export class ProyectoRespuestas implements IProyectoRespuestas {
     public proyectoRespuestasPreguntaPregunta?: string,
     public proyectoRespuestasPreguntaId?: number,
     public proyectoRespuestasProyectoTitulo?: string,
-    public proyectoRespuestasProyectoId?: number
+    public proyectoRespuestasProyectoId?: number,
+    public elemento?: string,
+    public dato?: string
   ) {
     this.viable = this.viable || false;
   }
