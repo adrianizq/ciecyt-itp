@@ -31,6 +31,12 @@
                             <option v-bind:value="modalidadOption.id" v-for="modalidadOption in modalidads" :key="modalidadOption.id">{{modalidadOption.modalidad}}</option>
                         </select>
                     </div>
+                     <div class="form-group">
+                        <label class="form-control-label" v-bind:value="$t('ciecytApp.rolesModalidad.rolesModalidadAuthority')" for="roles-modalidad-rolesModalidadAuthority">Autoridad</label>
+                        <select class="form-control"  name="authority" v-model="rolesModalidad.rolesModalidadAuthorityName">
+                            <option v-for="authority of authorities" :value="authority" :key="authority">{{authority}}</option>
+                        </select>
+                    </div>
                 </div>
                 <div>
                     <button type="button" id="cancel-save" class="btn btn-secondary" v-on:click="previousState()">

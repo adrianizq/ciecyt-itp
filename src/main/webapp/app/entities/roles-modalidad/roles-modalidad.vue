@@ -29,6 +29,7 @@
                     <th v-on:click="changeOrder('cantidad')"><span v-text="$t('ciecytApp.rolesModalidad.cantidad')">Cantidad</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th v-on:click="changeOrder('calificador')"><span v-text="$t('ciecytApp.rolesModalidad.calificador')">Calificador</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th v-on:click="changeOrder('rolesModalidadModalidadModalidad')"><span v-text="$t('ciecytApp.rolesModalidad.rolesModalidadModalidad')">Roles Modalidad Modalidad</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
+                    <th v-on:click="changeOrder('rolesModalidadAuthorityName')"><span v-text="$t('ciecytApp.rolesModalidad.rolesModalidadAuthority')">Roles Modalidad Authority</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th></th>
                 </tr>
                 </thead>
@@ -45,6 +46,9 @@
                         <div v-if="rolesModalidad.rolesModalidadModalidadId">
                             <router-link :to="{name: 'ModalidadView', params: {modalidadId: rolesModalidad.rolesModalidadModalidadId}}">{{rolesModalidad.rolesModalidadModalidadModalidad}}</router-link>
                         </div>
+                    </td>
+                    <td>
+                      {{rolesModalidad.rolesModalidadAuthorityName}}
                     </td>
                     <td class="text-right">
                         <div class="btn-group">

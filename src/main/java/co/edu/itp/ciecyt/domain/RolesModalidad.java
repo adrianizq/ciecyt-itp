@@ -28,6 +28,9 @@ public class RolesModalidad implements Serializable {
     @Column(name = "calificador")
     private Boolean calificador;
 
+    @Column(name = "roles_modalidad_authority_name")
+    private String rolesModalidadAuthorityName;
+
     @ManyToOne
     @JsonIgnoreProperties("rolesModalidads")
     private Modalidad rolesModalidadModalidad;
@@ -53,6 +56,21 @@ public class RolesModalidad implements Serializable {
     public void setRol(String rol) {
         this.rol = rol;
     }
+
+    
+    public String getRolesModalidadAuthorityName() {
+        return rolesModalidadAuthorityName;
+    }
+
+    public RolesModalidad rolesModalidadAuthorityName(String rolesModalidadAuthorityName) {
+        this.rolesModalidadAuthorityName = rolesModalidadAuthorityName;
+        return this;
+    }
+
+    public void setRolesModalidadAuthorityName(String rolesModalidadAuthorityName) {
+        this.rolesModalidadAuthorityName = rolesModalidadAuthorityName;
+    }
+    
 
     public Integer getCantidad() {
         return cantidad;
@@ -115,6 +133,7 @@ public class RolesModalidad implements Serializable {
         return "RolesModalidad{" +
             "id=" + getId() +
             ", rol='" + getRol() + "'" +
+            ", rolesModalidadAuthorityName='" + getRolesModalidadAuthorityName() + "'" +
             ", cantidad=" + getCantidad() +
             ", calificador='" + isCalificador() + "'" +
             "}";

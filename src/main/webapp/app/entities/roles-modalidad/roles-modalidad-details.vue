@@ -30,6 +30,15 @@
                             <router-link :to="{name: 'ModalidadView', params: {rolesModalidadModalidadId: rolesModalidad.rolesModalidadModalidadId}}">{{rolesModalidad.rolesModalidadModalidadModalidad}}</router-link>
                         </div>
                     </dd>
+
+                    <!------------------------------------>
+                     <dt>
+                        <span v-text="$t('ciecytApp.rolesModalidad.rolesModalidadAuthority')">Roles Modalidad Authority</span>
+                    </dt>
+                    <dd>
+                         <span>{{rolesModalidad.rolesModalidadAuthority}}</span>
+                    </dd>
+                    <!------------------------------------->
                 </dl>
                 <button type="submit"
                         v-on:click.prevent="previousState()"

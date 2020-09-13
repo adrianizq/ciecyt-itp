@@ -1,12 +1,12 @@
 package co.edu.itp.ciecyt.service.dto;
+
 import java.io.Serializable;
-import java.util.Objects;
 
 /**
  * A DTO for the {@link co.edu.itp.ciecyt.domain.RolesModalidad} entity.
  */
 public class RolesModalidadDTO implements Serializable {
-
+    
     private Long id;
 
     private String rol;
@@ -20,6 +20,8 @@ public class RolesModalidadDTO implements Serializable {
 
     private String rolesModalidadModalidadModalidad;
 
+    private String rolesModalidadAuthorityName;
+    
     public Long getId() {
         return id;
     }
@@ -68,27 +70,32 @@ public class RolesModalidadDTO implements Serializable {
         this.rolesModalidadModalidadModalidad = modalidadModalidad;
     }
 
+    public String getRolesModalidadAuthorityName() {
+        return rolesModalidadAuthorityName;
+    }
+
+    public void setRolesModalidadAuthorityName(String authorityName) {
+        this.rolesModalidadAuthorityName = authorityName;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof RolesModalidadDTO)) {
             return false;
         }
 
-        RolesModalidadDTO rolesModalidadDTO = (RolesModalidadDTO) o;
-        if (rolesModalidadDTO.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), rolesModalidadDTO.getId());
+        return id != null && id.equals(((RolesModalidadDTO) o).id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return 31;
     }
 
+    // prettier-ignore
     @Override
     public String toString() {
         return "RolesModalidadDTO{" +
@@ -96,8 +103,9 @@ public class RolesModalidadDTO implements Serializable {
             ", rol='" + getRol() + "'" +
             ", cantidad=" + getCantidad() +
             ", calificador='" + isCalificador() + "'" +
-            ", rolesModalidadModalidad=" + getRolesModalidadModalidadId() +
-            ", rolesModalidadModalidad='" + getRolesModalidadModalidadModalidad() + "'" +
+            ", rolesModalidadModalidadId=" + getRolesModalidadModalidadId() +
+            ", rolesModalidadModalidadModalidad='" + getRolesModalidadModalidadModalidad() + "'" +
+            ", rolesModalidadAuthorityName='" + getRolesModalidadAuthorityName() + "'" +
             "}";
     }
 }

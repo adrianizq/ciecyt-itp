@@ -5,6 +5,8 @@ export interface IRolesModalidad {
   calificador?: boolean;
   rolesModalidadModalidadModalidad?: string;
   rolesModalidadModalidadId?: number;
+  //rolesModalidadAuthority?: string,
+  rolesModalidadAuthorityName?: string;
 }
 
 export class RolesModalidad implements IRolesModalidad {
@@ -14,7 +16,9 @@ export class RolesModalidad implements IRolesModalidad {
     public cantidad?: number,
     public calificador?: boolean,
     public rolesModalidadModalidadModalidad?: string,
-    public rolesModalidadModalidadId?: number
+    public rolesModalidadModalidadId?: number,
+    //public rolesModalidadAuthority?: string,
+    public rolesModalidadAuthorityName?: string
   ) {
     this.calificador = this.calificador || false;
   }

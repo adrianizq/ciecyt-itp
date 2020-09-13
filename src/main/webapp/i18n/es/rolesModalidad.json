@@ -19,7 +19,8 @@
       "rol": "Rol",
       "cantidad": "Cantidad",
       "calificador": "¿Es calificador?",
-      "rolesModalidadModalidad": "Modalidad"
+      "rolesModalidadModalidad": "Modalidad",
+      "rolesModalidadAuthority": "Autoridades"
     }
   }
 }
