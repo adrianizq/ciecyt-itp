@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -52,4 +53,6 @@ public interface ProyectoService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+    List<ProyectoDTO> findByIntegranteProyecto(Long idUsuaro) throws Exception;
 }

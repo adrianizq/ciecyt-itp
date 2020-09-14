@@ -241,55 +241,10 @@ public getAlertFromStore() {
                     vm.initRelationships();
             });
         }
-
-       /* public save(): void {//debo guardar un elemento proyecto
-            try {
-                this.isSaving = true;
-
-                for (let e of this.proyects) {
-                    //Actualizando el integrante
-
-                    if (e.id) {
-                        this.proyectoService().update(e); //envio un elemento
-                    } else {
-                        //Creando un nuevo integrante
-                        this.proyectoService().create(e)
-                        .then(param => {
-                            this.$router.push({ name: 'PropuestaEvaluarView',params:{ proyectoId: this.proyId}});
-                        });
-                    }
-                }
-
-            } catch (e) {
-                //TODO: mostrar mensajes de error
-            }
-        } */
-/*
-        async initRelationships() {
-           try {
-
-
-               this.proyId = parseInt(this.$route.params.proyectoId);
-
-
- 
-              //recuperar las elementosProyecto enviando un idProyecto (api)
-            //
-            
-              this.proyectoService()
-                .retrieve()
-                .then(res=> {
-
-                    this.proyects = res.data;
-    
-                });
- 
-            }
-            catch(e){
-              console.log("error al recuperar la informacion de elemento ");
-            }
-
-        }*/
+public get authorities(): string {
+    console.log(this.$store.getters.account);
+    return this.$store.getters.account ? this.$store.getters.account.authorities : '';
+  }
 
 }
 </script>

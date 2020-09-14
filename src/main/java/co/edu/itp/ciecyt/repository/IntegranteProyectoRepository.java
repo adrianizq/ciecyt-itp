@@ -20,6 +20,8 @@ public interface IntegranteProyectoRepository extends JpaRepository<IntegrantePr
     List<IntegranteProyecto> findByIntegranteProyectoProyectoIdAndIntegranteProyectoRolesModalidadIdIn(Long idProyecto, Long idRolModalidad);
 
     IntegranteProyecto findByIdOrderById(Long id);
+    //devuelve los IntegranteProyecto de un idUsuario
+    List<IntegranteProyecto> findByIntegranteProyectoUserId(Long idUsuario);
 
 
 }

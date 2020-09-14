@@ -173,4 +173,19 @@ public class IntegranteProyectoServiceImpl implements IntegranteProyectoService 
         return listDTO;
 
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<IntegranteProyecto> findByIntegranteProyectoUserId(Long idUsuario) throws Exception{
+        log.debug("Request to get all IntegranteProyectos whit a idUsuario");
+        //List <IntegranteProyectoDTO> listDTO = new ArrayList<>();
+        List <IntegranteProyecto> list = integranteProyectoRepository.findByIntegranteProyectoUserId( idUsuario);
+       /*
+        for (IntegranteProyecto integrante : list) {
+            listDTO.add( integranteProyectoMapper.toDto(integrante));
+        }
+        return listDTO;
+        */
+        return list;
+    }
 }

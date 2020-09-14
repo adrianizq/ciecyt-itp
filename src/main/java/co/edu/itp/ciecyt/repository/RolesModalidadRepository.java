@@ -16,4 +16,5 @@ public interface RolesModalidadRepository extends JpaRepository<RolesModalidad, 
     RolesModalidad findByRolAndRolesModalidadModalidadId(String rol, Long rolModalidad);
 
 
+
 }

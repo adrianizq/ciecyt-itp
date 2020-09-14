@@ -1,12 +1,11 @@
 package co.edu.itp.ciecyt.service.impl;
 
-import co.edu.itp.ciecyt.domain.Modalidad;
-import co.edu.itp.ciecyt.domain.RolesModalidad;
+import co.edu.itp.ciecyt.domain.*;
 import co.edu.itp.ciecyt.service.IntegranteProyectoService;
 import co.edu.itp.ciecyt.service.ProyectoService;
-import co.edu.itp.ciecyt.domain.Proyecto;
 import co.edu.itp.ciecyt.repository.ProyectoRepository;
 import co.edu.itp.ciecyt.service.RolesModalidadService;
+import co.edu.itp.ciecyt.service.dto.ElementoDTO;
 import co.edu.itp.ciecyt.service.dto.IntegranteProyectoDTO;
 import co.edu.itp.ciecyt.service.dto.ProyectoDTO;
 import co.edu.itp.ciecyt.service.dto.RolesModalidadDTO;
@@ -19,6 +18,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -171,4 +171,31 @@ public class ProyectoServiceImpl implements ProyectoService {
         log.debug("Request to delete Proyecto : {}", id);
         proyectoRepository.deleteById(id);
     }
+
+
+    @Transactional(readOnly = true)
+    public List<ProyectoDTO> findByIntegranteProyecto(Long idUsuaro) throws Exception {
+        log.debug("Request to get all Elementos de una modalidad con una idModalidad");
+        List<Proyecto> listaProyecto = new ArrayList<>();
+        List <IntegranteProyecto> listaIntegranteProyecto= integranteProyectoService.findByIntegranteProyectoUserId(idUsuaro);
+        if(listaIntegranteProyecto!=null){
+            for(IntegranteProyecto integranteProyecto: listaIntegranteProyecto){
+                Proyecto proyecto = new Proyecto();
+                proyecto = integranteProyecto.getIntegranteProyectoProyecto();
+                listaProyecto.add(proyecto);
+            }
+
+            List<ProyectoDTO> listDTO = new ArrayList<>();
+
+            for (Proyecto p : listaProyecto) {
+                listDTO.add(proyectoMapper.toDto(p));
+            }
+            return listDTO;
+        }
+        else{
+            return null;
+        }
+
+    }
+
 }

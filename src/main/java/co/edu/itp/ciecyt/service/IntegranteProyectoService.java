@@ -49,6 +49,8 @@ public interface IntegranteProyectoService {
     List<IntegranteProyectoDTO> findEstudiantesIntegranteProyectoId (Long idProyecto) throws Exception ;
     List<IntegranteProyectoDTO> findByIntegranteProyectoProyectoIdAndIntegranteProyectoRolesModalidadIdIn(Long idProyecto, Long idRolModalidad) throws Exception ;
     IntegranteProyectoDTO findOneOrderById(Long id)  throws Exception;
+    //devuelve los IntegranteProyecto de un idUsuario
+    List<IntegranteProyecto> findByIntegranteProyectoUserId(Long idUsuario) throws Exception;
 
 
 }

@@ -187,4 +187,27 @@ public class ProyectoResource {
         proyectoService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
+
+
+    ///////////////////////////////////////////////////////////////7777777777777777777777777
+
+    @GetMapping("/proyectos-integrante/{idUsuario}")
+    public ResponseEntity<?> findByIntegranteProyecto(@PathVariable Long idUsuario) {
+        log.debug("REST request to get Proyecto : {}", idUsuario);
+
+        try {
+
+            final List<ProyectoDTO> proyectoDTO = proyectoService.findByIntegranteProyecto(idUsuario);
+            ResponseEntity<ProyectoDTO> responseEntity = new ResponseEntity(proyectoDTO, HttpStatus.OK);
+            return responseEntity;
+
+
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+
+    }
+    //////////////////////////////////////////////////////////////////777777777777777777777
+
 }
