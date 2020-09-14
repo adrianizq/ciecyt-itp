@@ -25,6 +25,7 @@
         <div class="alert alert-warning" v-if="!isFetching && proyects && proyects.length === 0">
             <span>No se encontraron proyectos</span>
         </div>
+        <div>{{username}} con id {{userid}}</div>
         <div class="table-responsive" v-if="proyects && proyects.length > 0">
             <table class="table table-striped">
                 <thead>
@@ -169,7 +170,7 @@ public getAlertFromStore() {
       sort: this.sort()
     };
     this.proyectoService()
-      .retrieve(paginationQuery)
+      .retrieveProyectoIntegrante(this.userid,paginationQuery)
       .then(
         res => {
           this.proyects = res.data;
@@ -241,6 +242,15 @@ public getAlertFromStore() {
                     vm.initRelationships();
             });
         }
+
+public get username(): string {
+    return this.$store.getters.account ? this.$store.getters.account.login : '';
+  }
+
+  public get userid(): string {
+    return this.$store.getters.account ? this.$store.getters.account.id : '';
+  }
+
 public get authorities(): string {
     console.log(this.$store.getters.account);
     return this.$store.getters.account ? this.$store.getters.account.authorities : '';

@@ -1589,7 +1589,7 @@ export default new Router({
       path: '/viabilidad-propuesta/listado',
       name: 'PropuestaListadoView',
       component: PropuestaListado,
-      meta: { authorities: ['ROLE_USER'] }
+      meta: { authorities: ['ROLE_ASESOR']['ROLE_ASESOR'] }
     },
 
     {
