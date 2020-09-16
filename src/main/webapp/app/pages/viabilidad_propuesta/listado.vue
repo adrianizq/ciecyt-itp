@@ -170,7 +170,8 @@ public getAlertFromStore() {
       sort: this.sort()
     };
     this.proyectoService()
-      .retrieveProyectoIntegrante(this.userid,paginationQuery)
+      //.retrieveProyectoIntegrante(this.userid,paginationQuery)
+      .retrieveProyectoIntegranteAuthority(this.userid,"ROLE_JURADO",paginationQuery)
       .then(
         res => {
           this.proyects = res.data;

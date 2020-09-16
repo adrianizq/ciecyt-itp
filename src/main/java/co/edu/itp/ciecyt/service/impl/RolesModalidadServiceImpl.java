@@ -1,10 +1,12 @@
 package co.edu.itp.ciecyt.service.impl;
 
 import co.edu.itp.ciecyt.domain.ImpactosEsperados;
+import co.edu.itp.ciecyt.domain.IntegranteProyecto;
 import co.edu.itp.ciecyt.service.RolesModalidadService;
 import co.edu.itp.ciecyt.domain.RolesModalidad;
 import co.edu.itp.ciecyt.repository.RolesModalidadRepository;
 import co.edu.itp.ciecyt.service.dto.ImpactosEsperadosDTO;
+import co.edu.itp.ciecyt.service.dto.IntegranteProyectoDTO;
 import co.edu.itp.ciecyt.service.dto.RolesModalidadDTO;
 import co.edu.itp.ciecyt.service.mapper.RolesModalidadMapper;
 import org.slf4j.Logger;
@@ -98,6 +100,25 @@ public class RolesModalidadServiceImpl implements RolesModalidadService {
         log.debug("Request to get all ImpactosEsperados whit a idProyecto");
          RolesModalidad rolesModalidad = rolesModalidadRepository.findByRolAndRolesModalidadModalidadId(rol, rolModalidad);
          return rolesModalidadMapper.toDto(rolesModalidad);
+
+    }
+
+    public List<RolesModalidad> findByRolesModalidadAuthorityName(String authority) throws Exception{
+
+        log.debug("Request to get all RolesModalidad whit a authority");
+        List <RolesModalidad> list = rolesModalidadRepository.findByRolesModalidadAuthorityName(authority );
+        return list;
+    }
+
+    public List<RolesModalidadDTO> findByRolesModalidadAuthorityNameDTO(String authority) throws Exception{
+
+        log.debug("Request to get all IntegranteProyectos whit a idProyecto");
+        List <RolesModalidadDTO> listDTO = new ArrayList<>();
+        List <RolesModalidad> list = rolesModalidadRepository.findByRolesModalidadAuthorityName(authority );
+        for (RolesModalidad o : list) {
+           listDTO.add( rolesModalidadMapper.toDto(o));
+        }
+        return listDTO;
 
     }
 }

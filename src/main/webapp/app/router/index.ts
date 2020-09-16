@@ -1589,14 +1589,14 @@ export default new Router({
       path: '/viabilidad-propuesta/listado',
       name: 'PropuestaListadoView',
       component: PropuestaListado,
-      meta: { authorities: ['ROLE_ASESOR']['ROLE_ASESOR'] }
+      meta: { authorities: ['ROLE_JURADO'] }
     },
 
     {
       path: '/viabilidad-propuesta/propuesta-evaluar/:proyectoId',
       name: 'PropuestaEvaluarView',
       component: PropuestaEvaluar,
-      meta: { authorities: ['ROLE_USER'] }
+      meta: { authorities: ['ROLE_JURADO'] }
     },
 
    

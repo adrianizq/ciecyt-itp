@@ -3,6 +3,7 @@ import co.edu.itp.ciecyt.domain.IntegranteProyecto;
 
 import co.edu.itp.ciecyt.service.dto.IntegranteProyectoDTO;
 
+import co.edu.itp.ciecyt.service.dto.ProyectoDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -51,6 +52,9 @@ public interface IntegranteProyectoService {
     IntegranteProyectoDTO findOneOrderById(Long id)  throws Exception;
     //devuelve los IntegranteProyecto de un idUsuario
     List<IntegranteProyecto> findByIntegranteProyectoUserId(Long idUsuario) throws Exception;
+
+   // List<IntegranteProyecto> findByIntegranteProyectoUserAutority (Long idUsuario, String authority)throws Exception;
+   List<IntegranteProyecto> findByIntegranteProyectoAuthority(Long idUsuario, String authority) throws Exception;
 
 
 }

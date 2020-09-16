@@ -210,4 +210,25 @@ public class ProyectoResource {
     }
     //////////////////////////////////////////////////////////////////777777777777777777777
 
+
+
+    @GetMapping("/proyectos-integrante/{idUsuario}/{authority}")
+    public ResponseEntity<?> findByIntegranteProyectoAuthority(@PathVariable Long idUsuario, @PathVariable String authority) {
+        log.debug("REST request to get Proyecto : {}", idUsuario, authority);
+
+        try {
+
+            final List<ProyectoDTO> proyectoDTO = proyectoService.findByIntegranteProyectoAuthority(idUsuario, authority);
+            ResponseEntity<ProyectoDTO> responseEntity = new ResponseEntity(proyectoDTO, HttpStatus.OK);
+            return responseEntity;
+
+
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+
+    }
+    //////////////////////////////////////////////////////////////////777777777777777777777
+
 }

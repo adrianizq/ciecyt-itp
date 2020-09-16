@@ -1,5 +1,6 @@
 package co.edu.itp.ciecyt.service;
 
+import co.edu.itp.ciecyt.domain.IntegranteProyecto;
 import co.edu.itp.ciecyt.domain.Proyecto;
 import co.edu.itp.ciecyt.service.dto.ProyectoDTO;
 
@@ -54,5 +55,8 @@ public interface ProyectoService {
      */
     void delete(Long id);
 
-    List<ProyectoDTO> findByIntegranteProyecto(Long idUsuaro) throws Exception;
+    List<ProyectoDTO> findByIntegranteProyecto(Long idUsuario) throws Exception;
+    List<ProyectoDTO> findByIntegranteProyectoAuthority(Long idUsuario, String authority) throws Exception;
+
+    //List<IntegranteProyecto> findByIntegranteProyectoUserId(Long idUsuario, String authority);
 }

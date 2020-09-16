@@ -2,6 +2,7 @@ package co.edu.itp.ciecyt.web.rest;
 
 import co.edu.itp.ciecyt.service.RolesModalidadService;
 import co.edu.itp.ciecyt.service.dto.ImpactosEsperadosDTO;
+import co.edu.itp.ciecyt.service.dto.IntegranteProyectoDTO;
 import co.edu.itp.ciecyt.web.rest.errors.BadRequestAlertException;
 import co.edu.itp.ciecyt.service.dto.RolesModalidadDTO;
 
@@ -140,4 +141,19 @@ public class RolesModalidadResource {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
+
+    @GetMapping("/roles-modalidad-authority/{authority}")
+    public ResponseEntity<?> findByRolesModalidadAuthorityName(@PathVariable String authority) {
+        log.debug("REST request to get RolesModalidad : {}", authority);
+        try{
+        final List<RolesModalidadDTO> dto = rolesModalidadService.findByRolesModalidadAuthorityNameDTO(authority);
+            return new ResponseEntity<>(dto, HttpStatus.OK);
+
+        }catch (Exception e){
+
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body( e.getMessage());
+        }
+    }
+
+
 }

@@ -48,4 +48,7 @@ public interface RolesModalidadService {
 
 
     RolesModalidadDTO findByRolAndRolesModalidadModalidadId(String rol, Long rolModalidad) throws Exception;
+
+    List<RolesModalidad> findByRolesModalidadAuthorityName(String authority) throws Exception;
+    List<RolesModalidadDTO> findByRolesModalidadAuthorityNameDTO(String authority) throws Exception;
 }

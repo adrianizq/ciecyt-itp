@@ -18,6 +18,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.management.relation.Role;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -197,5 +198,37 @@ public class ProyectoServiceImpl implements ProyectoService {
         }
 
     }
+
+
+    ///////////////////////////////77777777777777777777777
+    @Transactional(readOnly = true)
+    public List<ProyectoDTO> findByIntegranteProyectoAuthority(Long idUsuario,  String authority) throws Exception {
+        log.debug("Request to get all Proyectos de una modalidad con una idModalidad");
+        //List<RolesModalidad> lRolesModalidad = rolesModalidadService.findByRolesModalidadAuthorityName(authority);
+
+        List<Proyecto> listaProyecto = new ArrayList<>();
+        List <IntegranteProyecto> listaIntegranteProyecto= integranteProyectoService.findByIntegranteProyectoAuthority(idUsuario,authority);
+        if(listaIntegranteProyecto!=null){
+
+
+            for(IntegranteProyecto integranteProyecto: listaIntegranteProyecto){
+                Proyecto proyecto = new Proyecto();
+                proyecto = integranteProyecto.getIntegranteProyectoProyecto();
+                listaProyecto.add(proyecto);
+            }
+
+            List<ProyectoDTO> listDTO = new ArrayList<>();
+
+            for (Proyecto p : listaProyecto) {
+                listDTO.add(proyectoMapper.toDto(p));
+            }
+            return listDTO;
+        }
+        else{
+            return null;
+        }
+
+    }
+    //////////////////////////////////////////77777777777777
 
 }

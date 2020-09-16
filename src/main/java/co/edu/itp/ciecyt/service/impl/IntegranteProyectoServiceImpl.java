@@ -2,11 +2,13 @@ package co.edu.itp.ciecyt.service.impl;
 
 import co.edu.itp.ciecyt.domain.Modalidad;
 import co.edu.itp.ciecyt.domain.Proyecto;
+import co.edu.itp.ciecyt.domain.RolesModalidad;
 import co.edu.itp.ciecyt.service.IntegranteProyectoService;
 import co.edu.itp.ciecyt.domain.IntegranteProyecto;
 import co.edu.itp.ciecyt.repository.IntegranteProyectoRepository;
 import co.edu.itp.ciecyt.service.RolesModalidadService;
 import co.edu.itp.ciecyt.service.dto.IntegranteProyectoDTO;
+import co.edu.itp.ciecyt.service.dto.ProyectoDTO;
 import co.edu.itp.ciecyt.service.dto.RolesModalidadDTO;
 import co.edu.itp.ciecyt.service.mapper.IntegranteProyectoMapper;
 import co.edu.itp.ciecyt.repository.ProyectoRepository;
@@ -177,15 +179,32 @@ public class IntegranteProyectoServiceImpl implements IntegranteProyectoService 
     @Override
     @Transactional(readOnly = true)
     public List<IntegranteProyecto> findByIntegranteProyectoUserId(Long idUsuario) throws Exception{
-        log.debug("Request to get all IntegranteProyectos whit a idUsuario");
-        //List <IntegranteProyectoDTO> listDTO = new ArrayList<>();
+       log.debug("Request to get all IntegranteProyectos whit a idUsuario");
         List <IntegranteProyecto> list = integranteProyectoRepository.findByIntegranteProyectoUserId( idUsuario);
-       /*
-        for (IntegranteProyecto integrante : list) {
-            listDTO.add( integranteProyectoMapper.toDto(integrante));
-        }
-        return listDTO;
-        */
         return list;
     }
+
+
+
+
+    @Transactional(readOnly = true)
+    public List<IntegranteProyecto> findByIntegranteProyectoAuthority(Long idUsuario, String authority)  throws Exception{
+        log.debug("Request to get all IntegranteProyectos whit a idUsuario");
+        List <IntegranteProyecto> listaNueva = new ArrayList<>();
+        List <IntegranteProyecto> list = integranteProyectoRepository.findByIntegranteProyectoUserId( idUsuario);
+       List <RolesModalidad> rolesModalidads = rolesModalidadService.findByRolesModalidadAuthorityName(authority);
+
+       for (IntegranteProyecto integranteProyecto: list){
+           Long idModalidad = integranteProyecto.getIntegranteProyectoRolesModalidad().getId();
+           for(RolesModalidad rolesModalidad: rolesModalidads){
+              Long idModalidadRoles = rolesModalidad.getId();
+               if (idModalidad==idModalidadRoles){
+                   listaNueva.add(integranteProyecto);
+               }
+            }
+        }
+
+        return listaNueva;
+    }
+
 }

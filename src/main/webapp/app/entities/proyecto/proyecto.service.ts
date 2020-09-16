@@ -33,6 +33,16 @@ export default class ProyectoService {
     });
   }
 
+  public retrieveProyectoIntegranteAuthority(idUsuario?: any, authority?: any, paginationQuery?: any): Promise<any> {
+    return new Promise<any>(resolve => {
+      axios
+        .get('api/proyectos-integrante' + `/${idUsuario}` + `/${authority}` + `?${buildPaginationQueryOpts(paginationQuery)}`)
+        .then(function(res) {
+          resolve(res);
+        });
+    });
+  }
+
   public retrieve(paginationQuery?: any): Promise<any> {
     return new Promise<any>(resolve => {
       axios.get(baseApiUrl + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function(res) {

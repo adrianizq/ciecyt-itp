@@ -1,5 +1,6 @@
 package co.edu.itp.ciecyt.repository;
 import co.edu.itp.ciecyt.domain.ImpactosEsperados;
+import co.edu.itp.ciecyt.domain.IntegranteProyecto;
 import co.edu.itp.ciecyt.domain.RolesModalidad;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
@@ -14,6 +15,9 @@ import java.util.List;
 @Repository
 public interface RolesModalidadRepository extends JpaRepository<RolesModalidad, Long> {
     RolesModalidad findByRolAndRolesModalidadModalidadId(String rol, Long rolModalidad);
+
+    List<RolesModalidad> findByRolesModalidadAuthorityName(String authority);
+
 
 
 
