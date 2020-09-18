@@ -1,12 +1,28 @@
 <template>
   <div role="tablist">
     <div v-for="(item, index) in items" :key="index">
-      <b-button
-        :disabled='proyectoId ? false : true'
+      <!-- <b-button
+       
         block
         v-b-toggle="'accordion-' + index"
         variant="default"
         :to="item.to+'/'+proyectoId"
+      >{{ item.title }}</b-button>
+      <b-collapse
+        :id="'accordion-' + index"
+        :visible="isActive(item.to)"
+        accordion="my-accordion"
+        role="tabpanel"
+        class="border rounded-bottom"
+      > -->
+
+
+      <b-button
+       
+        block
+        v-b-toggle="'accordion-' + index"
+        variant="default"
+        :to="item.to"
       >{{ item.title }}</b-button>
       <b-collapse
         :id="'accordion-' + index"
@@ -31,7 +47,7 @@ import { Vue, Prop } from 'vue-property-decorator';
 export default class PropuestaMenuLateralListado extends Vue {
   items = this.$store.getters.menuLateralListado;
   @Prop()
-  proyectoId: number;
+  //proyectoId: number;
 
   isActive(to) {
     return to == this.$route.path;

@@ -267,7 +267,7 @@ export function initVueXStore(vue) {
         {
           title: 'Asesor',
           description: 'Espacio para revisar las propuestas a cargo',
-          to: '/viabilidad-propuesta/listadoAsesor'
+          to: '/viabilidad-propuesta/listado-asesor'
         }
       ]
     },
