@@ -293,6 +293,7 @@ const PropuestaLineaCronograma = () => import('../pages/propuesta_linea/cronogra
 const PropuestaLineaEstadoPropuestas = () => import('../pages/propuesta_linea/estado_propuestas_linea.vue');
 
 const PropuestaListado = () => import('../pages/viabilidad_propuesta/listado.vue');
+const PropuestaListadoAsesor = () => import('../pages/viabilidad_propuesta/listado_asesor.vue');
 const PropuestaEvaluar = () => import('../pages/viabilidad_propuesta/propuesta_evaluar.vue');
 
 Vue.use(Router);
@@ -1590,6 +1591,13 @@ export default new Router({
       name: 'PropuestaListadoView',
       component: PropuestaListado,
       meta: { authorities: ['ROLE_JURADO'] }
+    },
+
+    {
+      path: '/viabilidad-propuesta/listado-asesor',
+      name: 'PropuestaListadoAsesorView',
+      component: PropuestaListadoAsesor,
+      meta: { authorities: ['ROLE_ASESOR'] }
     },
 
     {

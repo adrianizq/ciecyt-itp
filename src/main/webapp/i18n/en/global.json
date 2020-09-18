@@ -137,7 +137,8 @@
       "open": "Open",
       "save": "Save",
       "view": "View",
-      "eval": "Evaluate"
+      "eval": "Evaluate",
+      "revisar": "Review"
     },
     "detail": {
       "field": "Field",

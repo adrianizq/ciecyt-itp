@@ -48,7 +48,7 @@
                         <div class="btn-group" >
                             <router-link :to="{name: 'PropuestaEvaluarView', params: {proyectoId: proyecto.id}}" tag="button" class="btn btn-info btn-sm details">
                                 <font-awesome-icon icon="pencil-alt"></font-awesome-icon>
-                                <span class="d-none d-md-inline" v-text="$t('entity.action.eval')">Evaluar</span>
+                                <span class="d-none d-md-inline" v-text="$t('entity.action.revisar')">Revisar</span>
                             </router-link>
   
                         </div>
@@ -56,7 +56,7 @@
                         
                     </td>
                 </tr>
-           
+               
 
 
                 </tbody>
@@ -113,7 +113,7 @@ export default class Listado extends Vue {
     
    //  public elementosProyecto: IElementoProyecto[] =[];
     public proyects: IProyecto[] = [];
-    
+   
     public proyId: any = null;
    
 
@@ -163,10 +163,10 @@ public getAlertFromStore() {
       size: this.itemsPerPage,
       sort: this.sort()
     };
-    if (this.autoridades.includes("ROLE_JURADO")){
+    if (this.autoridades.includes("ROLE_ASESOR")){
     this.proyectoService()
       //.retrieveProyectoIntegrante(this.userid,paginationQuery) //todos los roles no borrar
-      .retrieveProyectoIntegranteAuthority(this.userid,"ROLE_JURADO",paginationQuery)
+      .retrieveProyectoIntegranteAuthority(this.userid,"ROLE_ASESOR",paginationQuery)
       .then(
         res => {
           this.proyects = res.data;
@@ -178,9 +178,12 @@ public getAlertFromStore() {
           this.isFetching = false;
         }
       );
-      }//del if ROLE_JURADO
+      }//del if ROLE_ASESOR
 
       
+
+
+
       
     }
 

@@ -23,4 +23,17 @@ export default class Home extends Vue {
     console.log(this.$store.getters.account);
     return this.$store.getters.account ? this.$store.getters.account.authorities : '';
   }
+
+  public setRuta(valor) {
+    console.log(valor);
+  }
+
+  public entrar() {
+    //this.$router.push({ name: 'PropuestaPresupuestoView',params:{ proyectoId: this.proyId}});
+    if (this.$store.getters.account == 'ROLE_JURADO') {
+      this.$router.push('/viabilidad-propuesta/listado');
+    }
+    //if(this.$store.getters.account == "ROLE_JURADO")
+    //  this.$router.push("/viabilidad-propuesta/listado");
+  }
 }

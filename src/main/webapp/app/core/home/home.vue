@@ -29,35 +29,39 @@
                             <b-form-select
                                 :options="authorities"
                                 text-field="roles"
-                                value-field="id" :id="`rol-${i}`" >
-
+                                value-field="id" :id="`rol-${i}`" 
+                                 @change="setRuta"
+                                >
+                                
+                              
                             </b-form-select>
+
+                           
                        
-                  
-
-                    
                 </div>
+
+                <div v-if="authenticated">
+                 <button  v-on:click="entrar" type="submit" id="save-entity" 
+                    class="btn btn-primary"
+                    :disabled="this.submitStatus === 'PENDING'"
+                    >
+                         <b-icon-person-lines-fill></b-icon-person-lines-fill>&nbsp;<span>Ingresar</span>
+                    </button>
+                </div>
+
+
+ 
+
+
+                 
+                  
             </div>
-<!--
-            <p v-text="$t('home.question')">
-                If you have any question on JHipster:
-            </p>
 
-            <ul>
-                <li><a href="https://www.jhipster.tech/" target="_blank" rel="noopener" v-text="$t('home.link.homepage')">JHipster homepage</a></li>
-                <li><a href="http://stackoverflow.com/tags/jhipster/info" target="_blank" rel="noopener" v-text="$t('home.link.stackoverflow')">JHipster on Stack Overflow</a></li>
-                <li><a href="https://github.com/jhipster/generator-jhipster/issues?state=open" target="_blank" rel="noopener" v-text="$t('home.link.bugtracker')">JHipster bug tracker</a></li>
-                <li><a href="https://gitter.im/jhipster/generator-jhipster" target="_blank" rel="noopener" v-text="$t('home.link.chat')">JHipster public chat room</a></li>
-                <li><a href="https://twitter.com/java_hipster" target="_blank" rel="noopener" v-text="$t('home.link.follow')">follow @java_hipster on Twitter</a></li>
-            </ul>
-
-            <p>
-                <span v-text="$t('home.like')">If you like JHipster, don't forget to give us a star on</span> <a href="https://github.com/jhipster/generator-jhipster" target="_blank" rel="noopener" v-text="$t('home.github')">GitHub</a>!
-            </p>
-            -->
         </div>
     </div>
 </template>
 
+
 <script lang="ts" src="./home.component.ts">
 </script>
+

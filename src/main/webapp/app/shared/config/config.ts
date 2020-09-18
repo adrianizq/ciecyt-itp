@@ -260,9 +260,14 @@ export function initVueXStore(vue) {
 
       menu_lateral_listado: [
         {
-          title: 'Listado de Propuestas',
+          title: 'Jurado',
           description: 'Espacio para evalular las propuestas a cargo',
           to: '/viabilidad-propuesta/listado'
+        },
+        {
+          title: 'Asesor',
+          description: 'Espacio para revisar las propuestas a cargo',
+          to: '/viabilidad-propuesta/listadoAsesor'
         }
       ]
     },

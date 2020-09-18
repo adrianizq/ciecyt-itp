@@ -137,7 +137,8 @@
       "open": "Abrir",
       "save": "Guardar",
       "view": "Vista",
-      "eval": "Evaluar"
+      "eval": "Evaluar",
+      "revisar": "Revisar"
     },
     "detail": {
       "field": "Campo",

@@ -2,6 +2,12 @@
 // (runtime-only or standalone) has been set in webpack.common with an alias.
 import Vue from 'vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+
+////////////////////////777
+import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue';
+
+/////////////////////////////77777
+
 import App from './app.vue';
 import Vue2Filters from 'vue2-filters';
 import router from './router';
@@ -72,6 +78,9 @@ bootstrapVueConfig.initBootstrapVue(Vue);
 Vue.use(Vue2Filters);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.component('jhi-item-count', JhiItemCountComponent);
+
+Vue.use(BootstrapVue);
+Vue.use(BootstrapVueIcons);
 
 const i18n = config.initI18N(Vue);
 const store = config.initVueXStore(Vue);
