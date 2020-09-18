@@ -7,6 +7,8 @@ export default class Home extends Vue {
   @Inject('loginService')
   private loginService: () => LoginService;
 
+  public autoridadElegida: any = null;
+
   public openLogin(): void {
     this.loginService().openLogin((<any>this).$root);
   }
@@ -25,15 +27,17 @@ export default class Home extends Vue {
   }
 
   public setRuta(valor) {
+    this.autoridadElegida = valor;
     console.log(valor);
   }
 
   public entrar() {
     //this.$router.push({ name: 'PropuestaPresupuestoView',params:{ proyectoId: this.proyId}});
-    if (this.$store.getters.account == 'ROLE_JURADO') {
+    if (this.autoridadElegida == 'ROLE_JURADO') {
       this.$router.push('/viabilidad-propuesta/listado');
     }
-    //if(this.$store.getters.account == "ROLE_JURADO")
-    //  this.$router.push("/viabilidad-propuesta/listado");
+    if (this.autoridadElegida == 'ROLE_ASESOR') {
+      this.$router.push('/viabilidad-propuesta/listado-asesor');
+    }
   }
 }
