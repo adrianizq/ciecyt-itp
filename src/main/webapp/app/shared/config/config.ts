@@ -269,6 +269,13 @@ export function initVueXStore(vue) {
           description: 'Espacio para revisar las propuestas a cargo',
           to: '/viabilidad-propuesta/listado-asesor'
         }
+      ],
+      menu_lateral_ciecyt: [
+        {
+          title: 'Ciecyt',
+          description: 'Espacio para revisar las propuestas del Ciecyt',
+          to: '/ciecyt/listado-ciecyt'
+        }
       ]
     },
     mutations: {
@@ -329,7 +336,8 @@ export function initVueXStore(vue) {
       menuLateralPasantia: state => state.menu_lateral_pasantia,
       menuLateralDiplomado: state => state.menu_lateral_diplomado,
       menuLateralLinea: state => state.menu_lateral_linea,
-      menuLateralListado: state => state.menu_lateral_listado
+      menuLateralListado: state => state.menu_lateral_listado,
+      menuLateralCiecyt: state => state.menu_lateral_ciecyt
     }
   });
 }

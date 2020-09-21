@@ -28,8 +28,8 @@ import Component from 'vue-class-component';
 import { Vue, Prop } from 'vue-property-decorator';
 
 @Component
-export default class PropuestaMenuLateralLinea extends Vue {
-  items = this.$store.getters.menuLateralLinea;
+export default class PropuestaMenuLateralCiecyt extends Vue {
+  items = this.$store.getters.menuLateralCiecyt;
   @Prop()
   proyectoId: number;
 

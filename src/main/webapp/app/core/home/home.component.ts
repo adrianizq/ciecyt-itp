@@ -39,5 +39,13 @@ export default class Home extends Vue {
     if (this.autoridadElegida == 'ROLE_ASESOR') {
       this.$router.push('/viabilidad-propuesta/listado-asesor');
     }
+
+    if (this.autoridadElegida == 'ROLE_CIECYT') {
+      this.$router.push('/ciecyt/listado-ciecyt');
+    }
+
+    if (this.autoridadElegida == 'ROLE_ADMIN') {
+      this.$router.push('/');
+    }
   }
 }

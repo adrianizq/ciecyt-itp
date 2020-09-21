@@ -294,6 +294,7 @@ const PropuestaLineaEstadoPropuestas = () => import('../pages/propuesta_linea/es
 
 const PropuestaListado = () => import('../pages/viabilidad_propuesta/listado.vue');
 const PropuestaListadoAsesor = () => import('../pages/viabilidad_propuesta/listado_asesor.vue');
+const PropuestaListadoCiecyt = () => import('../pages/ciecyt/listado_ciecyt.vue');
 const PropuestaEvaluar = () => import('../pages/viabilidad_propuesta/propuesta_evaluar.vue');
 
 Vue.use(Router);
@@ -1599,6 +1600,14 @@ export default new Router({
       component: PropuestaListadoAsesor,
       meta: { authorities: ['ROLE_ASESOR'] }
     },
+
+    {
+      path: '/ciecyt/listado-ciecyt',
+      name: 'PropuestaListadoCiecytView',
+      component: PropuestaListadoCiecyt,
+      meta: { authorities: ['ROLE_CIECYT'] }
+    },
+
 
     {
       path: '/viabilidad-propuesta/propuesta-evaluar/:proyectoId',

@@ -2,7 +2,7 @@
 <div class="row">
 
         
-            <menu-lateral-listado :proyectoId='$route.params.proyectoId'></menu-lateral-listado>
+            <menu-lateral-ciecyt :proyectoId='$route.params.proyectoId'></menu-lateral-ciecyt>
       
     <div>
         <h2 id="page-heading">
@@ -47,7 +47,7 @@
                     <td class="text-right">
                         <div class="btn-group" >
                             <router-link :to="{name: 'PropuestaEvaluarView', params: {proyectoId: proyecto.id}}" tag="button" class="btn btn-info btn-sm details">
-                               <b-icon-eye-fill  ></b-icon-eye-fill>&nbsp;
+                               <b-icon-pencil-square></b-icon-pencil-square>&nbsp;
                                 <span class="d-none d-md-inline" v-text="$t('entity.action.revisar')">Revisar</span>
                             </router-link>
   
@@ -88,7 +88,7 @@ import AlertService from '@/shared/alert/alert.service';
 
 
 import { Component, Inject, Vue } from 'vue-property-decorator';
-import MenuLateralListado from '@/components/propuesta_listado/menu_lateral_listado.vue';
+import MenuLateralCiecyt from '@/components/ciecyt/menu_lateral_ciecyt.vue';
 
 
 
@@ -100,11 +100,11 @@ import ProyectoService from '@/entities/proyecto/proyecto.service';
     const validations: any = {};
 
    @Component({
-        components: { MenuLateralListado },
+        components: { MenuLateralCiecyt },
         validations
     })
 
-export default class Listado extends Vue {
+export default class ListadoCiecyt extends Vue {
    @Inject('proyectoService') private proyectoService: () => ProyectoService;
  
    @Inject('alertService') private alertService: () => AlertService;
@@ -163,10 +163,11 @@ public getAlertFromStore() {
       size: this.itemsPerPage,
       sort: this.sort()
     };
-    if (this.autoridades.includes("ROLE_ASESOR")){
+    if (this.autoridades.includes("ROLE_CIECYT")){
     this.proyectoService()
       //.retrieveProyectoIntegrante(this.userid,paginationQuery) //todos los roles no borrar
-      .retrieveProyectoIntegranteAuthority(this.userid,"ROLE_ASESOR",paginationQuery)
+      //.retrieveProyectoIntegranteAuthority(this.userid,"ROLE_ASESOR",paginationQuery)
+      .retrieve(paginationQuery)
       .then(
         res => {
           this.proyects = res.data;
