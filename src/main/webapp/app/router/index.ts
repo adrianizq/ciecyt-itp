@@ -296,6 +296,7 @@ const PropuestaListado = () => import('../pages/viabilidad_propuesta/listado.vue
 const PropuestaListadoAsesor = () => import('../pages/viabilidad_propuesta/listado_asesor.vue');
 const PropuestaListadoCiecyt = () => import('../pages/ciecyt/listado_ciecyt.vue');
 const PropuestaEvaluar = () => import('../pages/viabilidad_propuesta/propuesta_evaluar.vue');
+const AsignarJurado = () => import('../pages/ciecyt/asignar_jurado.vue');
 
 Vue.use(Router);
 
@@ -1125,6 +1126,14 @@ export default new Router({
       name: 'IntegranteProyectoView',
       component: IntegranteProyectoDetails,
       meta: { authorities: ['ROLE_USER'] }
+    },
+
+    ///////////////////////////////////////7777
+    {
+      path: '/ciecyt/asignar-jurado/:proyectoId/view',
+      name: 'AsignarJuradoView',
+      component: AsignarJurado,
+      meta: { authorities: ['ROLE_CIECYT']['ROLE_ADMIN'] }
     },
     /////////////////////////////////////////////////////
     {

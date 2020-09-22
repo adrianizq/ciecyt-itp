@@ -42,61 +42,14 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Page<User> findAllByLoginNot(Pageable pageable, String login);
 
-//consulta para recuperar los datos de un usuario segun su authory
+  //  @EntityGraph(attributePaths = "authorities")
+   // List <User> findAllWithAuthorities(String authority);
 
-/*SELECT DISTINCT ju.id, ju.first_name, ju.last_name, ju.email, ju.image_url,
-                ju.activated, ju.lang_key
-    			 FROM jhi_user ju
-    			 INNER JOIN jhi_user_authority jua ON jua.user_id = ju.id
-    			 WHERE (jua.authority_name='ROLE_ASESOR')
-    			 ORDER BY ju.id  */
 
-    /*
-    @Query(value=" SELECT DISTINCT ju.id, ju.first_name, ju.last_name, ju.email, ju.image_url,"+
-                "ju.activated, ju.lang_key, "  +  //faltan otros campos
-    			" FROM jhi_user ju  "+
-    			" INNER JOIN jhi_user_authority jua ON jua.user_id = ju.id "+
-    			" WHERE (jua.authority_name=?1)  " +
-    			" ORDER BY jua.orden"
-    			,nativeQuery = true)
-    public List<User> buscarUsuariosPorAuthority(String authorityName);
-    */
-
-    //List<User> findAllByAuthority(String authorityName);
-    //@EntityGraph(attributePaths = "authorities")
-    //@PreAuthorize("hasRole('ROLE_ASESOR')")
-    // List<User> findAllByCreatedDateBefore(String authority ,Instant dateTime, Predicate predicate);
-    
-
-    //Page<User> findAll(Specification<User> where, Pageable pageable);
     public List <User> findAll(Specification<User> where);
 
-    /*
-    SELECT DISTINCT ju.id, ju.first_name, ju.last_name, ju.email, ju.image_url,
-                ju.activated, ju.lang_key
-    			 FROM jhi_user ju  
-    			 INNER JOIN integrante_proyecto i ON ju.id = i.integrante_proyecto_user_id 
-				 INNER JOIN roles_modalidad rm ON 
-				 	i.integrante_proyecto_roles_modalidad_id =rm.id
-    			 WHERE (i.integrante_proyecto_proyecto_id='11504' 
-						and rm.id = '10751') 
-    			 ORDER BY ju.last_name;
-    */
 
-/*
-    
-@Query(value=" SELECT DISTINCT ju.id, ju.first_name, ju.last_name, ju.email, ju.image_url, "+
-    " ju.activated, ju.lang_key "+
-    "  FROM jhi_user ju "+ 
-    "  INNER JOIN integrante_proyecto i ON ju.id = i.integrante_proyecto_user_id "+
-    "  INNER JOIN roles_modalidad rm ON "+
-    "      i.integrante_proyecto_roles_modalidad_id =rm.id "+
-    "  WHERE (i.integrante_proyecto_proyecto_id=?1 "+
-    "         and rm.id =?2) "+
-    "  ORDER BY ju.last_name"
-    ,nativeQuery = true)
-public List<User> findEstudiantesIntegrantesProyecto(Long idProyecto, Long idRolModalidad);
-*/   
+
 
 
 }

@@ -2,11 +2,13 @@ package co.edu.itp.ciecyt.service;
 
 import co.edu.itp.ciecyt.config.Constants;
 import co.edu.itp.ciecyt.domain.Authority;
+import co.edu.itp.ciecyt.domain.IntegranteProyecto;
 import co.edu.itp.ciecyt.domain.User;
 import co.edu.itp.ciecyt.repository.AuthorityRepository;
 import co.edu.itp.ciecyt.repository.UserRepository;
 import co.edu.itp.ciecyt.security.AuthoritiesConstants;
 import co.edu.itp.ciecyt.security.SecurityUtils;
+import co.edu.itp.ciecyt.service.dto.IntegranteProyectoDTO;
 import co.edu.itp.ciecyt.service.dto.UserDTO;
 import co.edu.itp.ciecyt.service.util.RandomUtil;
 import co.edu.itp.ciecyt.service.mapper.UserMapper;
@@ -252,61 +254,30 @@ public class UserService {
 
     /**
      * Gets a list of all the authorities.
-     * 
+     *
      * @return a list of all the authorities.
      */
     public List<String> getAuthorities() {
         return authorityRepository.findAll().stream().map(Authority::getName).collect(Collectors.toList());
     }
 
-    // public List<UserDTO> buscarAllUserForAuthority(String authorityName) throws
-    // Exception;
-    /*** ADR ***/
-    /*
-     * @Transactional(readOnly = true) public Optional<User>
-     * buscarUserWithAuthoritiesByAuthorityName(String authorityName) { return
-     * userRepository.findAllByUserWithAuthoritiesByAuthorityName(authorityName); }
-     */
+
 
     static Specification<User> isRol(Authority role) {
         return (obj, cq, cb) -> cb.isMember(role, obj.get("authorities"));
     }
-/*
-    @Transactional(readOnly = true)
-    public Page<UserDTO> getAllAsesores(Pageable pageable) {
-        Authority asesor = authorityRepository.findById(AuthoritiesConstants.ASESOR).get();
-        return userRepository.findAll(Specification.where(isRol(asesor)), pageable).map(UserDTO::new);
-    }
-*/
-/////////////////
+
 @Transactional(readOnly = true)
 public List<UserDTO> getAllAsesoresNoPage() {
     List <UserDTO> listDTO = new ArrayList<>();
     Authority asesor = authorityRepository.findById(AuthoritiesConstants.ASESOR).get();
     List <User> list= userRepository.findAll(Specification.where(isRol(asesor)));
-    
+
     listDTO = userMapper.usersToUserDTOs(list);
     return listDTO;
 }
 
-/////////////////
 
-
-
-
-///////////////////////////////////////////////////////////////////////////////////77
-/*
-@Transactional(readOnly = true)
-public List<UserDTO> getAllEstudiantesIntegrantesProyectoNoPage(Long idProyecto, Long idRolModalidad) {
-    List <UserDTO> listDTO = new ArrayList<>();
-    Authority estudiante = authorityRepository.findById(AuthoritiesConstants.ESTUDIANTE).get();
-    List <User> list= userRepository.findAll(Specification.where(isRol(estudiante)));
-    
-    listDTO = userMapper.usersToUserDTOs(list);
-    return listDTO;
-}
-*/
-//////////////////////////////////////////////////////////////////////////////////7
 
 
 @Transactional(readOnly = true)
@@ -314,27 +285,26 @@ public List<UserDTO> getAllEstudiantesNoPage() {
     List <UserDTO> listDTO = new ArrayList<>();
     Authority estudiante = authorityRepository.findById(AuthoritiesConstants.ESTUDIANTE).get();
     List <User> list= userRepository.findAll(Specification.where(isRol(estudiante)));
-    
+
     listDTO = userMapper.usersToUserDTOs(list);
     return listDTO;
 }
 
-/////////////////
-/*
+
 @Transactional(readOnly = true)
-public List<UserDTO> getAllEstudiantesIntegrantesProyectoNoPage(Long idProyecto, Long idRolModalidad) {
+public List<UserDTO> getAllJuradosNoPage() {
     List <UserDTO> listDTO = new ArrayList<>();
-    //Authority asesor = authorityRepository.findById(AuthoritiesConstants.ASESOR).get();
-    List <User> list= userRepository.findEstudiantesIntegrantesProyecto(idProyecto, idRolModalidad);
-    
+    Authority jurado = authorityRepository.findById(AuthoritiesConstants.JURADO).get();
+    List <User> list= userRepository.findAll(Specification.where(isRol(jurado)));
+
     listDTO = userMapper.usersToUserDTOs(list);
     return listDTO;
 }
-*/
-//tengo que buscar un proyecto por id
-//de la lista de estudiantes (usuarios) (ver quienes estan en ese proyecto)
-// IntegranteProyecto , RolesModalidad
-/////////////////
+
+
+
 
 
 }
+
+

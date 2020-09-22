@@ -151,30 +151,7 @@ public class IntegranteProyectoServiceImpl implements IntegranteProyectoService 
     }
 //findEstudiantesIntegranteProyectoId
 
-    @Override
-    @Transactional(readOnly = true)
-    public List<IntegranteProyectoDTO> findEstudiantesIntegranteProyectoId(Long idProyecto) throws Exception {
-        log.debug("Request to get Estudiantes IntegranteProyectos whit a idProyecto");
 
-
-        Proyecto p = new Proyecto();
-        p = proyectoRepository.findByIdOrderById(idProyecto);
-
-        Modalidad modalidad = p.getProyectoModalidad();
-        Long modalidadId= modalidad.getId(); //eje 1551
-
-        RolesModalidadDTO  rolesModalidad;
-        rolesModalidad = rolesModalidadService.findByRolAndRolesModalidadModalidadId("Estudiante", modalidadId);
-        Long rolesModalidadId= rolesModalidad.getId();
-        List <IntegranteProyectoDTO> listDTO = new ArrayList<>();
-        List <IntegranteProyecto> list = integranteProyectoRepository.findByIntegranteProyectoProyectoIdAndIntegranteProyectoRolesModalidadIdIn(idProyecto, rolesModalidadId);
-
-        for (IntegranteProyecto integrante : list) {
-            listDTO.add( integranteProyectoMapper.toDto(integrante));
-        }
-        return listDTO;
-
-    }
 
     @Override
     @Transactional(readOnly = true)
@@ -206,5 +183,61 @@ public class IntegranteProyectoServiceImpl implements IntegranteProyectoService 
 
         return listaNueva;
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<IntegranteProyectoDTO> findEstudiantesIntegranteProyectoId(Long idProyecto) throws Exception {
+        log.debug("Request to get Estudiantes IntegranteProyectos whit a idProyecto");
+
+
+        Proyecto p = new Proyecto();
+        p = proyectoRepository.findByIdOrderById(idProyecto);
+
+        Modalidad modalidad = p.getProyectoModalidad();
+        Long modalidadId= modalidad.getId(); //eje 1551
+
+        RolesModalidadDTO  rolesModalidad;
+        rolesModalidad = rolesModalidadService.findByRolAndRolesModalidadModalidadId("Estudiante", modalidadId);
+        Long rolesModalidadId= rolesModalidad.getId();
+        List <IntegranteProyectoDTO> listDTO = new ArrayList<>();
+        List <IntegranteProyecto> list = integranteProyectoRepository.findByIntegranteProyectoProyectoIdAndIntegranteProyectoRolesModalidadIdIn(idProyecto, rolesModalidadId);
+
+        for (IntegranteProyecto integrante : list) {
+            listDTO.add( integranteProyectoMapper.toDto(integrante));
+        }
+        return listDTO;
+
+    }
+
+//jurado de viabilidad ojo
+    @Transactional(readOnly = true)
+    public List<IntegranteProyectoDTO> findJuradosIntegranteProyectoId(Long idProyecto) throws Exception {
+        log.debug("Request to get Jurados IntegranteProyectos whit a idProyecto");
+
+
+        Proyecto p = new Proyecto();
+        p = proyectoRepository.findByIdOrderById(idProyecto);
+
+        Modalidad modalidad = p.getProyectoModalidad();
+        Long modalidadId= modalidad.getId(); //eje 1551
+
+        RolesModalidadDTO  rolesModalidad;
+        rolesModalidad = rolesModalidadService.findByRolAndRolesModalidadModalidadId("Viabilidad", modalidadId);
+        Long rolesModalidadId= rolesModalidad.getId();
+        List <IntegranteProyectoDTO> listDTO = new ArrayList<>();
+        List <IntegranteProyecto> list = integranteProyectoRepository.findByIntegranteProyectoProyectoIdAndIntegranteProyectoRolesModalidadIdIn(idProyecto, rolesModalidadId);
+
+        for (IntegranteProyecto integrante : list) {
+            listDTO.add( integranteProyectoMapper.toDto(integrante));
+        }
+        return listDTO;
+
+    }
+
+
+
+
+
+
 
 }

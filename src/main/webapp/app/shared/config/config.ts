@@ -275,6 +275,11 @@ export function initVueXStore(vue) {
           title: 'Ciecyt',
           description: 'Espacio para revisar las propuestas del Ciecyt',
           to: '/ciecyt/listado-ciecyt'
+        },
+        {
+          title: 'Jurado(s) de Viabilidad',
+          description: 'Ingrese el jurado o jurados de viabilidad',
+          to: '/ciecyt/asignar-jurado'
         }
       ]
     },

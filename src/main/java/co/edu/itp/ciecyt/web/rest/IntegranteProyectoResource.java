@@ -195,4 +195,18 @@ public class IntegranteProyectoResource {
     }
 
 
+    @GetMapping("/integrante-proyectos-jurados/{idProyecto}")
+    public ResponseEntity<?> findJuradosIntegranteProyectoId(@PathVariable Long idProyecto) {
+        log.debug("REST request to get IntegranteProyecto : {}", idProyecto);
+        try{
+            final List<IntegranteProyectoDTO> dto = integranteProyectoService.findJuradosIntegranteProyectoId(idProyecto);
+            return new ResponseEntity<>(dto, HttpStatus.OK);
+
+        }catch (Exception e){
+
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body( e.getMessage());
+        }
+    }
+
+
 }

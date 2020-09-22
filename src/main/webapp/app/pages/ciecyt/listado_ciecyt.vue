@@ -6,7 +6,7 @@
       
     <div>
         <h2 id="page-heading">
-            <span id="proyecto-heading">Mis propuestas</span>
+            <span id="proyecto-heading">Proyectos y propuestas</span>
             
         </h2>
         <b-alert :show="dismissCountDown"
@@ -27,8 +27,9 @@
                 <tr>
                     <th v-on:click="changeOrder('id')"><span v-text="$t('global.field.id')">ID</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th v-on:click="changeOrder('titulo')"><span v-text="$t('ciecytApp.proyecto.titulo')">Titulo</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
-                    <th v-on:click="changeOrder('tipo')"><span v-text="$t('ciecytApp.proyecto.tipo')">Tipo</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
-                    <th></th>
+                     <th><span >Jurado Viabilidad</span></th>
+                    <!-- <th v-on:click="changeOrder('tipo')"><span v-text="$t('ciecytApp.proyecto.tipo')">Tipo</span> <font-awesome-icon icon="sort"></font-awesome-icon></th> -->
+                   
                 </tr>
                 </thead>
                 <tbody>
@@ -36,19 +37,19 @@
                 <tr v-for="proyecto in proyects"
                     :key="proyecto.id">
                     <td>
-                        <router-link :to="{name: 'PropuestaEvaluarView', params: {proyectoId: proyecto.id}}">{{proyecto.id}}</router-link>
+                        <router-link :to="{name: 'AsignarJuradoView', params: {proyectoId: proyecto.id}}">{{proyecto.id}}</router-link>
                     </td>
 
                     <td>{{proyecto.titulo}}</td>
-                    <td>{{proyecto.tipo}}</td>
+                    <!-- <td>{{proyecto.tipo}}</td> -->
                    
                 
                     
                     <td class="text-right">
                         <div class="btn-group" >
-                            <router-link :to="{name: 'PropuestaEvaluarView', params: {proyectoId: proyecto.id}}" tag="button" class="btn btn-info btn-sm details">
+                            <router-link :to="{name: 'AsignarJuradoView', params: {proyectoId: proyecto.id}}" tag="button" class="btn btn-info btn-sm details">
                                <b-icon-pencil-square></b-icon-pencil-square>&nbsp;
-                                <span class="d-none d-md-inline" v-text="$t('entity.action.revisar')">Revisar</span>
+                                <span class="d-none d-md-inline" >Jurado Viabilidad</span>
                             </router-link>
   
                         </div>

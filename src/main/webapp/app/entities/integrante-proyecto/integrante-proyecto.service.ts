@@ -47,6 +47,23 @@ export default class IntegranteProyectoService {
         });
     });
   }
+  public retrieveJuradosProyecto(idProyecto?: number, paginationQuery?: any): Promise<any> {
+    return new Promise<any>(resolve => {
+      axios
+        .get('/api/integrante-proyectos-jurados' + `/${idProyecto}` + `?${buildPaginationQueryOpts(paginationQuery)}`)
+        .then(function(res) {
+          resolve(res);
+        });
+    });
+  }
+
+  public retrieveJurados(paginationQuery?: any): Promise<any> {
+    return new Promise<any>(resolve => {
+      axios.get('/api/users/jurados' + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function(res) {
+        resolve(res);
+      });
+    });
+  }
 
   public delete(id: number): Promise<any> {
     return new Promise<any>(resolve => {

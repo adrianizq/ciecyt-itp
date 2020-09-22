@@ -75,4 +75,14 @@ export default class UsuarioService {
       });
     });
   }
+
+  public retrieveJurados(paginationQuery?: any): Promise<any> {
+    return new Promise<any>(resolve => {
+      //axios.get(`api/users/asesores` + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function(res) {
+      //  resolve(res);
+      axios.get(`api/users/jurados`).then(function(res) {
+        resolve(res);
+      });
+    });
+  }
 }
