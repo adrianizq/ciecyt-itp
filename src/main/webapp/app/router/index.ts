@@ -297,6 +297,7 @@ const PropuestaListadoAsesor = () => import('../pages/viabilidad_propuesta/lista
 const PropuestaListadoCiecyt = () => import('../pages/ciecyt/listado_ciecyt.vue');
 const PropuestaEvaluar = () => import('../pages/viabilidad_propuesta/propuesta_evaluar.vue');
 const AsignarJurado = () => import('../pages/ciecyt/asignar_jurado.vue');
+const AsignarAsesor = () => import('../pages/ciecyt/asignar_asesor.vue');
 
 Vue.use(Router);
 
@@ -1133,6 +1134,14 @@ export default new Router({
       path: '/ciecyt/asignar-jurado/:proyectoId/view',
       name: 'AsignarJuradoView',
       component: AsignarJurado,
+      meta: { authorities: ['ROLE_CIECYT']['ROLE_ADMIN'] }
+    },
+
+
+    {
+      path: '/ciecyt/asignar-asesor/:proyectoId/view',
+      name: 'AsignarAsesorView',
+      component: AsignarAsesor,
       meta: { authorities: ['ROLE_CIECYT']['ROLE_ADMIN'] }
     },
     /////////////////////////////////////////////////////

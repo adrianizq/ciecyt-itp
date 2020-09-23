@@ -8,7 +8,7 @@
                 <div class="row">
                     <div class="col-12" v-for="(integrante, i) in integrantesProyecto" :key="i">
                         <b-form-group
-                            :label="`Jurado de Viabilidad # ${i + 1}`"
+                            :label="`Asesor # ${i + 1}`"
                             :label-for="`integrante-${i}`"
                         >
                             <b-form-select
@@ -77,7 +77,7 @@
         public isSaving = false;
         public modalidadId: number = 0;
         public n: number = 0;
-        public cantJurados: number = 0;
+        public cantAsesores: number = 0;
         public rolModalidadId?: number =0;
 
 //public proyId: string = null;
@@ -139,7 +139,7 @@
                 //Obteniendo los usuarios estudiantes
                 
                 this.usuarioService()
-                    .retrieveJurados()
+                    .retrieveAsesores()
                     .then(res => {
                       
                         res.data.forEach((item) => {
@@ -168,7 +168,7 @@
                 
                             
                  await this.integranteProyectoService()
-                    .retrieveJuradosProyecto(this.proyId )
+                    .retrieveAsesoresProyecto(this.proyId )
                     .then(res => {
                        this.integrantesProyecto = res.data;
                        //console.log(res.data);
@@ -176,15 +176,15 @@
                     
                   if(this.integrantesProyecto.length==0){  
                   await this.rolesModalidadService()
-                    .findRolModalidad("Viabilidad", this.modalidadId )
+                    .findRolModalidad("Asesor", this.modalidadId )
                     .then(res => {
                         this.rolesModalidad = res;
-                        this.cantJurados = res.cantidad;
+                        this.cantAsesores = res.cantidad;
                         this.rolModalidadId = res.id;
 
-                        console.log( this.cantJurados);
+                        console.log( this.cantAsesores);
                         
-                         for (var i = 0; i < this.cantJurados; i++) {
+                         for (var i = 0; i < this.cantAsesores; i++) {
                             let integrante = new IntegranteProyecto();
 
                             integrante.integranteProyectoProyectoId = this.proyId;

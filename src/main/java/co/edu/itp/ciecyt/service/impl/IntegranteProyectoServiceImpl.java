@@ -234,6 +234,31 @@ public class IntegranteProyectoServiceImpl implements IntegranteProyectoService 
 
     }
 
+    //asesores
+    @Transactional(readOnly = true)
+    public List<IntegranteProyectoDTO> findAsesoresIntegranteProyectoId(Long idProyecto) throws Exception {
+        log.debug("Request to get Jurados IntegranteProyectos whit a idProyecto");
+
+
+        Proyecto p = new Proyecto();
+        p = proyectoRepository.findByIdOrderById(idProyecto);
+
+        Modalidad modalidad = p.getProyectoModalidad();
+        Long modalidadId= modalidad.getId(); //eje 1551
+
+        RolesModalidadDTO  rolesModalidad;
+        rolesModalidad = rolesModalidadService.findByRolAndRolesModalidadModalidadId("Asesor", modalidadId);
+        Long rolesModalidadId= rolesModalidad.getId();
+        List <IntegranteProyectoDTO> listDTO = new ArrayList<>();
+        List <IntegranteProyecto> list = integranteProyectoRepository.findByIntegranteProyectoProyectoIdAndIntegranteProyectoRolesModalidadIdIn(idProyecto, rolesModalidadId);
+
+        for (IntegranteProyecto integrante : list) {
+            listDTO.add( integranteProyectoMapper.toDto(integrante));
+        }
+        return listDTO;
+
+    }
+
 
 
 

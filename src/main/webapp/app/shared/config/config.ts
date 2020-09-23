@@ -280,6 +280,11 @@ export function initVueXStore(vue) {
           title: 'Jurado(s) de Viabilidad',
           description: 'Ingrese el jurado o jurados de viabilidad',
           to: '/ciecyt/asignar-jurado'
+        },
+        {
+          title: 'Asesor(es)',
+          description: 'Ingrese el asesor o asesores',
+          to: '/ciecyt/asignar-asesor'
         }
       ]
     },

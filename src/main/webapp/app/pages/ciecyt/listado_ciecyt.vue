@@ -28,6 +28,7 @@
                     <th v-on:click="changeOrder('id')"><span v-text="$t('global.field.id')">ID</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th v-on:click="changeOrder('titulo')"><span v-text="$t('ciecytApp.proyecto.titulo')">Titulo</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                      <th><span >Jurado Viabilidad</span></th>
+                     <th><span >Asesor</span></th>
                     <!-- <th v-on:click="changeOrder('tipo')"><span v-text="$t('ciecytApp.proyecto.tipo')">Tipo</span> <font-awesome-icon icon="sort"></font-awesome-icon></th> -->
                    
                 </tr>
@@ -51,11 +52,19 @@
                                <b-icon-pencil-square></b-icon-pencil-square>&nbsp;
                                 <span class="d-none d-md-inline" >Jurado Viabilidad</span>
                             </router-link>
-  
-                        </div>
-
-                        
+                         </div>
                     </td>
+
+                     <td class="text-right">
+                        <div class="btn-group" >
+                            <router-link :to="{name: 'AsignarAsesorView', params: {proyectoId: proyecto.id}}" tag="button" class="btn btn-info btn-sm details">
+                               <b-icon-pencil-square></b-icon-pencil-square>&nbsp;
+                                <span class="d-none d-md-inline" >Asesor</span>
+                            </router-link>
+                         </div>
+                    </td>
+
+
                 </tr>
                
 

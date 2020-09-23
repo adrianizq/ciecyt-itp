@@ -65,6 +65,24 @@ export default class IntegranteProyectoService {
     });
   }
 
+  public retrieveAsesoresProyecto(idProyecto?: number, paginationQuery?: any): Promise<any> {
+    return new Promise<any>(resolve => {
+      axios
+        .get('/api/integrante-proyectos-asesores' + `/${idProyecto}` + `?${buildPaginationQueryOpts(paginationQuery)}`)
+        .then(function(res) {
+          resolve(res);
+        });
+    });
+  }
+
+  public retrieveAsesores(paginationQuery?: any): Promise<any> {
+    return new Promise<any>(resolve => {
+      axios.get('/api/users/asesores' + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function(res) {
+        resolve(res);
+      });
+    });
+  }
+
   public delete(id: number): Promise<any> {
     return new Promise<any>(resolve => {
       axios.delete(`${baseApiUrl}/${id}`).then(function(res) {
