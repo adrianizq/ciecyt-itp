@@ -115,7 +115,7 @@ export function initVueXStore(vue) {
         es: { name: 'Español' }
         // jhipster-needle-i18n-language-key-pipe - JHipster will add/remove languages in this object
       },
-      /*Menu Lateral*/
+      /*Menu Lateral Tesis*/
       menu_lateral: [
         {
           title: 'Información General',
@@ -286,6 +286,18 @@ export function initVueXStore(vue) {
           description: 'Ingrese el asesor o asesores',
           to: '/ciecyt/asignar-asesor'
         }
+      ],
+      menu_lateral_nueva: [
+        {
+          title: 'Mis propuestas',
+          description: 'Propuestas creadas',
+          to: '/propuesta-nueva/propuestas-investigador'
+        },
+        {
+          title: 'Propuesta Nueva',
+          description: 'Espacio para crear las propuestas del Ciecyt',
+          to: '/propuesta-nueva/informacion-general-nueva'
+        }
       ]
     },
     mutations: {
@@ -347,7 +359,8 @@ export function initVueXStore(vue) {
       menuLateralDiplomado: state => state.menu_lateral_diplomado,
       menuLateralLinea: state => state.menu_lateral_linea,
       menuLateralListado: state => state.menu_lateral_listado,
-      menuLateralCiecyt: state => state.menu_lateral_ciecyt
+      menuLateralCiecyt: state => state.menu_lateral_ciecyt,
+      menuLateralNueva: state => state.menu_lateral_nueva
     }
   });
 }

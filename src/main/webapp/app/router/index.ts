@@ -299,6 +299,9 @@ const PropuestaEvaluar = () => import('../pages/viabilidad_propuesta/propuesta_e
 const AsignarJurado = () => import('../pages/ciecyt/asignar_jurado.vue');
 const AsignarAsesor = () => import('../pages/ciecyt/asignar_asesor.vue');
 
+const PropuestaInformacionGeneralNueva = () => import('../pages/propuesta_nueva/informacion_general_nueva.vue');
+const PropuestasInvestigador = () => import('../pages/propuesta_nueva/propuestas_investigador.vue');
+
 Vue.use(Router);
 
 // prettier-ignore
@@ -1401,6 +1404,21 @@ export default new Router({
       component: RolMenuDetails,
       meta: { authorities: ['ROLE_USER'] }
     },
+  //Propuesta nueva
+
+  {
+    path: '/propuesta-nueva/informacion-general-nueva',
+    name: 'PropuestaInformacionGenearalNuevaEditView',
+    component: PropuestaInformacionGeneralNueva,
+    meta: { authorities: ['ROLE_USER'] }
+  },
+
+  {
+    path: '/propuesta-nueva/propuestas-investigador',
+    name: 'PropuestasInvestigadorEditView',
+    component: PropuestasInvestigador,
+    meta: { authorities: ['ROLE_USER'] }
+  },
   
     //Pasantia
     {
@@ -1472,6 +1490,7 @@ export default new Router({
     },
     //////////////
      ////////////////////////////////////////////////////////7777777
+     /////Tesis
     {
       path: '/propuesta/informacion-general',
       name: 'PropuestaInformacionGeneralView',
@@ -1605,6 +1624,8 @@ export default new Router({
     },
 
     ////////////////////////////////////////////////////////777777777
+
+
     {
       path: '/viabilidad-propuesta/listado',
       name: 'PropuestaListadoView',

@@ -18,7 +18,8 @@ export default class JhiNavbar extends Vue {
   @Inject('menuService')
   private menuService: () => MenuService;
 
-  public version = VERSION ? 'v' + VERSION : '';
+  ///public version = VERSION ? 'v' + VERSION : '';
+  public version = 'Software para la Gestión de los Trabajos de Grado';
   private currentLanguage = this.$store.getters.currentLanguage;
   private languages: any = this.$store.getters.languages;
   public menus: MenuBar[] = [];
