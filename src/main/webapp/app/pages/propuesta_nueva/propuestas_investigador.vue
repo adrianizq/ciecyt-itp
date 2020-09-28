@@ -45,20 +45,40 @@
                    
                   <td>{{ buscarAuthorithy(proyecto.proyectoModalidadId) }}</td>
                   
-                  <td v-if="buscarAuthorithy(proyecto.proyectoModalidadId)==='Tesis'">
-                  <router-link :to="{name: 'PropuestaInformacionGeneraEditlView', params: {proyectoId: proyecto.id}}">{{proyecto.id}}</router-link>
+                  <td class="text-right" v-if="buscarAuthorithy(proyecto.proyectoModalidadId)==='Tesis'">
+                  <div class="btn-group" >
+                  <router-link :to="{name: 'PropuestaInformacionGeneraEditlView', params: {proyectoId: proyecto.id}}"  tag="button" class="btn btn-info btn-sm details">
+                  <b-icon-check2-square></b-icon-check2-square>&nbsp;
+                                <span class="d-none d-md-inline" v-text="$t('entity.action.edit')">Editar</span>
+                                </router-link>
+                  </div>
                   </td>
-                   <td v-if="buscarAuthorithy(proyecto.proyectoModalidadId)==='Pasantía'">
-                  <router-link :to="{name: 'PropuestaPasantiaInformacionGeneraEditlView', params: {proyectoId: proyecto.id}}">{{proyecto.id}}</router-link>
+                   <td class="text-right" v-if="buscarAuthorithy(proyecto.proyectoModalidadId)==='Pasantía'">
+                   <div class="btn-group" >
+                  <router-link :to="{name: 'PropuestaPasantiaInformacionGeneraEditlView', params: {proyectoId: proyecto.id}}"  tag="button" class="btn btn-info btn-sm details">
+                   <b-icon-check2-square></b-icon-check2-square>&nbsp;
+                                <span class="d-none d-md-inline" v-text="$t('entity.action.edit')">Editar</span>
+                                </router-link>
+                   </div>
                   </td>
-                   <td v-if="buscarAuthorithy(proyecto.proyectoModalidadId)==='Diplomado'">
-                  <router-link :to="{name: 'PropuestaDiplomadoInformacionGeneralEditView', params: {proyectoId: proyecto.id}}">{{proyecto.id}}</router-link>
+                   <td class="text-right" v-if="buscarAuthorithy(proyecto.proyectoModalidadId)==='Diplomado'">
+                   <div class="btn-group" >
+                  <router-link :to="{name: 'PropuestaDiplomadoInformacionGeneralEditView', params: {proyectoId: proyecto.id}}"  tag="button" class="btn btn-info btn-sm details">
+                   <b-icon-check2-square></b-icon-check2-square>&nbsp;
+                                <span class="d-none d-md-inline" v-text="$t('entity.action.edit')">Editar</span>
+                                </router-link>
+                   </div>
                   </td>
-                   <td v-if="buscarAuthorithy(proyecto.proyectoModalidadId)==='Linea de Investigación'">
-                  <router-link :to="{name: 'PropuestaLineaInformacionGeneralEditView', params: {proyectoId: proyecto.id}}">{{proyecto.id}}</router-link>
+                   <td class="text-right" v-if="buscarAuthorithy(proyecto.proyectoModalidadId)==='Linea de Investigación'">
+                   <div class="btn-group" >
+                  <router-link :to="{name: 'PropuestaLineaInformacionGeneralEditView', params: {proyectoId: proyecto.id}}"  tag="button" class="btn btn-info btn-sm details">
+                   <b-icon-check2-square></b-icon-check2-square>&nbsp;
+                                <span class="d-none d-md-inline" v-text="$t('entity.action.edit')">Editar</span>
+                                </router-link>
+                   </div>
                   </td>
                 
-                    
+                    <!--
                     <td class="text-right">
                         <div class="btn-group" >
                             <router-link :to="{name: 'PropuestaEvaluarView', params: {proyectoId: proyecto.id}}" tag="button" class="btn btn-info btn-sm details">
@@ -67,9 +87,8 @@
                             </router-link>
   
                         </div>
-
-                        
                     </td>
+                    -->
                 </tr>
            
 
