@@ -224,6 +224,11 @@ export function initVueXStore(vue) {
           to: '/propuesta-pasantia/informacion-general-pasantia'
         },
         {
+          title: 'Integrantes',
+          description: 'En esta sección ingrese los integrantes de la propuesta Nota: Cada modalidad tiene un maximo de integrantes',
+          to: '/propuesta-pasantia/integrantes-pasantia'
+        },
+        {
           title: 'Información de la Empresa',
           description: 'En este apartado diligencie: La información de la Empresa donde realizará su pasantia',
           to: '/propuesta-pasantia/informacion-empresa'

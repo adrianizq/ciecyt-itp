@@ -360,7 +360,7 @@ import { IIntegranteProyecto, IntegranteProyecto } from '@/shared/model/integran
                     .update(this.proyecto)
                     .then(param => {
                         this.isSaving = false;
-                        this.$router.push({ name: 'PropuestaPasantiaInformacionEmpresaView', params: { proyectoId: this.proyecto.id.toString() } });
+                        this.$router.push({ name: 'PropuestaPasantiaIntegrantesView', params: { proyectoId: this.proyecto.id.toString() } });
                         const message = this.$t('ciecytApp.proyecto.updated', { param: param.id });
                         this.alertService().showAlert(message, 'info');
                     });
@@ -372,7 +372,7 @@ import { IIntegranteProyecto, IntegranteProyecto } from '@/shared/model/integran
 
                         this.proyId = String(param.id);
 
-                        this.$router.push({ name: 'PropuestaPasantiaInformacionEmpresaView', params: { proyectoId: this.proyId } });
+                        this.$router.push({ name: 'PropuestaPasantiaIntegrantesView', params: { proyectoId: this.proyId } });
 
                         const message = 'Se ha creado un nuevo proyecto';
                         this.alertService().showAlert(message, 'success');
