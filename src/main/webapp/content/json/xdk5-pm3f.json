@@ -888,13 +888,7 @@
     "c_digo_dane_del_municipio": "8296",
     "municipio": "Galapa"
   },
-  {
-    "region": "Región Pacífico",
-    "c_digo_dane_del_departamento": "76",
-    "departamento": "Valle del Cauca",
-    "c_digo_dane_del_municipio": "76834",
-    "municipio": "Tuluá"
-  },
+
   {
     "region": "Región Centro Sur",
     "c_digo_dane_del_departamento": "73",
@@ -1063,13 +1057,7 @@
     "c_digo_dane_del_municipio": "13062",
     "municipio": "Arroyohondo"
   },
-  {
-    "region": "Región Pacífico",
-    "c_digo_dane_del_departamento": "76",
-    "departamento": "Valle del Cauca",
-    "c_digo_dane_del_municipio": "76275",
-    "municipio": "Florida"
-  },
+
   {
     "region": "Región Caribe",
     "c_digo_dane_del_departamento": "13",
@@ -2820,13 +2808,7 @@
     "c_digo_dane_del_municipio": "20383",
     "municipio": "La Gloria"
   },
-  {
-    "region": "Región Pacífico",
-    "c_digo_dane_del_departamento": "76",
-    "departamento": "Valle del Cauca",
-    "c_digo_dane_del_municipio": "76364",
-    "municipio": "Jamundí"
-  },
+
   {
     "region": "Región Caribe",
     "c_digo_dane_del_departamento": "20",
@@ -4637,8 +4619,288 @@
     "region": "Región Pacífico",
     "c_digo_dane_del_departamento": "76",
     "departamento": "Valle del Cauca",
+    "c_digo_dane_del_municipio": "76020",
+    "municipio": "Alcalá"
+  },
+  {
+    "region": "Región Pacífico",
+    "c_digo_dane_del_departamento": "76",
+    "departamento": "Valle del Cauca",
+    "c_digo_dane_del_municipio": "76036",
+    "municipio": "Andalucía"
+  },
+  {
+    "region": "Región Pacífico",
+    "c_digo_dane_del_departamento": "76",
+    "departamento": "Valle del Cauca",
+    "c_digo_dane_del_municipio": "76041",
+    "municipio": "Ansermanuevo"
+  },
+  {
+    "region": "Región Pacífico",
+    "c_digo_dane_del_departamento": "76",
+    "departamento": "Valle del Cauca",
+    "c_digo_dane_del_municipio": "76054",
+    "municipio": "Argelia"
+  },
+  {
+    "region": "Región Pacífico",
+    "c_digo_dane_del_departamento": "76",
+    "departamento": "Valle del Cauca",
+    "c_digo_dane_del_municipio": "76100",
+    "municipio": "Bolívar"
+  },
+  {
+    "region": "Región Pacífico",
+    "c_digo_dane_del_departamento": "76",
+    "departamento": "Valle del Cauca",
     "c_digo_dane_del_municipio": "76109",
     "municipio": "Buenaventura"
+  },
+  {
+    "region": "Región Pacífico",
+    "c_digo_dane_del_departamento": "76",
+    "departamento": "Valle del Cauca",
+    "c_digo_dane_del_municipio": "76111",
+    "municipio": "Guadalajara de Buga"
+  },
+  {
+    "region": "Región Pacífico",
+    "c_digo_dane_del_departamento": "76",
+    "departamento": "Valle del Cauca",
+    "c_digo_dane_del_municipio": "76113",
+    "municipio": "Bugalagrande"
+  },
+  {
+    "region": "Región Pacífico",
+    "c_digo_dane_del_departamento": "76",
+    "departamento": "Valle del Cauca",
+    "c_digo_dane_del_municipio": "76122",
+    "municipio": "Caicedonia"
+  },
+  {
+    "region": "Región Pacífico",
+    "c_digo_dane_del_departamento": "76",
+    "departamento": "Valle del Cauca",
+    "c_digo_dane_del_municipio": "76126",
+    "municipio": "Calima"
+  },
+  {
+    "region": "Región Pacífico",
+    "c_digo_dane_del_departamento": "76",
+    "departamento": "Valle del Cauca",
+    "c_digo_dane_del_municipio": "76130",
+    "municipio": "Candelaria"
+  },
+  {
+    "region": "Región Pacífico",
+    "c_digo_dane_del_departamento": "76",
+    "departamento": "Valle del Cauca",
+    "c_digo_dane_del_municipio": "76147",
+    "municipio": "Cartago"
+  },
+  {
+    "region": "Región Pacífico",
+    "c_digo_dane_del_departamento": "76",
+    "departamento": "Valle del Cauca",
+    "c_digo_dane_del_municipio": "76233",
+    "municipio": "Dagua"
+  },
+  {
+    "region": "Región Pacífico",
+    "c_digo_dane_del_departamento": "76",
+    "departamento": "Valle del Cauca",
+    "c_digo_dane_del_municipio": "76243",
+    "municipio": "El Águila"
+  },
+  {
+    "region": "Región Pacífico",
+    "c_digo_dane_del_departamento": "76",
+    "departamento": "Valle del Cauca",
+    "c_digo_dane_del_municipio": "76246",
+    "municipio": "El Cairo"
+  },
+  {
+    "region": "Región Pacífico",
+    "c_digo_dane_del_departamento": "76",
+    "departamento": "Valle del Cauca",
+    "c_digo_dane_del_municipio": "76248",
+    "municipio": "El Cerrito"
+  },
+  {
+    "region": "Región Pacífico",
+    "c_digo_dane_del_departamento": "76",
+    "departamento": "Valle del Cauca",
+    "c_digo_dane_del_municipio": "76250",
+    "municipio": "El Dovio"
+  },
+  {
+    "region": "Región Pacífico",
+    "c_digo_dane_del_departamento": "76",
+    "departamento": "Valle del Cauca",
+    "c_digo_dane_del_municipio": "76275",
+    "municipio": "Florida"
+  },
+  {
+    "region": "Región Pacífico",
+    "c_digo_dane_del_departamento": "76",
+    "departamento": "Valle del Cauca",
+    "c_digo_dane_del_municipio": "76306",
+    "municipio": "Ginebra"
+  },
+  {
+    "region": "Región Pacífico",
+    "c_digo_dane_del_departamento": "76",
+    "departamento": "Valle del Cauca",
+    "c_digo_dane_del_municipio": "76318",
+    "municipio": "Guacarí"
+  },
+  {
+    "region": "Región Pacífico",
+    "c_digo_dane_del_departamento": "76",
+    "departamento": "Valle del Cauca",
+    "c_digo_dane_del_municipio": "76364",
+    "municipio": "Jamundí"
+  },
+  {
+    "region": "Región Pacífico",
+    "c_digo_dane_del_departamento": "76",
+    "departamento": "Valle del Cauca",
+    "c_digo_dane_del_municipio": "76377",
+    "municipio": "La Cumbre"
+  },
+  {
+    "region": "Región Pacífico",
+    "c_digo_dane_del_departamento": "76",
+    "departamento": "Valle del Cauca",
+    "c_digo_dane_del_municipio": "76400",
+    "municipio": "La Unión"
+  },
+  {
+    "region": "Región Pacífico",
+    "c_digo_dane_del_departamento": "76",
+    "departamento": "Valle del Cauca",
+    "c_digo_dane_del_municipio": "76403",
+    "municipio": "La Victoria"
+  },
+  {
+    "region": "Región Pacífico",
+    "c_digo_dane_del_departamento": "76",
+    "departamento": "Valle del Cauca",
+    "c_digo_dane_del_municipio": "76497",
+    "municipio": "Obando"
+  },
+  {
+    "region": "Región Pacífico",
+    "c_digo_dane_del_departamento": "76",
+    "departamento": "Valle del Cauca",
+    "c_digo_dane_del_municipio": "76520",
+    "municipio": "Palmira"
+  },
+  {
+    "region": "Región Pacífico",
+    "c_digo_dane_del_departamento": "76",
+    "departamento": "Valle del Cauca",
+    "c_digo_dane_del_municipio": "76563",
+    "municipio": "Pradera"
+  },
+  {
+    "region": "Región Pacífico",
+    "c_digo_dane_del_departamento": "76",
+    "departamento": "Valle del Cauca",
+    "c_digo_dane_del_municipio": "76606",
+    "municipio": "Restrepo"
+  },
+  {
+    "region": "Región Pacífico",
+    "c_digo_dane_del_departamento": "76",
+    "departamento": "Valle del Cauca",
+    "c_digo_dane_del_municipio": "76616",
+    "municipio": "Riofrío"
+  },
+  {
+    "region": "Región Pacífico",
+    "c_digo_dane_del_departamento": "76",
+    "departamento": "Valle del Cauca",
+    "c_digo_dane_del_municipio": "76622",
+    "municipio": "Roldanillo"
+  },
+  {
+    "region": "Región Pacífico",
+    "c_digo_dane_del_departamento": "76",
+    "departamento": "Valle del Cauca",
+    "c_digo_dane_del_municipio": "76670",
+    "municipio": "San Pedro"
+  },
+  {
+    "region": "Región Pacífico",
+    "c_digo_dane_del_departamento": "76",
+    "departamento": "Valle del Cauca",
+    "c_digo_dane_del_municipio": "76736",
+    "municipio": "Sevilla"
+  },
+  {
+    "region": "Región Pacífico",
+    "c_digo_dane_del_departamento": "76",
+    "departamento": "Valle del Cauca",
+    "c_digo_dane_del_municipio": "76823",
+    "municipio": "Toro"
+  },
+  {
+    "region": "Región Pacífico",
+    "c_digo_dane_del_departamento": "76",
+    "departamento": "Valle del Cauca",
+    "c_digo_dane_del_municipio": "76828",
+    "municipio": "Trujillo"
+  },
+  {
+    "region": "Región Pacífico",
+    "c_digo_dane_del_departamento": "76",
+    "departamento": "Valle del Cauca",
+    "c_digo_dane_del_municipio": "76834",
+    "municipio": "Tuluá"
+  },
+  {
+    "region": "Región Pacífico",
+    "c_digo_dane_del_departamento": "76",
+    "departamento": "Valle del Cauca",
+    "c_digo_dane_del_municipio": "76845",
+    "municipio": "Ulloa"
+  },
+  {
+    "region": "Región Pacífico",
+    "c_digo_dane_del_departamento": "76",
+    "departamento": "Valle del Cauca",
+    "c_digo_dane_del_municipio": "76863",
+    "municipio": "Versalles"
+  },
+  {
+    "region": "Región Pacífico",
+    "c_digo_dane_del_departamento": "76",
+    "departamento": "Valle del Cauca",
+    "c_digo_dane_del_municipio": "76869",
+    "municipio": "Vijes"
+  },
+  {
+    "region": "Región Pacífico",
+    "c_digo_dane_del_departamento": "76",
+    "departamento": "Valle del Cauca",
+    "c_digo_dane_del_municipio": "76890",
+    "municipio": "Yotoco"
+  },
+  {
+    "region": "Región Pacífico",
+    "c_digo_dane_del_departamento": "76",
+    "departamento": "Valle del Cauca",
+    "c_digo_dane_del_municipio": "76892",
+    "municipio": "Yumbo"
+  },
+  {
+    "region": "Región Pacífico",
+    "c_digo_dane_del_departamento": "76",
+    "departamento": "Valle del Cauca",
+    "c_digo_dane_del_municipio": "76895",
+    "municipio": "Zarzal"
   },
   {
     "region": "Región Llano",
@@ -6504,6 +6766,13 @@
   },
   {
     "region": "Región Centro Sur",
+    "c_digo_dane_del_departamento": "86",
+    "departamento": "Putumayo",
+    "c_digo_dane_del_municipio": "86865",
+    "municipio": "Valle del Guamuez"
+  },
+  {
+    "region": "Región Centro Sur",
     "c_digo_dane_del_departamento": "91",
     "departamento": "Amazonas",
     "c_digo_dane_del_municipio": "91001",
@@ -6543,6 +6812,20 @@
     "departamento": "Amazonas",
     "c_digo_dane_del_municipio": "91536",
     "municipio": "Puerto Arica"
+  },
+  {
+    "region": "Región Centro Sur",
+    "c_digo_dane_del_departamento": "91",
+    "departamento": "Amazonas",
+    "c_digo_dane_del_municipio": "91460",
+    "municipio": "Mirití - Paraná"
+  },
+  {
+    "region": "Región Centro Sur",
+    "c_digo_dane_del_departamento": "91",
+    "departamento": "Amazonas",
+    "c_digo_dane_del_municipio": "91530",
+    "municipio": "Puerto Alegría"
   },
   {
     "region": "Región Centro Sur",
