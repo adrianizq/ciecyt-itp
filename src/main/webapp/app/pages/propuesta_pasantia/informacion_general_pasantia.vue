@@ -26,7 +26,7 @@
                                    />
                                 <div class="error" v-if="!$v.proyecto.titulo.required&&!iniciandoTitulo">El Título es requerido</div>
                         </div>
-
+                        <!--
                         <div class="form-group"  :class="{ 'form-group--error': $v.proyecto.url.$error }">
                             <label class="form-control-label " v-text="$t('ciecytApp.proyecto.url')" for="proyecto-url">Url</label>
                             <input type="text" class="form-control" name="url" id="proyecto-url"
@@ -35,7 +35,7 @@
                                    />
                             <div class="error" v-if="!$v.proyecto.url.url">La URL no es válida, ej: http://www.itp.edu.co</div>       
                                 
-                        </div>     
+                        </div>    --> 
                         
                         <div class="form-group"  >
                             <label class="form-control-label " v-text="$t('ciecytApp.proyecto.lugarEjecucion')" for="proyecto-url">Lugar de Ejecución</label>
@@ -167,8 +167,36 @@
                         </div>
                     </div>
 
-                    <!-- ADR   -->
+                    <!--/DEPARTAMENTO//////////////////////////////////////7 ///////////////////7-->
                     <div class="col-md-6 col-12">
+                        <div class="form-group"  >
+                               <label class="form-control-label "  for="proyecto-facultad">Departamento</label> 
+                            <b-form-select :options="departamentos"  text-field="facultad" value-field="id" id="facultad"
+                            v-model="proyecto.lugarEjecucion" 
+                              @input="setMunicipios"                       
+                            >
+              
+                            </b-form-select>
+                        
+                        </div>
+                    </div>
+                    <!--///////////////////////////////////////7 ///////////////////7-->
+
+                   <!--/MUNICIPIO//////////////////////////////////////7 ///////////////////7-->
+                    <div class="col-md-6 col-12">
+                        <div class="form-group"  >
+                               <label class="form-control-label "  for="proyecto-facultad">Municipio</label> 
+                            <b-form-select :options="municipios"  text-field="facultad" value-field="id" id="facultad"
+                            v-model="proyecto.url"
+                            >
+                            </b-form-select>
+                        
+                        </div>
+                    </div>
+                    <!--///////////////////////////////////////7 ///////////////////7-->
+
+                    <!-- ADR   -->
+                     <div class="col-md-6 col-12">
                           <div class="form-group"  :class="{ 'form-group--error': $v.integranteProyecto.integranteProyectoUserId }">
                             <label class="form-control-label "  v-text="$t('ciecytApp.proyecto.asesor')" for="asesor">Asesor</label> 
 
@@ -180,7 +208,6 @@
                             <div class="error" v-if="!$v.integranteProyecto.integranteProyectoUserId.required && !iniciandoAsesor">El proyecto debe tener un asesor</div>
                         </div>
                     </div>
-
 
                 </div>
 
@@ -211,7 +238,7 @@
 </template>
 
 <script lang="ts">
-    import { Component, Inject, Vue } from 'vue-property-decorator';
+    import { Component, Inject, Prop, Vue } from 'vue-property-decorator';
     import AlertService from '@/shared/alert/alert.service';
    
     
@@ -228,13 +255,19 @@
     //ADR
     import { IProyecto, Proyecto } from '@/shared/model/proyecto.model';
     import ProyectoService from '@/entities/proyecto/proyecto.service';
+    //import {JsonModule} ;
 
    
 
     import { numeric, required, minLength, maxLength, between, url } from 'vuelidate/lib/validators';
     import { id } from 'date-fns/esm/locale';
 import { IIntegranteProyecto, IntegranteProyecto } from '@/shared/model/integrante-proyecto.model';
+import axios from 'axios';
     //import { id } from 'date-fns/locale';
+   //  import datosCiudades from '../content/json/xdk5-pm3f.json';
+     //import datosCiudades from "./users.json";
+     
+    
 
    
     const validations: any = {
@@ -281,6 +314,8 @@ import { IIntegranteProyecto, IntegranteProyecto } from '@/shared/model/integran
          
         @Inject('alertService') private alertService: () => AlertService;
 
+        
+
         public modalidads: IModalidad[] = [];
         public facultades: IFacultad[] = [];
         public lineas_investigacion: ILineaInvestigacion[] = [];
@@ -293,6 +328,9 @@ import { IIntegranteProyecto, IntegranteProyecto } from '@/shared/model/integran
         public proyecto: IProyecto = new Proyecto();
         public proyId: string = null;
         public integranteProyecto: IIntegranteProyecto = new IntegranteProyecto();
+        public departamentosMunicipios: any;
+        public departamentos = [];
+        public municipios = [];
       
        
 
@@ -319,6 +357,36 @@ import { IIntegranteProyecto, IntegranteProyecto } from '@/shared/model/integran
             });
         }
 
+
+  public mounted(): void {
+     this.readJson("../content/json/xdk5-pm3f.json");
+  }
+readJson(filePath) {
+        var request = new XMLHttpRequest();
+        request.open("GET",filePath, false);
+        //console.log(request);
+        
+        request.send(null);
+        this.departamentosMunicipios = JSON.parse(request.responseText);
+
+       //console.log(request);
+       //console.log (this.departamentosMunicipios[0].departamento);
+       //console.log (this.departamentosMunicipios[0].municipio);
+       // {region: "Región Eje Cafetero - Antioquia", c_digo_dane_del_departamento: "5", departamento: "Antioquia", c_digo_dane_del_municipio: "5001", municipio: "Medellín"}
+       //console.log (this.departamentosMunicipios[0]);
+
+       //let municipios =  this.departamentosMunicipios.filter(function(e) {
+       //return e.departamento == 'Putumayo';
+       //});
+     
+       
+       this.departamentosMunicipios.forEach(element => {
+           if (this.departamentos.some(e => e == element.departamento)) return;
+           this.departamentos.push(element.departamento); 
+       });
+       //console.log (this.departamentos); 
+    }
+
         public save(): void {
             this.isSaving = true;
 
@@ -344,7 +412,7 @@ import { IIntegranteProyecto, IntegranteProyecto } from '@/shared/model/integran
                     this.setSubLinea(0);
                 }
                   if(this.$v.integranteProyecto.integranteProyectoUserId.$invalid){
-                    console.log(this.$v);
+                    //console.log(this.$v);
                     this.setAsesor("");
                     
                 }
@@ -386,7 +454,7 @@ import { IIntegranteProyecto, IntegranteProyecto } from '@/shared/model/integran
                 this.submitStatus = 'OK';
                 }, 500)
             }
-            console.log(this.submitStatus);
+           // console.log(this.submitStatus);
         }
 
         get LineasInvestigacion() {
@@ -400,6 +468,8 @@ import { IIntegranteProyecto, IntegranteProyecto } from '@/shared/model/integran
                 return (linea.lineaPadreId == this.proyecto.proyectoLineaInvestigacionId && linea.lineaPadreId);
             });
         }
+
+     
 
         retrieveProyecto() {
             this.proyectoService().find(parseInt(this.$route.params.proyectoId)).then((res) => {
@@ -454,6 +524,7 @@ import { IIntegranteProyecto, IntegranteProyecto } from '@/shared/model/integran
 
                 });
 
+
         }
     //metodos para las validaciones
         setTitulo(value) {
@@ -487,13 +558,33 @@ import { IIntegranteProyecto, IntegranteProyecto } from '@/shared/model/integran
           }
 
             setAsesor(value) {
-             //console.log($v); 
+       
              this.integranteProyecto.integranteProyectoUserId = value;
              this.iniciandoAsesor= false;
              this.submitStatus='ERROR';
           }
-        
-        
+
+             setMunicipios(value){
+           
+            /*let munic =  this.departamentosMunicipios.filter(function(e) {
+            return e.departamento == value;
+            });
+            console.log(munic);*/
+           this.municipios = [];
+
+            let munic =  this.departamentosMunicipios.filter(function(e) {
+            return (e.departamento == value);
+            });
+           // console.log(munic); // bien
+            munic.forEach(element => {
+                this.municipios.push(element.municipio);
+            });
+             console.log(this.municipios);
+          
+
+        }
+
+     
         
     }
 
