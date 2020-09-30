@@ -417,7 +417,7 @@
 
                  
               
-            if (this.informacionPasantia.id) {
+            if (this.informacionPasantia) {
                 this.informacionPasantiaService()
                     .update(this.informacionPasantia)
                     .then(param => {
@@ -427,11 +427,10 @@
                         this.alertService().showAlert(message, 'info');
                     });
             } else {
-               
+               //console.log(this.proyId);
                 this.informacionPasantia.informacionPasantiaProyectoId= parseInt(this.proyId);
                  //console.log(this.informacionPasantia);
-                
-                  
+                       
                 this.informacionPasantiaService()
                     .create(this.informacionPasantia)  
                     .then(param => {
@@ -456,9 +455,9 @@
                 }, 500)
             }
         }
-
+        //recupera un proyecto
         retrieveProyecto() {
-             console.log(this.proyId);
+             //console.log(this.proyId);
              this.proyectoService().find(this.proyId).then((res) => {
                 this.proyecto = res;
             });
@@ -473,7 +472,7 @@
                 .findInformacionPasantiaProyecto(this.proyId)
                 .then(res => {
                     this.informacionPasantia = res;
-                    //console.log(this.informacionPasantia);
+                    console.log(this.proyId);
                     
                 });
         
