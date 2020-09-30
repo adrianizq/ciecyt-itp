@@ -364,26 +364,13 @@ import axios from 'axios';
 readJson(filePath) {
         var request = new XMLHttpRequest();
         request.open("GET",filePath, false);
-        //console.log(request);
-        
         request.send(null);
         this.departamentosMunicipios = JSON.parse(request.responseText);
-
-       //console.log(request);
-       //console.log (this.departamentosMunicipios[0].departamento);
-       //console.log (this.departamentosMunicipios[0].municipio);
-       // {region: "Región Eje Cafetero - Antioquia", c_digo_dane_del_departamento: "5", departamento: "Antioquia", c_digo_dane_del_municipio: "5001", municipio: "Medellín"}
-       //console.log (this.departamentosMunicipios[0]);
-
-       //let municipios =  this.departamentosMunicipios.filter(function(e) {
-       //return e.departamento == 'Putumayo';
-       //});
-     
-       
-       this.departamentosMunicipios.forEach(element => {
-           if (this.departamentos.some(e => e == element.departamento)) return;
+        this.departamentosMunicipios.forEach(element => {
+        if (this.departamentos.some(e => e == element.departamento)) return;
            this.departamentos.push(element.departamento); 
        });
+       this.departamentos.sort();
        //console.log (this.departamentos); 
     }
 
@@ -579,6 +566,7 @@ readJson(filePath) {
             munic.forEach(element => {
                 this.municipios.push(element.municipio);
             });
+            this.municipios.sort();
              console.log(this.municipios);
           
 
