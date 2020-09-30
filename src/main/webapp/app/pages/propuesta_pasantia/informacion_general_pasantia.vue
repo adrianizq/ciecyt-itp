@@ -456,7 +456,6 @@
           }
 
             setAsesor(value) {
-       
              this.integranteProyecto.integranteProyectoUserId = value;
              this.iniciandoAsesor= false;
              this.submitStatus='ERROR';
@@ -465,7 +464,7 @@
           setMunicipios(value){
             this.municipios = [];
             let munic =  this.departamentosMunicipios.filter(function(e) {
-            return (e.departamento == value);
+                return (e.departamento == value);
             });
             munic.forEach(element => {
                 this.municipios.push(element.municipio);
