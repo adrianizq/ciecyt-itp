@@ -36,14 +36,14 @@
                             <div class="error" v-if="!$v.proyecto.url.url">La URL no es válida, ej: http://www.itp.edu.co</div>       
                                 
                         </div>    --> 
-                        
+                        <!--
                         <div class="form-group"  >
                             <label class="form-control-label " v-text="$t('ciecytApp.proyecto.lugarEjecucion')" for="proyecto-url">Lugar de Ejecución</label>
                             <input type="text" class="form-control" name="lugar-ejecucion" id="proyecto-lugar-ejecucion"
                                    v-model="proyecto.lugarEjecucion"
                                         placeholder="Ingrese el lugar (ciduad, ubicación) donde se ejecutará el proyecto"
                                    />
-                        </div>   
+                        </div>   --> 
 
                         <div class="form-group"  >
                             <label class="form-control-label " v-text="$t('ciecytApp.proyecto.duracion')" for="proyecto-duracion">Duración en meses</label>
@@ -131,42 +131,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-6 col-12">
-                      <div class="form-group"  :class="{ 'form-group--error': $v.proyecto.proyectoLineaInvestigacionId }">
-                            <label class="form-control-label "  v-text="$t('ciecytApp.proyecto.proyectoLineaInvestigacion')" for="proyecto-linea-investigacion">Linea de Investigación</label> 
-                            <b-form-select text-field="linea" value-field="id" id="linea_investigacion"
-                            v-model="proyecto.proyectoLineaInvestigacionId"
-                             @input="setLinea"
-                             >
-                                <option v-for="(selectOption, indexOpt) in LineasInvestigacion"
-                                        :key="indexOpt"
-                                        :value="selectOption.id"
-                                >
-                                    ({{ selectOption.codigoLinea }}) {{ selectOption.linea }}
-                                </option>
-                            </b-form-select>
-                             <div class="error" v-if="!$v.proyecto.proyectoLineaInvestigacionId.required && !iniciandoLinea">Una Línea de Investigación es requerida</div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 col-12">
-                            <div class="form-group"  :class="{ 'form-group--error': $v.proyecto.subLineaLineaInvestigacionId }">
-                            <label class="form-control-label "  v-text="$t('ciecytApp.proyecto.subLineaLineaInvestigacion')" for="sub-linea-investigacion">Sublinea de Investigación</label> 
-                            <b-form-select text-field="linea" value-field="id" id="sub_linea_linea_investigacion"
-                                v-model="proyecto.subLineaLineaInvestigacionId" 
-                                 @input="setSubLinea"
-                                >
-                                <option v-for="(selectOption, indexOpt) in SubLineas"
-                                        :key="indexOpt"
-                                        :value="selectOption.id"
-                                >
-                                    ({{ selectOption.codigoLinea }}) {{ selectOption.linea }}
-                                </option>
-                            </b-form-select>
-                            <div class="error" v-if="!$v.proyecto.subLineaLineaInvestigacionId.required && !iniciandoSubLinea">Una Sublínea de Investigación es requerida</div>
-                        </div>
-                    </div>
-
+ 
                     <!--/DEPARTAMENTO//////////////////////////////////////7 ///////////////////7-->
                     <div class="col-md-6 col-12">
                         <div class="form-group"  >
@@ -247,47 +212,31 @@
     import { IModalidad } from '@/shared/model/modalidad.model';
     import FacultadService from '@/entities/facultad/facultad.service';
     import { IFacultad } from '@/shared/model/facultad.model';
-    import LineaInvestigacionService from '@/entities/linea-investigacion/linea-investigacion.service';
-    import { ILineaInvestigacion } from '@/shared/model/linea-investigacion.model';
     import UsuarioService from '@/entities/usuario/usuario.service';
     import { IUsuario } from '@/shared/model/usuario.model';
     import { IUser } from '@/shared/model/user.model';
     //ADR
     import { IProyecto, Proyecto } from '@/shared/model/proyecto.model';
     import ProyectoService from '@/entities/proyecto/proyecto.service';
-    //import {JsonModule} ;
-
+  
    
 
     import { numeric, required, minLength, maxLength, between, url } from 'vuelidate/lib/validators';
     import { id } from 'date-fns/esm/locale';
-import { IIntegranteProyecto, IntegranteProyecto } from '@/shared/model/integrante-proyecto.model';
-import axios from 'axios';
-    //import { id } from 'date-fns/locale';
-   //  import datosCiudades from '../content/json/xdk5-pm3f.json';
-     //import datosCiudades from "./users.json";
+    import { IIntegranteProyecto, IntegranteProyecto } from '@/shared/model/integrante-proyecto.model';
      
     
 
    
     const validations: any = {
         proyecto:{
-            id: {},
             titulo: { required, maxLength: maxLength(100000) },
             palabrasClave: { required, maxLength: maxLength(100000) },
             proyectoModalidadId: { required, between: between(1, 100000000)},
             facultadId:  { required, between: between(1, 100000000)},
-            proyectoLineaInvestigacionId:  { required, between: between(1, 100000000)},
-            subLineaLineaInvestigacionId:  { required, between: between(1, 100000000)},
-            //asesorId:  { required, between: between(1, 100000000)},
-            url: { url},
-            lugarEjecucion: {},
-            duracion: {},
-            fechaIni: {},
-            fechaFin: {},
-            contrapartidaPesos: {},
-            contrapartidaEspecie: {},
-            convocatoria: {}
+            asesorId:  { required, between: between(1, 100000000)},
+           
+            
         },
         integranteProyecto:{
             integranteProyectoUserId:  { required, between: between(1, 100000000)},
@@ -308,7 +257,6 @@ import axios from 'axios';
     export default class PasantiaInformacionGeneral extends Vue {
         @Inject('modalidadService') private modalidadService: () => ModalidadService;
         @Inject('facultadService') private facultadService: () => FacultadService;
-        @Inject('lineaInvestigacionService') private lineaInvestigacionService: () => LineaInvestigacionService;
         @Inject('usuarioService') private usuarioService: () => UsuarioService;
         @Inject('proyectoService') private proyectoService: () => ProyectoService;
          
@@ -318,10 +266,8 @@ import axios from 'axios';
 
         public modalidads: IModalidad[] = [];
         public facultades: IFacultad[] = [];
-        public lineas_investigacion: ILineaInvestigacion[] = [];
         public users: IUser[] = [];
 
-        public linea_investigacion: number = null;
         public facultad: number = null;
         public user: number = null;
         public nombresApellidos: string = null;
@@ -341,8 +287,6 @@ import axios from 'axios';
         public iniciandoPalabrasClave: boolean = true;
         public iniciandoModalidad: boolean = true;
         public iniciandoFacultad: boolean = true;
-        public iniciandoLinea: boolean = true;
-        public iniciandoSubLinea: boolean = true;
         public iniciandoAsesor: boolean = true;
         
         
@@ -361,7 +305,8 @@ import axios from 'axios';
   public mounted(): void {
      this.readJson("../content/json/xdk5-pm3f.json");
   }
-readJson(filePath) {
+
+  readJson(filePath) {
         var request = new XMLHttpRequest();
         request.open("GET",filePath, false);
         request.send(null);
@@ -392,12 +337,7 @@ readJson(filePath) {
                 if(this.$v.proyecto.facultadId.$invalid){
                     this.setFacultad(0);
                 }
-                if(this.$v.proyecto.proyectoLineaInvestigacionId.$invalid){
-                    this.setLinea(0);
-                }
-                 if(this.$v.proyecto.subLineaLineaInvestigacionId.$invalid){
-                    this.setSubLinea(0);
-                }
+               
                   if(this.$v.integranteProyecto.integranteProyectoUserId.$invalid){
                     //console.log(this.$v);
                     this.setAsesor("");
@@ -441,22 +381,8 @@ readJson(filePath) {
                 this.submitStatus = 'OK';
                 }, 500)
             }
-           // console.log(this.submitStatus);
         }
 
-        get LineasInvestigacion() {
-            return this.lineas_investigacion.filter(linea => {
-                return (!linea.lineaPadreId && linea.lineaInvestigacionFacultadId == this.proyecto.facultadId);
-            });
-        }
-
-        get SubLineas() {
-            return this.lineas_investigacion.filter(linea => {
-                return (linea.lineaPadreId == this.proyecto.proyectoLineaInvestigacionId && linea.lineaPadreId);
-            });
-        }
-
-     
 
         retrieveProyecto() {
             this.proyectoService().find(parseInt(this.$route.params.proyectoId)).then((res) => {
@@ -493,12 +419,7 @@ readJson(filePath) {
                     this.facultades = res.data;
                 });
 
-            //Obteniendo las lineas de investigacion
-            this.lineaInvestigacionService()
-                .retrieve()
-                .then(res => {
-                    this.lineas_investigacion = res.data;
-                });
+  
 
             //Obteniendo los usuarios asesores
             this.usuarioService()
@@ -534,16 +455,6 @@ readJson(filePath) {
              this.submitStatus='ERROR';
           }
 
-          setLinea(value) {
-             this.iniciandoLinea= false;
-             this.submitStatus='ERROR';
-          }
-
-           setSubLinea(value) {
-             this.iniciandoSubLinea= false;
-             this.submitStatus='ERROR';
-          }
-
             setAsesor(value) {
        
              this.integranteProyecto.integranteProyectoUserId = value;
@@ -551,25 +462,15 @@ readJson(filePath) {
              this.submitStatus='ERROR';
           }
 
-             setMunicipios(value){
-           
-            /*let munic =  this.departamentosMunicipios.filter(function(e) {
-            return e.departamento == value;
-            });
-            console.log(munic);*/
-           this.municipios = [];
-
+          setMunicipios(value){
+            this.municipios = [];
             let munic =  this.departamentosMunicipios.filter(function(e) {
             return (e.departamento == value);
             });
-           // console.log(munic); // bien
             munic.forEach(element => {
                 this.municipios.push(element.municipio);
             });
             this.municipios.sort();
-             console.log(this.municipios);
-          
-
         }
 
      
