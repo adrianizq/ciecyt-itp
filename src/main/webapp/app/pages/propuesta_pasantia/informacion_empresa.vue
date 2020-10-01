@@ -19,11 +19,10 @@
                             <label class="form-control-label " v-text="$t('ciecytApp.informacionPasantia.duracionHoras')" for="informacion-pasantia-duracion-horas">Duracion en Horas</label>
                             <input type="text" class="form-control" name="duracion-horas" id="informacion-pasantia-duracion-horas"
                                    v-model="informacionPasantia.duracionHoras"
-                                      @input="setDuracionHoras"
+                                      @input="setDuracionHoras($event.target.value)"
 
                                       placeholder="Horas de pasantía: tecnico 480, tecnólogo 640, profesional 880"
                                    />
-                                                      
                                 <div class="error" v-if="!$v.informacionPasantia.duracionHoras.required&&!iniciandoDuracionHoras">Las horas de la pasantia son requeridas</div>
                         </div>
 
@@ -31,7 +30,7 @@
                             <label class="form-control-label " v-text="$t('ciecytApp.informacionPasantia.direccion')" for="informacion-pasantia-direccion">Direccion </label>
                             <input type="text" class="form-control" name="direccion" id="informacion-pasantia-direccion"
                                    v-model="informacionPasantia.direccion"
-                                      @input="setDireccion"
+                                      @input="setDireccion($event.target.value)"
 
                                       placeholder="Ingrese la direccion donde realizará la pasantía"
                                    />
@@ -327,7 +326,8 @@
    
     const validations: any = {
         informacionPasantia:{
-            duracionHoras: { required,  between: between(100, 1000) },
+            id: {},
+            duracionHoras: { required, maxLength: maxLength(100000) },
             direccion: { required, maxLength: maxLength(100000) },
             
         }
@@ -355,8 +355,7 @@
         public informacionPasantia: IInformacionPasantia = new InformacionPasantia();
         
         public proyecto: IProyecto = new Proyecto();
-        //public proyId: string = null;
-        public proyId: any;
+        public proyId: any = null;
         
       
        
@@ -373,7 +372,6 @@
         beforeRouteEnter(to, from, next) {
             next(vm => {
                 if (to.params.proyectoId) {
-                    this.proyId = this.$route.params.proyectoId;
                     vm.retrieveProyecto(to.params.proyectoId);
                 }
                 vm.initRelationships();
@@ -385,11 +383,11 @@
 
             this.$v.$touch();
             if (this.$v.$invalid) {
-            
-                if(this.$v.informacionPasantia.duracionHoras.$invalid){
-                    this.setDuracionHoras(0);
+            /*
+                if(this.$v.proyecto.titulo.$invalid){
+                    this.setTitulo("");
                 }
-            /*    if(this.$v.proyecto.palabrasClave.$invalid){
+                if(this.$v.proyecto.palabrasClave.$invalid){
                     this.setPalabrasClave("");
                 }
                 if(this.$v.proyecto.proyectoModalidadId.$invalid){
@@ -411,13 +409,13 @@
                 }
             */
                 this.submitStatus = 'ERROR';
-               // console.log("Error");
+                console.log("Error");
             }
             else{ 
 
                  
               
-            if (this.informacionPasantia) {
+            if (this.informacionPasantia.id) {
                 this.informacionPasantiaService()
                     .update(this.informacionPasantia)
                     .then(param => {
@@ -427,17 +425,18 @@
                         this.alertService().showAlert(message, 'info');
                     });
             } else {
-               //console.log(this.proyId);
-                this.informacionPasantia.informacionPasantiaProyectoId= parseInt(this.proyId);
+               
+                this.informacionPasantia.informacionPasantiaProyectoId= this.proyId;
                  //console.log(this.informacionPasantia);
-                       
+                
+                  
                 this.informacionPasantiaService()
                     .create(this.informacionPasantia)  
                     .then(param => {
                        
                         this.isSaving = false;
 
-                        //this.proyId = String(param.id);
+                        //this.proyId = param.id;
 
                         this.$router.push({ name: 'PropuestaPasantiaInformacionEmpresaView', params: { proyectoId: this.proyId } });
 
@@ -454,32 +453,30 @@
                 this.submitStatus = 'OK';
                 }, 500)
             }
+            console.log(this.submitStatus);
         }
-        //recupera un proyecto
+
         retrieveProyecto() {
-             //console.log(this.proyId);
-             this.proyectoService().find(this.proyId).then((res) => {
+            this.proyectoService().find(parseInt(this.proyId)).then((res) => {
                 this.proyecto = res;
             });
         }
 
         initRelationships() {
 
-            //this.proyId = this.$route.params.proyectoId;
-            //console.log(this.proyId);
+            this.proyId = this.$route.params.proyectoId;
     
             this.informacionPasantiaService()
-                .findInformacionPasantiaProyecto(this.proyId)
+                .findInformacionPasantiaProyecto( this.proyId)
                 .then(res => {
                     this.informacionPasantia = res;
-                    console.log(this.proyId);
+                    console.log(this.informacionPasantia);
                     
                 });
         
     }
     //metodos para las validaciones
         setDuracionHoras(value) {
-            //console.log(value);
             this.iniciandoDuracionHoras= false;
             this.submitStatus='ERROR';
         }
@@ -489,6 +486,12 @@
             this.submitStatus='ERROR';
         }
 
+    
+
+           
+        
+        
+        
     }
 
     
