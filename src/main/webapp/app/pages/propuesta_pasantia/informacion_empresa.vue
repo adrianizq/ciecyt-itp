@@ -19,22 +19,25 @@
                             <label class="form-control-label " v-text="$t('ciecytApp.informacionPasantia.duracionHoras')" for="informacion-pasantia-duracion-horas">Duracion en Horas</label>
                             <input type="text" class="form-control" name="duracion-horas" id="informacion-pasantia-duracion-horas"
                                    v-model="informacionPasantia.duracionHoras"
-                                      @input="setDuracionHoras($event.target.value)"
+                                   
 
                                       placeholder="Horas de pasantía: tecnico 480, tecnólogo 640, profesional 880"
                                    />
-                                <div class="error" v-if="!$v.informacionPasantia.duracionHoras.required&&!iniciandoDuracionHoras">Las horas de la pasantia son requeridas</div>
+                                                      
+                             <!--   <div class="error" v-if="!$v.informacionPasantia.duracionHoras.required&&!iniciandoDuracionHoras">Las horas de la pasantia son requeridas</div>
+                             -->
                         </div>
 
                         <div class="form-group" >
                             <label class="form-control-label " v-text="$t('ciecytApp.informacionPasantia.direccion')" for="informacion-pasantia-direccion">Direccion </label>
                             <input type="text" class="form-control" name="direccion" id="informacion-pasantia-direccion"
                                    v-model="informacionPasantia.direccion"
-                                      @input="setDireccion($event.target.value)"
+                                     
 
                                       placeholder="Ingrese la direccion donde realizará la pasantía"
                                    />
-                                <div class="error" v-if="!$v.informacionPasantia.direccion.required&&!iniciandoDireccion">La direccion del sitio de pasantía es requerida</div>
+                              <!--  <div class="error" v-if="!$v.informacionPasantia.direccion.required&&!iniciandoDireccion">La direccion del sitio de pasantía es requerida</div>
+                              -->
                         </div>
 
                         
@@ -313,8 +316,8 @@
     import { IInformacionPasantia, InformacionPasantia } from '@/shared/model/informacion-pasantia.model';
     
     
-    import { IProyecto, Proyecto } from '@/shared/model/proyecto.model';
-    import ProyectoService from '@/entities/proyecto/proyecto.service';
+    //import { IProyecto, Proyecto } from '@/shared/model/proyecto.model';
+    //import ProyectoService from '@/entities/proyecto/proyecto.service';
 
    
 
@@ -326,9 +329,8 @@
    
     const validations: any = {
         informacionPasantia:{
-            id: {},
-            duracionHoras: { required, maxLength: maxLength(100000) },
-            direccion: { required, maxLength: maxLength(100000) },
+           // duracionHoras: { required },
+           // direccion: { required, },
             
         }
     }
@@ -347,15 +349,16 @@
     export default class PasantiaInformacionEmpresa extends Vue {
       
        
-        @Inject('proyectoService') private proyectoService: () => ProyectoService;
+      //  @Inject('proyectoService') private proyectoService: () => ProyectoService;
         @Inject('informacionPasantiaService') private informacionPasantiaService: () => InformacionPasantiaService;
          
         @Inject('alertService') private alertService: () => AlertService;
 
         public informacionPasantia: IInformacionPasantia = new InformacionPasantia();
         
-        public proyecto: IProyecto = new Proyecto();
-        public proyId: any = null;
+       // public proyecto: IProyecto = new Proyecto();
+        //public proyId: string = null;
+        public proyId: any;
         
       
        
@@ -367,12 +370,27 @@
         public iniciandoDireccion: boolean = true;
         
         
-          
+       mounted() {
+            this.proyId = this.$route.params.proyectoId;
+        this.retrieveInformacionPasantia();
+        }
+
+retrieveInformacionPasantia(){
+      this.informacionPasantiaService()
+                .findInformacionPasantiaProyecto(this.proyId)
+                .then(res => {
+                    if(res)
+                    this.informacionPasantia = res;
+                
+                });
+}
 
         beforeRouteEnter(to, from, next) {
             next(vm => {
                 if (to.params.proyectoId) {
-                    vm.retrieveProyecto(to.params.proyectoId);
+                    this.proyId = this.$route.params.proyectoId;
+                   // vm.retrieveProyecto(to.params.proyectoId);
+                   //vm.retrieveAllInformacionPasantia();
                 }
                 vm.initRelationships();
             });
@@ -381,13 +399,13 @@
         public save(): void {
             this.isSaving = true;
 
-            this.$v.$touch();
+            /*this.$v.$touch();
             if (this.$v.$invalid) {
-            /*
-                if(this.$v.proyecto.titulo.$invalid){
-                    this.setTitulo("");
+            
+                if(this.$v.informacionPasantia.duracionHoras.$invalid){
+                    this.setDuracionHoras(0);
                 }
-                if(this.$v.proyecto.palabrasClave.$invalid){
+               if(this.$v.proyecto.palabrasClave.$invalid){
                     this.setPalabrasClave("");
                 }
                 if(this.$v.proyecto.proyectoModalidadId.$invalid){
@@ -408,10 +426,10 @@
                     
                 }
             */
-                this.submitStatus = 'ERROR';
-                console.log("Error");
-            }
-            else{ 
+              //  this.submitStatus = 'ERROR';
+               // console.log("Error");
+            //}
+            //else{ 
 
                  
               
@@ -420,23 +438,23 @@
                     .update(this.informacionPasantia)
                     .then(param => {
                         this.isSaving = false;
-                        this.$router.push({ name: 'PropuestaPasantiaInformacionEmpresaView', params: { proyectoId: this.proyecto.id.toString() } });
+                        this.$router.push({ name: 'PropuestaPasantiaInformacionEmpresaView', params: { proyectoId: this.proyId } });
                         const message = this.$t('ciecytApp.proyecto.updated', { param: param.id });
                         this.alertService().showAlert(message, 'info');
                     });
             } else {
-               
-                this.informacionPasantia.informacionPasantiaProyectoId= this.proyId;
+               console.log(this.proyId);
+                //this.informacionPasantia.informacionPasantiaProyectoId
+                this.informacionPasantia.informacionPasantiaProyectoId= parseInt(this.proyId);
                  //console.log(this.informacionPasantia);
-                
-                  
+                       
                 this.informacionPasantiaService()
                     .create(this.informacionPasantia)  
                     .then(param => {
                        
                         this.isSaving = false;
 
-                        //this.proyId = param.id;
+                        //this.proyId = String(param.id);
 
                         this.$router.push({ name: 'PropuestaPasantiaInformacionEmpresaView', params: { proyectoId: this.proyId } });
 
@@ -453,30 +471,27 @@
                 this.submitStatus = 'OK';
                 }, 500)
             }
-            console.log(this.submitStatus);
-        }
-
+       // }
+        //recupera un proyecto
+        /*
         retrieveProyecto() {
-            this.proyectoService().find(parseInt(this.proyId)).then((res) => {
+             //console.log(this.proyId);
+             this.proyectoService().find(this.proyId).then((res) => {
                 this.proyecto = res;
             });
-        }
+        }*/
 
         initRelationships() {
 
-            this.proyId = this.$route.params.proyectoId;
+            //this.proyId = this.$route.params.proyectoId;
+            //console.log(this.proyId);
     
-            this.informacionPasantiaService()
-                .findInformacionPasantiaProyecto( this.proyId)
-                .then(res => {
-                    this.informacionPasantia = res;
-                    console.log(this.informacionPasantia);
-                    
-                });
+          
         
     }
     //metodos para las validaciones
         setDuracionHoras(value) {
+            //console.log(value);
             this.iniciandoDuracionHoras= false;
             this.submitStatus='ERROR';
         }
@@ -486,12 +501,6 @@
             this.submitStatus='ERROR';
         }
 
-    
-
-           
-        
-        
-        
     }
 
     
