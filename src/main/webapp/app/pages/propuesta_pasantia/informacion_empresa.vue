@@ -370,9 +370,9 @@
         public iniciandoDireccion: boolean = true;
         
         
-       mounted() {
+      async  mounted() {
             this.proyId = this.$route.params.proyectoId;
-        this.retrieveInformacionPasantia();
+        await this.retrieveInformacionPasantia();
         }
 
 retrieveInformacionPasantia(){
