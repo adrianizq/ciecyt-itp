@@ -7,9 +7,6 @@
       <form @submit.prevent="save()">
         <div class="row">
           <div class="col-12">
-
-
-          
             <div class="form-group">
               <label class="form-control-label " for="informacion-pasantia-convenio">Número del Convenio ITP - Empresa </label>
               <input
@@ -31,7 +28,7 @@
                 {{ $v.informacionPasantia.convenio.$params.between.max }} .
               </div>
             </div>
-    
+
             <div class="form-group">
               <label
                 class="form-control-label "
@@ -302,7 +299,7 @@
               />
               <div class="valid-feedback"></div>
               <div class="text-danger" v-if="!$v.informacionPasantia.nitEmpresa.nitValidator">Ingrese un nit válido, ej: 123123123-1</div>
-              
+
               <div class="text-danger" v-if="!$v.informacionPasantia.nitEmpresa.minLength">
                 Este campo debe tener al menos {{ $v.informacionPasantia.nitEmpresa.$params.minLength.min }} caracteres.
               </div>
@@ -335,46 +332,49 @@
               </div>
             </div>
 
-   
-
-  <!--/DEPARTAMENTO//////////////////////////////////////7 ///////////////////7-->
-                    <div class="col-md-6 col-12">
-                        <div class="form-group"  >
-                               <label class="form-control-label "  for="proyecto-facultad">Departamento de la empresa</label> 
-                            <b-form-select :options="departamentosEmpresa"  text-field="facultad" value-field="id" id="facultad"
-                            v-model="informacionPasantia.departamentoEmpresa" 
-                              @input="setMunicipios"                       
-                            >
-              
-                            </b-form-select>
-                        
-                        </div>
-                    </div>
-<!--///////////////////////////////////////7 ///////////////////7-->
- <!--       <div class="form-group">
-              <label class="form-control-label " for="informacion-pasantia-municipio-empresa">Municipio de la empresa </label>
-              <input
-                type="text"
-                class="form-control"
-                name="municipio-empresa"
-                id="informacion-pasantia-municipio-empresa"
-                v-model="informacionPasantia.municipioEmpresa"
-                placeholder="Municipio donde está ubicada la empresa"
-              />
+            <!--/DEPARTAMENTO//////////////////////////////////////7 ///////////////////7-->
+            <div class="col-md-6 col-12">
+              <div class="form-group">
+                <label class="form-control-label " for="proyecto-facultad">Departamento de la empresa</label>
+                <b-form-select
+                  :options="departamentosEmpresa"
+                  text-field="facultad"
+                  value-field="id"
+                  id="facultad"
+                  v-model="informacionPasantia.departamentoEmpresa"
+                  @input="setMunicipios"
+                  :class="{
+                    'is-invalid': $v.informacionPasantia.departamentoEmpresa.$error,
+                    'is-valid': !$v.informacionPasantia.departamentoEmpresa.$invalid
+                  }"
+                >
+                </b-form-select>
+                <div class="valid-feedback"></div>
+                <div class="text-danger" v-if="!$v.informacionPasantia.departamentoEmpresa.required">Este campo es requerido</div>
+              </div>
             </div>
-            -->
+
             <!--/MUNICIPIO//////////////////////////////////////7 ///////////////////7-->
-                    <div class="col-md-6 col-12">
-                        <div class="form-group"  >
-                               <label class="form-control-label "  for="proyecto-facultad">Municipio de la Empresa</label> 
-                            <b-form-select :options="municipiosEmpresa"  text-field="facultad" value-field="id" id="facultad"
-                            v-model="informacionPasantia.municipioEmpresa"
-                            >
-                            </b-form-select>
-                        
-                        </div>
-                    </div>
-                    <!--///////////////////////////////////////7 ///////////////////7-->
+            <div class="col-md-6 col-12">
+              <div class="form-group">
+                <label class="form-control-label " for="proyecto-facultad">Municipio de la Empresa</label>
+                <b-form-select
+                  :options="municipiosEmpresa"
+                  text-field="facultad"
+                  value-field="id"
+                  id="facultad"
+                  v-model="informacionPasantia.municipioEmpresa"
+                  :class="{
+                    'is-invalid': $v.informacionPasantia.municipioEmpresa.$error,
+                    'is-valid': !$v.informacionPasantia.municipioEmpresa.$invalid
+                  }"
+                >
+                </b-form-select>
+                  <div class="valid-feedback"></div>
+                <div class="text-danger" v-if="!$v.informacionPasantia.municipioEmpresa.required">Este campo es requerido</div>
+              </div>
+            </div>
+            <!--///////////////////////////////////////7 ///////////////////7-->
             <div class="form-group">
               <label class="form-control-label " for="informacion-pasantia-telefono-contacto-empresa"
                 >Teléfono de contacto de la empresa
@@ -426,29 +426,37 @@
             </div>
 
             <div class="form-group">
-              <label class="form-control-label " v-text="$t('ciecytApp.informacionPasantia.sectorEconomicoEmpresa')" for="sector-economico-empresa"
+              <label
+                class="form-control-label "
+                v-text="$t('ciecytApp.informacionPasantia.sectorEconomicoEmpresa')"
+                for="sector-economico-empresa"
                 >Sector Economico de la Empresa</label
               >
               <b-select
                 class="form-control"
                 name="sector-economico-empresa"
                 v-model="informacionPasantia.sectorEconomicoEmpresa"
+                :class="{
+                  'is-invalid': $v.informacionPasantia.sectorEconomicoEmpresa.$error,
+                  'is-valid': !$v.informacionPasantia.sectorEconomicoEmpresa.$invalid
+                }"
                 id="informacion-pasantia-sector-economico-empresa"
               >
-                <option value="Agricola"  informacionPasantia.sectorEconomicoEmpresa="Agricola">Agricola</option>
+                <option value="Agricola" informacionPasantia.sectorEconomicoEmpresa="Agricola">Agricola</option>
                 <option value="Pecuario" informacionPasantia.sectorEconomicoEmpresa="Pecuario">Pecuario </option>
                 <option value="Comercio" informacionPasantia.sectorEconomicoEmpresa="Comercio">Comercio</option>
                 <option value="Industria" informacionPasantia.sectorEconomicoEmpresa="Industria">Industria</option>
                 <option value="Servicios" informacionPasantia.sectorEconomicoEmpresa="Servicios">Servicios</option>
                 <option value="Otro" informacionPasantia.sectorEconomicoEmpresa="Otro">Otro</option>
               </b-select>
+               <div class="valid-feedback"></div>
+              <div class="text-danger" v-if="!$v.informacionPasantia.sectorEconomicoEmpresa.required">Este campo es requerido</div>
             </div>
-
 
             <!----------------------------------------------------------------->
 
             <hr />
-       
+
             <div class="form-group">
               <label class="form-control-label " for="informacion-pasantia-representante-legal">Representante Legal de la empresa </label>
               <input
@@ -473,28 +481,6 @@
               </div>
             </div>
 
-
-          
-   <!-- <div class="col-md-6 col-12">  -->
-   <!--
-          <div class="form-group">
-              <label class="form-control-label " 
-                >Tipo de Documento Representante Legal</label
-              >
-              <b-select
-                class="form-control"
-                name="documento-representante-legal-empresa"
-              
-                id="documento-representante-legal-empresa"
-                 @input="setTipoDocumentoRepresentante"
-              >
-                <option value="Cédula de Ciudadanía" >Cédula de Ciudadanía</option>
-                <option value="Cédula de Extranjería" >Cédula de Extranjería </option>
-                <option value="Pasaporte">Pasaporte</option>
-               
-              </b-select>
-            </div>
--->
             <div class="form-group">
               <label class="form-control-label " for="informacion-pasantia-identificacion-representante-legal"
                 >Identificacion del Representante Legal de la empresa
@@ -512,18 +498,19 @@
                 placeholder="Ejemplos: C.C.1'210.323.232  C.E.674642 (no escriba espacios)"
               />
               <div class="valid-feedback"></div>
-              <div class="text-danger" v-if="!$v.informacionPasantia.identificacionRepresentanteLegal.required">Este campo es requerido</div>
+              <div class="text-danger" v-if="!$v.informacionPasantia.identificacionRepresentanteLegal.required">
+                Este campo es requerido
+              </div>
               <div class="text-danger" v-if="!$v.informacionPasantia.identificacionRepresentanteLegal.alphaDigitsSpaceQuoteAndDotValidator">
                 Este campo solo puede contener letras, digitos, comillas simples, espacios y puntos
               </div>
               <div class="text-danger" v-if="!$v.informacionPasantia.identificacionRepresentanteLegal.maxLength">
-                Este campo no debe tener más de {{ $v.informacionPasantia.identificacionRepresentanteLegal.$params.maxLength.max }} caracteres.
+                Este campo no debe tener más de
+                {{ $v.informacionPasantia.identificacionRepresentanteLegal.$params.maxLength.max }} caracteres.
               </div>
             </div>
-<!--        </div>    -->
-            
+            <!--        </div>    -->
 
-           
             <hr />
             <div class="form-group">
               <label class="form-control-label " for="informacion-pasantia-asesor-empresa">Asesor de la empresa </label>
@@ -548,7 +535,7 @@
                 Este campo no debe tener más de {{ $v.informacionPasantia.asesorEmpresa.$params.maxLength.max }} caracteres.
               </div>
             </div>
-         
+
             <div class="form-group">
               <label class="form-control-label " for="informacion-pasantia-cargo-asesor-empresa">Cargo del asesor de la empresa </label>
               <input
@@ -557,7 +544,7 @@
                 name="cargo-asesor-empresa"
                 id="informacion-pasantia-cargo-asesor-empresa"
                 v-model="informacionPasantia.cargoAsesorEmpresa"
-                 :class="{
+                :class="{
                   'is-invalid': $v.informacionPasantia.cargoAsesorEmpresa.$error,
                   'is-valid': !$v.informacionPasantia.cargoAsesorEmpresa.$invalid
                 }"
@@ -572,7 +559,7 @@
                 Este campo no debe tener más de {{ $v.informacionPasantia.cargoAsesorEmpresa.$params.maxLength.max }} caracteres.
               </div>
             </div>
-              
+
             <div class="form-group">
               <label class="form-control-label " for="informacion-pasantia-email-asesor-empresa">Email del asesor de la empresa </label>
               <input
@@ -581,7 +568,7 @@
                 name="email-asesor-empresa"
                 id="informacion-pasantia-email-asesor-empresa"
                 v-model="informacionPasantia.emailAsesorEmpresa"
-                  :class="{
+                :class="{
                   'is-invalid': $v.informacionPasantia.emailAsesorEmpresa.$error,
                   'is-valid': !$v.informacionPasantia.emailAsesorEmpresa.$invalid
                 }"
@@ -597,7 +584,6 @@
               </div>
             </div>
 
-             
             <div class="form-group">
               <label class="form-control-label " for="informacion-pasantia-profesion-asesor-empresa"
                 >Profesión del asesor de la empresa
@@ -608,7 +594,7 @@
                 name="profesion-asesor-empresa"
                 id="informacion-pasantia-profesion-asesor-empresa"
                 v-model="informacionPasantia.profesionAsesorEmpresa"
-                  :class="{
+                :class="{
                   'is-invalid': $v.informacionPasantia.profesionAsesorEmpresa.$error,
                   'is-valid': !$v.informacionPasantia.profesionAsesorEmpresa.$invalid
                 }"
@@ -624,7 +610,6 @@
               </div>
             </div>
 
-           
             <div class="form-group">
               <label class="form-control-label " for="informacion-pasantia-celular-asesor-empresa">Celular del asesor de la empresa </label>
               <input
@@ -633,7 +618,7 @@
                 name="celular-asesor-empresa"
                 id="informacion-pasantia-celular-asesor-empresa"
                 v-model="informacionPasantia.celularAsesorEmpresa"
-                  :class="{
+                :class="{
                   'is-invalid': $v.informacionPasantia.celularAsesorEmpresa.$error,
                   'is-valid': !$v.informacionPasantia.celularAsesorEmpresa.$invalid
                 }"
@@ -647,11 +632,10 @@
               <div class="text-danger" v-if="!$v.informacionPasantia.celularAsesorEmpresa.maxLength">
                 Este campo no debe tener más de {{ $v.informacionPasantia.celularAsesorEmpresa.$params.maxLength.max }} caracteres.
               </div>
-               <div class="text-danger" v-if="!$v.informacionPasantia.celularAsesorEmpresa.minLength">
+              <div class="text-danger" v-if="!$v.informacionPasantia.celularAsesorEmpresa.minLength">
                 Este campo debe tener al menos {{ $v.informacionPasantia.celularAsesorEmpresa.$params.minLength.max }} caracteres.
               </div>
             </div>
-          
           </div>
         </div>
 
@@ -676,9 +660,6 @@ import MenuLateralPasantia from '@/components/propuesta_pasantia/menu_lateral_pa
 import InformacionPasantiaService from '@/entities/informacion-pasantia/informacion-pasantia.service';
 import { IInformacionPasantia, InformacionPasantia } from '@/shared/model/informacion-pasantia.model';
 
-//import { IProyecto, Proyecto } from '@/shared/model/proyecto.model';
-//import ProyectoService from '@/entities/proyecto/proyecto.service';
-
 import { numeric, required, minLength, maxLength, between, url, email, alpha, helpers } from 'vuelidate/lib/validators';
 const alphaAndSpaceValidator = helpers.regex('alphaAndSpace', /^[A-Za-z\u00C0-\u017F- ]+$/i);
 const digitsQuoteAndDotValidator = helpers.regex('digitsQuoteAndDot', /^[0-9\/.//'/]+$/i);
@@ -686,13 +667,9 @@ const alphaDigitsSpaceQuoteAndDotValidator = helpers.regex('alphaDigitsSpaceQuot
 const digitsLineasValidator = helpers.regex('digitsLineas', /^[0-9 \u002D]+$/i);
 const nitValidator = helpers.regex('nit', /(^[0-9]+-{1}[0-9]{1})/);
 
-
 import { id } from 'date-fns/esm/locale';
 
-//import { id } from 'date-fns/locale';
-
 const validations: any = {
-  
   informacionPasantia: {
     duracionHoras: { required, between: between(480, 880) },
     direccion: { required, maxLength: maxLength(120), minLength: minLength(3) },
@@ -704,12 +681,15 @@ const validations: any = {
     telefonoContactoEmpresa: { required, maxLength: maxLength(15), minLength: minLength(7) },
     emailEmpresa: { required, email, maxLength: maxLength(254) },
     representanteLegalEmpresa: { required, maxLength: maxLength(100), alphaAndSpaceValidator },
-    identificacionRepresentanteLegal : { required, maxLength: maxLength(20), alphaDigitsSpaceQuoteAndDotValidator },
-    asesorEmpresa:  { required, maxLength: maxLength(100), alphaAndSpaceValidator }, 
-    cargoAsesorEmpresa:  { required, maxLength: maxLength(100), alphaAndSpaceValidator },
+    identificacionRepresentanteLegal: { required, maxLength: maxLength(20), alphaDigitsSpaceQuoteAndDotValidator },
+    asesorEmpresa: { required, maxLength: maxLength(100), alphaAndSpaceValidator },
+    cargoAsesorEmpresa: { required, maxLength: maxLength(100), alphaAndSpaceValidator },
     emailAsesorEmpresa: { required, email, maxLength: maxLength(254) },
-    profesionAsesorEmpresa:  { required, maxLength: maxLength(100), alphaAndSpaceValidator },
-    celularAsesorEmpresa:  { required, maxLength: maxLength(20), minLength: minLength(10), digitsLineasValidator },
+    profesionAsesorEmpresa: { required, maxLength: maxLength(100), alphaAndSpaceValidator },
+    celularAsesorEmpresa: { required, maxLength: maxLength(20), minLength: minLength(10), digitsLineasValidator },
+    departamentoEmpresa: { required },
+    municipioEmpresa: { required },
+    sectorEconomicoEmpresa: { required },
   }
 };
 
@@ -719,17 +699,12 @@ const validations: any = {
   validations
 })
 export default class PasantiaInformacionEmpresa extends Vue {
-  //  @Inject('proyectoService') private proyectoService: () => ProyectoService;
   @Inject('informacionPasantiaService') private informacionPasantiaService: () => InformacionPasantiaService;
 
   @Inject('alertService') private alertService: () => AlertService;
 
   public informacionPasantia: IInformacionPasantia = new InformacionPasantia();
-  
-  
 
-  // public proyecto: IProyecto = new Proyecto();
-  //public proyId: string = null;
   public proyId: any;
 
   public isSaving = false;
@@ -737,7 +712,7 @@ export default class PasantiaInformacionEmpresa extends Vue {
   public submitStatus: string = 'PENDING';
   public iniciandoDuracionHoras: boolean = true;
   public iniciandoDireccion: boolean = true;
-  
+
   public departamentosMunicipios: any;
   public departamentosEmpresa = [];
   public municipiosEmpresa = [];
@@ -745,23 +720,20 @@ export default class PasantiaInformacionEmpresa extends Vue {
   async mounted() {
     this.proyId = this.$route.params.proyectoId;
     await this.retrieveInformacionPasantia();
-    this.readJson("../content/json/xdk5-pm3f.json");
- 
-   
+    this.readJson('../content/json/xdk5-pm3f.json');
   }
 
- readJson(filePath) {
-        var request = new XMLHttpRequest();
-        request.open("GET",filePath, false);
-        request.send(null);
-        this.departamentosMunicipios = JSON.parse(request.responseText);
-        this.departamentosMunicipios.forEach(element => {
-        if (this.departamentosEmpresa.some(e => e == element.departamento)) return;
-           this.departamentosEmpresa.push(element.departamento); 
-       });
-       this.departamentosEmpresa.sort();
-       //console.log (this.departamentos); 
-    }
+  readJson(filePath) {
+    var request = new XMLHttpRequest();
+    request.open('GET', filePath, false);
+    request.send(null);
+    this.departamentosMunicipios = JSON.parse(request.responseText);
+    this.departamentosMunicipios.forEach(element => {
+      if (this.departamentosEmpresa.some(e => e == element.departamento)) return;
+      this.departamentosEmpresa.push(element.departamento);
+    });
+    this.departamentosEmpresa.sort();
+  }
 
   retrieveInformacionPasantia() {
     this.informacionPasantiaService()
@@ -775,8 +747,6 @@ export default class PasantiaInformacionEmpresa extends Vue {
     next(vm => {
       if (to.params.proyectoId) {
         this.proyId = this.$route.params.proyectoId;
-        // vm.retrieveProyecto(to.params.proyectoId);
-        //vm.retrieveAllInformacionPasantia();
       }
       vm.initRelationships();
     });
@@ -788,10 +758,8 @@ export default class PasantiaInformacionEmpresa extends Vue {
     this.$v.$touch();
     if (this.$v.$invalid) {
       //  this.submitStatus = 'ERROR';
-       console.log(this.$v);
-        // console.log(this.sectoresEconomicos);
     } else {
-       //this.informacionPasantia.identificacionRepresentanteLegal=this.tipoDocumentoRepresentante + ":" + this.numeroDocumentoRepresentante
+      //this.informacionPasantia.identificacionRepresentanteLegal=this.tipoDocumentoRepresentante + ":" + this.numeroDocumentoRepresentante
       if (this.informacionPasantia.id) {
         this.informacionPasantiaService()
           .update(this.informacionPasantia)
@@ -802,17 +770,11 @@ export default class PasantiaInformacionEmpresa extends Vue {
             this.alertService().showAlert(message, 'info');
           });
       } else {
-        //console.log(this.proyId);
-        //this.informacionPasantia.informacionPasantiaProyectoId
         this.informacionPasantia.informacionPasantiaProyectoId = parseInt(this.proyId);
-        //console.log(this.informacionPasantia);
-
         this.informacionPasantiaService()
           .create(this.informacionPasantia)
           .then(param => {
             this.isSaving = false;
-
-            //this.proyId = String(param.id);
 
             this.$router.push({ name: 'PropuestaPasantiaInformacionEmpresaView', params: { proyectoId: this.proyId } });
 
@@ -826,31 +788,18 @@ export default class PasantiaInformacionEmpresa extends Vue {
       }, 500);
     }
   }
-  //recupera un proyecto
-  /*
-        retrieveProyecto() {
-             //console.log(this.proyId);
-             this.proyectoService().find(this.proyId).then((res) => {
-                this.proyecto = res;
-            });
-        }*/
 
-  initRelationships() {
-    //this.proyId = this.$route.params.proyectoId;
-    //console.log(this.proyId);
-   
-   
+  initRelationships() {}
+  setMunicipios(value) {
+    this.municipiosEmpresa = [];
+    let munic = this.departamentosMunicipios.filter(function(e) {
+      return e.departamento == value;
+    });
+    munic.forEach(element => {
+      this.municipiosEmpresa.push(element.municipio);
+    });
+    this.municipiosEmpresa.sort();
   }
-     setMunicipios(value){
-            this.municipiosEmpresa = [];
-            let munic =  this.departamentosMunicipios.filter(function(e) {
-                return (e.departamento == value);
-            });
-            munic.forEach(element => {
-                this.municipiosEmpresa.push(element.municipio);
-            });
-            this.municipiosEmpresa.sort();
-        }
 }
 </script>
 
