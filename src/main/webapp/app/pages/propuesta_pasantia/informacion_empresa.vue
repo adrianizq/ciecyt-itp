@@ -289,7 +289,7 @@
             <div class="form-group">
               <label class="form-control-label " for="informacion-pasantia-nit-empresa">Nit de la empresa </label>
               <input
-                type="number"
+                type="text"
                 class="form-control"
                 name="nit-empresa"
                 id="informacion-pasantia-nit-empresa"
@@ -301,7 +301,8 @@
                 placeholder="Ingrese el Nit de la Empresa sin Guiones ni Puntos"
               />
               <div class="valid-feedback"></div>
-              <div class="text-danger" v-if="!$v.informacionPasantia.nitEmpresa.required">Este campo es requerido</div>
+              <div class="text-danger" v-if="!$v.informacionPasantia.nitEmpresa.nitValidator">Ingrese un nit válido, ej: 123123123-1</div>
+              
               <div class="text-danger" v-if="!$v.informacionPasantia.nitEmpresa.minLength">
                 Este campo debe tener al menos {{ $v.informacionPasantia.nitEmpresa.$params.minLength.min }} caracteres.
               </div>
@@ -683,6 +684,8 @@ const alphaAndSpaceValidator = helpers.regex('alphaAndSpace', /^[A-Za-z\u00C0-\u
 const digitsQuoteAndDotValidator = helpers.regex('digitsQuoteAndDot', /^[0-9\/.//'/]+$/i);
 const alphaDigitsSpaceQuoteAndDotValidator = helpers.regex('alphaDigitsSpaceQuoteAndDot', /^[A-Za-z0-9 \/.//'/]+$/i);
 const digitsLineasValidator = helpers.regex('digitsLineas', /^[0-9 \u002D]+$/i);
+const nitValidator = helpers.regex('nit', /(^[0-9]+-{1}[0-9]{1})/);
+
 
 import { id } from 'date-fns/esm/locale';
 
@@ -696,7 +699,7 @@ const validations: any = {
     email: { required, email, maxLength: maxLength(254) },
     convenio: { required, between: between(20, 100000000) }, //convenio
     nombreEmpresa: { required, maxLength: maxLength(100), minLength: minLength(3) },
-    nitEmpresa: { required, maxLength: maxLength(14), minLength: minLength(10) },
+    nitEmpresa: { maxLength: maxLength(15), minLength: minLength(9), nitValidator },
     direccionEmpresa: { required, maxLength: maxLength(100), minLength: minLength(3) },
     telefonoContactoEmpresa: { required, maxLength: maxLength(15), minLength: minLength(7) },
     emailEmpresa: { required, email, maxLength: maxLength(254) },
