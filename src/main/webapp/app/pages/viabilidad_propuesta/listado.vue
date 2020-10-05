@@ -1,121 +1,108 @@
 <template>
-<div class="row">
+  <div class="row">
+    <menu-lateral-listado :proyectoId="$route.params.proyectoId"></menu-lateral-listado>
 
-        
-            <menu-lateral-listado :proyectoId='$route.params.proyectoId'></menu-lateral-listado>
-      
     <div>
-        <h2 id="page-heading">
-            <span id="proyecto-heading">Mis propuestas</span>
-            
-        </h2>
-        <b-alert :show="dismissCountDown"
-            dismissible
-            :variant="alertType"
-            @dismissed="dismissCountDown=0"
-            @dismiss-count-down="countDownChanged">
-            {{alertMessage}}
-        </b-alert>
-        <br/>
-        <div class="alert alert-warning" v-if="!isFetching && proyects && proyects.length === 0">
-            <span>No se encontraron proyectos</span>
+      <h2 id="page-heading">
+        <span id="proyecto-heading">Mis propuestas</span>
+      </h2>
+      <b-alert
+        :show="dismissCountDown"
+        dismissible
+        :variant="alertType"
+        @dismissed="dismissCountDown = 0"
+        @dismiss-count-down="countDownChanged"
+      >
+        {{ alertMessage }}
+      </b-alert>
+      <br />
+      <div class="alert alert-warning" v-if="!isFetching && proyects && proyects.length === 0">
+        <span>No se encontraron proyectos</span>
+      </div>
+      <div>{{ username }} con id {{ userid }} {{ autoridades }}</div>
+      <div class="table-responsive" v-if="proyects && proyects.length > 0">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th v-on:click="changeOrder('id')">
+                <span v-text="$t('global.field.id')">ID</span> <font-awesome-icon icon="sort"></font-awesome-icon>
+              </th>
+              <th v-on:click="changeOrder('titulo')">
+                <span v-text="$t('ciecytApp.proyecto.titulo')">Titulo</span> <font-awesome-icon icon="sort"></font-awesome-icon>
+              </th>
+              <th v-on:click="changeOrder('tipo')">
+                <span v-text="$t('ciecytApp.proyecto.tipo')">Tipo</span> <font-awesome-icon icon="sort"></font-awesome-icon>
+              </th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- JURADO ---------------------------------->
+            <tr v-for="proyecto in proyects" :key="proyecto.id">
+              <td>
+                <router-link :to="{ name: 'PropuestaEvaluarView', params: { proyectoId: proyecto.id } }">{{ proyecto.id }}</router-link>
+              </td>
+
+              <td>{{ proyecto.titulo }}</td>
+              <td>{{ proyecto.tipo }}</td>
+
+              <td class="text-right">
+                <div class="btn-group">
+                  <router-link
+                    :to="{ name: 'PropuestaEvaluarView', params: { proyectoId: proyecto.id } }"
+                    tag="button"
+                    class="btn btn-info btn-sm details"
+                  >
+                    <b-icon-check2-square></b-icon-check2-square>&nbsp;
+                    <span class="d-none d-md-inline" v-text="$t('entity.action.eval')">Evaluar</span>
+                  </router-link>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div v-show="proyects && proyects.length > 0">
+        <div class="row justify-content-center">
+          <jhi-item-count :page="page" :total="queryCount" :itemsPerPage="itemsPerPage"></jhi-item-count>
         </div>
-        <div>{{username}} con id {{userid}} {{autoridades}}</div>
-        <div class="table-responsive" v-if="proyects && proyects.length > 0">
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th v-on:click="changeOrder('id')"><span v-text="$t('global.field.id')">ID</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
-                    <th v-on:click="changeOrder('titulo')"><span v-text="$t('ciecytApp.proyecto.titulo')">Titulo</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
-                    <th v-on:click="changeOrder('tipo')"><span v-text="$t('ciecytApp.proyecto.tipo')">Tipo</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                <!-- JURADO ---------------------------------->
-                <tr v-for="proyecto in proyects"
-                    :key="proyecto.id">
-                    <td>
-                        <router-link :to="{name: 'PropuestaEvaluarView', params: {proyectoId: proyecto.id}}">{{proyecto.id}}</router-link>
-                    </td>
-
-                    <td>{{proyecto.titulo}}</td>
-                    <td>{{proyecto.tipo}}</td>
-                   
-                
-                    
-                    <td class="text-right">
-                        <div class="btn-group" >
-                            <router-link :to="{name: 'PropuestaEvaluarView', params: {proyectoId: proyecto.id}}" tag="button" class="btn btn-info btn-sm details">
-                               <b-icon-check2-square></b-icon-check2-square>&nbsp;
-                                <span class="d-none d-md-inline" v-text="$t('entity.action.eval')">Evaluar</span>
-                            </router-link>
-  
-                        </div>
-
-                        
-                    </td>
-                </tr>
-           
-
-
-                </tbody>
-            </table>
+        <div class="row justify-content-center">
+          <b-pagination size="md" :total-rows="totalItems" v-model="page" :per-page="itemsPerPage" :change="loadPage(page)"></b-pagination>
         </div>
-        
-        <div v-show="proyects && proyects.length > 0">
-            <div class="row justify-content-center">
-                <jhi-item-count :page="page" :total="queryCount" :itemsPerPage="itemsPerPage"></jhi-item-count>
-            </div>
-            <div class="row justify-content-center">
-                <b-pagination size="md" :total-rows="totalItems" v-model="page" :per-page="itemsPerPage" :change="loadPage(page)"></b-pagination>
-            </div>
-        </div>
+      </div>
     </div>
-    </div>
+  </div>
 </template>
 
 <script lang="ts">
-
-
 import { mixins } from 'vue-class-component';
-
 
 import Vue2Filters from 'vue2-filters';
 
 import AlertService from '@/shared/alert/alert.service';
 
-
-
 import { Component, Inject, Vue } from 'vue-property-decorator';
 import MenuLateralListado from '@/components/propuesta_listado/menu_lateral_listado.vue';
-
-
-
 
 import { IProyecto, Proyecto } from '@/shared/model/proyecto.model';
 import ProyectoService from '@/entities/proyecto/proyecto.service';
 
+const validations: any = {};
 
-    const validations: any = {};
-
-   @Component({
-        components: { MenuLateralListado },
-        validations
-    })
-
+@Component({
+  components: { MenuLateralListado },
+  validations
+})
 export default class Listado extends Vue {
-   @Inject('proyectoService') private proyectoService: () => ProyectoService;
- 
-   @Inject('alertService') private alertService: () => AlertService;
+  @Inject('proyectoService') private proyectoService: () => ProyectoService;
 
+  @Inject('alertService') private alertService: () => AlertService;
 
-    
-   //  public elementosProyecto: IElementoProyecto[] =[];
-    public proyects: IProyecto[] = [];
-    
-    public proyId: any = null;
-   
+  //  public elementosProyecto: IElementoProyecto[] =[];
+  public proyects: IProyecto[] = [];
+
+  public proyId: any = null;
 
   private removeId: number = null;
   public itemsPerPage = 20;
@@ -131,10 +118,9 @@ export default class Listado extends Vue {
   public dismissSecs: number = this.$store.getters.dismissSecs;
   public alertType: string = this.$store.getters.alertType;
   public alertMessage: any = this.$store.getters.alertMessage;
-  public autoridades: any =  this.$store.getters.account.authorities;
+  public autoridades: any = this.$store.getters.account.authorities;
 
-
-public getAlertFromStore() {
+  public getAlertFromStore() {
     this.dismissCountDown = this.$store.getters.dismissCountDown;
     this.dismissSecs = this.$store.getters.dismissSecs;
     this.alertType = this.$store.getters.alertType;
@@ -163,28 +149,23 @@ public getAlertFromStore() {
       size: this.itemsPerPage,
       sort: this.sort()
     };
-    if (this.autoridades.includes("ROLE_JURADO")){
-    this.proyectoService()
-      //.retrieveProyectoIntegrante(this.userid,paginationQuery) //todos los roles no borrar
-      .retrieveProyectoIntegranteAuthority(this.userid,"ROLE_JURADO",paginationQuery)
-      .then(
-        res => {
-          this.proyects = res.data;
-          this.totalItems = Number(res.headers['x-total-count']);
-          this.queryCount = this.totalItems;
-          this.isFetching = false;
-        },
-        err => {
-          this.isFetching = false;
-        }
-      );
-      }//del if ROLE_JURADO
-
-      
-      
-    }
-
-    
+    if (this.autoridades.includes('ROLE_JURADO')) {
+      this.proyectoService()
+        //.retrieveProyectoIntegrante(this.userid,paginationQuery) //todos los roles no borrar
+        .retrieveProyectoIntegranteAuthority(this.userid, 'ROLE_JURADO', paginationQuery)
+        .then(
+          res => {
+            this.proyects = res.data;
+            this.totalItems = Number(res.headers['x-total-count']);
+            this.queryCount = this.totalItems;
+            this.isFetching = false;
+          },
+          err => {
+            this.isFetching = false;
+          }
+        );
+    } //del if ROLE_JURADO
+  }
 
   public prepareRemove(instance: IProyecto): void {
     this.removeId = instance.id;
@@ -202,9 +183,9 @@ public getAlertFromStore() {
         this.retrieveAllProyectos();
         this.closeDialog();
       });
-    }
+  }
 
-    public sort(): Array<any> {
+  public sort(): Array<any> {
     const result = [this.propOrder + ',' + (this.reverse ? 'asc' : 'desc')];
     if (this.propOrder !== 'id') {
       result.push('id');
@@ -233,19 +214,15 @@ public getAlertFromStore() {
     (<any>this.$refs.removeEntity).hide();
   }
 
+  public isSaving = false;
 
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      vm.initRelationships();
+    });
+  }
 
-    public isSaving = false;
-
-
-        beforeRouteEnter(to, from, next) {
-            next(vm => {
-
-                    vm.initRelationships();
-            });
-        }
-
-public get username(): string {
+  public get username(): string {
     return this.$store.getters.account ? this.$store.getters.account.login : '';
   }
 
@@ -253,13 +230,10 @@ public get username(): string {
     return this.$store.getters.account ? this.$store.getters.account.id : '';
   }
 
-public get authorities(): string {
+  public get authorities(): string {
     console.log(this.$store.getters.account);
     return this.$store.getters.account ? this.$store.getters.account.authorities : '';
   }
-
-
-
 }
 </script>
 
