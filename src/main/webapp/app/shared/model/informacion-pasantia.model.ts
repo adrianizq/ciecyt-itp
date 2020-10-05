@@ -10,7 +10,7 @@ export interface IInformacionPasantia {
   viernes?: boolean;
   sabado?: boolean;
   domingo?: boolean;
-  horasMes?: number;
+  convenio?: string;
   bonoAlimenticio?: boolean;
   apoyoEconomico?: boolean;
   auxilioTransporte?: boolean;
@@ -49,7 +49,7 @@ export class InformacionPasantia implements IInformacionPasantia {
     public viernes?: boolean,
     public sabado?: boolean,
     public domingo?: boolean,
-    public horasMes?: number,
+    public convenio?: string,
     public bonoAlimenticio?: boolean,
     public apoyoEconomico?: boolean,
     public auxilioTransporte?: boolean,

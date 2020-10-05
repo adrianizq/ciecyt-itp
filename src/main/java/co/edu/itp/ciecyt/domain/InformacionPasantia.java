@@ -53,8 +53,8 @@ public class InformacionPasantia implements Serializable {
     @Column(name = "domingo")
     private Boolean domingo;
 
-    @Column(name = "horas_mes")
-    private Integer horasMes;
+    @Column(name = "convenio")
+    private String convenio;
 
     @Column(name = "bono_alimenticio")
     private Boolean bonoAlimenticio;
@@ -264,17 +264,17 @@ public class InformacionPasantia implements Serializable {
         this.domingo = domingo;
     }
 
-    public Integer getHorasMes() {
-        return horasMes;
+    public String getConvenio() {
+        return convenio;
     }
 
-    public InformacionPasantia horasMes(Integer horasMes) {
-        this.horasMes = horasMes;
+    public InformacionPasantia convenio(String convenio) {
+        this.convenio = convenio;
         return this;
     }
 
-    public void setHorasMes(Integer horasMes) {
-        this.horasMes = horasMes;
+    public void setConvenio(String convenio) {
+        this.convenio = convenio;
     }
 
     public Boolean isBonoAlimenticio() {
@@ -586,7 +586,7 @@ public class InformacionPasantia implements Serializable {
             ", viernes='" + isViernes() + "'" +
             ", sabado='" + isSabado() + "'" +
             ", domingo='" + isDomingo() + "'" +
-            ", horasMes=" + getHorasMes() +
+            ", convenio=" + getConvenio() +
             ", bonoAlimenticio='" + isBonoAlimenticio() + "'" +
             ", apoyoEconomico='" + isApoyoEconomico() + "'" +
             ", auxilioTransporte='" + isAuxilioTransporte() + "'" +

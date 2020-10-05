@@ -31,7 +31,7 @@ public class InformacionPasantiaDTO implements Serializable {
 
     private Boolean domingo;
 
-    private Integer horasMes;
+    private String convenio;
 
     private Boolean bonoAlimenticio;
 
@@ -166,12 +166,12 @@ public class InformacionPasantiaDTO implements Serializable {
         this.domingo = domingo;
     }
 
-    public Integer getHorasMes() {
-        return horasMes;
+    public String getConvenio() {
+        return convenio;
     }
 
-    public void setHorasMes(Integer horasMes) {
-        this.horasMes = horasMes;
+    public void setConvenio(String convenio) {
+        this.convenio = convenio;
     }
 
     public Boolean isBonoAlimenticio() {
@@ -389,7 +389,7 @@ public class InformacionPasantiaDTO implements Serializable {
             ", viernes='" + isViernes() + "'" +
             ", sabado='" + isSabado() + "'" +
             ", domingo='" + isDomingo() + "'" +
-            ", horasMes=" + getHorasMes() +
+            ", convenio=" + getConvenio() +
             ", bonoAlimenticio='" + isBonoAlimenticio() + "'" +
             ", apoyoEconomico='" + isApoyoEconomico() + "'" +
             ", auxilioTransporte='" + isAuxilioTransporte() + "'" +

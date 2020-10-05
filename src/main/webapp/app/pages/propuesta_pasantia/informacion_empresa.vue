@@ -17,18 +17,18 @@
                 class="form-control"
                 name="convenio-empresa"
                 id="informacion-pasantia-convenio-empresa"
-                v-model="informacionPasantia.horasMes"
+                v-model="informacionPasantia.convenio"
                 :class="{
-                  'is-invalid': $v.informacionPasantia.horasMes.$error,
-                  'is-valid': !$v.informacionPasantia.horasMes.$invalid
+                  'is-invalid': $v.informacionPasantia.convenio.$error,
+                  'is-valid': !$v.informacionPasantia.convenio.$invalid
                 }"
                 placeholder="Número del convenio con la empresa que realizará la pasantía"
               />
               <div class="valid-feedback"></div>
-              <div class="text-danger" v-if="!$v.informacionPasantia.horasMes.required">Este campo es requerido</div>
-              <div class="text-danger" v-if="!$v.informacionPasantia.horasMes.between">
-                Se espera un valor numérico entre {{ $v.informacionPasantia.horasMes.$params.between.min }} y
-                {{ $v.informacionPasantia.horasMes.$params.between.max }} .
+              <div class="text-danger" v-if="!$v.informacionPasantia.convenio.required">Este campo es requerido</div>
+              <div class="text-danger" v-if="!$v.informacionPasantia.convenio.between">
+                Se espera un valor numérico entre {{ $v.informacionPasantia.convenio.$params.between.min }} y
+                {{ $v.informacionPasantia.convenio.$params.between.max }} .
               </div>
             </div>
     
@@ -694,7 +694,7 @@ const validations: any = {
     duracionHoras: { required, between: between(480, 880) },
     direccion: { required, maxLength: maxLength(120), minLength: minLength(3) },
     email: { required, email, maxLength: maxLength(254) },
-    horasMes: { required, between: between(20, 100000000) }, //convenio
+    convenio: { required, between: between(20, 100000000) }, //convenio
     nombreEmpresa: { required, maxLength: maxLength(100), minLength: minLength(3) },
     nitEmpresa: { required, maxLength: maxLength(14), minLength: minLength(10) },
     direccionEmpresa: { required, maxLength: maxLength(100), minLength: minLength(3) },

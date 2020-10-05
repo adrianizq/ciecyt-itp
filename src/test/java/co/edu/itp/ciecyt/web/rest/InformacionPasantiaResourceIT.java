@@ -59,8 +59,8 @@ public class InformacionPasantiaResourceIT {
     private static final Boolean DEFAULT_DOMINGO = false;
     private static final Boolean UPDATED_DOMINGO = true;
 
-    private static final Integer DEFAULT_HORAS_MES = 1;
-    private static final Integer UPDATED_HORAS_MES = 2;
+    private static final String DEFAULT_CONVENIO = "AAAAAAAAAA";
+    private static final String UPDATED_CONVENIO = "BBBBBBBBBB";
 
     private static final Boolean DEFAULT_BONO_ALIMENTICIO = false;
     private static final Boolean UPDATED_BONO_ALIMENTICIO = true;
@@ -151,7 +151,7 @@ public class InformacionPasantiaResourceIT {
             .viernes(DEFAULT_VIERNES)
             .sabado(DEFAULT_SABADO)
             .domingo(DEFAULT_DOMINGO)
-            .horasMes(DEFAULT_HORAS_MES)
+            .convenio(DEFAULT_CONVENIO)
             .bonoAlimenticio(DEFAULT_BONO_ALIMENTICIO)
             .apoyoEconomico(DEFAULT_APOYO_ECONOMICO)
             .auxilioTransporte(DEFAULT_AUXILIO_TRANSPORTE)
@@ -192,7 +192,7 @@ public class InformacionPasantiaResourceIT {
             .viernes(UPDATED_VIERNES)
             .sabado(UPDATED_SABADO)
             .domingo(UPDATED_DOMINGO)
-            .horasMes(UPDATED_HORAS_MES)
+            .convenio(UPDATED_CONVENIO)
             .bonoAlimenticio(UPDATED_BONO_ALIMENTICIO)
             .apoyoEconomico(UPDATED_APOYO_ECONOMICO)
             .auxilioTransporte(UPDATED_AUXILIO_TRANSPORTE)
@@ -245,7 +245,7 @@ public class InformacionPasantiaResourceIT {
         assertThat(testInformacionPasantia.isViernes()).isEqualTo(DEFAULT_VIERNES);
         assertThat(testInformacionPasantia.isSabado()).isEqualTo(DEFAULT_SABADO);
         assertThat(testInformacionPasantia.isDomingo()).isEqualTo(DEFAULT_DOMINGO);
-        assertThat(testInformacionPasantia.getHorasMes()).isEqualTo(DEFAULT_HORAS_MES);
+        assertThat(testInformacionPasantia.getConvenio()).isEqualTo(DEFAULT_CONVENIO);
         assertThat(testInformacionPasantia.isBonoAlimenticio()).isEqualTo(DEFAULT_BONO_ALIMENTICIO);
         assertThat(testInformacionPasantia.isApoyoEconomico()).isEqualTo(DEFAULT_APOYO_ECONOMICO);
         assertThat(testInformacionPasantia.isAuxilioTransporte()).isEqualTo(DEFAULT_AUXILIO_TRANSPORTE);
@@ -309,7 +309,7 @@ public class InformacionPasantiaResourceIT {
             .andExpect(jsonPath("$.[*].viernes").value(hasItem(DEFAULT_VIERNES.booleanValue())))
             .andExpect(jsonPath("$.[*].sabado").value(hasItem(DEFAULT_SABADO.booleanValue())))
             .andExpect(jsonPath("$.[*].domingo").value(hasItem(DEFAULT_DOMINGO.booleanValue())))
-            .andExpect(jsonPath("$.[*].horasMes").value(hasItem(DEFAULT_HORAS_MES)))
+            .andExpect(jsonPath("$.[*].convenio").value(hasItem(DEFAULT_CONVENIO)))
             .andExpect(jsonPath("$.[*].bonoAlimenticio").value(hasItem(DEFAULT_BONO_ALIMENTICIO.booleanValue())))
             .andExpect(jsonPath("$.[*].apoyoEconomico").value(hasItem(DEFAULT_APOYO_ECONOMICO.booleanValue())))
             .andExpect(jsonPath("$.[*].auxilioTransporte").value(hasItem(DEFAULT_AUXILIO_TRANSPORTE.booleanValue())))
@@ -353,7 +353,7 @@ public class InformacionPasantiaResourceIT {
             .andExpect(jsonPath("$.viernes").value(DEFAULT_VIERNES.booleanValue()))
             .andExpect(jsonPath("$.sabado").value(DEFAULT_SABADO.booleanValue()))
             .andExpect(jsonPath("$.domingo").value(DEFAULT_DOMINGO.booleanValue()))
-            .andExpect(jsonPath("$.horasMes").value(DEFAULT_HORAS_MES))
+            .andExpect(jsonPath("$.convenio").value(DEFAULT_CONVENIO))
             .andExpect(jsonPath("$.bonoAlimenticio").value(DEFAULT_BONO_ALIMENTICIO.booleanValue()))
             .andExpect(jsonPath("$.apoyoEconomico").value(DEFAULT_APOYO_ECONOMICO.booleanValue()))
             .andExpect(jsonPath("$.auxilioTransporte").value(DEFAULT_AUXILIO_TRANSPORTE.booleanValue()))
@@ -406,7 +406,7 @@ public class InformacionPasantiaResourceIT {
             .viernes(UPDATED_VIERNES)
             .sabado(UPDATED_SABADO)
             .domingo(UPDATED_DOMINGO)
-            .horasMes(UPDATED_HORAS_MES)
+            .convenio(UPDATED_CONVENIO)
             .bonoAlimenticio(UPDATED_BONO_ALIMENTICIO)
             .apoyoEconomico(UPDATED_APOYO_ECONOMICO)
             .auxilioTransporte(UPDATED_AUXILIO_TRANSPORTE)
@@ -447,7 +447,7 @@ public class InformacionPasantiaResourceIT {
         assertThat(testInformacionPasantia.isViernes()).isEqualTo(UPDATED_VIERNES);
         assertThat(testInformacionPasantia.isSabado()).isEqualTo(UPDATED_SABADO);
         assertThat(testInformacionPasantia.isDomingo()).isEqualTo(UPDATED_DOMINGO);
-        assertThat(testInformacionPasantia.getHorasMes()).isEqualTo(UPDATED_HORAS_MES);
+        assertThat(testInformacionPasantia.getConvenio()).isEqualTo(UPDATED_CONVENIO);
         assertThat(testInformacionPasantia.isBonoAlimenticio()).isEqualTo(UPDATED_BONO_ALIMENTICIO);
         assertThat(testInformacionPasantia.isApoyoEconomico()).isEqualTo(UPDATED_APOYO_ECONOMICO);
         assertThat(testInformacionPasantia.isAuxilioTransporte()).isEqualTo(UPDATED_AUXILIO_TRANSPORTE);
@@ -544,8 +544,8 @@ public class InformacionPasantiaResourceIT {
     private static final Boolean DEFAULT_DOMINGO = false;
     private static final Boolean UPDATED_DOMINGO = true;
 
-    private static final Integer DEFAULT_HORAS_MES = 1;
-    private static final Integer UPDATED_HORAS_MES = 2;
+    private static final String DEFAULT_CONVENIO = "AAAAAAAAAA";
+    private static final Integer UPDATED_CONVENIO ="BBBBBBBBBB";
 
     private static final Boolean DEFAULT_BONO_ALIMENTICIO = false;
     private static final Boolean UPDATED_BONO_ALIMENTICIO = true;
@@ -639,7 +639,7 @@ public class InformacionPasantiaResourceIT {
             .viernes(DEFAULT_VIERNES)
             .sabado(DEFAULT_SABADO)
             .domingo(DEFAULT_DOMINGO)
-            .horasMes(DEFAULT_HORAS_MES)
+            .convenio(DEFAULT_CONVENIO)
             .bonoAlimenticio(DEFAULT_BONO_ALIMENTICIO)
             .apoyoEconomico(DEFAULT_APOYO_ECONOMICO)
             .auxilioTransporte(DEFAULT_AUXILIO_TRANSPORTE)
@@ -681,7 +681,7 @@ public class InformacionPasantiaResourceIT {
             .viernes(UPDATED_VIERNES)
             .sabado(UPDATED_SABADO)
             .domingo(UPDATED_DOMINGO)
-            .horasMes(UPDATED_HORAS_MES)
+            .convenio(UPDATED_CONVENIO)
             .bonoAlimenticio(UPDATED_BONO_ALIMENTICIO)
             .apoyoEconomico(UPDATED_APOYO_ECONOMICO)
             .auxilioTransporte(UPDATED_AUXILIO_TRANSPORTE)
@@ -735,7 +735,7 @@ public class InformacionPasantiaResourceIT {
         assertThat(testInformacionPasantia.isViernes()).isEqualTo(DEFAULT_VIERNES);
         assertThat(testInformacionPasantia.isSabado()).isEqualTo(DEFAULT_SABADO);
         assertThat(testInformacionPasantia.isDomingo()).isEqualTo(DEFAULT_DOMINGO);
-        assertThat(testInformacionPasantia.getHorasMes()).isEqualTo(DEFAULT_HORAS_MES);
+        assertThat(testInformacionPasantia.getConvenio()).isEqualTo(DEFAULT_CONVENIO);
         assertThat(testInformacionPasantia.isBonoAlimenticio()).isEqualTo(DEFAULT_BONO_ALIMENTICIO);
         assertThat(testInformacionPasantia.isApoyoEconomico()).isEqualTo(DEFAULT_APOYO_ECONOMICO);
         assertThat(testInformacionPasantia.isAuxilioTransporte()).isEqualTo(DEFAULT_AUXILIO_TRANSPORTE);
@@ -800,7 +800,7 @@ public class InformacionPasantiaResourceIT {
             .andExpect(jsonPath("$.[*].viernes").value(hasItem(DEFAULT_VIERNES.booleanValue())))
             .andExpect(jsonPath("$.[*].sabado").value(hasItem(DEFAULT_SABADO.booleanValue())))
             .andExpect(jsonPath("$.[*].domingo").value(hasItem(DEFAULT_DOMINGO.booleanValue())))
-            .andExpect(jsonPath("$.[*].horasMes").value(hasItem(DEFAULT_HORAS_MES)))
+            .andExpect(jsonPath("$.[*].convenio").value(hasItem(DEFAULT_CONVENIO)))
             .andExpect(jsonPath("$.[*].bonoAlimenticio").value(hasItem(DEFAULT_BONO_ALIMENTICIO.booleanValue())))
             .andExpect(jsonPath("$.[*].apoyoEconomico").value(hasItem(DEFAULT_APOYO_ECONOMICO.booleanValue())))
             .andExpect(jsonPath("$.[*].auxilioTransporte").value(hasItem(DEFAULT_AUXILIO_TRANSPORTE.booleanValue())))
@@ -845,7 +845,7 @@ public class InformacionPasantiaResourceIT {
             .andExpect(jsonPath("$.viernes").value(DEFAULT_VIERNES.booleanValue()))
             .andExpect(jsonPath("$.sabado").value(DEFAULT_SABADO.booleanValue()))
             .andExpect(jsonPath("$.domingo").value(DEFAULT_DOMINGO.booleanValue()))
-            .andExpect(jsonPath("$.horasMes").value(DEFAULT_HORAS_MES))
+            .andExpect(jsonPath("$.convenio").value(DEFAULT_CONVENIO))
             .andExpect(jsonPath("$.bonoAlimenticio").value(DEFAULT_BONO_ALIMENTICIO.booleanValue()))
             .andExpect(jsonPath("$.apoyoEconomico").value(DEFAULT_APOYO_ECONOMICO.booleanValue()))
             .andExpect(jsonPath("$.auxilioTransporte").value(DEFAULT_AUXILIO_TRANSPORTE.booleanValue()))
@@ -899,7 +899,7 @@ public class InformacionPasantiaResourceIT {
             .viernes(UPDATED_VIERNES)
             .sabado(UPDATED_SABADO)
             .domingo(UPDATED_DOMINGO)
-            .horasMes(UPDATED_HORAS_MES)
+            .convenio(UPDATED_CONVENIO)
             .bonoAlimenticio(UPDATED_BONO_ALIMENTICIO)
             .apoyoEconomico(UPDATED_APOYO_ECONOMICO)
             .auxilioTransporte(UPDATED_AUXILIO_TRANSPORTE)
@@ -941,7 +941,7 @@ public class InformacionPasantiaResourceIT {
         assertThat(testInformacionPasantia.isViernes()).isEqualTo(UPDATED_VIERNES);
         assertThat(testInformacionPasantia.isSabado()).isEqualTo(UPDATED_SABADO);
         assertThat(testInformacionPasantia.isDomingo()).isEqualTo(UPDATED_DOMINGO);
-        assertThat(testInformacionPasantia.getHorasMes()).isEqualTo(UPDATED_HORAS_MES);
+        assertThat(testInformacionPasantia.getConvenio()).isEqualTo(UPDATED_CONVENIO);
         assertThat(testInformacionPasantia.isBonoAlimenticio()).isEqualTo(UPDATED_BONO_ALIMENTICIO);
         assertThat(testInformacionPasantia.isApoyoEconomico()).isEqualTo(UPDATED_APOYO_ECONOMICO);
         assertThat(testInformacionPasantia.isAuxilioTransporte()).isEqualTo(UPDATED_AUXILIO_TRANSPORTE);
