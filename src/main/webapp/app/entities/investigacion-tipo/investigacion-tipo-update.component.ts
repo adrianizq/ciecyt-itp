@@ -59,7 +59,7 @@ export default class InvestigacionTipoUpdate extends Vue {
     }
   }
 
-  public retrieveInvestigacion(investigacionTipoId): void {
+  public retrieveInvestigacionTipo(investigacionTipoId): void {
     this.investigacionTipoService()
       .find(investigacionTipoId)
       .then(res => {

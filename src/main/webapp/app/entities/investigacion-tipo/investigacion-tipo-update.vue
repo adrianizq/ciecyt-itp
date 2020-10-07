@@ -20,8 +20,8 @@
                             :class="{'valid': !$v.investigacionTipo.investigacionTipoDescripcion.$invalid, 'invalid': $v.investigacionTipo.investigacionTipoDescripcion.$invalid }" v-model="$v.investigacionTipo.investigacionTipoDescripcion.$model" />
                     </div>
                      <div class="form-group">
-                        <label class="form-control-label" v-text="$t('ciecytApp.investigacionTipo.tipo')" for="linea-investigacion-codigoLinea"> Tipo</label>
-                        <input type="text" class="form-control" name="tipo" id="investigacion-tipoTipo"
+                        <label class="form-control-label" v-text="$t('ciecytApp.investigacionTipo.tipo')" for="investigacion-tipo-tipo"> Tipo</label>
+                        <input type="text" class="form-control" name="tipo" id="investigacion-tipo-tipo"
                             :class="{'valid': !$v.investigacionTipo.tipo.$invalid, 'invalid': $v.investigacionTipo.tipo.$invalid }" v-model="$v.investigacionTipo.tipo.$model" />
                     </div>
                       <div class="form-group">
