@@ -40,6 +40,15 @@ const LineaInvestigacion = () => import('../entities/linea-investigacion/linea-i
 const LineaInvestigacionUpdate = () => import('../entities/linea-investigacion/linea-investigacion-update.vue');
 // prettier-ignore
 const LineaInvestigacionDetails = () => import('../entities/linea-investigacion/linea-investigacion-details.vue');
+/////////////////////////////////////////////////////////77
+// prettier-ignore
+const InvestigacionTipo = () => import('../entities/investigacion-tipo/investigacion-tipo.vue');
+// prettier-ignore
+const InvestigacionTipoUpdate = () => import('../entities/investigacion-tipo/investigacion-tipo-update.vue');
+// prettier-ignore
+const InvestigacionTipoDetails = () => import('../entities/investigacion-tipo/investigacion-tipo-details.vue');
+/////////////////////////////////////////////////////////////77
+
 // prettier-ignore
 const GrupoSemillero = () => import('../entities/grupo-semillero/grupo-semillero.vue');
 // prettier-ignore
@@ -482,6 +491,34 @@ export default new Router({
       meta: { authorities: ['ROLE_USER'] }
     }
     ,
+
+    ////////////////////////77777
+    {
+      path: '/pendientes/investigacion-tipo',
+      name: 'InvestigacionTipo',
+      component: InvestigacionTipo,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    {
+      path: '/pendientes/investigacion-tipo/new',
+      name: 'InvestigacionTipoCreate',
+      component: InvestigacionTipoUpdate,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    {
+      path: '/pendientes/investigacion-tipo/:investigacionTipoId/edit',
+      name: 'InvestigacionTipoEdit',
+      component: InvestigacionTipoUpdate,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    {
+      path: '/pendientes/investigacion-tipo/:investigacionTipoId/view',
+      name: 'InvestigacionTipoView',
+      component: InvestigacionTipoDetails,
+      meta: { authorities: ['ROLE_USER'] }
+    }
+    ,
+    //////////////////////////////////77
     {
       path: '/pendientes/grupo-semillero',
       name: 'GrupoSemillero',

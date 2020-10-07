@@ -52,6 +52,7 @@
     <include file="config/liquibase/changelog/20200319194600_added_entity_Menu.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200319194601_added_entity_RolMenu.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200818161136_added_entity_InformacionPasantia.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20201006203403_added_entity_InvestigacionTipo.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20200124174447_added_entity_constraints_Proyecto.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200124174448_added_entity_constraints_LineaInvestigacion.xml" relativeToChangelogFile="false"/>
