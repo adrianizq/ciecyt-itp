@@ -2,6 +2,7 @@ import axios from 'axios';
 import Component from 'vue-class-component';
 import { Vue, Inject } from 'vue-property-decorator';
 import AccountService from '@/account/account.service';
+
 @Component({
   watch: {
     $route() {
@@ -34,6 +35,7 @@ export default class LoginForm extends Vue {
         this.authenticationError = false;
         this.$root.$emit('bv::hide::modal', 'login-page');
         this.accountService().retrieveAccount();
+        window.location.href = '';
       })
       .catch(() => {
         this.authenticationError = true;

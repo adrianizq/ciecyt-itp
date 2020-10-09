@@ -4,19 +4,20 @@ import UserManagementService from './user-management.service';
 import { IUser, User } from '@/shared/model/user.model';
 import AlertService from '@/shared/alert/alert.service';
 
-const loginValidator = (value: string) => {
-  if (!value) {
+function loginValidator(value) {
+  if (typeof value === 'undefined' || value === null || value === '') {
     return true;
   }
-  return /^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$/.test(value);
-};
+  return /^[_.@A-Za-z0-9-]*$/.test(value);
+}
 
 const validations: any = {
   userAccount: {
     login: {
       required,
+      minLength: minLength(1),
       maxLength: maxLength(254),
-      pattern: loginValidator,
+      loginValidator,
     },
     firstName: {
       maxLength: maxLength(50),
@@ -28,7 +29,7 @@ const validations: any = {
       required,
       email,
       minLength: minLength(5),
-      maxLength: maxLength(50),
+      maxLength: maxLength(254),
     },
   },
 };
@@ -104,6 +105,6 @@ export default class JhiUserManagementEdit extends Vue {
   }
 
   private getMessageFromHeader(res: any): any {
-    return this.$t(res.headers['x-ciecytapp-alert'], { param: decodeURIComponent(res.headers['x-ciecytapp-params'].replace(/\+/g, ' ')) });
+    return this.$t(res.headers['x-ciecytapp-alert'], { param: res.headers['x-ciecytapp-params'] });
   }
 }

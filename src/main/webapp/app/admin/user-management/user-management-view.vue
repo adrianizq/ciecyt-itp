@@ -18,22 +18,16 @@
                     <dd>{{user.lastName}}</dd>
                     <dt><span v-text="$t('userManagement.email')">Email</span></dt>
                     <dd>{{user.email}}</dd>
-                    <dt><span v-text="$t('userManagement.langKey')">Lang Key</span></dt>
-                    <dd>{{user.langKey}}</dd>
+                    <!--<dt><span v-text="$t('userManagement.langKey')">Lang Key</span></dt>
+                    <dd>{{user.langKey}}</dd>-->
                     <dt><span v-text="$t('userManagement.createdBy')">Created By</span></dt>
                     <dd>{{user.createdBy}}</dd>
                     <dt><span v-text="$t('userManagement.createdDate')">Created Date</span></dt>
-                    <dd>                      <span v-if="user.createdDate">
-                        {{$d(Date.parse(user.createdDate), 'long') }}
-                      </span>
-                    </dd>
+                    <dd>{{user.createdDate | formatDate }}</dd>
                     <dt><span v-text="$t('userManagement.lastModifiedBy')">Last Modified By</span></dt>
                     <dd>{{user.lastModifiedBy}}</dd>
                     <dt><span v-text="$t('userManagement.lastModifiedDate')">Last Modified Date</span></dt>
-                    <dd>                      <span v-if="user.lastModifiedDate">
-                          {{$d(Date.parse(user.lastModifiedDate), 'long') }}
-                      </span>
-                    </dd>
+                    <dd>{{user.lastModifiedDate | formatDate}}</dd>
                     <dt><span v-text="$t('userManagement.profiles')">Profiles</span></dt>
                     <dd>
                         <ul class="list-unstyled">

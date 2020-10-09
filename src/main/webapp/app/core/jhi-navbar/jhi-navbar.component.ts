@@ -4,6 +4,9 @@ import LoginService from '@/account/login.service';
 import AccountService from '@/account/account.service';
 import TranslationService from '@/locale/translation.service';
 
+import MenuService from '@/entities/menu/menu.service';
+import { IMenu, MenuBar } from '@/shared/model/menu.model';
+
 @Component
 export default class JhiNavbar extends Vue {
   @Inject('loginService')
@@ -11,12 +14,23 @@ export default class JhiNavbar extends Vue {
   @Inject('translationService') private translationService: () => TranslationService;
 
   @Inject('accountService') private accountService: () => AccountService;
-  public version = VERSION ? 'v' + VERSION : '';
+
+  @Inject('menuService')
+  private menuService: () => MenuService;
+
+  ///public version = VERSION ? 'v' + VERSION : '';
+  public version = 'Software para la Gestión de los Trabajos de Grado';
   private currentLanguage = this.$store.getters.currentLanguage;
   private languages: any = this.$store.getters.languages;
-  private hasAnyAuthorityValue = false;
+  public menus: MenuBar[] = [];
 
   created() {
+    this.menuService()
+      .all()
+      .then(res => {
+        this.menus = res;
+      });
+
     this.translationService().refreshTranslation(this.currentLanguage);
   }
 
@@ -31,6 +45,19 @@ export default class JhiNavbar extends Vue {
     this.translationService().refreshTranslation(newLanguage);
   }
 
+  public isUrl(url: string): boolean {
+    if (url.indexOf('()') === -1) {
+      return true;
+    }
+
+    return false;
+  }
+
+  public actionMenu(callback: string): void {
+    callback = callback.replace('()', '');
+    this[callback]();
+  }
+
   public isActiveLanguage(key: string): boolean {
     return key === this.$store.getters.currentLanguage;
   }
@@ -39,7 +66,8 @@ export default class JhiNavbar extends Vue {
     localStorage.removeItem('jhi-authenticationToken');
     sessionStorage.removeItem('jhi-authenticationToken');
     this.$store.commit('logout');
-    this.$router.push('/');
+    // this.$router.push('/');
+    window.location.href = '';
   }
 
   public openLogin(): void {
@@ -51,12 +79,7 @@ export default class JhiNavbar extends Vue {
   }
 
   public hasAnyAuthority(authorities: any): boolean {
-    this.accountService()
-      .hasAnyAuthorityAndCheckAuth(authorities)
-      .then(value => {
-        this.hasAnyAuthorityValue = value;
-      });
-    return this.hasAnyAuthorityValue;
+    return this.accountService().hasAnyAuthority(authorities);
   }
 
   public get swaggerEnabled(): boolean {

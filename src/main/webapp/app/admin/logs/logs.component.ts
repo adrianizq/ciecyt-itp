@@ -1,11 +1,10 @@
-import { Component, Vue, Inject } from 'vue-property-decorator';
+import { Component, Inject } from 'vue-property-decorator';
+import { mixins } from 'vue-class-component';
 import Vue2Filters from 'vue2-filters';
 import LogsService from './logs.service';
 
-@Component({
-  mixins: [Vue2Filters.mixin],
-})
-export default class JhiLogs extends Vue {
+@Component
+export default class JhiLogs extends mixins(Vue2Filters.mixin) {
   @Inject('logsService') private logsService: () => LogsService;
   private loggers: any[] = [];
   public filtered = '';

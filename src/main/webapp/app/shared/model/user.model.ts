@@ -12,6 +12,7 @@ export interface IUser {
   lastModifiedBy?: string;
   lastModifiedDate?: Date;
   password?: string;
+  // nombresApellidos?: string;
 }
 
 export class User implements IUser {
@@ -28,6 +29,14 @@ export class User implements IUser {
     public createdDate?: Date,
     public lastModifiedBy?: string,
     public lastModifiedDate?: Date,
-    public password?: string
-  ) {}
+    public password?: string //public nombresApellidos?: string,
+  ) {
+    /*this.nombresApellidos=this.firstName + " " + this.lastName*/
+  }
+  /*public getNombresApellidos(){
+      return this.nombresApellidos
+  }
+  public setNombresApellidos(){
+    this.nombresApellidos = this.firstName + " " + this.lastName
+  }*/
 }

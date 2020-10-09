@@ -1,11 +1,10 @@
-import { Component, Vue, Inject } from 'vue-property-decorator';
+import { Component, Inject } from 'vue-property-decorator';
+import { mixins } from 'vue-class-component';
 import Vue2Filters from 'vue2-filters';
 import ConfigurationService from './configuration.service';
 
-@Component({
-  mixins: [Vue2Filters.mixin],
-})
-export default class JhiConfiguration extends Vue {
+@Component
+export default class JhiConfiguration extends mixins(Vue2Filters.mixin) {
   public orderProp = 'prefix';
   public reverse = false;
   public allConfiguration: any = false;

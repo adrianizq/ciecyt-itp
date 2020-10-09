@@ -8,6 +8,7 @@ import co.edu.itp.ciecyt.repository.UserRepository;
 import co.edu.itp.ciecyt.security.AuthoritiesConstants;
 import co.edu.itp.ciecyt.security.SecurityUtils;
 import co.edu.itp.ciecyt.service.dto.UserDTO;
+import co.edu.itp.ciecyt.service.mapper.UserMapper;
 
 import io.github.jhipster.security.RandomUtil;
 
@@ -20,6 +21,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.data.jpa.domain.Specification;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -40,14 +42,17 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
     private final AuthorityRepository authorityRepository;
+    private final UserMapper userMapper;
 
     private final CacheManager cacheManager;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository, CacheManager cacheManager) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, 
+            AuthorityRepository authorityRepository, CacheManager cacheManager, UserMapper userMapper) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authorityRepository = authorityRepository;
         this.cacheManager = cacheManager;
+        this.userMapper = userMapper;
     }
 
     public Optional<User> activateRegistration(String key) {
@@ -301,4 +306,44 @@ public class UserService {
             Objects.requireNonNull(cacheManager.getCache(UserRepository.USERS_BY_EMAIL_CACHE)).evict(user.getEmail());
         }
     }
+
+    static Specification<User> isRol(Authority role) {
+        return (obj, cq, cb) -> cb.isMember(role, obj.get("authorities"));
+    }
+
+@Transactional(readOnly = true)
+public List<UserDTO> getAllAsesoresNoPage() {
+    List <UserDTO> listDTO = new ArrayList<>();
+    Authority asesor = authorityRepository.findById(AuthoritiesConstants.ASESOR).get();
+    List <User> list= userRepository.findAll(Specification.where(isRol(asesor)));
+
+    listDTO = userMapper.usersToUserDTOs(list);
+    return listDTO;
+}
+
+
+
+
+@Transactional(readOnly = true)
+public List<UserDTO> getAllEstudiantesNoPage() {
+    List <UserDTO> listDTO = new ArrayList<>();
+    Authority estudiante = authorityRepository.findById(AuthoritiesConstants.ESTUDIANTE).get();
+    List <User> list= userRepository.findAll(Specification.where(isRol(estudiante)));
+
+    listDTO = userMapper.usersToUserDTOs(list);
+    return listDTO;
+}
+
+
+@Transactional(readOnly = true)
+public List<UserDTO> getAllJuradosNoPage() {
+    List <UserDTO> listDTO = new ArrayList<>();
+    Authority jurado = authorityRepository.findById(AuthoritiesConstants.JURADO).get();
+    List <User> list= userRepository.findAll(Specification.where(isRol(jurado)));
+
+    listDTO = userMapper.usersToUserDTOs(list);
+    return listDTO;
+}
+
+
 }

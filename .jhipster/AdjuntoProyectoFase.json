@@ -1,0 +1,57 @@
+{
+  "name": "AdjuntoProyectoFase",
+  "fields": [
+    {
+      "fieldName": "nombreAdjunto",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "fechaCreacion",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "fechaModificacion",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "estadoAdjunto",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "adjuntoProyectoFase",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "nombreArchivoOriginal",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "fechaInicio",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "fechaFin",
+      "fieldType": "LocalDate"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "proyectoFase",
+      "otherEntityRelationshipName": "adjuntoProyectoFase",
+      "relationshipName": "adjuntoProyectoFaseProyectoFase",
+      "otherEntityField": "titulo"
+    }
+  ],
+  "changelogDate": "20201008033203",
+  "entityTableName": "adjunto_proyecto_fase",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

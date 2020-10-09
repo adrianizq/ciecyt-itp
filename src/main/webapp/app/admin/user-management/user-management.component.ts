@@ -2,12 +2,11 @@ import { Component, Inject } from 'vue-property-decorator';
 import { mixins } from 'vue-class-component';
 import Vue2Filters from 'vue2-filters';
 import UserManagementService from './user-management.service';
-import AlertMixin from '@/shared/alert/alert.mixin';
+import AlertService from '@/shared/alert/alert.service';
 
-@Component({
-  mixins: [Vue2Filters.mixin],
-})
-export default class JhiUserManagementComponent extends mixins(AlertMixin) {
+@Component
+export default class JhiUserManagementComponent extends mixins(Vue2Filters.mixin) {
+  @Inject('alertService') private alertService: () => AlertService;
   @Inject('userService') private userManagementService: () => UserManagementService;
   public error = '';
   public success = '';
@@ -20,6 +19,23 @@ export default class JhiUserManagementComponent extends mixins(AlertMixin) {
   public reverse = false;
   public totalItems = 0;
   public removeId: number = null;
+
+  public dismissCountDown: number = this.$store.getters.dismissCountDown;
+  public dismissSecs: number = this.$store.getters.dismissSecs;
+  public alertType: string = this.$store.getters.alertType;
+  public alertMessage: any = this.$store.getters.alertMessage;
+
+  public getAlertFromStore() {
+    this.dismissCountDown = this.$store.getters.dismissCountDown;
+    this.dismissSecs = this.$store.getters.dismissSecs;
+    this.alertType = this.$store.getters.alertType;
+    this.alertMessage = this.$store.getters.alertMessage;
+  }
+
+  public countDownChanged(dismissCountDown: number) {
+    this.alertService().countDownChanged(dismissCountDown);
+    this.getAlertFromStore();
+  }
 
   public mounted(): void {
     this.loadAll();
@@ -84,9 +100,7 @@ export default class JhiUserManagementComponent extends mixins(AlertMixin) {
     this.userManagementService()
       .remove(this.removeId)
       .then(res => {
-        const message = this.$t(res.headers['x-ciecytapp-alert'], {
-          param: decodeURIComponent(res.headers['x-ciecytapp-params'].replace(/\+/g, ' ')),
-        });
+        const message = this.$t(res.headers['x-ciecytapp-alert'], { param: res.headers['x-ciecytapp-params'] });
         this.alertService().showAlert(message, 'danger');
         this.getAlertFromStore();
         this.removeId = null;
@@ -97,9 +111,6 @@ export default class JhiUserManagementComponent extends mixins(AlertMixin) {
 
   public prepareRemove(instance): void {
     this.removeId = instance.login;
-    if (<any>this.$refs.removeUser) {
-      (<any>this.$refs.removeUser).show();
-    }
   }
 
   public closeDialog(): void {

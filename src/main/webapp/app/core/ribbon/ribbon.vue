@@ -8,7 +8,7 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
     /* ==========================================================================
-Development Ribbon
+Developement Ribbon
 ========================================================================== */
     .ribbon {
         background-color: rgba(170, 0, 0, 0.5);

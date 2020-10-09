@@ -1,5 +1,6 @@
 import { email, maxLength, minLength, required } from 'vuelidate/lib/validators';
 import axios from 'axios';
+import { EMAIL_NOT_FOUND_TYPE } from '@/constants';
 import { Vue, Component } from 'vue-property-decorator';
 
 const validations = {
@@ -23,11 +24,13 @@ interface ResetAccount {
 export default class ResetPasswordInit extends Vue {
   public success: boolean = null;
   public error: string = null;
+  public errorEmailNotExists: string = null;
   public resetAccount: ResetAccount = {
     email: null,
   };
 
   public requestReset(): void {
+    this.errorEmailNotExists = null;
     this.error = null;
     axios
       .post('api/account/reset-password/init', this.resetAccount.email, {
@@ -40,7 +43,11 @@ export default class ResetPasswordInit extends Vue {
       })
       .catch(error => {
         this.success = null;
-        this.error = 'ERROR';
+        if (error.response.status === 400 && error.response.data.type === EMAIL_NOT_FOUND_TYPE) {
+          this.errorEmailNotExists = 'ERROR';
+        } else {
+          this.error = 'ERROR';
+        }
       });
   }
 }

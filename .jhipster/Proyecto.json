@@ -1,0 +1,108 @@
+{
+  "name": "Proyecto",
+  "fields": [
+    {
+      "fieldName": "titulo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "url",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "lugarEjecucion",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "duracion",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "fechaIni",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "fechaFin",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "contrapartidaPesos",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "contrapartidaEspecie",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "palabrasClave",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "convocatoria",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "tipo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "referencias",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "lineaInvestigacion",
+      "otherEntityRelationshipName": "proyecto",
+      "relationshipName": "proyectoLineaInvestigacion",
+      "otherEntityField": "linea"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "grupoSemillero",
+      "otherEntityRelationshipName": "proyecto",
+      "relationshipName": "proyectoGrupoSemillero",
+      "otherEntityField": "nombre"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "modalidad",
+      "otherEntityRelationshipName": "proyecto",
+      "relationshipName": "proyectoModalidad",
+      "otherEntityField": "modalidad"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "lineaInvestigacion",
+      "otherEntityRelationshipName": "proyecto",
+      "relationshipName": "subLineaLineaInvestigacion",
+      "otherEntityField": "linea"
+    },
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "informacionPasantia",
+      "otherEntityRelationshipName": "informacionPasantiaProyecto",
+      "relationshipName": "id",
+      "ownerSide": false
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "facultad",
+      "otherEntityRelationshipName": "facultadProyecto",
+      "relationshipName": "facultad",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20201008035903",
+  "entityTableName": "proyecto",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

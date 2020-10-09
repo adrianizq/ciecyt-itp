@@ -9,13 +9,13 @@ export const INSTANT_FORMAT = "yyyy-MM-dd'T'HH:mm:ssZ";
 export const ZONED_DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ssXXXXX";
 
 export function initFilters() {
-  Vue.filter('formatDate', value => {
+  Vue.filter('formatDate', function (value) {
     if (value) {
       return format(parseISO(value), DATE_TIME_FORMAT);
     }
     return '';
   });
-  Vue.filter('formatMillis', value => {
+  Vue.filter('formatMillis', function (value) {
     if (value) {
       return format(new Date(value), DATE_TIME_FORMAT);
     }

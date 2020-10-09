@@ -1,30 +1,36 @@
-import {
-  BForm,
-  BFormInput,
-  BFormCheckbox,
-  BFormGroup,
-  BProgress,
-  BProgressBar,
-  BPagination,
-  BButton,
-  BNavbar,
-  BNavbarNav,
-  BNavbarBrand,
-  BNavbarToggle,
-  BNavItem,
-  BNavItemDropdown,
-  BCollapse,
-  BBadge,
-  BDropdown,
-  BDropdownItem,
-  BLink,
-  BAlert,
-  BModal,
-  VBModal,
-  BFormDatepicker,
-  BInputGroup,
-  BInputGroupPrepend,
-} from 'bootstrap-vue';
+import { BForm } from 'bootstrap-vue/src/components/form/form';
+import { BFormInput } from 'bootstrap-vue/src/components/form-input/form-input';
+import { BFormCheckbox } from 'bootstrap-vue/src/components/form-checkbox/form-checkbox';
+import { BFormGroup } from 'bootstrap-vue/src/components/form-group/form-group';
+import { BProgress } from 'bootstrap-vue/src/components/progress/progress';
+import { BProgressBar } from 'bootstrap-vue/src/components/progress/progress-bar';
+import { BPagination } from 'bootstrap-vue/src/components/pagination/pagination';
+import { BButton } from 'bootstrap-vue/src/components/button/button';
+import { BNavbar } from 'bootstrap-vue/src/components/navbar/navbar';
+import { BNavbarNav } from 'bootstrap-vue/src/components/navbar/navbar-nav';
+import { BNavbarBrand } from 'bootstrap-vue/src/components/navbar/navbar-brand';
+import { BNavbarToggle } from 'bootstrap-vue/src/components/navbar/navbar-toggle';
+import { BNavItem } from 'bootstrap-vue/src/components/nav/nav-item';
+import { BNavItemDropdown } from 'bootstrap-vue/src/components/nav/nav-item-dropdown';
+import { BCollapse } from 'bootstrap-vue/src/components/collapse/collapse';
+import { BBadge } from 'bootstrap-vue/src/components/badge/badge';
+import { BDropdown } from 'bootstrap-vue/src/components/dropdown/dropdown';
+import { BDropdownItem } from 'bootstrap-vue/src/components/dropdown/dropdown-item';
+import { BLink } from 'bootstrap-vue/src/components/link/link';
+import { BAlert } from 'bootstrap-vue/src/components/alert/alert';
+import { BModal } from 'bootstrap-vue/src/components/modal/modal';
+import { BCard } from 'bootstrap-vue/src/components/card/card';
+import { BCardHeader } from 'bootstrap-vue/src/components/card/card-header';
+import { BCardText } from 'bootstrap-vue/src/components/card/card-text';
+import { BCardBody } from 'bootstrap-vue/src/components/card/card-body';
+import { BFormSelect } from 'bootstrap-vue/src/components/form-select/form-select';
+import { BFormTextarea } from 'bootstrap-vue/src/components/form-textarea/form-textarea';
+import { BFormDatepicker } from 'bootstrap-vue/src/components/form-datepicker/form-datepicker';
+import { BFormRadio } from 'bootstrap-vue/src/components/form-radio/form-radio';
+import { BFormRadioGroup } from 'bootstrap-vue/src/components/form-radio/form-radio-group';
+/*Directivas*/
+import { VBModal } from 'bootstrap-vue/src/directives/modal/modal';
+import { VBToggle } from 'bootstrap-vue/src/directives/toggle/toggle';
 
 export function initBootstrapVue(vue) {
   vue.component('b-badge', BBadge);
@@ -48,9 +54,16 @@ export function initBootstrapVue(vue) {
   vue.component('b-collapse', BCollapse);
   vue.component('b-nav-item', BNavItem);
   vue.component('b-nav-item-dropdown', BNavItemDropdown);
-  vue.component('b-modal', BModal);
-  vue.directive('b-modal', VBModal);
+  vue.component('b-card-header', BCardHeader);
+  vue.component('b-card', BCard);
+  vue.component('b-card-text', BCardText);
+  vue.component('b-card-body', BCardBody);
+  vue.component('b-form-select', BFormSelect);
+  vue.component('b-form-textarea', BFormTextarea);
   vue.component('b-form-datepicker', BFormDatepicker);
-  vue.component('b-input-group', BInputGroup);
-  vue.component('b-input-group-prepend', BInputGroupPrepend);
+  vue.component('b-form-radio', BFormRadio);
+  vue.component('b-form-radio-group', BFormRadioGroup);
+  /*Directivas*/
+  vue.directive('b-modal', VBModal);
+  vue.directive('b-toggle', VBToggle);
 }

@@ -19,6 +19,14 @@ logging:
     io.github.jhipster: DEBUG
     co.edu.itp.ciecyt: DEBUG
 
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    enabled: false # By default, the JHipster Registry is not used in the "dev" profile
+    service-url:
+      defaultZone: http://admin:${jhipster.registry.password}@localhost:8761/eureka/
+
 spring:
   profiles:
     active: dev
@@ -29,7 +37,6 @@ spring:
   devtools:
     restart:
       enabled: true
-      additional-exclude: static/**
     livereload:
       enabled: false # we use Webpack dev server + BrowserSync for livereload
   jackson:
@@ -37,15 +44,25 @@ spring:
       indent-output: true
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:postgresql://localhost:5432/ciecyt
-    username: ciecyt
-    password:
+    #url: jdbc:postgresql://10.10.13.7:5432/ciecyt_db
+    #username: ciecyt_admin
+    #password: ciecyt2020
+    url: jdbc:postgresql://localhost:5432/ciecyt_db
+    username: postgres
+    password: adr45661
     hikari:
       poolName: Hikari
       auto-commit: false
   jpa:
-    database-platform: io.github.jhipster.domain.util.FixedPostgreSQL10Dialect
+    database-platform: io.github.jhipster.domain.util.FixedPostgreSQL95Dialect
+    database: POSTGRESQL
     show-sql: true
+    properties:
+      hibernate.id.new_generator_mappings: true
+      hibernate.connection.provider_disables_autocommit: true
+      hibernate.cache.use_second_level_cache: false
+      hibernate.cache.use_query_cache: false
+      hibernate.generate_statistics: false
   liquibase:
     # Remove 'faker' if you do not want the sample data to be loaded automatically
     contexts: dev, faker
@@ -58,6 +75,15 @@ spring:
     cache-duration: PT1S # 1 second, see the ISO 8601 standard
   thymeleaf:
     cache: false
+  sleuth:
+    sampler:
+      probability: 1 # report 100% of traces
+  zipkin: # Use the "zipkin" Maven profile to have the Spring Cloud Zipkin dependencies
+    base-url: http://localhost:9411
+    enabled: false
+    locator:
+      discovery:
+        enabled: true
 
 server:
   port: 8080
@@ -69,10 +95,6 @@ server:
 # ===================================================================
 
 jhipster:
-  cache: # Cache configuration
-    ehcache: # Ehcache configuration
-      time-to-live-seconds: 3600 # By default objects stay 1 hour in the cache
-      max-entries: 100 # Number of objects in each cache entry
   # CORS is only enabled by default with the "dev" profile, so BrowserSync can access the API
   cors:
     allowed-origins: '*'
@@ -85,7 +107,7 @@ jhipster:
     authentication:
       jwt:
         # This token must be encoded using Base64 and be at least 256 bits long (you can type `openssl rand -base64 64` on your command line to generate a 512 bits one)
-        base64-secret: MWRkODA5MWIwMTIyODQzY2EzNjM1ODljYTQwMjEyNzE2NDYyMmZmMTYxNGNiYTJlZTg5MzVjYjk0MzlhMTk1ZmM5NWIzMGE3ZTg1NDE3ODIxNDIxOGI4MDBhMjU0ZWEyODlmNjlkY2M3ZjRjYzg2NWU3NmRlODQ5NmZjNDBiNzI=
+        base64-secret: Y2I5ZWE4YjRiOWJmYjcxM2Q1YTQ3ODk5ZmQwN2FkZTAzNjUzMWI1NDYwYzlkNjc3MTM1NzNjZmQxYzY1ZjI1ZWMxZjVhYjA1MjgyZmFjOGQwNjgyNzA5Njg4YzljYzJhNTQxOWZlMWY5MTMxZjA4YjI3YzIzMjhjMjhjNDg5ODA=
         # Token is valid 24 hours
         token-validity-in-seconds: 86400
         token-validity-in-seconds-for-remember-me: 2592000

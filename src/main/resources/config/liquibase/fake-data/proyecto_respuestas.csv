@@ -1,0 +1,11 @@
+id;respuesta;observaciones;viable
+1;NO_CUMPLE;withdrawal;false
+2;NO_APLICA;AGP Accounts JSON;true
+3;NO_APLICA;Gloves;true
+4;NO_CUMPLE;deposit;false
+5;NO_APLICA;Soft SMS generating;true
+6;NO_CUMPLE;orchid Soft;true
+7;CUMPLE;Moldovan Leu;false
+8;CUMPLE;Books back-end;true
+9;CUMPLE;e-commerce;false
+10;NO_APLICA;Handcrafted Steel;true

@@ -5,13 +5,12 @@ import co.edu.itp.ciecyt.domain.User;
 import co.edu.itp.ciecyt.repository.UserRepository;
 import co.edu.itp.ciecyt.security.AuthoritiesConstants;
 import co.edu.itp.ciecyt.service.MailService;
-import org.springframework.data.domain.Sort;
-import java.util.Collections;
 import co.edu.itp.ciecyt.service.UserService;
 import co.edu.itp.ciecyt.service.dto.UserDTO;
 import co.edu.itp.ciecyt.web.rest.errors.BadRequestAlertException;
 import co.edu.itp.ciecyt.web.rest.errors.EmailAlreadyUsedException;
 import co.edu.itp.ciecyt.web.rest.errors.LoginAlreadyUsedException;
+import co.edu.itp.ciecyt.web.rest.model.ApiMessage;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
@@ -20,6 +19,7 @@ import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
@@ -61,7 +61,6 @@ import java.util.*;
 @RestController
 @RequestMapping("/api")
 public class UserResource {
-    private static final List<String> ALLOWED_ORDERED_PROPERTIES = Collections.unmodifiableList(Arrays.asList("id", "login", "firstName", "lastName", "email", "activated", "langKey"));
 
     private final Logger log = LoggerFactory.getLogger(UserResource.class);
 
@@ -73,11 +72,15 @@ public class UserResource {
     private final UserRepository userRepository;
 
     private final MailService mailService;
+    //private final MessageSource messageSource;
 
-    public UserResource(UserService userService, UserRepository userRepository, MailService mailService) {
+    //public UserResource(UserService userService, UserRepository userRepository, MailService mailService , MessageSource messageSource) {
+        public UserResource(UserService userService, UserRepository userRepository,  MailService mailService) {
+
         this.userService = userService;
         this.userRepository = userRepository;
         this.mailService = mailService;
+        //this.messageSource = messageSource;
     }
 
     /**
@@ -93,7 +96,7 @@ public class UserResource {
      * @throws BadRequestAlertException {@code 400 (Bad Request)} if the login or email is already in use.
      */
     @PostMapping("/users")
-    @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
+    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<User> createUser(@Valid @RequestBody UserDTO userDTO) throws URISyntaxException {
         log.debug("REST request to save User : {}", userDTO);
 
@@ -122,7 +125,7 @@ public class UserResource {
      * @throws LoginAlreadyUsedException {@code 400 (Bad Request)} if the login is already in use.
      */
     @PutMapping("/users")
-    @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
+    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<UserDTO> updateUser(@Valid @RequestBody UserDTO userDTO) {
         log.debug("REST request to update User : {}", userDTO);
         Optional<User> existingUser = userRepository.findOneByEmailIgnoreCase(userDTO.getEmail());
@@ -147,17 +150,9 @@ public class UserResource {
      */
     @GetMapping("/users")
     public ResponseEntity<List<UserDTO>> getAllUsers(Pageable pageable) {
-        if (!onlyContainsAllowedProperties(pageable)) {
-            return ResponseEntity.badRequest().build();
-        }
-
         final Page<UserDTO> page = userService.getAllManagedUsers(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
-    }
-
-    private boolean onlyContainsAllowedProperties(Pageable pageable) {
-        return pageable.getSort().stream().map(Sort.Order::getProperty).allMatch(ALLOWED_ORDERED_PROPERTIES::contains);
     }
 
     /**
@@ -165,7 +160,7 @@ public class UserResource {
      * @return a string list of all roles.
      */
     @GetMapping("/users/authorities")
-    @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
+    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
     public List<String> getAuthorities() {
         return userService.getAuthorities();
     }
@@ -191,10 +186,72 @@ public class UserResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/users/{login:" + Constants.LOGIN_REGEX + "}")
-    @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
+    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<Void> deleteUser(@PathVariable String login) {
         log.debug("REST request to delete User: {}", login);
         userService.deleteUser(login);
         return ResponseEntity.noContent().headers(HeaderUtil.createAlert(applicationName,  "userManagement.deleted", login)).build();
     }
+
+
+    @GetMapping("/users/asesores")
+        public ResponseEntity<?> getAllUsersAsesoresNoPage() {
+        //Optional<User> user = userService.getUserWithAuthorities();
+        //Locale locale = Locale.forLanguageTag(user.get().getLangKey());
+        try{
+        final List<UserDTO> listAsesores = userService.getAllAsesoresNoPage();
+
+        return new ResponseEntity<>(listAsesores, HttpStatus.OK);
+
+        }catch (Exception e){
+          //  String det = "";
+		//	String message = "api.users.search.error"; //TODO ESTE SE DEBE CONSULTAR DE LOS MESSAGES DEL SISTEMA
+
+		//	String error = messageSource.getMessage(message, new String[] {det, e.getMessage()}, locale);
+
+		//	log.error(error);
+
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body( e.getMessage());
+			//return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body( new ApiMessage("ERR_99", error));
+        }
+    }
+
+    @GetMapping("/users/estudiantes")
+        public ResponseEntity<?> getAllUsersEstudiantesNoPage() {
+        //Optional<User> user = userService.getUserWithAuthorities();
+        //Locale locale = Locale.forLanguageTag(user.get().getLangKey());
+        try{
+        final List<UserDTO> list = userService.getAllEstudiantesNoPage();
+        return new ResponseEntity<>(list, HttpStatus.OK);
+        }catch (Exception e){
+          //  String det = "";
+		//	String message = "api.users.search.error"; //TODO ESTE SE DEBE CONSULTAR DE LOS MESSAGES DEL SISTEMA
+		//	String error = messageSource.getMessage(message, new String[] {det, e.getMessage()}, locale);
+		//	log.error(error);
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body( e.getMessage());
+			//return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body( new ApiMessage("ERR_99", error));
+        }
+    }
+
+
+    @GetMapping("/users/jurados")
+    public ResponseEntity<?> getAllUsersJuradosNoPage() {
+        //Optional<User> user = userService.getUserWithAuthorities();
+        //Locale locale = Locale.forLanguageTag(user.get().getLangKey());
+        try{
+            final List<UserDTO> list = userService.getAllJuradosNoPage();
+            return new ResponseEntity<>(list, HttpStatus.OK);
+        }catch (Exception e){
+            //  String det = "";
+            //	String message = "api.users.search.error"; //TODO ESTE SE DEBE CONSULTAR DE LOS MESSAGES DEL SISTEMA
+            //	String error = messageSource.getMessage(message, new String[] {det, e.getMessage()}, locale);
+            //	log.error(error);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body( e.getMessage());
+            //return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body( new ApiMessage("ERR_99", error));
+        }
+    }
+
+
+
+
 }

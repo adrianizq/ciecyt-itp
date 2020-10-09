@@ -20,3 +20,9 @@
 
 <script lang="ts" src="./app.component.ts">
 </script>
+
+<style>
+    .btn-switch{
+        display: inline-grid;
+    }
+</style>
