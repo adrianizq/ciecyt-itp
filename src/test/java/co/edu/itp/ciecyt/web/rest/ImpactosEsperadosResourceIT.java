@@ -6,25 +6,19 @@ import co.edu.itp.ciecyt.repository.ImpactosEsperadosRepository;
 import co.edu.itp.ciecyt.service.ImpactosEsperadosService;
 import co.edu.itp.ciecyt.service.dto.ImpactosEsperadosDTO;
 import co.edu.itp.ciecyt.service.mapper.ImpactosEsperadosMapper;
-import co.edu.itp.ciecyt.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.Validator;
-
 import javax.persistence.EntityManager;
 import java.util.List;
 
-import static co.edu.itp.ciecyt.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -34,6 +28,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Integration tests for the {@link ImpactosEsperadosResource} REST controller.
  */
 @SpringBootTest(classes = CiecytApp.class)
+@AutoConfigureMockMvc
+@WithMockUser
 public class ImpactosEsperadosResourceIT {
 
     private static final String DEFAULT_IMPACTO = "AAAAAAAAAA";
@@ -61,35 +57,12 @@ public class ImpactosEsperadosResourceIT {
     private ImpactosEsperadosService impactosEsperadosService;
 
     @Autowired
-    private MappingJackson2HttpMessageConverter jacksonMessageConverter;
-
-    @Autowired
-    private PageableHandlerMethodArgumentResolver pageableArgumentResolver;
-
-    @Autowired
-    private ExceptionTranslator exceptionTranslator;
-
-    @Autowired
     private EntityManager em;
 
     @Autowired
-    private Validator validator;
-
     private MockMvc restImpactosEsperadosMockMvc;
 
     private ImpactosEsperados impactosEsperados;
-
-    @BeforeEach
-    public void setup() {
-        MockitoAnnotations.initMocks(this);
-        final ImpactosEsperadosResource impactosEsperadosResource = new ImpactosEsperadosResource(impactosEsperadosService);
-        this.restImpactosEsperadosMockMvc = MockMvcBuilders.standaloneSetup(impactosEsperadosResource)
-            .setCustomArgumentResolvers(pageableArgumentResolver)
-            .setControllerAdvice(exceptionTranslator)
-            .setConversionService(createFormattingConversionService())
-            .setMessageConverters(jacksonMessageConverter)
-            .setValidator(validator).build();
-    }
 
     /**
      * Create an entity for this test.
@@ -131,11 +104,10 @@ public class ImpactosEsperadosResourceIT {
     @Transactional
     public void createImpactosEsperados() throws Exception {
         int databaseSizeBeforeCreate = impactosEsperadosRepository.findAll().size();
-
         // Create the ImpactosEsperados
         ImpactosEsperadosDTO impactosEsperadosDTO = impactosEsperadosMapper.toDto(impactosEsperados);
         restImpactosEsperadosMockMvc.perform(post("/api/impactos-esperados")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(impactosEsperadosDTO)))
             .andExpect(status().isCreated());
 
@@ -161,7 +133,7 @@ public class ImpactosEsperadosResourceIT {
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restImpactosEsperadosMockMvc.perform(post("/api/impactos-esperados")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(impactosEsperadosDTO)))
             .andExpect(status().isBadRequest());
 
@@ -180,7 +152,7 @@ public class ImpactosEsperadosResourceIT {
         // Get all the impactosEsperadosList
         restImpactosEsperadosMockMvc.perform(get("/api/impactos-esperados?sort=id,desc"))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(impactosEsperados.getId().intValue())))
             .andExpect(jsonPath("$.[*].impacto").value(hasItem(DEFAULT_IMPACTO)))
             .andExpect(jsonPath("$.[*].plazo").value(hasItem(DEFAULT_PLAZO)))
@@ -198,7 +170,7 @@ public class ImpactosEsperadosResourceIT {
         // Get the impactosEsperados
         restImpactosEsperadosMockMvc.perform(get("/api/impactos-esperados/{id}", impactosEsperados.getId()))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(impactosEsperados.getId().intValue()))
             .andExpect(jsonPath("$.impacto").value(DEFAULT_IMPACTO))
             .andExpect(jsonPath("$.plazo").value(DEFAULT_PLAZO))
@@ -206,7 +178,6 @@ public class ImpactosEsperadosResourceIT {
             .andExpect(jsonPath("$.supuestos").value(DEFAULT_SUPUESTOS))
             .andExpect(jsonPath("$.ordenVista").value(DEFAULT_ORDEN_VISTA));
     }
-
     @Test
     @Transactional
     public void getNonExistingImpactosEsperados() throws Exception {
@@ -236,7 +207,7 @@ public class ImpactosEsperadosResourceIT {
         ImpactosEsperadosDTO impactosEsperadosDTO = impactosEsperadosMapper.toDto(updatedImpactosEsperados);
 
         restImpactosEsperadosMockMvc.perform(put("/api/impactos-esperados")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(impactosEsperadosDTO)))
             .andExpect(status().isOk());
 
@@ -261,7 +232,7 @@ public class ImpactosEsperadosResourceIT {
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restImpactosEsperadosMockMvc.perform(put("/api/impactos-esperados")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(impactosEsperadosDTO)))
             .andExpect(status().isBadRequest());
 
@@ -280,49 +251,11 @@ public class ImpactosEsperadosResourceIT {
 
         // Delete the impactosEsperados
         restImpactosEsperadosMockMvc.perform(delete("/api/impactos-esperados/{id}", impactosEsperados.getId())
-            .accept(TestUtil.APPLICATION_JSON_UTF8))
+            .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isNoContent());
 
         // Validate the database contains one less item
         List<ImpactosEsperados> impactosEsperadosList = impactosEsperadosRepository.findAll();
         assertThat(impactosEsperadosList).hasSize(databaseSizeBeforeDelete - 1);
-    }
-
-    @Test
-    @Transactional
-    public void equalsVerifier() throws Exception {
-        TestUtil.equalsVerifier(ImpactosEsperados.class);
-        ImpactosEsperados impactosEsperados1 = new ImpactosEsperados();
-        impactosEsperados1.setId(1L);
-        ImpactosEsperados impactosEsperados2 = new ImpactosEsperados();
-        impactosEsperados2.setId(impactosEsperados1.getId());
-        assertThat(impactosEsperados1).isEqualTo(impactosEsperados2);
-        impactosEsperados2.setId(2L);
-        assertThat(impactosEsperados1).isNotEqualTo(impactosEsperados2);
-        impactosEsperados1.setId(null);
-        assertThat(impactosEsperados1).isNotEqualTo(impactosEsperados2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(ImpactosEsperadosDTO.class);
-        ImpactosEsperadosDTO impactosEsperadosDTO1 = new ImpactosEsperadosDTO();
-        impactosEsperadosDTO1.setId(1L);
-        ImpactosEsperadosDTO impactosEsperadosDTO2 = new ImpactosEsperadosDTO();
-        assertThat(impactosEsperadosDTO1).isNotEqualTo(impactosEsperadosDTO2);
-        impactosEsperadosDTO2.setId(impactosEsperadosDTO1.getId());
-        assertThat(impactosEsperadosDTO1).isEqualTo(impactosEsperadosDTO2);
-        impactosEsperadosDTO2.setId(2L);
-        assertThat(impactosEsperadosDTO1).isNotEqualTo(impactosEsperadosDTO2);
-        impactosEsperadosDTO1.setId(null);
-        assertThat(impactosEsperadosDTO1).isNotEqualTo(impactosEsperadosDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(impactosEsperadosMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(impactosEsperadosMapper.fromId(null)).isNull();
     }
 }

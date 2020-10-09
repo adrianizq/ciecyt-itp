@@ -17,25 +17,25 @@ const validations: any = {
       required,
       minLength: minLength(1),
       maxLength: maxLength(254),
-      loginValidator
+      loginValidator,
     },
     firstName: {
-      maxLength: maxLength(50)
+      maxLength: maxLength(50),
     },
     lastName: {
-      maxLength: maxLength(50)
+      maxLength: maxLength(50),
     },
     email: {
       required,
       email,
       minLength: minLength(5),
-      maxLength: maxLength(254)
-    }
-  }
+      maxLength: maxLength(254),
+    },
+  },
 };
 
 @Component({
-  validations
+  validations,
 })
 export default class JhiUserManagementEdit extends Vue {
   @Inject('alertService') private alertService: () => AlertService;

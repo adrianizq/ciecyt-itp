@@ -34,8 +34,8 @@ describe('Component Tests', () => {
         router,
         provide: {
           alertService: () => new AlertService(store),
-          grupoSemilleroService: () => grupoSemilleroServiceStub
-        }
+          grupoSemilleroService: () => grupoSemilleroServiceStub,
+        },
       });
       comp = wrapper.vm;
     });

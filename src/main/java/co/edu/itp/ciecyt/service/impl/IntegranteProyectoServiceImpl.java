@@ -135,12 +135,12 @@ public class IntegranteProyectoServiceImpl implements IntegranteProyectoService 
 
     }
 
-    @Override
+   
     @Transactional(readOnly = true)
-    public List<IntegranteProyectoDTO> findByIntegranteProyectoProyectoIdAndIntegranteProyectoRolesModalidadIdIn(Long idProyecto, Long idRolModalidad) throws Exception {
+    public List<IntegranteProyectoDTO> findByIntegranteProyectoProyectoIdAndIntegranteProyectoRolesModalidadId(Long idProyecto, Long idRolModalidad) throws Exception {
         log.debug("Request to get all IntegranteProyectos whit a idProyecto");
         List <IntegranteProyectoDTO> listDTO = new ArrayList<>();
-        List <IntegranteProyecto> list = integranteProyectoRepository.findByIntegranteProyectoProyectoIdAndIntegranteProyectoRolesModalidadIdIn( idProyecto,idRolModalidad);
+        List <IntegranteProyecto> list = integranteProyectoRepository.findByIntegranteProyectoProyectoIdAndIntegranteProyectoRolesModalidadId( idProyecto,idRolModalidad);
         //listDTO = integranteProyectoMapper.usersToUserDTOs(list);
 
         for (IntegranteProyecto integrante : list) {
@@ -200,7 +200,7 @@ public class IntegranteProyectoServiceImpl implements IntegranteProyectoService 
         rolesModalidad = rolesModalidadService.findByRolAndRolesModalidadModalidadId("Estudiante", modalidadId);
         Long rolesModalidadId= rolesModalidad.getId();
         List <IntegranteProyectoDTO> listDTO = new ArrayList<>();
-        List <IntegranteProyecto> list = integranteProyectoRepository.findByIntegranteProyectoProyectoIdAndIntegranteProyectoRolesModalidadIdIn(idProyecto, rolesModalidadId);
+        List <IntegranteProyecto> list = integranteProyectoRepository.findByIntegranteProyectoProyectoIdAndIntegranteProyectoRolesModalidadId(idProyecto, rolesModalidadId);
 
         for (IntegranteProyecto integrante : list) {
             listDTO.add( integranteProyectoMapper.toDto(integrante));
@@ -225,7 +225,7 @@ public class IntegranteProyectoServiceImpl implements IntegranteProyectoService 
         rolesModalidad = rolesModalidadService.findByRolAndRolesModalidadModalidadId("Viabilidad", modalidadId);
         Long rolesModalidadId= rolesModalidad.getId();
         List <IntegranteProyectoDTO> listDTO = new ArrayList<>();
-        List <IntegranteProyecto> list = integranteProyectoRepository.findByIntegranteProyectoProyectoIdAndIntegranteProyectoRolesModalidadIdIn(idProyecto, rolesModalidadId);
+        List <IntegranteProyecto> list = integranteProyectoRepository.findByIntegranteProyectoProyectoIdAndIntegranteProyectoRolesModalidadId(idProyecto, rolesModalidadId);
 
         for (IntegranteProyecto integrante : list) {
             listDTO.add( integranteProyectoMapper.toDto(integrante));
@@ -250,7 +250,7 @@ public class IntegranteProyectoServiceImpl implements IntegranteProyectoService 
         rolesModalidad = rolesModalidadService.findByRolAndRolesModalidadModalidadId("Asesor", modalidadId);
         Long rolesModalidadId= rolesModalidad.getId();
         List <IntegranteProyectoDTO> listDTO = new ArrayList<>();
-        List <IntegranteProyecto> list = integranteProyectoRepository.findByIntegranteProyectoProyectoIdAndIntegranteProyectoRolesModalidadIdIn(idProyecto, rolesModalidadId);
+        List <IntegranteProyecto> list = integranteProyectoRepository.findByIntegranteProyectoProyectoIdAndIntegranteProyectoRolesModalidadId(idProyecto, rolesModalidadId);
 
         for (IntegranteProyecto integrante : list) {
             listDTO.add( integranteProyectoMapper.toDto(integrante));

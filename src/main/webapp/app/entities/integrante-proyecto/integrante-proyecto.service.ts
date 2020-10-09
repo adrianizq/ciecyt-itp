@@ -9,7 +9,7 @@ const baseApiUrl = 'api/integrante-proyectos';
 export default class IntegranteProyectoService {
   public find(id: number): Promise<IIntegranteProyecto> {
     return new Promise<IIntegranteProyecto>(resolve => {
-      axios.get(`${baseApiUrl}/${id}`).then(function(res) {
+      axios.get(`${baseApiUrl}/${id}`).then(function (res) {
         resolve(res.data);
       });
     });
@@ -17,7 +17,7 @@ export default class IntegranteProyectoService {
 
   public retrieve(paginationQuery?: any): Promise<any> {
     return new Promise<any>(resolve => {
-      axios.get(baseApiUrl + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function(res) {
+      axios.get(baseApiUrl + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function (res) {
         resolve(res);
       });
     });
@@ -32,7 +32,7 @@ export default class IntegranteProyectoService {
             `/${idRolModalidad}` +
             `?${buildPaginationQueryOpts(paginationQuery)}`
         )
-        .then(function(res) {
+        .then(function (res) {
           resolve(res);
         });
     });
@@ -42,7 +42,7 @@ export default class IntegranteProyectoService {
     return new Promise<any>(resolve => {
       axios
         .get('/api/integrante-proyectos-estudiantes' + `/${idProyecto}` + `?${buildPaginationQueryOpts(paginationQuery)}`)
-        .then(function(res) {
+        .then(function (res) {
           resolve(res);
         });
     });
@@ -51,7 +51,7 @@ export default class IntegranteProyectoService {
     return new Promise<any>(resolve => {
       axios
         .get('/api/integrante-proyectos-jurados' + `/${idProyecto}` + `?${buildPaginationQueryOpts(paginationQuery)}`)
-        .then(function(res) {
+        .then(function (res) {
           resolve(res);
         });
     });
@@ -59,7 +59,7 @@ export default class IntegranteProyectoService {
 
   public retrieveJurados(paginationQuery?: any): Promise<any> {
     return new Promise<any>(resolve => {
-      axios.get('/api/users/jurados' + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function(res) {
+      axios.get('/api/users/jurados' + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function (res) {
         resolve(res);
       });
     });
@@ -69,7 +69,7 @@ export default class IntegranteProyectoService {
     return new Promise<any>(resolve => {
       axios
         .get('/api/integrante-proyectos-asesores' + `/${idProyecto}` + `?${buildPaginationQueryOpts(paginationQuery)}`)
-        .then(function(res) {
+        .then(function (res) {
           resolve(res);
         });
     });
@@ -77,7 +77,7 @@ export default class IntegranteProyectoService {
 
   public retrieveAsesores(paginationQuery?: any): Promise<any> {
     return new Promise<any>(resolve => {
-      axios.get('/api/users/asesores' + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function(res) {
+      axios.get('/api/users/asesores' + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function (res) {
         resolve(res);
       });
     });
@@ -85,7 +85,7 @@ export default class IntegranteProyectoService {
 
   public delete(id: number): Promise<any> {
     return new Promise<any>(resolve => {
-      axios.delete(`${baseApiUrl}/${id}`).then(function(res) {
+      axios.delete(`${baseApiUrl}/${id}`).then(function (res) {
         resolve(res);
       });
     });
@@ -93,7 +93,7 @@ export default class IntegranteProyectoService {
 
   public create(entity: IIntegranteProyecto): Promise<IIntegranteProyecto> {
     return new Promise<IIntegranteProyecto>(resolve => {
-      axios.post(`${baseApiUrl}`, entity).then(function(res) {
+      axios.post(`${baseApiUrl}`, entity).then(function (res) {
         resolve(res.data);
       });
     });
@@ -101,7 +101,7 @@ export default class IntegranteProyectoService {
 
   public update(entity: IIntegranteProyecto): Promise<IIntegranteProyecto> {
     return new Promise<IIntegranteProyecto>(resolve => {
-      axios.put(`${baseApiUrl}`, entity).then(function(res) {
+      axios.put(`${baseApiUrl}`, entity).then(function (res) {
         resolve(res.data);
       });
     });

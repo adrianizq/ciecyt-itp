@@ -9,7 +9,7 @@ const baseApiUrl = 'api/retroalimentacions';
 export default class RetroalimentacionService {
   public find(id: number): Promise<IRetroalimentacion> {
     return new Promise<IRetroalimentacion>(resolve => {
-      axios.get(`${baseApiUrl}/${id}`).then(function(res) {
+      axios.get(`${baseApiUrl}/${id}`).then(function (res) {
         resolve(res.data);
       });
     });
@@ -17,7 +17,7 @@ export default class RetroalimentacionService {
 
   public retrieve(paginationQuery?: any): Promise<any> {
     return new Promise<any>(resolve => {
-      axios.get(baseApiUrl + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function(res) {
+      axios.get(baseApiUrl + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function (res) {
         resolve(res);
       });
     });
@@ -25,7 +25,7 @@ export default class RetroalimentacionService {
 
   public delete(id: number): Promise<any> {
     return new Promise<any>(resolve => {
-      axios.delete(`${baseApiUrl}/${id}`).then(function(res) {
+      axios.delete(`${baseApiUrl}/${id}`).then(function (res) {
         resolve(res);
       });
     });
@@ -33,7 +33,7 @@ export default class RetroalimentacionService {
 
   public create(entity: IRetroalimentacion): Promise<IRetroalimentacion> {
     return new Promise<IRetroalimentacion>(resolve => {
-      axios.post(`${baseApiUrl}`, entity).then(function(res) {
+      axios.post(`${baseApiUrl}`, entity).then(function (res) {
         resolve(res.data);
       });
     });
@@ -41,7 +41,7 @@ export default class RetroalimentacionService {
 
   public update(entity: IRetroalimentacion): Promise<IRetroalimentacion> {
     return new Promise<IRetroalimentacion>(resolve => {
-      axios.put(`${baseApiUrl}`, entity).then(function(res) {
+      axios.put(`${baseApiUrl}`, entity).then(function (res) {
         resolve(res.data);
       });
     });

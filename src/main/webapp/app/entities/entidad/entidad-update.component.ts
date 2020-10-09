@@ -9,12 +9,12 @@ import EntidadService from './entidad.service';
 const validations: any = {
   entidad: {
     entidad: {},
-    nit: {}
-  }
+    nit: {},
+  },
 };
 
 @Component({
-  validations
+  validations,
 })
 export default class EntidadUpdate extends Vue {
   @Inject('alertService') private alertService: () => AlertService;

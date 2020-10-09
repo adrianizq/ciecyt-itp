@@ -15,7 +15,7 @@ export default class JhiMetricsModal extends mixins(Vue2Filters.mixin) {
       threadDumpBlocked: 0,
       threadDumpRunnable: 0,
       threadDumpTimedWaiting: 0,
-      threadDumpWaiting: 0
+      threadDumpWaiting: 0,
     };
     if (this.threadDump) {
       this.threadDump.forEach(value => {

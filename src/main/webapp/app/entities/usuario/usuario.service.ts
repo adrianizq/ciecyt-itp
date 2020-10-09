@@ -9,7 +9,7 @@ const baseApiUrl = 'api/usuarios';
 export default class UsuarioService {
   public find(id: number): Promise<IUsuario> {
     return new Promise<IUsuario>(resolve => {
-      axios.get(`${baseApiUrl}/${id}`).then(function(res) {
+      axios.get(`${baseApiUrl}/${id}`).then(function (res) {
         resolve(res.data);
       });
     });
@@ -17,7 +17,7 @@ export default class UsuarioService {
 
   public retrieve(paginationQuery?: any): Promise<any> {
     return new Promise<any>(resolve => {
-      axios.get(baseApiUrl + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function(res) {
+      axios.get(baseApiUrl + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function (res) {
         resolve(res);
       });
     });
@@ -25,7 +25,7 @@ export default class UsuarioService {
 
   public delete(id: number): Promise<any> {
     return new Promise<any>(resolve => {
-      axios.delete(`${baseApiUrl}/${id}`).then(function(res) {
+      axios.delete(`${baseApiUrl}/${id}`).then(function (res) {
         resolve(res);
       });
     });
@@ -33,7 +33,7 @@ export default class UsuarioService {
 
   public create(entity: IUsuario): Promise<IUsuario> {
     return new Promise<IUsuario>(resolve => {
-      axios.post(`${baseApiUrl}`, entity).then(function(res) {
+      axios.post(`${baseApiUrl}`, entity).then(function (res) {
         resolve(res.data);
       });
     });
@@ -41,7 +41,7 @@ export default class UsuarioService {
 
   public update(entity: IUsuario): Promise<IUsuario> {
     return new Promise<IUsuario>(resolve => {
-      axios.put(`${baseApiUrl}`, entity).then(function(res) {
+      axios.put(`${baseApiUrl}`, entity).then(function (res) {
         resolve(res.data);
       });
     });
@@ -60,7 +60,7 @@ export default class UsuarioService {
     return new Promise<any>(resolve => {
       //axios.get(`api/users/asesores` + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function(res) {
       //  resolve(res);
-      axios.get(`api/users/asesores`).then(function(res) {
+      axios.get(`api/users/asesores`).then(function (res) {
         resolve(res);
       });
     });
@@ -70,7 +70,7 @@ export default class UsuarioService {
     return new Promise<any>(resolve => {
       //axios.get(`api/users/asesores` + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function(res) {
       //  resolve(res);
-      axios.get(`api/users/estudiantes`).then(function(res) {
+      axios.get(`api/users/estudiantes`).then(function (res) {
         resolve(res);
       });
     });
@@ -80,7 +80,7 @@ export default class UsuarioService {
     return new Promise<any>(resolve => {
       //axios.get(`api/users/asesores` + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function(res) {
       //  resolve(res);
-      axios.get(`api/users/jurados`).then(function(res) {
+      axios.get(`api/users/jurados`).then(function (res) {
         resolve(res);
       });
     });

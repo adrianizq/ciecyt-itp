@@ -22,12 +22,12 @@ const validations: any = {
   pregunta: {
     encabezado: {},
     descripcion: {},
-    pregunta: {}
-  }
+    pregunta: {},
+  },
 };
 
 @Component({
-  validations
+  validations,
 })
 export default class PreguntaUpdate extends Vue {
   @Inject('alertService') private alertService: () => AlertService;

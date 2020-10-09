@@ -6,25 +6,19 @@ import co.edu.itp.ciecyt.repository.TipoPreguntaRepository;
 import co.edu.itp.ciecyt.service.TipoPreguntaService;
 import co.edu.itp.ciecyt.service.dto.TipoPreguntaDTO;
 import co.edu.itp.ciecyt.service.mapper.TipoPreguntaMapper;
-import co.edu.itp.ciecyt.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.Validator;
-
 import javax.persistence.EntityManager;
 import java.util.List;
 
-import static co.edu.itp.ciecyt.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -34,6 +28,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Integration tests for the {@link TipoPreguntaResource} REST controller.
  */
 @SpringBootTest(classes = CiecytApp.class)
+@AutoConfigureMockMvc
+@WithMockUser
 public class TipoPreguntaResourceIT {
 
     private static final String DEFAULT_TIPO_PREGUNTA = "AAAAAAAAAA";
@@ -52,35 +48,12 @@ public class TipoPreguntaResourceIT {
     private TipoPreguntaService tipoPreguntaService;
 
     @Autowired
-    private MappingJackson2HttpMessageConverter jacksonMessageConverter;
-
-    @Autowired
-    private PageableHandlerMethodArgumentResolver pageableArgumentResolver;
-
-    @Autowired
-    private ExceptionTranslator exceptionTranslator;
-
-    @Autowired
     private EntityManager em;
 
     @Autowired
-    private Validator validator;
-
     private MockMvc restTipoPreguntaMockMvc;
 
     private TipoPregunta tipoPregunta;
-
-    @BeforeEach
-    public void setup() {
-        MockitoAnnotations.initMocks(this);
-        final TipoPreguntaResource tipoPreguntaResource = new TipoPreguntaResource(tipoPreguntaService);
-        this.restTipoPreguntaMockMvc = MockMvcBuilders.standaloneSetup(tipoPreguntaResource)
-            .setCustomArgumentResolvers(pageableArgumentResolver)
-            .setControllerAdvice(exceptionTranslator)
-            .setConversionService(createFormattingConversionService())
-            .setMessageConverters(jacksonMessageConverter)
-            .setValidator(validator).build();
-    }
 
     /**
      * Create an entity for this test.
@@ -116,11 +89,10 @@ public class TipoPreguntaResourceIT {
     @Transactional
     public void createTipoPregunta() throws Exception {
         int databaseSizeBeforeCreate = tipoPreguntaRepository.findAll().size();
-
         // Create the TipoPregunta
         TipoPreguntaDTO tipoPreguntaDTO = tipoPreguntaMapper.toDto(tipoPregunta);
         restTipoPreguntaMockMvc.perform(post("/api/tipo-preguntas")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(tipoPreguntaDTO)))
             .andExpect(status().isCreated());
 
@@ -143,7 +115,7 @@ public class TipoPreguntaResourceIT {
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restTipoPreguntaMockMvc.perform(post("/api/tipo-preguntas")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(tipoPreguntaDTO)))
             .andExpect(status().isBadRequest());
 
@@ -162,7 +134,7 @@ public class TipoPreguntaResourceIT {
         // Get all the tipoPreguntaList
         restTipoPreguntaMockMvc.perform(get("/api/tipo-preguntas?sort=id,desc"))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(tipoPregunta.getId().intValue())))
             .andExpect(jsonPath("$.[*].tipoPregunta").value(hasItem(DEFAULT_TIPO_PREGUNTA)))
             .andExpect(jsonPath("$.[*].tipoDato").value(hasItem(DEFAULT_TIPO_DATO)));
@@ -177,12 +149,11 @@ public class TipoPreguntaResourceIT {
         // Get the tipoPregunta
         restTipoPreguntaMockMvc.perform(get("/api/tipo-preguntas/{id}", tipoPregunta.getId()))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(tipoPregunta.getId().intValue()))
             .andExpect(jsonPath("$.tipoPregunta").value(DEFAULT_TIPO_PREGUNTA))
             .andExpect(jsonPath("$.tipoDato").value(DEFAULT_TIPO_DATO));
     }
-
     @Test
     @Transactional
     public void getNonExistingTipoPregunta() throws Exception {
@@ -209,7 +180,7 @@ public class TipoPreguntaResourceIT {
         TipoPreguntaDTO tipoPreguntaDTO = tipoPreguntaMapper.toDto(updatedTipoPregunta);
 
         restTipoPreguntaMockMvc.perform(put("/api/tipo-preguntas")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(tipoPreguntaDTO)))
             .andExpect(status().isOk());
 
@@ -231,7 +202,7 @@ public class TipoPreguntaResourceIT {
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restTipoPreguntaMockMvc.perform(put("/api/tipo-preguntas")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(tipoPreguntaDTO)))
             .andExpect(status().isBadRequest());
 
@@ -250,49 +221,11 @@ public class TipoPreguntaResourceIT {
 
         // Delete the tipoPregunta
         restTipoPreguntaMockMvc.perform(delete("/api/tipo-preguntas/{id}", tipoPregunta.getId())
-            .accept(TestUtil.APPLICATION_JSON_UTF8))
+            .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isNoContent());
 
         // Validate the database contains one less item
         List<TipoPregunta> tipoPreguntaList = tipoPreguntaRepository.findAll();
         assertThat(tipoPreguntaList).hasSize(databaseSizeBeforeDelete - 1);
-    }
-
-    @Test
-    @Transactional
-    public void equalsVerifier() throws Exception {
-        TestUtil.equalsVerifier(TipoPregunta.class);
-        TipoPregunta tipoPregunta1 = new TipoPregunta();
-        tipoPregunta1.setId(1L);
-        TipoPregunta tipoPregunta2 = new TipoPregunta();
-        tipoPregunta2.setId(tipoPregunta1.getId());
-        assertThat(tipoPregunta1).isEqualTo(tipoPregunta2);
-        tipoPregunta2.setId(2L);
-        assertThat(tipoPregunta1).isNotEqualTo(tipoPregunta2);
-        tipoPregunta1.setId(null);
-        assertThat(tipoPregunta1).isNotEqualTo(tipoPregunta2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(TipoPreguntaDTO.class);
-        TipoPreguntaDTO tipoPreguntaDTO1 = new TipoPreguntaDTO();
-        tipoPreguntaDTO1.setId(1L);
-        TipoPreguntaDTO tipoPreguntaDTO2 = new TipoPreguntaDTO();
-        assertThat(tipoPreguntaDTO1).isNotEqualTo(tipoPreguntaDTO2);
-        tipoPreguntaDTO2.setId(tipoPreguntaDTO1.getId());
-        assertThat(tipoPreguntaDTO1).isEqualTo(tipoPreguntaDTO2);
-        tipoPreguntaDTO2.setId(2L);
-        assertThat(tipoPreguntaDTO1).isNotEqualTo(tipoPreguntaDTO2);
-        tipoPreguntaDTO1.setId(null);
-        assertThat(tipoPreguntaDTO1).isNotEqualTo(tipoPreguntaDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(tipoPreguntaMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(tipoPreguntaMapper.fromId(null)).isNull();
     }
 }

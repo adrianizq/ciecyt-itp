@@ -9,9 +9,9 @@ import CicloPropedeuticoUpdateComponent from '@/entities/ciclo-propedeutico/cicl
 import CicloPropedeuticoClass from '@/entities/ciclo-propedeutico/ciclo-propedeutico-update.component';
 import CicloPropedeuticoService from '@/entities/ciclo-propedeutico/ciclo-propedeutico.service';
 
-import ModalidadService from '@/entities/modalidad/modalidad.service';
-
 import AcuerdoService from '@/entities/acuerdo/acuerdo.service';
+
+import ModalidadService from '@/entities/modalidad/modalidad.service';
 
 const localVue = createLocalVue();
 
@@ -40,10 +40,10 @@ describe('Component Tests', () => {
           alertService: () => new AlertService(store),
           cicloPropedeuticoService: () => cicloPropedeuticoServiceStub,
 
-          modalidadService: () => new ModalidadService(),
+          acuerdoService: () => new AcuerdoService(),
 
-          acuerdoService: () => new AcuerdoService()
-        }
+          modalidadService: () => new ModalidadService(),
+        },
       });
       comp = wrapper.vm;
     });

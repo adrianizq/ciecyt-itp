@@ -7,11 +7,20 @@ import IntegranteProyectoService from '@/entities/integrante-proyecto/integrante
 import { IntegranteProyecto } from '@/shared/model/integrante-proyecto.model';
 
 const mockedAxios: any = axios;
+const error = {
+  response: {
+    status: null,
+    data: {
+      type: null,
+    },
+  },
+};
+
 jest.mock('axios', () => ({
   get: jest.fn(),
   post: jest.fn(),
   put: jest.fn(),
-  delete: jest.fn()
+  delete: jest.fn(),
 }));
 
 describe('Service Tests', () => {
@@ -33,10 +42,21 @@ describe('Service Tests', () => {
           expect(res).toMatchObject(elemDefault);
         });
       });
+
+      it('should not find an element', async () => {
+        mockedAxios.get.mockReturnValue(Promise.reject(error));
+        return service
+          .find(123)
+          .then()
+          .catch(err => {
+            expect(err).toMatchObject(error);
+          });
+      });
+
       it('should create a IntegranteProyecto', async () => {
         const returnedFromService = Object.assign(
           {
-            id: 0
+            id: 0,
           },
           elemDefault
         );
@@ -48,11 +68,22 @@ describe('Service Tests', () => {
         });
       });
 
+      it('should not create a IntegranteProyecto', async () => {
+        mockedAxios.post.mockReturnValue(Promise.reject(error));
+
+        return service
+          .create({})
+          .then()
+          .catch(err => {
+            expect(err).toMatchObject(error);
+          });
+      });
+
       it('should update a IntegranteProyecto', async () => {
         const returnedFromService = Object.assign(
           {
             integrante: 'BBBBBB',
-            descripcion: 'BBBBBB'
+            descripcion: 'BBBBBB',
           },
           elemDefault
         );
@@ -64,11 +95,23 @@ describe('Service Tests', () => {
           expect(res).toMatchObject(expected);
         });
       });
+
+      it('should not update a IntegranteProyecto', async () => {
+        mockedAxios.put.mockReturnValue(Promise.reject(error));
+
+        return service
+          .update({})
+          .then()
+          .catch(err => {
+            expect(err).toMatchObject(error);
+          });
+      });
+
       it('should return a list of IntegranteProyecto', async () => {
         const returnedFromService = Object.assign(
           {
             integrante: 'BBBBBB',
-            descripcion: 'BBBBBB'
+            descripcion: 'BBBBBB',
           },
           elemDefault
         );
@@ -78,11 +121,34 @@ describe('Service Tests', () => {
           expect(res).toContainEqual(expected);
         });
       });
+
+      it('should not return a list of IntegranteProyecto', async () => {
+        mockedAxios.get.mockReturnValue(Promise.reject(error));
+
+        return service
+          .retrieve()
+          .then()
+          .catch(err => {
+            expect(err).toMatchObject(error);
+          });
+      });
+
       it('should delete a IntegranteProyecto', async () => {
         mockedAxios.delete.mockReturnValue(Promise.resolve({ ok: true }));
         return service.delete(123).then(res => {
           expect(res.ok).toBeTruthy();
         });
+      });
+
+      it('should not delete a IntegranteProyecto', async () => {
+        mockedAxios.delete.mockReturnValue(Promise.reject(error));
+
+        return service
+          .delete(123)
+          .then()
+          .catch(err => {
+            expect(err).toMatchObject(error);
+          });
       });
     });
   });

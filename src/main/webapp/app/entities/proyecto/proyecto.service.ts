@@ -11,7 +11,7 @@ export default class ProyectoService {
 
   public find(id: number): Promise<IProyecto> {
     return new Promise<IProyecto>(resolve => {
-      axios.get(`${baseApiUrl}/${id}`).then(function(res) {
+      axios.get(`${baseApiUrl}/${id}`).then(function (res) {
         resolve(res.data);
       });
     });
@@ -19,7 +19,7 @@ export default class ProyectoService {
 
   public retrieveWithAsesor(idProy?: any, paginationQuery?: any): Promise<any> {
     return new Promise<any>(resolve => {
-      axios.get('api/proyectosWithAsesor' + `/${idProy}` + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function(res) {
+      axios.get('api/proyectosWithAsesor' + `/${idProy}` + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function (res) {
         resolve(res);
       });
     });
@@ -27,7 +27,7 @@ export default class ProyectoService {
 
   public retrieveProyectoIntegrante(idUsuario?: any, paginationQuery?: any): Promise<any> {
     return new Promise<any>(resolve => {
-      axios.get('api/proyectos-integrante' + `/${idUsuario}` + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function(res) {
+      axios.get('api/proyectos-integrante' + `/${idUsuario}` + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function (res) {
         resolve(res);
       });
     });
@@ -37,7 +37,7 @@ export default class ProyectoService {
     return new Promise<any>(resolve => {
       axios
         .get('api/proyectos-integrante' + `/${idUsuario}` + `/${authority}` + `?${buildPaginationQueryOpts(paginationQuery)}`)
-        .then(function(res) {
+        .then(function (res) {
           resolve(res);
         });
     });
@@ -45,7 +45,7 @@ export default class ProyectoService {
 
   public retrieve(paginationQuery?: any): Promise<any> {
     return new Promise<any>(resolve => {
-      axios.get(baseApiUrl + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function(res) {
+      axios.get(baseApiUrl + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function (res) {
         resolve(res);
       });
     });
@@ -53,7 +53,7 @@ export default class ProyectoService {
 
   public delete(id: number): Promise<any> {
     return new Promise<any>(resolve => {
-      axios.delete(`${baseApiUrl}/${id}`).then(function(res) {
+      axios.delete(`${baseApiUrl}/${id}`).then(function (res) {
         resolve(res);
       });
     });
@@ -61,7 +61,7 @@ export default class ProyectoService {
 
   public create(entity: IProyecto): Promise<IProyecto> {
     return new Promise<IProyecto>(resolve => {
-      axios.post(`${baseApiUrl}`, entity).then(function(res) {
+      axios.post(`${baseApiUrl}`, entity).then(function (res) {
         resolve(res.data);
         //this.proyectoId = entity.id;
         //this.proyectoId = 20;
@@ -71,7 +71,7 @@ export default class ProyectoService {
 
   public update(entity: IProyecto): Promise<IProyecto> {
     return new Promise<IProyecto>(resolve => {
-      axios.put(`${baseApiUrl}`, entity).then(function(res) {
+      axios.put(`${baseApiUrl}`, entity).then(function (res) {
         resolve(res.data);
       });
     });

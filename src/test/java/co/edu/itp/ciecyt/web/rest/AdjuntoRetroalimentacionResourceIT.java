@@ -6,27 +6,21 @@ import co.edu.itp.ciecyt.repository.AdjuntoRetroalimentacionRepository;
 import co.edu.itp.ciecyt.service.AdjuntoRetroalimentacionService;
 import co.edu.itp.ciecyt.service.dto.AdjuntoRetroalimentacionDTO;
 import co.edu.itp.ciecyt.service.mapper.AdjuntoRetroalimentacionMapper;
-import co.edu.itp.ciecyt.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.Validator;
-
 import javax.persistence.EntityManager;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.List;
 
-import static co.edu.itp.ciecyt.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -36,6 +30,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Integration tests for the {@link AdjuntoRetroalimentacionResource} REST controller.
  */
 @SpringBootTest(classes = CiecytApp.class)
+@AutoConfigureMockMvc
+@WithMockUser
 public class AdjuntoRetroalimentacionResourceIT {
 
     private static final String DEFAULT_NOMBRE_ADJUNTO = "AAAAAAAAAA";
@@ -72,35 +68,12 @@ public class AdjuntoRetroalimentacionResourceIT {
     private AdjuntoRetroalimentacionService adjuntoRetroalimentacionService;
 
     @Autowired
-    private MappingJackson2HttpMessageConverter jacksonMessageConverter;
-
-    @Autowired
-    private PageableHandlerMethodArgumentResolver pageableArgumentResolver;
-
-    @Autowired
-    private ExceptionTranslator exceptionTranslator;
-
-    @Autowired
     private EntityManager em;
 
     @Autowired
-    private Validator validator;
-
     private MockMvc restAdjuntoRetroalimentacionMockMvc;
 
     private AdjuntoRetroalimentacion adjuntoRetroalimentacion;
-
-    @BeforeEach
-    public void setup() {
-        MockitoAnnotations.initMocks(this);
-        final AdjuntoRetroalimentacionResource adjuntoRetroalimentacionResource = new AdjuntoRetroalimentacionResource(adjuntoRetroalimentacionService);
-        this.restAdjuntoRetroalimentacionMockMvc = MockMvcBuilders.standaloneSetup(adjuntoRetroalimentacionResource)
-            .setCustomArgumentResolvers(pageableArgumentResolver)
-            .setControllerAdvice(exceptionTranslator)
-            .setConversionService(createFormattingConversionService())
-            .setMessageConverters(jacksonMessageConverter)
-            .setValidator(validator).build();
-    }
 
     /**
      * Create an entity for this test.
@@ -148,11 +121,10 @@ public class AdjuntoRetroalimentacionResourceIT {
     @Transactional
     public void createAdjuntoRetroalimentacion() throws Exception {
         int databaseSizeBeforeCreate = adjuntoRetroalimentacionRepository.findAll().size();
-
         // Create the AdjuntoRetroalimentacion
         AdjuntoRetroalimentacionDTO adjuntoRetroalimentacionDTO = adjuntoRetroalimentacionMapper.toDto(adjuntoRetroalimentacion);
         restAdjuntoRetroalimentacionMockMvc.perform(post("/api/adjunto-retroalimentacions")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(adjuntoRetroalimentacionDTO)))
             .andExpect(status().isCreated());
 
@@ -181,7 +153,7 @@ public class AdjuntoRetroalimentacionResourceIT {
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restAdjuntoRetroalimentacionMockMvc.perform(post("/api/adjunto-retroalimentacions")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(adjuntoRetroalimentacionDTO)))
             .andExpect(status().isBadRequest());
 
@@ -200,7 +172,7 @@ public class AdjuntoRetroalimentacionResourceIT {
         // Get all the adjuntoRetroalimentacionList
         restAdjuntoRetroalimentacionMockMvc.perform(get("/api/adjunto-retroalimentacions?sort=id,desc"))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(adjuntoRetroalimentacion.getId().intValue())))
             .andExpect(jsonPath("$.[*].nombreAdjunto").value(hasItem(DEFAULT_NOMBRE_ADJUNTO)))
             .andExpect(jsonPath("$.[*].fechaCreacion").value(hasItem(DEFAULT_FECHA_CREACION.toString())))
@@ -221,7 +193,7 @@ public class AdjuntoRetroalimentacionResourceIT {
         // Get the adjuntoRetroalimentacion
         restAdjuntoRetroalimentacionMockMvc.perform(get("/api/adjunto-retroalimentacions/{id}", adjuntoRetroalimentacion.getId()))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(adjuntoRetroalimentacion.getId().intValue()))
             .andExpect(jsonPath("$.nombreAdjunto").value(DEFAULT_NOMBRE_ADJUNTO))
             .andExpect(jsonPath("$.fechaCreacion").value(DEFAULT_FECHA_CREACION.toString()))
@@ -232,7 +204,6 @@ public class AdjuntoRetroalimentacionResourceIT {
             .andExpect(jsonPath("$.fechaInicio").value(DEFAULT_FECHA_INICIO.toString()))
             .andExpect(jsonPath("$.fechaFin").value(DEFAULT_FECHA_FIN.toString()));
     }
-
     @Test
     @Transactional
     public void getNonExistingAdjuntoRetroalimentacion() throws Exception {
@@ -265,7 +236,7 @@ public class AdjuntoRetroalimentacionResourceIT {
         AdjuntoRetroalimentacionDTO adjuntoRetroalimentacionDTO = adjuntoRetroalimentacionMapper.toDto(updatedAdjuntoRetroalimentacion);
 
         restAdjuntoRetroalimentacionMockMvc.perform(put("/api/adjunto-retroalimentacions")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(adjuntoRetroalimentacionDTO)))
             .andExpect(status().isOk());
 
@@ -293,7 +264,7 @@ public class AdjuntoRetroalimentacionResourceIT {
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restAdjuntoRetroalimentacionMockMvc.perform(put("/api/adjunto-retroalimentacions")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(adjuntoRetroalimentacionDTO)))
             .andExpect(status().isBadRequest());
 
@@ -312,49 +283,11 @@ public class AdjuntoRetroalimentacionResourceIT {
 
         // Delete the adjuntoRetroalimentacion
         restAdjuntoRetroalimentacionMockMvc.perform(delete("/api/adjunto-retroalimentacions/{id}", adjuntoRetroalimentacion.getId())
-            .accept(TestUtil.APPLICATION_JSON_UTF8))
+            .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isNoContent());
 
         // Validate the database contains one less item
         List<AdjuntoRetroalimentacion> adjuntoRetroalimentacionList = adjuntoRetroalimentacionRepository.findAll();
         assertThat(adjuntoRetroalimentacionList).hasSize(databaseSizeBeforeDelete - 1);
-    }
-
-    @Test
-    @Transactional
-    public void equalsVerifier() throws Exception {
-        TestUtil.equalsVerifier(AdjuntoRetroalimentacion.class);
-        AdjuntoRetroalimentacion adjuntoRetroalimentacion1 = new AdjuntoRetroalimentacion();
-        adjuntoRetroalimentacion1.setId(1L);
-        AdjuntoRetroalimentacion adjuntoRetroalimentacion2 = new AdjuntoRetroalimentacion();
-        adjuntoRetroalimentacion2.setId(adjuntoRetroalimentacion1.getId());
-        assertThat(adjuntoRetroalimentacion1).isEqualTo(adjuntoRetroalimentacion2);
-        adjuntoRetroalimentacion2.setId(2L);
-        assertThat(adjuntoRetroalimentacion1).isNotEqualTo(adjuntoRetroalimentacion2);
-        adjuntoRetroalimentacion1.setId(null);
-        assertThat(adjuntoRetroalimentacion1).isNotEqualTo(adjuntoRetroalimentacion2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(AdjuntoRetroalimentacionDTO.class);
-        AdjuntoRetroalimentacionDTO adjuntoRetroalimentacionDTO1 = new AdjuntoRetroalimentacionDTO();
-        adjuntoRetroalimentacionDTO1.setId(1L);
-        AdjuntoRetroalimentacionDTO adjuntoRetroalimentacionDTO2 = new AdjuntoRetroalimentacionDTO();
-        assertThat(adjuntoRetroalimentacionDTO1).isNotEqualTo(adjuntoRetroalimentacionDTO2);
-        adjuntoRetroalimentacionDTO2.setId(adjuntoRetroalimentacionDTO1.getId());
-        assertThat(adjuntoRetroalimentacionDTO1).isEqualTo(adjuntoRetroalimentacionDTO2);
-        adjuntoRetroalimentacionDTO2.setId(2L);
-        assertThat(adjuntoRetroalimentacionDTO1).isNotEqualTo(adjuntoRetroalimentacionDTO2);
-        adjuntoRetroalimentacionDTO1.setId(null);
-        assertThat(adjuntoRetroalimentacionDTO1).isNotEqualTo(adjuntoRetroalimentacionDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(adjuntoRetroalimentacionMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(adjuntoRetroalimentacionMapper.fromId(null)).isNull();
     }
 }

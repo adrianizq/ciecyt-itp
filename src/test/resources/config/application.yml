@@ -13,14 +13,10 @@
 # http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
 # ===================================================================
 
-eureka:
-  client:
-    enabled: false
-  instance:
-    appname: ciecyt
-    instanceId: ciecyt:${spring.application.instance-id:${random.value}}
-
 spring:
+  profiles:
+    # Uncomment the following line to enable tests against production database type rather than H2, using Testcontainers
+    #active: testcontainers
   application:
     name: ciecyt
   datasource:
@@ -31,9 +27,11 @@ spring:
     password:
     hikari:
       auto-commit: false
+  jackson:
+    serialization:
+      write-durations-as-timestamps: false
   jpa:
     database-platform: io.github.jhipster.domain.util.FixedH2Dialect
-    database: H2
     open-in-view: false
     show-sql: false
     hibernate:
@@ -57,9 +55,6 @@ spring:
     allow-bean-definition-overriding: true
   messages:
     basename: i18n/messages
-  mvc:
-    favicon:
-      enabled: false
   task:
     execution:
       thread-name-prefix: ciecyt-task-
@@ -89,7 +84,7 @@ jhipster:
     name: 'ciecytApp'
   logging:
     # To test json console appender
-    use-json-format: true # By default, logs are in Json format
+    use-json-format: false
     logstash:
       enabled: false
       host: localhost
@@ -102,7 +97,7 @@ jhipster:
     authentication:
       jwt:
         # This token must be encoded using Base64 (you can type `echo 'secret-key'|base64` on your command line)
-        base64-secret: Y2I5ZWE4YjRiOWJmYjcxM2Q1YTQ3ODk5ZmQwN2FkZTAzNjUzMWI1NDYwYzlkNjc3MTM1NzNjZmQxYzY1ZjI1ZWMxZjVhYjA1MjgyZmFjOGQwNjgyNzA5Njg4YzljYzJhNTQxOWZlMWY5MTMxZjA4YjI3YzIzMjhjMjhjNDg5ODA=
+        base64-secret: MWRkODA5MWIwMTIyODQzY2EzNjM1ODljYTQwMjEyNzE2NDYyMmZmMTYxNGNiYTJlZTg5MzVjYjk0MzlhMTk1ZmM5NWIzMGE3ZTg1NDE3ODIxNDIxOGI4MDBhMjU0ZWEyODlmNjlkY2M3ZjRjYzg2NWU3NmRlODQ5NmZjNDBiNzI=
         # Token is valid 24 hours
         token-validity-in-seconds: 86400
   metrics:

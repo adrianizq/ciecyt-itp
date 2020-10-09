@@ -8,12 +8,12 @@ import RubroService from './rubro.service';
 
 const validations: any = {
   rubro: {
-    rubro: {}
-  }
+    rubro: {},
+  },
 };
 
 @Component({
-  validations
+  validations,
 })
 export default class RubroUpdate extends Vue {
   @Inject('alertService') private alertService: () => AlertService;

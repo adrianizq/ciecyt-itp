@@ -11,12 +11,12 @@ const validations: any = {
     acuerdo: {},
     version: {},
     codigo: {},
-    fecha: {}
-  }
+    fecha: {},
+  },
 };
 
 @Component({
-  validations
+  validations,
 })
 export default class AcuerdoUpdate extends Vue {
   @Inject('alertService') private alertService: () => AlertService;

@@ -38,8 +38,8 @@ describe('Component Tests', () => {
           alertService: () => new AlertService(store),
           adjuntoProyectoFaseService: () => adjuntoProyectoFaseServiceStub,
 
-          proyectoFaseService: () => new ProyectoFaseService()
-        }
+          proyectoFaseService: () => new ProyectoFaseService(),
+        },
       });
       comp = wrapper.vm;
     });

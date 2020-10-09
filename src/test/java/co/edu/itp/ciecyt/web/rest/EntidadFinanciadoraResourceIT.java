@@ -6,25 +6,19 @@ import co.edu.itp.ciecyt.repository.EntidadFinanciadoraRepository;
 import co.edu.itp.ciecyt.service.EntidadFinanciadoraService;
 import co.edu.itp.ciecyt.service.dto.EntidadFinanciadoraDTO;
 import co.edu.itp.ciecyt.service.mapper.EntidadFinanciadoraMapper;
-import co.edu.itp.ciecyt.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.Validator;
-
 import javax.persistence.EntityManager;
 import java.util.List;
 
-import static co.edu.itp.ciecyt.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -34,6 +28,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Integration tests for the {@link EntidadFinanciadoraResource} REST controller.
  */
 @SpringBootTest(classes = CiecytApp.class)
+@AutoConfigureMockMvc
+@WithMockUser
 public class EntidadFinanciadoraResourceIT {
 
     private static final Double DEFAULT_VALOR = 1D;
@@ -52,35 +48,12 @@ public class EntidadFinanciadoraResourceIT {
     private EntidadFinanciadoraService entidadFinanciadoraService;
 
     @Autowired
-    private MappingJackson2HttpMessageConverter jacksonMessageConverter;
-
-    @Autowired
-    private PageableHandlerMethodArgumentResolver pageableArgumentResolver;
-
-    @Autowired
-    private ExceptionTranslator exceptionTranslator;
-
-    @Autowired
     private EntityManager em;
 
     @Autowired
-    private Validator validator;
-
     private MockMvc restEntidadFinanciadoraMockMvc;
 
     private EntidadFinanciadora entidadFinanciadora;
-
-    @BeforeEach
-    public void setup() {
-        MockitoAnnotations.initMocks(this);
-        final EntidadFinanciadoraResource entidadFinanciadoraResource = new EntidadFinanciadoraResource(entidadFinanciadoraService);
-        this.restEntidadFinanciadoraMockMvc = MockMvcBuilders.standaloneSetup(entidadFinanciadoraResource)
-            .setCustomArgumentResolvers(pageableArgumentResolver)
-            .setControllerAdvice(exceptionTranslator)
-            .setConversionService(createFormattingConversionService())
-            .setMessageConverters(jacksonMessageConverter)
-            .setValidator(validator).build();
-    }
 
     /**
      * Create an entity for this test.
@@ -116,11 +89,10 @@ public class EntidadFinanciadoraResourceIT {
     @Transactional
     public void createEntidadFinanciadora() throws Exception {
         int databaseSizeBeforeCreate = entidadFinanciadoraRepository.findAll().size();
-
         // Create the EntidadFinanciadora
         EntidadFinanciadoraDTO entidadFinanciadoraDTO = entidadFinanciadoraMapper.toDto(entidadFinanciadora);
         restEntidadFinanciadoraMockMvc.perform(post("/api/entidad-financiadoras")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(entidadFinanciadoraDTO)))
             .andExpect(status().isCreated());
 
@@ -143,7 +115,7 @@ public class EntidadFinanciadoraResourceIT {
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restEntidadFinanciadoraMockMvc.perform(post("/api/entidad-financiadoras")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(entidadFinanciadoraDTO)))
             .andExpect(status().isBadRequest());
 
@@ -162,7 +134,7 @@ public class EntidadFinanciadoraResourceIT {
         // Get all the entidadFinanciadoraList
         restEntidadFinanciadoraMockMvc.perform(get("/api/entidad-financiadoras?sort=id,desc"))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(entidadFinanciadora.getId().intValue())))
             .andExpect(jsonPath("$.[*].valor").value(hasItem(DEFAULT_VALOR.doubleValue())))
             .andExpect(jsonPath("$.[*].aprobada").value(hasItem(DEFAULT_APROBADA.booleanValue())));
@@ -177,12 +149,11 @@ public class EntidadFinanciadoraResourceIT {
         // Get the entidadFinanciadora
         restEntidadFinanciadoraMockMvc.perform(get("/api/entidad-financiadoras/{id}", entidadFinanciadora.getId()))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(entidadFinanciadora.getId().intValue()))
             .andExpect(jsonPath("$.valor").value(DEFAULT_VALOR.doubleValue()))
             .andExpect(jsonPath("$.aprobada").value(DEFAULT_APROBADA.booleanValue()));
     }
-
     @Test
     @Transactional
     public void getNonExistingEntidadFinanciadora() throws Exception {
@@ -209,7 +180,7 @@ public class EntidadFinanciadoraResourceIT {
         EntidadFinanciadoraDTO entidadFinanciadoraDTO = entidadFinanciadoraMapper.toDto(updatedEntidadFinanciadora);
 
         restEntidadFinanciadoraMockMvc.perform(put("/api/entidad-financiadoras")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(entidadFinanciadoraDTO)))
             .andExpect(status().isOk());
 
@@ -231,7 +202,7 @@ public class EntidadFinanciadoraResourceIT {
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restEntidadFinanciadoraMockMvc.perform(put("/api/entidad-financiadoras")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(entidadFinanciadoraDTO)))
             .andExpect(status().isBadRequest());
 
@@ -250,49 +221,11 @@ public class EntidadFinanciadoraResourceIT {
 
         // Delete the entidadFinanciadora
         restEntidadFinanciadoraMockMvc.perform(delete("/api/entidad-financiadoras/{id}", entidadFinanciadora.getId())
-            .accept(TestUtil.APPLICATION_JSON_UTF8))
+            .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isNoContent());
 
         // Validate the database contains one less item
         List<EntidadFinanciadora> entidadFinanciadoraList = entidadFinanciadoraRepository.findAll();
         assertThat(entidadFinanciadoraList).hasSize(databaseSizeBeforeDelete - 1);
-    }
-
-    @Test
-    @Transactional
-    public void equalsVerifier() throws Exception {
-        TestUtil.equalsVerifier(EntidadFinanciadora.class);
-        EntidadFinanciadora entidadFinanciadora1 = new EntidadFinanciadora();
-        entidadFinanciadora1.setId(1L);
-        EntidadFinanciadora entidadFinanciadora2 = new EntidadFinanciadora();
-        entidadFinanciadora2.setId(entidadFinanciadora1.getId());
-        assertThat(entidadFinanciadora1).isEqualTo(entidadFinanciadora2);
-        entidadFinanciadora2.setId(2L);
-        assertThat(entidadFinanciadora1).isNotEqualTo(entidadFinanciadora2);
-        entidadFinanciadora1.setId(null);
-        assertThat(entidadFinanciadora1).isNotEqualTo(entidadFinanciadora2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(EntidadFinanciadoraDTO.class);
-        EntidadFinanciadoraDTO entidadFinanciadoraDTO1 = new EntidadFinanciadoraDTO();
-        entidadFinanciadoraDTO1.setId(1L);
-        EntidadFinanciadoraDTO entidadFinanciadoraDTO2 = new EntidadFinanciadoraDTO();
-        assertThat(entidadFinanciadoraDTO1).isNotEqualTo(entidadFinanciadoraDTO2);
-        entidadFinanciadoraDTO2.setId(entidadFinanciadoraDTO1.getId());
-        assertThat(entidadFinanciadoraDTO1).isEqualTo(entidadFinanciadoraDTO2);
-        entidadFinanciadoraDTO2.setId(2L);
-        assertThat(entidadFinanciadoraDTO1).isNotEqualTo(entidadFinanciadoraDTO2);
-        entidadFinanciadoraDTO1.setId(null);
-        assertThat(entidadFinanciadoraDTO1).isNotEqualTo(entidadFinanciadoraDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(entidadFinanciadoraMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(entidadFinanciadoraMapper.fromId(null)).isNull();
     }
 }

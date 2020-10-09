@@ -26,7 +26,7 @@
       "otherEntityField": "titulo"
     }
   ],
-  "changelogDate": "20200124174456",
+  "changelogDate": "20201008035803",
   "entityTableName": "producto_proyecto",
   "dto": "mapstruct",
   "pagination": "pagination",
@@ -34,7 +34,7 @@
   "jpaMetamodelFiltering": false,
   "fluentMethods": true,
   "readOnly": false,
+  "embedded": false,
   "clientRootFolder": "",
-  "applications": "*",
-  "embedded": false
+  "applications": "*"
 }

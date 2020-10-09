@@ -9,7 +9,7 @@ const baseApiUrl = 'api/adjunto-proyecto-fases';
 export default class AdjuntoProyectoFaseService {
   public find(id: number): Promise<IAdjuntoProyectoFase> {
     return new Promise<IAdjuntoProyectoFase>(resolve => {
-      axios.get(`${baseApiUrl}/${id}`).then(function(res) {
+      axios.get(`${baseApiUrl}/${id}`).then(function (res) {
         resolve(res.data);
       });
     });
@@ -17,7 +17,7 @@ export default class AdjuntoProyectoFaseService {
 
   public retrieve(paginationQuery?: any): Promise<any> {
     return new Promise<any>(resolve => {
-      axios.get(baseApiUrl + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function(res) {
+      axios.get(baseApiUrl + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function (res) {
         resolve(res);
       });
     });
@@ -25,7 +25,7 @@ export default class AdjuntoProyectoFaseService {
 
   public delete(id: number): Promise<any> {
     return new Promise<any>(resolve => {
-      axios.delete(`${baseApiUrl}/${id}`).then(function(res) {
+      axios.delete(`${baseApiUrl}/${id}`).then(function (res) {
         resolve(res);
       });
     });
@@ -33,7 +33,7 @@ export default class AdjuntoProyectoFaseService {
 
   public create(entity: IAdjuntoProyectoFase): Promise<IAdjuntoProyectoFase> {
     return new Promise<IAdjuntoProyectoFase>(resolve => {
-      axios.post(`${baseApiUrl}`, entity).then(function(res) {
+      axios.post(`${baseApiUrl}`, entity).then(function (res) {
         resolve(res.data);
       });
     });
@@ -41,7 +41,7 @@ export default class AdjuntoProyectoFaseService {
 
   public update(entity: IAdjuntoProyectoFase): Promise<IAdjuntoProyectoFase> {
     return new Promise<IAdjuntoProyectoFase>(resolve => {
-      axios.put(`${baseApiUrl}`, entity).then(function(res) {
+      axios.put(`${baseApiUrl}`, entity).then(function (res) {
         resolve(res.data);
       });
     });

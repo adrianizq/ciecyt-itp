@@ -19,7 +19,7 @@
       "otherEntityField": "modalidad"
     }
   ],
-  "changelogDate": "20200124174510",
+  "changelogDate": "20201008034403",
   "entityTableName": "fases",
   "dto": "mapstruct",
   "pagination": "pagination",
@@ -27,7 +27,7 @@
   "jpaMetamodelFiltering": false,
   "fluentMethods": true,
   "readOnly": false,
+  "embedded": false,
   "clientRootFolder": "",
-  "applications": "*",
-  "embedded": false
+  "applications": "*"
 }

@@ -62,7 +62,7 @@ export default class JhiAudits extends mixins(Vue2Filters.mixin) {
           size: this.itemsPerPage,
           sort: this.sort(),
           fromDate: this.fromDate,
-          toDate: this.toDate
+          toDate: this.toDate,
         })
         .then(
           res => {

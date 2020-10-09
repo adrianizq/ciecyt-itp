@@ -9,7 +9,7 @@ const baseApiUrl = 'api/grupo-semilleros';
 export default class GrupoSemilleroService {
   public find(id: number): Promise<IGrupoSemillero> {
     return new Promise<IGrupoSemillero>(resolve => {
-      axios.get(`${baseApiUrl}/${id}`).then(function(res) {
+      axios.get(`${baseApiUrl}/${id}`).then(function (res) {
         resolve(res.data);
       });
     });
@@ -17,7 +17,7 @@ export default class GrupoSemilleroService {
 
   public retrieve(paginationQuery?: any): Promise<any> {
     return new Promise<any>(resolve => {
-      axios.get(baseApiUrl + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function(res) {
+      axios.get(baseApiUrl + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function (res) {
         resolve(res);
       });
     });
@@ -25,7 +25,7 @@ export default class GrupoSemilleroService {
 
   public delete(id: number): Promise<any> {
     return new Promise<any>(resolve => {
-      axios.delete(`${baseApiUrl}/${id}`).then(function(res) {
+      axios.delete(`${baseApiUrl}/${id}`).then(function (res) {
         resolve(res);
       });
     });
@@ -33,7 +33,7 @@ export default class GrupoSemilleroService {
 
   public create(entity: IGrupoSemillero): Promise<IGrupoSemillero> {
     return new Promise<IGrupoSemillero>(resolve => {
-      axios.post(`${baseApiUrl}`, entity).then(function(res) {
+      axios.post(`${baseApiUrl}`, entity).then(function (res) {
         resolve(res.data);
       });
     });
@@ -41,7 +41,7 @@ export default class GrupoSemilleroService {
 
   public update(entity: IGrupoSemillero): Promise<IGrupoSemillero> {
     return new Promise<IGrupoSemillero>(resolve => {
-      axios.put(`${baseApiUrl}`, entity).then(function(res) {
+      axios.put(`${baseApiUrl}`, entity).then(function (res) {
         resolve(res.data);
       });
     });

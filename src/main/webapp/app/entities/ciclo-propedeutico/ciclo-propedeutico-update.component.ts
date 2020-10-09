@@ -14,12 +14,12 @@ import CicloPropedeuticoService from './ciclo-propedeutico.service';
 
 const validations: any = {
   cicloPropedeutico: {
-    ciclo: {}
-  }
+    ciclo: {},
+  },
 };
 
 @Component({
-  validations
+  validations,
 })
 export default class CicloPropedeuticoUpdate extends Vue {
   @Inject('alertService') private alertService: () => AlertService;

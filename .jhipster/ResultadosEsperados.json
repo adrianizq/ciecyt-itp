@@ -27,7 +27,7 @@
       "otherEntityField": "titulo"
     }
   ],
-  "changelogDate": "20200124174454",
+  "changelogDate": "20201008040203",
   "entityTableName": "resultados_esperados",
   "dto": "mapstruct",
   "pagination": "pagination",
@@ -35,9 +35,7 @@
   "jpaMetamodelFiltering": false,
   "fluentMethods": true,
   "readOnly": false,
+  "embedded": false,
   "clientRootFolder": "",
-  "applications": "*",
-  "searchEngine": false,
-  "databaseType": "sql",
-  "embedded": false
+  "applications": "*"
 }

@@ -160,10 +160,10 @@ public class IntegranteProyectoResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the integranteProyectoDTO, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/integrante-proyectos-proyecto-modalidad/{idProyecto}/{idRolModalidad}")
-    public ResponseEntity<?> findByIntegranteProyectoProyectoIdAndIntegranteProyectoRolesModalidadIdIn(@PathVariable Long idProyecto, @PathVariable Long idRolModalidad) {
+    public ResponseEntity<?> findByIntegranteProyectoProyectoIdAndIntegranteProyectoRolesModalidadId(@PathVariable Long idProyecto, @PathVariable Long idRolModalidad) {
         log.debug("REST request to get IntegranteProyecto : {}", idProyecto);
         try{
-        final List<IntegranteProyectoDTO> integranteProyectoDTO = integranteProyectoService.findByIntegranteProyectoProyectoIdAndIntegranteProyectoRolesModalidadIdIn(idProyecto,idRolModalidad);
+        final List<IntegranteProyectoDTO> integranteProyectoDTO = integranteProyectoService.findByIntegranteProyectoProyectoIdAndIntegranteProyectoRolesModalidadId(idProyecto,idRolModalidad);
         return new ResponseEntity<>(integranteProyectoDTO, HttpStatus.OK);
 
     }catch (Exception e){

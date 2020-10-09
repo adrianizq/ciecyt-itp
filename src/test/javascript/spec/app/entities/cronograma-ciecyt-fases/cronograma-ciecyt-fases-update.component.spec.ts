@@ -42,8 +42,8 @@ describe('Component Tests', () => {
 
           cronogramaCiecytService: () => new CronogramaCiecytService(),
 
-          fasesService: () => new FasesService()
-        }
+          fasesService: () => new FasesService(),
+        },
       });
       comp = wrapper.vm;
     });

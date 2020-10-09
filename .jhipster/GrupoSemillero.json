@@ -11,7 +11,7 @@
     }
   ],
   "relationships": [],
-  "changelogDate": "20200124174449",
+  "changelogDate": "20201008034703",
   "entityTableName": "grupo_semillero",
   "dto": "mapstruct",
   "pagination": "pagination",
@@ -19,7 +19,7 @@
   "jpaMetamodelFiltering": false,
   "fluentMethods": true,
   "readOnly": false,
+  "embedded": false,
   "clientRootFolder": "",
-  "applications": "*",
-  "embedded": false
+  "applications": "*"
 }

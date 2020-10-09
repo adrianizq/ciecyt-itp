@@ -38,8 +38,8 @@ describe('Component Tests', () => {
           alertService: () => new AlertService(store),
           cronogramaCiecytService: () => cronogramaCiecytServiceStub,
 
-          modalidadService: () => new ModalidadService()
-        }
+          modalidadService: () => new ModalidadService(),
+        },
       });
       comp = wrapper.vm;
     });

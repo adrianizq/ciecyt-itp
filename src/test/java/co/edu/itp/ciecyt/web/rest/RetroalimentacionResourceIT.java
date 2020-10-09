@@ -6,27 +6,21 @@ import co.edu.itp.ciecyt.repository.RetroalimentacionRepository;
 import co.edu.itp.ciecyt.service.RetroalimentacionService;
 import co.edu.itp.ciecyt.service.dto.RetroalimentacionDTO;
 import co.edu.itp.ciecyt.service.mapper.RetroalimentacionMapper;
-import co.edu.itp.ciecyt.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.Validator;
-
 import javax.persistence.EntityManager;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.List;
 
-import static co.edu.itp.ciecyt.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -36,6 +30,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Integration tests for the {@link RetroalimentacionResource} REST controller.
  */
 @SpringBootTest(classes = CiecytApp.class)
+@AutoConfigureMockMvc
+@WithMockUser
 public class RetroalimentacionResourceIT {
 
     private static final String DEFAULT_TITULO = "AAAAAAAAAA";
@@ -63,35 +59,12 @@ public class RetroalimentacionResourceIT {
     private RetroalimentacionService retroalimentacionService;
 
     @Autowired
-    private MappingJackson2HttpMessageConverter jacksonMessageConverter;
-
-    @Autowired
-    private PageableHandlerMethodArgumentResolver pageableArgumentResolver;
-
-    @Autowired
-    private ExceptionTranslator exceptionTranslator;
-
-    @Autowired
     private EntityManager em;
 
     @Autowired
-    private Validator validator;
-
     private MockMvc restRetroalimentacionMockMvc;
 
     private Retroalimentacion retroalimentacion;
-
-    @BeforeEach
-    public void setup() {
-        MockitoAnnotations.initMocks(this);
-        final RetroalimentacionResource retroalimentacionResource = new RetroalimentacionResource(retroalimentacionService);
-        this.restRetroalimentacionMockMvc = MockMvcBuilders.standaloneSetup(retroalimentacionResource)
-            .setCustomArgumentResolvers(pageableArgumentResolver)
-            .setControllerAdvice(exceptionTranslator)
-            .setConversionService(createFormattingConversionService())
-            .setMessageConverters(jacksonMessageConverter)
-            .setValidator(validator).build();
-    }
 
     /**
      * Create an entity for this test.
@@ -133,11 +106,10 @@ public class RetroalimentacionResourceIT {
     @Transactional
     public void createRetroalimentacion() throws Exception {
         int databaseSizeBeforeCreate = retroalimentacionRepository.findAll().size();
-
         // Create the Retroalimentacion
         RetroalimentacionDTO retroalimentacionDTO = retroalimentacionMapper.toDto(retroalimentacion);
         restRetroalimentacionMockMvc.perform(post("/api/retroalimentacions")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(retroalimentacionDTO)))
             .andExpect(status().isCreated());
 
@@ -163,7 +135,7 @@ public class RetroalimentacionResourceIT {
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restRetroalimentacionMockMvc.perform(post("/api/retroalimentacions")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(retroalimentacionDTO)))
             .andExpect(status().isBadRequest());
 
@@ -182,7 +154,7 @@ public class RetroalimentacionResourceIT {
         // Get all the retroalimentacionList
         restRetroalimentacionMockMvc.perform(get("/api/retroalimentacions?sort=id,desc"))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(retroalimentacion.getId().intValue())))
             .andExpect(jsonPath("$.[*].titulo").value(hasItem(DEFAULT_TITULO)))
             .andExpect(jsonPath("$.[*].retroalimentacion").value(hasItem(DEFAULT_RETROALIMENTACION)))
@@ -200,7 +172,7 @@ public class RetroalimentacionResourceIT {
         // Get the retroalimentacion
         restRetroalimentacionMockMvc.perform(get("/api/retroalimentacions/{id}", retroalimentacion.getId()))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(retroalimentacion.getId().intValue()))
             .andExpect(jsonPath("$.titulo").value(DEFAULT_TITULO))
             .andExpect(jsonPath("$.retroalimentacion").value(DEFAULT_RETROALIMENTACION))
@@ -208,7 +180,6 @@ public class RetroalimentacionResourceIT {
             .andExpect(jsonPath("$.estadoRetroalimentacion").value(DEFAULT_ESTADO_RETROALIMENTACION.toString()))
             .andExpect(jsonPath("$.estadoProyectoFase").value(DEFAULT_ESTADO_PROYECTO_FASE));
     }
-
     @Test
     @Transactional
     public void getNonExistingRetroalimentacion() throws Exception {
@@ -238,7 +209,7 @@ public class RetroalimentacionResourceIT {
         RetroalimentacionDTO retroalimentacionDTO = retroalimentacionMapper.toDto(updatedRetroalimentacion);
 
         restRetroalimentacionMockMvc.perform(put("/api/retroalimentacions")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(retroalimentacionDTO)))
             .andExpect(status().isOk());
 
@@ -263,7 +234,7 @@ public class RetroalimentacionResourceIT {
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restRetroalimentacionMockMvc.perform(put("/api/retroalimentacions")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(retroalimentacionDTO)))
             .andExpect(status().isBadRequest());
 
@@ -282,49 +253,11 @@ public class RetroalimentacionResourceIT {
 
         // Delete the retroalimentacion
         restRetroalimentacionMockMvc.perform(delete("/api/retroalimentacions/{id}", retroalimentacion.getId())
-            .accept(TestUtil.APPLICATION_JSON_UTF8))
+            .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isNoContent());
 
         // Validate the database contains one less item
         List<Retroalimentacion> retroalimentacionList = retroalimentacionRepository.findAll();
         assertThat(retroalimentacionList).hasSize(databaseSizeBeforeDelete - 1);
-    }
-
-    @Test
-    @Transactional
-    public void equalsVerifier() throws Exception {
-        TestUtil.equalsVerifier(Retroalimentacion.class);
-        Retroalimentacion retroalimentacion1 = new Retroalimentacion();
-        retroalimentacion1.setId(1L);
-        Retroalimentacion retroalimentacion2 = new Retroalimentacion();
-        retroalimentacion2.setId(retroalimentacion1.getId());
-        assertThat(retroalimentacion1).isEqualTo(retroalimentacion2);
-        retroalimentacion2.setId(2L);
-        assertThat(retroalimentacion1).isNotEqualTo(retroalimentacion2);
-        retroalimentacion1.setId(null);
-        assertThat(retroalimentacion1).isNotEqualTo(retroalimentacion2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(RetroalimentacionDTO.class);
-        RetroalimentacionDTO retroalimentacionDTO1 = new RetroalimentacionDTO();
-        retroalimentacionDTO1.setId(1L);
-        RetroalimentacionDTO retroalimentacionDTO2 = new RetroalimentacionDTO();
-        assertThat(retroalimentacionDTO1).isNotEqualTo(retroalimentacionDTO2);
-        retroalimentacionDTO2.setId(retroalimentacionDTO1.getId());
-        assertThat(retroalimentacionDTO1).isEqualTo(retroalimentacionDTO2);
-        retroalimentacionDTO2.setId(2L);
-        assertThat(retroalimentacionDTO1).isNotEqualTo(retroalimentacionDTO2);
-        retroalimentacionDTO1.setId(null);
-        assertThat(retroalimentacionDTO1).isNotEqualTo(retroalimentacionDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(retroalimentacionMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(retroalimentacionMapper.fromId(null)).isNull();
     }
 }

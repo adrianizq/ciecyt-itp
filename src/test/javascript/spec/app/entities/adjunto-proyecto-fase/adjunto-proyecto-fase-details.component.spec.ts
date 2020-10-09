@@ -28,7 +28,7 @@ describe('Component Tests', () => {
         store,
         i18n,
         localVue,
-        provide: { adjuntoProyectoFaseService: () => adjuntoProyectoFaseServiceStub }
+        provide: { adjuntoProyectoFaseService: () => adjuntoProyectoFaseServiceStub },
       });
       comp = wrapper.vm;
     });

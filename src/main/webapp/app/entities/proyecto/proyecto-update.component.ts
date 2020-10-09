@@ -29,12 +29,12 @@ const validations: any = {
     contrapartidaPesos: {},
     contrapartidaEspecie: {},
     palabrasClave: {},
-    convocatoria: {}
-  }
+    convocatoria: {},
+  },
 };
 
 @Component({
-  validations
+  validations,
 })
 export default class ProyectoUpdate extends Vue {
   @Inject('alertService') private alertService: () => AlertService;

@@ -6,27 +6,21 @@ import co.edu.itp.ciecyt.repository.AdjuntoProyectoFaseRepository;
 import co.edu.itp.ciecyt.service.AdjuntoProyectoFaseService;
 import co.edu.itp.ciecyt.service.dto.AdjuntoProyectoFaseDTO;
 import co.edu.itp.ciecyt.service.mapper.AdjuntoProyectoFaseMapper;
-import co.edu.itp.ciecyt.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.Validator;
-
 import javax.persistence.EntityManager;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.List;
 
-import static co.edu.itp.ciecyt.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -36,6 +30,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Integration tests for the {@link AdjuntoProyectoFaseResource} REST controller.
  */
 @SpringBootTest(classes = CiecytApp.class)
+@AutoConfigureMockMvc
+@WithMockUser
 public class AdjuntoProyectoFaseResourceIT {
 
     private static final String DEFAULT_NOMBRE_ADJUNTO = "AAAAAAAAAA";
@@ -72,35 +68,12 @@ public class AdjuntoProyectoFaseResourceIT {
     private AdjuntoProyectoFaseService adjuntoProyectoFaseService;
 
     @Autowired
-    private MappingJackson2HttpMessageConverter jacksonMessageConverter;
-
-    @Autowired
-    private PageableHandlerMethodArgumentResolver pageableArgumentResolver;
-
-    @Autowired
-    private ExceptionTranslator exceptionTranslator;
-
-    @Autowired
     private EntityManager em;
 
     @Autowired
-    private Validator validator;
-
     private MockMvc restAdjuntoProyectoFaseMockMvc;
 
     private AdjuntoProyectoFase adjuntoProyectoFase;
-
-    @BeforeEach
-    public void setup() {
-        MockitoAnnotations.initMocks(this);
-        final AdjuntoProyectoFaseResource adjuntoProyectoFaseResource = new AdjuntoProyectoFaseResource(adjuntoProyectoFaseService);
-        this.restAdjuntoProyectoFaseMockMvc = MockMvcBuilders.standaloneSetup(adjuntoProyectoFaseResource)
-            .setCustomArgumentResolvers(pageableArgumentResolver)
-            .setControllerAdvice(exceptionTranslator)
-            .setConversionService(createFormattingConversionService())
-            .setMessageConverters(jacksonMessageConverter)
-            .setValidator(validator).build();
-    }
 
     /**
      * Create an entity for this test.
@@ -148,11 +121,10 @@ public class AdjuntoProyectoFaseResourceIT {
     @Transactional
     public void createAdjuntoProyectoFase() throws Exception {
         int databaseSizeBeforeCreate = adjuntoProyectoFaseRepository.findAll().size();
-
         // Create the AdjuntoProyectoFase
         AdjuntoProyectoFaseDTO adjuntoProyectoFaseDTO = adjuntoProyectoFaseMapper.toDto(adjuntoProyectoFase);
         restAdjuntoProyectoFaseMockMvc.perform(post("/api/adjunto-proyecto-fases")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(adjuntoProyectoFaseDTO)))
             .andExpect(status().isCreated());
 
@@ -181,7 +153,7 @@ public class AdjuntoProyectoFaseResourceIT {
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restAdjuntoProyectoFaseMockMvc.perform(post("/api/adjunto-proyecto-fases")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(adjuntoProyectoFaseDTO)))
             .andExpect(status().isBadRequest());
 
@@ -200,7 +172,7 @@ public class AdjuntoProyectoFaseResourceIT {
         // Get all the adjuntoProyectoFaseList
         restAdjuntoProyectoFaseMockMvc.perform(get("/api/adjunto-proyecto-fases?sort=id,desc"))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(adjuntoProyectoFase.getId().intValue())))
             .andExpect(jsonPath("$.[*].nombreAdjunto").value(hasItem(DEFAULT_NOMBRE_ADJUNTO)))
             .andExpect(jsonPath("$.[*].fechaCreacion").value(hasItem(DEFAULT_FECHA_CREACION.toString())))
@@ -221,7 +193,7 @@ public class AdjuntoProyectoFaseResourceIT {
         // Get the adjuntoProyectoFase
         restAdjuntoProyectoFaseMockMvc.perform(get("/api/adjunto-proyecto-fases/{id}", adjuntoProyectoFase.getId()))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(adjuntoProyectoFase.getId().intValue()))
             .andExpect(jsonPath("$.nombreAdjunto").value(DEFAULT_NOMBRE_ADJUNTO))
             .andExpect(jsonPath("$.fechaCreacion").value(DEFAULT_FECHA_CREACION.toString()))
@@ -232,7 +204,6 @@ public class AdjuntoProyectoFaseResourceIT {
             .andExpect(jsonPath("$.fechaInicio").value(DEFAULT_FECHA_INICIO.toString()))
             .andExpect(jsonPath("$.fechaFin").value(DEFAULT_FECHA_FIN.toString()));
     }
-
     @Test
     @Transactional
     public void getNonExistingAdjuntoProyectoFase() throws Exception {
@@ -265,7 +236,7 @@ public class AdjuntoProyectoFaseResourceIT {
         AdjuntoProyectoFaseDTO adjuntoProyectoFaseDTO = adjuntoProyectoFaseMapper.toDto(updatedAdjuntoProyectoFase);
 
         restAdjuntoProyectoFaseMockMvc.perform(put("/api/adjunto-proyecto-fases")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(adjuntoProyectoFaseDTO)))
             .andExpect(status().isOk());
 
@@ -293,7 +264,7 @@ public class AdjuntoProyectoFaseResourceIT {
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restAdjuntoProyectoFaseMockMvc.perform(put("/api/adjunto-proyecto-fases")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(adjuntoProyectoFaseDTO)))
             .andExpect(status().isBadRequest());
 
@@ -312,49 +283,11 @@ public class AdjuntoProyectoFaseResourceIT {
 
         // Delete the adjuntoProyectoFase
         restAdjuntoProyectoFaseMockMvc.perform(delete("/api/adjunto-proyecto-fases/{id}", adjuntoProyectoFase.getId())
-            .accept(TestUtil.APPLICATION_JSON_UTF8))
+            .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isNoContent());
 
         // Validate the database contains one less item
         List<AdjuntoProyectoFase> adjuntoProyectoFaseList = adjuntoProyectoFaseRepository.findAll();
         assertThat(adjuntoProyectoFaseList).hasSize(databaseSizeBeforeDelete - 1);
-    }
-
-    @Test
-    @Transactional
-    public void equalsVerifier() throws Exception {
-        TestUtil.equalsVerifier(AdjuntoProyectoFase.class);
-        AdjuntoProyectoFase adjuntoProyectoFase1 = new AdjuntoProyectoFase();
-        adjuntoProyectoFase1.setId(1L);
-        AdjuntoProyectoFase adjuntoProyectoFase2 = new AdjuntoProyectoFase();
-        adjuntoProyectoFase2.setId(adjuntoProyectoFase1.getId());
-        assertThat(adjuntoProyectoFase1).isEqualTo(adjuntoProyectoFase2);
-        adjuntoProyectoFase2.setId(2L);
-        assertThat(adjuntoProyectoFase1).isNotEqualTo(adjuntoProyectoFase2);
-        adjuntoProyectoFase1.setId(null);
-        assertThat(adjuntoProyectoFase1).isNotEqualTo(adjuntoProyectoFase2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(AdjuntoProyectoFaseDTO.class);
-        AdjuntoProyectoFaseDTO adjuntoProyectoFaseDTO1 = new AdjuntoProyectoFaseDTO();
-        adjuntoProyectoFaseDTO1.setId(1L);
-        AdjuntoProyectoFaseDTO adjuntoProyectoFaseDTO2 = new AdjuntoProyectoFaseDTO();
-        assertThat(adjuntoProyectoFaseDTO1).isNotEqualTo(adjuntoProyectoFaseDTO2);
-        adjuntoProyectoFaseDTO2.setId(adjuntoProyectoFaseDTO1.getId());
-        assertThat(adjuntoProyectoFaseDTO1).isEqualTo(adjuntoProyectoFaseDTO2);
-        adjuntoProyectoFaseDTO2.setId(2L);
-        assertThat(adjuntoProyectoFaseDTO1).isNotEqualTo(adjuntoProyectoFaseDTO2);
-        adjuntoProyectoFaseDTO1.setId(null);
-        assertThat(adjuntoProyectoFaseDTO1).isNotEqualTo(adjuntoProyectoFaseDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(adjuntoProyectoFaseMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(adjuntoProyectoFaseMapper.fromId(null)).isNull();
     }
 }

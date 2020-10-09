@@ -1,16 +1,5 @@
 {
-  "fluentMethods": true,
-  "clientRootFolder": "",
-  "relationships": [
-    {
-      "relationshipType": "one-to-one",
-      "otherEntityName": "proyecto",
-      "otherEntityRelationshipName": "id",
-      "relationshipName": "informacionPasantiaProyecto",
-      "otherEntityField": "id",
-      "ownerSide": true
-    }
-  ],
+  "name": "InformacionPasantia",
   "fields": [
     {
       "fieldName": "duracionHoras",
@@ -137,16 +126,25 @@
       "fieldType": "String"
     }
   ],
-  "changelogDate": "20200818161136",
-  "dto": "no",
-  "searchEngine": false,
-  "service": "no",
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "proyecto",
+      "otherEntityRelationshipName": "id",
+      "relationshipName": "informacionPasantiaProyecto",
+      "otherEntityField": "id",
+      "ownerSide": true
+    }
+  ],
+  "changelogDate": "20201008034903",
   "entityTableName": "informacion_pasantia",
-  "databaseType": "sql",
-  "readOnly": false,
-  "jpaMetamodelFiltering": false,
+  "dto": "no",
   "pagination": "no",
-  "name": "InformacionPasantia",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
   "embedded": false,
+  "clientRootFolder": "",
   "applications": "*"
 }

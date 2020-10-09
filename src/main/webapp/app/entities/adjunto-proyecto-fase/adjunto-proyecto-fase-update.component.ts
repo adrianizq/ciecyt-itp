@@ -18,12 +18,12 @@ const validations: any = {
     adjuntoProyectoFase: {},
     nombreArchivoOriginal: {},
     fechaInicio: {},
-    fechaFin: {}
-  }
+    fechaFin: {},
+  },
 };
 
 @Component({
-  validations
+  validations,
 })
 export default class AdjuntoProyectoFaseUpdate extends Vue {
   @Inject('alertService') private alertService: () => AlertService;

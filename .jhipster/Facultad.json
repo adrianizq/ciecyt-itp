@@ -18,7 +18,7 @@
       "relationshipName": "facultadProyecto"
     }
   ],
-  "changelogDate": "20200124174450",
+  "changelogDate": "20201008034303",
   "entityTableName": "facultad",
   "dto": "mapstruct",
   "pagination": "pagination",
@@ -26,7 +26,7 @@
   "jpaMetamodelFiltering": false,
   "fluentMethods": true,
   "readOnly": false,
+  "embedded": false,
   "clientRootFolder": "",
-  "applications": "*",
-  "embedded": false
+  "applications": "*"
 }

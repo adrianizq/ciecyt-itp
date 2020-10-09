@@ -9,12 +9,12 @@ import TipoPreguntaService from './tipo-pregunta.service';
 const validations: any = {
   tipoPregunta: {
     tipoPregunta: {},
-    tipoDato: {}
-  }
+    tipoDato: {},
+  },
 };
 
 @Component({
-  validations
+  validations,
 })
 export default class TipoPreguntaUpdate extends Vue {
   @Inject('alertService') private alertService: () => AlertService;

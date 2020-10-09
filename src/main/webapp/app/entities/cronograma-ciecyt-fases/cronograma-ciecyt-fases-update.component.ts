@@ -16,12 +16,12 @@ const validations: any = {
   cronogramaCiecytFases: {
     inicioFase: {},
     finFase: {},
-    textoExplicativo: {}
-  }
+    textoExplicativo: {},
+  },
 };
 
 @Component({
-  validations
+  validations,
 })
 export default class CronogramaCiecytFasesUpdate extends Vue {
   @Inject('alertService') private alertService: () => AlertService;

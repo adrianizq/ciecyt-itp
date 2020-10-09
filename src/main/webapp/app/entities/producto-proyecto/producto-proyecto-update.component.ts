@@ -15,12 +15,12 @@ import ProductoProyectoService from './producto-proyecto.service';
 const validations: any = {
   productoProyecto: {
     aplica: {},
-    descripcion: {}
-  }
+    descripcion: {},
+  },
 };
 
 @Component({
-  validations
+  validations,
 })
 export default class ProductoProyectoUpdate extends Vue {
   @Inject('alertService') private alertService: () => AlertService;

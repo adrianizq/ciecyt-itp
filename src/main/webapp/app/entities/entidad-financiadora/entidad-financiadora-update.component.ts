@@ -15,12 +15,12 @@ import EntidadFinanciadoraService from './entidad-financiadora.service';
 const validations: any = {
   entidadFinanciadora: {
     valor: {},
-    aprobada: {}
-  }
+    aprobada: {},
+  },
 };
 
 @Component({
-  validations
+  validations,
 })
 export default class EntidadFinanciadoraUpdate extends Vue {
   @Inject('alertService') private alertService: () => AlertService;

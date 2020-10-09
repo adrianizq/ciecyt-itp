@@ -46,8 +46,8 @@ describe('Component Tests', () => {
 
           modalidadService: () => new ModalidadService(),
 
-          rolesModalidadService: () => new RolesModalidadService()
-        }
+          rolesModalidadService: () => new RolesModalidadService(),
+        },
       });
       comp = wrapper.vm;
     });

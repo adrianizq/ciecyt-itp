@@ -38,8 +38,8 @@ describe('Component Tests', () => {
           alertService: () => new AlertService(store),
           cronogramaService: () => cronogramaServiceStub,
 
-          proyectoService: () => new ProyectoService()
-        }
+          proyectoService: () => new ProyectoService(),
+        },
       });
       comp = wrapper.vm;
     });

@@ -42,9 +42,6 @@ public class ProyectoRespuestasResourceIT {
     private static final Boolean DEFAULT_VIABLE = false;
     private static final Boolean UPDATED_VIABLE = true;
 
-    private static final String DEFAULT_PROYECTO_RESPUESTAS_PREGUNTA_PREGUNTA = "AAAAAAAAAA";
-    private static final String UPDATED_PROYECTO_RESPUESTAS_PREGUNTA_PREGUNTA = "BBBBBBBBBB";
-
     @Autowired
     private ProyectoRespuestasRepository proyectoRespuestasRepository;
 
@@ -72,8 +69,7 @@ public class ProyectoRespuestasResourceIT {
         ProyectoRespuestas proyectoRespuestas = new ProyectoRespuestas()
             .respuesta(DEFAULT_RESPUESTA)
             .observaciones(DEFAULT_OBSERVACIONES)
-            .viable(DEFAULT_VIABLE)
-            .proyectoRespuestasPreguntaPregunta(DEFAULT_PROYECTO_RESPUESTAS_PREGUNTA_PREGUNTA);
+            .viable(DEFAULT_VIABLE);
         return proyectoRespuestas;
     }
     /**
@@ -86,8 +82,7 @@ public class ProyectoRespuestasResourceIT {
         ProyectoRespuestas proyectoRespuestas = new ProyectoRespuestas()
             .respuesta(UPDATED_RESPUESTA)
             .observaciones(UPDATED_OBSERVACIONES)
-            .viable(UPDATED_VIABLE)
-            .proyectoRespuestasPreguntaPregunta(UPDATED_PROYECTO_RESPUESTAS_PREGUNTA_PREGUNTA);
+            .viable(UPDATED_VIABLE);
         return proyectoRespuestas;
     }
 
@@ -114,7 +109,6 @@ public class ProyectoRespuestasResourceIT {
         assertThat(testProyectoRespuestas.getRespuesta()).isEqualTo(DEFAULT_RESPUESTA);
         assertThat(testProyectoRespuestas.getObservaciones()).isEqualTo(DEFAULT_OBSERVACIONES);
         assertThat(testProyectoRespuestas.isViable()).isEqualTo(DEFAULT_VIABLE);
-        assertThat(testProyectoRespuestas.getProyectoRespuestasPreguntaPregunta()).isEqualTo(DEFAULT_PROYECTO_RESPUESTAS_PREGUNTA_PREGUNTA);
     }
 
     @Test
@@ -151,8 +145,7 @@ public class ProyectoRespuestasResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(proyectoRespuestas.getId().intValue())))
             .andExpect(jsonPath("$.[*].respuesta").value(hasItem(DEFAULT_RESPUESTA.toString())))
             .andExpect(jsonPath("$.[*].observaciones").value(hasItem(DEFAULT_OBSERVACIONES)))
-            .andExpect(jsonPath("$.[*].viable").value(hasItem(DEFAULT_VIABLE.booleanValue())))
-            .andExpect(jsonPath("$.[*].proyectoRespuestasPreguntaPregunta").value(hasItem(DEFAULT_PROYECTO_RESPUESTAS_PREGUNTA_PREGUNTA)));
+            .andExpect(jsonPath("$.[*].viable").value(hasItem(DEFAULT_VIABLE.booleanValue())));
     }
     
     @Test
@@ -168,8 +161,7 @@ public class ProyectoRespuestasResourceIT {
             .andExpect(jsonPath("$.id").value(proyectoRespuestas.getId().intValue()))
             .andExpect(jsonPath("$.respuesta").value(DEFAULT_RESPUESTA.toString()))
             .andExpect(jsonPath("$.observaciones").value(DEFAULT_OBSERVACIONES))
-            .andExpect(jsonPath("$.viable").value(DEFAULT_VIABLE.booleanValue()))
-            .andExpect(jsonPath("$.proyectoRespuestasPreguntaPregunta").value(DEFAULT_PROYECTO_RESPUESTAS_PREGUNTA_PREGUNTA));
+            .andExpect(jsonPath("$.viable").value(DEFAULT_VIABLE.booleanValue()));
     }
     @Test
     @Transactional
@@ -194,8 +186,7 @@ public class ProyectoRespuestasResourceIT {
         updatedProyectoRespuestas
             .respuesta(UPDATED_RESPUESTA)
             .observaciones(UPDATED_OBSERVACIONES)
-            .viable(UPDATED_VIABLE)
-            .proyectoRespuestasPreguntaPregunta(UPDATED_PROYECTO_RESPUESTAS_PREGUNTA_PREGUNTA);
+            .viable(UPDATED_VIABLE);
         ProyectoRespuestasDTO proyectoRespuestasDTO = proyectoRespuestasMapper.toDto(updatedProyectoRespuestas);
 
         restProyectoRespuestasMockMvc.perform(put("/api/proyecto-respuestas")
@@ -210,7 +201,6 @@ public class ProyectoRespuestasResourceIT {
         assertThat(testProyectoRespuestas.getRespuesta()).isEqualTo(UPDATED_RESPUESTA);
         assertThat(testProyectoRespuestas.getObservaciones()).isEqualTo(UPDATED_OBSERVACIONES);
         assertThat(testProyectoRespuestas.isViable()).isEqualTo(UPDATED_VIABLE);
-        assertThat(testProyectoRespuestas.getProyectoRespuestasPreguntaPregunta()).isEqualTo(UPDATED_PROYECTO_RESPUESTAS_PREGUNTA_PREGUNTA);
     }
 
     @Test

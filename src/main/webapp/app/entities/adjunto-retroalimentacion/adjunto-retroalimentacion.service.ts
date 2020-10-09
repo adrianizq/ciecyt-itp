@@ -9,7 +9,7 @@ const baseApiUrl = 'api/adjunto-retroalimentacions';
 export default class AdjuntoRetroalimentacionService {
   public find(id: number): Promise<IAdjuntoRetroalimentacion> {
     return new Promise<IAdjuntoRetroalimentacion>(resolve => {
-      axios.get(`${baseApiUrl}/${id}`).then(function(res) {
+      axios.get(`${baseApiUrl}/${id}`).then(function (res) {
         resolve(res.data);
       });
     });
@@ -17,7 +17,7 @@ export default class AdjuntoRetroalimentacionService {
 
   public retrieve(paginationQuery?: any): Promise<any> {
     return new Promise<any>(resolve => {
-      axios.get(baseApiUrl + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function(res) {
+      axios.get(baseApiUrl + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function (res) {
         resolve(res);
       });
     });
@@ -25,7 +25,7 @@ export default class AdjuntoRetroalimentacionService {
 
   public delete(id: number): Promise<any> {
     return new Promise<any>(resolve => {
-      axios.delete(`${baseApiUrl}/${id}`).then(function(res) {
+      axios.delete(`${baseApiUrl}/${id}`).then(function (res) {
         resolve(res);
       });
     });
@@ -33,7 +33,7 @@ export default class AdjuntoRetroalimentacionService {
 
   public create(entity: IAdjuntoRetroalimentacion): Promise<IAdjuntoRetroalimentacion> {
     return new Promise<IAdjuntoRetroalimentacion>(resolve => {
-      axios.post(`${baseApiUrl}`, entity).then(function(res) {
+      axios.post(`${baseApiUrl}`, entity).then(function (res) {
         resolve(res.data);
       });
     });
@@ -41,7 +41,7 @@ export default class AdjuntoRetroalimentacionService {
 
   public update(entity: IAdjuntoRetroalimentacion): Promise<IAdjuntoRetroalimentacion> {
     return new Promise<IAdjuntoRetroalimentacion>(resolve => {
-      axios.put(`${baseApiUrl}`, entity).then(function(res) {
+      axios.put(`${baseApiUrl}`, entity).then(function (res) {
         resolve(res.data);
       });
     });

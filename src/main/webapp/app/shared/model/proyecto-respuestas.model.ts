@@ -1,7 +1,7 @@
 export const enum EnumRespuestas {
   CUMPLE = 'CUMPLE',
   NO_CUMPLE = 'NO_CUMPLE',
-  NO_APLICA = 'NO_APLICA'
+  NO_APLICA = 'NO_APLICA',
 }
 
 export interface IProyectoRespuestas {

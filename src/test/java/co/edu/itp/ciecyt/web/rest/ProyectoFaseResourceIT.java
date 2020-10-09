@@ -6,27 +6,21 @@ import co.edu.itp.ciecyt.repository.ProyectoFaseRepository;
 import co.edu.itp.ciecyt.service.ProyectoFaseService;
 import co.edu.itp.ciecyt.service.dto.ProyectoFaseDTO;
 import co.edu.itp.ciecyt.service.mapper.ProyectoFaseMapper;
-import co.edu.itp.ciecyt.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.Validator;
-
 import javax.persistence.EntityManager;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.List;
 
-import static co.edu.itp.ciecyt.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -36,6 +30,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Integration tests for the {@link ProyectoFaseResource} REST controller.
  */
 @SpringBootTest(classes = CiecytApp.class)
+@AutoConfigureMockMvc
+@WithMockUser
 public class ProyectoFaseResourceIT {
 
     private static final String DEFAULT_TITULO = "AAAAAAAAAA";
@@ -60,35 +56,12 @@ public class ProyectoFaseResourceIT {
     private ProyectoFaseService proyectoFaseService;
 
     @Autowired
-    private MappingJackson2HttpMessageConverter jacksonMessageConverter;
-
-    @Autowired
-    private PageableHandlerMethodArgumentResolver pageableArgumentResolver;
-
-    @Autowired
-    private ExceptionTranslator exceptionTranslator;
-
-    @Autowired
     private EntityManager em;
 
     @Autowired
-    private Validator validator;
-
     private MockMvc restProyectoFaseMockMvc;
 
     private ProyectoFase proyectoFase;
-
-    @BeforeEach
-    public void setup() {
-        MockitoAnnotations.initMocks(this);
-        final ProyectoFaseResource proyectoFaseResource = new ProyectoFaseResource(proyectoFaseService);
-        this.restProyectoFaseMockMvc = MockMvcBuilders.standaloneSetup(proyectoFaseResource)
-            .setCustomArgumentResolvers(pageableArgumentResolver)
-            .setControllerAdvice(exceptionTranslator)
-            .setConversionService(createFormattingConversionService())
-            .setMessageConverters(jacksonMessageConverter)
-            .setValidator(validator).build();
-    }
 
     /**
      * Create an entity for this test.
@@ -128,11 +101,10 @@ public class ProyectoFaseResourceIT {
     @Transactional
     public void createProyectoFase() throws Exception {
         int databaseSizeBeforeCreate = proyectoFaseRepository.findAll().size();
-
         // Create the ProyectoFase
         ProyectoFaseDTO proyectoFaseDTO = proyectoFaseMapper.toDto(proyectoFase);
         restProyectoFaseMockMvc.perform(post("/api/proyecto-fases")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(proyectoFaseDTO)))
             .andExpect(status().isCreated());
 
@@ -157,7 +129,7 @@ public class ProyectoFaseResourceIT {
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restProyectoFaseMockMvc.perform(post("/api/proyecto-fases")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(proyectoFaseDTO)))
             .andExpect(status().isBadRequest());
 
@@ -176,7 +148,7 @@ public class ProyectoFaseResourceIT {
         // Get all the proyectoFaseList
         restProyectoFaseMockMvc.perform(get("/api/proyecto-fases?sort=id,desc"))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(proyectoFase.getId().intValue())))
             .andExpect(jsonPath("$.[*].titulo").value(hasItem(DEFAULT_TITULO)))
             .andExpect(jsonPath("$.[*].cumplida").value(hasItem(DEFAULT_CUMPLIDA.booleanValue())))
@@ -193,14 +165,13 @@ public class ProyectoFaseResourceIT {
         // Get the proyectoFase
         restProyectoFaseMockMvc.perform(get("/api/proyecto-fases/{id}", proyectoFase.getId()))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(proyectoFase.getId().intValue()))
             .andExpect(jsonPath("$.titulo").value(DEFAULT_TITULO))
             .andExpect(jsonPath("$.cumplida").value(DEFAULT_CUMPLIDA.booleanValue()))
             .andExpect(jsonPath("$.fechaCumplimiento").value(DEFAULT_FECHA_CUMPLIMIENTO.toString()))
             .andExpect(jsonPath("$.observaciones").value(DEFAULT_OBSERVACIONES));
     }
-
     @Test
     @Transactional
     public void getNonExistingProyectoFase() throws Exception {
@@ -229,7 +200,7 @@ public class ProyectoFaseResourceIT {
         ProyectoFaseDTO proyectoFaseDTO = proyectoFaseMapper.toDto(updatedProyectoFase);
 
         restProyectoFaseMockMvc.perform(put("/api/proyecto-fases")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(proyectoFaseDTO)))
             .andExpect(status().isOk());
 
@@ -253,7 +224,7 @@ public class ProyectoFaseResourceIT {
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restProyectoFaseMockMvc.perform(put("/api/proyecto-fases")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(proyectoFaseDTO)))
             .andExpect(status().isBadRequest());
 
@@ -272,49 +243,11 @@ public class ProyectoFaseResourceIT {
 
         // Delete the proyectoFase
         restProyectoFaseMockMvc.perform(delete("/api/proyecto-fases/{id}", proyectoFase.getId())
-            .accept(TestUtil.APPLICATION_JSON_UTF8))
+            .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isNoContent());
 
         // Validate the database contains one less item
         List<ProyectoFase> proyectoFaseList = proyectoFaseRepository.findAll();
         assertThat(proyectoFaseList).hasSize(databaseSizeBeforeDelete - 1);
-    }
-
-    @Test
-    @Transactional
-    public void equalsVerifier() throws Exception {
-        TestUtil.equalsVerifier(ProyectoFase.class);
-        ProyectoFase proyectoFase1 = new ProyectoFase();
-        proyectoFase1.setId(1L);
-        ProyectoFase proyectoFase2 = new ProyectoFase();
-        proyectoFase2.setId(proyectoFase1.getId());
-        assertThat(proyectoFase1).isEqualTo(proyectoFase2);
-        proyectoFase2.setId(2L);
-        assertThat(proyectoFase1).isNotEqualTo(proyectoFase2);
-        proyectoFase1.setId(null);
-        assertThat(proyectoFase1).isNotEqualTo(proyectoFase2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(ProyectoFaseDTO.class);
-        ProyectoFaseDTO proyectoFaseDTO1 = new ProyectoFaseDTO();
-        proyectoFaseDTO1.setId(1L);
-        ProyectoFaseDTO proyectoFaseDTO2 = new ProyectoFaseDTO();
-        assertThat(proyectoFaseDTO1).isNotEqualTo(proyectoFaseDTO2);
-        proyectoFaseDTO2.setId(proyectoFaseDTO1.getId());
-        assertThat(proyectoFaseDTO1).isEqualTo(proyectoFaseDTO2);
-        proyectoFaseDTO2.setId(2L);
-        assertThat(proyectoFaseDTO1).isNotEqualTo(proyectoFaseDTO2);
-        proyectoFaseDTO1.setId(null);
-        assertThat(proyectoFaseDTO1).isNotEqualTo(proyectoFaseDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(proyectoFaseMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(proyectoFaseMapper.fromId(null)).isNull();
     }
 }

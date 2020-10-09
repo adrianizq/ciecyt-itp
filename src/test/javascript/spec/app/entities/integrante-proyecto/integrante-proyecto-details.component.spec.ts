@@ -28,7 +28,7 @@ describe('Component Tests', () => {
         store,
         i18n,
         localVue,
-        provide: { integranteProyectoService: () => integranteProyectoServiceStub }
+        provide: { integranteProyectoService: () => integranteProyectoServiceStub },
       });
       comp = wrapper.vm;
     });

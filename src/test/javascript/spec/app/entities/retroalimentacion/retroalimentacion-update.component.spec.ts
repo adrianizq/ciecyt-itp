@@ -42,8 +42,8 @@ describe('Component Tests', () => {
 
           proyectoFaseService: () => new ProyectoFaseService(),
 
-          userService: () => new UserService()
-        }
+          userService: () => new UserService(),
+        },
       });
       comp = wrapper.vm;
     });

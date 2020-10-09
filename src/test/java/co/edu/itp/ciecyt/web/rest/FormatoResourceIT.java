@@ -6,27 +6,21 @@ import co.edu.itp.ciecyt.repository.FormatoRepository;
 import co.edu.itp.ciecyt.service.FormatoService;
 import co.edu.itp.ciecyt.service.dto.FormatoDTO;
 import co.edu.itp.ciecyt.service.mapper.FormatoMapper;
-import co.edu.itp.ciecyt.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.Validator;
-
 import javax.persistence.EntityManager;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.List;
 
-import static co.edu.itp.ciecyt.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -36,6 +30,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Integration tests for the {@link FormatoResource} REST controller.
  */
 @SpringBootTest(classes = CiecytApp.class)
+@AutoConfigureMockMvc
+@WithMockUser
 public class FormatoResourceIT {
 
     private static final String DEFAULT_FORMATO = "AAAAAAAAAA";
@@ -60,35 +56,12 @@ public class FormatoResourceIT {
     private FormatoService formatoService;
 
     @Autowired
-    private MappingJackson2HttpMessageConverter jacksonMessageConverter;
-
-    @Autowired
-    private PageableHandlerMethodArgumentResolver pageableArgumentResolver;
-
-    @Autowired
-    private ExceptionTranslator exceptionTranslator;
-
-    @Autowired
     private EntityManager em;
 
     @Autowired
-    private Validator validator;
-
     private MockMvc restFormatoMockMvc;
 
     private Formato formato;
-
-    @BeforeEach
-    public void setup() {
-        MockitoAnnotations.initMocks(this);
-        final FormatoResource formatoResource = new FormatoResource(formatoService);
-        this.restFormatoMockMvc = MockMvcBuilders.standaloneSetup(formatoResource)
-            .setCustomArgumentResolvers(pageableArgumentResolver)
-            .setControllerAdvice(exceptionTranslator)
-            .setConversionService(createFormattingConversionService())
-            .setMessageConverters(jacksonMessageConverter)
-            .setValidator(validator).build();
-    }
 
     /**
      * Create an entity for this test.
@@ -128,11 +101,10 @@ public class FormatoResourceIT {
     @Transactional
     public void createFormato() throws Exception {
         int databaseSizeBeforeCreate = formatoRepository.findAll().size();
-
         // Create the Formato
         FormatoDTO formatoDTO = formatoMapper.toDto(formato);
         restFormatoMockMvc.perform(post("/api/formatoes")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(formatoDTO)))
             .andExpect(status().isCreated());
 
@@ -157,7 +129,7 @@ public class FormatoResourceIT {
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restFormatoMockMvc.perform(post("/api/formatoes")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(formatoDTO)))
             .andExpect(status().isBadRequest());
 
@@ -176,7 +148,7 @@ public class FormatoResourceIT {
         // Get all the formatoList
         restFormatoMockMvc.perform(get("/api/formatoes?sort=id,desc"))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(formato.getId().intValue())))
             .andExpect(jsonPath("$.[*].formato").value(hasItem(DEFAULT_FORMATO)))
             .andExpect(jsonPath("$.[*].version").value(hasItem(DEFAULT_VERSION)))
@@ -193,14 +165,13 @@ public class FormatoResourceIT {
         // Get the formato
         restFormatoMockMvc.perform(get("/api/formatoes/{id}", formato.getId()))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(formato.getId().intValue()))
             .andExpect(jsonPath("$.formato").value(DEFAULT_FORMATO))
             .andExpect(jsonPath("$.version").value(DEFAULT_VERSION))
             .andExpect(jsonPath("$.codigo").value(DEFAULT_CODIGO))
             .andExpect(jsonPath("$.fecha").value(DEFAULT_FECHA.toString()));
     }
-
     @Test
     @Transactional
     public void getNonExistingFormato() throws Exception {
@@ -229,7 +200,7 @@ public class FormatoResourceIT {
         FormatoDTO formatoDTO = formatoMapper.toDto(updatedFormato);
 
         restFormatoMockMvc.perform(put("/api/formatoes")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(formatoDTO)))
             .andExpect(status().isOk());
 
@@ -253,7 +224,7 @@ public class FormatoResourceIT {
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restFormatoMockMvc.perform(put("/api/formatoes")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(formatoDTO)))
             .andExpect(status().isBadRequest());
 
@@ -272,49 +243,11 @@ public class FormatoResourceIT {
 
         // Delete the formato
         restFormatoMockMvc.perform(delete("/api/formatoes/{id}", formato.getId())
-            .accept(TestUtil.APPLICATION_JSON_UTF8))
+            .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isNoContent());
 
         // Validate the database contains one less item
         List<Formato> formatoList = formatoRepository.findAll();
         assertThat(formatoList).hasSize(databaseSizeBeforeDelete - 1);
-    }
-
-    @Test
-    @Transactional
-    public void equalsVerifier() throws Exception {
-        TestUtil.equalsVerifier(Formato.class);
-        Formato formato1 = new Formato();
-        formato1.setId(1L);
-        Formato formato2 = new Formato();
-        formato2.setId(formato1.getId());
-        assertThat(formato1).isEqualTo(formato2);
-        formato2.setId(2L);
-        assertThat(formato1).isNotEqualTo(formato2);
-        formato1.setId(null);
-        assertThat(formato1).isNotEqualTo(formato2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(FormatoDTO.class);
-        FormatoDTO formatoDTO1 = new FormatoDTO();
-        formatoDTO1.setId(1L);
-        FormatoDTO formatoDTO2 = new FormatoDTO();
-        assertThat(formatoDTO1).isNotEqualTo(formatoDTO2);
-        formatoDTO2.setId(formatoDTO1.getId());
-        assertThat(formatoDTO1).isEqualTo(formatoDTO2);
-        formatoDTO2.setId(2L);
-        assertThat(formatoDTO1).isNotEqualTo(formatoDTO2);
-        formatoDTO1.setId(null);
-        assertThat(formatoDTO1).isNotEqualTo(formatoDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(formatoMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(formatoMapper.fromId(null)).isNull();
     }
 }

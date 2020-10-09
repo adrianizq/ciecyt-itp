@@ -17,12 +17,12 @@ const validations: any = {
     retroalimentacion: {},
     fechaRetroalimentacion: {},
     estadoRetroalimentacion: {},
-    estadoProyectoFase: {}
-  }
+    estadoProyectoFase: {},
+  },
 };
 
 @Component({
-  validations
+  validations,
 })
 export default class RetroalimentacionUpdate extends Vue {
   @Inject('alertService') private alertService: () => AlertService;

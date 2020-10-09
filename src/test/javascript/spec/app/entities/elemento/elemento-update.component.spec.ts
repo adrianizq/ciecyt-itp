@@ -42,8 +42,8 @@ describe('Component Tests', () => {
 
           formatoService: () => new FormatoService(),
 
-          modalidadService: () => new ModalidadService()
-        }
+          modalidadService: () => new ModalidadService(),
+        },
       });
       comp = wrapper.vm;
     });

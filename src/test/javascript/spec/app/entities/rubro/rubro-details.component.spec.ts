@@ -28,7 +28,7 @@ describe('Component Tests', () => {
         store,
         i18n,
         localVue,
-        provide: { rubroService: () => rubroServiceStub }
+        provide: { rubroService: () => rubroServiceStub },
       });
       comp = wrapper.vm;
     });

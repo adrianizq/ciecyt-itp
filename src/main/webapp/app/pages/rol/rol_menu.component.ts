@@ -28,7 +28,7 @@ export default class RolMenu extends Vue {
               permitirEditar: false,
               permitirEliminar: false,
               rolMenuMenuId: menu.id,
-              authName: this.rolName
+              authName: this.rolName,
             };
           }
 
@@ -40,7 +40,7 @@ export default class RolMenu extends Vue {
                 permitirEditar: false,
                 permitirEliminar: false,
                 rolMenuMenuId: submenu.id,
-                authName: this.rolName
+                authName: this.rolName,
               };
             }
           });

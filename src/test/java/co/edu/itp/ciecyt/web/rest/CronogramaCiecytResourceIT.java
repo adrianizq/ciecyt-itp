@@ -6,27 +6,21 @@ import co.edu.itp.ciecyt.repository.CronogramaCiecytRepository;
 import co.edu.itp.ciecyt.service.CronogramaCiecytService;
 import co.edu.itp.ciecyt.service.dto.CronogramaCiecytDTO;
 import co.edu.itp.ciecyt.service.mapper.CronogramaCiecytMapper;
-import co.edu.itp.ciecyt.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.Validator;
-
 import javax.persistence.EntityManager;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.List;
 
-import static co.edu.itp.ciecyt.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -36,6 +30,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Integration tests for the {@link CronogramaCiecytResource} REST controller.
  */
 @SpringBootTest(classes = CiecytApp.class)
+@AutoConfigureMockMvc
+@WithMockUser
 public class CronogramaCiecytResourceIT {
 
     private static final String DEFAULT_TITULO_CRONOGRAMA = "AAAAAAAAAA";
@@ -60,35 +56,12 @@ public class CronogramaCiecytResourceIT {
     private CronogramaCiecytService cronogramaCiecytService;
 
     @Autowired
-    private MappingJackson2HttpMessageConverter jacksonMessageConverter;
-
-    @Autowired
-    private PageableHandlerMethodArgumentResolver pageableArgumentResolver;
-
-    @Autowired
-    private ExceptionTranslator exceptionTranslator;
-
-    @Autowired
     private EntityManager em;
 
     @Autowired
-    private Validator validator;
-
     private MockMvc restCronogramaCiecytMockMvc;
 
     private CronogramaCiecyt cronogramaCiecyt;
-
-    @BeforeEach
-    public void setup() {
-        MockitoAnnotations.initMocks(this);
-        final CronogramaCiecytResource cronogramaCiecytResource = new CronogramaCiecytResource(cronogramaCiecytService);
-        this.restCronogramaCiecytMockMvc = MockMvcBuilders.standaloneSetup(cronogramaCiecytResource)
-            .setCustomArgumentResolvers(pageableArgumentResolver)
-            .setControllerAdvice(exceptionTranslator)
-            .setConversionService(createFormattingConversionService())
-            .setMessageConverters(jacksonMessageConverter)
-            .setValidator(validator).build();
-    }
 
     /**
      * Create an entity for this test.
@@ -128,11 +101,10 @@ public class CronogramaCiecytResourceIT {
     @Transactional
     public void createCronogramaCiecyt() throws Exception {
         int databaseSizeBeforeCreate = cronogramaCiecytRepository.findAll().size();
-
         // Create the CronogramaCiecyt
         CronogramaCiecytDTO cronogramaCiecytDTO = cronogramaCiecytMapper.toDto(cronogramaCiecyt);
         restCronogramaCiecytMockMvc.perform(post("/api/cronograma-ciecyts")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(cronogramaCiecytDTO)))
             .andExpect(status().isCreated());
 
@@ -157,7 +129,7 @@ public class CronogramaCiecytResourceIT {
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restCronogramaCiecytMockMvc.perform(post("/api/cronograma-ciecyts")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(cronogramaCiecytDTO)))
             .andExpect(status().isBadRequest());
 
@@ -176,7 +148,7 @@ public class CronogramaCiecytResourceIT {
         // Get all the cronogramaCiecytList
         restCronogramaCiecytMockMvc.perform(get("/api/cronograma-ciecyts?sort=id,desc"))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(cronogramaCiecyt.getId().intValue())))
             .andExpect(jsonPath("$.[*].tituloCronograma").value(hasItem(DEFAULT_TITULO_CRONOGRAMA)))
             .andExpect(jsonPath("$.[*].fechaInicio").value(hasItem(DEFAULT_FECHA_INICIO.toString())))
@@ -193,14 +165,13 @@ public class CronogramaCiecytResourceIT {
         // Get the cronogramaCiecyt
         restCronogramaCiecytMockMvc.perform(get("/api/cronograma-ciecyts/{id}", cronogramaCiecyt.getId()))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(cronogramaCiecyt.getId().intValue()))
             .andExpect(jsonPath("$.tituloCronograma").value(DEFAULT_TITULO_CRONOGRAMA))
             .andExpect(jsonPath("$.fechaInicio").value(DEFAULT_FECHA_INICIO.toString()))
             .andExpect(jsonPath("$.fechaFin").value(DEFAULT_FECHA_FIN.toString()))
             .andExpect(jsonPath("$.observaciones").value(DEFAULT_OBSERVACIONES));
     }
-
     @Test
     @Transactional
     public void getNonExistingCronogramaCiecyt() throws Exception {
@@ -229,7 +200,7 @@ public class CronogramaCiecytResourceIT {
         CronogramaCiecytDTO cronogramaCiecytDTO = cronogramaCiecytMapper.toDto(updatedCronogramaCiecyt);
 
         restCronogramaCiecytMockMvc.perform(put("/api/cronograma-ciecyts")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(cronogramaCiecytDTO)))
             .andExpect(status().isOk());
 
@@ -253,7 +224,7 @@ public class CronogramaCiecytResourceIT {
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restCronogramaCiecytMockMvc.perform(put("/api/cronograma-ciecyts")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(cronogramaCiecytDTO)))
             .andExpect(status().isBadRequest());
 
@@ -272,49 +243,11 @@ public class CronogramaCiecytResourceIT {
 
         // Delete the cronogramaCiecyt
         restCronogramaCiecytMockMvc.perform(delete("/api/cronograma-ciecyts/{id}", cronogramaCiecyt.getId())
-            .accept(TestUtil.APPLICATION_JSON_UTF8))
+            .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isNoContent());
 
         // Validate the database contains one less item
         List<CronogramaCiecyt> cronogramaCiecytList = cronogramaCiecytRepository.findAll();
         assertThat(cronogramaCiecytList).hasSize(databaseSizeBeforeDelete - 1);
-    }
-
-    @Test
-    @Transactional
-    public void equalsVerifier() throws Exception {
-        TestUtil.equalsVerifier(CronogramaCiecyt.class);
-        CronogramaCiecyt cronogramaCiecyt1 = new CronogramaCiecyt();
-        cronogramaCiecyt1.setId(1L);
-        CronogramaCiecyt cronogramaCiecyt2 = new CronogramaCiecyt();
-        cronogramaCiecyt2.setId(cronogramaCiecyt1.getId());
-        assertThat(cronogramaCiecyt1).isEqualTo(cronogramaCiecyt2);
-        cronogramaCiecyt2.setId(2L);
-        assertThat(cronogramaCiecyt1).isNotEqualTo(cronogramaCiecyt2);
-        cronogramaCiecyt1.setId(null);
-        assertThat(cronogramaCiecyt1).isNotEqualTo(cronogramaCiecyt2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(CronogramaCiecytDTO.class);
-        CronogramaCiecytDTO cronogramaCiecytDTO1 = new CronogramaCiecytDTO();
-        cronogramaCiecytDTO1.setId(1L);
-        CronogramaCiecytDTO cronogramaCiecytDTO2 = new CronogramaCiecytDTO();
-        assertThat(cronogramaCiecytDTO1).isNotEqualTo(cronogramaCiecytDTO2);
-        cronogramaCiecytDTO2.setId(cronogramaCiecytDTO1.getId());
-        assertThat(cronogramaCiecytDTO1).isEqualTo(cronogramaCiecytDTO2);
-        cronogramaCiecytDTO2.setId(2L);
-        assertThat(cronogramaCiecytDTO1).isNotEqualTo(cronogramaCiecytDTO2);
-        cronogramaCiecytDTO1.setId(null);
-        assertThat(cronogramaCiecytDTO1).isNotEqualTo(cronogramaCiecytDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(cronogramaCiecytMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(cronogramaCiecytMapper.fromId(null)).isNull();
     }
 }

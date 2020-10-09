@@ -15,12 +15,12 @@ const validations: any = {
     duracion: {},
     fechaInicio: {},
     fechaFin: {},
-    ordenVista: {}
-  }
+    ordenVista: {},
+  },
 };
 
 @Component({
-  validations
+  validations,
 })
 export default class CronogramaUpdate extends Vue {
   @Inject('alertService') private alertService: () => AlertService;

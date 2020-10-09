@@ -37,7 +37,7 @@
       "otherEntityField": "rol"
     }
   ],
-  "changelogDate": "20200124174507",
+  "changelogDate": "20201008035503",
   "entityTableName": "pregunta",
   "dto": "mapstruct",
   "pagination": "pagination",
@@ -45,7 +45,7 @@
   "jpaMetamodelFiltering": false,
   "fluentMethods": true,
   "readOnly": false,
+  "embedded": false,
   "clientRootFolder": "",
-  "applications": "*",
-  "embedded": false
+  "applications": "*"
 }

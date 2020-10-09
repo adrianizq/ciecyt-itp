@@ -3,7 +3,6 @@ import axios from 'axios';
 import * as config from '@/shared/config/config';
 import ResetPasswordInit from '@/account/reset-password/init/reset-password-init.vue';
 import ResetPasswordInitClass from '@/account/reset-password/init/reset-password-init.component';
-import { EMAIL_NOT_FOUND_TYPE } from '@/constants';
 
 const localVue = createLocalVue();
 const mockedAxios: any = axios;
@@ -13,7 +12,7 @@ const i18n = config.initI18N(localVue);
 
 jest.mock('axios', () => ({
   get: jest.fn(),
-  post: jest.fn()
+  post: jest.fn(),
 }));
 
 describe('Reset Component Init', () => {
@@ -24,13 +23,9 @@ describe('Reset Component Init', () => {
     mockedAxios.post.mockReset();
     wrapper = shallowMount<ResetPasswordInitClass>(ResetPasswordInit, {
       i18n,
-      localVue
+      localVue,
     });
     resetPasswordInit = wrapper.vm;
-  });
-
-  it('should be a Vue instance', () => {
-    expect(wrapper.isVueInstance()).toBeTruthy();
   });
 
   it('should reset request be a success', async () => {
@@ -51,9 +46,9 @@ describe('Reset Component Init', () => {
         response: {
           status: null,
           data: {
-            type: null
-          }
-        }
+            type: null,
+          },
+        },
       })
     );
 
@@ -64,27 +59,5 @@ describe('Reset Component Init', () => {
     // Then
     expect(resetPasswordInit.success).toBeNull();
     expect(resetPasswordInit.error).toEqual('ERROR');
-  });
-
-  it('should reset request fail as an email not existing error', async () => {
-    // Given
-    mockedAxios.post.mockReturnValue(
-      Promise.reject({
-        response: {
-          status: 400,
-          data: {
-            type: EMAIL_NOT_FOUND_TYPE
-          }
-        }
-      })
-    );
-
-    // When
-    resetPasswordInit.requestReset();
-    await resetPasswordInit.$nextTick();
-
-    // Then
-    expect(resetPasswordInit.success).toBeNull();
-    expect(resetPasswordInit.errorEmailNotExists).toEqual('ERROR');
   });
 });

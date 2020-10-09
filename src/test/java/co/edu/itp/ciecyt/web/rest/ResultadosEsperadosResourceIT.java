@@ -6,25 +6,19 @@ import co.edu.itp.ciecyt.repository.ResultadosEsperadosRepository;
 import co.edu.itp.ciecyt.service.ResultadosEsperadosService;
 import co.edu.itp.ciecyt.service.dto.ResultadosEsperadosDTO;
 import co.edu.itp.ciecyt.service.mapper.ResultadosEsperadosMapper;
-import co.edu.itp.ciecyt.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.Validator;
-
 import javax.persistence.EntityManager;
 import java.util.List;
 
-import static co.edu.itp.ciecyt.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -34,6 +28,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Integration tests for the {@link ResultadosEsperadosResource} REST controller.
  */
 @SpringBootTest(classes = CiecytApp.class)
+@AutoConfigureMockMvc
+@WithMockUser
 public class ResultadosEsperadosResourceIT {
 
     private static final String DEFAULT_RESULTADO = "AAAAAAAAAA";
@@ -58,35 +54,12 @@ public class ResultadosEsperadosResourceIT {
     private ResultadosEsperadosService resultadosEsperadosService;
 
     @Autowired
-    private MappingJackson2HttpMessageConverter jacksonMessageConverter;
-
-    @Autowired
-    private PageableHandlerMethodArgumentResolver pageableArgumentResolver;
-
-    @Autowired
-    private ExceptionTranslator exceptionTranslator;
-
-    @Autowired
     private EntityManager em;
 
     @Autowired
-    private Validator validator;
-
     private MockMvc restResultadosEsperadosMockMvc;
 
     private ResultadosEsperados resultadosEsperados;
-
-    @BeforeEach
-    public void setup() {
-        MockitoAnnotations.initMocks(this);
-        final ResultadosEsperadosResource resultadosEsperadosResource = new ResultadosEsperadosResource(resultadosEsperadosService);
-        this.restResultadosEsperadosMockMvc = MockMvcBuilders.standaloneSetup(resultadosEsperadosResource)
-            .setCustomArgumentResolvers(pageableArgumentResolver)
-            .setControllerAdvice(exceptionTranslator)
-            .setConversionService(createFormattingConversionService())
-            .setMessageConverters(jacksonMessageConverter)
-            .setValidator(validator).build();
-    }
 
     /**
      * Create an entity for this test.
@@ -126,11 +99,10 @@ public class ResultadosEsperadosResourceIT {
     @Transactional
     public void createResultadosEsperados() throws Exception {
         int databaseSizeBeforeCreate = resultadosEsperadosRepository.findAll().size();
-
         // Create the ResultadosEsperados
         ResultadosEsperadosDTO resultadosEsperadosDTO = resultadosEsperadosMapper.toDto(resultadosEsperados);
         restResultadosEsperadosMockMvc.perform(post("/api/resultados-esperados")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(resultadosEsperadosDTO)))
             .andExpect(status().isCreated());
 
@@ -155,7 +127,7 @@ public class ResultadosEsperadosResourceIT {
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restResultadosEsperadosMockMvc.perform(post("/api/resultados-esperados")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(resultadosEsperadosDTO)))
             .andExpect(status().isBadRequest());
 
@@ -174,7 +146,7 @@ public class ResultadosEsperadosResourceIT {
         // Get all the resultadosEsperadosList
         restResultadosEsperadosMockMvc.perform(get("/api/resultados-esperados?sort=id,desc"))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(resultadosEsperados.getId().intValue())))
             .andExpect(jsonPath("$.[*].resultado").value(hasItem(DEFAULT_RESULTADO)))
             .andExpect(jsonPath("$.[*].indicador").value(hasItem(DEFAULT_INDICADOR)))
@@ -191,14 +163,13 @@ public class ResultadosEsperadosResourceIT {
         // Get the resultadosEsperados
         restResultadosEsperadosMockMvc.perform(get("/api/resultados-esperados/{id}", resultadosEsperados.getId()))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(resultadosEsperados.getId().intValue()))
             .andExpect(jsonPath("$.resultado").value(DEFAULT_RESULTADO))
             .andExpect(jsonPath("$.indicador").value(DEFAULT_INDICADOR))
             .andExpect(jsonPath("$.beneficiario").value(DEFAULT_BENEFICIARIO))
             .andExpect(jsonPath("$.ordenVista").value(DEFAULT_ORDEN_VISTA));
     }
-
     @Test
     @Transactional
     public void getNonExistingResultadosEsperados() throws Exception {
@@ -227,7 +198,7 @@ public class ResultadosEsperadosResourceIT {
         ResultadosEsperadosDTO resultadosEsperadosDTO = resultadosEsperadosMapper.toDto(updatedResultadosEsperados);
 
         restResultadosEsperadosMockMvc.perform(put("/api/resultados-esperados")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(resultadosEsperadosDTO)))
             .andExpect(status().isOk());
 
@@ -251,7 +222,7 @@ public class ResultadosEsperadosResourceIT {
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restResultadosEsperadosMockMvc.perform(put("/api/resultados-esperados")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(resultadosEsperadosDTO)))
             .andExpect(status().isBadRequest());
 
@@ -270,49 +241,11 @@ public class ResultadosEsperadosResourceIT {
 
         // Delete the resultadosEsperados
         restResultadosEsperadosMockMvc.perform(delete("/api/resultados-esperados/{id}", resultadosEsperados.getId())
-            .accept(TestUtil.APPLICATION_JSON_UTF8))
+            .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isNoContent());
 
         // Validate the database contains one less item
         List<ResultadosEsperados> resultadosEsperadosList = resultadosEsperadosRepository.findAll();
         assertThat(resultadosEsperadosList).hasSize(databaseSizeBeforeDelete - 1);
-    }
-
-    @Test
-    @Transactional
-    public void equalsVerifier() throws Exception {
-        TestUtil.equalsVerifier(ResultadosEsperados.class);
-        ResultadosEsperados resultadosEsperados1 = new ResultadosEsperados();
-        resultadosEsperados1.setId(1L);
-        ResultadosEsperados resultadosEsperados2 = new ResultadosEsperados();
-        resultadosEsperados2.setId(resultadosEsperados1.getId());
-        assertThat(resultadosEsperados1).isEqualTo(resultadosEsperados2);
-        resultadosEsperados2.setId(2L);
-        assertThat(resultadosEsperados1).isNotEqualTo(resultadosEsperados2);
-        resultadosEsperados1.setId(null);
-        assertThat(resultadosEsperados1).isNotEqualTo(resultadosEsperados2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(ResultadosEsperadosDTO.class);
-        ResultadosEsperadosDTO resultadosEsperadosDTO1 = new ResultadosEsperadosDTO();
-        resultadosEsperadosDTO1.setId(1L);
-        ResultadosEsperadosDTO resultadosEsperadosDTO2 = new ResultadosEsperadosDTO();
-        assertThat(resultadosEsperadosDTO1).isNotEqualTo(resultadosEsperadosDTO2);
-        resultadosEsperadosDTO2.setId(resultadosEsperadosDTO1.getId());
-        assertThat(resultadosEsperadosDTO1).isEqualTo(resultadosEsperadosDTO2);
-        resultadosEsperadosDTO2.setId(2L);
-        assertThat(resultadosEsperadosDTO1).isNotEqualTo(resultadosEsperadosDTO2);
-        resultadosEsperadosDTO1.setId(null);
-        assertThat(resultadosEsperadosDTO1).isNotEqualTo(resultadosEsperadosDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(resultadosEsperadosMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(resultadosEsperadosMapper.fromId(null)).isNull();
     }
 }

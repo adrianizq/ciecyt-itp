@@ -27,7 +27,7 @@
       "otherEntityField": "modalidad"
     }
   ],
-  "changelogDate": "20200124174512",
+  "changelogDate": "20201008033703",
   "entityTableName": "cronograma_ciecyt",
   "dto": "mapstruct",
   "pagination": "pagination",
@@ -35,7 +35,7 @@
   "jpaMetamodelFiltering": false,
   "fluentMethods": true,
   "readOnly": false,
+  "embedded": false,
   "clientRootFolder": "",
-  "applications": "*",
-  "embedded": false
+  "applications": "*"
 }

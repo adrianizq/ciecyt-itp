@@ -171,8 +171,8 @@ new Vue({
     rolMenuService: () => new RolMenuService(),
     investigacionTipoService: () => new InvestigacionTipoService(),
     // jhipster-needle-add-entity-service-to-main - JHipster will import entities services here
-    accountService: () => accountService
+    accountService: () => accountService,
   },
   i18n,
-  store
+  store,
 });

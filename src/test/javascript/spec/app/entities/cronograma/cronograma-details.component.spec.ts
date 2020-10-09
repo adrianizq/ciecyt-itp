@@ -28,7 +28,7 @@ describe('Component Tests', () => {
         store,
         i18n,
         localVue,
-        provide: { cronogramaService: () => cronogramaServiceStub }
+        provide: { cronogramaService: () => cronogramaServiceStub },
       });
       comp = wrapper.vm;
     });

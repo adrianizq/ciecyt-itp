@@ -28,7 +28,7 @@ describe('Component Tests', () => {
         store,
         i18n,
         localVue,
-        provide: { rolMenuService: () => rolMenuServiceStub }
+        provide: { rolMenuService: () => rolMenuServiceStub },
       });
       comp = wrapper.vm;
     });

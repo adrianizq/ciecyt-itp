@@ -12,12 +12,12 @@ import FasesService from './fases.service';
 const validations: any = {
   fases: {
     fase: {},
-    notificable: {}
-  }
+    notificable: {},
+  },
 };
 
 @Component({
-  validations
+  validations,
 })
 export default class FasesUpdate extends Vue {
   @Inject('alertService') private alertService: () => AlertService;

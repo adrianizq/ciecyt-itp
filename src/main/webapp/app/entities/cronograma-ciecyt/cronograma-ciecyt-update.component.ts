@@ -14,12 +14,12 @@ const validations: any = {
     tituloCronograma: {},
     fechaInicio: {},
     fechaFin: {},
-    observaciones: {}
-  }
+    observaciones: {},
+  },
 };
 
 @Component({
-  validations
+  validations,
 })
 export default class CronogramaCiecytUpdate extends Vue {
   @Inject('alertService') private alertService: () => AlertService;

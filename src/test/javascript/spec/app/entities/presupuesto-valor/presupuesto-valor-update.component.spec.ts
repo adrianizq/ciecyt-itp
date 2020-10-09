@@ -46,8 +46,8 @@ describe('Component Tests', () => {
 
           proyectoService: () => new ProyectoService(),
 
-          entidadService: () => new EntidadService()
-        }
+          entidadService: () => new EntidadService(),
+        },
       });
       comp = wrapper.vm;
     });

@@ -16,6 +16,7 @@ const store = config.initVueXStore(localVue);
 localVue.component('font-awesome-icon', {});
 localVue.component('b-alert', {});
 localVue.component('b-badge', {});
+localVue.component('jhi-sort-indicator', {});
 localVue.directive('b-modal', {});
 localVue.component('b-button', {});
 localVue.component('router-link', {});
@@ -23,8 +24,9 @@ localVue.component('router-link', {});
 const bModalStub = {
   render: () => {},
   methods: {
-    hide: () => {}
-  }
+    hide: () => {},
+    show: () => {},
+  },
 };
 
 describe('Component Tests', () => {
@@ -44,14 +46,10 @@ describe('Component Tests', () => {
         stubs: { jhiItemCount: true, bPagination: true, bModal: bModalStub as any },
         provide: {
           alertService: () => new AlertService(store),
-          resultadosEsperadosService: () => resultadosEsperadosServiceStub
-        }
+          resultadosEsperadosService: () => resultadosEsperadosServiceStub,
+        },
       });
       comp = wrapper.vm;
-    });
-
-    it('should be a Vue instance', () => {
-      expect(wrapper.isVueInstance()).toBeTruthy();
     });
 
     it('Should call load all on init', async () => {

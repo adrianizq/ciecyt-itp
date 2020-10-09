@@ -14,15 +14,15 @@ const validations: any = {
     icono: {},
     activo: {},
     esPublico: {},
-    orden: {}
-  }
+    orden: {},
+  },
 };
 
 @Component({
   validations,
   components: {
-    Toggle
-  }
+    Toggle,
+  },
 })
 export default class MenuUpdate extends Vue {
   @Inject('alertService') private alertService: () => AlertService;

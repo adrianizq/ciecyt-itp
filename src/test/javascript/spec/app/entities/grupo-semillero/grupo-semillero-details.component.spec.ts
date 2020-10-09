@@ -28,7 +28,7 @@ describe('Component Tests', () => {
         store,
         i18n,
         localVue,
-        provide: { grupoSemilleroService: () => grupoSemilleroServiceStub }
+        provide: { grupoSemilleroService: () => grupoSemilleroServiceStub },
       });
       comp = wrapper.vm;
     });

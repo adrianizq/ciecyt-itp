@@ -41,12 +41,12 @@ const validations: any = {
     departamentoEmpresa: {},
     identificacionRepresentanteLegal: {},
     profesionAsesorEmpresa: {},
-    celularAsesorEmpresa: {}
-  }
+    celularAsesorEmpresa: {},
+  },
 };
 
 @Component({
-  validations
+  validations,
 })
 export default class InformacionPasantiaUpdate extends Vue {
   @Inject('alertService') private alertService: () => AlertService;

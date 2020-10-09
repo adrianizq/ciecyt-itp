@@ -15,12 +15,12 @@ const validations: any = {
     plazo: {},
     indicador: {},
     supuestos: {},
-    ordenVista: {}
-  }
+    ordenVista: {},
+  },
 };
 
 @Component({
-  validations
+  validations,
 })
 export default class ImpactosEsperadosUpdate extends Vue {
   @Inject('alertService') private alertService: () => AlertService;

@@ -9,12 +9,12 @@ import GrupoSemilleroService from './grupo-semillero.service';
 const validations: any = {
   grupoSemillero: {
     nombre: {},
-    tipo: {}
-  }
+    tipo: {},
+  },
 };
 
 @Component({
-  validations
+  validations,
 })
 export default class GrupoSemilleroUpdate extends Vue {
   @Inject('alertService') private alertService: () => AlertService;

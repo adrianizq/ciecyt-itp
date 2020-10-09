@@ -94,7 +94,7 @@
       "otherEntityField": "id"
     }
   ],
-  "changelogDate": "20200124174447",
+  "changelogDate": "20201008035903",
   "entityTableName": "proyecto",
   "dto": "mapstruct",
   "pagination": "pagination",
@@ -102,9 +102,7 @@
   "jpaMetamodelFiltering": false,
   "fluentMethods": true,
   "readOnly": false,
+  "embedded": false,
   "clientRootFolder": "",
-  "applications": "*",
-  "searchEngine": false,
-  "databaseType": "sql",
-  "embedded": false
+  "applications": "*"
 }

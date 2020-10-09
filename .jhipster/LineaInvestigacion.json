@@ -26,7 +26,7 @@
       "otherEntityField": "facultad"
     }
   ],
-  "changelogDate": "20200124174448",
+  "changelogDate": "20201008035203",
   "entityTableName": "linea_investigacion",
   "dto": "mapstruct",
   "pagination": "pagination",
@@ -34,7 +34,7 @@
   "jpaMetamodelFiltering": false,
   "fluentMethods": true,
   "readOnly": false,
+  "embedded": false,
   "clientRootFolder": "",
-  "applications": "*",
-  "embedded": false
+  "applications": "*"
 }

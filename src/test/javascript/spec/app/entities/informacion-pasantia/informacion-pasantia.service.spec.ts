@@ -11,16 +11,16 @@ const error = {
   response: {
     status: null,
     data: {
-      type: null
-    }
-  }
+      type: null,
+    },
+  },
 };
 
 jest.mock('axios', () => ({
   get: jest.fn(),
   post: jest.fn(),
   put: jest.fn(),
-  delete: jest.fn()
+  delete: jest.fn(),
 }));
 
 describe('Service Tests', () => {
@@ -42,7 +42,7 @@ describe('Service Tests', () => {
         false,
         false,
         false,
-        'AAAAAAA',
+        0,
         false,
         false,
         false,
@@ -89,7 +89,7 @@ describe('Service Tests', () => {
       it('should create a InformacionPasantia', async () => {
         const returnedFromService = Object.assign(
           {
-            id: 0
+            id: 0,
           },
           elemDefault
         );
@@ -125,7 +125,7 @@ describe('Service Tests', () => {
             viernes: true,
             sabado: true,
             domingo: true,
-            convenio: 'BBBBBB',
+            horasMes: 1,
             bonoAlimenticio: true,
             apoyoEconomico: true,
             auxilioTransporte: true,
@@ -145,7 +145,7 @@ describe('Service Tests', () => {
             departamentoEmpresa: 'BBBBBB',
             identificacionRepresentanteLegal: 'BBBBBB',
             profesionAsesorEmpresa: 'BBBBBB',
-            celularAsesorEmpresa: 'BBBBBB'
+            celularAsesorEmpresa: 'BBBBBB',
           },
           elemDefault
         );
@@ -182,7 +182,7 @@ describe('Service Tests', () => {
             viernes: true,
             sabado: true,
             domingo: true,
-            convenio: 'BBBBBB',
+            horasMes: 1,
             bonoAlimenticio: true,
             apoyoEconomico: true,
             auxilioTransporte: true,
@@ -202,7 +202,7 @@ describe('Service Tests', () => {
             departamentoEmpresa: 'BBBBBB',
             identificacionRepresentanteLegal: 'BBBBBB',
             profesionAsesorEmpresa: 'BBBBBB',
-            celularAsesorEmpresa: 'BBBBBB'
+            celularAsesorEmpresa: 'BBBBBB',
           },
           elemDefault
         );

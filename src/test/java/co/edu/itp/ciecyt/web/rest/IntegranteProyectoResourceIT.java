@@ -6,25 +6,19 @@ import co.edu.itp.ciecyt.repository.IntegranteProyectoRepository;
 import co.edu.itp.ciecyt.service.IntegranteProyectoService;
 import co.edu.itp.ciecyt.service.dto.IntegranteProyectoDTO;
 import co.edu.itp.ciecyt.service.mapper.IntegranteProyectoMapper;
-import co.edu.itp.ciecyt.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.Validator;
-
 import javax.persistence.EntityManager;
 import java.util.List;
 
-import static co.edu.itp.ciecyt.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -34,6 +28,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Integration tests for the {@link IntegranteProyectoResource} REST controller.
  */
 @SpringBootTest(classes = CiecytApp.class)
+@AutoConfigureMockMvc
+@WithMockUser
 public class IntegranteProyectoResourceIT {
 
     private static final String DEFAULT_INTEGRANTE = "AAAAAAAAAA";
@@ -52,35 +48,12 @@ public class IntegranteProyectoResourceIT {
     private IntegranteProyectoService integranteProyectoService;
 
     @Autowired
-    private MappingJackson2HttpMessageConverter jacksonMessageConverter;
-
-    @Autowired
-    private PageableHandlerMethodArgumentResolver pageableArgumentResolver;
-
-    @Autowired
-    private ExceptionTranslator exceptionTranslator;
-
-    @Autowired
     private EntityManager em;
 
     @Autowired
-    private Validator validator;
-
     private MockMvc restIntegranteProyectoMockMvc;
 
     private IntegranteProyecto integranteProyecto;
-
-    @BeforeEach
-    public void setup() {
-        MockitoAnnotations.initMocks(this);
-        final IntegranteProyectoResource integranteProyectoResource = new IntegranteProyectoResource(integranteProyectoService);
-        this.restIntegranteProyectoMockMvc = MockMvcBuilders.standaloneSetup(integranteProyectoResource)
-            .setCustomArgumentResolvers(pageableArgumentResolver)
-            .setControllerAdvice(exceptionTranslator)
-            .setConversionService(createFormattingConversionService())
-            .setMessageConverters(jacksonMessageConverter)
-            .setValidator(validator).build();
-    }
 
     /**
      * Create an entity for this test.
@@ -116,11 +89,10 @@ public class IntegranteProyectoResourceIT {
     @Transactional
     public void createIntegranteProyecto() throws Exception {
         int databaseSizeBeforeCreate = integranteProyectoRepository.findAll().size();
-
         // Create the IntegranteProyecto
         IntegranteProyectoDTO integranteProyectoDTO = integranteProyectoMapper.toDto(integranteProyecto);
         restIntegranteProyectoMockMvc.perform(post("/api/integrante-proyectos")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(integranteProyectoDTO)))
             .andExpect(status().isCreated());
 
@@ -143,7 +115,7 @@ public class IntegranteProyectoResourceIT {
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restIntegranteProyectoMockMvc.perform(post("/api/integrante-proyectos")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(integranteProyectoDTO)))
             .andExpect(status().isBadRequest());
 
@@ -162,7 +134,7 @@ public class IntegranteProyectoResourceIT {
         // Get all the integranteProyectoList
         restIntegranteProyectoMockMvc.perform(get("/api/integrante-proyectos?sort=id,desc"))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(integranteProyecto.getId().intValue())))
             .andExpect(jsonPath("$.[*].integrante").value(hasItem(DEFAULT_INTEGRANTE)))
             .andExpect(jsonPath("$.[*].descripcion").value(hasItem(DEFAULT_DESCRIPCION)));
@@ -177,12 +149,11 @@ public class IntegranteProyectoResourceIT {
         // Get the integranteProyecto
         restIntegranteProyectoMockMvc.perform(get("/api/integrante-proyectos/{id}", integranteProyecto.getId()))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(integranteProyecto.getId().intValue()))
             .andExpect(jsonPath("$.integrante").value(DEFAULT_INTEGRANTE))
             .andExpect(jsonPath("$.descripcion").value(DEFAULT_DESCRIPCION));
     }
-
     @Test
     @Transactional
     public void getNonExistingIntegranteProyecto() throws Exception {
@@ -209,7 +180,7 @@ public class IntegranteProyectoResourceIT {
         IntegranteProyectoDTO integranteProyectoDTO = integranteProyectoMapper.toDto(updatedIntegranteProyecto);
 
         restIntegranteProyectoMockMvc.perform(put("/api/integrante-proyectos")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(integranteProyectoDTO)))
             .andExpect(status().isOk());
 
@@ -231,7 +202,7 @@ public class IntegranteProyectoResourceIT {
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restIntegranteProyectoMockMvc.perform(put("/api/integrante-proyectos")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(integranteProyectoDTO)))
             .andExpect(status().isBadRequest());
 
@@ -250,49 +221,11 @@ public class IntegranteProyectoResourceIT {
 
         // Delete the integranteProyecto
         restIntegranteProyectoMockMvc.perform(delete("/api/integrante-proyectos/{id}", integranteProyecto.getId())
-            .accept(TestUtil.APPLICATION_JSON_UTF8))
+            .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isNoContent());
 
         // Validate the database contains one less item
         List<IntegranteProyecto> integranteProyectoList = integranteProyectoRepository.findAll();
         assertThat(integranteProyectoList).hasSize(databaseSizeBeforeDelete - 1);
-    }
-
-    @Test
-    @Transactional
-    public void equalsVerifier() throws Exception {
-        TestUtil.equalsVerifier(IntegranteProyecto.class);
-        IntegranteProyecto integranteProyecto1 = new IntegranteProyecto();
-        integranteProyecto1.setId(1L);
-        IntegranteProyecto integranteProyecto2 = new IntegranteProyecto();
-        integranteProyecto2.setId(integranteProyecto1.getId());
-        assertThat(integranteProyecto1).isEqualTo(integranteProyecto2);
-        integranteProyecto2.setId(2L);
-        assertThat(integranteProyecto1).isNotEqualTo(integranteProyecto2);
-        integranteProyecto1.setId(null);
-        assertThat(integranteProyecto1).isNotEqualTo(integranteProyecto2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(IntegranteProyectoDTO.class);
-        IntegranteProyectoDTO integranteProyectoDTO1 = new IntegranteProyectoDTO();
-        integranteProyectoDTO1.setId(1L);
-        IntegranteProyectoDTO integranteProyectoDTO2 = new IntegranteProyectoDTO();
-        assertThat(integranteProyectoDTO1).isNotEqualTo(integranteProyectoDTO2);
-        integranteProyectoDTO2.setId(integranteProyectoDTO1.getId());
-        assertThat(integranteProyectoDTO1).isEqualTo(integranteProyectoDTO2);
-        integranteProyectoDTO2.setId(2L);
-        assertThat(integranteProyectoDTO1).isNotEqualTo(integranteProyectoDTO2);
-        integranteProyectoDTO1.setId(null);
-        assertThat(integranteProyectoDTO1).isNotEqualTo(integranteProyectoDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(integranteProyectoMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(integranteProyectoMapper.fromId(null)).isNull();
     }
 }

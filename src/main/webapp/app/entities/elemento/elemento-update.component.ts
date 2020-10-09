@@ -15,12 +15,12 @@ import ElementoService from './elemento.service';
 const validations: any = {
   elemento: {
     elemento: {},
-    descripcion: {}
-  }
+    descripcion: {},
+  },
 };
 
 @Component({
-  validations
+  validations,
 })
 export default class ElementoUpdate extends Vue {
   @Inject('alertService') private alertService: () => AlertService;

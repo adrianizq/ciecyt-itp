@@ -27,7 +27,7 @@
       "otherEntityField": "integrante"
     }
   ],
-  "changelogDate": "20200124174515",
+  "changelogDate": "20201008040703",
   "entityTableName": "solicitud",
   "dto": "mapstruct",
   "pagination": "pagination",
@@ -35,7 +35,7 @@
   "jpaMetamodelFiltering": false,
   "fluentMethods": true,
   "readOnly": false,
+  "embedded": false,
   "clientRootFolder": "",
-  "applications": "*",
-  "embedded": false
+  "applications": "*"
 }

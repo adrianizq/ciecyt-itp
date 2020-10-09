@@ -28,7 +28,7 @@ describe('Component Tests', () => {
         store,
         i18n,
         localVue,
-        provide: { categorizacionService: () => categorizacionServiceStub }
+        provide: { categorizacionService: () => categorizacionServiceStub },
       });
       comp = wrapper.vm;
     });

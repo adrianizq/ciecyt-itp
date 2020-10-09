@@ -9,7 +9,7 @@ const baseApiUrl = 'api/cronogramas';
 export default class CronogramaService {
   public find(id: number): Promise<ICronograma> {
     return new Promise<ICronograma>(resolve => {
-      axios.get(`${baseApiUrl}/${id}`).then(function(res) {
+      axios.get(`${baseApiUrl}/${id}`).then(function (res) {
         resolve(res.data);
       });
     });
@@ -17,7 +17,7 @@ export default class CronogramaService {
 
   public retrieve(paginationQuery?: any): Promise<any> {
     return new Promise<any>(resolve => {
-      axios.get(baseApiUrl + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function(res) {
+      axios.get(baseApiUrl + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function (res) {
         resolve(res);
       });
     });
@@ -25,7 +25,7 @@ export default class CronogramaService {
 
   public delete(id: number): Promise<any> {
     return new Promise<any>(resolve => {
-      axios.delete(`${baseApiUrl}/${id}`).then(function(res) {
+      axios.delete(`${baseApiUrl}/${id}`).then(function (res) {
         resolve(res);
       });
     });
@@ -33,7 +33,7 @@ export default class CronogramaService {
 
   public create(entity: ICronograma): Promise<ICronograma> {
     return new Promise<ICronograma>(resolve => {
-      axios.post(`${baseApiUrl}`, entity).then(function(res) {
+      axios.post(`${baseApiUrl}`, entity).then(function (res) {
         resolve(res.data);
       });
     });
@@ -41,7 +41,7 @@ export default class CronogramaService {
 
   public update(entity: ICronograma): Promise<ICronograma> {
     return new Promise<ICronograma>(resolve => {
-      axios.put(`${baseApiUrl}`, entity).then(function(res) {
+      axios.put(`${baseApiUrl}`, entity).then(function (res) {
         resolve(res.data);
       });
     });
@@ -49,7 +49,7 @@ export default class CronogramaService {
 
   public retrieveCronograma(id?: number, paginationQuery?: any): Promise<any> {
     return new Promise<any>(resolve => {
-      axios.get('api/cronograma-proyecto' + `/${id}` + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function(res) {
+      axios.get('api/cronograma-proyecto' + `/${id}` + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function (res) {
         resolve(res);
       });
     });

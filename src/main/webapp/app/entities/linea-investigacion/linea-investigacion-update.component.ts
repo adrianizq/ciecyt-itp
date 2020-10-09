@@ -12,12 +12,12 @@ import LineaInvestigacionService from './linea-investigacion.service';
 const validations: any = {
   lineaInvestigacion: {
     linea: {},
-    codigoLinea: {}
-  }
+    codigoLinea: {},
+  },
 };
 
 @Component({
-  validations
+  validations,
 })
 export default class LineaInvestigacionUpdate extends Vue {
   @Inject('alertService') private alertService: () => AlertService;

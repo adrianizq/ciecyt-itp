@@ -6,25 +6,19 @@ import co.edu.itp.ciecyt.repository.LineaInvestigacionRepository;
 import co.edu.itp.ciecyt.service.LineaInvestigacionService;
 import co.edu.itp.ciecyt.service.dto.LineaInvestigacionDTO;
 import co.edu.itp.ciecyt.service.mapper.LineaInvestigacionMapper;
-import co.edu.itp.ciecyt.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.Validator;
-
 import javax.persistence.EntityManager;
 import java.util.List;
 
-import static co.edu.itp.ciecyt.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -34,6 +28,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Integration tests for the {@link LineaInvestigacionResource} REST controller.
  */
 @SpringBootTest(classes = CiecytApp.class)
+@AutoConfigureMockMvc
+@WithMockUser
 public class LineaInvestigacionResourceIT {
 
     private static final String DEFAULT_LINEA = "AAAAAAAAAA";
@@ -52,35 +48,12 @@ public class LineaInvestigacionResourceIT {
     private LineaInvestigacionService lineaInvestigacionService;
 
     @Autowired
-    private MappingJackson2HttpMessageConverter jacksonMessageConverter;
-
-    @Autowired
-    private PageableHandlerMethodArgumentResolver pageableArgumentResolver;
-
-    @Autowired
-    private ExceptionTranslator exceptionTranslator;
-
-    @Autowired
     private EntityManager em;
 
     @Autowired
-    private Validator validator;
-
     private MockMvc restLineaInvestigacionMockMvc;
 
     private LineaInvestigacion lineaInvestigacion;
-
-    @BeforeEach
-    public void setup() {
-        MockitoAnnotations.initMocks(this);
-        final LineaInvestigacionResource lineaInvestigacionResource = new LineaInvestigacionResource(lineaInvestigacionService);
-        this.restLineaInvestigacionMockMvc = MockMvcBuilders.standaloneSetup(lineaInvestigacionResource)
-            .setCustomArgumentResolvers(pageableArgumentResolver)
-            .setControllerAdvice(exceptionTranslator)
-            .setConversionService(createFormattingConversionService())
-            .setMessageConverters(jacksonMessageConverter)
-            .setValidator(validator).build();
-    }
 
     /**
      * Create an entity for this test.
@@ -116,11 +89,10 @@ public class LineaInvestigacionResourceIT {
     @Transactional
     public void createLineaInvestigacion() throws Exception {
         int databaseSizeBeforeCreate = lineaInvestigacionRepository.findAll().size();
-
         // Create the LineaInvestigacion
         LineaInvestigacionDTO lineaInvestigacionDTO = lineaInvestigacionMapper.toDto(lineaInvestigacion);
         restLineaInvestigacionMockMvc.perform(post("/api/linea-investigacions")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(lineaInvestigacionDTO)))
             .andExpect(status().isCreated());
 
@@ -143,7 +115,7 @@ public class LineaInvestigacionResourceIT {
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restLineaInvestigacionMockMvc.perform(post("/api/linea-investigacions")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(lineaInvestigacionDTO)))
             .andExpect(status().isBadRequest());
 
@@ -162,7 +134,7 @@ public class LineaInvestigacionResourceIT {
         // Get all the lineaInvestigacionList
         restLineaInvestigacionMockMvc.perform(get("/api/linea-investigacions?sort=id,desc"))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(lineaInvestigacion.getId().intValue())))
             .andExpect(jsonPath("$.[*].linea").value(hasItem(DEFAULT_LINEA)))
             .andExpect(jsonPath("$.[*].codigoLinea").value(hasItem(DEFAULT_CODIGO_LINEA)));
@@ -177,12 +149,11 @@ public class LineaInvestigacionResourceIT {
         // Get the lineaInvestigacion
         restLineaInvestigacionMockMvc.perform(get("/api/linea-investigacions/{id}", lineaInvestigacion.getId()))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(lineaInvestigacion.getId().intValue()))
             .andExpect(jsonPath("$.linea").value(DEFAULT_LINEA))
             .andExpect(jsonPath("$.codigoLinea").value(DEFAULT_CODIGO_LINEA));
     }
-
     @Test
     @Transactional
     public void getNonExistingLineaInvestigacion() throws Exception {
@@ -209,7 +180,7 @@ public class LineaInvestigacionResourceIT {
         LineaInvestigacionDTO lineaInvestigacionDTO = lineaInvestigacionMapper.toDto(updatedLineaInvestigacion);
 
         restLineaInvestigacionMockMvc.perform(put("/api/linea-investigacions")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(lineaInvestigacionDTO)))
             .andExpect(status().isOk());
 
@@ -231,7 +202,7 @@ public class LineaInvestigacionResourceIT {
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restLineaInvestigacionMockMvc.perform(put("/api/linea-investigacions")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(lineaInvestigacionDTO)))
             .andExpect(status().isBadRequest());
 
@@ -250,49 +221,11 @@ public class LineaInvestigacionResourceIT {
 
         // Delete the lineaInvestigacion
         restLineaInvestigacionMockMvc.perform(delete("/api/linea-investigacions/{id}", lineaInvestigacion.getId())
-            .accept(TestUtil.APPLICATION_JSON_UTF8))
+            .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isNoContent());
 
         // Validate the database contains one less item
         List<LineaInvestigacion> lineaInvestigacionList = lineaInvestigacionRepository.findAll();
         assertThat(lineaInvestigacionList).hasSize(databaseSizeBeforeDelete - 1);
-    }
-
-    @Test
-    @Transactional
-    public void equalsVerifier() throws Exception {
-        TestUtil.equalsVerifier(LineaInvestigacion.class);
-        LineaInvestigacion lineaInvestigacion1 = new LineaInvestigacion();
-        lineaInvestigacion1.setId(1L);
-        LineaInvestigacion lineaInvestigacion2 = new LineaInvestigacion();
-        lineaInvestigacion2.setId(lineaInvestigacion1.getId());
-        assertThat(lineaInvestigacion1).isEqualTo(lineaInvestigacion2);
-        lineaInvestigacion2.setId(2L);
-        assertThat(lineaInvestigacion1).isNotEqualTo(lineaInvestigacion2);
-        lineaInvestigacion1.setId(null);
-        assertThat(lineaInvestigacion1).isNotEqualTo(lineaInvestigacion2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(LineaInvestigacionDTO.class);
-        LineaInvestigacionDTO lineaInvestigacionDTO1 = new LineaInvestigacionDTO();
-        lineaInvestigacionDTO1.setId(1L);
-        LineaInvestigacionDTO lineaInvestigacionDTO2 = new LineaInvestigacionDTO();
-        assertThat(lineaInvestigacionDTO1).isNotEqualTo(lineaInvestigacionDTO2);
-        lineaInvestigacionDTO2.setId(lineaInvestigacionDTO1.getId());
-        assertThat(lineaInvestigacionDTO1).isEqualTo(lineaInvestigacionDTO2);
-        lineaInvestigacionDTO2.setId(2L);
-        assertThat(lineaInvestigacionDTO1).isNotEqualTo(lineaInvestigacionDTO2);
-        lineaInvestigacionDTO1.setId(null);
-        assertThat(lineaInvestigacionDTO1).isNotEqualTo(lineaInvestigacionDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(lineaInvestigacionMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(lineaInvestigacionMapper.fromId(null)).isNull();
     }
 }

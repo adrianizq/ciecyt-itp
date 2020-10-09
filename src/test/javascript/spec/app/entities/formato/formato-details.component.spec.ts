@@ -28,7 +28,7 @@ describe('Component Tests', () => {
         store,
         i18n,
         localVue,
-        provide: { formatoService: () => formatoServiceStub }
+        provide: { formatoService: () => formatoServiceStub },
       });
       comp = wrapper.vm;
     });

@@ -29,9 +29,8 @@ export class User implements IUser {
     public createdDate?: Date,
     public lastModifiedBy?: string,
     public lastModifiedDate?: Date,
-    public password?: string
-  ) //public nombresApellidos?: string,
-  {
+    public password?: string //public nombresApellidos?: string,
+  ) {
     /*this.nombresApellidos=this.firstName + " " + this.lastName*/
   }
   /*public getNombresApellidos(){

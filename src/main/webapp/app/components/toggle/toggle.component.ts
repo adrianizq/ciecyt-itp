@@ -5,7 +5,7 @@ export default class MenuUpdate extends Vue {
   // dataModel: boolean;
 
   @Prop({
-    default: ['No', 'Si']
+    default: ['No', 'Si'],
   })
   options: object;
 

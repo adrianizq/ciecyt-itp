@@ -28,7 +28,7 @@ describe('Component Tests', () => {
         store,
         i18n,
         localVue,
-        provide: { cicloPropedeuticoService: () => cicloPropedeuticoServiceStub }
+        provide: { cicloPropedeuticoService: () => cicloPropedeuticoServiceStub },
       });
       comp = wrapper.vm;
     });

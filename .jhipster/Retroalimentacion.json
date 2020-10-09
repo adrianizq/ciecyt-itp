@@ -38,7 +38,7 @@
       "otherEntityField": "login"
     }
   ],
-  "changelogDate": "20200124174517",
+  "changelogDate": "20201008040303",
   "entityTableName": "retroalimentacion",
   "dto": "mapstruct",
   "pagination": "pagination",
@@ -46,7 +46,7 @@
   "jpaMetamodelFiltering": false,
   "fluentMethods": true,
   "readOnly": false,
+  "embedded": false,
   "clientRootFolder": "",
-  "applications": "*",
-  "embedded": false
+  "applications": "*"
 }

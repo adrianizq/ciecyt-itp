@@ -12,7 +12,7 @@ export default class MenuService {
       const paginationQuery = {
         page: 0,
         size: 100,
-        sort: ['id,asc']
+        sort: ['id,asc'],
       };
 
       this.retrieve(paginationQuery).then(res => {
@@ -26,7 +26,7 @@ export default class MenuService {
 
             const children: MenuChildren[] = [];
             parent.push({
-              ...menu
+              ...menu,
             });
           }
         });
@@ -54,7 +54,7 @@ export default class MenuService {
 
   public find(id: number): Promise<IMenu> {
     return new Promise<IMenu>(resolve => {
-      axios.get(`${baseApiUrl}/${id}`).then(function(res) {
+      axios.get(`${baseApiUrl}/${id}`).then(function (res) {
         resolve(res.data);
       });
     });
@@ -62,7 +62,7 @@ export default class MenuService {
 
   public retrieve(paginationQuery?: any): Promise<any> {
     return new Promise<any>(resolve => {
-      axios.get(baseApiUrl + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function(res) {
+      axios.get(baseApiUrl + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function (res) {
         resolve(res);
       });
     });
@@ -70,7 +70,7 @@ export default class MenuService {
 
   public delete(id: number): Promise<any> {
     return new Promise<any>(resolve => {
-      axios.delete(`${baseApiUrl}/${id}`).then(function(res) {
+      axios.delete(`${baseApiUrl}/${id}`).then(function (res) {
         resolve(res);
       });
     });
@@ -78,7 +78,7 @@ export default class MenuService {
 
   public create(entity: IMenu): Promise<IMenu> {
     return new Promise<IMenu>(resolve => {
-      axios.post(`${baseApiUrl}`, entity).then(function(res) {
+      axios.post(`${baseApiUrl}`, entity).then(function (res) {
         resolve(res.data);
       });
     });
@@ -86,7 +86,7 @@ export default class MenuService {
 
   public update(entity: IMenu): Promise<IMenu> {
     return new Promise<IMenu>(resolve => {
-      axios.put(`${baseApiUrl}`, entity).then(function(res) {
+      axios.put(`${baseApiUrl}`, entity).then(function (res) {
         resolve(res.data);
       });
     });

@@ -149,7 +149,7 @@ public class ProyectoServiceImpl implements ProyectoService {
         Long rolesModalidadId= rolesModalidad.getId();
 
         IntegranteProyectoDTO integranteProyectoDTO;
-        final List<IntegranteProyectoDTO> lIntegranteProyectoDTO = integranteProyectoService.findByIntegranteProyectoProyectoIdAndIntegranteProyectoRolesModalidadIdIn(idProyecto,rolesModalidadId);
+        final List<IntegranteProyectoDTO> lIntegranteProyectoDTO = integranteProyectoService.findByIntegranteProyectoProyectoIdAndIntegranteProyectoRolesModalidadId(idProyecto,rolesModalidadId);
         integranteProyectoDTO = lIntegranteProyectoDTO.get(0);
         Long integranteProyectoId = integranteProyectoDTO.getIntegranteProyectoUserId();
 

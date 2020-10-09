@@ -38,8 +38,8 @@ describe('Component Tests', () => {
           alertService: () => new AlertService(store),
           adjuntoRetroalimentacionService: () => adjuntoRetroalimentacionServiceStub,
 
-          retroalimentacionService: () => new RetroalimentacionService()
-        }
+          retroalimentacionService: () => new RetroalimentacionService(),
+        },
       });
       comp = wrapper.vm;
     });

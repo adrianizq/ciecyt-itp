@@ -6,25 +6,19 @@ import co.edu.itp.ciecyt.repository.PresupuestoValorRepository;
 import co.edu.itp.ciecyt.service.PresupuestoValorService;
 import co.edu.itp.ciecyt.service.dto.PresupuestoValorDTO;
 import co.edu.itp.ciecyt.service.mapper.PresupuestoValorMapper;
-import co.edu.itp.ciecyt.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.Validator;
-
 import javax.persistence.EntityManager;
 import java.util.List;
 
-import static co.edu.itp.ciecyt.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -34,6 +28,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Integration tests for the {@link PresupuestoValorResource} REST controller.
  */
 @SpringBootTest(classes = CiecytApp.class)
+@AutoConfigureMockMvc
+@WithMockUser
 public class PresupuestoValorResourceIT {
 
     private static final String DEFAULT_DESCRIPCION = "AAAAAAAAAA";
@@ -67,35 +63,12 @@ public class PresupuestoValorResourceIT {
     private PresupuestoValorService presupuestoValorService;
 
     @Autowired
-    private MappingJackson2HttpMessageConverter jacksonMessageConverter;
-
-    @Autowired
-    private PageableHandlerMethodArgumentResolver pageableArgumentResolver;
-
-    @Autowired
-    private ExceptionTranslator exceptionTranslator;
-
-    @Autowired
     private EntityManager em;
 
     @Autowired
-    private Validator validator;
-
     private MockMvc restPresupuestoValorMockMvc;
 
     private PresupuestoValor presupuestoValor;
-
-    @BeforeEach
-    public void setup() {
-        MockitoAnnotations.initMocks(this);
-        final PresupuestoValorResource presupuestoValorResource = new PresupuestoValorResource(presupuestoValorService);
-        this.restPresupuestoValorMockMvc = MockMvcBuilders.standaloneSetup(presupuestoValorResource)
-            .setCustomArgumentResolvers(pageableArgumentResolver)
-            .setControllerAdvice(exceptionTranslator)
-            .setConversionService(createFormattingConversionService())
-            .setMessageConverters(jacksonMessageConverter)
-            .setValidator(validator).build();
-    }
 
     /**
      * Create an entity for this test.
@@ -141,11 +114,10 @@ public class PresupuestoValorResourceIT {
     @Transactional
     public void createPresupuestoValor() throws Exception {
         int databaseSizeBeforeCreate = presupuestoValorRepository.findAll().size();
-
         // Create the PresupuestoValor
         PresupuestoValorDTO presupuestoValorDTO = presupuestoValorMapper.toDto(presupuestoValor);
         restPresupuestoValorMockMvc.perform(post("/api/presupuesto-valors")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(presupuestoValorDTO)))
             .andExpect(status().isCreated());
 
@@ -173,7 +145,7 @@ public class PresupuestoValorResourceIT {
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restPresupuestoValorMockMvc.perform(post("/api/presupuesto-valors")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(presupuestoValorDTO)))
             .andExpect(status().isBadRequest());
 
@@ -192,7 +164,7 @@ public class PresupuestoValorResourceIT {
         // Get all the presupuestoValorList
         restPresupuestoValorMockMvc.perform(get("/api/presupuesto-valors?sort=id,desc"))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(presupuestoValor.getId().intValue())))
             .andExpect(jsonPath("$.[*].descripcion").value(hasItem(DEFAULT_DESCRIPCION)))
             .andExpect(jsonPath("$.[*].justificacion").value(hasItem(DEFAULT_JUSTIFICACION)))
@@ -212,7 +184,7 @@ public class PresupuestoValorResourceIT {
         // Get the presupuestoValor
         restPresupuestoValorMockMvc.perform(get("/api/presupuesto-valors/{id}", presupuestoValor.getId()))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(presupuestoValor.getId().intValue()))
             .andExpect(jsonPath("$.descripcion").value(DEFAULT_DESCRIPCION))
             .andExpect(jsonPath("$.justificacion").value(DEFAULT_JUSTIFICACION))
@@ -222,7 +194,6 @@ public class PresupuestoValorResourceIT {
             .andExpect(jsonPath("$.dinero").value(DEFAULT_DINERO.doubleValue()))
             .andExpect(jsonPath("$.ordenVista").value(DEFAULT_ORDEN_VISTA));
     }
-
     @Test
     @Transactional
     public void getNonExistingPresupuestoValor() throws Exception {
@@ -254,7 +225,7 @@ public class PresupuestoValorResourceIT {
         PresupuestoValorDTO presupuestoValorDTO = presupuestoValorMapper.toDto(updatedPresupuestoValor);
 
         restPresupuestoValorMockMvc.perform(put("/api/presupuesto-valors")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(presupuestoValorDTO)))
             .andExpect(status().isOk());
 
@@ -281,7 +252,7 @@ public class PresupuestoValorResourceIT {
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restPresupuestoValorMockMvc.perform(put("/api/presupuesto-valors")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(presupuestoValorDTO)))
             .andExpect(status().isBadRequest());
 
@@ -300,49 +271,11 @@ public class PresupuestoValorResourceIT {
 
         // Delete the presupuestoValor
         restPresupuestoValorMockMvc.perform(delete("/api/presupuesto-valors/{id}", presupuestoValor.getId())
-            .accept(TestUtil.APPLICATION_JSON_UTF8))
+            .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isNoContent());
 
         // Validate the database contains one less item
         List<PresupuestoValor> presupuestoValorList = presupuestoValorRepository.findAll();
         assertThat(presupuestoValorList).hasSize(databaseSizeBeforeDelete - 1);
-    }
-
-    @Test
-    @Transactional
-    public void equalsVerifier() throws Exception {
-        TestUtil.equalsVerifier(PresupuestoValor.class);
-        PresupuestoValor presupuestoValor1 = new PresupuestoValor();
-        presupuestoValor1.setId(1L);
-        PresupuestoValor presupuestoValor2 = new PresupuestoValor();
-        presupuestoValor2.setId(presupuestoValor1.getId());
-        assertThat(presupuestoValor1).isEqualTo(presupuestoValor2);
-        presupuestoValor2.setId(2L);
-        assertThat(presupuestoValor1).isNotEqualTo(presupuestoValor2);
-        presupuestoValor1.setId(null);
-        assertThat(presupuestoValor1).isNotEqualTo(presupuestoValor2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(PresupuestoValorDTO.class);
-        PresupuestoValorDTO presupuestoValorDTO1 = new PresupuestoValorDTO();
-        presupuestoValorDTO1.setId(1L);
-        PresupuestoValorDTO presupuestoValorDTO2 = new PresupuestoValorDTO();
-        assertThat(presupuestoValorDTO1).isNotEqualTo(presupuestoValorDTO2);
-        presupuestoValorDTO2.setId(presupuestoValorDTO1.getId());
-        assertThat(presupuestoValorDTO1).isEqualTo(presupuestoValorDTO2);
-        presupuestoValorDTO2.setId(2L);
-        assertThat(presupuestoValorDTO1).isNotEqualTo(presupuestoValorDTO2);
-        presupuestoValorDTO1.setId(null);
-        assertThat(presupuestoValorDTO1).isNotEqualTo(presupuestoValorDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(presupuestoValorMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(presupuestoValorMapper.fromId(null)).isNull();
     }
 }

@@ -28,7 +28,7 @@ describe('Component Tests', () => {
         store,
         i18n,
         localVue,
-        provide: { adjuntoRetroalimentacionService: () => adjuntoRetroalimentacionServiceStub }
+        provide: { adjuntoRetroalimentacionService: () => adjuntoRetroalimentacionServiceStub },
       });
       comp = wrapper.vm;
     });

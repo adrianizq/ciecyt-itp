@@ -31,7 +31,7 @@
       "otherEntityField": "nombre"
     }
   ],
-  "changelogDate": "20200319194601",
+  "changelogDate": "20201008040503",
   "entityTableName": "rol_menu",
   "dto": "mapstruct",
   "pagination": "pagination",
@@ -39,9 +39,7 @@
   "jpaMetamodelFiltering": false,
   "fluentMethods": true,
   "readOnly": false,
+  "embedded": false,
   "clientRootFolder": "",
-  "applications": "*",
-  "searchEngine": false,
-  "databaseType": "sql",
-  "embedded": false
+  "applications": "*"
 }

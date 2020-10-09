@@ -9,12 +9,12 @@ import UsuarioService from './usuario.service';
 const validations: any = {
   usuario: {
     usuario: {},
-    descripcion: {}
-  }
+    descripcion: {},
+  },
 };
 
 @Component({
-  validations
+  validations,
 })
 export default class UsuarioUpdate extends Vue {
   @Inject('alertService') private alertService: () => AlertService;

@@ -11,12 +11,12 @@ const validations: any = {
     investigacionTipo: {},
     investigacionTipoDescripcion: {},
     tipo: {},
-    tipoDescripcion: {}
-  }
+    tipoDescripcion: {},
+  },
 };
 
 @Component({
-  validations
+  validations,
 })
 export default class InvestigacionTipoUpdate extends Vue {
   @Inject('alertService') private alertService: () => AlertService;

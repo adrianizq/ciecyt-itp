@@ -33,7 +33,7 @@
       "otherEntityField": "rol"
     }
   ],
-  "changelogDate": "20200124174514",
+  "changelogDate": "20201008035003",
   "entityTableName": "integrante_proyecto",
   "dto": "mapstruct",
   "pagination": "pagination",
@@ -41,7 +41,7 @@
   "jpaMetamodelFiltering": false,
   "fluentMethods": true,
   "readOnly": false,
+  "embedded": false,
   "clientRootFolder": "",
-  "applications": "*",
-  "embedded": false
+  "applications": "*"
 }

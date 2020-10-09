@@ -19,7 +19,7 @@
       "otherEntityField": "titulo"
     }
   ],
-  "changelogDate": "20200124174520",
+  "changelogDate": "20201008033403",
   "entityTableName": "categorizacion",
   "dto": "mapstruct",
   "pagination": "pagination",
@@ -27,7 +27,7 @@
   "jpaMetamodelFiltering": false,
   "fluentMethods": true,
   "readOnly": false,
+  "embedded": false,
   "clientRootFolder": "",
-  "applications": "*",
-  "embedded": false
+  "applications": "*"
 }

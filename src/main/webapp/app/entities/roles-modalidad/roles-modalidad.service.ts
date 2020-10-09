@@ -9,7 +9,7 @@ const baseApiUrl = 'api/roles-modalidads';
 export default class RolesModalidadService {
   public find(id: number): Promise<IRolesModalidad> {
     return new Promise<IRolesModalidad>(resolve => {
-      axios.get(`${baseApiUrl}/${id}`).then(function(res) {
+      axios.get(`${baseApiUrl}/${id}`).then(function (res) {
         resolve(res.data);
       });
     });
@@ -17,7 +17,7 @@ export default class RolesModalidadService {
 
   public findRolModalidad(rol: any, idModalidad: number): Promise<IRolesModalidad> {
     return new Promise<IRolesModalidad>(resolve => {
-      axios.get(`/api/roles-modalidad-rol-modalidad/${rol}/${idModalidad}`).then(function(res) {
+      axios.get(`/api/roles-modalidad-rol-modalidad/${rol}/${idModalidad}`).then(function (res) {
         resolve(res.data);
       });
     });
@@ -25,7 +25,7 @@ export default class RolesModalidadService {
 
   public retrieve(paginationQuery?: any): Promise<any> {
     return new Promise<any>(resolve => {
-      axios.get(baseApiUrl + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function(res) {
+      axios.get(baseApiUrl + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function (res) {
         resolve(res);
       });
     });
@@ -33,7 +33,7 @@ export default class RolesModalidadService {
 
   public delete(id: number): Promise<any> {
     return new Promise<any>(resolve => {
-      axios.delete(`${baseApiUrl}/${id}`).then(function(res) {
+      axios.delete(`${baseApiUrl}/${id}`).then(function (res) {
         resolve(res);
       });
     });
@@ -41,7 +41,7 @@ export default class RolesModalidadService {
 
   public create(entity: IRolesModalidad): Promise<IRolesModalidad> {
     return new Promise<IRolesModalidad>(resolve => {
-      axios.post(`${baseApiUrl}`, entity).then(function(res) {
+      axios.post(`${baseApiUrl}`, entity).then(function (res) {
         resolve(res.data);
       });
     });
@@ -49,7 +49,7 @@ export default class RolesModalidadService {
 
   public update(entity: IRolesModalidad): Promise<IRolesModalidad> {
     return new Promise<IRolesModalidad>(resolve => {
-      axios.put(`${baseApiUrl}`, entity).then(function(res) {
+      axios.put(`${baseApiUrl}`, entity).then(function (res) {
         resolve(res.data);
       });
     });

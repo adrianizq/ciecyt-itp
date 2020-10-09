@@ -15,12 +15,12 @@ const validations: any = {
   rolesModalidad: {
     rol: {},
     cantidad: {},
-    calificador: {}
-  }
+    calificador: {},
+  },
 };
 
 @Component({
-  validations
+  validations,
 })
 export default class RolesModalidadUpdate extends Vue {
   @Inject('alertService') private alertService: () => AlertService;

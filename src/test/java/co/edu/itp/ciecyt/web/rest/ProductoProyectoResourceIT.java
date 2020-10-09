@@ -6,25 +6,19 @@ import co.edu.itp.ciecyt.repository.ProductoProyectoRepository;
 import co.edu.itp.ciecyt.service.ProductoProyectoService;
 import co.edu.itp.ciecyt.service.dto.ProductoProyectoDTO;
 import co.edu.itp.ciecyt.service.mapper.ProductoProyectoMapper;
-import co.edu.itp.ciecyt.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.Validator;
-
 import javax.persistence.EntityManager;
 import java.util.List;
 
-import static co.edu.itp.ciecyt.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -34,6 +28,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Integration tests for the {@link ProductoProyectoResource} REST controller.
  */
 @SpringBootTest(classes = CiecytApp.class)
+@AutoConfigureMockMvc
+@WithMockUser
 public class ProductoProyectoResourceIT {
 
     private static final Boolean DEFAULT_APLICA = false;
@@ -52,35 +48,12 @@ public class ProductoProyectoResourceIT {
     private ProductoProyectoService productoProyectoService;
 
     @Autowired
-    private MappingJackson2HttpMessageConverter jacksonMessageConverter;
-
-    @Autowired
-    private PageableHandlerMethodArgumentResolver pageableArgumentResolver;
-
-    @Autowired
-    private ExceptionTranslator exceptionTranslator;
-
-    @Autowired
     private EntityManager em;
 
     @Autowired
-    private Validator validator;
-
     private MockMvc restProductoProyectoMockMvc;
 
     private ProductoProyecto productoProyecto;
-
-    @BeforeEach
-    public void setup() {
-        MockitoAnnotations.initMocks(this);
-        final ProductoProyectoResource productoProyectoResource = new ProductoProyectoResource(productoProyectoService);
-        this.restProductoProyectoMockMvc = MockMvcBuilders.standaloneSetup(productoProyectoResource)
-            .setCustomArgumentResolvers(pageableArgumentResolver)
-            .setControllerAdvice(exceptionTranslator)
-            .setConversionService(createFormattingConversionService())
-            .setMessageConverters(jacksonMessageConverter)
-            .setValidator(validator).build();
-    }
 
     /**
      * Create an entity for this test.
@@ -116,11 +89,10 @@ public class ProductoProyectoResourceIT {
     @Transactional
     public void createProductoProyecto() throws Exception {
         int databaseSizeBeforeCreate = productoProyectoRepository.findAll().size();
-
         // Create the ProductoProyecto
         ProductoProyectoDTO productoProyectoDTO = productoProyectoMapper.toDto(productoProyecto);
         restProductoProyectoMockMvc.perform(post("/api/producto-proyectos")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(productoProyectoDTO)))
             .andExpect(status().isCreated());
 
@@ -143,7 +115,7 @@ public class ProductoProyectoResourceIT {
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restProductoProyectoMockMvc.perform(post("/api/producto-proyectos")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(productoProyectoDTO)))
             .andExpect(status().isBadRequest());
 
@@ -162,7 +134,7 @@ public class ProductoProyectoResourceIT {
         // Get all the productoProyectoList
         restProductoProyectoMockMvc.perform(get("/api/producto-proyectos?sort=id,desc"))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(productoProyecto.getId().intValue())))
             .andExpect(jsonPath("$.[*].aplica").value(hasItem(DEFAULT_APLICA.booleanValue())))
             .andExpect(jsonPath("$.[*].descripcion").value(hasItem(DEFAULT_DESCRIPCION)));
@@ -177,12 +149,11 @@ public class ProductoProyectoResourceIT {
         // Get the productoProyecto
         restProductoProyectoMockMvc.perform(get("/api/producto-proyectos/{id}", productoProyecto.getId()))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(productoProyecto.getId().intValue()))
             .andExpect(jsonPath("$.aplica").value(DEFAULT_APLICA.booleanValue()))
             .andExpect(jsonPath("$.descripcion").value(DEFAULT_DESCRIPCION));
     }
-
     @Test
     @Transactional
     public void getNonExistingProductoProyecto() throws Exception {
@@ -209,7 +180,7 @@ public class ProductoProyectoResourceIT {
         ProductoProyectoDTO productoProyectoDTO = productoProyectoMapper.toDto(updatedProductoProyecto);
 
         restProductoProyectoMockMvc.perform(put("/api/producto-proyectos")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(productoProyectoDTO)))
             .andExpect(status().isOk());
 
@@ -231,7 +202,7 @@ public class ProductoProyectoResourceIT {
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restProductoProyectoMockMvc.perform(put("/api/producto-proyectos")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(productoProyectoDTO)))
             .andExpect(status().isBadRequest());
 
@@ -250,49 +221,11 @@ public class ProductoProyectoResourceIT {
 
         // Delete the productoProyecto
         restProductoProyectoMockMvc.perform(delete("/api/producto-proyectos/{id}", productoProyecto.getId())
-            .accept(TestUtil.APPLICATION_JSON_UTF8))
+            .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isNoContent());
 
         // Validate the database contains one less item
         List<ProductoProyecto> productoProyectoList = productoProyectoRepository.findAll();
         assertThat(productoProyectoList).hasSize(databaseSizeBeforeDelete - 1);
-    }
-
-    @Test
-    @Transactional
-    public void equalsVerifier() throws Exception {
-        TestUtil.equalsVerifier(ProductoProyecto.class);
-        ProductoProyecto productoProyecto1 = new ProductoProyecto();
-        productoProyecto1.setId(1L);
-        ProductoProyecto productoProyecto2 = new ProductoProyecto();
-        productoProyecto2.setId(productoProyecto1.getId());
-        assertThat(productoProyecto1).isEqualTo(productoProyecto2);
-        productoProyecto2.setId(2L);
-        assertThat(productoProyecto1).isNotEqualTo(productoProyecto2);
-        productoProyecto1.setId(null);
-        assertThat(productoProyecto1).isNotEqualTo(productoProyecto2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(ProductoProyectoDTO.class);
-        ProductoProyectoDTO productoProyectoDTO1 = new ProductoProyectoDTO();
-        productoProyectoDTO1.setId(1L);
-        ProductoProyectoDTO productoProyectoDTO2 = new ProductoProyectoDTO();
-        assertThat(productoProyectoDTO1).isNotEqualTo(productoProyectoDTO2);
-        productoProyectoDTO2.setId(productoProyectoDTO1.getId());
-        assertThat(productoProyectoDTO1).isEqualTo(productoProyectoDTO2);
-        productoProyectoDTO2.setId(2L);
-        assertThat(productoProyectoDTO1).isNotEqualTo(productoProyectoDTO2);
-        productoProyectoDTO1.setId(null);
-        assertThat(productoProyectoDTO1).isNotEqualTo(productoProyectoDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(productoProyectoMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(productoProyectoMapper.fromId(null)).isNull();
     }
 }

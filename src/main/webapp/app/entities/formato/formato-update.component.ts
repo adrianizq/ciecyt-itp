@@ -11,12 +11,12 @@ const validations: any = {
     formato: {},
     version: {},
     codigo: {},
-    fecha: {}
-  }
+    fecha: {},
+  },
 };
 
 @Component({
-  validations
+  validations,
 })
 export default class FormatoUpdate extends Vue {
   @Inject('alertService') private alertService: () => AlertService;

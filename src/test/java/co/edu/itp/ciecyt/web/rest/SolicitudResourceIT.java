@@ -6,27 +6,21 @@ import co.edu.itp.ciecyt.repository.SolicitudRepository;
 import co.edu.itp.ciecyt.service.SolicitudService;
 import co.edu.itp.ciecyt.service.dto.SolicitudDTO;
 import co.edu.itp.ciecyt.service.mapper.SolicitudMapper;
-import co.edu.itp.ciecyt.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.Validator;
-
 import javax.persistence.EntityManager;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.List;
 
-import static co.edu.itp.ciecyt.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -36,6 +30,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Integration tests for the {@link SolicitudResource} REST controller.
  */
 @SpringBootTest(classes = CiecytApp.class)
+@AutoConfigureMockMvc
+@WithMockUser
 public class SolicitudResourceIT {
 
     private static final Boolean DEFAULT_ESTADO = false;
@@ -60,35 +56,12 @@ public class SolicitudResourceIT {
     private SolicitudService solicitudService;
 
     @Autowired
-    private MappingJackson2HttpMessageConverter jacksonMessageConverter;
-
-    @Autowired
-    private PageableHandlerMethodArgumentResolver pageableArgumentResolver;
-
-    @Autowired
-    private ExceptionTranslator exceptionTranslator;
-
-    @Autowired
     private EntityManager em;
 
     @Autowired
-    private Validator validator;
-
     private MockMvc restSolicitudMockMvc;
 
     private Solicitud solicitud;
-
-    @BeforeEach
-    public void setup() {
-        MockitoAnnotations.initMocks(this);
-        final SolicitudResource solicitudResource = new SolicitudResource(solicitudService);
-        this.restSolicitudMockMvc = MockMvcBuilders.standaloneSetup(solicitudResource)
-            .setCustomArgumentResolvers(pageableArgumentResolver)
-            .setControllerAdvice(exceptionTranslator)
-            .setConversionService(createFormattingConversionService())
-            .setMessageConverters(jacksonMessageConverter)
-            .setValidator(validator).build();
-    }
 
     /**
      * Create an entity for this test.
@@ -128,11 +101,10 @@ public class SolicitudResourceIT {
     @Transactional
     public void createSolicitud() throws Exception {
         int databaseSizeBeforeCreate = solicitudRepository.findAll().size();
-
         // Create the Solicitud
         SolicitudDTO solicitudDTO = solicitudMapper.toDto(solicitud);
         restSolicitudMockMvc.perform(post("/api/solicituds")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(solicitudDTO)))
             .andExpect(status().isCreated());
 
@@ -157,7 +129,7 @@ public class SolicitudResourceIT {
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restSolicitudMockMvc.perform(post("/api/solicituds")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(solicitudDTO)))
             .andExpect(status().isBadRequest());
 
@@ -176,7 +148,7 @@ public class SolicitudResourceIT {
         // Get all the solicitudList
         restSolicitudMockMvc.perform(get("/api/solicituds?sort=id,desc"))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(solicitud.getId().intValue())))
             .andExpect(jsonPath("$.[*].estado").value(hasItem(DEFAULT_ESTADO.booleanValue())))
             .andExpect(jsonPath("$.[*].asunto").value(hasItem(DEFAULT_ASUNTO)))
@@ -193,14 +165,13 @@ public class SolicitudResourceIT {
         // Get the solicitud
         restSolicitudMockMvc.perform(get("/api/solicituds/{id}", solicitud.getId()))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(solicitud.getId().intValue()))
             .andExpect(jsonPath("$.estado").value(DEFAULT_ESTADO.booleanValue()))
             .andExpect(jsonPath("$.asunto").value(DEFAULT_ASUNTO))
             .andExpect(jsonPath("$.textoSolicitud").value(DEFAULT_TEXTO_SOLICITUD))
             .andExpect(jsonPath("$.fechaSolicitud").value(DEFAULT_FECHA_SOLICITUD.toString()));
     }
-
     @Test
     @Transactional
     public void getNonExistingSolicitud() throws Exception {
@@ -229,7 +200,7 @@ public class SolicitudResourceIT {
         SolicitudDTO solicitudDTO = solicitudMapper.toDto(updatedSolicitud);
 
         restSolicitudMockMvc.perform(put("/api/solicituds")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(solicitudDTO)))
             .andExpect(status().isOk());
 
@@ -253,7 +224,7 @@ public class SolicitudResourceIT {
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restSolicitudMockMvc.perform(put("/api/solicituds")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(solicitudDTO)))
             .andExpect(status().isBadRequest());
 
@@ -272,49 +243,11 @@ public class SolicitudResourceIT {
 
         // Delete the solicitud
         restSolicitudMockMvc.perform(delete("/api/solicituds/{id}", solicitud.getId())
-            .accept(TestUtil.APPLICATION_JSON_UTF8))
+            .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isNoContent());
 
         // Validate the database contains one less item
         List<Solicitud> solicitudList = solicitudRepository.findAll();
         assertThat(solicitudList).hasSize(databaseSizeBeforeDelete - 1);
-    }
-
-    @Test
-    @Transactional
-    public void equalsVerifier() throws Exception {
-        TestUtil.equalsVerifier(Solicitud.class);
-        Solicitud solicitud1 = new Solicitud();
-        solicitud1.setId(1L);
-        Solicitud solicitud2 = new Solicitud();
-        solicitud2.setId(solicitud1.getId());
-        assertThat(solicitud1).isEqualTo(solicitud2);
-        solicitud2.setId(2L);
-        assertThat(solicitud1).isNotEqualTo(solicitud2);
-        solicitud1.setId(null);
-        assertThat(solicitud1).isNotEqualTo(solicitud2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(SolicitudDTO.class);
-        SolicitudDTO solicitudDTO1 = new SolicitudDTO();
-        solicitudDTO1.setId(1L);
-        SolicitudDTO solicitudDTO2 = new SolicitudDTO();
-        assertThat(solicitudDTO1).isNotEqualTo(solicitudDTO2);
-        solicitudDTO2.setId(solicitudDTO1.getId());
-        assertThat(solicitudDTO1).isEqualTo(solicitudDTO2);
-        solicitudDTO2.setId(2L);
-        assertThat(solicitudDTO1).isNotEqualTo(solicitudDTO2);
-        solicitudDTO1.setId(null);
-        assertThat(solicitudDTO1).isNotEqualTo(solicitudDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(solicitudMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(solicitudMapper.fromId(null)).isNull();
     }
 }

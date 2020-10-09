@@ -18,12 +18,12 @@ const validations: any = {
     adjuntoRetroalimentacion: {},
     nombreArchivoOriginal: {},
     fechaInicio: {},
-    fechaFin: {}
-  }
+    fechaFin: {},
+  },
 };
 
 @Component({
-  validations
+  validations,
 })
 export default class AdjuntoRetroalimentacionUpdate extends Vue {
   @Inject('alertService') private alertService: () => AlertService;

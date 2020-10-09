@@ -54,7 +54,7 @@ export default class CicloPropedeutico extends mixins(Vue2Filters.mixin) {
     const paginationQuery = {
       page: this.page - 1,
       size: this.itemsPerPage,
-      sort: this.sort()
+      sort: this.sort(),
     };
     this.cicloPropedeuticoService()
       .retrieve(paginationQuery)

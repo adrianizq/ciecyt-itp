@@ -12,7 +12,7 @@ export default class RolMenuService {
       const paginationQuery = {
         page: 0,
         size: 100,
-        sort: ['id,asc']
+        sort: ['id,asc'],
       };
 
       this.retrieve(paginationQuery).then(res => {
@@ -33,7 +33,7 @@ export default class RolMenuService {
 
   public find(id: number): Promise<IRolMenu> {
     return new Promise<IRolMenu>(resolve => {
-      axios.get(`${baseApiUrl}/${id}`).then(function(res) {
+      axios.get(`${baseApiUrl}/${id}`).then(function (res) {
         resolve(res.data);
       });
     });
@@ -41,7 +41,7 @@ export default class RolMenuService {
 
   public retrieve(paginationQuery?: any): Promise<any> {
     return new Promise<any>(resolve => {
-      axios.get(baseApiUrl + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function(res) {
+      axios.get(baseApiUrl + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function (res) {
         resolve(res);
       });
     });
@@ -49,7 +49,7 @@ export default class RolMenuService {
 
   public delete(id: number): Promise<any> {
     return new Promise<any>(resolve => {
-      axios.delete(`${baseApiUrl}/${id}`).then(function(res) {
+      axios.delete(`${baseApiUrl}/${id}`).then(function (res) {
         resolve(res);
       });
     });
@@ -57,7 +57,7 @@ export default class RolMenuService {
 
   public create(entity: IRolMenu): Promise<IRolMenu> {
     return new Promise<IRolMenu>(resolve => {
-      axios.post(`${baseApiUrl}`, entity).then(function(res) {
+      axios.post(`${baseApiUrl}`, entity).then(function (res) {
         resolve(res.data);
       });
     });
@@ -65,7 +65,7 @@ export default class RolMenuService {
 
   public update(entity: IRolMenu): Promise<IRolMenu> {
     return new Promise<IRolMenu>(resolve => {
-      axios.put(`${baseApiUrl}`, entity).then(function(res) {
+      axios.put(`${baseApiUrl}`, entity).then(function (res) {
         resolve(res.data);
       });
     });

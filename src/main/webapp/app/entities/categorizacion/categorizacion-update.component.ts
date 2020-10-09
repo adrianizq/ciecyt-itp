@@ -12,12 +12,12 @@ import CategorizacionService from './categorizacion.service';
 const validations: any = {
   categorizacion: {
     categoria: {},
-    descripcion: {}
-  }
+    descripcion: {},
+  },
 };
 
 @Component({
-  validations
+  validations,
 })
 export default class CategorizacionUpdate extends Vue {
   @Inject('alertService') private alertService: () => AlertService;

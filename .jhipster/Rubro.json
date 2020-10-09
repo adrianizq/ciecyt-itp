@@ -7,7 +7,7 @@
     }
   ],
   "relationships": [],
-  "changelogDate": "20200124174459",
+  "changelogDate": "20201008040603",
   "entityTableName": "rubro",
   "dto": "mapstruct",
   "pagination": "pagination",
@@ -15,7 +15,7 @@
   "jpaMetamodelFiltering": false,
   "fluentMethods": true,
   "readOnly": false,
+  "embedded": false,
   "clientRootFolder": "",
-  "applications": "*",
-  "embedded": false
+  "applications": "*"
 }

@@ -4,7 +4,7 @@ import Component from 'vue-class-component';
 Component.registerHooks([
   'beforeRouteEnter',
   'beforeRouteLeave',
-  'beforeRouteUpdate' // for vue-router 2.2+
+  'beforeRouteUpdate', // for vue-router 2.2+
 ]);
 import Router from 'vue-router';
 //import { User } from '@/shared/model/user.model';

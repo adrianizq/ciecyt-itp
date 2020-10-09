@@ -15,12 +15,12 @@ const validations: any = {
     permitirCrear: {},
     permitirEditar: {},
     permitirEliminar: {},
-    authName: {}
-  }
+    authName: {},
+  },
 };
 
 @Component({
-  validations
+  validations,
 })
 export default class RolMenuUpdate extends Vue {
   @Inject('alertService') private alertService: () => AlertService;

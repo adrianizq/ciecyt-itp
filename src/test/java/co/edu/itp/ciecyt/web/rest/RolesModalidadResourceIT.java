@@ -6,25 +6,19 @@ import co.edu.itp.ciecyt.repository.RolesModalidadRepository;
 import co.edu.itp.ciecyt.service.RolesModalidadService;
 import co.edu.itp.ciecyt.service.dto.RolesModalidadDTO;
 import co.edu.itp.ciecyt.service.mapper.RolesModalidadMapper;
-import co.edu.itp.ciecyt.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.Validator;
-
 import javax.persistence.EntityManager;
 import java.util.List;
 
-import static co.edu.itp.ciecyt.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -34,6 +28,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Integration tests for the {@link RolesModalidadResource} REST controller.
  */
 @SpringBootTest(classes = CiecytApp.class)
+@AutoConfigureMockMvc
+@WithMockUser
 public class RolesModalidadResourceIT {
 
     private static final String DEFAULT_ROL = "AAAAAAAAAA";
@@ -55,35 +51,12 @@ public class RolesModalidadResourceIT {
     private RolesModalidadService rolesModalidadService;
 
     @Autowired
-    private MappingJackson2HttpMessageConverter jacksonMessageConverter;
-
-    @Autowired
-    private PageableHandlerMethodArgumentResolver pageableArgumentResolver;
-
-    @Autowired
-    private ExceptionTranslator exceptionTranslator;
-
-    @Autowired
     private EntityManager em;
 
     @Autowired
-    private Validator validator;
-
     private MockMvc restRolesModalidadMockMvc;
 
     private RolesModalidad rolesModalidad;
-
-    @BeforeEach
-    public void setup() {
-        MockitoAnnotations.initMocks(this);
-        final RolesModalidadResource rolesModalidadResource = new RolesModalidadResource(rolesModalidadService);
-        this.restRolesModalidadMockMvc = MockMvcBuilders.standaloneSetup(rolesModalidadResource)
-            .setCustomArgumentResolvers(pageableArgumentResolver)
-            .setControllerAdvice(exceptionTranslator)
-            .setConversionService(createFormattingConversionService())
-            .setMessageConverters(jacksonMessageConverter)
-            .setValidator(validator).build();
-    }
 
     /**
      * Create an entity for this test.
@@ -121,11 +94,10 @@ public class RolesModalidadResourceIT {
     @Transactional
     public void createRolesModalidad() throws Exception {
         int databaseSizeBeforeCreate = rolesModalidadRepository.findAll().size();
-
         // Create the RolesModalidad
         RolesModalidadDTO rolesModalidadDTO = rolesModalidadMapper.toDto(rolesModalidad);
         restRolesModalidadMockMvc.perform(post("/api/roles-modalidads")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(rolesModalidadDTO)))
             .andExpect(status().isCreated());
 
@@ -149,7 +121,7 @@ public class RolesModalidadResourceIT {
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restRolesModalidadMockMvc.perform(post("/api/roles-modalidads")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(rolesModalidadDTO)))
             .andExpect(status().isBadRequest());
 
@@ -168,7 +140,7 @@ public class RolesModalidadResourceIT {
         // Get all the rolesModalidadList
         restRolesModalidadMockMvc.perform(get("/api/roles-modalidads?sort=id,desc"))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(rolesModalidad.getId().intValue())))
             .andExpect(jsonPath("$.[*].rol").value(hasItem(DEFAULT_ROL)))
             .andExpect(jsonPath("$.[*].cantidad").value(hasItem(DEFAULT_CANTIDAD)))
@@ -184,13 +156,12 @@ public class RolesModalidadResourceIT {
         // Get the rolesModalidad
         restRolesModalidadMockMvc.perform(get("/api/roles-modalidads/{id}", rolesModalidad.getId()))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(rolesModalidad.getId().intValue()))
             .andExpect(jsonPath("$.rol").value(DEFAULT_ROL))
             .andExpect(jsonPath("$.cantidad").value(DEFAULT_CANTIDAD))
             .andExpect(jsonPath("$.calificador").value(DEFAULT_CALIFICADOR.booleanValue()));
     }
-
     @Test
     @Transactional
     public void getNonExistingRolesModalidad() throws Exception {
@@ -218,7 +189,7 @@ public class RolesModalidadResourceIT {
         RolesModalidadDTO rolesModalidadDTO = rolesModalidadMapper.toDto(updatedRolesModalidad);
 
         restRolesModalidadMockMvc.perform(put("/api/roles-modalidads")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(rolesModalidadDTO)))
             .andExpect(status().isOk());
 
@@ -241,7 +212,7 @@ public class RolesModalidadResourceIT {
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restRolesModalidadMockMvc.perform(put("/api/roles-modalidads")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(rolesModalidadDTO)))
             .andExpect(status().isBadRequest());
 
@@ -260,49 +231,11 @@ public class RolesModalidadResourceIT {
 
         // Delete the rolesModalidad
         restRolesModalidadMockMvc.perform(delete("/api/roles-modalidads/{id}", rolesModalidad.getId())
-            .accept(TestUtil.APPLICATION_JSON_UTF8))
+            .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isNoContent());
 
         // Validate the database contains one less item
         List<RolesModalidad> rolesModalidadList = rolesModalidadRepository.findAll();
         assertThat(rolesModalidadList).hasSize(databaseSizeBeforeDelete - 1);
-    }
-
-    @Test
-    @Transactional
-    public void equalsVerifier() throws Exception {
-        TestUtil.equalsVerifier(RolesModalidad.class);
-        RolesModalidad rolesModalidad1 = new RolesModalidad();
-        rolesModalidad1.setId(1L);
-        RolesModalidad rolesModalidad2 = new RolesModalidad();
-        rolesModalidad2.setId(rolesModalidad1.getId());
-        assertThat(rolesModalidad1).isEqualTo(rolesModalidad2);
-        rolesModalidad2.setId(2L);
-        assertThat(rolesModalidad1).isNotEqualTo(rolesModalidad2);
-        rolesModalidad1.setId(null);
-        assertThat(rolesModalidad1).isNotEqualTo(rolesModalidad2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(RolesModalidadDTO.class);
-        RolesModalidadDTO rolesModalidadDTO1 = new RolesModalidadDTO();
-        rolesModalidadDTO1.setId(1L);
-        RolesModalidadDTO rolesModalidadDTO2 = new RolesModalidadDTO();
-        assertThat(rolesModalidadDTO1).isNotEqualTo(rolesModalidadDTO2);
-        rolesModalidadDTO2.setId(rolesModalidadDTO1.getId());
-        assertThat(rolesModalidadDTO1).isEqualTo(rolesModalidadDTO2);
-        rolesModalidadDTO2.setId(2L);
-        assertThat(rolesModalidadDTO1).isNotEqualTo(rolesModalidadDTO2);
-        rolesModalidadDTO1.setId(null);
-        assertThat(rolesModalidadDTO1).isNotEqualTo(rolesModalidadDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(rolesModalidadMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(rolesModalidadMapper.fromId(null)).isNull();
     }
 }

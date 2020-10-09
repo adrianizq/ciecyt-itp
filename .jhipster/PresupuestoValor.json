@@ -53,7 +53,7 @@
       "otherEntityField": "entidad"
     }
   ],
-  "changelogDate": "20200124174500",
+  "changelogDate": "20201008035603",
   "entityTableName": "presupuesto_valor",
   "dto": "mapstruct",
   "pagination": "pagination",
@@ -61,9 +61,7 @@
   "jpaMetamodelFiltering": false,
   "fluentMethods": true,
   "readOnly": false,
+  "embedded": false,
   "clientRootFolder": "",
-  "applications": "*",
-  "searchEngine": false,
-  "databaseType": "sql",
-  "embedded": false
+  "applications": "*"
 }

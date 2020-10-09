@@ -28,7 +28,7 @@ describe('Component Tests', () => {
         store,
         i18n,
         localVue,
-        provide: { cronogramaCiecytFasesService: () => cronogramaCiecytFasesServiceStub }
+        provide: { cronogramaCiecytFasesService: () => cronogramaCiecytFasesServiceStub },
       });
       comp = wrapper.vm;
     });

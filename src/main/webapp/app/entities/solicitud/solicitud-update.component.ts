@@ -14,12 +14,12 @@ const validations: any = {
     estado: {},
     asunto: {},
     textoSolicitud: {},
-    fechaSolicitud: {}
-  }
+    fechaSolicitud: {},
+  },
 };
 
 @Component({
-  validations
+  validations,
 })
 export default class SolicitudUpdate extends Vue {
   @Inject('alertService') private alertService: () => AlertService;

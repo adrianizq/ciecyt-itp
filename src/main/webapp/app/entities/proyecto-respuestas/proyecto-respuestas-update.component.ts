@@ -16,12 +16,12 @@ const validations: any = {
   proyectoRespuestas: {
     respuesta: {},
     observaciones: {},
-    viable: {}
-  }
+    viable: {},
+  },
 };
 
 @Component({
-  validations
+  validations,
 })
 export default class ProyectoRespuestasUpdate extends Vue {
   @Inject('alertService') private alertService: () => AlertService;

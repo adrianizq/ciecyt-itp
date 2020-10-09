@@ -17,12 +17,12 @@ import IntegranteProyectoService from './integrante-proyecto.service';
 const validations: any = {
   integranteProyecto: {
     integrante: {},
-    descripcion: {}
-  }
+    descripcion: {},
+  },
 };
 
 @Component({
-  validations
+  validations,
 })
 export default class IntegranteProyectoUpdate extends Vue {
   @Inject('alertService') private alertService: () => AlertService;

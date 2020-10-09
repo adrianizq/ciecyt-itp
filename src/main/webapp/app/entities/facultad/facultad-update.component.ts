@@ -12,12 +12,12 @@ import FacultadService from './facultad.service';
 const validations: any = {
   facultad: {
     codigoFacultad: {},
-    facultad: {}
-  }
+    facultad: {},
+  },
 };
 
 @Component({
-  validations
+  validations,
 })
 export default class FacultadUpdate extends Vue {
   @Inject('alertService') private alertService: () => AlertService;

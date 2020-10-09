@@ -42,8 +42,8 @@ describe('Component Tests', () => {
 
           cicloPropedeuticoService: () => new CicloPropedeuticoService(),
 
-          acuerdoService: () => new AcuerdoService()
-        }
+          acuerdoService: () => new AcuerdoService(),
+        },
       });
       comp = wrapper.vm;
     });

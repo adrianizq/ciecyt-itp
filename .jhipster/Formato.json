@@ -19,7 +19,7 @@
     }
   ],
   "relationships": [],
-  "changelogDate": "20200124174505",
+  "changelogDate": "20201008034603",
   "entityTableName": "formato",
   "dto": "mapstruct",
   "pagination": "pagination",
@@ -27,7 +27,7 @@
   "jpaMetamodelFiltering": false,
   "fluentMethods": true,
   "readOnly": false,
+  "embedded": false,
   "clientRootFolder": "",
-  "applications": "*",
-  "embedded": false
+  "applications": "*"
 }

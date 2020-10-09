@@ -17,12 +17,12 @@ const validations: any = {
     titulo: {},
     cumplida: {},
     fechaCumplimiento: {},
-    observaciones: {}
-  }
+    observaciones: {},
+  },
 };
 
 @Component({
-  validations
+  validations,
 })
 export default class ProyectoFaseUpdate extends Vue {
   @Inject('alertService') private alertService: () => AlertService;

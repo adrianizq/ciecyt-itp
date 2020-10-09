@@ -46,8 +46,8 @@ describe('Component Tests', () => {
 
           proyectoService: () => new ProyectoService(),
 
-          rolesModalidadService: () => new RolesModalidadService()
-        }
+          rolesModalidadService: () => new RolesModalidadService(),
+        },
       });
       comp = wrapper.vm;
     });

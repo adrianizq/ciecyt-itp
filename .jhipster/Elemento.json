@@ -26,7 +26,7 @@
       "otherEntityField": "modalidad"
     }
   ],
-  "changelogDate": "20200124174503",
+  "changelogDate": "20201008033903",
   "entityTableName": "elemento",
   "dto": "mapstruct",
   "pagination": "pagination",
@@ -34,9 +34,7 @@
   "jpaMetamodelFiltering": false,
   "fluentMethods": true,
   "readOnly": false,
+  "embedded": false,
   "clientRootFolder": "",
-  "applications": "*",
-  "searchEngine": false,
-  "databaseType": "sql",
-  "embedded": false
+  "applications": "*"
 }

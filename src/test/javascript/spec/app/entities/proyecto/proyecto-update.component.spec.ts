@@ -15,6 +15,8 @@ import GrupoSemilleroService from '@/entities/grupo-semillero/grupo-semillero.se
 
 import ModalidadService from '@/entities/modalidad/modalidad.service';
 
+import InformacionPasantiaService from '@/entities/informacion-pasantia/informacion-pasantia.service';
+
 import FacultadService from '@/entities/facultad/facultad.service';
 
 const localVue = createLocalVue();
@@ -50,8 +52,10 @@ describe('Component Tests', () => {
 
           modalidadService: () => new ModalidadService(),
 
-          facultadService: () => new FacultadService()
-        }
+          informacionPasantiaService: () => new InformacionPasantiaService(),
+
+          facultadService: () => new FacultadService(),
+        },
       });
       comp = wrapper.vm;
     });

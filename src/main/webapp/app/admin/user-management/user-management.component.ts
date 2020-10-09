@@ -62,7 +62,7 @@ export default class JhiUserManagementComponent extends mixins(Vue2Filters.mixin
       .retrieve({
         page: this.page - 1,
         size: this.itemsPerPage,
-        sort: this.sort()
+        sort: this.sort(),
       })
       .then(res => {
         this.users = res.data;

@@ -9,7 +9,7 @@ const baseApiUrl = 'api/presupuesto-valors';
 export default class PresupuestoValorService {
   public find(id: number): Promise<IPresupuestoValor> {
     return new Promise<IPresupuestoValor>(resolve => {
-      axios.get(`${baseApiUrl}/${id}`).then(function(res) {
+      axios.get(`${baseApiUrl}/${id}`).then(function (res) {
         resolve(res.data);
       });
     });
@@ -17,7 +17,7 @@ export default class PresupuestoValorService {
 
   public retrieve(paginationQuery?: any): Promise<any> {
     return new Promise<any>(resolve => {
-      axios.get(baseApiUrl + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function(res) {
+      axios.get(baseApiUrl + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function (res) {
         resolve(res);
       });
     });
@@ -25,7 +25,7 @@ export default class PresupuestoValorService {
 
   public delete(id: number): Promise<any> {
     return new Promise<any>(resolve => {
-      axios.delete(`${baseApiUrl}/${id}`).then(function(res) {
+      axios.delete(`${baseApiUrl}/${id}`).then(function (res) {
         resolve(res);
       });
     });
@@ -33,7 +33,7 @@ export default class PresupuestoValorService {
 
   public create(entity: IPresupuestoValor): Promise<IPresupuestoValor> {
     return new Promise<IPresupuestoValor>(resolve => {
-      axios.post(`${baseApiUrl}`, entity).then(function(res) {
+      axios.post(`${baseApiUrl}`, entity).then(function (res) {
         resolve(res.data);
       });
     });
@@ -41,14 +41,14 @@ export default class PresupuestoValorService {
 
   public update(entity: IPresupuestoValor): Promise<IPresupuestoValor> {
     return new Promise<IPresupuestoValor>(resolve => {
-      axios.put(`${baseApiUrl}`, entity).then(function(res) {
+      axios.put(`${baseApiUrl}`, entity).then(function (res) {
         resolve(res.data);
       });
     });
   }
   public retrievePresupuetoProyecto(id?: number, paginationQuery?: any): Promise<any> {
     return new Promise<any>(resolve => {
-      axios.get('api/presupuesto-valor-proyecto' + `/${id}` + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function(res) {
+      axios.get('api/presupuesto-valor-proyecto' + `/${id}` + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function (res) {
         resolve(res);
       });
     });

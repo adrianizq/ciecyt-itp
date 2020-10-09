@@ -14,12 +14,12 @@ import ModalidadService from './modalidad.service';
 
 const validations: any = {
   modalidad: {
-    modalidad: {}
-  }
+    modalidad: {},
+  },
 };
 
 @Component({
-  validations
+  validations,
 })
 export default class ModalidadUpdate extends Vue {
   @Inject('alertService') private alertService: () => AlertService;

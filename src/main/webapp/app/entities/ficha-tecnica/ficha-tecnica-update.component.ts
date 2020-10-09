@@ -12,12 +12,12 @@ const validations: any = {
   fichaTecnica: {
     tituloProfesional: {},
     tituloPostgrado: {},
-    experiencia: {}
-  }
+    experiencia: {},
+  },
 };
 
 @Component({
-  validations
+  validations,
 })
 export default class FichaTecnicaUpdate extends Vue {
   @Inject('alertService') private alertService: () => AlertService;

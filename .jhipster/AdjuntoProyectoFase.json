@@ -43,7 +43,7 @@
       "otherEntityField": "titulo"
     }
   ],
-  "changelogDate": "20200124174516",
+  "changelogDate": "20201008033203",
   "entityTableName": "adjunto_proyecto_fase",
   "dto": "mapstruct",
   "pagination": "pagination",
@@ -51,7 +51,7 @@
   "jpaMetamodelFiltering": false,
   "fluentMethods": true,
   "readOnly": false,
+  "embedded": false,
   "clientRootFolder": "",
-  "applications": "*",
-  "embedded": false
+  "applications": "*"
 }

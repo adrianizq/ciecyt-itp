@@ -23,12 +23,12 @@ const validations: any = {
     valorUnitario: {},
     especie: {},
     dinero: {},
-    ordenVista: {}
-  }
+    ordenVista: {},
+  },
 };
 
 @Component({
-  validations
+  validations,
 })
 export default class PresupuestoValorUpdate extends Vue {
   @Inject('alertService') private alertService: () => AlertService;

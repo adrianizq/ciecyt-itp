@@ -24,8 +24,8 @@ const bModalStub = {
   render: () => {},
   methods: {
     hide: () => {},
-    show: () => {}
-  }
+    show: () => {},
+  },
 };
 
 describe('Component Tests', () => {
@@ -45,8 +45,8 @@ describe('Component Tests', () => {
         stubs: { bModal: bModalStub as any },
         provide: {
           alertService: () => new AlertService(store),
-          informacionPasantiaService: () => informacionPasantiaServiceStub
-        }
+          informacionPasantiaService: () => informacionPasantiaServiceStub,
+        },
       });
       comp = wrapper.vm;
     });

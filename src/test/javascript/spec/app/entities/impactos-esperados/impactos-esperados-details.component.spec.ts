@@ -28,7 +28,7 @@ describe('Component Tests', () => {
         store,
         i18n,
         localVue,
-        provide: { impactosEsperadosService: () => impactosEsperadosServiceStub }
+        provide: { impactosEsperadosService: () => impactosEsperadosServiceStub },
       });
       comp = wrapper.vm;
     });

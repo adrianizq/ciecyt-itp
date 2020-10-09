@@ -8,12 +8,12 @@ import ProductoService from './producto.service';
 
 const validations: any = {
   producto: {
-    producto: {}
-  }
+    producto: {},
+  },
 };
 
 @Component({
-  validations
+  validations,
 })
 export default class ProductoUpdate extends Vue {
   @Inject('alertService') private alertService: () => AlertService;
