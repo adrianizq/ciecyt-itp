@@ -51,6 +51,9 @@
             <column name="referencias" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
+            <column name="programa" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
             <column name="proyecto_linea_investigacion_id" type="bigint">
                 <constraints nullable="true" />
             </column>
@@ -64,6 +67,9 @@
                 <constraints nullable="true" />
             </column>
             <column name="facultad_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="proyecto_programa_id" type="bigint">
                 <constraints nullable="true" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
@@ -101,6 +107,7 @@
             <column name="convocatoria" type="string"/>
             <column name="tipo" type="string"/>
             <column name="referencias" type="string"/>
+            <column name="programa" type="string"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>

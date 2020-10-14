@@ -1,6 +1,9 @@
 package co.edu.itp.ciecyt.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 
@@ -12,6 +15,7 @@ import java.time.LocalDate;
  */
 @Entity
 @Table(name = "proyecto")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Proyecto implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -57,6 +61,9 @@ public class Proyecto implements Serializable {
     @Column(name = "referencias")
     private String referencias;
 
+    @Column(name = "programa")
+    private String programa;
+
     @ManyToOne
     @JsonIgnoreProperties(value = "proyectos", allowSetters = true)
     private LineaInvestigacion proyectoLineaInvestigacion;
@@ -70,14 +77,17 @@ public class Proyecto implements Serializable {
     private Modalidad proyectoModalidad;
 
     @ManyToOne
+    @JsonIgnoreProperties(value = "proyectos", allowSetters = true)
+    private LineaInvestigacion subLineaLineaInvestigacion;
+
+   
+    @ManyToOne
     @JsonIgnoreProperties(value = "facultadProyectos", allowSetters = true)
     private Facultad facultad;
 
     @ManyToOne
     @JsonIgnoreProperties(value = "proyectos", allowSetters = true)
-    private LineaInvestigacion subLineaLineaInvestigacion;
-
-    
+    private Programa proyectoPrograma;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -244,6 +254,19 @@ public class Proyecto implements Serializable {
         this.referencias = referencias;
     }
 
+    public String getPrograma() {
+        return programa;
+    }
+
+    public Proyecto programa(String programa) {
+        this.programa = programa;
+        return this;
+    }
+
+    public void setPrograma(String programa) {
+        this.programa = programa;
+    }
+
     public LineaInvestigacion getProyectoLineaInvestigacion() {
         return proyectoLineaInvestigacion;
     }
@@ -283,19 +306,6 @@ public class Proyecto implements Serializable {
         this.proyectoModalidad = modalidad;
     }
 
-    public Facultad getFacultad() {
-        return facultad;
-    }
-
-    public Proyecto facultad(Facultad facultad) {
-        this.facultad = facultad;
-        return this;
-    }
-
-    public void setFacultad(Facultad facultad) {
-        this.facultad = facultad;
-    }
-
     public LineaInvestigacion getSubLineaLineaInvestigacion() {
         return subLineaLineaInvestigacion;
     }
@@ -309,8 +319,34 @@ public class Proyecto implements Serializable {
         this.subLineaLineaInvestigacion = lineaInvestigacion;
     }
 
+    
 
-   // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
+    public Facultad getFacultad() {
+        return facultad;
+    }
+
+    public Proyecto facultad(Facultad facultad) {
+        this.facultad = facultad;
+        return this;
+    }
+
+    public void setFacultad(Facultad facultad) {
+        this.facultad = facultad;
+    }
+
+    public Programa getProyectoPrograma() {
+        return proyectoPrograma;
+    }
+
+    public Proyecto proyectoPrograma(Programa programa) {
+        this.proyectoPrograma = programa;
+        return this;
+    }
+
+    public void setProyectoPrograma(Programa programa) {
+        this.proyectoPrograma = programa;
+    }
+    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
     public boolean equals(Object o) {
@@ -345,6 +381,7 @@ public class Proyecto implements Serializable {
             ", convocatoria='" + getConvocatoria() + "'" +
             ", tipo='" + getTipo() + "'" +
             ", referencias='" + getReferencias() + "'" +
+            ", programa='" + getPrograma() + "'" +
             "}";
     }
 }

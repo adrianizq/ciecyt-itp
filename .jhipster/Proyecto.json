@@ -48,6 +48,10 @@
     {
       "fieldName": "referencias",
       "fieldType": "String"
+    },
+    {
+      "fieldName": "programa",
+      "fieldType": "String"
     }
   ],
   "relationships": [
@@ -92,6 +96,13 @@
       "otherEntityRelationshipName": "facultadProyecto",
       "relationshipName": "facultad",
       "otherEntityField": "id"
+    },
+    {
+      "relationshipName": "proyectoPrograma",
+      "otherEntityName": "programa",
+      "relationshipType": "many-to-one",
+      "otherEntityField": "programa",
+      "otherEntityRelationshipName": "proyecto"
     }
   ],
   "changelogDate": "20201008035903",
@@ -104,5 +115,7 @@
   "readOnly": false,
   "embedded": false,
   "clientRootFolder": "",
-  "applications": "*"
+  "applications": "*",
+  "searchEngine": false,
+  "databaseType": "sql"
 }

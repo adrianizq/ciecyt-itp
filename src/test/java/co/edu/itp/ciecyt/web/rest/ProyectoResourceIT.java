@@ -70,6 +70,9 @@ public class ProyectoResourceIT {
     private static final String DEFAULT_REFERENCIAS = "AAAAAAAAAA";
     private static final String UPDATED_REFERENCIAS = "BBBBBBBBBB";
 
+    private static final String DEFAULT_PROGRAMA = "AAAAAAAAAA";
+    private static final String UPDATED_PROGRAMA = "BBBBBBBBBB";
+
     @Autowired
     private ProyectoRepository proyectoRepository;
 
@@ -106,7 +109,8 @@ public class ProyectoResourceIT {
             .palabrasClave(DEFAULT_PALABRAS_CLAVE)
             .convocatoria(DEFAULT_CONVOCATORIA)
             .tipo(DEFAULT_TIPO)
-            .referencias(DEFAULT_REFERENCIAS);
+            .referencias(DEFAULT_REFERENCIAS)
+            .programa(DEFAULT_PROGRAMA);
         return proyecto;
     }
     /**
@@ -128,7 +132,8 @@ public class ProyectoResourceIT {
             .palabrasClave(UPDATED_PALABRAS_CLAVE)
             .convocatoria(UPDATED_CONVOCATORIA)
             .tipo(UPDATED_TIPO)
-            .referencias(UPDATED_REFERENCIAS);
+            .referencias(UPDATED_REFERENCIAS)
+            .programa(UPDATED_PROGRAMA);
         return proyecto;
     }
 
@@ -164,6 +169,7 @@ public class ProyectoResourceIT {
         assertThat(testProyecto.getConvocatoria()).isEqualTo(DEFAULT_CONVOCATORIA);
         assertThat(testProyecto.getTipo()).isEqualTo(DEFAULT_TIPO);
         assertThat(testProyecto.getReferencias()).isEqualTo(DEFAULT_REFERENCIAS);
+        assertThat(testProyecto.getPrograma()).isEqualTo(DEFAULT_PROGRAMA);
     }
 
     @Test
@@ -209,7 +215,8 @@ public class ProyectoResourceIT {
             .andExpect(jsonPath("$.[*].palabrasClave").value(hasItem(DEFAULT_PALABRAS_CLAVE)))
             .andExpect(jsonPath("$.[*].convocatoria").value(hasItem(DEFAULT_CONVOCATORIA)))
             .andExpect(jsonPath("$.[*].tipo").value(hasItem(DEFAULT_TIPO)))
-            .andExpect(jsonPath("$.[*].referencias").value(hasItem(DEFAULT_REFERENCIAS)));
+            .andExpect(jsonPath("$.[*].referencias").value(hasItem(DEFAULT_REFERENCIAS)))
+            .andExpect(jsonPath("$.[*].programa").value(hasItem(DEFAULT_PROGRAMA)));
     }
     
     @Test
@@ -234,7 +241,8 @@ public class ProyectoResourceIT {
             .andExpect(jsonPath("$.palabrasClave").value(DEFAULT_PALABRAS_CLAVE))
             .andExpect(jsonPath("$.convocatoria").value(DEFAULT_CONVOCATORIA))
             .andExpect(jsonPath("$.tipo").value(DEFAULT_TIPO))
-            .andExpect(jsonPath("$.referencias").value(DEFAULT_REFERENCIAS));
+            .andExpect(jsonPath("$.referencias").value(DEFAULT_REFERENCIAS))
+            .andExpect(jsonPath("$.programa").value(DEFAULT_PROGRAMA));
     }
     @Test
     @Transactional
@@ -268,7 +276,8 @@ public class ProyectoResourceIT {
             .palabrasClave(UPDATED_PALABRAS_CLAVE)
             .convocatoria(UPDATED_CONVOCATORIA)
             .tipo(UPDATED_TIPO)
-            .referencias(UPDATED_REFERENCIAS);
+            .referencias(UPDATED_REFERENCIAS)
+            .programa(UPDATED_PROGRAMA);
         ProyectoDTO proyectoDTO = proyectoMapper.toDto(updatedProyecto);
 
         restProyectoMockMvc.perform(put("/api/proyectos")
@@ -292,6 +301,7 @@ public class ProyectoResourceIT {
         assertThat(testProyecto.getConvocatoria()).isEqualTo(UPDATED_CONVOCATORIA);
         assertThat(testProyecto.getTipo()).isEqualTo(UPDATED_TIPO);
         assertThat(testProyecto.getReferencias()).isEqualTo(UPDATED_REFERENCIAS);
+        assertThat(testProyecto.getPrograma()).isEqualTo(UPDATED_PROGRAMA);
     }
 
     @Test

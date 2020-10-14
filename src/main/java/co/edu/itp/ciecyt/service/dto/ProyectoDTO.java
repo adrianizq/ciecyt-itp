@@ -34,6 +34,8 @@ public class ProyectoDTO implements Serializable {
 
     private String referencias;
 
+    private String programa;
+
 
     private Long proyectoLineaInvestigacionId;
 
@@ -47,26 +49,30 @@ public class ProyectoDTO implements Serializable {
 
     private String proyectoModalidadModalidad;
 
-    private Long facultadId;
-
     private Long subLineaLineaInvestigacionId;
 
     private String subLineaLineaInvestigacionLinea;
 
-      //adr
+    private Long facultadId;
 
-      private Long asesorId;
+    private Long proyectoProgramaId;
+
+    private String proyectoProgramaPrograma;
+
+         //adr
+
+         private Long asesorId;
 
 
-      public Long getAsesorId(){
-          return asesorId;
-      }
-  
-      public void setAsesorId(Long asesorId){
-          this.asesorId = asesorId;
-      }
-  // -----adr
-  
+         public Long getAsesorId(){
+             return asesorId;
+         }
+     
+         public void setAsesorId(Long asesorId){
+             this.asesorId = asesorId;
+         }
+     // -----adr
+     
     
     public Long getId() {
         return id;
@@ -172,6 +178,14 @@ public class ProyectoDTO implements Serializable {
         this.referencias = referencias;
     }
 
+    public String getPrograma() {
+        return programa;
+    }
+
+    public void setPrograma(String programa) {
+        this.programa = programa;
+    }
+
     public Long getProyectoLineaInvestigacionId() {
         return proyectoLineaInvestigacionId;
     }
@@ -220,14 +234,6 @@ public class ProyectoDTO implements Serializable {
         this.proyectoModalidadModalidad = modalidadModalidad;
     }
 
-    public Long getFacultadId() {
-        return facultadId;
-    }
-
-    public void setFacultadId(Long facultadId) {
-        this.facultadId = facultadId;
-    }
-
     public Long getSubLineaLineaInvestigacionId() {
         return subLineaLineaInvestigacionId;
     }
@@ -242,6 +248,30 @@ public class ProyectoDTO implements Serializable {
 
     public void setSubLineaLineaInvestigacionLinea(String lineaInvestigacionLinea) {
         this.subLineaLineaInvestigacionLinea = lineaInvestigacionLinea;
+    }
+
+    public Long getFacultadId() {
+        return facultadId;
+    }
+
+    public void setFacultadId(Long facultadId) {
+        this.facultadId = facultadId;
+    }
+
+    public Long getProyectoProgramaId() {
+        return proyectoProgramaId;
+    }
+
+    public void setProyectoProgramaId(Long programaId) {
+        this.proyectoProgramaId = programaId;
+    }
+
+    public String getProyectoProgramaPrograma() {
+        return proyectoProgramaPrograma;
+    }
+
+    public void setProyectoProgramaPrograma(String programaPrograma) {
+        this.proyectoProgramaPrograma = programaPrograma;
     }
 
     @Override
@@ -278,15 +308,18 @@ public class ProyectoDTO implements Serializable {
             ", convocatoria='" + getConvocatoria() + "'" +
             ", tipo='" + getTipo() + "'" +
             ", referencias='" + getReferencias() + "'" +
+            ", programa='" + getPrograma() + "'" +
             ", proyectoLineaInvestigacionId=" + getProyectoLineaInvestigacionId() +
             ", proyectoLineaInvestigacionLinea='" + getProyectoLineaInvestigacionLinea() + "'" +
             ", proyectoGrupoSemilleroId=" + getProyectoGrupoSemilleroId() +
             ", proyectoGrupoSemilleroNombre='" + getProyectoGrupoSemilleroNombre() + "'" +
             ", proyectoModalidadId=" + getProyectoModalidadId() +
             ", proyectoModalidadModalidad='" + getProyectoModalidadModalidad() + "'" +
-            ", facultadId=" + getFacultadId() +
             ", subLineaLineaInvestigacionId=" + getSubLineaLineaInvestigacionId() +
             ", subLineaLineaInvestigacionLinea='" + getSubLineaLineaInvestigacionLinea() + "'" +
+            ", facultadId=" + getFacultadId() +
+            ", proyectoProgramaId=" + getProyectoProgramaId() +
+            ", proyectoProgramaPrograma='" + getProyectoProgramaPrograma() + "'" +
             "}";
     }
 }

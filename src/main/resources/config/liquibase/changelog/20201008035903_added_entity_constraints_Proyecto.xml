@@ -38,5 +38,11 @@
                                  referencedColumnNames="id"
                                  referencedTableName="facultad"/>
 
+        <addForeignKeyConstraint baseColumnNames="proyecto_programa_id"
+                                 baseTableName="proyecto"
+                                 constraintName="fk_proyecto_proyecto_programa_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="programa"/>
+
     </changeSet>
 </databaseChangeLog>
