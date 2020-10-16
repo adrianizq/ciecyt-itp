@@ -126,7 +126,7 @@
                                <label class="form-control-label "  v-text="$t('ciecytApp.proyecto.facultad')" for="proyecto-facultad">Facultad</label> 
                             <b-form-select :options="facultades"  text-field="facultad" value-field="id" id="facultad"
                             v-model="proyecto.facultadId"
-                              @input="setFacultad"
+                              @input="setProgramas"
                             >
                             </b-form-select>
                             <div class="error" v-if="!$v.proyecto.facultadId.required && !iniciandoFacultad">La facultad es requerida</div>
@@ -138,7 +138,7 @@
                                       <div class="col-md-6 col-12">
                         <div class="form-group" >
                                <label class="form-control-label "  v-text="$t('ciecytApp.programa.programa')" for="proyecto-programa">Programa</label>                 
-                            <b-form-select :options="programs" text-field="programa" value-field="id" id="programa" 
+                            <b-form-select :options="programasFacultad" text-field="programa" value-field="id" id="programa" 
                             v-model="proyecto.proyectoProgramaId"
                              
                             >
@@ -316,6 +316,7 @@ import { IIntegranteProyecto, IntegranteProyecto } from '@/shared/model/integran
         public proyId: string = null;
         public integranteProyecto: IIntegranteProyecto = new IntegranteProyecto();
         public programs: IPrograma[] = [];
+        public programasFacultad = [];
       
        
 
@@ -523,7 +524,18 @@ import { IIntegranteProyecto, IntegranteProyecto } from '@/shared/model/integran
              this.iniciandoAsesor= false;
              this.submitStatus='ERROR';
           }
-        
+    setProgramas(value) {
+        //console.log(value);
+    this.programasFacultad = [];
+    let prog = this.programs.filter(function(e) {
+      return e.programaFacultadId == value;
+    });
+    prog.forEach(element => {
+      this.programasFacultad.push(element.programa);
+    });
+    this.programasFacultad.sort();
+    console.log(this.programasFacultad);
+  }
         
         
     }

@@ -26,7 +26,17 @@
                 <tr>
                     <th v-on:click="changeOrder('id')"><span v-text="$t('global.field.id')">ID</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th v-on:click="changeOrder('programa')"><span v-text="$t('ciecytApp.programa.programa')">Programa</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
+                     <th v-on:click="changeOrder('descripcion')"><span v-text="$t('ciecytApp.programa.descripcion')">Descripcion</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
+                      <th v-on:click="changeOrder('codigoInterno')"><span v-text="$t('ciecytApp.programa.codigoInterno')">codigoInterno</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
+                      <th v-on:click="changeOrder('codigoInterno')"><span v-text="$t('ciecytApp.programa.codigoSnies')">codigoSnies</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
+                      <th v-on:click="changeOrder('creditos')"><span v-text="$t('ciecytApp.programa.creditos')">creditos</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
+                    <th v-on:click="changeOrder('ciclo')"><span v-text="$t('ciecytApp.programa.ciclo')">ciclo</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
+                    <th v-on:click="changeOrder('resolucion')"><span v-text="$t('ciecytApp.programa.resolucion')">resolucion</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
+                    <th v-on:click="changeOrder('titulo')"><span v-text="$t('ciecytApp.programa.titulo')">titulo que otorga</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
+                    <th v-on:click="changeOrder('duracionSemestres')"><span v-text="$t('ciecytApp.programa.duracionSemestres')">duracion en semestres</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
+
                     <th v-on:click="changeOrder('programaFacultad')"><span v-text="$t('ciecytApp.programa.programaFacultad')">Programa Acuerdo</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
+
                     <th></th>
                 </tr>
                 </thead>
@@ -37,9 +47,17 @@
                         <router-link :to="{name: 'ProgramaView', params: {programaId: programa.id}}">{{programa.id}}</router-link>
                     </td>
                     <td>{{programa.programa}}</td>
+                     <td>{{programa.descripcion}}</td>
+                      <td>{{programa.codigoInterno}}</td>
+                       <td>{{programa.codigoSnies}}</td>
+                        <td>{{programa.creditos}}</td>
+                         <td>{{programa.ciclo}}</td>
+                          <td>{{programa.resolucion}}</td>
+                           <td>{{programa.titulo}}</td>
+                            <td>{{programa.duracionSemestres}}</td>
                     <td>
                         <div v-if="programa.programaFacultadId">
-                            <router-link :to="{name: 'FacultadView', params: {facultadId: programa.programaFacultadId}}">{{programa.programaFacultad}}</router-link>
+                            <router-link :to="{name: 'FacultadView', params: {facultadId: programa.programaFacultadId}}">{{programa.programaFacultadId}}</router-link>
                         </div>
                     </td>
                     <td class="text-right">

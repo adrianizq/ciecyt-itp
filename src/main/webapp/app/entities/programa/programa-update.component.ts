@@ -12,6 +12,14 @@ import ProgramaService from './programa.service';
 const validations: any = {
   programa: {
     programa: {},
+    descripcion: {},
+      codigoInterno: {},
+      codigoSnies: {},
+      creditos: {},
+      ciclo:{},
+      resolucion: {},
+      titulo: {},
+      duracionSemestres: {},
   },
 };
 

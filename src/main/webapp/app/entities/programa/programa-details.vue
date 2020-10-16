@@ -10,6 +10,60 @@
                     <dd>
                         <span>{{programa.programa}}</span>
                     </dd>
+<dt>
+                        <span v-text="$t('ciecytApp.programa.descripcion')">descripcion</span>
+                    </dt>
+                     <dd>
+                        <span>{{descripcion}}</span>
+                    </dd>
+                    <dt>
+                        <span v-text="$t('ciecytApp.programa.codigoInterno')">codigoInterno</span>
+                    </dt>
+                     <dd>
+                        <span>{{programa.codigoInterno}}</span>
+                    </dd>
+                    <dt>
+                        <span v-text="$t('ciecytApp.programa.codigoSnies')">codigoSnies</span>
+                    </dt>
+                     <dd>
+                        <span>{{programa.codigoSnies}}</span>
+                    </dd>
+                    <dt>
+                        <span v-text="$t('ciecytApp.programa.creditos')">creditos</span>
+                    </dt>
+                     <dd>
+                        <span>{{programa.creditos}}</span>
+                    </dd>
+                    <dt>
+                        <span v-text="$t('ciecytApp.programa.ciclo')">ciclo</span>
+                    </dt>
+                     <dd>
+                        <span>{{programa.ciclo}}</span>
+                    </dd>
+                    <dt>
+                        <span v-text="$t('ciecytApp.programa.resolucion')">resolucion</span>
+                    </dt>
+                     <dd>
+                        <span>{{programa.resolucion}}</span>
+                    </dd>
+                    <dt>
+                        <span v-text="$t('ciecytApp.programa.titulo')">titulo</span>
+                    </dt>
+                     <dd>
+                        <span>{{programa.titulo}}</span>
+                    </dd>
+                    <dt>
+                        <span v-text="$t('ciecytApp.programa.programa')">duracionSemestres</span>
+                    </dt>
+                     <dd>
+                        <span>{{programa.duracionSemestres}}</span>
+                    </dd>
+                    <dt>
+                        <span v-text="$t('ciecytApp.programa.programaFacultad')">programaFacultad</span>
+                    </dt>
+                    <dd>
+                        <span>{{programa.programaFacultad}}</span>
+                    </dd>
                     
                 </dl>
                 <button type="submit"
