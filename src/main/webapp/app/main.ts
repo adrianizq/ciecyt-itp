@@ -70,6 +70,7 @@ import UsuarioService from '@/entities/usuario/usuario.service';
 import MenuService from '@/entities/menu/menu.service';
 import RolMenuService from '@/entities/rol-menu/rol-menu.service';
 import InvestigacionTipoService from '@/entities/investigacion-tipo/investigacion-tipo.service';
+import ProgramaService from '@/entities/programa/programa.service';
 // jhipster-needle-add-entity-service-to-main-import - JHipster will import entities services here
 
 Vue.config.productionTip = false;
@@ -170,6 +171,7 @@ new Vue({
     menuService: () => new MenuService(),
     rolMenuService: () => new RolMenuService(),
     investigacionTipoService: () => new InvestigacionTipoService(),
+    programaService: () => new ProgramaService(),
     // jhipster-needle-add-entity-service-to-main - JHipster will import entities services here
     accountService: () => accountService,
   },

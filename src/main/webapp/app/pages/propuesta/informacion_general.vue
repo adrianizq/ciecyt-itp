@@ -131,6 +131,21 @@
                         </div>
                     </div>
 
+                    <!-- ////////////7777777777777 -->
+                                      <div class="col-md-6 col-12">
+                        <div class="form-group" >
+                               <label class="form-control-label "  v-text="$t('ciecytApp.programa.programa')" for="proyecto-programa">Programa</label>                 
+                            <b-form-select :options="programs" text-field="programa" value-field="id" id="programa" 
+                            v-model="proyecto.proyectoProgramaId"
+                             
+                            >
+                            </b-form-select>
+                           
+                                <!--<div class="error" v-if="!$v.proyecto.proyectoModalidadId.required && !iniciandoModalidad">Una modalidad de trabajo de grado es requerida</div> -->
+                        </div>
+                    </div>
+                   <!--   /////////////////////////-->
+
                     <div class="col-md-6 col-12">
                       <div class="form-group"  :class="{ 'form-group--error': $v.proyecto.proyectoLineaInvestigacionId }">
                             <label class="form-control-label "  v-text="$t('ciecytApp.proyecto.proyectoLineaInvestigacion')" for="proyecto-linea-investigacion">Linea de Investigación</label> 
@@ -228,6 +243,8 @@
     //ADR
     import { IProyecto, Proyecto } from '@/shared/model/proyecto.model';
     import ProyectoService from '@/entities/proyecto/proyecto.service';
+    import ProgramaService from '@/entities/programa/programa.service';
+    import { IPrograma } from '@/shared/model/programa.model';
 
    
 
@@ -278,6 +295,7 @@ import { IIntegranteProyecto, IntegranteProyecto } from '@/shared/model/integran
         @Inject('lineaInvestigacionService') private lineaInvestigacionService: () => LineaInvestigacionService;
         @Inject('usuarioService') private usuarioService: () => UsuarioService;
         @Inject('proyectoService') private proyectoService: () => ProyectoService;
+        @Inject('programaService') private programaService: () => ProgramaService;
          
         @Inject('alertService') private alertService: () => AlertService;
 
@@ -285,6 +303,7 @@ import { IIntegranteProyecto, IntegranteProyecto } from '@/shared/model/integran
         public facultades: IFacultad[] = [];
         public lineas_investigacion: ILineaInvestigacion[] = [];
         public users: IUser[] = [];
+        public programs: IPrograma[] = [];
 
         public linea_investigacion: number = null;
         public facultad: number = null;
@@ -415,6 +434,15 @@ import { IIntegranteProyecto, IntegranteProyecto } from '@/shared/model/integran
                 .retrieve()
                 .then(res => {
                     this.modalidads = res.data;
+                    console.log(this.modalidads);
+                    
+                });
+
+                 this.programaService()
+                .retrieve()
+                .then(res => {
+                    this.programs = res.data;
+                    //console.log(this.programs);
                     
                 });
 

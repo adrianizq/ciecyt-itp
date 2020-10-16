@@ -268,6 +268,14 @@ const RolMenu = () => import('../entities/rol-menu/rol-menu.vue');
 const RolMenuUpdate = () => import('../entities/rol-menu/rol-menu-update.vue');
 // prettier-ignore
 const RolMenuDetails = () => import('../entities/rol-menu/rol-menu-details.vue');
+
+// prettier-ignore
+const Programa = () => import('../entities/programa/programa.vue');
+// prettier-ignore
+const ProgramaUpdate = () => import('../entities/programa/programa-update.vue');
+// prettier-ignore
+const ProgramaDetails = () => import('../entities/programa/programa-details.vue');
+// prettier-ignore
 // jhipster-needle-add-entity-to-router-import - JHipster will import entities to the router here
 
 const Rol = () => import('../pages/rol/rol.vue');
@@ -869,6 +877,31 @@ export default new Router({
       meta: { authorities: ['ROLE_USER'] }
     }
     ,
+
+    {
+      path: '/entity/programa',
+      name: 'Programa',
+      component: Programa,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    {
+      path: '/entity/programa/new',
+      name: 'ProgramaCreate',
+      component: ProgramaUpdate,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    {
+      path: '/entity/programa/:programaId/edit',
+      name: 'ProgramaEdit',
+      component: ProgramaUpdate,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    {
+      path: '/entity/programa/:programaId/view',
+      name: 'ProgramaView',
+      component: ProgramaDetails,
+      meta: { authorities: ['ROLE_USER'] }
+    }
     /*
     {
       path: '/pendientes/elementos',
