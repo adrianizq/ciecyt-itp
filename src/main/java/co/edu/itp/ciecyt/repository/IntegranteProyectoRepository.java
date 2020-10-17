@@ -17,7 +17,7 @@ public interface IntegranteProyectoRepository extends JpaRepository<IntegrantePr
     @Query("select integranteProyecto from IntegranteProyecto integranteProyecto where integranteProyecto.integranteProyectoUser.login = ?#{principal.username}")
     List<IntegranteProyecto> findByIntegranteProyectoUserIsCurrentUser();
     List<IntegranteProyecto> findByIntegranteProyectoProyectoId(Long idProyecto);
-    @Query("select ip from IntegranteProyecto ip integranteProyecto where ip.id = ?1 and ip.integranteProyectoRolesModalidad.id = ?2 ")
+    @Query("select ip from IntegranteProyecto ip where ip.id = ?1 and ip.integranteProyectoRolesModalidad.id = ?2 ")
     List<IntegranteProyecto> findByIntegranteProyectoProyectoIdAndIntegranteProyectoRolesModalidadId(Long idProyecto, Long idRolModalidad);
 
     IntegranteProyecto findByIdOrderById(Long id);
@@ -26,6 +26,7 @@ public interface IntegranteProyectoRepository extends JpaRepository<IntegrantePr
     //List<IntegranteProyecto> findByIntegranteProyectoUserIdOrderById(Long idUsuario, String authority);
     //No
     //List<IntegranteProyecto> findByIntegranteProyectoUserIdAndIntegranteProyectoRolesModalidadIdIn(Long idUsuario, Long idRolModalidad);
-
+    
+    
 
 }
