@@ -10,7 +10,7 @@
             <div class="form-group">
               <label class="form-control-label " for="informacion-pasantia-convenio">Número del Convenio ITP - Empresa </label>
               <input
-                type="num"
+                type="integer"
                 class="form-control"
                 name="convenio-empresa"
                 id="informacion-pasantia-convenio-empresa"
