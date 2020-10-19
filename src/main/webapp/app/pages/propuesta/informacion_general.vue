@@ -320,7 +320,7 @@
             <font-awesome-icon icon="ban"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.cancel')">Cancel</span>
           </button>
 
-          <button type="submit" id="save-entity" class="btn btn-primary" :disabled="this.submitStatus === 'PENDING'">
+          <button type="submit" id="save-entity" class="btn btn-primary" >
             <font-awesome-icon icon="save"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.save')">Save</span>
           </button>
 
@@ -358,25 +358,30 @@ import { IIntegranteProyecto, IntegranteProyecto } from '@/shared/model/integran
 
 const validations: any = {
   proyecto: {
-    id: {},
+    //id: {},
     titulo: { required, maxLength: maxLength(1000), minLength: minLength(20) },
+    url: { url },
+    lugarEjecucion: {required, maxLength: maxLength(128)},
+    tipo: {required, maxLength: maxLength(128)},
+    fechaIni: {required},
+    fechaFin: {required},
     palabrasClave: { required, maxLength: maxLength(100000) },
+
     proyectoModalidadId: { required },
     facultadId: { required },
     //programa: { required },
     proyectoLineaInvestigacionId: { required },
-    subLineaLineaInvestigacionId: { required) },
+    subLineaLineaInvestigacionId: { required },
     asesorId:  { required},
-    url: { url },
-    lugarEjecucion: {required, maxLength: maxLength(128)},
+   
+   
     duracion: { required, between: between(3, 6) },
-    tipo: {required, maxLength: maxLength(128)},
-    fechaIni: {required},
-    fechaFin: {required},
+    
+    
     referencias: {required},
-    contrapartidaPesos: {},
-    contrapartidaEspecie: {},
-    convocatoria: {},
+    //contrapartidaPesos: {},
+    //contrapartidaEspecie: {},
+    //convocatoria: {},
   },
   integranteProyecto: {
     integranteProyectoUserId: { required, between: between(1, 100000000) },
