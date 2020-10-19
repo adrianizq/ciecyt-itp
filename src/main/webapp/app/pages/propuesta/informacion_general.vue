@@ -223,7 +223,7 @@
             </div>
           </div>
 
-          <!-- ////////////7777777777777 -->
+          <!-- ////////////7777777777777 
           <div class="col-md-6 col-12">
             <div class="form-group" :class="{ 'form-group--error': $v.proyecto.programa }">
               <label class="form-control-label" v-text="$t('ciecytApp.programa.programa')" for="proyecto-programa">Programa</label>
@@ -238,7 +238,7 @@
                <div class="text-danger" v-if="!$v.proyecto.programa.required">Este campo es requerido</div>
             </div>
           </div>
-          <!--   /////////////////////////-->
+          -->
 
           <div class="col-md-6 col-12">
             <div class="form-group" :class="{ 'form-group--error': $v.proyecto.proyectoLineaInvestigacionId }">
@@ -259,6 +259,9 @@
                   'is-valid': !$v.proyecto.proyectoLineaInvestigacionId.$invalid
                 }"
               >
+              <option v-for="(selectOption, indexOpt) in LineasInvestigacion" :key="indexOpt" :value="selectOption.id">
+                  ({{ selectOption.codigoLinea }}) {{ selectOption.linea }}
+                </option>
               </b-form-select>
 
              <div class="text-danger" v-if="!$v.proyecto.proyectoLineaInvestigacionId.required">Este campo es requerido</div>
@@ -345,8 +348,8 @@ import { IUser } from '@/shared/model/user.model';
 //ADR
 import { IProyecto, Proyecto } from '@/shared/model/proyecto.model';
 import ProyectoService from '@/entities/proyecto/proyecto.service';
-import ProgramaService from '@/entities/programa/programa.service';
-import { IPrograma } from '@/shared/model/programa.model';
+//import ProgramaService from '@/entities/programa/programa.service';
+//import { IPrograma } from '@/shared/model/programa.model';
 
 import { numeric, required, minLength, maxLength, between, url } from 'vuelidate/lib/validators';
 import { id } from 'date-fns/esm/locale';
@@ -360,7 +363,7 @@ const validations: any = {
     palabrasClave: { required, maxLength: maxLength(100000) },
     proyectoModalidadId: { required },
     facultadId: { required },
-    programa: { required },
+    //programa: { required },
     proyectoLineaInvestigacionId: { required },
     subLineaLineaInvestigacionId: { required) },
     asesorId:  { required},
@@ -380,6 +383,7 @@ const validations: any = {
   },
 };
 
+
 @Component({
   components: { MenuLateral },
 
@@ -391,7 +395,7 @@ export default class PropuestaInformacionGeneral extends Vue {
   @Inject('lineaInvestigacionService') private lineaInvestigacionService: () => LineaInvestigacionService;
   @Inject('usuarioService') private usuarioService: () => UsuarioService;
   @Inject('proyectoService') private proyectoService: () => ProyectoService;
-  @Inject('programaService') private programaService: () => ProgramaService;
+ // @Inject('programaService') private programaService: () => ProgramaService;
 
   @Inject('alertService') private alertService: () => AlertService;
 
@@ -399,7 +403,7 @@ export default class PropuestaInformacionGeneral extends Vue {
   public facultades: IFacultad[] = [];
   public lineas_investigacion: ILineaInvestigacion[] = [];
   public users: IUser[] = [];
-  public programs: IPrograma[] = [];
+  //public programs: IPrograma[] = [];
 
   public linea_investigacion: number = null;
   public facultad: number = null;
@@ -412,14 +416,7 @@ export default class PropuestaInformacionGeneral extends Vue {
   public isSaving = false;
 
   public submitStatus: string = 'PENDING';
-  public iniciandoTitulo: boolean = true;
-  public iniciandoPalabrasClave: boolean = true;
-  public iniciandoModalidad: boolean = true;
-  public iniciandoFacultad: boolean = true;
-  public iniciandoLinea: boolean = true;
-  public iniciandoSubLinea: boolean = true;
-  public iniciandoAsesor: boolean = true;
-
+  
   beforeRouteEnter(to, from, next) {
     next(vm => {
       if (to.params.proyectoId) {
@@ -432,33 +429,10 @@ export default class PropuestaInformacionGeneral extends Vue {
   public save(): void {
     this.isSaving = true;
 
-    this.$v.$touch();
-    if (this.$v.$invalid) {
-      if (this.$v.proyecto.titulo.$invalid) {
-        //this.setTitulo("");
-      }
-      if (this.$v.proyecto.palabrasClave.$invalid) {
-        this.setPalabrasClave('');
-      }
-      if (this.$v.proyecto.proyectoModalidadId.$invalid) {
-        this.setModalidad(0);
-      }
-      if (this.$v.proyecto.facultadId.$invalid) {
-        this.setFacultad(0);
-      }
-      if (this.$v.proyecto.proyectoLineaInvestigacionId.$invalid) {
-        this.setLinea(0);
-      }
-      if (this.$v.proyecto.subLineaLineaInvestigacionId.$invalid) {
-        this.setSubLinea(0);
-      }
-      if (this.$v.integranteProyecto.integranteProyectoUserId.$invalid) {
-        console.log(this.$v);
-        this.setAsesor('');
-      }
-
-      this.submitStatus = 'ERROR';
-    } else {
+    //this.$v.$touch();
+    //if (this.$v.$invalid) {
+          //this.submitStatus = 'ERROR';
+    //} else {
       if (this.proyecto.id) {
         this.proyectoService()
           .update(this.proyecto)
@@ -482,11 +456,11 @@ export default class PropuestaInformacionGeneral extends Vue {
             this.alertService().showAlert(message, 'success');
           });
       }
-      this.submitStatus = 'PENDING';
-      setTimeout(() => {
-        this.submitStatus = 'OK';
-      }, 500);
-    }
+      //this.submitStatus = 'PENDING';
+      //setTimeout(() => {
+      //  this.submitStatus = 'OK';
+      //}, 500);
+    //}
     console.log(this.submitStatus);
   }
 
@@ -520,12 +494,12 @@ export default class PropuestaInformacionGeneral extends Vue {
         console.log(this.modalidads);
       });
 
-    this.programaService()
-      .retrieve()
+   /* this.programaService()
+      .retrieve() 
       .then(res => {
         this.programs = res.data;
-        //console.log(this.programs);
-      });
+        console.log(this.programs);
+      }); */
 
     //Obtenienedo el asesor del proyecto
     if (this.proyId) {
@@ -565,6 +539,7 @@ export default class PropuestaInformacionGeneral extends Vue {
             this.iniciandoTitulo= false;
             this.submitStatus='ERROR';
         }*/
+  /*
 
   setPalabrasClave(value) {
     this.iniciandoPalabrasClave = false;
@@ -589,14 +564,14 @@ export default class PropuestaInformacionGeneral extends Vue {
   setSubLinea(value) {
     this.iniciandoSubLinea = false;
     this.submitStatus = 'ERROR';
-  }
+  }*/
 
   setAsesor(value) {
-    //console.log($v);
-    this.integranteProyecto.integranteProyectoUserId = value;
-    this.iniciandoAsesor = false;
-    this.submitStatus = 'ERROR';
-  }
+    console.log(value);
+    //this.integranteProyecto.integranteProyectoUserId = value;
+    this.proyecto.asesorId =  value;
+   
+}
 }
 </script>
 
