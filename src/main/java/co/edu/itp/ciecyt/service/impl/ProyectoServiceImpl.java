@@ -148,9 +148,12 @@ public class ProyectoServiceImpl implements ProyectoService {
         rolesModalidad = rolesModalidadService.findByRolAndRolesModalidadModalidadId("Asesor", modalidadId);
         Long rolesModalidadId= rolesModalidad.getId();
 
-        IntegranteProyectoDTO integranteProyectoDTO;
-        final List<IntegranteProyectoDTO> lIntegranteProyectoDTO = integranteProyectoService.findByIntegranteProyectoProyectoIdAndIntegranteProyectoRolesModalidadId(idProyecto,rolesModalidadId);
+        IntegranteProyectoDTO integranteProyectoDTO= new IntegranteProyectoDTO();
+        List<IntegranteProyectoDTO> lIntegranteProyectoDTO = new ArrayList();
+        lIntegranteProyectoDTO = integranteProyectoService.findByIntegranteProyectoProyectoIdAndIntegranteProyectoRolesModalidadId(idProyecto,rolesModalidadId);
+        if(lIntegranteProyectoDTO != null){
         integranteProyectoDTO = lIntegranteProyectoDTO.get(0);
+        }
         Long integranteProyectoId = integranteProyectoDTO.getIntegranteProyectoUserId();
 
         ProyectoDTO proyectoDTO;
