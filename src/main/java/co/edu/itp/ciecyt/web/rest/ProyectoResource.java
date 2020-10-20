@@ -112,7 +112,12 @@ public class ProyectoResource {
         if (proyectoDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        ProyectoDTO result = proyectoService.save(proyectoDTO);
+        ProyectoDTO result = null;
+        try {
+             result = proyectoService.saveAsesorProyecto(proyectoDTO);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, proyectoDTO.getId().toString()))
             .body(result);
