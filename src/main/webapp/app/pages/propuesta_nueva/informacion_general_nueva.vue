@@ -137,16 +137,17 @@
                                       <div class="col-md-6 col-12">
                         <div class="form-group" >
                                <label class="form-control-label "  v-text="$t('ciecytApp.programa.programa')" for="proyecto-programa">Programa</label>                 
-                            <b-form-select :options="programasFacultad" 
+                            <b-form-select 
+                            :options="programasFacultad" 
                             text-field="programa" 
                             value-field="id" 
-                            id="proyecto-programaId" 
-                            v-model="proyecto.proyectoProgramaId"
-
-                                          
+                            id="proyecto-proyecto-programa-id" 
+            
+                             v-model="proyecto.proyectoProgramaId"
+                                
                             >
+                          
                             </b-form-select>
-                           
                                 <!--<div class="error" v-if="!$v.proyecto.proyectoModalidadId.required && !iniciandoModalidad">Una modalidad de trabajo de grado es requerida</div> -->
                         </div>
                     </div>
@@ -273,7 +274,7 @@
     import { IProyecto, Proyecto } from '@/shared/model/proyecto.model';
     import ProyectoService from '@/entities/proyecto/proyecto.service';
      import ProgramaService from '@/entities/programa/programa.service';
-    import { IPrograma } from '@/shared/model/programa.model';
+    import { IPrograma, Programa } from '@/shared/model/programa.model';
 
    
 
@@ -341,6 +342,7 @@ import { IIntegranteProyecto, IntegranteProyecto } from '@/shared/model/integran
         public proyId: string = null;
         public integranteProyecto: IIntegranteProyecto = new IntegranteProyecto();
         public programs: IPrograma[] = [];
+        public programa: IPrograma = new Programa();
         public programasFacultad = [];
       
        
@@ -435,7 +437,7 @@ import { IIntegranteProyecto, IntegranteProyecto } from '@/shared/model/integran
                 this.submitStatus = 'OK';
                 }, 500)
             //}
-            console.log(this.submitStatus);
+            //console.log(this.submitStatus);
         }
 
         get LineasInvestigacion() {
@@ -457,6 +459,7 @@ import { IIntegranteProyecto, IntegranteProyecto } from '@/shared/model/integran
         }
 
         initRelationships() {
+            
 
             this.proyId = this.$route.params.proyectoId;
     
@@ -471,9 +474,20 @@ import { IIntegranteProyecto, IntegranteProyecto } from '@/shared/model/integran
                 .retrieve()
                 .then(res => {
                     this.programs = res.data;
-                    //console.log(this.programs);
+                    //this.setProgramas(res.data);
                     
                 });
+
+                //obteniendo el programa que ya existe
+                /*  this.programaService()
+                .find(this.proyecto.proyectoProgramaId)
+                .then(res => {
+                    this.programa = res;
+                    console.log(this.programa);
+                    
+                });*/
+
+
 
             //Obtenienedo el asesor del proyecto
             if(this.proyId){
@@ -482,7 +496,7 @@ import { IIntegranteProyecto, IntegranteProyecto } from '@/shared/model/integran
                 .then(res=> {
 
                     this.proyecto = res.data;
-                    
+                    console.log(this.proyecto);
                 })
             }
   
@@ -544,7 +558,7 @@ import { IIntegranteProyecto, IntegranteProyecto } from '@/shared/model/integran
           }
 */
             setAsesor(value) {
-    console.log(value);
+   // console.log(value);
     //this.integranteProyecto.integranteProyectoUserId = value;
     this.proyecto.asesorId =  value;
    
@@ -560,7 +574,7 @@ import { IIntegranteProyecto, IntegranteProyecto } from '@/shared/model/integran
       this.programasFacultad.push(element);
     });
     this.programasFacultad.sort();
-    console.log(this.programasFacultad);
+    //console.log(this.programasFacultad);
   }
         
         

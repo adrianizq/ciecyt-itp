@@ -22,6 +22,7 @@ public interface ProyectoMapper extends EntityMapper<ProyectoDTO, Proyecto> {
     @Mapping(source = "subLineaLineaInvestigacion.id", target = "subLineaLineaInvestigacionId")
     @Mapping(source = "subLineaLineaInvestigacion.linea", target = "subLineaLineaInvestigacionLinea")
     @Mapping(source = "proyectoPrograma.id", target = "proyectoProgramaId")
+    @Mapping(source = "proyectoPrograma.programa", target = "programa")
     ProyectoDTO toDto(Proyecto proyecto);
 
     @Mapping(source = "proyectoLineaInvestigacionId", target = "proyectoLineaInvestigacion")
