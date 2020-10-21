@@ -57,7 +57,7 @@ public class ProyectoDTO implements Serializable {
 
     private Long proyectoProgramaId;
 
-    private String proyectoProgramaPrograma;
+   // private String proyectoProgramaPrograma;
 
          //adr
 
@@ -266,13 +266,13 @@ public class ProyectoDTO implements Serializable {
         this.proyectoProgramaId = programaId;
     }
 
-    public String getProyectoProgramaPrograma() {
+   /* public String getProyectoProgramaPrograma() {
         return proyectoProgramaPrograma;
     }
 
     public void setProyectoProgramaPrograma(String programaPrograma) {
         this.proyectoProgramaPrograma = programaPrograma;
-    }
+    }*/
 
     @Override
     public boolean equals(Object o) {
@@ -319,7 +319,7 @@ public class ProyectoDTO implements Serializable {
             ", subLineaLineaInvestigacionLinea='" + getSubLineaLineaInvestigacionLinea() + "'" +
             ", facultadId=" + getFacultadId() +
             ", proyectoProgramaId=" + getProyectoProgramaId() +
-            ", proyectoProgramaPrograma='" + getProyectoProgramaPrograma() + "'" +
+           // ", proyectoProgramaPrograma='" + getProyectoProgramaPrograma() + "'" +
             "}";
     }
 }

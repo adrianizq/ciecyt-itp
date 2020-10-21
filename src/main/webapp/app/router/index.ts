@@ -4,7 +4,7 @@ import Component from 'vue-class-component';
 Component.registerHooks([
   'beforeRouteEnter',
   'beforeRouteLeave',
-  'beforeRouteUpdate', // for vue-router 2.2+
+  'beforeRouteUpdate' // for vue-router 2.2+
 ]);
 import Router from 'vue-router';
 //import { User } from '@/shared/model/user.model';
@@ -319,6 +319,8 @@ const AsignarJurado = () => import('../pages/ciecyt/asignar_jurado.vue');
 const AsignarAsesor = () => import('../pages/ciecyt/asignar_asesor.vue');
 
 const PropuestaInformacionGeneralNueva = () => import('../pages/propuesta_nueva/informacion_general_nueva.vue');
+const PropuestaIntegrantesNueva = () => import('../pages/propuesta_nueva/integrantes_nueva.vue');
+
 const PropuestasInvestigador = () => import('../pages/propuesta_nueva/propuestas_investigador.vue');
 
 Vue.use(Router);
@@ -901,7 +903,7 @@ export default new Router({
       name: 'ProgramaView',
       component: ProgramaDetails,
       meta: { authorities: ['ROLE_USER'] }
-    }
+    },
     /*
     {
       path: '/pendientes/elementos',
@@ -1478,9 +1480,86 @@ export default new Router({
     },
   //Propuesta nueva
 
+/********************************************
+ * 
+ *  /////Tesis
+    {
+      path: '/propuesta/informacion-general',
+      name: 'PropuestaInformacionGeneralView',
+      component: PropuestaInformacionGeneral,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    {
+      path: '/propuesta/informacion-general/:proyectoId',
+      name: 'PropuestaInformacionGeneraEditlView',
+      component: PropuestaInformacionGeneral,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    {
+
+      path: '/propuesta/integrantes/:proyectoId',
+      name: 'PropuestaIntegrantesView',
+      component: PropuestaIntegrantes,
+      props: true,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    {
+      path: '/propuesta/elementos/:proyectoId',
+      name: 'PropuestaElementosView',
+      component: PropuestaElementos,
+      props: true,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    {
+      path: '/propuesta/cronograma/:proyectoId',
+      name: 'PropuestaCronogramaView',
+      component: PropuestaCronograma,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    {
+      path: '/propuesta/estado_propuestas/:proyectoId',
+      name: 'PropuestaEstadoPropuestasView',
+      component: PropuestaEstadoPropuestas,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    {
+      path: '/propuesta/entidades/:proyectoId',
+      name: 'PropuestaEntidadesView',
+      component: PropuestaEntidades,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    {
+      path: '/propuesta/resultados_esperados/:proyectoId',
+      name: 'PropuestaResultadosEsperadosView',
+      component: PropuestaResultadosEsperados,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    {
+      path: '/propuesta/presupuesto/:proyectoId',
+      name: 'PropuestaPresupuestoView',
+      component: PropuestaPresupuesto,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    {
+      path: '/propuesta/impactos_esperados/:proyectoId',
+      name: 'PropuestaImpactosEsperadoView',
+      component: PropuestaImpactosEsperado,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+ */
+
+
   {
     path: '/propuesta-nueva/informacion-general-nueva',
-    name: 'PropuestaInformacionGenearalNuevaEditView',
+    name: 'PropuestaInformacionGenearalNuevaView',
+    component: PropuestaInformacionGeneralNueva,
+    meta: { authorities: ['ROLE_USER'] }
+  },
+
+  
+  {
+    path: '/propuesta-nueva/informacion-general-nueva/:proyectoId',
+    name: 'PropuestaInformacionGeneralNuevaEditView',
     component: PropuestaInformacionGeneralNueva,
     meta: { authorities: ['ROLE_USER'] }
   },
@@ -1491,6 +1570,17 @@ export default new Router({
     component: PropuestasInvestigador,
     meta: { authorities: ['ROLE_USER'] }
   },
+
+    {
+
+    path: '/propuesta-nueva/integrantes/:proyectoId',
+    name: 'PropuestaIntegrantesNuevaView',
+    component: PropuestaIntegrantesNueva,
+    props: true,
+    meta: { authorities: ['ROLE_USER'] }
+  },
+
+  
   
     //Pasantia
     {

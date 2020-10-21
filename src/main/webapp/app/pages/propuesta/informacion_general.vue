@@ -539,38 +539,7 @@ export default class PropuestaInformacionGeneral extends Vue {
         });
       });
   }
-  //metodos para las validaciones
-  /*setTitulo(value) {
-            this.iniciandoTitulo= false;
-            this.submitStatus='ERROR';
-        }*/
-  /*
-
-  setPalabrasClave(value) {
-    this.iniciandoPalabrasClave = false;
-    this.submitStatus = 'ERROR';
-  }
-
-  setModalidad(value) {
-    this.iniciandoModalidad = false;
-    this.submitStatus = 'ERROR';
-  }
-
-  setFacultad(value) {
-    this.iniciandoFacultad = false;
-    this.submitStatus = 'ERROR';
-  }
-
-  setLinea(value) {
-    this.iniciandoLinea = false;
-    this.submitStatus = 'ERROR';
-  }
-
-  setSubLinea(value) {
-    this.iniciandoSubLinea = false;
-    this.submitStatus = 'ERROR';
-  }*/
-
+  
   setAsesor(value) {
     console.log(value);
     //this.integranteProyecto.integranteProyectoUserId = value;

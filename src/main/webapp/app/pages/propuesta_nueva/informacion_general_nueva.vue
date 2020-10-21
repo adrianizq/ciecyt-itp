@@ -16,15 +16,14 @@
                                    v-model="proyecto.id" readonly/>
                         </div>
 
-                        <div class="form-group" :class="{ 'form-group--error': $v.proyecto.titulo.$error }">
+                        <div class="form-group" >
                             <label class="form-control-label " v-text="$t('ciecytApp.proyecto.titulo')" for="proyecto-titulo">Titulo</label>
                             <input type="text" class="form-control" name="titulo" id="proyecto-titulo"
                                    v-model="proyecto.titulo"
-                                      @input="setTitulo($event.target.value)"
-
+                                    
                                       placeholder="Ingrese el Titulo del Proyecto"
                                    />
-                                <div class="error" v-if="!$v.proyecto.titulo.required&&!iniciandoTitulo">El Título es requerido</div>
+                               
                         </div>
                         <!--
                         <div class="form-group"  :class="{ 'form-group--error': $v.proyecto.url.$error }">
@@ -109,27 +108,27 @@
                     
 
                   <div class="col-md-6 col-12">
-                        <div class="form-group"  :class="{ 'form-group--error': $v.proyecto.proyectoModalidadId.$error }">
+                        <div class="form-group"  >
                                <label class="form-control-label "  v-text="$t('ciecytApp.proyecto.proyectoModalidad')" for="proyecto-modalidad">Modalidad</label>                 
                             <b-form-select :options="modalidads" text-field="modalidad" value-field="id" id="modalidad" 
                             v-model="proyecto.proyectoModalidadId"
-                             @input="setModalidad"
+                            
                             >
                             </b-form-select>
                            
-                                <div class="error" v-if="!$v.proyecto.proyectoModalidadId.required && !iniciandoModalidad">Una modalidad de trabajo de grado es requerida</div>
+                                
                         </div>
                     </div>
 
                     <div class="col-md-6 col-12">
-                        <div class="form-group"  :class="{ 'form-group--error': $v.proyecto.facultadId }">
+                        <div class="form-group"  >
                                <label class="form-control-label "  v-text="$t('ciecytApp.proyecto.facultad')" for="proyecto-facultad">Facultad</label> 
                             <b-form-select :options="facultades"  text-field="facultad" value-field="id" id="facultad"
                             v-model="proyecto.facultadId"
                               @input="setProgramas"
                             >
                             </b-form-select>
-                            <div class="error" v-if="!$v.proyecto.facultadId.required && !iniciandoFacultad">La facultad es requerida</div>
+                          
                         </div>
                     </div>
 
@@ -138,12 +137,17 @@
                                       <div class="col-md-6 col-12">
                         <div class="form-group" >
                                <label class="form-control-label "  v-text="$t('ciecytApp.programa.programa')" for="proyecto-programa">Programa</label>                 
-                            <b-form-select :options="programasFacultad" text-field="programa" value-field="id" id="programa" 
-                            v-model="proyecto.proyectoProgramaId"
-                             
+                            <b-form-select 
+                            :options="programasFacultad" 
+                            text-field="programa" 
+                            value-field="id" 
+                            id="proyecto-proyecto-programa-id" 
+            
+                             v-model="proyecto.proyectoProgramaId"
+                                
                             >
+                          
                             </b-form-select>
-                           
                                 <!--<div class="error" v-if="!$v.proyecto.proyectoModalidadId.required && !iniciandoModalidad">Una modalidad de trabajo de grado es requerida</div> -->
                         </div>
                     </div>
@@ -201,6 +205,28 @@
                     </div>
                     -->
 
+                              <!-- ADR   -->
+          <div class="col-md-6 col-12">
+            <div class="form-group" >
+              <label class="form-control-label" v-text="$t('ciecytApp.proyecto.asesor')" for="asesor">Asesor</label>
+
+              <b-form-select
+                :options="users"
+                text-field="nombresApellidos"
+                value-field="id"
+                id="proyecto-asesorId"
+                v-model="proyecto.asesorId"
+                @input="setAsesor"
+                :class="{
+                  'is-invalid': $v.proyecto.asesorId.$error,
+                  'is-valid': !$v.proyecto.asesorId.$invalid
+                }"
+              >
+              </b-form-select>
+              <div class="text-danger" v-if="!$v.proyecto.asesorId.required">Este campo es requerido</div>
+            </div>
+          </div>
+
                 </div>
 
 
@@ -210,14 +236,14 @@
                         <font-awesome-icon icon="ban"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.cancel')">Cancel</span>
                     </button>
 
-                    <button type="submit" id="save-entity" 
-                    class="btn btn-primary"
-                    :disabled="this.submitStatus === 'PENDING'"
-                    >
-                        <font-awesome-icon icon="save"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.save')">Save</span>
-                    </button>
+                   
+          <button type="submit" id="save-entity" class="btn btn-primary" >
+            <font-awesome-icon icon="save"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.save')">Save</span>
+          </button>
 
-                    <p class="typo__p" v-if="this.submitStatus === 'ERROR'">¡Existen campos sin llenar!.</p>
+          <p class="typo__p" v-if="this.submitStatus === 'ERROR'">¡Existen campos sin llenar!.</p>
+
+                   
                    
       
 
@@ -248,7 +274,7 @@
     import { IProyecto, Proyecto } from '@/shared/model/proyecto.model';
     import ProyectoService from '@/entities/proyecto/proyecto.service';
      import ProgramaService from '@/entities/programa/programa.service';
-    import { IPrograma } from '@/shared/model/programa.model';
+    import { IPrograma, Programa } from '@/shared/model/programa.model';
 
    
 
@@ -260,25 +286,25 @@ import { IIntegranteProyecto, IntegranteProyecto } from '@/shared/model/integran
    
     const validations: any = {
         proyecto:{
-            id: {},
+            //id: {},
             titulo: { required, maxLength: maxLength(100000) },
-            palabrasClave: { required, maxLength: maxLength(100000) },
+            //palabrasClave: { required, maxLength: maxLength(100000) },
             proyectoModalidadId: { required, between: between(1, 100000000)},
             facultadId:  { required, between: between(1, 100000000)},
-            proyectoLineaInvestigacionId:  { required, between: between(1, 100000000)},
-            subLineaLineaInvestigacionId:  { required, between: between(1, 100000000)},
-            //asesorId:  { required, between: between(1, 100000000)},
-            url: { url},
-            lugarEjecucion: {},
-            duracion: {},
-            fechaIni: {},
-            fechaFin: {},
-            contrapartidaPesos: {},
-            contrapartidaEspecie: {},
-            convocatoria: {}
+            //proyectoLineaInvestigacionId:  { required, between: between(1, 100000000)},
+            //subLineaLineaInvestigacionId:  { required, between: between(1, 100000000)},
+            asesorId:  { required, between: between(1, 100000000)},
+            //url: { url},
+            //lugarEjecucion: {},
+            //duracion: {},
+            //fechaIni: {},
+            //fechaFin: {},
+            //contrapartidaPesos: {},
+            //contrapartidaEspecie: {},
+            //convocatoria: {}
         },
         integranteProyecto:{
-            integranteProyectoUserId:  { required, between: between(1, 100000000)},
+            integranteProyectoUserId:  { required},
         }
            }
      
@@ -316,6 +342,7 @@ import { IIntegranteProyecto, IntegranteProyecto } from '@/shared/model/integran
         public proyId: string = null;
         public integranteProyecto: IIntegranteProyecto = new IntegranteProyecto();
         public programs: IPrograma[] = [];
+        public programa: IPrograma = new Programa();
         public programasFacultad = [];
       
        
@@ -346,8 +373,8 @@ import { IIntegranteProyecto, IntegranteProyecto } from '@/shared/model/integran
         public save(): void {
             this.isSaving = true;
 
-            this.$v.$touch();
-            if (this.$v.$invalid) {
+           // this.$v.$touch();
+           /* if (this.$v.$invalid) {
             
                 if(this.$v.proyecto.titulo.$invalid){
                     this.setTitulo("");
@@ -377,14 +404,14 @@ import { IIntegranteProyecto, IntegranteProyecto } from '@/shared/model/integran
             }
             else{ 
 
-                
+                */
               
             if (this.proyecto.id) {
                 this.proyectoService()
                     .update(this.proyecto)
                     .then(param => {
                         this.isSaving = false;
-                        this.$router.push({ name: 'PropuestaIntegrantesView', params: { proyectoId: this.proyecto.id.toString() } });
+                        //this.$router.push({ name: 'PropuestaIntegrantesNuevaView', params: { proyectoId: this.proyecto.id.toString() } });
                         const message = this.$t('ciecytApp.proyecto.updated', { param: param.id });
                         this.alertService().showAlert(message, 'info');
                     });
@@ -396,7 +423,7 @@ import { IIntegranteProyecto, IntegranteProyecto } from '@/shared/model/integran
 
                         this.proyId = String(param.id);
 
-                        this.$router.push({ name: 'PropuestaIntegrantesView', params: { proyectoId: this.proyId } });
+                        this.$router.push({ name: 'PropuestaIntegrantesNuevaView', params: { proyectoId: this.proyId } });
 
                         const message = 'Se ha creado un nuevo proyecto';
                         this.alertService().showAlert(message, 'success');
@@ -409,8 +436,8 @@ import { IIntegranteProyecto, IntegranteProyecto } from '@/shared/model/integran
             setTimeout(() => {
                 this.submitStatus = 'OK';
                 }, 500)
-            }
-            console.log(this.submitStatus);
+            //}
+            //console.log(this.submitStatus);
         }
 
         get LineasInvestigacion() {
@@ -432,6 +459,7 @@ import { IIntegranteProyecto, IntegranteProyecto } from '@/shared/model/integran
         }
 
         initRelationships() {
+            
 
             this.proyId = this.$route.params.proyectoId;
     
@@ -446,9 +474,20 @@ import { IIntegranteProyecto, IntegranteProyecto } from '@/shared/model/integran
                 .retrieve()
                 .then(res => {
                     this.programs = res.data;
-                    //console.log(this.programs);
+                    //this.setProgramas(res.data);
                     
                 });
+
+                //obteniendo el programa que ya existe
+                /*  this.programaService()
+                .find(this.proyecto.proyectoProgramaId)
+                .then(res => {
+                    this.programa = res;
+                    console.log(this.programa);
+                    
+                });*/
+
+
 
             //Obtenienedo el asesor del proyecto
             if(this.proyId){
@@ -457,7 +496,7 @@ import { IIntegranteProyecto, IntegranteProyecto } from '@/shared/model/integran
                 .then(res=> {
 
                     this.proyecto = res.data;
-                    
+                    console.log(this.proyecto);
                 })
             }
   
@@ -488,7 +527,7 @@ import { IIntegranteProyecto, IntegranteProyecto } from '@/shared/model/integran
 
         }
     //metodos para las validaciones
-        setTitulo(value) {
+     /*   setTitulo(value) {
             this.iniciandoTitulo= false;
             this.submitStatus='ERROR';
         }
@@ -517,13 +556,13 @@ import { IIntegranteProyecto, IntegranteProyecto } from '@/shared/model/integran
              this.iniciandoSubLinea= false;
              this.submitStatus='ERROR';
           }
-
+*/
             setAsesor(value) {
-             //console.log($v); 
-             this.integranteProyecto.integranteProyectoUserId = value;
-             this.iniciandoAsesor= false;
-             this.submitStatus='ERROR';
-          }
+   // console.log(value);
+    //this.integranteProyecto.integranteProyectoUserId = value;
+    this.proyecto.asesorId =  value;
+   
+}
     setProgramas(value) {
         //console.log(value);
     this.programasFacultad = [];
@@ -531,10 +570,11 @@ import { IIntegranteProyecto, IntegranteProyecto } from '@/shared/model/integran
       return e.programaFacultadId == value;
     });
     prog.forEach(element => {
-      this.programasFacultad.push(element.programa);
+      //this.programasFacultad.push(element.programa);
+      this.programasFacultad.push(element);
     });
     this.programasFacultad.sort();
-    console.log(this.programasFacultad);
+    //console.log(this.programasFacultad);
   }
         
         

@@ -78,6 +78,8 @@ public class ProyectoServiceImpl implements ProyectoService {
         proyecto = proyectoRepository.save(proyecto);
         //guadar integrante
         IntegranteProyectoDTO asesorDTO = new IntegranteProyectoDTO();
+
+      
         asesorDTO.setIntegranteProyectoProyectoId(proyecto.getId());
         asesorDTO.setIntegranteProyectoUserId(proyectoDTO.getAsesorId());
         //arreglado
@@ -90,6 +92,18 @@ public class ProyectoServiceImpl implements ProyectoService {
         Long rolesModalidadId= rolesModalidad.getId();
         //asesorDTO.setIntegranteProyectoRolesModalidadId(4451L);
         asesorDTO.setIntegranteProyectoRolesModalidadId(rolesModalidadId);
+
+        ////////////////* validamos que exista el asesor
+        List<IntegranteProyectoDTO> lIntegranteProyectoDTO = new ArrayList();
+        lIntegranteProyectoDTO = integranteProyectoService.findByIntegranteProyectoProyectoIdAndIntegranteProyectoRolesModalidadId(proyecto.getId(),rolesModalidadId);
+        if(lIntegranteProyectoDTO != null && lIntegranteProyectoDTO.size()>0){
+            IntegranteProyectoDTO dto = lIntegranteProyectoDTO.get(0);
+            asesorDTO.setId(dto.getId());   
+        
+        }
+        //Long integranteProyectoId = integranteProyectoDTO.getIntegranteProyectoUserId();
+
+        //////////////////////77
 
         integranteProyectoService.save(asesorDTO);
         return proyectoMapper.toDto(proyecto);
