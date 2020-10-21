@@ -303,6 +303,13 @@ export function initVueXStore(vue) {
           description: 'Espacio para crear las propuestas del Ciecyt',
           to: '/propuesta-nueva/informacion-general-nueva',
         },
+        {
+          title: 'Integrantes de la Propuesta',
+          description: 'Integrantes de la Propuesta',
+          to: ' /propuesta-nueva/integrantes/',
+        },
+
+        // /propuesta-nueva/integrantes/:proyectoId
       ],
     },
     mutations: {

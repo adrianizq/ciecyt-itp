@@ -319,6 +319,8 @@ const AsignarJurado = () => import('../pages/ciecyt/asignar_jurado.vue');
 const AsignarAsesor = () => import('../pages/ciecyt/asignar_asesor.vue');
 
 const PropuestaInformacionGeneralNueva = () => import('../pages/propuesta_nueva/informacion_general_nueva.vue');
+const PropuestaIntegrantesNueva = () => import('../pages/propuesta_nueva/integrantes_nueva.vue');
+
 const PropuestasInvestigador = () => import('../pages/propuesta_nueva/propuestas_investigador.vue');
 
 Vue.use(Router);
@@ -901,7 +903,7 @@ export default new Router({
       name: 'ProgramaView',
       component: ProgramaDetails,
       meta: { authorities: ['ROLE_USER'] }
-    }
+    },
     /*
     {
       path: '/pendientes/elementos',
@@ -1491,6 +1493,17 @@ export default new Router({
     component: PropuestasInvestigador,
     meta: { authorities: ['ROLE_USER'] }
   },
+
+  {
+
+    path: '/propuesta-nueva/integrantes/:proyectoId',
+    name: 'PropuestaIntegrantesNuevaView',
+    component: PropuestaIntegrantesNueva,
+    props: true,
+    meta: { authorities: ['ROLE_USER'] }
+  },
+
+  
   
     //Pasantia
     {
