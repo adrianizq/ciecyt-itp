@@ -4,7 +4,7 @@ import Component from 'vue-class-component';
 Component.registerHooks([
   'beforeRouteEnter',
   'beforeRouteLeave',
-  'beforeRouteUpdate' // for vue-router 2.2+
+  'beforeRouteUpdate', // for vue-router 2.2+
 ]);
 import Router from 'vue-router';
 //import { User } from '@/shared/model/user.model';
@@ -1547,6 +1547,12 @@ export default new Router({
       meta: { authorities: ['ROLE_USER'] }
     },
  */
+{
+  path: '/propuesta-nueva/propuestas-investigador',
+  name: 'PropuestasInvestigadorEditView',
+  component: PropuestasInvestigador,
+  meta: { authorities: ['ROLE_USER'] }
+},
 
 
   {
@@ -1565,16 +1571,9 @@ export default new Router({
   },
 
   {
-    path: '/propuesta-nueva/propuestas-investigador',
-    name: 'PropuestasInvestigadorEditView',
-    component: PropuestasInvestigador,
-    meta: { authorities: ['ROLE_USER'] }
-  },
 
-    {
-
-    path: '/propuesta-nueva/integrantes/:proyectoId',
-    name: 'PropuestaIntegrantesNuevaView',
+    path: '/propuesta-nueva/integrantes-nueva/:proyectoId',
+    name: 'PropuestaIntegrantesNuevaEditView',
     component: PropuestaIntegrantesNueva,
     props: true,
     meta: { authorities: ['ROLE_USER'] }

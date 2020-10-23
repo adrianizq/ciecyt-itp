@@ -92,7 +92,7 @@ export function initI18N(vue) {
   vue.use(VueI18n);
   return new VueI18n({
     silentTranslationWarn: true,
-    formatter: new JhiFormatter()
+    formatter: new JhiFormatter(),
   });
 }
 
@@ -112,7 +112,7 @@ export function initVueXStore(vue) {
       currentLanguage: localStorage.getItem('currentLanguage') || 'es',
       languages: {
         en: { name: 'English' },
-        es: { name: 'Español' }
+        es: { name: 'Español' },
         // jhipster-needle-i18n-language-key-pipe - JHipster will add/remove languages in this object
       },
       /*Menu Lateral Tesis*/
@@ -120,49 +120,49 @@ export function initVueXStore(vue) {
         {
           title: 'Información General',
           description: 'Ingrese aquí los datos generales de la propuesta',
-          to: '/propuesta/informacion-general'
+          to: '/propuesta/informacion-general',
         },
         {
           title: 'Integrantes',
           description: 'En esta sección ingrese los integrantes de la propuesta Nota: Cada modalidad tiene un maximo de integrantes',
-          to: '/propuesta/integrantes'
+          to: '/propuesta/integrantes',
         },
         {
           title: 'Elementos',
           description:
             'En este apartado diligencie: Resumen, Problema, Pregunta de Investigación, Objetivos, Marco de Referencia y Metodología esta sección ingrese los integrantes de la propuesta Nota: Cada modalidad tiene un maximo de integrantes',
-          to: '/propuesta/elementos'
+          to: '/propuesta/elementos',
         },
         {
           title: 'Presupuesto',
           description: 'Presupuesto',
-          to: '/propuesta/presupuesto'
+          to: '/propuesta/presupuesto',
         },
         {
           title: 'Resultados Esperados',
           description: 'Resultados o Productos Esperados del Proyecto',
-          to: '/propuesta/resultados_esperados'
+          to: '/propuesta/resultados_esperados',
         },
         {
           title: 'Impactos Esperados',
           description: 'Impactos Esperados del Proyecto',
-          to: '/propuesta/impactos_esperados'
+          to: '/propuesta/impactos_esperados',
         },
         {
           title: 'Entidades Financiadoras',
           description: 'Entidades Financiadoras',
-          to: '/propuesta/entidades'
+          to: '/propuesta/entidades',
         },
         {
           title: 'Cronograma',
           description: 'Cronograma de Actividades',
-          to: '/propuesta/cronograma'
+          to: '/propuesta/cronograma',
         },
         {
           title: 'Estado de Propuestas',
           description: 'Muestra el estado de sus propuestas',
-          to: '/propuesta/estado_propuestas'
-        }
+          to: '/propuesta/estado_propuestas',
+        },
       ],
 
       //Menu Lateral Linea //
@@ -171,49 +171,49 @@ export function initVueXStore(vue) {
         {
           title: 'Información General',
           description: 'Ingrese aquí los datos generales de la propuesta',
-          to: '/propuesta-linea/informacion-general-linea'
+          to: '/propuesta-linea/informacion-general-linea',
         },
         {
           title: 'Integrantes',
           description: 'En esta sección ingrese los integrantes de la propuesta Nota: Cada modalidad tiene un maximo de integrantes',
-          to: '/propuesta-linea/integrantes-linea'
+          to: '/propuesta-linea/integrantes-linea',
         },
         {
           title: 'Elementos',
           description:
             'En este apartado diligencie: Resumen, Problema, Pregunta de Investigación, Objetivos, Marco de Referencia y Metodología esta sección ingrese los integrantes de la propuesta Nota: Cada modalidad tiene un maximo de integrantes',
-          to: '/propuesta-linea/elementos-linea'
+          to: '/propuesta-linea/elementos-linea',
         },
         {
           title: 'Presupuesto',
           description: 'Presupuesto',
-          to: '/propuesta-linea/presupuesto-linea'
+          to: '/propuesta-linea/presupuesto-linea',
         },
         {
           title: 'Resultados Esperados',
           description: 'Resultados o Productos Esperados del Proyecto',
-          to: '/propuesta-linea/resultados_esperados-linea'
+          to: '/propuesta-linea/resultados_esperados-linea',
         },
         {
           title: 'Impactos Esperados',
           description: 'Impactos Esperados del Proyecto',
-          to: '/propuesta-linea/impactos_esperados-linea'
+          to: '/propuesta-linea/impactos_esperados-linea',
         },
         {
           title: 'Entidades Financiadoras',
           description: 'Entidades Financiadoras',
-          to: '/propuesta-linea/entidades-linea'
+          to: '/propuesta-linea/entidades-linea',
         },
         {
           title: 'Cronograma',
           description: 'Cronograma de Actividades',
-          to: '/propuesta-linea/cronograma-linea'
+          to: '/propuesta-linea/cronograma-linea',
         },
         {
           title: 'Estado de Propuestas',
           description: 'Muestra el estado de sus propuestas',
-          to: '/propuesta-linea/estado_propuestas-linea'
-        }
+          to: '/propuesta-linea/estado_propuestas-linea',
+        },
       ],
 
       /*Menu Lateral Pasantia*/
@@ -221,96 +221,94 @@ export function initVueXStore(vue) {
         {
           title: 'Informacion General',
           description: 'Ingrese aquí los datos generales de la propuesta de pasantía',
-          to: '/propuesta-pasantia/informacion-general-pasantia'
+          to: '/propuesta-pasantia/informacion-general-pasantia',
         },
         {
           title: 'Integrantes',
           description: 'En esta sección ingrese los integrantes de la propuesta Nota: Cada modalidad tiene un maximo de integrantes',
-          to: '/propuesta-pasantia/integrantes-pasantia'
+          to: '/propuesta-pasantia/integrantes-pasantia',
         },
         {
           title: 'Información de la Empresa',
           description: 'En este apartado diligencie: La información de la Empresa donde realizará su pasantia',
-          to: '/propuesta-pasantia/informacion-empresa'
+          to: '/propuesta-pasantia/informacion-empresa',
         },
         {
           title: 'Elementos de la Pasantía',
           description: 'Elementos de Pasantía, estos elementos son calificables por los jurados',
-          to: '/propuesta-pasantia/elementos-pasantia'
+          to: '/propuesta-pasantia/elementos-pasantia',
         },
         {
           title: 'Cronograma',
           description: 'En el cronograma se deben crear items para: avance del 50%, informe final 100% y sustentacion',
-          to: '/propuesta-pasantia/cronograma-pasantia'
-        }
+          to: '/propuesta-pasantia/cronograma-pasantia',
+        },
       ],
       /*Menu Lateral Diplomado*/
       menu_lateral_diplomado: [
         {
           title: 'Informacion General Diplomado',
           description: 'Ingrese aquí los datos generales del diplomado',
-          to: '/propuesta-diplomado/informacion-general-diplomado'
+          to: '/propuesta-diplomado/informacion-general-diplomado',
         },
         {
           title: 'Elementos del Diplomado',
           description: 'Elementos de Diplomado, estos elementos son calificables por los jurados',
-          to: '/propuesta-diplomado/elementos-diplomado'
+          to: '/propuesta-diplomado/elementos-diplomado',
         },
         {
           title: 'Cronograma',
           description: 'En el cronograma se deben crear items para: avance del 50%, informe final 100% y sustentacion',
-          to: '/propuesta-diplomado/cronograma-diplomado'
-        }
+          to: '/propuesta-diplomado/cronograma-diplomado',
+        },
       ],
 
       menu_lateral_listado: [
         {
           title: 'Jurado',
           description: 'Espacio para evalular las propuestas a cargo',
-          to: '/viabilidad-propuesta/listado'
+          to: '/viabilidad-propuesta/listado',
         },
         {
           title: 'Asesor',
           description: 'Espacio para revisar las propuestas a cargo',
-          to: '/viabilidad-propuesta/listado-asesor'
-        }
+          to: '/viabilidad-propuesta/listado-asesor',
+        },
       ],
       menu_lateral_ciecyt: [
         {
           title: 'Ciecyt',
           description: 'Espacio para revisar las propuestas del Ciecyt',
-          to: '/ciecyt/listado-ciecyt'
+          to: '/ciecyt/listado-ciecyt',
         },
         {
           title: 'Jurado(s) de Viabilidad',
           description: 'Ingrese el jurado o jurados de viabilidad',
-          to: '/ciecyt/asignar-jurado'
+          to: '/ciecyt/asignar-jurado',
         },
         {
           title: 'Asesor(es)',
           description: 'Ingrese el asesor o asesores',
-          to: '/ciecyt/asignar-asesor'
-        }
+          to: '/ciecyt/asignar-asesor',
+        },
       ],
       menu_lateral_nueva: [
         {
           title: 'Mis propuestas',
           description: 'Propuestas creadas',
-          to: '/propuesta-nueva/propuestas-investigador'
+          to: '/propuesta-nueva/propuestas-investigador',
         },
         {
           title: 'Propuesta Nueva',
           description: 'Espacio para crear las propuestas del Ciecyt',
-          to: '/propuesta-nueva/informacion-general-nueva'
+          to: '/propuesta-nueva/informacion-general-nueva',
         },
         {
           title: 'Integrantes de la Propuesta',
           description: 'Integrantes de la Propuesta',
-          to: ' /propuesta-nueva/integrantes/'
-        }
-
-        // /propuesta-nueva/integrantes/:proyectoId
-      ]
+          to: '/propuesta-nueva/integrantes-nueva',
+        },
+      ],
     },
     mutations: {
       initAlert(state) {
@@ -352,7 +350,7 @@ export function initVueXStore(vue) {
       },
       setRibbonOnProfiles(state, ribbon) {
         state.ribbonOnProfiles = ribbon;
-      }
+      },
     },
     getters: {
       dismissSecs: state => state.dismissSecs,
@@ -372,7 +370,7 @@ export function initVueXStore(vue) {
       menuLateralLinea: state => state.menu_lateral_linea,
       menuLateralListado: state => state.menu_lateral_listado,
       menuLateralCiecyt: state => state.menu_lateral_ciecyt,
-      menuLateralNueva: state => state.menu_lateral_nueva
-    }
+      menuLateralNueva: state => state.menu_lateral_nueva,
+    },
   });
 }

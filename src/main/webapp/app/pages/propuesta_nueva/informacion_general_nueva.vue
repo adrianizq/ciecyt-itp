@@ -125,7 +125,7 @@
                                <label class="form-control-label "  v-text="$t('ciecytApp.proyecto.facultad')" for="proyecto-facultad">Facultad</label> 
                             <b-form-select :options="facultades"  text-field="facultad" value-field="id" id="facultad"
                             v-model="proyecto.facultadId"
-                              @input="setProgramas"
+                            
                             >
                             </b-form-select>
                           
@@ -138,15 +138,18 @@
                         <div class="form-group" >
                                <label class="form-control-label "  v-text="$t('ciecytApp.programa.programa')" for="proyecto-programa">Programa</label>                 
                             <b-form-select 
-                            :options="programasFacultad" 
-                            text-field="programa" 
-                            value-field="id" 
-                            id="proyecto-proyecto-programa-id" 
+                           
+                            text-field="programa" value-field="id" id="programa"
             
                              v-model="proyecto.proyectoProgramaId"
                                 
                             >
-                          
+                            <option v-for="(selectOption, indexOpt) in Programas"
+                                        :key="indexOpt"
+                                        :value="selectOption.id"
+                                >
+                                    ({{ selectOption.id }}) {{ selectOption.programa }}
+                                </option>
                             </b-form-select>
                                 <!--<div class="error" v-if="!$v.proyecto.proyectoModalidadId.required && !iniciandoModalidad">Una modalidad de trabajo de grado es requerida</div> -->
                         </div>
@@ -343,7 +346,7 @@ import { IIntegranteProyecto, IntegranteProyecto } from '@/shared/model/integran
         public integranteProyecto: IIntegranteProyecto = new IntegranteProyecto();
         public programs: IPrograma[] = [];
         public programa: IPrograma = new Programa();
-        public programasFacultad = [];
+      
       
        
 
@@ -411,7 +414,7 @@ import { IIntegranteProyecto, IntegranteProyecto } from '@/shared/model/integran
                     .update(this.proyecto)
                     .then(param => {
                         this.isSaving = false;
-                        //this.$router.push({ name: 'PropuestaIntegrantesNuevaView', params: { proyectoId: this.proyecto.id.toString() } });
+                        this.$router.push({ name: 'PropuestaIntegrantesNuevaEditView', params: { proyectoId: this.proyecto.id.toString() } });
                         const message = this.$t('ciecytApp.proyecto.updated', { param: param.id });
                         this.alertService().showAlert(message, 'info');
                     });
@@ -423,7 +426,7 @@ import { IIntegranteProyecto, IntegranteProyecto } from '@/shared/model/integran
 
                         this.proyId = String(param.id);
 
-                        this.$router.push({ name: 'PropuestaIntegrantesNuevaView', params: { proyectoId: this.proyId } });
+                        this.$router.push({ name: 'PropuestaIntegrantesNuevaEditView', params: { proyectoId: this.proyId } });
 
                         const message = 'Se ha creado un nuevo proyecto';
                         this.alertService().showAlert(message, 'success');
@@ -450,6 +453,13 @@ import { IIntegranteProyecto, IntegranteProyecto } from '@/shared/model/integran
             return this.lineas_investigacion.filter(linea => {
                 return (linea.lineaPadreId == this.proyecto.proyectoLineaInvestigacionId && linea.lineaPadreId);
             });
+        }
+      
+         get Programas() {
+            return this.programs.filter(programa =>{
+                return (programa.programaFacultadId == this.proyecto.facultadId);
+            });
+ 
         }
 
         retrieveProyecto() {
@@ -563,19 +573,7 @@ import { IIntegranteProyecto, IntegranteProyecto } from '@/shared/model/integran
     this.proyecto.asesorId =  value;
    
 }
-    setProgramas(value) {
-        //console.log(value);
-    this.programasFacultad = [];
-    let prog = this.programs.filter(function(e) {
-      return e.programaFacultadId == value;
-    });
-    prog.forEach(element => {
-      //this.programasFacultad.push(element.programa);
-      this.programasFacultad.push(element);
-    });
-    this.programasFacultad.sort();
-    //console.log(this.programasFacultad);
-  }
+    
         
         
     }
