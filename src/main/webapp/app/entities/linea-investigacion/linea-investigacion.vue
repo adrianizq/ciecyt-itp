@@ -28,7 +28,7 @@
                     <th v-on:click="changeOrder('linea')"><span v-text="$t('ciecytApp.lineaInvestigacion.linea')">Linea</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th v-on:click="changeOrder('codigoLinea')"><span v-text="$t('ciecytApp.lineaInvestigacion.codigoLinea')">Codigo Linea</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th v-on:click="changeOrder('lineaPadreLinea')"><span v-text="$t('ciecytApp.lineaInvestigacion.lineaPadre')">Linea Padre</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
-                    <th v-on:click="changeOrder('lineaInvestigacionFacultadFacultad')"><span v-text="$t('ciecytApp.lineaInvestigacion.lineaInvestigacionFacultad')">Linea Investigacion Facultad</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
+                    <th v-on:click="changeOrder('lineaInvestigacionProgramaPrograma')"><span v-text="$t('ciecytApp.lineaInvestigacion.lineaInvestigacionPrograma')">Linea Investigacion Programa</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th></th>
                 </tr>
                 </thead>
@@ -46,8 +46,8 @@
                         </div>
                     </td>
                     <td>
-                        <div v-if="lineaInvestigacion.lineaInvestigacionFacultadId">
-                            <router-link :to="{name: 'FacultadView', params: { facultadId: lineaInvestigacion.lineaInvestigacionFacultadId}}">{{lineaInvestigacion.lineaInvestigacionFacultadFacultad}}</router-link>
+                        <div v-if="lineaInvestigacion.lineaInvestigacionProgramaId">
+                            <router-link :to="{name: 'ProgramaView', params: { programaId: lineaInvestigacion.lineaInvestigacionProgramaId}}">{{lineaInvestigacion.lineaInvestigacionProgramaPrograma}}</router-link>
                         </div>
                     </td>
                     <td class="text-right">

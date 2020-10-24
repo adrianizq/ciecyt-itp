@@ -27,10 +27,10 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label class="form-control-label" v-bind:value="$t('ciecytApp.lineaInvestigacion.lineaInvestigacionFacultad')" for="linea-investigacion-lineaInvestigacionFacultad">Linea Investigacion Facultad</label>
-                        <select class="form-control" id="linea-investigacion-lineaInvestigacionFacultad" name="lineaInvestigacionFacultad" v-model="lineaInvestigacion.lineaInvestigacionFacultadId">
+                        <label class="form-control-label" v-bind:value="$t('ciecytApp.lineaInvestigacion.lineaInvestigacionPrograma')" for="linea-investigacion-lineaInvestigacionPrograma">Linea Investigacion Programa</label>
+                        <select class="form-control" id="linea-investigacion-lineaInvestigacionPrograma" name="lineaInvestigacionPrograma" v-model="lineaInvestigacion.lineaInvestigacionProgramaId">
                             <option v-bind:value="null"></option>
-                            <option v-bind:value="facultadOption.id" v-for="facultadOption in facultads" :key="facultadOption.id">{{facultadOption.facultad}}</option>
+                            <option v-bind:value="programaOption.id" v-for="programaOption in programas" :key="programaOption.id">{{programaOption.programa}}</option>
                         </select>
                     </div>
                 </div>

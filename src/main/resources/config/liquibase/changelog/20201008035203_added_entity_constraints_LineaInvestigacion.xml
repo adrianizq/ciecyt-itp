@@ -14,11 +14,11 @@
                                  referencedColumnNames="id"
                                  referencedTableName="linea_investigacion"/>
 
-        <addForeignKeyConstraint baseColumnNames="linea_investigacion_facultad_id"
+        <addForeignKeyConstraint baseColumnNames="linea_investigacion_programa_id"
                                  baseTableName="linea_investigacion"
-                                 constraintName="fk_linea_investigacion_linea_investigacion_facultad_id"
+                                 constraintName="fk_linea_investigacion_linea_investigacion_programa_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="facultad"/>
+                                 referencedTableName="programa"/>
 
     </changeSet>
 </databaseChangeLog>

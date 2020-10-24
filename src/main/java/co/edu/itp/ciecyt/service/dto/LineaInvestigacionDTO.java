@@ -18,9 +18,9 @@ public class LineaInvestigacionDTO implements Serializable {
 
     private String lineaPadreLinea;
 
-    private Long lineaInvestigacionFacultadId;
+    private Long lineaInvestigacionProgramaId;
 
-    private String lineaInvestigacionFacultadFacultad;
+    private String lineaInvestigacionProgramaPrograma;
 
     public Long getId() {
         return id;
@@ -62,20 +62,20 @@ public class LineaInvestigacionDTO implements Serializable {
         this.lineaPadreLinea = lineaInvestigacionLinea;
     }
 
-    public Long getLineaInvestigacionFacultadId() {
-        return lineaInvestigacionFacultadId;
+    public Long getLineaInvestigacionProgramaId() {
+        return lineaInvestigacionProgramaId;
     }
 
-    public void setLineaInvestigacionFacultadId(Long facultadId) {
-        this.lineaInvestigacionFacultadId = facultadId;
+    public void setLineaInvestigacionProgramaId(Long programaId) {
+        this.lineaInvestigacionProgramaId = programaId;
     }
 
-    public String getLineaInvestigacionFacultadFacultad() {
-        return lineaInvestigacionFacultadFacultad;
+    public String getLineaInvestigacionProgramaPrograma() {
+        return lineaInvestigacionProgramaPrograma;
     }
 
-    public void setLineaInvestigacionFacultadFacultad(String facultadFacultad) {
-        this.lineaInvestigacionFacultadFacultad = facultadFacultad;
+    public void setLineaInvestigacionProgramaPrograma(String programaPrograma) {
+        this.lineaInvestigacionProgramaPrograma = programaPrograma;
     }
 
     @Override
@@ -107,8 +107,8 @@ public class LineaInvestigacionDTO implements Serializable {
             ", codigoLinea='" + getCodigoLinea() + "'" +
             ", lineaPadre=" + getLineaPadreId() +
             ", lineaPadre='" + getLineaPadreLinea() + "'" +
-            ", lineaInvestigacionFacultad=" + getLineaInvestigacionFacultadId() +
-            ", lineaInvestigacionFacultad='" + getLineaInvestigacionFacultadFacultad() + "'" +
+            ", lineaInvestigacionPrograma=" + getLineaInvestigacionProgramaId() +
+            ", lineaInvestigacionPrograma='" + getLineaInvestigacionProgramaPrograma() + "'" +
             "}";
     }
 }

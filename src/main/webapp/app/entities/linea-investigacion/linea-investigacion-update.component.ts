@@ -2,8 +2,8 @@ import { Component, Vue, Inject } from 'vue-property-decorator';
 
 import { numeric, required, minLength, maxLength } from 'vuelidate/lib/validators';
 
-import FacultadService from '../facultad/facultad.service';
-import { IFacultad } from '@/shared/model/facultad.model';
+import ProgramaService from '../programa/programa.service';
+import { IPrograma } from '@/shared/model/programa.model';
 
 import AlertService from '@/shared/alert/alert.service';
 import { ILineaInvestigacion, LineaInvestigacion } from '@/shared/model/linea-investigacion.model';
@@ -26,9 +26,9 @@ export default class LineaInvestigacionUpdate extends Vue {
 
   public lineaInvestigacions: ILineaInvestigacion[] = [];
 
-  @Inject('facultadService') private facultadService: () => FacultadService;
+  @Inject('programaService') private programaService: () => ProgramaService;
 
-  public facultads: IFacultad[] = [];
+  public programas: IPrograma[] = [];
   public isSaving = false;
 
   beforeRouteEnter(to, from, next) {
@@ -81,10 +81,10 @@ export default class LineaInvestigacionUpdate extends Vue {
       .then(res => {
         this.lineaInvestigacions = res.data;
       });
-    this.facultadService()
+    this.programaService()
       .retrieve()
       .then(res => {
-        this.facultads = res.data;
+        this.programas = res.data;
       });
   }
 }

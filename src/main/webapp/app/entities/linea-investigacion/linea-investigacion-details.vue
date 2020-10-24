@@ -25,11 +25,11 @@
                         </div>
                     </dd>
                     <dt>
-                        <span v-text="$t('ciecytApp.lineaInvestigacion.lineaInvestigacionFacultad')">Linea Investigacion Facultad</span>
+                        <span v-text="$t('ciecytApp.lineaInvestigacion.lineaInvestigacionPrograma')">Linea Investigacion Programa</span>
                     </dt>
                     <dd>
-                        <div v-if="lineaInvestigacion.lineaInvestigacionFacultadId">
-                            <router-link :to="{name: 'FacultadView', params: {lineaInvestigacionFacultadId: lineaInvestigacion.lineaInvestigacionFacultadId}}">{{lineaInvestigacion.lineaInvestigacionFacultadFacultad}}</router-link>
+                        <div v-if="lineaInvestigacion.lineaInvestigacionProgramaId">
+                            <router-link :to="{name: 'ProgramaView', params: {lineaInvestigacionProgramaId: lineaInvestigacion.lineaInvestigacionProgramaId}}">{{lineaInvestigacion.lineaInvestigacionProgramaPrograma}}</router-link>
                         </div>
                     </dd>
                 </dl>

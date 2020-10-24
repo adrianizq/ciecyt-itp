@@ -24,7 +24,7 @@
             <column name="linea_padre_id" type="bigint">
                 <constraints nullable="true" />
             </column>
-            <column name="linea_investigacion_facultad_id" type="bigint">
+            <column name="linea_investigacion_programa_id" type="bigint">
                 <constraints nullable="true" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->

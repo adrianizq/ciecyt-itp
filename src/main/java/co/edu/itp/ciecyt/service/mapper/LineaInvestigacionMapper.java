@@ -8,17 +8,17 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity {@link LineaInvestigacion} and its DTO {@link LineaInvestigacionDTO}.
  */
-@Mapper(componentModel = "spring", uses = {FacultadMapper.class})
+@Mapper(componentModel = "spring", uses = {ProgramaMapper.class})
 public interface LineaInvestigacionMapper extends EntityMapper<LineaInvestigacionDTO, LineaInvestigacion> {
 
     @Mapping(source = "lineaPadre.id", target = "lineaPadreId")
     @Mapping(source = "lineaPadre.linea", target = "lineaPadreLinea")
-    @Mapping(source = "lineaInvestigacionFacultad.id", target = "lineaInvestigacionFacultadId")
-    @Mapping(source = "lineaInvestigacionFacultad.facultad", target = "lineaInvestigacionFacultadFacultad")
+    @Mapping(source = "lineaInvestigacionPrograma.id", target = "lineaInvestigacionProgramaId")
+    @Mapping(source = "lineaInvestigacionPrograma.programa", target = "lineaInvestigacionProgramaPrograma")
     LineaInvestigacionDTO toDto(LineaInvestigacion lineaInvestigacion);
 
     @Mapping(source = "lineaPadreId", target = "lineaPadre")
-    @Mapping(source = "lineaInvestigacionFacultadId", target = "lineaInvestigacionFacultad")
+    @Mapping(source = "lineaInvestigacionProgramaId", target = "lineaInvestigacionPrograma")
     LineaInvestigacion toEntity(LineaInvestigacionDTO lineaInvestigacionDTO);
 
     default LineaInvestigacion fromId(Long id) {
