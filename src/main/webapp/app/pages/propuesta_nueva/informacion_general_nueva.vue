@@ -20,10 +20,14 @@
                             <label class="form-control-label " v-text="$t('ciecytApp.proyecto.titulo')" for="proyecto-titulo">Titulo</label>
                             <input type="text" class="form-control" name="titulo" id="proyecto-titulo"
                                    v-model="proyecto.titulo"
-                                    
+                                    :class="{
+                                'is-invalid': $v.proyecto.titulo.$error,
+                                'is-valid': !$v.proyecto.titulo.$invalid
+                                }"
                                       placeholder="Ingrese el Titulo del Proyecto"
                                    />
-                               
+                     <div class="text-danger" v-if="!$v.proyecto.titulo.required">Este campo es requerido</div>
+
                         </div>
                         <!--
                         <div class="form-group"  :class="{ 'form-group--error': $v.proyecto.url.$error }">
@@ -35,15 +39,20 @@
                             <div class="error" v-if="!$v.proyecto.url.url">La URL no es válida, ej: http://www.itp.edu.co</div>       
                                 
                         </div>     
-                        
+                      -->
                         <div class="form-group"  >
                             <label class="form-control-label " v-text="$t('ciecytApp.proyecto.lugarEjecucion')" for="proyecto-url">Lugar de Ejecución</label>
                             <input type="text" class="form-control" name="lugar-ejecucion" id="proyecto-lugar-ejecucion"
-                                   v-model="proyecto.lugarEjecucion"
+                            :class="{
+                                'is-invalid': $v.proyecto.lugarEjecucion.$error,
+                                'is-valid': !$v.proyecto.lugarEjecucion.$invalid
+                                }"
+                                   v-model="proyecto.lugarEjecucion" 
                                         placeholder="Ingrese el lugar (ciduad, ubicación) donde se ejecutará el proyecto"
                                    />
+                                <div class="text-danger" v-if="!$v.proyecto.lugarEjecucion.required">Este campo es requerido</div>
                         </div>   
-
+<!--
                         <div class="form-group"  >
                             <label class="form-control-label " v-text="$t('ciecytApp.proyecto.duracion')" for="proyecto-duracion">Duración en meses</label>
                             <input type="text" class="form-control" name="duracion" id="proyecto-duracion"
@@ -51,7 +60,8 @@
                                         placeholder="Duración en meses"
                                    />
                         </div>        
-
+-->
+<!--
                          <div class="form-group"  >
                             <label class="form-control-label " v-text="$t('ciecytApp.proyecto.tipo')" for="proyecto-tipo">Tipo de Investigación</label>
                             <input type="text" class="form-control" name="tipo" id="proyecto-tipo"
@@ -59,7 +69,7 @@
                                         placeholder="Investigación Básica, Investigación Aplicada, Desarrollo Tecnológico o Experimental, etc"
                                    />
                         </div>        
-
+-->
                        
               <div class="form-group">
                 
@@ -68,20 +78,30 @@
                     id="fecha-inicio"
                     name="fecha-inicio"
                     value="value"
+                    :class="{
+                                'is-invalid': $v.proyecto.fechaIni.$error,
+                                'is-valid': !$v.proyecto.fechaIni.$invalid
+                                }"
                     v-model="proyecto.fechaIni">
                 </b-form-datepicker>
+                <div class="text-danger" v-if="!$v.proyecto.fechaIni.required">Este campo es requerido</div>
+
                          
                  <label for="datepicker-lg">Fecha de Finalización</label>
                  <b-form-datepicker size="sm-6" local="ESP"
                     id="fecha-fin"
                     name="fecha-fin" 
                     value="value"
+                     :class="{
+                                'is-invalid': $v.proyecto.fechaFin.$error,
+                                'is-valid': !$v.proyecto.fechaFin.$invalid
+                                }"
                     v-model="proyecto.fechaFin">
                   </b-form-datepicker>
-              
+                <div class="text-danger" v-if="!$v.proyecto.fechaFin.required">Este campo es requerido</div>
                 </div>
                                              
-                                 
+                              <!--   
 
                          <div class="form-group"  :class="{ 'form-group--error': $v.proyecto.palabrasClave.$error }">
                             <label class="form-control-label " v-text="$t('ciecytApp.proyecto.palabrasClave')" for="proyecto-palabras-clave">Palabras Clave</label>
@@ -101,7 +121,7 @@
                                      
                         </div>
                        
--->
+                    -->
 
                     </div>
 
@@ -112,10 +132,13 @@
                                <label class="form-control-label "  v-text="$t('ciecytApp.proyecto.proyectoModalidad')" for="proyecto-modalidad">Modalidad</label>                 
                             <b-form-select :options="modalidads" text-field="modalidad" value-field="id" id="modalidad" 
                             v-model="proyecto.proyectoModalidadId"
-                            
+                             :class="{
+                                'is-invalid': $v.proyecto.proyectoModalidadId.$error,
+                                'is-valid': !$v.proyecto.proyectoModalidadId.$invalid
+                                }"
                             >
                             </b-form-select>
-                           
+                             <div class="text-danger" v-if="!$v.proyecto.proyectoModalidadId.required">Este campo es requerido</div>
                                 
                         </div>
                     </div>
@@ -125,10 +148,13 @@
                                <label class="form-control-label "  v-text="$t('ciecytApp.proyecto.facultad')" for="proyecto-facultad">Facultad</label> 
                             <b-form-select :options="facultades"  text-field="facultad" value-field="id" id="facultad"
                             v-model="proyecto.facultadId"
-                            
+                            :class="{
+                                'is-invalid': $v.proyecto.facultadId.$error,
+                                'is-valid': !$v.proyecto.facultadId.$invalid
+                                }"
                             >
                             </b-form-select>
-                          
+                          <div class="text-danger" v-if="!$v.proyecto.facultadId.required">Este campo es requerido</div>
                         </div>
                     </div>
 
@@ -142,6 +168,10 @@
                             text-field="programa" value-field="id" id="programa"
             
                              v-model="proyecto.proyectoProgramaId"
+                              :class="{
+                                'is-invalid': $v.proyecto.proyectoProgramaId.$error,
+                                'is-valid': !$v.proyecto.proyectoProgramaId.$invalid
+                                }"
                                 
                             >
                             <option v-for="(selectOption, indexOpt) in Programas"
@@ -151,7 +181,7 @@
                                     ({{ selectOption.id }}) {{ selectOption.programa }}
                                 </option>
                             </b-form-select>
-                                <!--<div class="error" v-if="!$v.proyecto.proyectoModalidadId.required && !iniciandoModalidad">Una modalidad de trabajo de grado es requerida</div> -->
+                            <div class="text-danger" v-if="!$v.proyecto.proyectoProgramaId.required">Este campo es requerido</div>
                         </div>
                     </div>
                    <!--   /////////////////////////-->
@@ -219,7 +249,6 @@
                 value-field="id"
                 id="proyecto-asesorId"
                 v-model="proyecto.asesorId"
-                @input="setAsesor"
                 :class="{
                   'is-invalid': $v.proyecto.asesorId.$error,
                   'is-valid': !$v.proyecto.asesorId.$invalid
@@ -229,10 +258,7 @@
               <div class="text-danger" v-if="!$v.proyecto.asesorId.required">Este campo es requerido</div>
             </div>
           </div>
-
                 </div>
-
-
                 <div>
 
                     <button type="button" id="cancel-save" class="btn btn-secondary" v-on:click="previousState()">
@@ -292,16 +318,17 @@ import { IIntegranteProyecto, IntegranteProyecto } from '@/shared/model/integran
             //id: {},
             titulo: { required, maxLength: maxLength(100000) },
             //palabrasClave: { required, maxLength: maxLength(100000) },
-            proyectoModalidadId: { required, between: between(1, 100000000)},
-            facultadId:  { required, between: between(1, 100000000)},
+            proyectoModalidadId: { required },
+            facultadId:  { required},
             //proyectoLineaInvestigacionId:  { required, between: between(1, 100000000)},
             //subLineaLineaInvestigacionId:  { required, between: between(1, 100000000)},
-            asesorId:  { required, between: between(1, 100000000)},
+            proyectoProgramaId: {required },
+            asesorId:  { required },
             //url: { url},
-            //lugarEjecucion: {},
+            lugarEjecucion: {required},
             //duracion: {},
-            //fechaIni: {},
-            //fechaFin: {},
+            fechaIni: {required},
+            fechaFin: {required},
             //contrapartidaPesos: {},
             //contrapartidaEspecie: {},
             //convocatoria: {}

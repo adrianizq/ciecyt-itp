@@ -304,9 +304,15 @@ export function initVueXStore(vue) {
           to: '/propuesta-nueva/informacion-general-nueva',
         },
         {
-          title: 'Integrantes de la Propuesta',
+          title: 'Integrantes',
           description: 'Integrantes de la Propuesta',
           to: '/propuesta-nueva/integrantes-nueva',
+        },
+        ///propuesta-nueva/asignar-jurado-nueva/
+        {
+          title: 'Jurados',
+          description: 'Jurados del proyecto',
+          to: '/propuesta-nueva/jurado-nueva',
         },
       ],
     },

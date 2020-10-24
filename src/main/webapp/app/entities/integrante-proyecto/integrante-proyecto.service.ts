@@ -47,10 +47,10 @@ export default class IntegranteProyectoService {
         });
     });
   }
-  public retrieveJuradosProyecto(idProyecto?: number, paginationQuery?: any): Promise<any> {
+  public retrieveJuradosProyecto(idProyecto?: number, tipoJurado?: string, paginationQuery?: any): Promise<any> {
     return new Promise<any>(resolve => {
       axios
-        .get('/api/integrante-proyectos-jurados' + `/${idProyecto}` + `?${buildPaginationQueryOpts(paginationQuery)}`)
+        .get('/api/integrante-proyectos-jurados' + `/${idProyecto}/${tipoJurado}` + `?${buildPaginationQueryOpts(paginationQuery)}`)
         .then(function (res) {
           resolve(res);
         });

@@ -168,7 +168,7 @@
                 
                             
                  await this.integranteProyectoService()
-                    .retrieveJuradosProyecto(this.proyId )
+                    .retrieveJuradosProyecto(this.proyId,"Viabilidad" )
                     .then(res => {
                        this.integrantesProyecto = res.data;
                        //console.log(res.data);

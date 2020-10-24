@@ -195,11 +195,11 @@ public class IntegranteProyectoResource {
     }
 
 
-    @GetMapping("/integrante-proyectos-jurados/{idProyecto}")
-    public ResponseEntity<?> findJuradosIntegranteProyectoId(@PathVariable Long idProyecto) {
+    @GetMapping("/integrante-proyectos-jurados/{idProyecto}/{tipoJurado}")
+    public ResponseEntity<?> findJuradosIntegranteProyectoId(@PathVariable Long idProyecto, @PathVariable String tipoJurado) {
         log.debug("REST request to get IntegranteProyecto : {}", idProyecto);
         try{
-            final List<IntegranteProyectoDTO> dto = integranteProyectoService.findJuradosIntegranteProyectoId(idProyecto);
+            final List<IntegranteProyectoDTO> dto = integranteProyectoService.findJuradosIntegranteProyectoId(idProyecto,tipoJurado);
             return new ResponseEntity<>(dto, HttpStatus.OK);
 
         }catch (Exception e){

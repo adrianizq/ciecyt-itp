@@ -209,9 +209,9 @@ public class IntegranteProyectoServiceImpl implements IntegranteProyectoService 
 
     }
 
-//jurado de viabilidad ojo
+//jurado de viabilidad modificando
     @Transactional(readOnly = true)
-    public List<IntegranteProyectoDTO> findJuradosIntegranteProyectoId(Long idProyecto) throws Exception {
+    public List<IntegranteProyectoDTO> findJuradosIntegranteProyectoId(Long idProyecto, String tipoJurado) throws Exception {
         log.debug("Request to get Jurados IntegranteProyectos whit a idProyecto");
 
 
@@ -222,7 +222,7 @@ public class IntegranteProyectoServiceImpl implements IntegranteProyectoService 
         Long modalidadId= modalidad.getId(); //eje 1551
 
         RolesModalidadDTO  rolesModalidad;
-        rolesModalidad = rolesModalidadService.findByRolAndRolesModalidadModalidadId("Viabilidad", modalidadId);
+        rolesModalidad = rolesModalidadService.findByRolAndRolesModalidadModalidadId(tipoJurado, modalidadId);
         Long rolesModalidadId= rolesModalidad.getId();
         List <IntegranteProyectoDTO> listDTO = new ArrayList<>();
         List <IntegranteProyecto> list = integranteProyectoRepository.findByIntegranteProyectoProyectoIdAndIntegranteProyectoRolesModalidadId(idProyecto, rolesModalidadId);

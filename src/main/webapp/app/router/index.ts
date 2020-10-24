@@ -316,10 +316,12 @@ const PropuestaListadoAsesor = () => import('../pages/viabilidad_propuesta/lista
 const PropuestaListadoCiecyt = () => import('../pages/ciecyt/listado_ciecyt.vue');
 const PropuestaEvaluar = () => import('../pages/viabilidad_propuesta/propuesta_evaluar.vue');
 const AsignarJurado = () => import('../pages/ciecyt/asignar_jurado.vue');
+
 const AsignarAsesor = () => import('../pages/ciecyt/asignar_asesor.vue');
 
 const PropuestaInformacionGeneralNueva = () => import('../pages/propuesta_nueva/informacion_general_nueva.vue');
 const PropuestaIntegrantesNueva = () => import('../pages/propuesta_nueva/integrantes_nueva.vue');
+const PropuestaJuradoNueva = () => import('../pages/propuesta_nueva/jurado_nueva.vue');
 
 const PropuestasInvestigador = () => import('../pages/propuesta_nueva/propuestas_investigador.vue');
 
@@ -1579,6 +1581,14 @@ export default new Router({
     meta: { authorities: ['ROLE_USER'] }
   },
 
+  {
+
+    path: '/propuesta-nueva/jurado-nueva/:proyectoId',
+    name: 'PropuestaJuradoNuevaEditView',
+    component: PropuestaJuradoNueva,
+    props: true,
+    meta: { authorities: ['ROLE_USER'] }
+  },
   
   
     //Pasantia
