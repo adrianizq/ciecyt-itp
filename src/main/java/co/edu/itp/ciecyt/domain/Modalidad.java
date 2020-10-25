@@ -24,6 +24,9 @@ public class Modalidad implements Serializable {
     @Column(name = "modalidad")
     private String modalidad;
 
+    @Column(name = "contiene_linea")
+    private boolean contieneLinea;
+
     @OneToMany(mappedBy = "modalidad")
     private Set<CicloPropedeutico> modalidadCicloPropedeuticos = new HashSet<>();
 
@@ -52,6 +55,21 @@ public class Modalidad implements Serializable {
     public void setModalidad(String modalidad) {
         this.modalidad = modalidad;
     }
+
+    ////////////////////////////
+    public boolean getContieneLinea() {
+        return contieneLinea;
+    }
+
+    public Modalidad contieneLinea(boolean contieneLinea) {
+        this.contieneLinea = contieneLinea;
+        return this;
+    }
+
+    public void setContieneLinea(boolean contieneLinea) {
+        this.contieneLinea = contieneLinea;
+    }
+    ////////////////////////////////////////7
 
     public Set<CicloPropedeutico> getModalidadCicloPropedeuticos() {
         return modalidadCicloPropedeuticos;
@@ -113,6 +131,7 @@ public class Modalidad implements Serializable {
         return "Modalidad{" +
             "id=" + getId() +
             ", modalidad='" + getModalidad() + "'" +
+            ", contieneLinea='" + getContieneLinea() + "'" +
             "}";
     }
 }

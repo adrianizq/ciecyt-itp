@@ -18,6 +18,9 @@
             <column name="modalidad" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
+            <column name="contiene_linea" type="boolean">
+                <constraints nullable="true" />
+            </column>
             <column name="modalidad_acuerdo_id" type="bigint">
                 <constraints nullable="true" />
             </column>
@@ -44,6 +47,7 @@
                   separator=";"
                   tableName="modalidad">
             <column name="id" type="numeric"/>
+            <column name="contiene_linea" type="boolean"/>
             <column name="modalidad" type="string"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>

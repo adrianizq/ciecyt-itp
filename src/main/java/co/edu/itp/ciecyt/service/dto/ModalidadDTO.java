@@ -16,6 +16,8 @@ public class ModalidadDTO implements Serializable {
 
     private String modalidadAcuerdoAcuerdo;
 
+    private boolean contieneLinea;
+
     public Long getId() {
         return id;
     }
@@ -31,6 +33,21 @@ public class ModalidadDTO implements Serializable {
     public void setModalidad(String modalidad) {
         this.modalidad = modalidad;
     }
+
+    ///////////////////////////
+    public boolean getContieneLinea() {
+        return contieneLinea;
+    }
+
+    /*public Modalidad contieneLinea(boolean contieneLinea) {
+        this.contieneLinea = contieneLinea;
+        return this;
+    }*/
+
+    public void setContieneLinea(boolean contieneLinea) {
+        this.contieneLinea = contieneLinea;
+    }
+    ////////////////////////////////////////7
 
     public Long getModalidadAcuerdoId() {
         return modalidadAcuerdoId;
@@ -74,6 +91,7 @@ public class ModalidadDTO implements Serializable {
         return "ModalidadDTO{" +
             "id=" + getId() +
             ", modalidad='" + getModalidad() + "'" +
+            ", contieneLinea='" + getContieneLinea() + "'" +
             ", modalidadAcuerdo=" + getModalidadAcuerdoId() +
             ", modalidadAcuerdo='" + getModalidadAcuerdoAcuerdo() + "'" +
             "}";

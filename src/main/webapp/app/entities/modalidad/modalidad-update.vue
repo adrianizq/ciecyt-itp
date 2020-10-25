@@ -14,6 +14,13 @@
                         <input type="text" class="form-control" name="modalidad" id="modalidad-modalidad"
                             :class="{'valid': !$v.modalidad.modalidad.$invalid, 'invalid': $v.modalidad.modalidad.$invalid }" v-model="$v.modalidad.modalidad.$model" />
                     </div>
+                    <!---  CONTIENE LINEA  ------------------------>
+                     <div class="form-group">
+                        <label class="form-control-label" v-text="$t('ciecytApp.modalidad.contieneLinea')" for="modalidad-contiene-linea">Linea de Investigacion</label>
+                        <input type="checkbox" class="form-control" name="contiene-linea" id="modalidad-contiene-linea"
+                            :class="{'valid': !$v.modalidad.contieneLinea.$invalid, 'invalid': $v.modalidad.contieneLinea.$invalid }" v-model="$v.modalidad.contieneLinea.$model" />
+                    </div>
+                    <!-------------------------------------------->
                     <div class="form-group">
                         <label class="form-control-label" v-bind:value="$t('ciecytApp.modalidad.modalidadAcuerdo')" for="modalidad-modalidadAcuerdo">Acuerdo</label>
                         <select class="form-control" id="modalidad-modalidadAcuerdo" name="modalidadAcuerdo" v-model="modalidad.modalidadAcuerdoId">

@@ -26,6 +26,7 @@
                 <tr>
                     <th v-on:click="changeOrder('id')"><span v-text="$t('global.field.id')">ID</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th v-on:click="changeOrder('modalidad')"><span v-text="$t('ciecytApp.modalidad.modalidad')">Modalidad</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
+                    <th v-on:click="changeOrder('contieneLinea')"><span v-text="$t('ciecytApp.modalidad.contieneLinea')">Contiene Linea</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th v-on:click="changeOrder('modalidadAcuerdoAcuerdo')"><span v-text="$t('ciecytApp.modalidad.modalidadAcuerdo')">Modalidad Acuerdo</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th></th>
                 </tr>
@@ -37,6 +38,7 @@
                         <router-link :to="{name: 'ModalidadView', params: {modalidadId: modalidad.id}}">{{modalidad.id}}</router-link>
                     </td>
                     <td>{{modalidad.modalidad}}</td>
+                    <td>{{modalidad.contieneLinea}}</td>
                     <td>
                         <div v-if="modalidad.modalidadAcuerdoId">
                             <router-link :to="{name: 'AcuerdoView', params: {acuerdoId: modalidad.modalidadAcuerdoId}}">{{modalidad.modalidadAcuerdoAcuerdo}}</router-link>

@@ -10,6 +10,14 @@
                     <dd>
                         <span>{{modalidad.modalidad}}</span>
                     </dd>
+
+                    <dt>
+                        <span v-text="$t('ciecytApp.modalidad.contieneLinea')">Contiene Linea de Investigacion</span>
+                    </dt>
+                    <dd>
+                        <span>{{modalidad.contieneLinea}}</span>
+                    </dd>
+
                     <dt>
                         <span v-text="$t('ciecytApp.modalidad.modalidadAcuerdo')">Modalidad Acuerdo</span>
                     </dt>

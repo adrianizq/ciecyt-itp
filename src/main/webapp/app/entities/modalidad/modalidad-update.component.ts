@@ -15,6 +15,7 @@ import ModalidadService from './modalidad.service';
 const validations: any = {
   modalidad: {
     modalidad: {},
+    contieneLinea: {},
   },
 };
 
