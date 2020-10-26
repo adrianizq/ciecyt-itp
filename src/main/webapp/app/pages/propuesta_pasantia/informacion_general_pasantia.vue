@@ -89,7 +89,7 @@
               />
             </div> -->
              <!--/tipo investigacion//////////////////////////////////////7 ///////////////////7-->
-            <div class="col-md-6 col-12">
+            
               <div class="form-group">
                 <label class="form-control-label " for="proyecto-facultad">Tipo de Investigacion</label>
                 <b-form-select
@@ -104,7 +104,7 @@
                 <div class="valid-feedback"></div>
                 <div class="text-danger" v-if="!$v.proyecto.tipo.required">Este campo es requerido</div>
               </div>
-            </div>
+        
 
             <div class="form-group">
               <label for="datepicker-sm">Fecha de Inicio</label>
