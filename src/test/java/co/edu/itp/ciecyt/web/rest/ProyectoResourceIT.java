@@ -73,6 +73,12 @@ public class ProyectoResourceIT {
     private static final String DEFAULT_PROGRAMA = "AAAAAAAAAA";
     private static final String UPDATED_PROGRAMA = "BBBBBBBBBB";
 
+    private static final String DEFAULT_DEPARTAMENTO = "AAAAAAAAAA";
+    private static final String UPDATED_DEPARTAMENTO = "BBBBBBBBBB";
+
+    private static final String DEFAULT_MUNICIPIO = "AAAAAAAAAA";
+    private static final String UPDATED_MUNICIPIO = "BBBBBBBBBB";
+
     @Autowired
     private ProyectoRepository proyectoRepository;
 
@@ -110,7 +116,9 @@ public class ProyectoResourceIT {
             .convocatoria(DEFAULT_CONVOCATORIA)
             .tipo(DEFAULT_TIPO)
             .referencias(DEFAULT_REFERENCIAS)
-            .programa(DEFAULT_PROGRAMA);
+            .programa(DEFAULT_PROGRAMA)
+            .departamento(DEFAULT_DEPARTAMENTO)
+            .municipio(DEFAULT_MUNICIPIO);
         return proyecto;
     }
     /**
@@ -133,7 +141,9 @@ public class ProyectoResourceIT {
             .convocatoria(UPDATED_CONVOCATORIA)
             .tipo(UPDATED_TIPO)
             .referencias(UPDATED_REFERENCIAS)
-            .programa(UPDATED_PROGRAMA);
+            .programa(UPDATED_PROGRAMA)
+            .departamento(UPDATED_DEPARTAMENTO)
+            .municipio(UPDATED_MUNICIPIO);
         return proyecto;
     }
 
@@ -170,6 +180,8 @@ public class ProyectoResourceIT {
         assertThat(testProyecto.getTipo()).isEqualTo(DEFAULT_TIPO);
         assertThat(testProyecto.getReferencias()).isEqualTo(DEFAULT_REFERENCIAS);
         assertThat(testProyecto.getPrograma()).isEqualTo(DEFAULT_PROGRAMA);
+        assertThat(testProyecto.getDepartamento()).isEqualTo(DEFAULT_DEPARTAMENTO);
+        assertThat(testProyecto.getMunicipio()).isEqualTo(DEFAULT_MUNICIPIO);
     }
 
     @Test
@@ -216,7 +228,9 @@ public class ProyectoResourceIT {
             .andExpect(jsonPath("$.[*].convocatoria").value(hasItem(DEFAULT_CONVOCATORIA)))
             .andExpect(jsonPath("$.[*].tipo").value(hasItem(DEFAULT_TIPO)))
             .andExpect(jsonPath("$.[*].referencias").value(hasItem(DEFAULT_REFERENCIAS)))
-            .andExpect(jsonPath("$.[*].programa").value(hasItem(DEFAULT_PROGRAMA)));
+            .andExpect(jsonPath("$.[*].programa").value(hasItem(DEFAULT_PROGRAMA)))
+            .andExpect(jsonPath("$.[*].departamento").value(hasItem(DEFAULT_DEPARTAMENTO)))
+            .andExpect(jsonPath("$.[*].municipio").value(hasItem(DEFAULT_MUNICIPIO)));
     }
     
     @Test
@@ -242,7 +256,9 @@ public class ProyectoResourceIT {
             .andExpect(jsonPath("$.convocatoria").value(DEFAULT_CONVOCATORIA))
             .andExpect(jsonPath("$.tipo").value(DEFAULT_TIPO))
             .andExpect(jsonPath("$.referencias").value(DEFAULT_REFERENCIAS))
-            .andExpect(jsonPath("$.programa").value(DEFAULT_PROGRAMA));
+            .andExpect(jsonPath("$.programa").value(DEFAULT_PROGRAMA))
+            .andExpect(jsonPath("$.departamento").value(DEFAULT_DEPARTAMENTO))
+            .andExpect(jsonPath("$.municipio").value(DEFAULT_MUNICIPIO));
     }
     @Test
     @Transactional
@@ -277,7 +293,9 @@ public class ProyectoResourceIT {
             .convocatoria(UPDATED_CONVOCATORIA)
             .tipo(UPDATED_TIPO)
             .referencias(UPDATED_REFERENCIAS)
-            .programa(UPDATED_PROGRAMA);
+            .programa(UPDATED_PROGRAMA)
+            .departamento(UPDATED_DEPARTAMENTO)
+            .municipio(UPDATED_MUNICIPIO);
         ProyectoDTO proyectoDTO = proyectoMapper.toDto(updatedProyecto);
 
         restProyectoMockMvc.perform(put("/api/proyectos")
@@ -302,6 +320,8 @@ public class ProyectoResourceIT {
         assertThat(testProyecto.getTipo()).isEqualTo(UPDATED_TIPO);
         assertThat(testProyecto.getReferencias()).isEqualTo(UPDATED_REFERENCIAS);
         assertThat(testProyecto.getPrograma()).isEqualTo(UPDATED_PROGRAMA);
+        assertThat(testProyecto.getDepartamento()).isEqualTo(UPDATED_DEPARTAMENTO);
+        assertThat(testProyecto.getMunicipio()).isEqualTo(UPDATED_MUNICIPIO);
     }
 
     @Test

@@ -35,6 +35,10 @@ public class ProyectoDTO implements Serializable {
     private String referencias;
 
     private String programa;
+   
+    private String departamento;
+   
+    private String municipio;
 
 
     private Long proyectoLineaInvestigacionId;
@@ -186,6 +190,29 @@ public class ProyectoDTO implements Serializable {
         this.programa = programa;
     }
 
+
+    /********** */
+    
+    public String getDepartamento() {
+        return departamento;
+    }
+
+    
+    public void setDepartamento(String departamento) {
+        this.departamento = departamento;
+    }
+
+    public String getMunicipio() {
+        return municipio;
+    }
+
+    
+    public void setMunicipio(String municipio) {
+        this.municipio = municipio;
+    }
+
+    //////////////////////////////////77
+
     public Long getProyectoLineaInvestigacionId() {
         return proyectoLineaInvestigacionId;
     }
@@ -309,6 +336,8 @@ public class ProyectoDTO implements Serializable {
             ", tipo='" + getTipo() + "'" +
             ", referencias='" + getReferencias() + "'" +
             ", programa='" + getPrograma() + "'" +
+            ", departamento='" + getDepartamento() + "'" +
+            ", municipio='" + getMunicipio() + "'" +
             ", proyectoLineaInvestigacionId=" + getProyectoLineaInvestigacionId() +
             ", proyectoLineaInvestigacionLinea='" + getProyectoLineaInvestigacionLinea() + "'" +
             ", proyectoGrupoSemilleroId=" + getProyectoGrupoSemilleroId() +

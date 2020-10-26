@@ -8,6 +8,8 @@ export interface IProyecto {
   fechaFin?: Date;
   contrapartidaPesos?: number;
   contrapartidaEspecie?: number;
+  departamento?: string;
+  municipio?: string;
   palabrasClave?: string;
   convocatoria?: string;
   proyectoLineaInvestigacionLinea?: string;
@@ -37,6 +39,8 @@ export class Proyecto implements IProyecto {
     public fechaFin?: Date,
     public contrapartidaPesos?: number,
     public contrapartidaEspecie?: number,
+    public departamento?: string,
+    public municipio?: string,
     public palabrasClave?: string,
     public convocatoria?: string,
     public proyectoLineaInvestigacionLinea?: string,

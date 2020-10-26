@@ -64,6 +64,12 @@ public class Proyecto implements Serializable {
     @Column(name = "programa")
     private String programa;
 
+    @Column(name = "departamento")
+    private String departamento;
+
+    @Column(name = "municipio")
+    private String municipio;
+
     @ManyToOne
     @JsonIgnoreProperties(value = "proyectos", allowSetters = true)
     private LineaInvestigacion proyectoLineaInvestigacion;
@@ -80,7 +86,8 @@ public class Proyecto implements Serializable {
     @JsonIgnoreProperties(value = "proyectos", allowSetters = true)
     private LineaInvestigacion subLineaLineaInvestigacion;
 
-   
+    
+
     @ManyToOne
     @JsonIgnoreProperties(value = "facultadProyectos", allowSetters = true)
     private Facultad facultad;
@@ -267,6 +274,32 @@ public class Proyecto implements Serializable {
         this.programa = programa;
     }
 
+    public String getDepartamento() {
+        return departamento;
+    }
+
+    public Proyecto departamento(String departamento) {
+        this.departamento = departamento;
+        return this;
+    }
+
+    public void setDepartamento(String departamento) {
+        this.departamento = departamento;
+    }
+
+    public String getMunicipio() {
+        return municipio;
+    }
+
+    public Proyecto municipio(String municipio) {
+        this.municipio = municipio;
+        return this;
+    }
+
+    public void setMunicipio(String municipio) {
+        this.municipio = municipio;
+    }
+
     public LineaInvestigacion getProyectoLineaInvestigacion() {
         return proyectoLineaInvestigacion;
     }
@@ -319,7 +352,6 @@ public class Proyecto implements Serializable {
         this.subLineaLineaInvestigacion = lineaInvestigacion;
     }
 
-    
 
     public Facultad getFacultad() {
         return facultad;
@@ -382,6 +414,8 @@ public class Proyecto implements Serializable {
             ", tipo='" + getTipo() + "'" +
             ", referencias='" + getReferencias() + "'" +
             ", programa='" + getPrograma() + "'" +
+            ", departamento='" + getDepartamento() + "'" +
+            ", municipio='" + getMunicipio() + "'" +
             "}";
     }
 }

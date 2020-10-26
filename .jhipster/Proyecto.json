@@ -52,6 +52,14 @@
     {
       "fieldName": "programa",
       "fieldType": "String"
+    },
+    {
+      "fieldName": "departamento",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "municipio",
+      "fieldType": "String"
     }
   ],
   "relationships": [
