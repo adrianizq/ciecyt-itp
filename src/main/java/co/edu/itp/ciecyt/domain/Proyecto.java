@@ -70,6 +70,9 @@ public class Proyecto implements Serializable {
     @Column(name = "municipio")
     private String municipio;
 
+    @Column(name = "viable")
+    private Boolean viable;
+
     @ManyToOne
     @JsonIgnoreProperties(value = "proyectos", allowSetters = true)
     private LineaInvestigacion proyectoLineaInvestigacion;
@@ -86,7 +89,9 @@ public class Proyecto implements Serializable {
     @JsonIgnoreProperties(value = "proyectos", allowSetters = true)
     private LineaInvestigacion subLineaLineaInvestigacion;
 
-    
+   /* @OneToOne(mappedBy = "informacionPasantiaProyecto")
+    @JsonIgnore
+    private InformacionPasantia id; */
 
     @ManyToOne
     @JsonIgnoreProperties(value = "facultadProyectos", allowSetters = true)
@@ -300,6 +305,19 @@ public class Proyecto implements Serializable {
         this.municipio = municipio;
     }
 
+    public Boolean isViable() {
+        return viable;
+    }
+
+    public Proyecto viable(Boolean viable) {
+        this.viable = viable;
+        return this;
+    }
+
+    public void setViable(Boolean viable) {
+        this.viable = viable;
+    }
+
     public LineaInvestigacion getProyectoLineaInvestigacion() {
         return proyectoLineaInvestigacion;
     }
@@ -352,7 +370,19 @@ public class Proyecto implements Serializable {
         this.subLineaLineaInvestigacion = lineaInvestigacion;
     }
 
+  /*  public InformacionPasantia getId() {
+        return id;
+    }
 
+    public Proyecto id(InformacionPasantia informacionPasantia) {
+        this.id = informacionPasantia;
+        return this;
+    }
+
+    public void setId(InformacionPasantia informacionPasantia) {
+        this.id = informacionPasantia;
+    }
+*/
     public Facultad getFacultad() {
         return facultad;
     }
@@ -416,6 +446,7 @@ public class Proyecto implements Serializable {
             ", programa='" + getPrograma() + "'" +
             ", departamento='" + getDepartamento() + "'" +
             ", municipio='" + getMunicipio() + "'" +
+            ", viable='" + isViable() + "'" +
             "}";
     }
 }

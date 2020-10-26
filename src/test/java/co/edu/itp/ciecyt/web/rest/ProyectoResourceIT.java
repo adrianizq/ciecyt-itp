@@ -79,6 +79,9 @@ public class ProyectoResourceIT {
     private static final String DEFAULT_MUNICIPIO = "AAAAAAAAAA";
     private static final String UPDATED_MUNICIPIO = "BBBBBBBBBB";
 
+    private static final Boolean DEFAULT_VIABLE = false;
+    private static final Boolean UPDATED_VIABLE = true;
+
     @Autowired
     private ProyectoRepository proyectoRepository;
 
@@ -118,7 +121,8 @@ public class ProyectoResourceIT {
             .referencias(DEFAULT_REFERENCIAS)
             .programa(DEFAULT_PROGRAMA)
             .departamento(DEFAULT_DEPARTAMENTO)
-            .municipio(DEFAULT_MUNICIPIO);
+            .municipio(DEFAULT_MUNICIPIO)
+            .viable(DEFAULT_VIABLE);
         return proyecto;
     }
     /**
@@ -143,7 +147,8 @@ public class ProyectoResourceIT {
             .referencias(UPDATED_REFERENCIAS)
             .programa(UPDATED_PROGRAMA)
             .departamento(UPDATED_DEPARTAMENTO)
-            .municipio(UPDATED_MUNICIPIO);
+            .municipio(UPDATED_MUNICIPIO)
+            .viable(UPDATED_VIABLE);
         return proyecto;
     }
 
@@ -182,6 +187,7 @@ public class ProyectoResourceIT {
         assertThat(testProyecto.getPrograma()).isEqualTo(DEFAULT_PROGRAMA);
         assertThat(testProyecto.getDepartamento()).isEqualTo(DEFAULT_DEPARTAMENTO);
         assertThat(testProyecto.getMunicipio()).isEqualTo(DEFAULT_MUNICIPIO);
+        assertThat(testProyecto.isViable()).isEqualTo(DEFAULT_VIABLE);
     }
 
     @Test
@@ -230,7 +236,8 @@ public class ProyectoResourceIT {
             .andExpect(jsonPath("$.[*].referencias").value(hasItem(DEFAULT_REFERENCIAS)))
             .andExpect(jsonPath("$.[*].programa").value(hasItem(DEFAULT_PROGRAMA)))
             .andExpect(jsonPath("$.[*].departamento").value(hasItem(DEFAULT_DEPARTAMENTO)))
-            .andExpect(jsonPath("$.[*].municipio").value(hasItem(DEFAULT_MUNICIPIO)));
+            .andExpect(jsonPath("$.[*].municipio").value(hasItem(DEFAULT_MUNICIPIO)))
+            .andExpect(jsonPath("$.[*].viable").value(hasItem(DEFAULT_VIABLE.booleanValue())));
     }
     
     @Test
@@ -258,7 +265,8 @@ public class ProyectoResourceIT {
             .andExpect(jsonPath("$.referencias").value(DEFAULT_REFERENCIAS))
             .andExpect(jsonPath("$.programa").value(DEFAULT_PROGRAMA))
             .andExpect(jsonPath("$.departamento").value(DEFAULT_DEPARTAMENTO))
-            .andExpect(jsonPath("$.municipio").value(DEFAULT_MUNICIPIO));
+            .andExpect(jsonPath("$.municipio").value(DEFAULT_MUNICIPIO))
+            .andExpect(jsonPath("$.viable").value(DEFAULT_VIABLE.booleanValue()));
     }
     @Test
     @Transactional
@@ -295,7 +303,8 @@ public class ProyectoResourceIT {
             .referencias(UPDATED_REFERENCIAS)
             .programa(UPDATED_PROGRAMA)
             .departamento(UPDATED_DEPARTAMENTO)
-            .municipio(UPDATED_MUNICIPIO);
+            .municipio(UPDATED_MUNICIPIO)
+            .viable(UPDATED_VIABLE);
         ProyectoDTO proyectoDTO = proyectoMapper.toDto(updatedProyecto);
 
         restProyectoMockMvc.perform(put("/api/proyectos")
@@ -322,6 +331,7 @@ public class ProyectoResourceIT {
         assertThat(testProyecto.getPrograma()).isEqualTo(UPDATED_PROGRAMA);
         assertThat(testProyecto.getDepartamento()).isEqualTo(UPDATED_DEPARTAMENTO);
         assertThat(testProyecto.getMunicipio()).isEqualTo(UPDATED_MUNICIPIO);
+        assertThat(testProyecto.isViable()).isEqualTo(UPDATED_VIABLE);
     }
 
     @Test

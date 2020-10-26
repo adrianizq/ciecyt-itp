@@ -40,7 +40,8 @@ public class ProyectoDTO implements Serializable {
    
     private String municipio;
 
-
+    private Boolean viable;
+    
     private Long proyectoLineaInvestigacionId;
 
     private String proyectoLineaInvestigacionLinea;
@@ -293,6 +294,14 @@ public class ProyectoDTO implements Serializable {
         this.proyectoProgramaId = programaId;
     }
 
+    public Boolean isViable() {
+        return viable;
+    }
+
+    public void setViable(Boolean viable) {
+        this.viable = viable;
+    }
+
    /* public String getProyectoProgramaPrograma() {
         return proyectoProgramaPrograma;
     }
@@ -348,6 +357,7 @@ public class ProyectoDTO implements Serializable {
             ", subLineaLineaInvestigacionLinea='" + getSubLineaLineaInvestigacionLinea() + "'" +
             ", facultadId=" + getFacultadId() +
             ", proyectoProgramaId=" + getProyectoProgramaId() +
+            ", viable=" + isViable() +
            // ", proyectoProgramaPrograma='" + getProyectoProgramaPrograma() + "'" +
             "}";
     }

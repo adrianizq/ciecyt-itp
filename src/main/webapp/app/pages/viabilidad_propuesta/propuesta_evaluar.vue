@@ -63,9 +63,21 @@
                        <!------------------------------------------------->
     
                     </div>
+ 
                      
                 </div>
               
+
+<div class="form-group">
+  <label class="form-control-label" for="proyecto-respuestas-viabilidad">Viabilidad</label>
+                     <input
+                        type="checkbox"
+                        class="form-control"
+                        name="proyecto-respuestas-viabilidad"
+                        id="proyecto-respuestas-viabilidad"
+                        v-model="proyecto.viable"
+                      />
+ </div>
 
                 <div>
 
@@ -157,8 +169,17 @@ export default class PropuestaEvaluar extends Vue {
                         });
                     }
                 }
+                
 
             } catch (e) {
+                //TODO: mostrar mensajes de error
+            }
+
+            //actualizar el proyecto para que se guarde la viabilidad
+             try {
+                this.proyectoService().update(this.proyecto);
+
+                  } catch (e) {
                 //TODO: mostrar mensajes de error
             }
         }

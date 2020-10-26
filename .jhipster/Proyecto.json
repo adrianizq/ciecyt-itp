@@ -60,6 +60,10 @@
     {
       "fieldName": "municipio",
       "fieldType": "String"
+    },
+    {
+      "fieldName": "viable",
+      "fieldType": "Boolean"
     }
   ],
   "relationships": [
