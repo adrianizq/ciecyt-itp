@@ -197,7 +197,7 @@
                 text-field="facultad"
                 value-field="id"
                 id="facultad"
-                v-model="proyecto.lugarEjecucion"
+                v-model="proyecto.departamento"
                 @input="setMunicipios"
               >
               </b-form-select>
@@ -209,7 +209,7 @@
           <div class="col-md-6 col-12">
             <div class="form-group">
               <label class="form-control-label " for="proyecto-facultad">Municipio</label>
-              <b-form-select :options="municipios" text-field="facultad" value-field="id" id="facultad" v-model="proyecto.url">
+              <b-form-select :options="municipios" text-field="facultad" value-field="id" id="facultad" v-model="proyecto.municipio">
               </b-form-select>
             </div>
           </div>
