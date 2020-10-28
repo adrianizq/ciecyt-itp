@@ -22,7 +22,10 @@
         </div>
         <div>{{username}} con id {{userid}} {{autoridades}}</div>
         <div class="table-responsive" v-if="proyects && proyects.length > 0">
-            <table class="table table-striped">
+            <table class="table table-striped"
+            
+            
+            >
                 <thead>
                 <tr>
                     <th v-on:click="changeOrder('id')"><span v-text="$t('global.field.id')">ID</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
@@ -48,14 +51,14 @@
                      <td class="text-right">
                         <div class="btn-group" v-if="!proyecto.tieneJuradoViabilidad">
                             <router-link :to="{name: 'AsignarJuradoViabilidadView', params: {proyectoId: proyecto.id}}" tag="button" class="btn btn-info btn-sm details">
-                               <b-icon-person-square></b-icon-person-square>&nbsp;
+                               <b-icon-person-fill></b-icon-person-fill>&nbsp;
                                 <span class="d-none d-md-inline" >Asignar</span>
                             </router-link>
                          </div>
 
                          <div class="btn-group" v-if="proyecto.tieneJuradoViabilidad">
                             <router-link :to="{name: 'AsignarJuradoViabilidadView', params: {proyectoId: proyecto.id}}" tag="button" class="btn btn-secondary btn-sm">
-                               <b-icon-pencil-square></b-icon-pencil-square>&nbsp;
+                                <b-icon-person-fill></b-icon-person-fill>&nbsp;
                                 <span class="d-none d-md-inline"  >Cambiar</span>
                             </router-link>
                          </div>
@@ -65,14 +68,14 @@
                      <td class="text-right">
                         <div class="btn-group" v-if="!proyecto.tieneJurado">
                             <router-link :to="{name: 'AsignarJuradoView', params: {proyectoId: proyecto.id}}" tag="button" class="btn btn-info btn-sm details">
-                               <b-icon-person-square></b-icon-person-square>&nbsp;
+                                <b-icon-people-fill></b-icon-people-fill>&nbsp;
                                 <span class="d-none d-md-inline" >Asignar</span>
                             </router-link>
                          </div>
 
                          <div class="btn-group" v-if="proyecto.tieneJurado">
                             <router-link :to="{name: 'AsignarJuradoView', params: {proyectoId: proyecto.id}}" tag="button" class="btn btn-secondary btn-sm">
-                               <b-icon-pencil-square></b-icon-pencil-square>&nbsp;
+                               <b-icon-people-fill></b-icon-people-fill>&nbsp;
                                 <span  class="d-none d-md-inline">Cambiar </span>
                             </router-link>
                          </div>
@@ -81,14 +84,14 @@
                     <td class="text-right">
                         <div class="btn-group" v-if="!proyecto.tieneAsesor">
                             <router-link :to="{name: 'AsignarAsesorView', params: {proyectoId: proyecto.id}}" tag="button" class="btn btn-info btn-sm details">
-                               <b-icon-person-square></b-icon-person-square>&nbsp;
+                               <b-icon-person></b-icon-person>&nbsp;
                                 <span class="d-none d-md-inline" >Asignar</span>
                             </router-link>
                          </div>
 
                          <div class="btn-group" v-if="proyecto.tieneAsesor">
                             <router-link :to="{name: 'AsignarAsesorView', params: {proyectoId: proyecto.id}}" tag="button" class="btn btn-secondary btn-sm">
-                               <b-icon-pencil-square></b-icon-pencil-square>&nbsp;
+                                <b-icon-person></b-icon-person>&nbsp;
                                 <span class="d-none d-md-inline" >Cambiar </span>
                             </router-link>
                          </div>
