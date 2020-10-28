@@ -8,7 +8,7 @@
                 <div class="row">
                     <div class="col-12" v-for="(integrante, i) in integrantesProyecto" :key="i">
                         <b-form-group
-                            :label="`Jurado # ${i + 1}`"
+                            :label="`Jurado de Viabilidad # ${i + 1}`"
                             :label-for="`integrante-${i}`"
                         >
                             <b-form-select
@@ -159,7 +159,7 @@
       
                             
                  await this.integranteProyectoService()
-                    .retrieveJuradosProyecto(this.proyId,"Jurado" )
+                    .retrieveJuradosProyecto(this.proyId,"Viabilidad" )
                     .then(res => {
                        this.integrantesProyecto = res.data;
                       
@@ -167,7 +167,7 @@
                     
                   if(this.integrantesProyecto.length==0){  
                   await this.rolesModalidadService()
-                    .findRolModalidad("Jurado", this.modalidadId )
+                    .findRolModalidad("Viabilidad", this.modalidadId )
                     .then(res => {
                         this.rolesModalidad = res;
                         this.cantJurados = res.cantidad;

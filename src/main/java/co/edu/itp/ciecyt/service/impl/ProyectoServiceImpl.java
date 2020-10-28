@@ -142,6 +142,7 @@ public class ProyectoServiceImpl implements ProyectoService {
         for (ProyectoDTO dto : lProyectos) {
             dto.setTieneJurado(false);
             dto.setTieneJuradoViabilidad(false);
+            dto.setTieneAsesor(false);
             List <IntegranteProyectoDTO>  lIntegrantes = integranteProyectoService.findByIntegranteProyectoProyectoId(dto.getId());
             if(lIntegrantes!=null && lIntegrantes.size()>0){
                 for(IntegranteProyectoDTO i: lIntegrantes){
@@ -150,6 +151,9 @@ public class ProyectoServiceImpl implements ProyectoService {
                     }
                     if(i.getIntegranteProyectoRolesModalidadRol().contains("Viabilidad")){
                         dto.setTieneJuradoViabilidad(true);
+                    }
+                    if(i.getIntegranteProyectoRolesModalidadRol().contains("Asesor")){
+                        dto.setTieneAsesor(true);
                     }
                 }
             }
