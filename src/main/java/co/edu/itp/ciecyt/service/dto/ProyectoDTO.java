@@ -71,6 +71,8 @@ public class ProyectoDTO implements Serializable {
 
     private Boolean tieneAsesor;
 
+    private Boolean enviado;
+
    // private String proyectoProgramaPrograma;
 
          //adr
@@ -408,5 +410,15 @@ public class ProyectoDTO implements Serializable {
     public void setTieneAsesor(Boolean tieneAsesor){
 
         this.tieneAsesor = tieneAsesor;
+    }
+
+    ///////////////7
+    public Boolean isEnviado() {
+        return enviado;
+    }
+
+    
+    public void setEnviado(Boolean enviado) {
+        this.enviado = enviado;
     }
 }

@@ -299,7 +299,7 @@ const PropuestaResultadosEsperados = () => import('../pages/propuesta/resultados
 const PropuestaImpactosEsperado = () => import('../pages/propuesta/impactos_esperados.vue');
 const PropuestaEntidades = () => import('../pages/propuesta/entidades.vue');
 const PropuestaCronograma = () => import('../pages/propuesta/cronograma.vue');
-const PropuestaEstadoPropuestas = () => import('../pages/propuesta/estado_propuestas.vue');
+const PropuestaEnviarPropuesta = () => import('../pages/propuesta/enviar_propuesta.vue');
 
 const PropuestaLineaInformacionGeneral = () => import('../pages/propuesta_linea/informacion_general_linea.vue');
 const PropuestaLineaIntegrantes = () => import('../pages/propuesta_linea/integrantes_linea.vue');
@@ -1725,9 +1725,9 @@ export default new Router({
       meta: { authorities: ['ROLE_USER'] }
     },
     {
-      path: '/propuesta/estado_propuestas/:proyectoId',
-      name: 'PropuestaEstadoPropuestasView',
-      component: PropuestaEstadoPropuestas,
+      path: '/propuesta/enviar_propuesta/:proyectoId',
+      name: 'PropuestaEnviarPropuestaView',
+      component: PropuestaEnviarPropuesta,
       meta: { authorities: ['ROLE_USER'] }
     },
     {

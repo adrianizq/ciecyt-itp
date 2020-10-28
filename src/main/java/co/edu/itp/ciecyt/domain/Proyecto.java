@@ -73,6 +73,9 @@ public class Proyecto implements Serializable {
     @Column(name = "viable")
     private Boolean viable;
 
+    @Column(name = "enviado")
+    private Boolean enviado;
+
     @ManyToOne
     @JsonIgnoreProperties(value = "proyectos", allowSetters = true)
     private LineaInvestigacion proyectoLineaInvestigacion;
@@ -89,9 +92,7 @@ public class Proyecto implements Serializable {
     @JsonIgnoreProperties(value = "proyectos", allowSetters = true)
     private LineaInvestigacion subLineaLineaInvestigacion;
 
-   /* @OneToOne(mappedBy = "informacionPasantiaProyecto")
-    @JsonIgnore
-    private InformacionPasantia id; */
+    
 
     @ManyToOne
     @JsonIgnoreProperties(value = "facultadProyectos", allowSetters = true)
@@ -318,6 +319,19 @@ public class Proyecto implements Serializable {
         this.viable = viable;
     }
 
+    public Boolean isEnviado() {
+        return enviado;
+    }
+
+    public Proyecto enviado(Boolean enviado) {
+        this.enviado = enviado;
+        return this;
+    }
+
+    public void setEnviado(Boolean enviado) {
+        this.enviado = enviado;
+    }
+
     public LineaInvestigacion getProyectoLineaInvestigacion() {
         return proyectoLineaInvestigacion;
     }
@@ -370,19 +384,8 @@ public class Proyecto implements Serializable {
         this.subLineaLineaInvestigacion = lineaInvestigacion;
     }
 
-  /*  public InformacionPasantia getId() {
-        return id;
-    }
+   
 
-    public Proyecto id(InformacionPasantia informacionPasantia) {
-        this.id = informacionPasantia;
-        return this;
-    }
-
-    public void setId(InformacionPasantia informacionPasantia) {
-        this.id = informacionPasantia;
-    }
-*/
     public Facultad getFacultad() {
         return facultad;
     }
@@ -447,6 +450,7 @@ public class Proyecto implements Serializable {
             ", departamento='" + getDepartamento() + "'" +
             ", municipio='" + getMunicipio() + "'" +
             ", viable='" + isViable() + "'" +
+            ", enviado='" + isEnviado() + "'" +
             "}";
     }
 }

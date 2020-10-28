@@ -159,9 +159,9 @@ export function initVueXStore(vue) {
           to: '/propuesta/cronograma',
         },
         {
-          title: 'Estado de Propuestas',
-          description: 'Muestra el estado de sus propuestas',
-          to: '/propuesta/estado_propuestas',
+          title: 'Enviar la Propuesta',
+          description: 'En esta sección enviará su propuesta al Ciecyt',
+          to: '/propuesta/enviar_propuesta',
         },
       ],
 
