@@ -32,6 +32,9 @@ export interface IProyecto {
   tieneJurado?: boolean;
   tieneJuradoViabilidad?: boolean;
   tieneAsesor?: boolean;
+  enviado?: boolean;
+  fechaEnvioPropuesta?: Date;
+  fechaEnvioProyecto?: Date;
 }
 
 export class Proyecto implements IProyecto {
@@ -66,6 +69,9 @@ export class Proyecto implements IProyecto {
     public listaIntegrantes?: IIntegranteProyecto[],
     public tieneJurado?: boolean,
     public tieneJuradoViabilidad?: boolean,
-    public tieneAsesor?: boolean
+    public tieneAsesor?: boolean,
+    public enviado?: boolean,
+    public fechaEnvioPropuesta?: Date,
+    public fechaEnvioProyecto?: Date
   ) {}
 }

@@ -76,6 +76,12 @@ public class Proyecto implements Serializable {
     @Column(name = "enviado")
     private Boolean enviado;
 
+    @Column(name = "fecha_envio_propuesta")
+    private LocalDate fechaEnvioPropuesta;
+
+    @Column(name = "fecha_envio_proyecto")
+    private LocalDate fechaEnvioProyecto;
+
     @ManyToOne
     @JsonIgnoreProperties(value = "proyectos", allowSetters = true)
     private LineaInvestigacion proyectoLineaInvestigacion;
@@ -92,7 +98,7 @@ public class Proyecto implements Serializable {
     @JsonIgnoreProperties(value = "proyectos", allowSetters = true)
     private LineaInvestigacion subLineaLineaInvestigacion;
 
-    
+  
 
     @ManyToOne
     @JsonIgnoreProperties(value = "facultadProyectos", allowSetters = true)
@@ -332,6 +338,32 @@ public class Proyecto implements Serializable {
         this.enviado = enviado;
     }
 
+    public LocalDate getFechaEnvioPropuesta() {
+        return fechaEnvioPropuesta;
+    }
+
+    public Proyecto fechaEnvioPropuesta(LocalDate fechaEnvioPropuesta) {
+        this.fechaEnvioPropuesta = fechaEnvioPropuesta;
+        return this;
+    }
+
+    public void setFechaEnvioPropuesta(LocalDate fechaEnvioPropuesta) {
+        this.fechaEnvioPropuesta = fechaEnvioPropuesta;
+    }
+
+    public LocalDate getFechaEnvioProyecto() {
+        return fechaEnvioProyecto;
+    }
+
+    public Proyecto fechaEnvioProyecto(LocalDate fechaEnvioProyecto) {
+        this.fechaEnvioProyecto = fechaEnvioProyecto;
+        return this;
+    }
+
+    public void setFechaEnvioProyecto(LocalDate fechaEnvioProyecto) {
+        this.fechaEnvioProyecto = fechaEnvioProyecto;
+    }
+
     public LineaInvestigacion getProyectoLineaInvestigacion() {
         return proyectoLineaInvestigacion;
     }
@@ -384,7 +416,7 @@ public class Proyecto implements Serializable {
         this.subLineaLineaInvestigacion = lineaInvestigacion;
     }
 
-   
+    
 
     public Facultad getFacultad() {
         return facultad;
@@ -451,6 +483,8 @@ public class Proyecto implements Serializable {
             ", municipio='" + getMunicipio() + "'" +
             ", viable='" + isViable() + "'" +
             ", enviado='" + isEnviado() + "'" +
+            ", fechaEnvioPropuesta='" + getFechaEnvioPropuesta() + "'" +
+            ", fechaEnvioProyecto='" + getFechaEnvioProyecto() + "'" +
             "}";
     }
 }

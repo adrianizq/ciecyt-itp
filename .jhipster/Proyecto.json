@@ -68,6 +68,14 @@
     {
       "fieldName": "enviado",
       "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "fechaEnvioPropuesta",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "fechaEnvioProyecto",
+      "fieldType": "LocalDate"
     }
   ],
   "relationships": [

@@ -15,4 +15,5 @@ import java.util.List;
 public interface ProyectoRepository extends JpaRepository<Proyecto, Long> {
 
    Proyecto findByIdOrderById(Long idProyecto);
+   
 }

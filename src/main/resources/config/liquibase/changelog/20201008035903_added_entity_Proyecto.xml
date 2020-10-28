@@ -66,6 +66,12 @@
             <column name="enviado" type="boolean">
                 <constraints nullable="true" />
             </column>
+            <column name="fecha_envio_propuesta" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="fecha_envio_proyecto" type="date">
+                <constraints nullable="true" />
+            </column>
             <column name="proyecto_linea_investigacion_id" type="bigint">
                 <constraints nullable="true" />
             </column>
@@ -124,6 +130,8 @@
             <column name="municipio" type="string"/>
             <column name="viable" type="boolean"/>
             <column name="enviado" type="boolean"/>
+            <column name="fecha_envio_propuesta" type="date"/>
+            <column name="fecha_envio_proyecto" type="date"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>

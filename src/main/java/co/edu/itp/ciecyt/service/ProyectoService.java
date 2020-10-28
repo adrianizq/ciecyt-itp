@@ -59,6 +59,7 @@ public interface ProyectoService {
     void delete(Long id);
 
     List<ProyectoDTO> findByIntegranteProyecto(Long idUsuario) throws Exception;
+    //ProyectoDTO findOneIntegrantes(Long id) ;
     List<ProyectoDTO> findByIntegranteProyectoAuthority(Long idUsuario, String authority) throws Exception;
 
     //List<IntegranteProyecto> findByIntegranteProyectoUserId(Long idUsuario, String authority);

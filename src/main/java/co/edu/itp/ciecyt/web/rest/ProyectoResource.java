@@ -156,6 +156,13 @@ public class ProyectoResource {
         return ResponseUtil.wrapOrNotFound(proyectoDTO);
     }
 
+    /*@GetMapping("/proyectoIntegrantes/{id}")
+    public ResponseEntity<ProyectoDTO> getProyectoIntegrante(@PathVariable Long id) {
+        log.debug("REST request to get Proyecto : {}", id);
+        ProyectoDTO proyectoDTO = proyectoService.findOneIntegrantes(id);
+        return proyectoDTO;
+    }*/
+
 
 
 

@@ -178,8 +178,39 @@ public class ProyectoServiceImpl implements ProyectoService {
             .map(proyectoMapper::toDto);
     }
 
+/*
+ @Override
+    @Transactional(readOnly = true)
+    public ProyectoDTO findOneIntegrantes(Long id)  {
+        log.debug("Request to get Proyecto : {}", id);
+        Proyecto p =  proyectoRepository.findById(id);
+        ProyectoDTO dto = p.map(proyectoMapper::toDto);
 
+        
+    
+            dto.setTieneJurado(false);
+            dto.setTieneJuradoViabilidad(false);
+            dto.setTieneAsesor(false);
+            List <IntegranteProyectoDTO>  lIntegrantes = integranteProyectoService.findByIntegranteProyectoProyectoId(dto.getId());
+            if(lIntegrantes!=null && lIntegrantes.size()>0){
+                for(IntegranteProyectoDTO i: lIntegrantes){
+                    if(i.getIntegranteProyectoRolesModalidadRol().contains("Jurado")){
+                        dto.setTieneJurado(true);
+                    }
+                    if(i.getIntegranteProyectoRolesModalidadRol().contains("Viabilidad")){
+                        dto.setTieneJuradoViabilidad(true);
+                    }
+                    if(i.getIntegranteProyectoRolesModalidadRol().contains("Asesor")){
+                        dto.setTieneAsesor(true);
+                    }
+                }
+            }
 
+            dto.setListaIntegrantesProyecto(lIntegrantes);
+            return dto;
+        }
+
+*/
     /**
      * Get one proyecto con asesor by id.
      *

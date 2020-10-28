@@ -73,6 +73,10 @@ public class ProyectoDTO implements Serializable {
 
     private Boolean enviado;
 
+    private LocalDate fechaEnvioPropuesta;
+
+    private LocalDate fechaEnvioProyecto;
+
    // private String proyectoProgramaPrograma;
 
          //adr
@@ -421,4 +425,23 @@ public class ProyectoDTO implements Serializable {
     public void setEnviado(Boolean enviado) {
         this.enviado = enviado;
     }
+
+    /////////////
+    public LocalDate getFechaEnvioPropuesta() {
+        return fechaEnvioPropuesta;
+    }
+
+    public void setFechaEnvioPropuesta(LocalDate fechaEnvioPropuesta) {
+        this.fechaEnvioPropuesta = fechaEnvioPropuesta;
+    }
+
+    /////////////7
+    public LocalDate getFechaEnvioProyecto() {
+        return fechaEnvioProyecto;
+    }
+
+    public void setFechaEnvioProyecto(LocalDate fechaEnvioProyecto) {
+        this.fechaEnvioProyecto = fechaEnvioProyecto;
+    }
+
 }

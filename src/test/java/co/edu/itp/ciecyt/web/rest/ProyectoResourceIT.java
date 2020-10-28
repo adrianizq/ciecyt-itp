@@ -85,6 +85,12 @@ public class ProyectoResourceIT {
     private static final Boolean DEFAULT_ENVIADO = false;
     private static final Boolean UPDATED_ENVIADO = true;
 
+    private static final LocalDate DEFAULT_FECHA_ENVIO_PROPUESTA = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_FECHA_ENVIO_PROPUESTA = LocalDate.now(ZoneId.systemDefault());
+
+    private static final LocalDate DEFAULT_FECHA_ENVIO_PROYECTO = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_FECHA_ENVIO_PROYECTO = LocalDate.now(ZoneId.systemDefault());
+
     @Autowired
     private ProyectoRepository proyectoRepository;
 
@@ -126,7 +132,9 @@ public class ProyectoResourceIT {
             .departamento(DEFAULT_DEPARTAMENTO)
             .municipio(DEFAULT_MUNICIPIO)
             .viable(DEFAULT_VIABLE)
-            .enviado(DEFAULT_ENVIADO);
+            .enviado(DEFAULT_ENVIADO)
+            .fechaEnvioPropuesta(DEFAULT_FECHA_ENVIO_PROPUESTA)
+            .fechaEnvioProyecto(DEFAULT_FECHA_ENVIO_PROYECTO);
         return proyecto;
     }
     /**
@@ -153,7 +161,9 @@ public class ProyectoResourceIT {
             .departamento(UPDATED_DEPARTAMENTO)
             .municipio(UPDATED_MUNICIPIO)
             .viable(UPDATED_VIABLE)
-            .enviado(UPDATED_ENVIADO);
+            .enviado(UPDATED_ENVIADO)
+            .fechaEnvioPropuesta(UPDATED_FECHA_ENVIO_PROPUESTA)
+            .fechaEnvioProyecto(UPDATED_FECHA_ENVIO_PROYECTO);
         return proyecto;
     }
 
@@ -194,6 +204,8 @@ public class ProyectoResourceIT {
         assertThat(testProyecto.getMunicipio()).isEqualTo(DEFAULT_MUNICIPIO);
         assertThat(testProyecto.isViable()).isEqualTo(DEFAULT_VIABLE);
         assertThat(testProyecto.isEnviado()).isEqualTo(DEFAULT_ENVIADO);
+        assertThat(testProyecto.getFechaEnvioPropuesta()).isEqualTo(DEFAULT_FECHA_ENVIO_PROPUESTA);
+        assertThat(testProyecto.getFechaEnvioProyecto()).isEqualTo(DEFAULT_FECHA_ENVIO_PROYECTO);
     }
 
     @Test
@@ -244,7 +256,9 @@ public class ProyectoResourceIT {
             .andExpect(jsonPath("$.[*].departamento").value(hasItem(DEFAULT_DEPARTAMENTO)))
             .andExpect(jsonPath("$.[*].municipio").value(hasItem(DEFAULT_MUNICIPIO)))
             .andExpect(jsonPath("$.[*].viable").value(hasItem(DEFAULT_VIABLE.booleanValue())))
-            .andExpect(jsonPath("$.[*].enviado").value(hasItem(DEFAULT_ENVIADO.booleanValue())));
+            .andExpect(jsonPath("$.[*].enviado").value(hasItem(DEFAULT_ENVIADO.booleanValue())))
+            .andExpect(jsonPath("$.[*].fechaEnvioPropuesta").value(hasItem(DEFAULT_FECHA_ENVIO_PROPUESTA.toString())))
+            .andExpect(jsonPath("$.[*].fechaEnvioProyecto").value(hasItem(DEFAULT_FECHA_ENVIO_PROYECTO.toString())));
     }
     
     @Test
@@ -274,7 +288,9 @@ public class ProyectoResourceIT {
             .andExpect(jsonPath("$.departamento").value(DEFAULT_DEPARTAMENTO))
             .andExpect(jsonPath("$.municipio").value(DEFAULT_MUNICIPIO))
             .andExpect(jsonPath("$.viable").value(DEFAULT_VIABLE.booleanValue()))
-            .andExpect(jsonPath("$.enviado").value(DEFAULT_ENVIADO.booleanValue()));
+            .andExpect(jsonPath("$.enviado").value(DEFAULT_ENVIADO.booleanValue()))
+            .andExpect(jsonPath("$.fechaEnvioPropuesta").value(DEFAULT_FECHA_ENVIO_PROPUESTA.toString()))
+            .andExpect(jsonPath("$.fechaEnvioProyecto").value(DEFAULT_FECHA_ENVIO_PROYECTO.toString()));
     }
     @Test
     @Transactional
@@ -313,7 +329,9 @@ public class ProyectoResourceIT {
             .departamento(UPDATED_DEPARTAMENTO)
             .municipio(UPDATED_MUNICIPIO)
             .viable(UPDATED_VIABLE)
-            .enviado(UPDATED_ENVIADO);
+            .enviado(UPDATED_ENVIADO)
+            .fechaEnvioPropuesta(UPDATED_FECHA_ENVIO_PROPUESTA)
+            .fechaEnvioProyecto(UPDATED_FECHA_ENVIO_PROYECTO);
         ProyectoDTO proyectoDTO = proyectoMapper.toDto(updatedProyecto);
 
         restProyectoMockMvc.perform(put("/api/proyectos")
@@ -342,6 +360,8 @@ public class ProyectoResourceIT {
         assertThat(testProyecto.getMunicipio()).isEqualTo(UPDATED_MUNICIPIO);
         assertThat(testProyecto.isViable()).isEqualTo(UPDATED_VIABLE);
         assertThat(testProyecto.isEnviado()).isEqualTo(UPDATED_ENVIADO);
+        assertThat(testProyecto.getFechaEnvioPropuesta()).isEqualTo(UPDATED_FECHA_ENVIO_PROPUESTA);
+        assertThat(testProyecto.getFechaEnvioProyecto()).isEqualTo(UPDATED_FECHA_ENVIO_PROYECTO);
     }
 
     @Test
