@@ -139,12 +139,24 @@ public class ProyectoResource {
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
+    //ADR Retorna todos los protectos con una lista de los intgrantes
+    @GetMapping("/proyectosIntegrantes")
+    public ResponseEntity<List<ProyectoDTO>> getAllProyectosIntegrantes(Pageable pageable) throws Exception {
+        log.debug("REST request to get a page of Proyectos");
+        Page<ProyectoDTO> page = proyectoService.findAllProyectosIntegrantes(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+
     @GetMapping("/proyectos/{id}")
     public ResponseEntity<ProyectoDTO> getProyecto(@PathVariable Long id) {
         log.debug("REST request to get Proyecto : {}", id);
         Optional<ProyectoDTO> proyectoDTO = proyectoService.findOne(id);
         return ResponseUtil.wrapOrNotFound(proyectoDTO);
     }
+
+
 
 
 

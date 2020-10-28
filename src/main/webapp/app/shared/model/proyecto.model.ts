@@ -1,3 +1,5 @@
+import { IIntegranteProyecto } from './integrante-proyecto.model';
+
 export interface IProyecto {
   id?: number;
   titulo?: string;
@@ -26,6 +28,8 @@ export interface IProyecto {
   tipo?: string;
   referencias?: string;
   asesorId?: number;
+  listaIntegrantes?: IIntegranteProyecto[];
+  tieneJurado?: boolean;
 }
 
 export class Proyecto implements IProyecto {
@@ -56,6 +60,8 @@ export class Proyecto implements IProyecto {
     public referencias?: string,
     public asesorId?: number,
     public proyectoProgramaId?: number,
-    public programa?: string
+    public programa?: string,
+    public listaIntegrantes?: IIntegranteProyecto[],
+    public tieneJurado?: boolean
   ) {}
 }

@@ -1,6 +1,7 @@
 package co.edu.itp.ciecyt.service.impl;
 
 import co.edu.itp.ciecyt.domain.*;
+import co.edu.itp.ciecyt.repository.IntegranteProyectoRepository;
 import co.edu.itp.ciecyt.service.IntegranteProyectoService;
 import co.edu.itp.ciecyt.service.ProyectoService;
 import co.edu.itp.ciecyt.repository.ProyectoRepository;
@@ -34,6 +35,7 @@ public class ProyectoServiceImpl implements ProyectoService {
 
     private final ProyectoRepository proyectoRepository;
     private final IntegranteProyectoService integranteProyectoService;
+    //private final IntegranteProyectoRepository integranteProyectoRepository;
     private final RolesModalidadService rolesModalidadService;
 
     private final ProyectoMapper proyectoMapper;
@@ -79,7 +81,7 @@ public class ProyectoServiceImpl implements ProyectoService {
         //guadar integrante
         IntegranteProyectoDTO asesorDTO = new IntegranteProyectoDTO();
 
-      
+
         asesorDTO.setIntegranteProyectoProyectoId(proyecto.getId());
         asesorDTO.setIntegranteProyectoUserId(proyectoDTO.getAsesorId());
         //arreglado
@@ -98,8 +100,8 @@ public class ProyectoServiceImpl implements ProyectoService {
         lIntegranteProyectoDTO = integranteProyectoService.findByIntegranteProyectoProyectoIdAndIntegranteProyectoRolesModalidadId(proyecto.getId(),rolesModalidadId);
         if(lIntegranteProyectoDTO != null && lIntegranteProyectoDTO.size()>0){
             IntegranteProyectoDTO dto = lIntegranteProyectoDTO.get(0);
-            asesorDTO.setId(dto.getId());   
-        
+            asesorDTO.setId(dto.getId());
+
         }
         //Long integranteProyectoId = integranteProyectoDTO.getIntegranteProyectoUserId();
 
@@ -122,6 +124,39 @@ public class ProyectoServiceImpl implements ProyectoService {
         log.debug("Request to get all Proyectos");
         return proyectoRepository.findAll(pageable)
             .map(proyectoMapper::toDto);
+    }
+
+
+    /**ADR
+     * REtorna todos los proyectos pero con una lista de todos los integrantes
+     *
+     * @param pageable the pagination information.
+     * @return the list of entities.
+     */
+    @Override
+    @Transactional(readOnly = true)
+    public Page<ProyectoDTO> findAllProyectosIntegrantes(Pageable pageable) throws Exception {
+        log.debug("Request to get all Proyectos");
+        Page<ProyectoDTO> lProyectos = proyectoRepository.findAll(pageable).map(proyectoMapper::toDto);
+
+        for (ProyectoDTO dto : lProyectos) {
+            dto.setTieneJurado(false);
+            dto.setTieneJuradoViabilidad(false);
+            List <IntegranteProyectoDTO>  lIntegrantes = integranteProyectoService.findByIntegranteProyectoProyectoId(dto.getId());
+            if(lIntegrantes!=null && lIntegrantes.size()>0){
+                for(IntegranteProyectoDTO i: lIntegrantes){
+                    if(i.getIntegranteProyectoRolesModalidadRol().contains("Jurado")){
+                        dto.setTieneJurado(true);
+                    }
+                    if(i.getIntegranteProyectoRolesModalidadRol().contains("Viabilidad")){
+                        dto.setTieneJuradoViabilidad(true);
+                    }
+                }
+            }
+
+            dto.setListaIntegrantesProyecto(lIntegrantes);
+        }
+        return lProyectos;
     }
 
 

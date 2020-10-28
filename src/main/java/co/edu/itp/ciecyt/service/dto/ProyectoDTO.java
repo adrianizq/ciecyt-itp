@@ -2,12 +2,13 @@ package co.edu.itp.ciecyt.service.dto;
 
 import java.time.LocalDate;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * A DTO for the {@link co.edu.itp.ciecyt.domain.Proyecto} entity.
  */
 public class ProyectoDTO implements Serializable {
-    
+
     private Long id;
 
     private String titulo;
@@ -35,13 +36,13 @@ public class ProyectoDTO implements Serializable {
     private String referencias;
 
     private String programa;
-   
+
     private String departamento;
-   
+
     private String municipio;
 
     private Boolean viable;
-    
+
     private Long proyectoLineaInvestigacionId;
 
     private String proyectoLineaInvestigacionLinea;
@@ -62,6 +63,12 @@ public class ProyectoDTO implements Serializable {
 
     private Long proyectoProgramaId;
 
+    private List<IntegranteProyectoDTO> listaIntegrantesProyecto;
+
+    private Boolean tieneJurado;
+
+    private Boolean tieneJuradoViabilidad;
+
    // private String proyectoProgramaPrograma;
 
          //adr
@@ -72,13 +79,13 @@ public class ProyectoDTO implements Serializable {
          public Long getAsesorId(){
              return asesorId;
          }
-     
+
          public void setAsesorId(Long asesorId){
              this.asesorId = asesorId;
          }
      // -----adr
-     
-    
+
+
     public Long getId() {
         return id;
     }
@@ -193,12 +200,12 @@ public class ProyectoDTO implements Serializable {
 
 
     /********** */
-    
+
     public String getDepartamento() {
         return departamento;
     }
 
-    
+
     public void setDepartamento(String departamento) {
         this.departamento = departamento;
     }
@@ -207,7 +214,7 @@ public class ProyectoDTO implements Serializable {
         return municipio;
     }
 
-    
+
     public void setMunicipio(String municipio) {
         this.municipio = municipio;
     }
@@ -302,6 +309,8 @@ public class ProyectoDTO implements Serializable {
         this.viable = viable;
     }
 
+
+
    /* public String getProyectoProgramaPrograma() {
         return proyectoProgramaPrograma;
     }
@@ -360,5 +369,32 @@ public class ProyectoDTO implements Serializable {
             ", viable=" + isViable() +
            // ", proyectoProgramaPrograma='" + getProyectoProgramaPrograma() + "'" +
             "}";
+    }
+
+    public List<IntegranteProyectoDTO> getListaIntegrantesProyecto() {
+        return listaIntegrantesProyecto;
+    }
+
+    public void setListaIntegrantesProyecto(List<IntegranteProyectoDTO> listaIntegrantesProyecto) {
+        this.listaIntegrantesProyecto = listaIntegrantesProyecto;
+    }
+
+    public Boolean isTieneJurado(){
+        return tieneJurado;
+    }
+
+    public void setTieneJurado(Boolean tieneJurado){
+
+        this.tieneJurado = tieneJurado;
+    }
+
+    public Boolean isTieneJuradoViabilidad(){
+
+        return tieneJuradoViabilidad;
+    }
+
+    public void setTieneJuradoViabilidad(Boolean tieneJuradoViabilidad){
+
+        this.tieneJuradoViabilidad = tieneJuradoViabilidad;
     }
 }

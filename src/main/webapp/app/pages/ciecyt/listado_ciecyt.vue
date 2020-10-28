@@ -46,11 +46,18 @@
                    
                 
                     
-                    <td class="text-right">
-                        <div class="btn-group" >
+                     <td class="text-right">
+                        <div class="btn-group" v-if="!proyecto.tieneJuradoViabilidad">
                             <router-link :to="{name: 'AsignarJuradoView', params: {proyectoId: proyecto.id}}" tag="button" class="btn btn-info btn-sm details">
+                               <b-icon-person-square></b-icon-person-square>&nbsp;
+                                <span class="d-none d-md-inline" >Asignar Jurado Viabilidad</span>
+                            </router-link>
+                         </div>
+
+                         <div class="btn-group" v-if="proyecto.tieneJuradoViabilidad">
+                            <router-link :to="{name: 'AsignarJuradoView', params: {proyectoId: proyecto.id}}" tag="button" class="btn btn-secondary">
                                <b-icon-pencil-square></b-icon-pencil-square>&nbsp;
-                                <span class="d-none d-md-inline" >Jurado Viabilidad</span>
+                                <span  >Cambiar Jurado Viabilidad</span>
                             </router-link>
                          </div>
                     </td>
@@ -105,6 +112,8 @@ import MenuLateralCiecyt from '@/components/ciecyt/menu_lateral_ciecyt.vue';
 
 import { IProyecto, Proyecto } from '@/shared/model/proyecto.model';
 import ProyectoService from '@/entities/proyecto/proyecto.service';
+import { IIntegranteProyecto, IntegranteProyecto } from '@/shared/model/integrante-proyecto.model';
+import IntegranteProyectoService from '@/entities/integrante-proyecto/integrante-proyecto.service';
 
 
     const validations: any = {};
@@ -116,6 +125,8 @@ import ProyectoService from '@/entities/proyecto/proyecto.service';
 
 export default class ListadoCiecyt extends Vue {
    @Inject('proyectoService') private proyectoService: () => ProyectoService;
+
+    @Inject('integranteProyectoService') private integranteProyectoService: () => IntegranteProyectoService;
  
    @Inject('alertService') private alertService: () => AlertService;
 
@@ -123,6 +134,7 @@ export default class ListadoCiecyt extends Vue {
     
    //  public elementosProyecto: IElementoProyecto[] =[];
     public proyects: IProyecto[] = [];
+   
    
     public proyId: any = null;
    
@@ -175,20 +187,53 @@ public getAlertFromStore() {
     };
     if (this.autoridades.includes("ROLE_CIECYT")){
     this.proyectoService()
-      //.retrieveProyectoIntegrante(this.userid,paginationQuery) //todos los roles no borrar
-      //.retrieveProyectoIntegranteAuthority(this.userid,"ROLE_ASESOR",paginationQuery)
-      .retrieve(paginationQuery)
+  
+      .retrieveAllProyectosIntegrantes(paginationQuery)
       .then(
         res => {
           this.proyects = res.data;
           this.totalItems = Number(res.headers['x-total-count']);
           this.queryCount = this.totalItems;
           this.isFetching = false;
+
+          /*for (let i = 0; i < this.proyects.length; i++) {
+            for (let j=0; j< this.proyects[i].listaIntegrantes.length; j++){
+               this.proyects[i].tieneJurado=false;
+              if (this.proyects[i].listaIntegrantes[j].integranteProyectoRolesModalidadRol=="Jurado")
+                this.proyects[i].tieneJurado=true;
+            }
+          } */
+
+/*for (let i = 0; i < this.proyects.length; i++) {
+        this.integranteProyectoService().retrieveJuradosProyectoNoPage(this.proyects[i].id,"Jurado").
+        then((response) => {
+                      
+         this.proyects[i].tieneJurado=true;
+            //resolve()
+       // }, (response) => {
+          
+       // });
+        //resolve()
+    }*/
+
+
         },
         err => {
           this.isFetching = false;
         }
+
+        
+        
       );
+      this.integrantesProyectoJurados=null;
+      //Promise.all(Promise).then((this.proyects)=>{
+      //    this.proyects.forEach(p => {
+      //      this.integrantesProyectoJurados.push(this.integranteProyectoService().retrieveJuradosProyecto(p.id,"Jurado", paginationQuery));
+      //  });
+      //  console.log( this.integrantesProyectoJurados)
+
+
+
       }//del if ROLE_ASESOR
 
       

@@ -35,6 +35,9 @@ public interface ProyectoService {
     Page<ProyectoDTO> findAll(Pageable pageable);
 
 
+    @Transactional(readOnly = true)
+    Page<ProyectoDTO> findAllProyectosIntegrantes(Pageable pageable) throws Exception;
+
     /**
      * Get the "id" proyecto.
      *

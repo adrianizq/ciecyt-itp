@@ -51,6 +51,15 @@ export default class ProyectoService {
     });
   }
 
+  //recupera los proyectos con una lista de integrantes (diferente a la anterior )
+  public retrieveAllProyectosIntegrantes(paginationQuery?: any): Promise<any> {
+    return new Promise<any>(resolve => {
+      axios.get('api/proyectosIntegrantes' + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function (res) {
+        resolve(res);
+      });
+    });
+  }
+
   public delete(id: number): Promise<any> {
     return new Promise<any>(resolve => {
       axios.delete(`${baseApiUrl}/${id}`).then(function (res) {
