@@ -30,6 +30,7 @@
                 <tr>
                     <th v-on:click="changeOrder('id')"><span v-text="$t('global.field.id')">ID</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th v-on:click="changeOrder('titulo')"><span v-text="$t('ciecytApp.proyecto.titulo')">Titulo</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
+                     <th v-on:click="changeOrder('modalidad')"><span >Tipo</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                      <th><span >Jurado Viabilidad</span></th>
                      <th><span >Jurado</span></th>
                      <th><span >Asesor</span></th>
@@ -44,7 +45,7 @@
                     
                     <td>{{proyecto.id}}</td>
                     <td>{{proyecto.titulo}}</td>
-                    <!-- <td>{{proyecto.tipo}}</td> -->
+                     <td>{{proyecto.proyectoModalidadModalidad}}</td> 
                    
                 
                     <!------ JuradoViabilidad ---->

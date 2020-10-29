@@ -106,144 +106,138 @@
               </div>
             </div>
 
-            <div class="form-group">
+           
               <span>Dias a laborar</span>
-              <table style="width:100%">
-                <tbody>
-                  <tr>
-                    <td>Lun</td>
-                    <td>Mar</td>
-                    <td>Mie</td>
-                    <td>Jue</td>
-                    <td>Vie</td>
-                    <td>Sab</td>
-                    <td>Dom</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <input
+             
+                <div class="form-group">
+                      <b-checkbox
                         type="checkbox"
                         class="form-control"
-                        name="dias"
+                        
+                        name="lunes"
                         id="informacion-pasantia-lunes"
                         v-model="informacionPasantia.lunes"
-                      />
-                    </td>
-                    <td>
-                      <input
+                      > lun
+                      </b-checkbox>
+                </div>
+                 <div class="form-group">  
+                      <b-checkbox
                         type="checkbox"
                         class="form-control"
-                        name="dias"
-                        id="informacion-pasantia-lunes"
+                         name="martes"
+                        id="informacion-pasantia-martes"
+                     
                         v-model="informacionPasantia.martes"
-                      />
-                    </td>
-                    <td>
-                      <input
+                      > mar
+                      </b-checkbox>
+                   </div>
+
+                 <div class="form-group">  
+                      <b-checkbox
                         type="checkbox"
                         class="form-control"
-                        name="dias"
-                        id="informacion-pasantia-lunes"
+                        name="miercoles"
+                        id="informacion-pasantia-miercoles"
                         v-model="informacionPasantia.miercoles"
-                      />
-                    </td>
-                    <td>
-                      <input
+                     > mie
+                      </b-checkbox>
+                     </div>
+
+                 <div class="form-group">  
+                     <b-checkbox
                         type="checkbox"
                         class="form-control"
-                        name="dias"
-                        id="informacion-pasantia-lunes"
+                        name="jueves"
+                        id="informacion-pasantia-jueves"
                         v-model="informacionPasantia.jueves"
-                      />
-                    </td>
-                    <td>
-                      <input
+                     > jue
+                      </b-checkbox>
+                   </div>
+
+                 <div class="form-group">  
+                      <b-checkbox
                         type="checkbox"
                         class="form-control"
-                        name="dias"
-                        id="informacion-pasantia-lunes"
+                       name="viernes"
+                        id="informacion-pasantia-viernes"
                         v-model="informacionPasantia.viernes"
-                      />
-                    </td>
-                    <td>
-                      <input
+                      > vie
+                      </b-checkbox>
+                  </div>
+
+                 <div class="form-group">    
+                      <b-checkbox
                         type="checkbox"
                         class="form-control"
-                        name="dias"
-                        id="informacion-pasantia-lunes"
+                        name="sabado"
+                        id="informacion-pasantia-sabado"
                         v-model="informacionPasantia.sabado"
-                      />
-                    </td>
-                    <td>
-                      <input
+                       > sab
+                      </b-checkbox>
+                    </div>
+
+                 <div class="form-group">  
+                      <b-checkbox
                         type="checkbox"
                         class="form-control"
-                        name="dias"
-                        id="informacion-pasantia-lunes"
+                         name="domingo"
+                        id="informacion-pasantia-domingo"
                         v-model="informacionPasantia.domingo"
-                      />
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+                      > dom
+                      </b-checkbox>
+                 </div>
+                 
+          
 
             <!-- --------------------------------------------------------------->
-            <div class="form-group">
+           
               <span>Apoyos de la empresa</span>
-              <table style="width:100%">
-                <tbody>
-                  <tr>
-                    <td>Bono Alimenticio</td>
-                    <td>Apoyo Económico</td>
-                    <td>Auxilio de Transporte</td>
-                    <td>Capacitación</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <input
+               <div class="form-group">
+                       <b-checkbox
                         type="checkbox"
                         class="form-control"
-                        name="dias"
-                        id="informacion-pasantia-lunes"
+                         name="bonoAlimenticio"
+                        id="informacion-pasantia-bonoAlimenticio"
                         v-model="informacionPasantia.bonoAlimenticio"
-                      />
-                    </td>
-                    <td>
-                      <input
+                     > Bono Alimenticio
+                      </b-checkbox>
+               </div>
+                <div class="form-group">
+                     <b-checkbox
                         type="checkbox"
                         class="form-control"
-                        name="dias"
-                        id="informacion-pasantia-lunes"
+                        name="apoyoEconomico"
+                        id="informacion-pasantia-apoyoEconomico"
                         v-model="informacionPasantia.apoyoEconomico"
-                      />
-                    </td>
-                    <td>
-                      <input
+                      > Apoyo Ecnómico
+                     </b-checkbox>
+                </div>
+                  <div class="form-group">
+                     <b-checkbox
                         type="checkbox"
                         class="form-control"
-                        name="dias"
-                        id="informacion-pasantia-lunes"
+                        name="auxilioTransporte"
+                        id="informacion-pasantia-auxilioTransporte"
                         v-model="informacionPasantia.auxilioTransporte"
-                      />
-                    </td>
-                    <td>
-                      <input
+                     > Auxilio de Transporte
+                     </b-checkbox>
+                    </div>
+                  <div class="form-group">
+                     <b-checkbox
                         type="checkbox"
                         class="form-control"
-                        name="dias"
-                        id="informacion-pasantia-lunes"
+                        name="capacitacion"
+                        id="informacion-pasantia-capacitacion"
                         v-model="informacionPasantia.capacitacion"
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td colspan="4">
+                      > Capacitación
+                     </b-checkbox>
+                     </div>
+
+                  <div class="form-group">
+                    
                       Otro apoyo de la empresa
-                    </td>
-                  </tr>
-                  <tr>
-                    <td colspan="4">
+                    
+                 
                       <input
                         type="text"
                         class="form-control"
@@ -252,11 +246,7 @@
                         v-model="informacionPasantia.otroApoyo"
                         placeholder="Otro tipo de apoyo"
                       />
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+                  </div>
             <hr />
             <!-- -------------------------------------------------------------->
             <div class="form-group">
@@ -716,6 +706,7 @@ export default class PasantiaInformacionEmpresa extends Vue {
   public departamentosMunicipios: any;
   public departamentosEmpresa = [];
   public municipiosEmpresa = [];
+   public isFetching = false;
 
   async mounted() {
     this.proyId = this.$route.params.proyectoId;
@@ -736,11 +727,18 @@ export default class PasantiaInformacionEmpresa extends Vue {
   }
 
   retrieveInformacionPasantia() {
+     this.isFetching = true;
     this.informacionPasantiaService()
       .findInformacionPasantiaProyecto(this.proyId)
       .then(res => {
         if (res) this.informacionPasantia = res;
-      });
+        this.isFetching = false;
+      },
+      err => {
+          this.isFetching = false;
+        }
+      
+      );
   }
 
   beforeRouteEnter(to, from, next) {
@@ -759,13 +757,15 @@ export default class PasantiaInformacionEmpresa extends Vue {
     if (this.$v.$invalid) {
       //  this.submitStatus = 'ERROR';
     } else {
-      //this.informacionPasantia.identificacionRepresentanteLegal=this.tipoDocumentoRepresentante + ":" + this.numeroDocumentoRepresentante
+     
       if (this.informacionPasantia.id) {
         this.informacionPasantiaService()
           .update(this.informacionPasantia)
           .then(param => {
             this.isSaving = false;
-            this.$router.push({ name: 'PropuestaPasantiaInformacionEmpresaView', params: { proyectoId: this.proyId } });
+
+            //this.$router.push({ name: 'PropuestaPasantiaInformacionEmpresaView', params: { proyectoId: this.proyId } });
+             (<any>this).$router.go(0);
             const message = this.$t('ciecytApp.proyecto.updated', { param: param.id });
             this.alertService().showAlert(message, 'info');
           });
@@ -776,16 +776,19 @@ export default class PasantiaInformacionEmpresa extends Vue {
           .then(param => {
             this.isSaving = false;
 
-            this.$router.push({ name: 'PropuestaPasantiaInformacionEmpresaView', params: { proyectoId: this.proyId } });
+           // this.$router.push({ name: 'PropuestaPasantiaInformacionEmpresaView', params: { proyectoId: this.proyId } });
+              (<any>this).$router.go(0);
 
             const message = 'Se ha creado un nuevo elemento de pasantia';
             this.alertService().showAlert(message, 'success');
           });
+          this.retrieveInformacionPasantia();
       }
       this.submitStatus = 'PENDING';
       setTimeout(() => {
         this.submitStatus = 'OK';
       }, 500);
+       
     }
   }
 
