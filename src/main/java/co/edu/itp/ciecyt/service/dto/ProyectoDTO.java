@@ -1,7 +1,11 @@
 package co.edu.itp.ciecyt.service.dto;
 
+import co.edu.itp.ciecyt.domain.Proyecto;
+
+import javax.persistence.Column;
 import java.time.LocalDate;
 import java.io.Serializable;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 /**
@@ -73,9 +77,9 @@ public class ProyectoDTO implements Serializable {
 
     private Boolean enviado;
 
-    private LocalDate fechaEnvioPropuesta;
+    private ZonedDateTime fechaEnvioPropuesta;
 
-    private LocalDate fechaEnvioProyecto;
+    private ZonedDateTime fechaEnvioProyecto;
 
    // private String proyectoProgramaPrograma;
 
@@ -421,27 +425,29 @@ public class ProyectoDTO implements Serializable {
         return enviado;
     }
 
-    
+
     public void setEnviado(Boolean enviado) {
         this.enviado = enviado;
     }
 
     /////////////
-    public LocalDate getFechaEnvioPropuesta() {
+    public ZonedDateTime getFechaEnvioPropuesta() {
         return fechaEnvioPropuesta;
     }
 
-    public void setFechaEnvioPropuesta(LocalDate fechaEnvioPropuesta) {
+
+
+    public void setFechaEnvioPropuesta(ZonedDateTime fechaEnvioPropuesta) {
         this.fechaEnvioPropuesta = fechaEnvioPropuesta;
     }
 
-    /////////////7
-    public LocalDate getFechaEnvioProyecto() {
+    public ZonedDateTime getFechaEnvioProyecto() {
         return fechaEnvioProyecto;
     }
 
-    public void setFechaEnvioProyecto(LocalDate fechaEnvioProyecto) {
+    
+
+    public void setFechaEnvioProyecto(ZonedDateTime fechaEnvioProyecto) {
         this.fechaEnvioProyecto = fechaEnvioProyecto;
     }
-
 }

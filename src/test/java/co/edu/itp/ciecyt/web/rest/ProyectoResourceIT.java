@@ -18,9 +18,13 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import java.time.LocalDate;
+import java.time.Instant;
+import java.time.ZonedDateTime;
+import java.time.ZoneOffset;
 import java.time.ZoneId;
 import java.util.List;
 
+import static co.edu.itp.ciecyt.web.rest.TestUtil.sameInstant;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -85,11 +89,11 @@ public class ProyectoResourceIT {
     private static final Boolean DEFAULT_ENVIADO = false;
     private static final Boolean UPDATED_ENVIADO = true;
 
-    private static final LocalDate DEFAULT_FECHA_ENVIO_PROPUESTA = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_FECHA_ENVIO_PROPUESTA = LocalDate.now(ZoneId.systemDefault());
+    private static final ZonedDateTime DEFAULT_FECHA_ENVIO_PROPUESTA = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
+    private static final ZonedDateTime UPDATED_FECHA_ENVIO_PROPUESTA = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
 
-    private static final LocalDate DEFAULT_FECHA_ENVIO_PROYECTO = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_FECHA_ENVIO_PROYECTO = LocalDate.now(ZoneId.systemDefault());
+    private static final ZonedDateTime DEFAULT_FECHA_ENVIO_PROYECTO = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
+    private static final ZonedDateTime UPDATED_FECHA_ENVIO_PROYECTO = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
 
     @Autowired
     private ProyectoRepository proyectoRepository;
@@ -257,8 +261,8 @@ public class ProyectoResourceIT {
             .andExpect(jsonPath("$.[*].municipio").value(hasItem(DEFAULT_MUNICIPIO)))
             .andExpect(jsonPath("$.[*].viable").value(hasItem(DEFAULT_VIABLE.booleanValue())))
             .andExpect(jsonPath("$.[*].enviado").value(hasItem(DEFAULT_ENVIADO.booleanValue())))
-            .andExpect(jsonPath("$.[*].fechaEnvioPropuesta").value(hasItem(DEFAULT_FECHA_ENVIO_PROPUESTA.toString())))
-            .andExpect(jsonPath("$.[*].fechaEnvioProyecto").value(hasItem(DEFAULT_FECHA_ENVIO_PROYECTO.toString())));
+            .andExpect(jsonPath("$.[*].fechaEnvioPropuesta").value(hasItem(sameInstant(DEFAULT_FECHA_ENVIO_PROPUESTA))))
+            .andExpect(jsonPath("$.[*].fechaEnvioProyecto").value(hasItem(sameInstant(DEFAULT_FECHA_ENVIO_PROYECTO))));
     }
     
     @Test
@@ -289,8 +293,8 @@ public class ProyectoResourceIT {
             .andExpect(jsonPath("$.municipio").value(DEFAULT_MUNICIPIO))
             .andExpect(jsonPath("$.viable").value(DEFAULT_VIABLE.booleanValue()))
             .andExpect(jsonPath("$.enviado").value(DEFAULT_ENVIADO.booleanValue()))
-            .andExpect(jsonPath("$.fechaEnvioPropuesta").value(DEFAULT_FECHA_ENVIO_PROPUESTA.toString()))
-            .andExpect(jsonPath("$.fechaEnvioProyecto").value(DEFAULT_FECHA_ENVIO_PROYECTO.toString()));
+            .andExpect(jsonPath("$.fechaEnvioPropuesta").value(sameInstant(DEFAULT_FECHA_ENVIO_PROPUESTA)))
+            .andExpect(jsonPath("$.fechaEnvioProyecto").value(sameInstant(DEFAULT_FECHA_ENVIO_PROYECTO)));
     }
     @Test
     @Transactional

@@ -9,6 +9,7 @@ import javax.persistence.*;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.ZonedDateTime;
 
 /**
  * A Proyecto.
@@ -77,10 +78,10 @@ public class Proyecto implements Serializable {
     private Boolean enviado;
 
     @Column(name = "fecha_envio_propuesta")
-    private LocalDate fechaEnvioPropuesta;
+    private ZonedDateTime fechaEnvioPropuesta;
 
     @Column(name = "fecha_envio_proyecto")
-    private LocalDate fechaEnvioProyecto;
+    private ZonedDateTime fechaEnvioProyecto;
 
     @ManyToOne
     @JsonIgnoreProperties(value = "proyectos", allowSetters = true)
@@ -97,8 +98,6 @@ public class Proyecto implements Serializable {
     @ManyToOne
     @JsonIgnoreProperties(value = "proyectos", allowSetters = true)
     private LineaInvestigacion subLineaLineaInvestigacion;
-
-  
 
     @ManyToOne
     @JsonIgnoreProperties(value = "facultadProyectos", allowSetters = true)
@@ -338,29 +337,29 @@ public class Proyecto implements Serializable {
         this.enviado = enviado;
     }
 
-    public LocalDate getFechaEnvioPropuesta() {
+    public ZonedDateTime getFechaEnvioPropuesta() {
         return fechaEnvioPropuesta;
     }
 
-    public Proyecto fechaEnvioPropuesta(LocalDate fechaEnvioPropuesta) {
+    public Proyecto fechaEnvioPropuesta(ZonedDateTime fechaEnvioPropuesta) {
         this.fechaEnvioPropuesta = fechaEnvioPropuesta;
         return this;
     }
 
-    public void setFechaEnvioPropuesta(LocalDate fechaEnvioPropuesta) {
+    public void setFechaEnvioPropuesta(ZonedDateTime fechaEnvioPropuesta) {
         this.fechaEnvioPropuesta = fechaEnvioPropuesta;
     }
 
-    public LocalDate getFechaEnvioProyecto() {
+    public ZonedDateTime getFechaEnvioProyecto() {
         return fechaEnvioProyecto;
     }
 
-    public Proyecto fechaEnvioProyecto(LocalDate fechaEnvioProyecto) {
+    public Proyecto fechaEnvioProyecto(ZonedDateTime fechaEnvioProyecto) {
         this.fechaEnvioProyecto = fechaEnvioProyecto;
         return this;
     }
 
-    public void setFechaEnvioProyecto(LocalDate fechaEnvioProyecto) {
+    public void setFechaEnvioProyecto(ZonedDateTime fechaEnvioProyecto) {
         this.fechaEnvioProyecto = fechaEnvioProyecto;
     }
 
@@ -416,7 +415,6 @@ public class Proyecto implements Serializable {
         this.subLineaLineaInvestigacion = lineaInvestigacion;
     }
 
-    
 
     public Facultad getFacultad() {
         return facultad;

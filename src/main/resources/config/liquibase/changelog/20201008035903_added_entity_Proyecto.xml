@@ -66,10 +66,10 @@
             <column name="enviado" type="boolean">
                 <constraints nullable="true" />
             </column>
-            <column name="fecha_envio_propuesta" type="date">
+            <column name="fecha_envio_propuesta" type="datetime">
                 <constraints nullable="true" />
             </column>
-            <column name="fecha_envio_proyecto" type="date">
+            <column name="fecha_envio_proyecto" type="datetime">
                 <constraints nullable="true" />
             </column>
             <column name="proyecto_linea_investigacion_id" type="bigint">
@@ -92,6 +92,8 @@
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
+        <dropDefaultValue tableName="proyecto" columnName="fecha_envio_propuesta" columnDataType="datetime"/>
+        <dropDefaultValue tableName="proyecto" columnName="fecha_envio_proyecto" columnDataType="datetime"/>
     </changeSet>
 
     <changeSet id="20201008035903-1-relations" author="jhipster">
@@ -130,8 +132,8 @@
             <column name="municipio" type="string"/>
             <column name="viable" type="boolean"/>
             <column name="enviado" type="boolean"/>
-            <column name="fecha_envio_propuesta" type="date"/>
-            <column name="fecha_envio_proyecto" type="date"/>
+            <column name="fecha_envio_propuesta" type="datetime"/>
+            <column name="fecha_envio_proyecto" type="datetime"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>

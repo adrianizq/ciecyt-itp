@@ -71,11 +71,11 @@
     },
     {
       "fieldName": "fechaEnvioPropuesta",
-      "fieldType": "LocalDate"
+      "fieldType": "ZonedDateTime"
     },
     {
       "fieldName": "fechaEnvioProyecto",
-      "fieldType": "LocalDate"
+      "fieldType": "ZonedDateTime"
     }
   ],
   "relationships": [
