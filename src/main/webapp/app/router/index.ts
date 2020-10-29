@@ -1830,21 +1830,21 @@ export default new Router({
       path: '/viabilidad-propuesta/listado',
       name: 'PropuestaListadoView',
       component: PropuestaListado,
-      meta: { authorities: ['ROLE_JURADO'] }
+      meta: { authorities: ['ROLE_JURADO']['ROLE_ADMIN'] }
     },
 
     {
       path: '/viabilidad-propuesta/listado-asesor',
       name: 'PropuestaListadoAsesorView',
       component: PropuestaListadoAsesor,
-      meta: { authorities: ['ROLE_ASESOR'] }
+      meta: { authorities: ['ROLE_ASESOR']['ROLE_ADMIN']  }
     },
 
     {
       path: '/ciecyt/listado-ciecyt',
       name: 'PropuestaListadoCiecytView',
       component: PropuestaListadoCiecyt,
-      meta: { authorities: ['ROLE_CIECYT'] }
+      meta: { authorities: ['ROLE_CIECYT']['ROLE_ADMIN']  }
     },
 
 
@@ -1852,7 +1852,7 @@ export default new Router({
       path: '/viabilidad-propuesta/propuesta-evaluar/:proyectoId',
       name: 'PropuestaEvaluarView',
       component: PropuestaEvaluar,
-      meta: { authorities: ['ROLE_JURADO'] }
+      meta: { authorities: ['ROLE_JURADO']['ROLE_ADMIN']  }
     },
 
    

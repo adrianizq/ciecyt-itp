@@ -35,7 +35,7 @@
                 Este campo no debe tener más de {{ $v.proyecto.titulo.$params.maxLength.max }} caracteres.
               </div>
             </div>
-
+<!--
             <div class="form-group" :class="{ 'form-group--error': $v.proyecto.lugarEjecucion.$error }">            
               <label class="form-control-label" v-text="$t('ciecytApp.proyecto.lugarEjecucion')" for="proyecto-url"
                 >Lugar de Ejecución</label
@@ -54,7 +54,7 @@
               />
               <div class="text-danger" v-if="!$v.proyecto.lugarEjecucion.required">Este campo es requerido</div>
             </div>
-
+-->
            <div class="form-group" :class="{ 'form-group--error': $v.proyecto.fechaIni.$error }">  
               <label for="datepicker-sm">Fecha de Inicio</label>
               <b-form-datepicker size="sm-6" local="ESP" id="fecha-inicio" name="fecha-inicio" value="value" v-model="proyecto.fechaIni"
@@ -169,7 +169,7 @@
                   'is-invalid': $v.proyecto.proyectoLineaInvestigacionId.$error,
                   'is-valid': !$v.proyecto.proyectoLineaInvestigacionId.$invalid
                 }"
-                  disabled="true"  
+                  
               >
               <option v-for="(selectOption, indexOpt) in LineasInvestigacion" :key="indexOpt" :value="selectOption.id">
                   ({{ selectOption.codigoLinea }}) {{ selectOption.linea }}
@@ -195,7 +195,7 @@
                   'is-invalid': $v.proyecto.subLineaLineaInvestigacionId.$error,
                   'is-valid': !$v.proyecto.subLineaLineaInvestigacionId.$invalid
                 }"
-                  disabled="true"  
+                  
               >
                 <option v-for="(selectOption, indexOpt) in SubLineas" :key="indexOpt" :value="selectOption.id">
                   ({{ selectOption.codigoLinea }}) {{ selectOption.linea }}
@@ -208,7 +208,6 @@
           
             <div class="form-group" :class="{ 'form-group--error': $v.integranteProyecto.integranteProyectoUserId }">
               <label class="form-control-label" v-text="$t('ciecytApp.proyecto.asesor')" for="asesor">Asesor</label>
-
               <b-form-select
                 :options="users"
                 text-field="nombresApellidos"
@@ -396,9 +395,9 @@ import InvestigacionTipoService from '@/entities/investigacion-tipo/investigacio
 const validations: any = {
   proyecto: {
     //id: {},
-    titulo: { required, maxLength: maxLength(1000), minLength: minLength(20) },
+    titulo: { required, maxLength: maxLength(1000), minLength: minLength(5) },
     url: { url },
-    lugarEjecucion: {required, maxLength: maxLength(128)},
+    //lugarEjecucion: {required, maxLength: maxLength(128)},
     tipo: {required, maxLength: maxLength(128)},
     fechaIni: {required},
     fechaFin: {required},

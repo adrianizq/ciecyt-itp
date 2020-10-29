@@ -32,7 +32,10 @@
             
             <div class="form-group">  
              <label class="form-control-label" for="proyecto-titulo">
-             Se va a enviar la Propuesta al CIECYT, para ser revisada por un Jurado de Viabilidad
+             Se va a enviar la Propuesta al CIECYT, para ser revisada por un Jurado de Viabilidad.
+             Para realizar esta operación, debe haber diligenciado correctamente los 
+             datos de su propuesta.
+      
              <br />Si está de acuerdo marque la opcion 
              <strong>Enviar para Vibilidad </strong>
                 y de click en el boton <strong>Enviar </strong></label>
