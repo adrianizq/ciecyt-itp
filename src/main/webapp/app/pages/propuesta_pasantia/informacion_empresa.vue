@@ -8,6 +8,11 @@
         <div class="row">
           <div class="col-12">
             <div class="form-group">
+              <label class="form-control-label" for="encabezado">
+               <h2>Información de la Empresa</h2>
+               </label>
+           </div>
+            <div class="form-group">
               <label class="form-control-label " for="informacion-pasantia-convenio">Número del Convenio ITP - Empresa </label>
               <input
                 type="integer"

@@ -4,6 +4,11 @@
       <menu-lateral-pasantia :proyectoId='$route.params.proyectoId'></menu-lateral-pasantia>
     </div>
     <div class="col-sm-8">
+      <div class="form-group">
+              <label class="form-control-label" for="encabezado">
+               <h2>Cronograma</h2>
+               </label>
+           </div>
       <div :key="key" v-for="(item, key) in cronograms">
         <b-card  :header="`Actividad Número ${key+1}`" 
        
