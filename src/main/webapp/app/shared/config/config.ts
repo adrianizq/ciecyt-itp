@@ -266,6 +266,11 @@ export function initVueXStore(vue) {
           description: 'En el cronograma se deben crear items para: avance del 50%, informe final 100% y sustentacion',
           to: '/propuesta-diplomado/cronograma-diplomado',
         },
+        {
+          title: 'Enviar la Propuesta',
+          description: 'En esta sección enviará su propuesta al Ciecyt',
+          to: '/propuesta-diplomado/enviar-propuesta-diplomado',
+        },
       ],
 
       menu_lateral_listado: [

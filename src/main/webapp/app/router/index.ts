@@ -292,6 +292,7 @@ const PropuestaDiplomadoInformacionGeneral = () => import('../pages/propuesta_di
 const PropuestaDiplomadoIntegrantes = () => import('../pages/propuesta_diplomado/integrantes_diplomado.vue');
 const PropuestaDiplomadoElementos = () => import('../pages/propuesta_diplomado/elementos_diplomado.vue');
 const PropuestaDiplomadoCronograma = () => import('../pages/propuesta_diplomado/cronograma_diplomado.vue');
+const PropuestaEnviarPropuestaDiplomado = () => import('../pages/propuesta_diplomado/enviar_propuesta_diplomado.vue');
 
 const PropuestaIntegrantes = () => import('../pages/propuesta/integrantes.vue');
 const PropuestaElementos = () => import('../pages/propuesta/elementos.vue');
@@ -1695,6 +1696,13 @@ export default new Router({
       name: 'PropuestaDiplomadoCronogramaView',
       component: PropuestaDiplomadoCronograma,
       props: true,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+
+    {
+      path: '/propuesta-diplomado/enviar-propuesta-diplomado/:proyectoId',
+      name: 'PropuestaEnviarPropuestaDiplomadoView',
+      component: PropuestaEnviarPropuestaDiplomado,
       meta: { authorities: ['ROLE_USER'] }
     },
     //////////////
