@@ -4,6 +4,12 @@
       <menu-lateral :proyectoId='$route.params.proyectoId'></menu-lateral>
     </div>
     <div class="col-sm-8">
+
+    <div class="form-group">
+              <label class="form-control-label" for="encabezado">
+               <h2>Presupuesto</h2>
+               </label>
+              </div>
       <div :key="key" v-for="(item, key) in presupuestoValors">
         <b-card :header="`Presupuesto Item ${key+1}`" 
          border-variant="primary"

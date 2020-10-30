@@ -8,6 +8,12 @@
         <div class="col-sm-8">
            <form @submit.prevent="save()">
                 <div class="row">
+
+                <div class="form-group">
+              <label class="form-control-label" for="encabezado">
+               <h2>Elementos</h2>
+               </label>
+              </div>
                      <div class="col-12" v-for="(ep, e) in elementosProyecto" :key="e">
                        
 

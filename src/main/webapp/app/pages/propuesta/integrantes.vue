@@ -3,9 +3,16 @@
         <div class="col-sm-4">
             <menu-lateral :proyectoId='$route.params.proyectoId'></menu-lateral>
         </div>
+        
         <div class="col-sm-8">
             <form @submit.prevent="save()">
                 <div class="row">
+
+            <div class="form-group">
+              <label class="form-control-label" for="encabezado">
+               <h2>Integrantes</h2>
+               </label>
+              </div>
                     <div class="col-12" v-for="(integrante, i) in integrantesProyecto" :key="i">
                         <b-form-group
                             :label="`Integrante # ${i + 1}`"

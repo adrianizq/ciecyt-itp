@@ -7,6 +7,13 @@
       <form @submit.prevent="save()">
         <div class="row">
           <div class="col-12">
+
+           <div class="form-group">
+              <label class="form-control-label" for="encabezado">
+               <h2>Información General</h2>
+               </label>
+           </div>
+
             <div class="form-group" v-if="proyecto.id">
               <label for="id" v-text="$t('global.field.id')">ID</label>
               <input type="text" class="form-control" id="id" name="id" v-model="proyecto.id" readonly />

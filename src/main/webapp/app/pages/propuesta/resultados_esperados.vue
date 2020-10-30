@@ -4,6 +4,11 @@
       <menu-lateral :proyectoId='$route.params.proyectoId'></menu-lateral>
     </div>
     <div class="col-sm-8">
+    <div class="form-group">
+              <label class="form-control-label" for="encabezado">
+               <h2>Resultados Esperados</h2>
+               </label>
+              </div>
       <div :key="key" v-for="(item, key) in resultadosEsperads">
         <b-card :header="`Resultado ${key+1}`" 
          
