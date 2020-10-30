@@ -287,6 +287,7 @@ const PropuestaPasantiaInformacionGeneral = () => import('../pages/propuesta_pas
 const PropuestaPasantiaInformacionEmpresa = () => import('../pages/propuesta_pasantia/informacion_empresa.vue');
 const PropuestaPasantiaElementos = () => import('../pages/propuesta_pasantia/elementos_pasantia.vue');
 const PropuestaPasantiaCronograma = () => import('../pages/propuesta_pasantia/cronograma_pasantia.vue');
+const PropuestaEnviarPropuestaPasantia = () => import('../pages/propuesta_pasantia/enviar_propuesta_pasantia.vue');
 
 const PropuestaDiplomadoInformacionGeneral = () => import('../pages/propuesta_diplomado/informacion_general_diplomado.vue');
 const PropuestaDiplomadoIntegrantes = () => import('../pages/propuesta_diplomado/integrantes_diplomado.vue');
@@ -1656,6 +1657,13 @@ export default new Router({
       name: 'PropuestaPasantiaCronogramaView',
       component: PropuestaPasantiaCronograma,
       props: true,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+
+    {
+      path: '/propuesta-pasantia/enviar-propuesta-pasantia/:proyectoId',
+      name: 'PropuestaEnviarPropuestaPasantiaView',
+      component: PropuestaEnviarPropuestaPasantia,
       meta: { authorities: ['ROLE_USER'] }
     },
     ////////////////////////////////////////7

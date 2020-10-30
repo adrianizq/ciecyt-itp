@@ -243,6 +243,11 @@ export function initVueXStore(vue) {
           description: 'En el cronograma se deben crear items para: avance del 50%, informe final 100% y sustentacion',
           to: '/propuesta-pasantia/cronograma-pasantia',
         },
+        {
+          title: 'Enviar la Propuesta',
+          description: 'En esta sección enviará su propuesta al Ciecyt',
+          to: '/propuesta-pasantia/enviar-propuesta-pasantia',
+        },
       ],
       /*Menu Lateral Diplomado*/
       menu_lateral_diplomado: [
