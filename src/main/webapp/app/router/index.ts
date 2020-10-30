@@ -289,6 +289,7 @@ const PropuestaPasantiaElementos = () => import('../pages/propuesta_pasantia/ele
 const PropuestaPasantiaCronograma = () => import('../pages/propuesta_pasantia/cronograma_pasantia.vue');
 
 const PropuestaDiplomadoInformacionGeneral = () => import('../pages/propuesta_diplomado/informacion_general_diplomado.vue');
+const PropuestaDiplomadoIntegrantes = () => import('../pages/propuesta_diplomado/integrantes_diplomado.vue');
 const PropuestaDiplomadoElementos = () => import('../pages/propuesta_diplomado/elementos_diplomado.vue');
 const PropuestaDiplomadoCronograma = () => import('../pages/propuesta_diplomado/cronograma_diplomado.vue');
 
@@ -1669,6 +1670,14 @@ export default new Router({
       path: '/propuesta-diplomado/informacion-general-diplomado/:proyectoId',
       name: 'PropuestaDiplomadoInformacionGeneralEditView',
       component: PropuestaDiplomadoInformacionGeneral,
+      props: true,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+
+    {
+      path: '/propuesta-diplomado/integrantes-diplomado/:proyectoId',
+      name: 'PropuestaDiplomadoIntegrantesView',
+      component: PropuestaDiplomadoIntegrantes,
       props: true,
       meta: { authorities: ['ROLE_USER'] }
     },
