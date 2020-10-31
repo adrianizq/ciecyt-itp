@@ -1,10 +1,10 @@
 <template>
 <div class="row">
-
+ <div class="col-sm-4">
         
             <menu-lateral-ciecyt :proyectoId='$route.params.proyectoId'></menu-lateral-ciecyt>
-      
-    <div>
+ </div>     
+    <div class="col-sm-8">
         <h2 id="page-heading">
             <span id="proyecto-heading">Proyectos y propuestas</span>
             
@@ -20,20 +20,29 @@
         <div class="alert alert-warning" v-if="!isFetching && proyects && proyects.length === 0">
             <span>No se encontraron proyectos</span>
         </div>
-        <div>{{username}} con id {{userid}} {{autoridades}}</div>
-        <div class="table-responsive" v-if="proyects && proyects.length > 0">
-            <table class="table table-striped"
+       
+        <div >
+            <table class="table table-responsive table-striped table-hover table-fixed"
             
-            
+            v-if="proyects && proyects.length > 0"
             >
                 <thead>
                 <tr>
-                    <th v-on:click="changeOrder('id')"><span v-text="$t('global.field.id')">ID</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
-                    <th v-on:click="changeOrder('titulo')"><span v-text="$t('ciecytApp.proyecto.titulo')">Titulo</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
-                     <th v-on:click="changeOrder('modalidad')"><span >Tipo</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
-                     <th><span >Jurado Viabilidad</span></th>
-                     <th><span >Jurado</span></th>
-                     <th><span >Asesor</span></th>
+                    <th  v-on:click="changeOrder('id')"><span v-text="$t('global.field.id')">ID</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
+                    <th  v-on:click="changeOrder('titulo')"><span v-text="$t('ciecytApp.proyecto.titulo')">Titulo</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
+                     <th  v-on:click="changeOrder('modalidad')"><span >Modalidad</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
+                     <th ><span>Jurado Viabilidad</span></th>
+                     <th ><span >Jurado</span></th>
+                     <th ><span >Asesor</span></th>
+
+                     <!--
+                         <th class="col-md-1" v-on:click="changeOrder('id')"><span v-text="$t('global.field.id')">ID</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
+                    <th class="col-md-3" v-on:click="changeOrder('titulo')"><span v-text="$t('ciecytApp.proyecto.titulo')">Titulo</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
+                     <th class="col-md-2" v-on:click="changeOrder('modalidad')"><span >Modalidad</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
+                     <th class="col-md-2"><span>Jurado Viabilidad</span></th>
+                     <th class="col-md-2"><span >Jurado</span></th>
+                     <th class="col-md-2"><span >Asesor</span></th>
+                     -->
                     <!-- <th v-on:click="changeOrder('tipo')"><span v-text="$t('ciecytApp.proyecto.tipo')">Tipo</span> <font-awesome-icon icon="sort"></font-awesome-icon></th> -->
                    
                 </tr>
@@ -263,7 +272,7 @@ public getAlertFromStore() {
         
         
       );
-      this.integrantesProyectoJurados=null;
+      //this.integrantesProyectoJurados=null;
       //Promise.all(Promise).then((this.proyects)=>{
       //    this.proyects.forEach(p => {
       //      this.integrantesProyectoJurados.push(this.integranteProyectoService().retrieveJuradosProyecto(p.id,"Jurado", paginationQuery));
