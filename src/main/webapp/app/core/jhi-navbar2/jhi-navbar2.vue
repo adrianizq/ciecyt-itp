@@ -1,5 +1,5 @@
 <template>
-  <b-navbar toggleable="md" type="info" class="bg-white"> 
+  <b-navbar toggleable="md" type="info" class="bg-light"> 
  
         <b-collapse is-nav id="header-tabs">
 
