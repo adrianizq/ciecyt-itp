@@ -4,6 +4,9 @@
     <div id="app-header">
       <jhi-navbar></jhi-navbar>
     </div>
+    <div id="app-header2">
+      <jhi-navbar2></jhi-navbar2>
+    </div>
     <div class="container-fluid">
       <div class="card jh-card">
         <router-view></router-view>

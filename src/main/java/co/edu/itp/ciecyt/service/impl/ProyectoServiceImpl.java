@@ -181,13 +181,13 @@ public class ProyectoServiceImpl implements ProyectoService {
 /*
  @Override
     @Transactional(readOnly = true)
-    public ProyectoDTO findOneIntegrantes(Long id)  {
+    public Optional<ProyectoDTO> findOneIntegrantes(Long id)  {
         log.debug("Request to get Proyecto : {}", id);
-        Proyecto p =  proyectoRepository.findById(id);
-        ProyectoDTO dto = p.map(proyectoMapper::toDto);
 
-        
-    
+        //ProyectoDTO dto =  proyectoRepository.findById(id).map(proyectoMapper::toDto);
+
+        ProyectoDTO dto =  proyectoRepository.findById(id);
+
             dto.setTieneJurado(false);
             dto.setTieneJuradoViabilidad(false);
             dto.setTieneAsesor(false);
@@ -207,7 +207,7 @@ public class ProyectoServiceImpl implements ProyectoService {
             }
 
             dto.setListaIntegrantesProyecto(lIntegrantes);
-            return dto;
+            return dto.map(proyectoMapper::toDto);
         }
 
 */

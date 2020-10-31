@@ -1,19 +1,11 @@
 <template>
-    <b-navbar toggleable="md" type="dark" class="bg-primary">
-        <div class="jh-logo-container float-left">
-            <b-navbar-toggle right class="jh-navbar-toggler d-lg-none float-right" href="javascript:void(0);" data-toggle="collapse" target="header-tabs" aria-expanded="false"
-                             aria-label="Toggle navigation">
-                <font-awesome-icon icon="bars"/>
-            </b-navbar-toggle>
-            <b-navbar-brand class="logo float-left" b-link to="/">
-                <span class="logo-img"></span>
-                <span v-text="$t('global.title')" class="navbar-title">ciecyt</span> <span class="navbar-version">{{version}}</span>
-            </b-navbar-brand>
-        </div>
+  <b-navbar toggleable="md" type="info" class="bg-white"> 
+ 
         <b-collapse is-nav id="header-tabs">
 
-            <b-navbar-nav class="ml-auto">
-                <template v-for="menu in menus">
+           <!-- <b-navbar-nav class="ml-auto"> --> 
+           <b-navbar-nav  class="navbar navbar-fixed-top navbar-custom ">
+                <template v-for="menu in menus2">
                     <b-nav-item :to="menu.url" exact v-if="!menu.children.length">
                         <span>
                             <font-awesome-icon :icon="menu.icono || 'asterisk'"/>
@@ -23,7 +15,7 @@
                         </span>
                     </b-nav-item>
 
-                    <b-nav-item-dropdown align="left"
+                    <b-nav-item-dropdown
                         right
                         href="javascript:void(0);"
                         :id="menu.id.toString()"
@@ -287,13 +279,13 @@
     </b-navbar>
 </template>
 
-<script lang="ts" src="./jhi-navbar.component.ts">
+<script lang="ts" src="./jhi-navbar2.component.ts">
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
     /* ==========================================================================
-        Navbar
+        Navbar2
         ========================================================================== */
     .navbar-version {
         font-size: 10px;
