@@ -553,7 +553,7 @@ export default class PropuestaInformacionGeneral extends Vue {
       .retrieve()
       .then(res => {
         this.modalidads = res.data;
-        console.log(this.modalidads);
+        //console.log(this.modalidads);
       });
 
        this.investigacionTipoService()

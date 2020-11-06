@@ -3,40 +3,21 @@
     <div class="col-sm-4">
       <menu-lateral :proyectoId="$route.params.proyectoId"></menu-lateral>
     </div>
-    <div class="col-sm-8">
+    <div class="col-sm-8"  v-if="!proyecto.enviado">
       <form @submit.prevent="save()">
         <div class="row">
           <div class="col-12">
-            <!--
-          <div class="form-group">
-           <label class="form-control-label" v-text="$t('global.field.id')" for="proyecto-titulo">Id</label>
-             <input disabled="true"
-                type="text"
-                class="form-control"
-                name="id"
-                id="proyecto-id"
-                v-model="proyecto.id"             
-                />
-          </div>
-
-           <div class="form-group">
-             <label class="form-control-label" v-text="$t('ciecytApp.proyecto.titulo')" for="proyecto-titulo">Id</label>
-
-              <input disabled="true"
-                type="text"
-                class="form-control"
-                name="titulo"
-                id="proyecto-titulo"
-                v-model="proyecto.titulo"             
-               />
-           </div>
-            -->
-
             
-
             <div class="form-group">
               <label class="form-control-label" for="proyecto-titulo">
-               <h2>Enviar la Propuesta</h2><br /><br /><br />
+               <h2>Enviar la Propuesta</h2><br />
+
+               <ul>
+               <li>Título {{proyecto.titulo}} </li>
+            <li v-for="l in integrants" v-bind:key="l">{{l.integranteProyectoRolesModalidadRol}}: {{l.integranteProyectoUserLogin}}</li>
+             <ol></ol>
+            
+        </ul>
                 Se va a enviar la Propuesta al CIECYT, para ser revisada por un Jurado de Viabilidad. <br />
                 Para realizar esta operación, debe haber diligenciado correctamente los datos de su propuesta
                 <br /> <strong>{{ proyecto.titulo }} </strong>
@@ -64,6 +45,10 @@
         </div>
       </form>
     </div>
+    <div class="col-sm-8"  v-if="proyecto.enviado">
+     <h2>Enviar la Propuesta</h2><br />
+    La Propuesta ya ha sido enviada para su revisión
+    </div>
   </div>
 </template>
 
@@ -72,6 +57,8 @@ import { Component, Inject, Vue } from 'vue-property-decorator';
 
 import MenuLateral from '@/components/propuesta/menu_lateral.vue';
 import { IProyecto, Proyecto } from '@/shared/model/proyecto.model';
+import { IUser } from '@/shared/model/user.model';
+
 import ProyectoService from '@/entities/proyecto/proyecto.service';
 import AlertService from '@/shared/alert/alert.service';
 
@@ -107,7 +94,7 @@ export default class EnviarPropuesta extends Vue {
     //proyecto.fechaEnvioPropuesta
 
     this.proyecto.fechaEnvioPropuesta = new Date();
-    console.log(this.proyecto.fechaEnvioPropuesta);
+    //console.log(this.proyecto.fechaEnvioPropuesta);
     //this.$v.$touch();
     //if (this.$v.$invalid) {
     //this.submitStatus = 'ERROR';
@@ -119,6 +106,7 @@ export default class EnviarPropuesta extends Vue {
         .then(param => {
           this.isSaving = false;
           //this.$router.push({ name: 'PropuestaIntegrantesView', params: { proyectoId: this.proyecto.id.toString() } });
+          (<any>this).$router.go(0);
           const message = this.$t('ciecytApp.proyecto.updated', { param: param.id });
           this.alertService().showAlert(message, 'info');
         });
@@ -131,6 +119,7 @@ export default class EnviarPropuesta extends Vue {
           this.proyId = String(param.id);
 
           // this.$router.push({ name: 'PropuestaIntegrantesView', params: { proyectoId: this.proyId } });
+          (<any>this).$router.go(0);
 
           const message = 'Se ha creado un nuevo proyecto';
           this.alertService().showAlert(message, 'success');
@@ -146,9 +135,13 @@ export default class EnviarPropuesta extends Vue {
 
   retrieveProyecto() {
     this.proyectoService()
-      .find(parseInt(this.$route.params.proyectoId))
+    .findProyectoIntegrantes(parseInt(this.$route.params.proyectoId))
+      //.find(parseInt(this.$route.params.proyectoId))
       .then(res => {
-        this.proyecto = res;
+        this.proyecto = res.data;
+        this.integrants = this.proyecto.listaIntegrantesProyecto;
+        console.log( res.data.listaIntegrantesProyecto);
+        
       });
   }
 
