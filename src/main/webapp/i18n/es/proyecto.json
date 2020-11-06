@@ -33,7 +33,8 @@
       "subLineaLineaInvestigacion": "Sub Linea de Investigacion",
       "asesor": "Asesor del Proyecto",
       "referencias": "Referencias Bibliográficas",
-      "tipo": "Tipo de Investigación"
+      "tipo": "Tipo de Investigación",
+      "enviado": "Enviado"
     }
   }
 }

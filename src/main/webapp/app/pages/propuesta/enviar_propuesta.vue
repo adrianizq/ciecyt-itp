@@ -20,14 +20,21 @@
         </ul>
                 Se va a enviar la Propuesta al CIECYT, para ser revisada por un Jurado de Viabilidad. <br />
                 Para realizar esta operación, debe haber diligenciado correctamente los datos de su propuesta
-                <br /> <strong>{{ proyecto.titulo }} </strong>
+                <br /> 
 
                 <br />Si está de acuerdo marque la opcion
                 <strong>Enviar para Vibilidad </strong>
                 y de click en el boton <strong>Enviar </strong></label
               >
 
-              <b-form-checkbox type="checkbox" class="form-control" name="dias" id="informacion-pasantia-lunes" v-model="proyecto.enviado">
+              <b-form-checkbox type="checkbox" 
+              class="form-control" 
+              name="terms"
+              value="terms"
+              id='terms'
+              v-model='terms'
+        
+              >
                 Enviar para Viabilidad
               </b-form-checkbox>
             </div>
@@ -39,7 +46,7 @@
             <font-awesome-icon icon="ban"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.cancel')">Cancel</span>
           </button>
 
-          <button type="submit" id="save-entity" class="btn btn-primary">
+          <button type="submit" id="save-entity" class="btn btn-primary" :disabled='isDisabled'>
             <font-awesome-icon icon="save"></font-awesome-icon>&nbsp;<span>Enviar</span>
           </button>
         </div>
@@ -61,6 +68,7 @@ import { IUser } from '@/shared/model/user.model';
 
 import ProyectoService from '@/entities/proyecto/proyecto.service';
 import AlertService from '@/shared/alert/alert.service';
+import { IIntegranteProyecto } from '@/shared/model/integrante-proyecto.model';
 
 @Component({
   components: { MenuLateral },
@@ -68,6 +76,10 @@ import AlertService from '@/shared/alert/alert.service';
 export default class EnviarPropuesta extends Vue {
   @Inject('proyectoService') private proyectoService: () => ProyectoService;
   @Inject('alertService') private alertService: () => AlertService;
+
+  public integrants:IIntegranteProyecto[]= [];
+  public terms:Boolean=false;
+
 
   public proyecto: IProyecto = new Proyecto();
   public proyId: string = null;
@@ -94,11 +106,7 @@ export default class EnviarPropuesta extends Vue {
     //proyecto.fechaEnvioPropuesta
 
     this.proyecto.fechaEnvioPropuesta = new Date();
-    //console.log(this.proyecto.fechaEnvioPropuesta);
-    //this.$v.$touch();
-    //if (this.$v.$invalid) {
-    //this.submitStatus = 'ERROR';
-    //} else {
+    this.proyecto.enviado = true;
 
     if (this.proyecto.id) {
       this.proyectoService()
@@ -148,6 +156,10 @@ export default class EnviarPropuesta extends Vue {
   initRelationships() {
     this.proyId = this.$route.params.proyectoId;
   }
+
+  get isDisabled(){
+    	return !this.terms;
+    }
 }
 </script>
 

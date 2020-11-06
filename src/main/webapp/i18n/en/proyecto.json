@@ -30,7 +30,11 @@
       "proyectoGrupoSemillero": "Proyecto Grupo Semillero",
       "proyectoModalidad": "Proyecto Modalidad",
       "facultad": "Facultad",
-      "subLineaLineaInvestigacion": "Sub Linea Linea Investigacion"
+      "subLineaLineaInvestigacion": "Sub Linea Linea Investigacion",
+      "asesor": "Asesor del Proyecto",
+      "referencias": "Referencias Bibliográficas",
+      "tipo": "Tipo de Investigación",
+      "enviado": "Enviado"
     }
   }
 }
