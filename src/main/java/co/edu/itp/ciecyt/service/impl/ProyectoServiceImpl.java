@@ -178,39 +178,35 @@ public class ProyectoServiceImpl implements ProyectoService {
             .map(proyectoMapper::toDto);
     }
 
-/*
+
  @Override
     @Transactional(readOnly = true)
-    public Optional<ProyectoDTO> findOneIntegrantes(Long id)  {
+    public Optional<ProyectoDTO> findOneIntegrantes(Long id) throws Exception {
         log.debug("Request to get Proyecto : {}", id);
-
-        //ProyectoDTO dto =  proyectoRepository.findById(id).map(proyectoMapper::toDto);
-
-        ProyectoDTO dto =  proyectoRepository.findById(id);
-
-            dto.setTieneJurado(false);
-            dto.setTieneJuradoViabilidad(false);
-            dto.setTieneAsesor(false);
-            List <IntegranteProyectoDTO>  lIntegrantes = integranteProyectoService.findByIntegranteProyectoProyectoId(dto.getId());
-            if(lIntegrantes!=null && lIntegrantes.size()>0){
-                for(IntegranteProyectoDTO i: lIntegrantes){
-                    if(i.getIntegranteProyectoRolesModalidadRol().contains("Jurado")){
-                        dto.setTieneJurado(true);
+         Optional<ProyectoDTO> odto =  proyectoRepository.findById(id).map(proyectoMapper::toDto);
+         ProyectoDTO dto = odto.get();
+         dto.setTieneJurado(false);
+         dto.setTieneJuradoViabilidad(false);
+         dto.setTieneAsesor(false);
+         List <IntegranteProyectoDTO>  lIntegrantes = integranteProyectoService.findByIntegranteProyectoProyectoId(dto.getId());
+         if(lIntegrantes!=null && lIntegrantes.size()>0){
+             for(IntegranteProyectoDTO i: lIntegrantes){
+                  if(i.getIntegranteProyectoRolesModalidadRol().contains("Jurado")){
+                      dto.setTieneJurado(true);
+                   }
+                  if(i.getIntegranteProyectoRolesModalidadRol().contains("Viabilidad")){
+                       dto.setTieneJuradoViabilidad(true);
+                   }
+                   if(i.getIntegranteProyectoRolesModalidadRol().contains("Asesor")){
+                       dto.setTieneAsesor(true);
                     }
-                    if(i.getIntegranteProyectoRolesModalidadRol().contains("Viabilidad")){
-                        dto.setTieneJuradoViabilidad(true);
-                    }
-                    if(i.getIntegranteProyectoRolesModalidadRol().contains("Asesor")){
-                        dto.setTieneAsesor(true);
-                    }
-                }
-            }
-
-            dto.setListaIntegrantesProyecto(lIntegrantes);
-            return dto.map(proyectoMapper::toDto);
+             }
+         }
+         dto.setListaIntegrantesProyecto(lIntegrantes);
+         return Optional.of(dto);
         }
 
-*/
+
     /**
      * Get one proyecto con asesor by id.
      *

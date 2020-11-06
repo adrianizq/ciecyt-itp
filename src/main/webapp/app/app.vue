@@ -8,8 +8,8 @@
     <div class="container-fluid">
       <div class="card jh-card">
       <div id="app-header2">
-      <jhi-navbar2></jhi-navbar2>
-    </div>
+     <!-- <jhi-navbar2></jhi-navbar2> -->
+    </div> 
         <router-view></router-view>
       </div>
       <b-modal id="login-page" hide-footer lazy>

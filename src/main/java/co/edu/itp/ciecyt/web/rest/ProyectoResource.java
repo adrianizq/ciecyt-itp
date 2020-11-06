@@ -1,10 +1,7 @@
 package co.edu.itp.ciecyt.web.rest;
 
-import co.edu.itp.ciecyt.service.IntegranteProyectoService;
 import co.edu.itp.ciecyt.service.ProyectoService;
-import co.edu.itp.ciecyt.service.dto.CronogramaDTO;
 import co.edu.itp.ciecyt.web.rest.errors.BadRequestAlertException;
-import co.edu.itp.ciecyt.service.dto.IntegranteProyectoDTO;
 import co.edu.itp.ciecyt.service.dto.ProyectoDTO;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -156,12 +153,12 @@ public class ProyectoResource {
         return ResponseUtil.wrapOrNotFound(proyectoDTO);
     }
 
-    /*@GetMapping("/proyectoIntegrantes/{id}")
-    public ResponseEntity<ProyectoDTO> getProyectoIntegrante(@PathVariable Long id) {
+    @GetMapping("/proyectoIntegrantes/{id}")
+    public ResponseEntity<ProyectoDTO> getProyectoIntegrante(@PathVariable Long id) throws Exception {
         log.debug("REST request to get Proyecto : {}", id);
-        ProyectoDTO proyectoDTO = proyectoService.findOneIntegrantes(id);
-        return proyectoDTO;
-    }*/
+        Optional<ProyectoDTO>proyectoDTO = proyectoService.findOneIntegrantes(id);
+        return  ResponseUtil.wrapOrNotFound(proyectoDTO);
+    }
 
 
 

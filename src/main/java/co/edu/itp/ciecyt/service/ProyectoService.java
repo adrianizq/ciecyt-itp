@@ -63,4 +63,5 @@ public interface ProyectoService {
     List<ProyectoDTO> findByIntegranteProyectoAuthority(Long idUsuario, String authority) throws Exception;
 
     //List<IntegranteProyecto> findByIntegranteProyectoUserId(Long idUsuario, String authority);
+    Optional<ProyectoDTO> findOneIntegrantes(Long id) throws Exception;
 }
