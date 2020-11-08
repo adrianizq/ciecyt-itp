@@ -327,6 +327,7 @@ const PropuestaInformacionGeneralNueva = () => import('../pages/propuesta_nueva/
 const PropuestaIntegrantesNueva = () => import('../pages/propuesta_nueva/integrantes_nueva.vue');
 const PropuestaJuradoNueva = () => import('../pages/propuesta_nueva/jurado_nueva.vue');
 const PropuestaViabilidadNueva = () => import('../pages/propuesta_nueva/viabilidad_nueva.vue');
+const ListadoEstudiante = () => import('../pages/estudiante/listado_estudiante.vue');
 
 const PropuestasInvestigador = () => import('../pages/propuesta_nueva/propuestas_investigador.vue');
 
@@ -1871,6 +1872,14 @@ export default new Router({
       component: PropuestaListadoCiecyt,
       meta: { authorities: ['ROLE_CIECYT']['ROLE_ADMIN']  }
     },
+
+    {
+      path: '/estudiante/listado-estudiante',
+      name: 'ListadoEstudianteView',
+      component: ListadoEstudiante,
+      meta: { authorities: ['ROLE_ESTUDIANTE']['ROLE_ADMIN']  }
+    },
+
 
 
     {

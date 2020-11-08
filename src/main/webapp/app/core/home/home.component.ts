@@ -36,6 +36,9 @@ export default class Home extends Vue {
     if (this.autoridadElegida == 'ROLE_JURADO') {
       this.$router.push('/viabilidad-propuesta/listado');
     }
+    if (this.autoridadElegida == 'ROLE_ESTUDIANTE') {
+      this.$router.push('/estudiante/listado-estudiante');
+    }
     if (this.autoridadElegida == 'ROLE_ASESOR') {
       this.$router.push('/viabilidad-propuesta/listado-asesor');
     }

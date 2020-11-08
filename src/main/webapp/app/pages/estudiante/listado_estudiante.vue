@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <menu-lateral-listado :proyectoId="$route.params.proyectoId"></menu-lateral-listado>
+    <!--<menu-lateral-listado :proyectoId="$route.params.proyectoId"></menu-lateral-listado>-->
 
     <div>
       <h2 id="page-heading">
@@ -45,16 +45,49 @@
 
               <td>{{ proyecto.titulo }}</td>
               <td>{{ proyecto.tipo }}</td>
-
+              <!-- Tesis-->
               <td class="text-right">
-                <div class="btn-group">
+                <div class="btn-group" v-if="proyecto.proyectoModalidadModalidad=='Tesis'">
                   <router-link
-                    :to="{ name: 'PropuestaEvaluarView', params: { proyectoId: proyecto.id } }"
+                    :to="{ name: 'PropuestaInformacionGeneraEditlView', params: { proyectoId: proyecto.id } }"
                     tag="button"
                     class="btn btn-info btn-sm details"
                   >
                     <b-icon-check2-square></b-icon-check2-square>&nbsp;
-                    <span class="d-none d-md-inline" v-text="$t('entity.action.eval')">Evaluar</span>
+                    <span class="d-none d-md-inline" v-text="$t('entity.action.editar')">Editar</span>
+                  </router-link>
+                </div>
+                <!-- Pasantia-->
+                <div class="btn-group" v-if="proyecto.proyectoModalidadModalidad=='Pasantía'">
+                  <router-link
+                    :to="{ name: 'PropuestaPasantiaInformacionGeneraEditlView', params: { proyectoId: proyecto.id } }"
+                    tag="button"
+                    class="btn btn-info btn-sm details"
+                  >
+                    <b-icon-check2-square></b-icon-check2-square>&nbsp;
+                    <span class="d-none d-md-inline" v-text="$t('entity.action.editar')">Editar</span>
+                  </router-link>
+                </div>
+                 <!-- Diplomado-->
+                <div class="btn-group" v-if="proyecto.proyectoModalidadModalidad=='Diplomadp'">
+                  <router-link
+                    :to="{ name: 'PropuestaDiplomadoInformacionGeneralEditView', params: { proyectoId: proyecto.id } }"
+                    tag="button"
+                    class="btn btn-info btn-sm details"
+                  >
+                    <b-icon-check2-square></b-icon-check2-square>&nbsp;
+                    <span class="d-none d-md-inline" v-text="$t('entity.action.editar')">Editar</span>
+                  </router-link>
+                </div>
+                <!-- Linea-->
+                <div class="btn-group" v-if="proyecto.proyectoModalidadModalidad=='Línea'">
+                  <router-link
+                    :to="{ name: 'PropuestaLineaInformacionGeneralEditView', params: { proyectoId: proyecto.id } }"
+                    tag="button"
+                    class="btn btn-info btn-sm details"
+                  >
+                    <b-icon-check2-square></b-icon-check2-square>&nbsp;
+                    <span class="d-none d-md-inline" v-text="$t('entity.action.editar')">Editar</span>
                   </router-link>
                 </div>
               </td>
