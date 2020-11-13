@@ -126,6 +126,8 @@ export default class Impactos_esperados extends Vue {
             
                     if (e.id) {
                         this.impactosEsperadosService().update(e); //envio un elemento
+                        this.$router.push({ name: 'PropuestaEntidadesView',params:{ proyectoId: this.proyId}});
+
                     } else {
                         
                         this.impactosEsperadosService().create(e)

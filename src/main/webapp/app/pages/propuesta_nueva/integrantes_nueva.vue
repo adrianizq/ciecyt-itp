@@ -116,11 +116,13 @@
                     //Actualizando el integrante
                     if (integrante.id) {
                         this.integranteProyectoService().update(integrante);
+                        this.$router.push({ name: 'PropuestaViabilidadNuevaEditView', params: { proyectoId: this.proyId } });
+
                     } else {
                         //Creando un nuevo integrante
                         this.integranteProyectoService().create(integrante)
                             .then(param => {
-                                //this.$router.push({ name: 'PropuestaElementosView', params: { proyectoId: this.proyId } });
+                                this.$router.push({ name: 'PropuestaViabilidadNuevaEditView', params: { proyectoId: this.proyId } });
                             });
                     }
                      var proyId: string = String(this.proyId);

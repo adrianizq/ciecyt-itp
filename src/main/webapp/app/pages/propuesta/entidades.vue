@@ -128,6 +128,8 @@ export default class Entidades extends Vue {
             
                     if (e.id) {
                         this.entidadFinanciadoraService().update(e); //envio un elemento
+                        this.$router.push({ name: 'PropuestaCronogramaView',params:{ proyectoId: this.proyId}});
+
                     } else {
                         
                         this.entidadFinanciadoraService().create(e)

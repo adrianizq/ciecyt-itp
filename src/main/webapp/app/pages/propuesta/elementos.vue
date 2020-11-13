@@ -128,6 +128,7 @@ export default class Elementos extends Vue {
 
                     if (e.id) {
                         this.elementoProyectoService().update(e); //envio un elemento
+                        this.$router.push({ name: 'PropuestaPresupuestoView',params:{ proyectoId: this.proyId}});
                     } else {
                         //Creando un nuevo integrante
                         this.elementoProyectoService().create(e)

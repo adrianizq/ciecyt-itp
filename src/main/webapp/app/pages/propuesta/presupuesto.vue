@@ -230,6 +230,8 @@ export default class Presupuesto extends Vue {
             
                     if (e.id) {
                         this.presupuestoValorService().update(e); //envio un elemento
+                        this.$router.push({ name: 'PropuestaResultadosEsperadosView',params:{ proyectoId: this.proyId}});
+
                     } else {
                         
                         this.presupuestoValorService().create(e)

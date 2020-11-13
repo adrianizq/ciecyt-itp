@@ -128,6 +128,8 @@ export default class Resultados_esperados extends Vue {
             
                     if (e.id) {
                         this.resultadosEsperadosService().update(e); //envio un elemento
+                        this.$router.push({ name: 'PropuestaImpactosEsperadoView',params:{ proyectoId: this.proyId}});
+
                     } else {
                         
                         this.resultadosEsperadosService().create(e)
