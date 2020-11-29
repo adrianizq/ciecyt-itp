@@ -1,11 +1,11 @@
-id;respuesta;observaciones;viable
-1;NO_CUMPLE;withdrawal;false
-2;NO_APLICA;AGP Accounts JSON;true
-3;NO_APLICA;Gloves;true
-4;NO_CUMPLE;deposit;false
-5;NO_APLICA;Soft SMS generating;true
-6;NO_CUMPLE;orchid Soft;true
-7;CUMPLE;Moldovan Leu;false
-8;CUMPLE;Books back-end;true
-9;CUMPLE;e-commerce;false
-10;NO_APLICA;Handcrafted Steel;true
+id;respuesta;observaciones;viable;puntaje;si_no
+1;NO_CUMPLE;withdrawal;false;76069;false
+2;NO_APLICA;AGP Accounts JSON;true;7033;true
+3;NO_APLICA;Research Borders Dominican Republic;true;9348;true
+4;CUMPLE;calculating Bike Representative;false;75881;true
+5;NO_CUMPLE;orchid Soft;true;19740;true
+6;CUMPLE;Highway Rubber Books;true;12131;true
+7;CUMPLE;e-commerce;false;56900;false
+8;CUMPLE;Steel application Intuitive;true;24502;false
+9;CUMPLE;Lesotho SSL;false;69219;false
+10;CUMPLE;compress quantifying;true;26325;true

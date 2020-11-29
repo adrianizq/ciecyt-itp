@@ -35,8 +35,11 @@ public class ProyectoRespuestas implements Serializable {
     @Column(name = "viable")
     private Boolean viable;
 
-    @Column(name = "proyecto_respuestas_pregunta_pregunta")
-    private String proyectoRespuestasPreguntaPregunta;
+    @Column(name = "puntaje")
+    private Float puntaje;
+
+    @Column(name = "si_no")
+    private Boolean siNo;
 
     @ManyToOne
     @JsonIgnoreProperties(value = "proyectoRespuestas", allowSetters = true)
@@ -94,17 +97,30 @@ public class ProyectoRespuestas implements Serializable {
         this.viable = viable;
     }
 
-    public String getProyectoRespuestasPreguntaPregunta() {
-        return proyectoRespuestasPreguntaPregunta;
+    public Float getPuntaje() {
+        return puntaje;
     }
 
-    public ProyectoRespuestas proyectoRespuestasPreguntaPregunta(String proyectoRespuestasPreguntaPregunta) {
-        this.proyectoRespuestasPreguntaPregunta = proyectoRespuestasPreguntaPregunta;
+    public ProyectoRespuestas puntaje(Float puntaje) {
+        this.puntaje = puntaje;
         return this;
     }
 
-    public void setProyectoRespuestasPreguntaPregunta(String proyectoRespuestasPreguntaPregunta) {
-        this.proyectoRespuestasPreguntaPregunta = proyectoRespuestasPreguntaPregunta;
+    public void setPuntaje(Float puntaje) {
+        this.puntaje = puntaje;
+    }
+
+    public Boolean isSiNo() {
+        return siNo;
+    }
+
+    public ProyectoRespuestas siNo(Boolean siNo) {
+        this.siNo = siNo;
+        return this;
+    }
+
+    public void setSiNo(Boolean siNo) {
+        this.siNo = siNo;
     }
 
     public Pregunta getProyectoRespuestasPregunta() {
@@ -158,7 +174,8 @@ public class ProyectoRespuestas implements Serializable {
             ", respuesta='" + getRespuesta() + "'" +
             ", observaciones='" + getObservaciones() + "'" +
             ", viable='" + isViable() + "'" +
-            ", proyectoRespuestasPreguntaPregunta='" + getProyectoRespuestasPreguntaPregunta() + "'" +
+            ", puntaje=" + getPuntaje() +
+            ", siNo='" + isSiNo() + "'" +
             "}";
     }
 }

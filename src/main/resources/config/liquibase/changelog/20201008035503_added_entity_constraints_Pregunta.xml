@@ -26,5 +26,11 @@
                                  referencedColumnNames="id"
                                  referencedTableName="roles_modalidad"/>
 
+        <addForeignKeyConstraint baseColumnNames="pregunta_elemento_id"
+                                 baseTableName="pregunta"
+                                 constraintName="fk_pregunta_pregunta_elemento_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="elemento"/>
+
     </changeSet>
 </databaseChangeLog>

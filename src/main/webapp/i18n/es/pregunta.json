@@ -22,7 +22,8 @@
       "preguntaTipoPregunta": "Tipo Pregunta",
       "preguntaModalidad": "Modalidad",
       "preguntaRolesModalidad": "Rol Modalidad",
-      "elemento": "Elemento del proyecto"
+      "elemento": "Elemento del proyecto",
+      "puntajeMaximo": "Puntaje Máximo"
     }
   }
 }

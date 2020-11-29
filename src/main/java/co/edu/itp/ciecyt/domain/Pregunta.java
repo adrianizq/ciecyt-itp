@@ -29,14 +29,14 @@ public class Pregunta implements Serializable {
     @Column(name = "descripcion")
     private String descripcion;
 
-    @Column(name = "elemento")
-    private String elemento;
-
-    @Column(name = "elemento_id")
-    private Long elementoId;
-
     @Column(name = "pregunta")
     private String pregunta;
+
+    @Column(name = "puntaje")
+    private Float puntaje;
+
+    @Column(name = "puntaje_maximo")
+    private Float puntajeMaximo;
 
     @ManyToOne
     @JsonIgnoreProperties(value = "preguntas", allowSetters = true)
@@ -49,6 +49,10 @@ public class Pregunta implements Serializable {
     @ManyToOne
     @JsonIgnoreProperties(value = "preguntas", allowSetters = true)
     private RolesModalidad preguntaRolesModalidad;
+
+    @ManyToOne
+    @JsonIgnoreProperties(value = "preguntas", allowSetters = true)
+    private Elemento preguntaElemento;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -85,32 +89,6 @@ public class Pregunta implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public String getElemento() {
-        return elemento;
-    }
-
-    public Pregunta elemento(String elemento) {
-        this.elemento = elemento;
-        return this;
-    }
-
-    public void setElemento(String elemento) {
-        this.elemento = elemento;
-    }
-
-    public Long getElementoId() {
-        return elementoId;
-    }
-
-    public Pregunta elementoId(Long elementoId) {
-        this.elementoId = elementoId;
-        return this;
-    }
-
-    public void setElementoId(Long elementoId) {
-        this.elementoId = elementoId;
-    }
-
     public String getPregunta() {
         return pregunta;
     }
@@ -122,6 +100,32 @@ public class Pregunta implements Serializable {
 
     public void setPregunta(String pregunta) {
         this.pregunta = pregunta;
+    }
+
+    public Float getPuntaje() {
+        return puntaje;
+    }
+
+    public Pregunta puntaje(Float puntaje) {
+        this.puntaje = puntaje;
+        return this;
+    }
+
+    public void setPuntaje(Float puntaje) {
+        this.puntaje = puntaje;
+    }
+
+    public Float getPuntajeMaximo() {
+        return puntajeMaximo;
+    }
+
+    public Pregunta puntajeMaximo(Float puntajeMaximo) {
+        this.puntajeMaximo = puntajeMaximo;
+        return this;
+    }
+
+    public void setPuntajeMaximo(Float puntajeMaximo) {
+        this.puntajeMaximo = puntajeMaximo;
     }
 
     public TipoPregunta getPreguntaTipoPregunta() {
@@ -162,6 +166,19 @@ public class Pregunta implements Serializable {
     public void setPreguntaRolesModalidad(RolesModalidad rolesModalidad) {
         this.preguntaRolesModalidad = rolesModalidad;
     }
+
+    public Elemento getPreguntaElemento() {
+        return preguntaElemento;
+    }
+
+    public Pregunta preguntaElemento(Elemento elemento) {
+        this.preguntaElemento = elemento;
+        return this;
+    }
+
+    public void setPreguntaElemento(Elemento elemento) {
+        this.preguntaElemento = elemento;
+    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -187,9 +204,9 @@ public class Pregunta implements Serializable {
             "id=" + getId() +
             ", encabezado='" + getEncabezado() + "'" +
             ", descripcion='" + getDescripcion() + "'" +
-            ", elemento='" + getElemento() + "'" +
-            ", elementoId=" + getElementoId() +
             ", pregunta='" + getPregunta() + "'" +
+            ", puntaje=" + getPuntaje() +
+            ", puntajeMaximo=" + getPuntajeMaximo() +
             "}";
     }
 }

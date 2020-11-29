@@ -95,6 +95,15 @@ public class ProyectoResourceIT {
     private static final ZonedDateTime DEFAULT_FECHA_ENVIO_PROYECTO = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
     private static final ZonedDateTime UPDATED_FECHA_ENVIO_PROYECTO = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
 
+    private static final Float DEFAULT_NOTA = 1F;
+    private static final Float UPDATED_NOTA = 2F;
+
+    private static final String DEFAULT_CONCLUSION = "AAAAAAAAAA";
+    private static final String UPDATED_CONCLUSION = "BBBBBBBBBB";
+
+    private static final String DEFAULT_RECOMENDACIONES = "AAAAAAAAAA";
+    private static final String UPDATED_RECOMENDACIONES = "BBBBBBBBBB";
+
     @Autowired
     private ProyectoRepository proyectoRepository;
 
@@ -138,7 +147,10 @@ public class ProyectoResourceIT {
             .viable(DEFAULT_VIABLE)
             .enviado(DEFAULT_ENVIADO)
             .fechaEnvioPropuesta(DEFAULT_FECHA_ENVIO_PROPUESTA)
-            .fechaEnvioProyecto(DEFAULT_FECHA_ENVIO_PROYECTO);
+            .fechaEnvioProyecto(DEFAULT_FECHA_ENVIO_PROYECTO)
+            .nota(DEFAULT_NOTA)
+            .conclusion(DEFAULT_CONCLUSION)
+            .recomendaciones(DEFAULT_RECOMENDACIONES);
         return proyecto;
     }
     /**
@@ -167,7 +179,10 @@ public class ProyectoResourceIT {
             .viable(UPDATED_VIABLE)
             .enviado(UPDATED_ENVIADO)
             .fechaEnvioPropuesta(UPDATED_FECHA_ENVIO_PROPUESTA)
-            .fechaEnvioProyecto(UPDATED_FECHA_ENVIO_PROYECTO);
+            .fechaEnvioProyecto(UPDATED_FECHA_ENVIO_PROYECTO)
+            .nota(UPDATED_NOTA)
+            .conclusion(UPDATED_CONCLUSION)
+            .recomendaciones(UPDATED_RECOMENDACIONES);
         return proyecto;
     }
 
@@ -210,6 +225,9 @@ public class ProyectoResourceIT {
         assertThat(testProyecto.isEnviado()).isEqualTo(DEFAULT_ENVIADO);
         assertThat(testProyecto.getFechaEnvioPropuesta()).isEqualTo(DEFAULT_FECHA_ENVIO_PROPUESTA);
         assertThat(testProyecto.getFechaEnvioProyecto()).isEqualTo(DEFAULT_FECHA_ENVIO_PROYECTO);
+        assertThat(testProyecto.getNota()).isEqualTo(DEFAULT_NOTA);
+        assertThat(testProyecto.getConclusion()).isEqualTo(DEFAULT_CONCLUSION);
+        assertThat(testProyecto.getRecomendaciones()).isEqualTo(DEFAULT_RECOMENDACIONES);
     }
 
     @Test
@@ -262,7 +280,10 @@ public class ProyectoResourceIT {
             .andExpect(jsonPath("$.[*].viable").value(hasItem(DEFAULT_VIABLE.booleanValue())))
             .andExpect(jsonPath("$.[*].enviado").value(hasItem(DEFAULT_ENVIADO.booleanValue())))
             .andExpect(jsonPath("$.[*].fechaEnvioPropuesta").value(hasItem(sameInstant(DEFAULT_FECHA_ENVIO_PROPUESTA))))
-            .andExpect(jsonPath("$.[*].fechaEnvioProyecto").value(hasItem(sameInstant(DEFAULT_FECHA_ENVIO_PROYECTO))));
+            .andExpect(jsonPath("$.[*].fechaEnvioProyecto").value(hasItem(sameInstant(DEFAULT_FECHA_ENVIO_PROYECTO))))
+            .andExpect(jsonPath("$.[*].nota").value(hasItem(DEFAULT_NOTA.doubleValue())))
+            .andExpect(jsonPath("$.[*].conclusion").value(hasItem(DEFAULT_CONCLUSION)))
+            .andExpect(jsonPath("$.[*].recomendaciones").value(hasItem(DEFAULT_RECOMENDACIONES)));
     }
     
     @Test
@@ -294,7 +315,10 @@ public class ProyectoResourceIT {
             .andExpect(jsonPath("$.viable").value(DEFAULT_VIABLE.booleanValue()))
             .andExpect(jsonPath("$.enviado").value(DEFAULT_ENVIADO.booleanValue()))
             .andExpect(jsonPath("$.fechaEnvioPropuesta").value(sameInstant(DEFAULT_FECHA_ENVIO_PROPUESTA)))
-            .andExpect(jsonPath("$.fechaEnvioProyecto").value(sameInstant(DEFAULT_FECHA_ENVIO_PROYECTO)));
+            .andExpect(jsonPath("$.fechaEnvioProyecto").value(sameInstant(DEFAULT_FECHA_ENVIO_PROYECTO)))
+            .andExpect(jsonPath("$.nota").value(DEFAULT_NOTA.doubleValue()))
+            .andExpect(jsonPath("$.conclusion").value(DEFAULT_CONCLUSION))
+            .andExpect(jsonPath("$.recomendaciones").value(DEFAULT_RECOMENDACIONES));
     }
     @Test
     @Transactional
@@ -335,7 +359,10 @@ public class ProyectoResourceIT {
             .viable(UPDATED_VIABLE)
             .enviado(UPDATED_ENVIADO)
             .fechaEnvioPropuesta(UPDATED_FECHA_ENVIO_PROPUESTA)
-            .fechaEnvioProyecto(UPDATED_FECHA_ENVIO_PROYECTO);
+            .fechaEnvioProyecto(UPDATED_FECHA_ENVIO_PROYECTO)
+            .nota(UPDATED_NOTA)
+            .conclusion(UPDATED_CONCLUSION)
+            .recomendaciones(UPDATED_RECOMENDACIONES);
         ProyectoDTO proyectoDTO = proyectoMapper.toDto(updatedProyecto);
 
         restProyectoMockMvc.perform(put("/api/proyectos")
@@ -366,6 +393,9 @@ public class ProyectoResourceIT {
         assertThat(testProyecto.isEnviado()).isEqualTo(UPDATED_ENVIADO);
         assertThat(testProyecto.getFechaEnvioPropuesta()).isEqualTo(UPDATED_FECHA_ENVIO_PROPUESTA);
         assertThat(testProyecto.getFechaEnvioProyecto()).isEqualTo(UPDATED_FECHA_ENVIO_PROYECTO);
+        assertThat(testProyecto.getNota()).isEqualTo(UPDATED_NOTA);
+        assertThat(testProyecto.getConclusion()).isEqualTo(UPDATED_CONCLUSION);
+        assertThat(testProyecto.getRecomendaciones()).isEqualTo(UPDATED_RECOMENDACIONES);
     }
 
     @Test

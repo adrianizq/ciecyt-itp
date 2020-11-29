@@ -13,6 +13,14 @@
     {
       "fieldName": "viable",
       "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "puntaje",
+      "fieldType": "Float"
+    },
+    {
+      "fieldName": "siNo",
+      "fieldType": "Boolean"
     }
   ],
   "relationships": [
@@ -41,5 +49,7 @@
   "readOnly": false,
   "embedded": false,
   "clientRootFolder": "",
-  "applications": "*"
+  "applications": "*",
+  "searchEngine": false,
+  "databaseType": "sql"
 }

@@ -32,6 +32,7 @@
                     <th v-on:click="changeOrder('preguntaModalidadModalidad')"><span v-text="$t('ciecytApp.pregunta.preguntaModalidad')">Pregunta Modalidad</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th v-on:click="changeOrder('preguntaRolesModalidadRol')"><span v-text="$t('ciecytApp.pregunta.preguntaRolesModalidad')">Pregunta Roles Modalidad</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th v-on:click="changeOrder('elemento')"><span v-text="$t('ciecytApp.pregunta.elemento')">Elemento</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
+                    <th v-on:click="changeOrder('puntajeMaximo')"><span v-text="$t('ciecytApp.pregunta.puntajeMaximo')">Puntaje Maximo</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th></th>
                 </tr>
                 </thead>
@@ -60,10 +61,11 @@
                         </div>
                     </td>
                      <td>
-                        <div v-if="pregunta.elementoId">
-                            <router-link :to="{name: 'ElementoView', params: {elementoId: pregunta.elementoId}}">{{pregunta.elementoId}}</router-link>
+                        <div v-if="pregunta.preguntaElementoId">
+                            <router-link :to="{name: 'ElementoView', params: {elementoId: pregunta.preguntaElementoId}}">{{pregunta.preguntaElementoId}}</router-link>
                         </div>
                     </td>
+                     <td>{{pregunta.puntajeMaximo}}</td>
                     <td class="text-right">
                         <div class="btn-group">
                             <router-link :to="{name: 'PreguntaView', params: {preguntaId: pregunta.id}}" tag="button" class="btn btn-info btn-sm details">

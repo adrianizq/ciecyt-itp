@@ -23,6 +23,8 @@ const validations: any = {
     encabezado: {},
     descripcion: {},
     pregunta: {},
+    puntajeMaximo: {},
+    preguntaElementoId: {},
   },
 };
 
@@ -68,15 +70,18 @@ export default class PreguntaUpdate extends Vue {
 
     //console.log(this.pregunta.elementoId); //si reporta
 
-    if (this.pregunta.elementoId) {
+    if (this.pregunta.preguntaElementoId) {
       this.elements.forEach(item => {
-        if (item.id == this.pregunta.elementoId) this.elemento = item;
-        // do something
+        if (item.id == this.pregunta.preguntaElementoId) {
+          //this.elemento = item;
+          this.pregunta.preguntaElemento = item.elemento; //error al guardar
+        }
       });
-      //console.log(this.elemento); //si lo recupera
-      this.pregunta.elemento = this.elemento.elemento; //error al guardar
-      console.log(this.pregunta.elemento);
     }
+    console.log(this.elemento); //si lo recupera
+
+    //  console.log(this.pregunta.preguntaElemento);
+    //}
 
     if (this.pregunta.id) {
       this.preguntaService()
@@ -102,6 +107,12 @@ export default class PreguntaUpdate extends Vue {
   get Elementos() {
     return this.elements.filter(elemento => {
       return elemento.elementoModalidadId == this.pregunta.preguntaModalidadId;
+    });
+  }
+
+  get Roles() {
+    return this.rolesModalidads.filter(rol => {
+      return rol.rolesModalidadModalidadId == this.pregunta.preguntaModalidadId;
     });
   }
 
@@ -138,5 +149,11 @@ export default class PreguntaUpdate extends Vue {
       .then(res => {
         this.elements = res.data;
       });
+  }
+
+  setRolesModalidad(value) {
+    this.rolesModalidads.filter(rol => {
+      return rol == this.pregunta.preguntaModalidadId;
+    });
   }
 }

@@ -41,6 +41,12 @@ public class PreguntaResourceIT {
     private static final String DEFAULT_PREGUNTA = "AAAAAAAAAA";
     private static final String UPDATED_PREGUNTA = "BBBBBBBBBB";
 
+    private static final Float DEFAULT_PUNTAJE = 1F;
+    private static final Float UPDATED_PUNTAJE = 2F;
+
+    private static final Float DEFAULT_PUNTAJE_MAXIMO = 1F;
+    private static final Float UPDATED_PUNTAJE_MAXIMO = 2F;
+
     @Autowired
     private PreguntaRepository preguntaRepository;
 
@@ -68,7 +74,9 @@ public class PreguntaResourceIT {
         Pregunta pregunta = new Pregunta()
             .encabezado(DEFAULT_ENCABEZADO)
             .descripcion(DEFAULT_DESCRIPCION)
-            .pregunta(DEFAULT_PREGUNTA);
+            .pregunta(DEFAULT_PREGUNTA)
+            .puntaje(DEFAULT_PUNTAJE)
+            .puntajeMaximo(DEFAULT_PUNTAJE_MAXIMO);
         return pregunta;
     }
     /**
@@ -81,7 +89,9 @@ public class PreguntaResourceIT {
         Pregunta pregunta = new Pregunta()
             .encabezado(UPDATED_ENCABEZADO)
             .descripcion(UPDATED_DESCRIPCION)
-            .pregunta(UPDATED_PREGUNTA);
+            .pregunta(UPDATED_PREGUNTA)
+            .puntaje(UPDATED_PUNTAJE)
+            .puntajeMaximo(UPDATED_PUNTAJE_MAXIMO);
         return pregunta;
     }
 
@@ -108,6 +118,8 @@ public class PreguntaResourceIT {
         assertThat(testPregunta.getEncabezado()).isEqualTo(DEFAULT_ENCABEZADO);
         assertThat(testPregunta.getDescripcion()).isEqualTo(DEFAULT_DESCRIPCION);
         assertThat(testPregunta.getPregunta()).isEqualTo(DEFAULT_PREGUNTA);
+        assertThat(testPregunta.getPuntaje()).isEqualTo(DEFAULT_PUNTAJE);
+        assertThat(testPregunta.getPuntajeMaximo()).isEqualTo(DEFAULT_PUNTAJE_MAXIMO);
     }
 
     @Test
@@ -144,7 +156,9 @@ public class PreguntaResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(pregunta.getId().intValue())))
             .andExpect(jsonPath("$.[*].encabezado").value(hasItem(DEFAULT_ENCABEZADO)))
             .andExpect(jsonPath("$.[*].descripcion").value(hasItem(DEFAULT_DESCRIPCION)))
-            .andExpect(jsonPath("$.[*].pregunta").value(hasItem(DEFAULT_PREGUNTA)));
+            .andExpect(jsonPath("$.[*].pregunta").value(hasItem(DEFAULT_PREGUNTA)))
+            .andExpect(jsonPath("$.[*].puntaje").value(hasItem(DEFAULT_PUNTAJE.doubleValue())))
+            .andExpect(jsonPath("$.[*].puntajeMaximo").value(hasItem(DEFAULT_PUNTAJE_MAXIMO.doubleValue())));
     }
     
     @Test
@@ -160,7 +174,9 @@ public class PreguntaResourceIT {
             .andExpect(jsonPath("$.id").value(pregunta.getId().intValue()))
             .andExpect(jsonPath("$.encabezado").value(DEFAULT_ENCABEZADO))
             .andExpect(jsonPath("$.descripcion").value(DEFAULT_DESCRIPCION))
-            .andExpect(jsonPath("$.pregunta").value(DEFAULT_PREGUNTA));
+            .andExpect(jsonPath("$.pregunta").value(DEFAULT_PREGUNTA))
+            .andExpect(jsonPath("$.puntaje").value(DEFAULT_PUNTAJE.doubleValue()))
+            .andExpect(jsonPath("$.puntajeMaximo").value(DEFAULT_PUNTAJE_MAXIMO.doubleValue()));
     }
     @Test
     @Transactional
@@ -185,7 +201,9 @@ public class PreguntaResourceIT {
         updatedPregunta
             .encabezado(UPDATED_ENCABEZADO)
             .descripcion(UPDATED_DESCRIPCION)
-            .pregunta(UPDATED_PREGUNTA);
+            .pregunta(UPDATED_PREGUNTA)
+            .puntaje(UPDATED_PUNTAJE)
+            .puntajeMaximo(UPDATED_PUNTAJE_MAXIMO);
         PreguntaDTO preguntaDTO = preguntaMapper.toDto(updatedPregunta);
 
         restPreguntaMockMvc.perform(put("/api/preguntas")
@@ -200,6 +218,8 @@ public class PreguntaResourceIT {
         assertThat(testPregunta.getEncabezado()).isEqualTo(UPDATED_ENCABEZADO);
         assertThat(testPregunta.getDescripcion()).isEqualTo(UPDATED_DESCRIPCION);
         assertThat(testPregunta.getPregunta()).isEqualTo(UPDATED_PREGUNTA);
+        assertThat(testPregunta.getPuntaje()).isEqualTo(UPDATED_PUNTAJE);
+        assertThat(testPregunta.getPuntajeMaximo()).isEqualTo(UPDATED_PUNTAJE_MAXIMO);
     }
 
     @Test

@@ -76,6 +76,18 @@
     {
       "fieldName": "fechaEnvioProyecto",
       "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "nota",
+      "fieldType": "Float"
+    },
+    {
+      "fieldName": "conclusion",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "recomendaciones",
+      "fieldType": "String"
     }
   ],
   "relationships": [

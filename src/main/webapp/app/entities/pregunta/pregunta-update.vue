@@ -33,17 +33,27 @@
                     </div>
                     <div class="form-group">
                         <label class="form-control-label" v-bind:value="$t('ciecytApp.pregunta.preguntaModalidad')" for="pregunta-preguntaModalidad">Modalidad</label>
-                        <select class="form-control" id="pregunta-preguntaModalidad" name="preguntaModalidad" v-model="pregunta.preguntaModalidadId">
+                        <select class="form-control" id="pregunta-preguntaModalidad" 
+                        name="preguntaModalidad" v-model="pregunta.preguntaModalidadId"
+                        >
                             <option v-bind:value="null"></option>
                             <option v-bind:value="modalidadOption.id" v-for="modalidadOption in modalidads" :key="modalidadOption.id">{{modalidadOption.modalidad}}</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label class="form-control-label" v-bind:value="$t('ciecytApp.pregunta.preguntaRolesModalidad')" for="pregunta-preguntaRolesModalidad">Rol Modalidad</label>
-                        <select class="form-control" id="pregunta-preguntaRolesModalidad" name="preguntaRolesModalidad" v-model="pregunta.preguntaRolesModalidadId">
-                            <option v-bind:value="null"></option>
-                            <option v-bind:value="rolesModalidadOption.id" v-for="rolesModalidadOption in rolesModalidads" :key="rolesModalidadOption.id">{{rolesModalidadOption.rol}}</option>
-                        </select>
+                       
+                        <b-form-select text-field="pregunta-roles-modalidad" value-field="id" id="rol"
+                            v-model="pregunta.preguntaRolesModalidadId"
+                            
+                             >
+                            <option v-for="(selectOption, indexOpt) in Roles"
+                                        :key="indexOpt"
+                                        :value="selectOption.id"
+                                >
+                                    ({{ selectOption.id }}) {{ selectOption.rol }}
+                                </option>
+                        </b-form-select>
                     </div>
                 </div>
 
@@ -52,7 +62,7 @@
                       <div class="form-group" >
                             <label class="form-control-label "  for="pregunta-elemento">Elemento</label> 
                             <b-form-select text-field="pregunta-elemento" value-field="id" id="elemento"
-                            v-model="pregunta.elementoId"
+                            v-model="pregunta.preguntaElementoId"
                             
                              >
                                 <option v-for="(selectOption, indexOpt) in Elementos"
@@ -64,6 +74,12 @@
                             </b-form-select>
                             
                         </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-control-label" v-text="$t('ciecytApp.pregunta.puntajeMaximo')" for="pregunta-puntaje-maximo">Puntaje Máximo</label>
+                        <input type="text" class="form-control" name="puntaje-maximo" id="pregunta-puntaje-maximo"
+                            :class="{'valid': !$v.pregunta.puntajeMaximo.$invalid, 'invalid': $v.pregunta.pregunta.$invalid }" v-model="$v.pregunta.puntajeMaximo.$model" />
                     </div>
                 <!--------------------------------------------->
                 <div>

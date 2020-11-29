@@ -21,7 +21,8 @@
       "pregunta": "Pregunta",
       "preguntaTipoPregunta": "Pregunta Tipo Pregunta",
       "preguntaModalidad": "Pregunta Modalidad",
-      "preguntaRolesModalidad": "Pregunta Roles Modalidad"
+      "preguntaRolesModalidad": "Pregunta Roles Modalidad",
+      "puntajeMaximo": "Puntaje Máximo"
     }
   }
 }

@@ -81,6 +81,12 @@ public class ProyectoDTO implements Serializable {
 
     private ZonedDateTime fechaEnvioProyecto;
 
+    private Float nota;
+
+    private String conclusion;
+
+    private String recomendaciones;
+
    // private String proyectoProgramaPrograma;
 
          //adr
@@ -322,14 +328,30 @@ public class ProyectoDTO implements Serializable {
     }
 
 
-
-   /* public String getProyectoProgramaPrograma() {
-        return proyectoProgramaPrograma;
+    public Float getNota() {
+        return nota;
     }
 
-    public void setProyectoProgramaPrograma(String programaPrograma) {
-        this.proyectoProgramaPrograma = programaPrograma;
-    }*/
+     public void setNota(Float nota) {
+        this.nota = nota;
+    }
+
+    public String getConclusion() {
+        return conclusion;
+    }
+
+    public void setConclusion(String conclusion) {
+        this.conclusion = conclusion;
+    }
+
+    public String getRecomendaciones() {
+        return recomendaciones;
+    }
+
+    public void setRecomendaciones(String recomendaciones) {
+        this.recomendaciones = recomendaciones;
+    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -379,6 +401,9 @@ public class ProyectoDTO implements Serializable {
             ", facultadId=" + getFacultadId() +
             ", proyectoProgramaId=" + getProyectoProgramaId() +
             ", viable=" + isViable() +
+            ", nota=" + getNota() +
+            ", conclusion='" + getConclusion() + "'" +
+            ", recomendaciones='" + getRecomendaciones() + "'" +
            // ", proyectoProgramaPrograma='" + getProyectoProgramaPrograma() + "'" +
             "}";
     }
@@ -445,7 +470,7 @@ public class ProyectoDTO implements Serializable {
         return fechaEnvioProyecto;
     }
 
-    
+
 
     public void setFechaEnvioProyecto(ZonedDateTime fechaEnvioProyecto) {
         this.fechaEnvioProyecto = fechaEnvioProyecto;

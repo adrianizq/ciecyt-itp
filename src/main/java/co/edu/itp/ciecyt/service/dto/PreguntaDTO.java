@@ -13,11 +13,11 @@ public class PreguntaDTO implements Serializable {
 
     private String descripcion;
 
-    private String elemento;
-
-    private Long elementoId;
-
     private String pregunta;
+
+    private Float puntaje;
+
+    private Float puntajeMaximo;
 
 
     private Long preguntaTipoPreguntaId;
@@ -31,6 +31,10 @@ public class PreguntaDTO implements Serializable {
     private Long preguntaRolesModalidadId;
 
     private String preguntaRolesModalidadRol;
+
+    private Long preguntaElementoId;
+
+    private String preguntaElementoElemento;
     
     public Long getId() {
         return id;
@@ -56,28 +60,28 @@ public class PreguntaDTO implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public String getElemento() {
-        return elemento;
-    }
-
-    public void setElemento(String elemento) {
-        this.elemento = elemento;
-    }
-
-    public Long getElementoId() {
-        return elementoId;
-    }
-
-    public void setElementoId(Long elementoId) {
-        this.elementoId = elementoId;
-    }
-
     public String getPregunta() {
         return pregunta;
     }
 
     public void setPregunta(String pregunta) {
         this.pregunta = pregunta;
+    }
+
+    public Float getPuntaje() {
+        return puntaje;
+    }
+
+    public void setPuntaje(Float puntaje) {
+        this.puntaje = puntaje;
+    }
+
+    public Float getPuntajeMaximo() {
+        return puntajeMaximo;
+    }
+
+    public void setPuntajeMaximo(Float puntajeMaximo) {
+        this.puntajeMaximo = puntajeMaximo;
     }
 
     public Long getPreguntaTipoPreguntaId() {
@@ -128,6 +132,22 @@ public class PreguntaDTO implements Serializable {
         this.preguntaRolesModalidadRol = rolesModalidadRol;
     }
 
+    public Long getPreguntaElementoId() {
+        return preguntaElementoId;
+    }
+
+    public void setPreguntaElementoId(Long elementoId) {
+        this.preguntaElementoId = elementoId;
+    }
+
+    public String getPreguntaElementoElemento() {
+        return preguntaElementoElemento;
+    }
+
+    public void setPreguntaElementoElemento(String elementoElemento) {
+        this.preguntaElementoElemento = elementoElemento;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -152,15 +172,17 @@ public class PreguntaDTO implements Serializable {
             "id=" + getId() +
             ", encabezado='" + getEncabezado() + "'" +
             ", descripcion='" + getDescripcion() + "'" +
-            ", elemento='" + getElemento() + "'" +
-            ", elementoId=" + getElementoId() +
             ", pregunta='" + getPregunta() + "'" +
+            ", puntaje=" + getPuntaje() +
+            ", puntajeMaximo=" + getPuntajeMaximo() +
             ", preguntaTipoPreguntaId=" + getPreguntaTipoPreguntaId() +
             ", preguntaTipoPreguntaTipoPregunta='" + getPreguntaTipoPreguntaTipoPregunta() + "'" +
             ", preguntaModalidadId=" + getPreguntaModalidadId() +
             ", preguntaModalidadModalidad='" + getPreguntaModalidadModalidad() + "'" +
             ", preguntaRolesModalidadId=" + getPreguntaRolesModalidadId() +
             ", preguntaRolesModalidadRol='" + getPreguntaRolesModalidadRol() + "'" +
+            ", preguntaElementoId=" + getPreguntaElementoId() +
+            ", preguntaElementoElemento='" + getPreguntaElementoElemento() + "'" +
             "}";
     }
 }

@@ -16,6 +16,11 @@ public class ProyectoRespuestasDTO implements Serializable {
 
     private Boolean viable;
 
+    private Float puntaje;
+
+    private Boolean siNo;
+
+
     private Long proyectoRespuestasPreguntaId;
 
     private String proyectoRespuestasPreguntaPregunta;
@@ -56,12 +61,20 @@ public class ProyectoRespuestasDTO implements Serializable {
         this.viable = viable;
     }
 
-    public String getProyectoRespuestasPreguntaPregunta() {
-        return proyectoRespuestasPreguntaPregunta;
+    public Float getPuntaje() {
+        return puntaje;
     }
 
-    public void setProyectoRespuestasPreguntaPregunta(String proyectoRespuestasPreguntaPregunta) {
-        this.proyectoRespuestasPreguntaPregunta = proyectoRespuestasPreguntaPregunta;
+    public void setPuntaje(Float puntaje) {
+        this.puntaje = puntaje;
+    }
+
+    public Boolean isSiNo() {
+        return siNo;
+    }
+
+    public void setSiNo(Boolean siNo) {
+        this.siNo = siNo;
     }
 
     public Long getProyectoRespuestasPreguntaId() {
@@ -72,9 +85,13 @@ public class ProyectoRespuestasDTO implements Serializable {
         this.proyectoRespuestasPreguntaId = preguntaId;
     }
 
-   
+    public String getProyectoRespuestasPreguntaPregunta() {
+        return proyectoRespuestasPreguntaPregunta;
+    }
 
-    
+    public void setProyectoRespuestasPreguntaPregunta(String preguntaPregunta) {
+        this.proyectoRespuestasPreguntaPregunta = preguntaPregunta;
+    }
 
     public Long getProyectoRespuestasProyectoId() {
         return proyectoRespuestasProyectoId;
@@ -117,8 +134,10 @@ public class ProyectoRespuestasDTO implements Serializable {
             ", respuesta='" + getRespuesta() + "'" +
             ", observaciones='" + getObservaciones() + "'" +
             ", viable='" + isViable() + "'" +
-            ", proyectoRespuestasPreguntaPregunta='" + getProyectoRespuestasPreguntaPregunta() + "'" +
+            ", puntaje=" + getPuntaje() +
+            ", siNo='" + isSiNo() + "'" +
             ", proyectoRespuestasPreguntaId=" + getProyectoRespuestasPreguntaId() +
+            ", proyectoRespuestasPreguntaPregunta='" + getProyectoRespuestasPreguntaPregunta() + "'" +
             ", proyectoRespuestasProyectoId=" + getProyectoRespuestasProyectoId() +
             ", proyectoRespuestasProyectoTitulo='" + getProyectoRespuestasProyectoTitulo() + "'" +
             "}";

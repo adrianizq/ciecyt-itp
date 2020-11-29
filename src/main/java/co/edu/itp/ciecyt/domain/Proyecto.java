@@ -83,6 +83,15 @@ public class Proyecto implements Serializable {
     @Column(name = "fecha_envio_proyecto")
     private ZonedDateTime fechaEnvioProyecto;
 
+    @Column(name = "nota")
+    private Float nota;
+
+    @Column(name = "conclusion")
+    private String conclusion;
+
+    @Column(name = "recomendaciones")
+    private String recomendaciones;
+
     @ManyToOne
     @JsonIgnoreProperties(value = "proyectos", allowSetters = true)
     private LineaInvestigacion proyectoLineaInvestigacion;
@@ -98,6 +107,8 @@ public class Proyecto implements Serializable {
     @ManyToOne
     @JsonIgnoreProperties(value = "proyectos", allowSetters = true)
     private LineaInvestigacion subLineaLineaInvestigacion;
+
+
 
     @ManyToOne
     @JsonIgnoreProperties(value = "facultadProyectos", allowSetters = true)
@@ -363,6 +374,45 @@ public class Proyecto implements Serializable {
         this.fechaEnvioProyecto = fechaEnvioProyecto;
     }
 
+    public Float getNota() {
+        return nota;
+    }
+
+    public Proyecto nota(Float nota) {
+        this.nota = nota;
+        return this;
+    }
+
+    public void setNota(Float nota) {
+        this.nota = nota;
+    }
+
+    public String getConclusion() {
+        return conclusion;
+    }
+
+    public Proyecto conclusion(String conclusion) {
+        this.conclusion = conclusion;
+        return this;
+    }
+
+    public void setConclusion(String conclusion) {
+        this.conclusion = conclusion;
+    }
+
+    public String getRecomendaciones() {
+        return recomendaciones;
+    }
+
+    public Proyecto recomendaciones(String recomendaciones) {
+        this.recomendaciones = recomendaciones;
+        return this;
+    }
+
+    public void setRecomendaciones(String recomendaciones) {
+        this.recomendaciones = recomendaciones;
+    }
+
     public LineaInvestigacion getProyectoLineaInvestigacion() {
         return proyectoLineaInvestigacion;
     }
@@ -483,6 +533,9 @@ public class Proyecto implements Serializable {
             ", enviado='" + isEnviado() + "'" +
             ", fechaEnvioPropuesta='" + getFechaEnvioPropuesta() + "'" +
             ", fechaEnvioProyecto='" + getFechaEnvioProyecto() + "'" +
+            ", nota=" + getNota() +
+            ", conclusion='" + getConclusion() + "'" +
+            ", recomendaciones='" + getRecomendaciones() + "'" +
             "}";
     }
 }

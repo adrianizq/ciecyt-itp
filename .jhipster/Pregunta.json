@@ -12,6 +12,14 @@
     {
       "fieldName": "pregunta",
       "fieldType": "String"
+    },
+    {
+      "fieldName": "puntaje",
+      "fieldType": "Float"
+    },
+    {
+      "fieldName": "puntajeMaximo",
+      "fieldType": "Float"
     }
   ],
   "relationships": [
@@ -35,6 +43,13 @@
       "otherEntityRelationshipName": "pregunta",
       "relationshipName": "preguntaRolesModalidad",
       "otherEntityField": "rol"
+    },
+    {
+      "relationshipName": "preguntaElemento",
+      "otherEntityName": "elemento",
+      "relationshipType": "many-to-one",
+      "otherEntityField": "elemento",
+      "otherEntityRelationshipName": "pregunta"
     }
   ],
   "changelogDate": "20201008035503",
@@ -47,5 +62,7 @@
   "readOnly": false,
   "embedded": false,
   "clientRootFolder": "",
-  "applications": "*"
+  "applications": "*",
+  "searchEngine": false,
+  "databaseType": "sql"
 }
