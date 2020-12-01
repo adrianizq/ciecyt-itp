@@ -15,6 +15,8 @@ export interface IProyectoRespuestas {
   proyectoRespuestasProyectoId?: number;
   elemento?: string;
   dato?: string;
+  preguntaTipoPreguntaId?: number;
+  preguntaTipoPreguntaTipoPregunta?: string;
 }
 
 export class ProyectoRespuestas implements IProyectoRespuestas {
@@ -28,7 +30,9 @@ export class ProyectoRespuestas implements IProyectoRespuestas {
     public proyectoRespuestasProyectoTitulo?: string,
     public proyectoRespuestasProyectoId?: number,
     public elemento?: string,
-    public dato?: string
+    public dato?: string,
+    public preguntaTipoPreguntaId?: number,
+    public preguntaTipoPreguntaTipoPregunta?: string
   ) {
     this.viable = this.viable || false;
   }

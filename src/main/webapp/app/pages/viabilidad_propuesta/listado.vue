@@ -4,7 +4,7 @@
 
     <div>
       <h2 id="page-heading">
-        <span id="proyecto-heading">Mis propuestas</span>
+        <span id="proyecto-heading">Mis propuestas - Jurado</span>
       </h2>
       <b-alert
         :show="dismissCountDown"
@@ -40,11 +40,11 @@
             <!-- JURADO ---------------------------------->
             <tr v-for="proyecto in proyects" :key="proyecto.id">
               <td>
-                <router-link :to="{ name: 'PropuestaEvaluarView', params: { proyectoId: proyecto.id } }">{{ proyecto.id }}</router-link>
+                <router-link :to="{ name: 'ProyectoEvaluarView', params: { proyectoId: proyecto.id } }">{{ proyecto.id }}</router-link>
               </td>
 
               <td>{{ proyecto.titulo }}</td>
-              <td>{{ proyecto.tipo }}</td>
+              <td>{{ proyecto.proyectoModalidadId }}</td>
 
               <td class="text-right">
                 <div class="btn-group">

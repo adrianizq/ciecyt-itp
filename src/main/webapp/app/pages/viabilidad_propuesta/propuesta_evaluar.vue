@@ -1,11 +1,7 @@
 <template>
 
     <div class="row">
-<!--
-        <div class="col-sm-4">
-            <menu-lateral :proyectoId='$route.params.proyectoId'></menu-lateral>
-        </div>
--->
+
         <div class="col-sm-8">
            <form @submit.prevent="save()">
                 <div class="row">
@@ -18,7 +14,7 @@
                     header-bg-variant="light"
                      body-bg-variant="light"
                     header-text-variant="info">
-                      
+                  
 
                      <b-form-group
                             :label="ep.elemento"
@@ -34,12 +30,9 @@
                        </div>
                        </b-form-group>
 
-
+                        
                        <!--- dato  -->
-                          <b-form-group
-                            
-                                                   
-                       >
+                          <b-form-group>
                        <div class="form-group" >
 
                             <b-form-textarea rows="2"  max-rows="10" class="form-control" :name="`ep-${i}`"
@@ -60,7 +53,7 @@
 
                      </b-card>
                      <hr>
-                       <!------------------------------------------------->
+                          <div> Tipo de pregunta {{ep.preguntaTipoPreguntaTipoPregunta}} </div>
     
                     </div>
  
@@ -157,6 +150,7 @@ export default class PropuestaEvaluar extends Vue {
 
         public save(): void {//debo guardar un elemento proyecto
             try {
+                //this.pregunts[0].preguntaTipoPreguntaTipoPregunta
                 //this.enumRespuestas.
                 this.isSaving = true;
                 for (let e of this.proyectoRespuests) {
@@ -165,7 +159,8 @@ export default class PropuestaEvaluar extends Vue {
                     } else {
                         this.proyectoRespuestasService().create(e)
                         .then(param => {
-                            this.$router.push({ name: 'PropuestaPresupuestoView',params:{ proyectoId: this.proyId}});
+                            //this.$router.push({ name: 'PropuestaPresupuestoView',params:{ proyectoId: this.proyId}});
+                            (<any>this).$router.go(0);
                         });
                     }
                 }
@@ -217,12 +212,15 @@ export default class PropuestaEvaluar extends Vue {
                   //elemProy.elemento = e.elemento;
                   proyResp.proyectoRespuestasProyectoId = this.proyId;
                   //ubicar un elemento, no esta en proyectoRespuestas
-                  proyResp.elemento = e.elemento;
+                  proyResp.elemento = e.preguntaElemento;
+                   proyResp.preguntaTipoPreguntaId = e.preguntaTipoPreguntaId;
+                    proyResp.preguntaTipoPreguntaTipoPregunta = e.preguntaTipoPreguntaTipoPregunta;
+                    
                 
                   //this.elemProy = this.buscarElementoProyecto(e.elementoId);
                   this.elementoProyects.forEach(x => {
                       console.log("Entra al ciclo elementoProyecto");
-                    if (x.elementoProyectoElementoId == e.elementoId){
+                    if (x.elementoProyectoElementoId == e.preguntaElementoId){
                          proyResp.dato = x.dato;    
                     }
                   });
