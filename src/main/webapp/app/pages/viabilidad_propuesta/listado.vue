@@ -4,7 +4,7 @@
 
     <div>
       <h2 id="page-heading">
-        <span id="proyecto-heading">Mis propuestas - Jurado</span>
+        <span id="proyecto-heading">Mis propuestas - Viabilidad </span>
       </h2>
       <b-alert
         :show="dismissCountDown"
@@ -30,8 +30,8 @@
               <th v-on:click="changeOrder('titulo')">
                 <span v-text="$t('ciecytApp.proyecto.titulo')">Titulo</span> <font-awesome-icon icon="sort"></font-awesome-icon>
               </th>
-              <th v-on:click="changeOrder('tipo')">
-                <span v-text="$t('ciecytApp.proyecto.tipo')">Tipo</span> <font-awesome-icon icon="sort"></font-awesome-icon>
+              <th v-on:click="changeOrder('modalidad')">
+                <span v-text="$t('ciecytApp.proyecto.modalidad')">Modalidad</span> <font-awesome-icon icon="sort"></font-awesome-icon>
               </th>
               <th></th>
             </tr>
@@ -44,7 +44,8 @@
               </td>
 
               <td>{{ proyecto.titulo }}</td>
-              <td>{{ proyecto.proyectoModalidadId }}</td>
+              <td>{{ proyecto.proyectoModalidadModalidad }}</td>
+             
 
               <td class="text-right">
                 <div class="btn-group">
@@ -153,8 +154,8 @@ export default class Listado extends Vue {
     };
     if (this.autoridades.includes('ROLE_JURADO')) {
       this.proyectoService()
-        //.retrieveProyectoIntegrante(this.userid,paginationQuery) //todos los roles no borrar
-        .retrieveProyectoIntegranteAuthority(this.userid, 'ROLE_JURADO', paginationQuery)
+        //.retrieveProyectoIntegranteAuthority(this.userid, 'ROLE_JURADO', paginationQuery)
+        .retrieveProyectoIntegranteRol(this.userid, 'Viabilidad', paginationQuery)
         .then(
           res => {
             this.proyects = res.data;

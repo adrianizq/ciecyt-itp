@@ -34,6 +34,7 @@
       "asesor": "Asesor del Proyecto",
       "referencias": "Referencias Bibliográficas",
       "tipo": "Tipo de Investigación",
+      "modalidad": "Modalidad",
       "enviado": "Enviado"
     }
   }

@@ -1,12 +1,15 @@
 package co.edu.itp.ciecyt.web.rest;
 
 import co.edu.itp.ciecyt.service.ProyectoService;
-import co.edu.itp.ciecyt.web.rest.errors.BadRequestAlertException;
 import co.edu.itp.ciecyt.service.dto.ProyectoDTO;
-
+import co.edu.itp.ciecyt.web.rest.errors.BadRequestAlertException;
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,15 +17,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.net.URI;
-import java.net.URISyntaxException;
-
-import java.util.List;
-import java.util.Optional;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 /**
  * REST controller for managing {@link co.edu.itp.ciecyt.domain.Proyecto}.
@@ -39,14 +36,11 @@ public class ProyectoResource {
     private String applicationName;
 
     private final ProyectoService proyectoService;
+
     //private final IntegranteProyectoService integranteProyectoService;
 
-
-
     public ProyectoResource(ProyectoService proyectoService) {
-       this.proyectoService = proyectoService;
-
-
+        this.proyectoService = proyectoService;
     }
 
     /**
@@ -58,7 +52,7 @@ public class ProyectoResource {
      */
     @PostMapping("/proyectos")
     //public ResponseEntity<ProyectoDTO> createProyecto(@RequestBody ProyectoDTO proyectoDTO, @RequestBody IntegranteProyectoDTO integranteProyectoDTO) throws URISyntaxException {
-        public ResponseEntity<ProyectoDTO> createProyecto(@RequestBody ProyectoDTO proyectoDTO) throws URISyntaxException {
+    public ResponseEntity<ProyectoDTO> createProyecto(@RequestBody ProyectoDTO proyectoDTO) throws URISyntaxException {
         //necesito
         //idIntegranteProyecto
         //idProyecto
@@ -71,8 +65,8 @@ public class ProyectoResource {
         //    throw new BadRequestAlertException("A new integranteProyecto cannot already have an ID", ENTITY_NAME, "idexists");
         //}
 
-       //IntegranteProyectoDTO rI = IntegranteProyectoService.save
-      //toca ver quien es ese usuario
+        //IntegranteProyectoDTO rI = IntegranteProyectoService.save
+        //toca ver quien es ese usuario
 
         ProyectoDTO result = null;
         try {
@@ -83,13 +77,10 @@ public class ProyectoResource {
 
         //ProyectoDTO result = proyectoService.save(proyectoDTO);
 
+        //integranteProyectoService.save(integDTO);
 
-
-
-         //integranteProyectoService.save(integDTO);
-
-
-        return ResponseEntity.created(new URI("/api/proyectos/" + result.getId()))
+        return ResponseEntity
+            .created(new URI("/api/proyectos/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
     }
@@ -111,11 +102,12 @@ public class ProyectoResource {
         }
         ProyectoDTO result = null;
         try {
-             result = proyectoService.saveAsesorProyecto(proyectoDTO);
+            result = proyectoService.saveAsesorProyecto(proyectoDTO);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return ResponseEntity.ok()
+        return ResponseEntity
+            .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, proyectoDTO.getId().toString()))
             .body(result);
     }
@@ -145,7 +137,6 @@ public class ProyectoResource {
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
-
     @GetMapping("/proyectos/{id}")
     public ResponseEntity<ProyectoDTO> getProyecto(@PathVariable Long id) {
         log.debug("REST request to get Proyecto : {}", id);
@@ -156,13 +147,9 @@ public class ProyectoResource {
     @GetMapping("/proyectoIntegrantes/{id}")
     public ResponseEntity<ProyectoDTO> getProyectoIntegrante(@PathVariable Long id) throws Exception {
         log.debug("REST request to get Proyecto : {}", id);
-        Optional<ProyectoDTO>proyectoDTO = proyectoService.findOneIntegrantes(id);
-        return  ResponseUtil.wrapOrNotFound(proyectoDTO);
+        Optional<ProyectoDTO> proyectoDTO = proyectoService.findOneIntegrantes(id);
+        return ResponseUtil.wrapOrNotFound(proyectoDTO);
     }
-
-
-
-
 
     /** ADR
      * {@code GET  /proyectos/:id} : get the "id" proyecto.
@@ -175,26 +162,18 @@ public class ProyectoResource {
     public ResponseEntity<?> getProyectoWithAsesor(@PathVariable Long idProyecto) {
         log.debug("REST request to get Proyecto : {}", idProyecto);
 
-       //ProyectoDTO proyectoDTO = proyectoService.findOne(id);
+        //ProyectoDTO proyectoDTO = proyectoService.findOne(id);
 
         try {
-           // proyectoDTO = proyectoService.findOneWithAsesor(id);
+            // proyectoDTO = proyectoService.findOneWithAsesor(id);
 
             final ProyectoDTO proyectoDTO = proyectoService.findOneWithAsesor(idProyecto);
             ResponseEntity<ProyectoDTO> responseEntity = new ResponseEntity(proyectoDTO, HttpStatus.OK);
             return responseEntity;
-
-
-
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
-
     }
-
-
-
-
 
     /**
      * {@code DELETE  /proyectos/:id} : delete the "id" proyecto.
@@ -206,9 +185,11 @@ public class ProyectoResource {
     public ResponseEntity<Void> deleteProyecto(@PathVariable Long id) {
         log.debug("REST request to delete Proyecto : {}", id);
         proyectoService.delete(id);
-        return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+        return ResponseEntity
+            .noContent()
+            .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
+            .build();
     }
-
 
     ///////////////////////////////////////////////////////////////7777777777777777777777777
 
@@ -217,38 +198,44 @@ public class ProyectoResource {
         log.debug("REST request to get Proyecto : {}", idUsuario);
 
         try {
-
             final List<ProyectoDTO> proyectoDTO = proyectoService.findByIntegranteProyecto(idUsuario);
             ResponseEntity<ProyectoDTO> responseEntity = new ResponseEntity(proyectoDTO, HttpStatus.OK);
             return responseEntity;
-
-
-
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
-
     }
+
     //////////////////////////////////////////////////////////////////777777777777777777777
-
-
 
     @GetMapping("/proyectos-integrante/{idUsuario}/{authority}")
     public ResponseEntity<?> findByIntegranteProyectoAuthority(@PathVariable Long idUsuario, @PathVariable String authority) {
         log.debug("REST request to get Proyecto : {}", idUsuario, authority);
 
         try {
-
             final List<ProyectoDTO> proyectoDTO = proyectoService.findByIntegranteProyectoAuthority(idUsuario, authority);
             ResponseEntity<ProyectoDTO> responseEntity = new ResponseEntity(proyectoDTO, HttpStatus.OK);
             return responseEntity;
-
-
-
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
+    }
 
+    //////////////////////////////////////////////////////////////////777777777777777777777
+
+    //////////////////////////////////////////////////////////////////777777777777777777777
+
+    @GetMapping("/proyectos-integrante-rol/{idUsuario}/{rol}")
+    public ResponseEntity<?> findByIntegranteProyectoRol(@PathVariable Long idUsuario, @PathVariable String rol) {
+        log.debug("REST request to get Proyecto : {}", idUsuario, rol);
+
+        try {
+            final List<ProyectoDTO> proyectoDTO = proyectoService.findByIntegranteProyectoRol(idUsuario, rol);
+            ResponseEntity<ProyectoDTO> responseEntity = new ResponseEntity(proyectoDTO, HttpStatus.OK);
+            return responseEntity;
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
     }
     //////////////////////////////////////////////////////////////////777777777777777777777
 
