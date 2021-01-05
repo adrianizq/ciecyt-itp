@@ -6,7 +6,7 @@ import java.io.Serializable;
  * A DTO for the {@link co.edu.itp.ciecyt.domain.Pregunta} entity.
  */
 public class PreguntaDTO implements Serializable {
-    
+
     private Long id;
 
     private String encabezado;
@@ -18,7 +18,6 @@ public class PreguntaDTO implements Serializable {
     private Float puntaje;
 
     private Float puntajeMaximo;
-
 
     private Long preguntaTipoPreguntaId;
 
@@ -35,7 +34,11 @@ public class PreguntaDTO implements Serializable {
     private Long preguntaElementoId;
 
     private String preguntaElementoElemento;
-    
+
+    private Long preguntaFaseId;
+
+    private String preguntaFaseFase;
+
     public Long getId() {
         return id;
     }
@@ -148,6 +151,22 @@ public class PreguntaDTO implements Serializable {
         this.preguntaElementoElemento = elementoElemento;
     }
 
+    public Long getPreguntaFaseId() {
+        return preguntaFaseId;
+    }
+
+    public void setPreguntaFaseId(Long fasesId) {
+        this.preguntaFaseId = fasesId;
+    }
+
+    public String getPreguntaFaseFase() {
+        return preguntaFaseFase;
+    }
+
+    public void setPreguntaFaseFase(String fasesFase) {
+        this.preguntaFaseFase = fasesFase;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -183,6 +202,8 @@ public class PreguntaDTO implements Serializable {
             ", preguntaRolesModalidadRol='" + getPreguntaRolesModalidadRol() + "'" +
             ", preguntaElementoId=" + getPreguntaElementoId() +
             ", preguntaElementoElemento='" + getPreguntaElementoElemento() + "'" +
+            ", preguntaFaseId=" + getPreguntaFaseId() +
+            ", preguntaFaseFase='" + getPreguntaFaseFase() + "'" +
             "}";
     }
 }

@@ -55,7 +55,25 @@
                                 </option>
                         </b-form-select>
                     </div>
+               
+<!-- fases -->
+                      <div class="form-group">
+                        <label class="form-control-label" v-bind:value="$t('ciecytApp.pregunta.preguntaFase')" for="pregunta-preguntaFase">Fase</label>
+                       
+                        <b-form-select text-field="pregunta-fase" value-field="id" id="fase"
+                            v-model="pregunta.preguntaFaseId"
+                            
+                             >
+                            <option v-for="(selectOption, indexOpt) in Fases"
+                                        :key="indexOpt"
+                                        :value="selectOption.id"
+                                >
+                                    ({{ selectOption.id }}) {{ selectOption.fase }}
+                                </option>
+                        </b-form-select>
+                    </div>
                 </div>
+
 
                 <!--------------------------------------------->
                  <div class="col-md-6 col-12">

@@ -280,8 +280,8 @@ export function initVueXStore(vue) {
 
       menu_lateral_listado: [
         {
-          title: 'Jurado',
-          description: 'Espacio para evalular las propuestas a cargo',
+          title: 'Viabilidad',
+          description: 'Evaluar la viabilidad a las propuestas',
           to: '/viabilidad-propuesta/listado',
         },
         {

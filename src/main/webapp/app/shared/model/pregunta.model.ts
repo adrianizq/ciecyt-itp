@@ -11,6 +11,8 @@ export interface IPregunta {
   preguntaModalidadId?: number;
   preguntaRolesModalidadRol?: string;
   preguntaRolesModalidadId?: number;
+  preguntaFase?: string;
+  preguntaFaseId?: number;
   puntajeMaximo?: number;
 }
 
@@ -28,6 +30,8 @@ export class Pregunta implements IPregunta {
     public preguntaModalidadId?: number,
     public preguntaRolesModalidadRol?: string,
     public preguntaRolesModalidadId?: number,
+    public preguntaFaseFase?: string,
+    public preguntaFaseId?: number,
     public puntajeMaximo?: number
   ) {}
 }

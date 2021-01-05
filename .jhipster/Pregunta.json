@@ -50,6 +50,13 @@
       "relationshipType": "many-to-one",
       "otherEntityField": "elemento",
       "otherEntityRelationshipName": "pregunta"
+    },
+    {
+      "relationshipName": "pregutaFase",
+      "otherEntityName": "fases",
+      "relationshipType": "many-to-one",
+      "otherEntityField": "fase",
+      "otherEntityRelationshipName": "pregunta"
     }
   ],
   "changelogDate": "20201008035503",

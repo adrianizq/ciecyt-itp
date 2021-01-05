@@ -1,12 +1,10 @@
 package co.edu.itp.ciecyt.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.io.Serializable;
+import javax.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import javax.persistence.*;
-
-import java.io.Serializable;
 
 /**
  * A Pregunta.
@@ -53,6 +51,10 @@ public class Pregunta implements Serializable {
     @ManyToOne
     @JsonIgnoreProperties(value = "preguntas", allowSetters = true)
     private Elemento preguntaElemento;
+
+    @ManyToOne
+    @JsonIgnoreProperties(value = "preguntas", allowSetters = true)
+    private Fases preguntaFase;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -179,6 +181,20 @@ public class Pregunta implements Serializable {
     public void setPreguntaElemento(Elemento elemento) {
         this.preguntaElemento = elemento;
     }
+
+    public Fases getPreguntaFase() {
+        return preguntaFase;
+    }
+
+    public Pregunta preguntaFase(Fases fases) {
+        this.preguntaFase = fases;
+        return this;
+    }
+
+    public void setPreguntaFase(Fases fases) {
+        this.preguntaFase = fases;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override

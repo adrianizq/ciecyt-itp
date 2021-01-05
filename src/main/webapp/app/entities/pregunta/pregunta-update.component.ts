@@ -11,6 +11,9 @@ import { IModalidad } from '@/shared/model/modalidad.model';
 import RolesModalidadService from '../roles-modalidad/roles-modalidad.service';
 import { IRolesModalidad } from '@/shared/model/roles-modalidad.model';
 
+import FasesService from '../fases/fases.service';
+import { IFases } from '@/shared/model/fases.model';
+
 import ElementoService from '../elemento/elemento.service';
 import { IElemento, Elemento } from '@/shared/model/elemento.model';
 
@@ -47,6 +50,10 @@ export default class PreguntaUpdate extends Vue {
   @Inject('rolesModalidadService') private rolesModalidadService: () => RolesModalidadService;
 
   public rolesModalidads: IRolesModalidad[] = [];
+
+  @Inject('fasesService') private fasesService: () => FasesService;
+
+  public fass: IFases[] = [];
 
   @Inject('elementoService') private elementoService: () => ElementoService;
 
@@ -116,6 +123,12 @@ export default class PreguntaUpdate extends Vue {
     });
   }
 
+  get Fases() {
+    return this.fass.filter(fase => {
+      return fase.fasesModalidadId == this.pregunta.preguntaModalidadId;
+    });
+  }
+
   public retrievePregunta(preguntaId): void {
     this.preguntaService()
       .find(preguntaId)
@@ -149,11 +162,22 @@ export default class PreguntaUpdate extends Vue {
       .then(res => {
         this.elements = res.data;
       });
+    this.fasesService()
+      .retrieve()
+      .then(res => {
+        this.fass = res.data;
+      });
   }
-
+  /*
   setRolesModalidad(value) {
     this.rolesModalidads.filter(rol => {
       return rol == this.pregunta.preguntaModalidadId;
     });
   }
+
+  setFases(value) {
+    this.fass.filter(fase => {
+      return fase == this.pregunta.preguntaModalidadId;
+    });
+  }*/
 }
