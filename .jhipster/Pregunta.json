@@ -52,7 +52,7 @@
       "otherEntityRelationshipName": "pregunta"
     },
     {
-      "relationshipName": "pregutaFase",
+      "relationshipName": "preguntaFase",
       "otherEntityName": "fases",
       "relationshipType": "many-to-one",
       "otherEntityField": "fase",

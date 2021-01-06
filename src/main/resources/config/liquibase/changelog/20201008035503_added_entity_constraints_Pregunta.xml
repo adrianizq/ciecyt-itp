@@ -32,9 +32,9 @@
                                  referencedColumnNames="id"
                                  referencedTableName="elemento"/>
 
-        <addForeignKeyConstraint baseColumnNames="preguta_fase_id"
+        <addForeignKeyConstraint baseColumnNames="pregunta_fase_id"
                                  baseTableName="pregunta"
-                                 constraintName="fk_pregunta_preguta_fase_id"
+                                 constraintName="fk_pregunta_pregunta_fase_id"
                                  referencedColumnNames="id"
                                  referencedTableName="fases"/>
 

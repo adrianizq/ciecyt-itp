@@ -30,7 +30,7 @@ export class Pregunta implements IPregunta {
     public preguntaModalidadId?: number,
     public preguntaRolesModalidadRol?: string,
     public preguntaRolesModalidadId?: number,
-    public preguntaFaseFase?: string,
+    public preguntaFase?: string,
     public preguntaFaseId?: number,
     public puntajeMaximo?: number
   ) {}

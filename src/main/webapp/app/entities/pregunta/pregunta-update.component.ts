@@ -85,7 +85,17 @@ export default class PreguntaUpdate extends Vue {
         }
       });
     }
-    console.log(this.elemento); //si lo recupera
+
+    //
+    if (this.pregunta.preguntaFaseId) {
+      this.fass.forEach(item => {
+        if (item.id == this.pregunta.preguntaFaseId) {
+          //this.elemento = item;
+          this.pregunta.preguntaFase = item.fase; //error al guardar
+        }
+      });
+    }
+    console.log(this.pregunta.preguntaFase); //si lo muestra
 
     //  console.log(this.pregunta.preguntaElemento);
     //}

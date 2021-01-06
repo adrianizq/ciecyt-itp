@@ -6,7 +6,7 @@ import java.io.Serializable;
  * A DTO for the {@link co.edu.itp.ciecyt.domain.Pregunta} entity.
  */
 public class PreguntaDTO implements Serializable {
-
+    
     private Long id;
 
     private String encabezado;
@@ -18,6 +18,7 @@ public class PreguntaDTO implements Serializable {
     private Float puntaje;
 
     private Float puntajeMaximo;
+
 
     private Long preguntaTipoPreguntaId;
 
@@ -38,7 +39,7 @@ public class PreguntaDTO implements Serializable {
     private Long preguntaFaseId;
 
     private String preguntaFaseFase;
-
+    
     public Long getId() {
         return id;
     }

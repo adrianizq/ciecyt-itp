@@ -1,10 +1,12 @@
 package co.edu.itp.ciecyt.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import java.io.Serializable;
-import javax.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+import javax.persistence.*;
+
+import java.io.Serializable;
 
 /**
  * A Pregunta.
@@ -194,7 +196,6 @@ public class Pregunta implements Serializable {
     public void setPreguntaFase(Fases fases) {
         this.preguntaFase = fases;
     }
-
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
