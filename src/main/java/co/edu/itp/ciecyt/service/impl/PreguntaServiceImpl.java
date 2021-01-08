@@ -80,4 +80,16 @@ public class PreguntaServiceImpl implements PreguntaService {
         }
         return listDTO;
     }
+
+    public List<PreguntaDTO> findByPreguntaModalidadIdAndPreguntaFaseId(Long idModalidad, Long idFase) throws Exception{
+        log.debug("Request to get all Preguntas de una modalidad con una idModalidad");
+        List<PreguntaDTO> listDTO = new ArrayList<>();
+        List<Pregunta> list = preguntaRepository.findByPreguntaModalidadIdAndPreguntaFaseId(idModalidad, idFase);
+
+        for (Pregunta pregunta : list) {
+            listDTO.add(preguntaMapper.toDto(pregunta));
+        }
+        return listDTO;
+    }
+
 }

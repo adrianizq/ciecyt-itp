@@ -5,7 +5,7 @@
         <div class="col-sm-8">
            <form @submit.prevent="save()">
                 <div class="row">
-                     <div class="col-12" v-for="(ep, i) in proyectoRespuests" :key="i">
+                     <div class="col-12" v-for="(ep, i) in proyectoRespuests" :key="ep.id">
     
                     <b-card  
        
@@ -15,7 +15,7 @@
                      body-bg-variant="light"
                     header-text-variant="info">
                   
-
+                     <label>{{ep.encabezado}} Instituto</label>
                      <b-form-group
                             :label="ep.elemento"
                             :label-for="`ep-${i}`" 
@@ -23,9 +23,11 @@
                                                    
                        >
                        <div class="form-group" >
+                           
 
+                            
                             <b-form-textarea rows="2"  max-rows="10" class="form-control" :name="`ep-${i}`"
-                            :id="`ep-${i}`" 
+                            :id="`ep-${i}`" v-if="ep.elemento"
                                    v-model="ep.elemento"   />
                        </div>
                        </b-form-group>
@@ -139,7 +141,9 @@ export default class PropuestaEvaluar extends Vue {
     public enumRespuestas: EnumRespuestas;
 
     public isSaving = false;
-
+    public proyectoRespuestasDatos: boolean;
+    public mounted(): void {
+    }
 
         beforeRouteEnter(to, from, next) {
             next(vm => {
@@ -155,13 +159,21 @@ export default class PropuestaEvaluar extends Vue {
                 this.isSaving = true;
                 for (let e of this.proyectoRespuests) {
                     if (e.id) {
-                        this.proyectoRespuestasService().update(e); 
+                     // if (e.proyectoRespuestasProyectoId==this.proyId) {
+                        this.proyectoRespuestasService().update(e)
+                        .then(param => {
+                            //this.$router.push({ name: 'PropuestaPresupuestoView',params:{ proyectoId: this.proyId}});
+                            (<any>this).$router.go(0);
+                        });
+                      
                     } else {
+                        
                         this.proyectoRespuestasService().create(e)
                         .then(param => {
                             //this.$router.push({ name: 'PropuestaPresupuestoView',params:{ proyectoId: this.proyId}});
                             (<any>this).$router.go(0);
                         });
+                        
                     }
                 }
                 
@@ -184,28 +196,33 @@ export default class PropuestaEvaluar extends Vue {
                this.proyId = parseInt(this.$route.params.proyectoId);
                this.proyecto = await this.proyectoService().find(this.proyId);
                this.modalidadId = this.proyecto.proyectoModalidadId;
-              //recuperar las elementosProyecto enviando un idProyecto (api)
-          
-              this.proyectoRespuestasService()
+
+                let res= await this.elementoProyectoService()
+                .retrieveElementoProyecto(this.proyId)   //recup los ElementosProyecto con un idproy
+                 this.elementoProyects = res.data;
+
+                res= await this.proyectoRespuestasService()
                 .retrieveProyectoRespuestas(this.proyId)   //recup los proyresp con un idproy
-                .then(res=> {
+                this.proyectoRespuests = res.data;
+                if (this.proyectoRespuests.length>0){
+                        this.proyectoRespuestasDatos=true;
+                    }
+                else{
+                        this.proyectoRespuestasDatos=false;
+                    }
+                    console.log(this.proyectoRespuestasDatos);
+               
+                
 
-                    this.proyectoRespuests = res.data;
-                });
-               await this.elementoProyectoService()
-                .retrieveElementoProyecto(this.proyId)   //recup los proyresp con un idproy
-                .then(res=> {
-
-                    this.elementoProyects = res.data;
-                    //console.log(this.elementoProyects);
-                });
               //Obtenienedo los elementos de acuerdo a la modalidad
-              await this.preguntaService()
-                .retrievePreguntasModalidad( this.modalidadId) //recup pregs por molalid 
-                .then(res => {
+              //if (this.proyectoRespuests.length==0){
+                res = await  this.preguntaService()
+                //.retrievePreguntasModalidad( this.modalidadId) //recup pregs por molalid 
+                .retrievePreguntasModalidadyFase( this.modalidadId, 1) //recup pregs por molalid y fase
+                
                     this.pregunts = res.data;
-                  //cliclo para copiar los datos de pregunta a proyecto-respuestas
-                  this.pregunts.forEach(e => {
+                    /////////////////////////////////77
+                                   this.pregunts.forEach(e => {
                   var proyResp: IProyectoRespuestas = new ProyectoRespuestas();
                   proyResp.proyectoRespuestasPreguntaPregunta= e.pregunta;
                   proyResp.proyectoRespuestasPreguntaId = e.id;
@@ -213,23 +230,49 @@ export default class PropuestaEvaluar extends Vue {
                   proyResp.proyectoRespuestasProyectoId = this.proyId;
                   //ubicar un elemento, no esta en proyectoRespuestas
                   proyResp.elemento = e.preguntaElemento;
-                   proyResp.preguntaTipoPreguntaId = e.preguntaTipoPreguntaId;
-                    proyResp.preguntaTipoPreguntaTipoPregunta = e.preguntaTipoPreguntaTipoPregunta;
-                    
-                
-                  //this.elemProy = this.buscarElementoProyecto(e.elementoId);
+                  proyResp.preguntaTipoPreguntaId = e.preguntaTipoPreguntaId;
+                  proyResp.preguntaTipoPreguntaTipoPregunta = e.preguntaTipoPreguntaTipoPregunta;
+                  proyResp.encabezado = e.encabezado;
                   this.elementoProyects.forEach(x => {
                       console.log("Entra al ciclo elementoProyecto");
                     if (x.elementoProyectoElementoId == e.preguntaElementoId){
                          proyResp.dato = x.dato;    
                     }
                   });
+                  if (!this.proyectoRespuestasDatos){
+                   this.proyectoRespuests.push(proyResp);
+                  }
+                  else{
+                      this.proyectoRespuests.forEach(p => {
+                          if (p.proyectoRespuestasPreguntaId==e.id){
+                               p.preguntaTipoPreguntaId = proyResp.preguntaTipoPreguntaId;  
+                               p.preguntaTipoPreguntaTipoPregunta = proyResp.preguntaTipoPreguntaTipoPregunta; 
+                               p.encabezado = proyResp.encabezado;
+                               p.dato = proyResp.dato; 
+                               console.log(p.proyectoRespuestasPreguntaId + " igual?" + e.id);
+                               console.log(p.encabezado);
+                          }
+                      });
+                  
+                  }
+                }); //fin del foreach pregunts
+                    //////////////////////////////////77
+               
 
-                 
-                  this.proyectoRespuests.push(proyResp);
-                  }); 
+
+              //recuperar las elementosProyecto enviando un idProyecto (api)
+          
+      
+                
+
+                //if (this.proyectoRespuests.length==0){
+                  //ciclo para copiar los datos de pregunta a proyecto-respuestas
+               
+ 
                    //console.log(this.proyectoRespuests);
-                 });
+                //}//del if
+
+               console.log(this.proyectoRespuests);
             }
             catch(e){
               console.log("error al recuperar la informacion de elemento ");

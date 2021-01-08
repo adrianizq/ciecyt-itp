@@ -14,6 +14,7 @@ export interface IProyectoRespuestas {
   proyectoRespuestasProyectoTitulo?: string;
   proyectoRespuestasProyectoId?: number;
   elemento?: string;
+  encabezado?: string;
   dato?: string;
   preguntaTipoPreguntaId?: number;
   preguntaTipoPreguntaTipoPregunta?: string;
@@ -30,6 +31,7 @@ export class ProyectoRespuestas implements IProyectoRespuestas {
     public proyectoRespuestasProyectoTitulo?: string,
     public proyectoRespuestasProyectoId?: number,
     public elemento?: string,
+    public encabezado?: string,
     public dato?: string,
     public preguntaTipoPreguntaId?: number,
     public preguntaTipoPreguntaTipoPregunta?: string

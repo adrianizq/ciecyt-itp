@@ -54,4 +54,14 @@ export default class PreguntaService {
       });
     });
   }
+
+  public retrievePreguntasModalidadyFase(id: number, idFase: number, paginationQuery?: any): Promise<any> {
+    return new Promise<any>(resolve => {
+      axios
+        .get('api/pregunta-modalidad-fase' + `/${id}` + `/${idFase}` + `?${buildPaginationQueryOpts(paginationQuery)}`)
+        .then(function (res) {
+          resolve(res);
+        });
+    });
+  }
 }

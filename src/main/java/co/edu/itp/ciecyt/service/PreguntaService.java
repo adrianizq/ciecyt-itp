@@ -47,4 +47,6 @@ public interface PreguntaService {
      */
     void delete(Long id);
     public List<PreguntaDTO> findByPreguntaModalidadId(Long idModalidad) throws Exception;
+
+    public List<PreguntaDTO> findByPreguntaModalidadIdAndPreguntaFaseId(Long idModalidad, Long idFase) throws Exception;
 }
