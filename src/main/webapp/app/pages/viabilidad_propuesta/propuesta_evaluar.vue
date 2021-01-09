@@ -110,6 +110,8 @@ import { IProyecto, Proyecto } from '@/shared/model/proyecto.model';
 import ProyectoService from '@/entities/proyecto/proyecto.service';
 import { IElementoProyecto, ElementoProyecto } from '@/shared/model/elemento-proyecto.model';
 import ElementoProyectoService from '@/entities/elemento-proyecto/elemento-proyecto.service';
+import FasesService from '@/entities/fases/fases.service';
+import { IFases, Fases } from '@/shared/model/fases.model';
 
 
     const validations: any = {};
@@ -126,11 +128,13 @@ export default class PropuestaEvaluar extends Vue {
    @Inject('proyectoService') private proyectoService: () => ProyectoService;
    @Inject('proyectoRespuestasService') private proyectoRespuestasService: () => ProyectoRespuestasService;
    @Inject('preguntaService') private preguntaService: () => PreguntaService;
+   @Inject('fasesService') private fasesService: () => FasesService;
    @Inject('elementoProyectoService') private elementoProyectoService: () => ElementoProyectoService;
    @Inject('alertService') private alertService: () => AlertService;
 
 
     public pregunts: IPregunta[] = [];
+    public fase: IFases = new Fases();
     public proyectoRespuests: IProyectoRespuestas[] =[];
     public elementoProyects: IElementoProyecto[]=[];
     public elemProy: ElementoProyecto;
@@ -200,6 +204,12 @@ export default class PropuestaEvaluar extends Vue {
                 .retrieveElementoProyecto(this.proyId)   //recup los ElementosProyecto con un idproy
                  this.elementoProyects = res.data;
 
+                 res= await this.fasesService()
+                .retrieveFaseModalidad("Propuesta",this.modalidadId)   //recup los ElementosProyecto con un idproy
+                 //.find(1)
+                 this.fase = res;
+                 console.log(this.fase);
+
                 res= await this.proyectoRespuestasService()
                 .retrieveProyectoRespuestas(this.proyId)   //recup los proyresp con un idproy
                 this.proyectoRespuests = res.data;
@@ -209,7 +219,7 @@ export default class PropuestaEvaluar extends Vue {
                 else{
                         this.proyectoRespuestasDatos=false;
                     }
-                    console.log(this.proyectoRespuestasDatos);
+                    //console.log(this.proyectoRespuestasDatos);
                
                 
 
@@ -217,7 +227,7 @@ export default class PropuestaEvaluar extends Vue {
               //if (this.proyectoRespuests.length==0){
                 res = await  this.preguntaService()
                 //.retrievePreguntasModalidad( this.modalidadId) //recup pregs por molalid 
-                .retrievePreguntasModalidadyFase( this.modalidadId, 1) //recup pregs por molalid y fase
+                .retrievePreguntasModalidadyFase( this.modalidadId, this.fase.id) //recup pregs por molalid y fase
                 
                     this.pregunts = res.data;
                     /////////////////////////////////77

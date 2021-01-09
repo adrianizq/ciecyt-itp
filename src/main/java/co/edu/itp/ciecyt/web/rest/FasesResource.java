@@ -1,6 +1,8 @@
 package co.edu.itp.ciecyt.web.rest;
 
+import co.edu.itp.ciecyt.domain.Fases;
 import co.edu.itp.ciecyt.service.FasesService;
+import co.edu.itp.ciecyt.service.dto.ProyectoDTO;
 import co.edu.itp.ciecyt.web.rest.errors.BadRequestAlertException;
 import co.edu.itp.ciecyt.service.dto.FasesDTO;
 
@@ -125,4 +127,22 @@ public class FasesResource {
         fasesService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
+
+
+
+    /////////////////////
+    @GetMapping("/fase-modalidad/{fase}/{idModalidad}")
+    public ResponseEntity<?> getFaseAndFasesModalidadId(@PathVariable String fase, @PathVariable Long idModalidad) {
+        log.debug("REST request to get a page of Fases");
+        try {
+            final FasesDTO obj = fasesService.findByFaseAndFasesModalidadId(fase, idModalidad);
+            return new ResponseEntity<>(obj, HttpStatus.OK);
+        }
+        catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body( e.getMessage());
+        }
+    }
+
+
+
 }

@@ -86,4 +86,11 @@ public class FasesServiceImpl implements FasesService {
         log.debug("Request to delete Fases : {}", id);
         fasesRepository.deleteById(id);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public FasesDTO findByFaseAndFasesModalidadId(String fase, Long idModalidad) throws Exception{
+        Fases f= fasesRepository.findByFaseAndFasesModalidadId(fase,idModalidad);
+        return fasesMapper.toDto(f);
+    }
 }

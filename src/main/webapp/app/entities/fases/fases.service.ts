@@ -46,4 +46,12 @@ export default class FasesService {
       });
     });
   }
+
+  public retrieveFaseModalidad(fase: string, idModalidad: number): Promise<IFases> {
+    return new Promise<IFases>(resolve => {
+      axios.get(`api/fase-modalidad/${fase}/${idModalidad}`).then(function (res) {
+        resolve(res.data);
+      });
+    });
+  }
 }
