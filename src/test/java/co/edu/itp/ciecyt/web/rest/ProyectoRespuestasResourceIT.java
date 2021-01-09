@@ -48,6 +48,21 @@ public class ProyectoRespuestasResourceIT {
     private static final Boolean DEFAULT_SI_NO = false;
     private static final Boolean UPDATED_SI_NO = true;
 
+    private static final String DEFAULT_ELEMENTO = "AAAAAAAAAA";
+    private static final String UPDATED_ELEMENTO = "BBBBBBBBBB";
+
+    private static final Long DEFAULT_PREGUNTA_TIPO_PREGUNTA_ID = 1L;
+    private static final Long UPDATED_PREGUNTA_TIPO_PREGUNTA_ID = 2L;
+
+    private static final String DEFAULT_PREGUNTA_TIPO_PREGUNTA_TIPO_PREGUNTA = "AAAAAAAAAA";
+    private static final String UPDATED_PREGUNTA_TIPO_PREGUNTA_TIPO_PREGUNTA = "BBBBBBBBBB";
+
+    private static final String DEFAULT_ENCABEZADO = "AAAAAAAAAA";
+    private static final String UPDATED_ENCABEZADO = "BBBBBBBBBB";
+
+    private static final String DEFAULT_DATO = "AAAAAAAAAA";
+    private static final String UPDATED_DATO = "BBBBBBBBBB";
+
     @Autowired
     private ProyectoRespuestasRepository proyectoRespuestasRepository;
 
@@ -77,7 +92,12 @@ public class ProyectoRespuestasResourceIT {
             .observaciones(DEFAULT_OBSERVACIONES)
             .viable(DEFAULT_VIABLE)
             .puntaje(DEFAULT_PUNTAJE)
-            .siNo(DEFAULT_SI_NO);
+            .siNo(DEFAULT_SI_NO)
+            .elemento(DEFAULT_ELEMENTO)
+            .preguntaTipoPreguntaId(DEFAULT_PREGUNTA_TIPO_PREGUNTA_ID)
+            .preguntaTipoPreguntaTipoPregunta(DEFAULT_PREGUNTA_TIPO_PREGUNTA_TIPO_PREGUNTA)
+            .encabezado(DEFAULT_ENCABEZADO)
+            .dato(DEFAULT_DATO);
         return proyectoRespuestas;
     }
     /**
@@ -92,7 +112,12 @@ public class ProyectoRespuestasResourceIT {
             .observaciones(UPDATED_OBSERVACIONES)
             .viable(UPDATED_VIABLE)
             .puntaje(UPDATED_PUNTAJE)
-            .siNo(UPDATED_SI_NO);
+            .siNo(UPDATED_SI_NO)
+            .elemento(UPDATED_ELEMENTO)
+            .preguntaTipoPreguntaId(UPDATED_PREGUNTA_TIPO_PREGUNTA_ID)
+            .preguntaTipoPreguntaTipoPregunta(UPDATED_PREGUNTA_TIPO_PREGUNTA_TIPO_PREGUNTA)
+            .encabezado(UPDATED_ENCABEZADO)
+            .dato(UPDATED_DATO);
         return proyectoRespuestas;
     }
 
@@ -121,6 +146,11 @@ public class ProyectoRespuestasResourceIT {
         assertThat(testProyectoRespuestas.isViable()).isEqualTo(DEFAULT_VIABLE);
         assertThat(testProyectoRespuestas.getPuntaje()).isEqualTo(DEFAULT_PUNTAJE);
         assertThat(testProyectoRespuestas.isSiNo()).isEqualTo(DEFAULT_SI_NO);
+        assertThat(testProyectoRespuestas.getElemento()).isEqualTo(DEFAULT_ELEMENTO);
+        assertThat(testProyectoRespuestas.getPreguntaTipoPreguntaId()).isEqualTo(DEFAULT_PREGUNTA_TIPO_PREGUNTA_ID);
+        assertThat(testProyectoRespuestas.getPreguntaTipoPreguntaTipoPregunta()).isEqualTo(DEFAULT_PREGUNTA_TIPO_PREGUNTA_TIPO_PREGUNTA);
+        assertThat(testProyectoRespuestas.getEncabezado()).isEqualTo(DEFAULT_ENCABEZADO);
+        assertThat(testProyectoRespuestas.getDato()).isEqualTo(DEFAULT_DATO);
     }
 
     @Test
@@ -159,7 +189,12 @@ public class ProyectoRespuestasResourceIT {
             .andExpect(jsonPath("$.[*].observaciones").value(hasItem(DEFAULT_OBSERVACIONES)))
             .andExpect(jsonPath("$.[*].viable").value(hasItem(DEFAULT_VIABLE.booleanValue())))
             .andExpect(jsonPath("$.[*].puntaje").value(hasItem(DEFAULT_PUNTAJE.doubleValue())))
-            .andExpect(jsonPath("$.[*].siNo").value(hasItem(DEFAULT_SI_NO.booleanValue())));
+            .andExpect(jsonPath("$.[*].siNo").value(hasItem(DEFAULT_SI_NO.booleanValue())))
+            .andExpect(jsonPath("$.[*].elemento").value(hasItem(DEFAULT_ELEMENTO)))
+            .andExpect(jsonPath("$.[*].preguntaTipoPreguntaId").value(hasItem(DEFAULT_PREGUNTA_TIPO_PREGUNTA_ID.intValue())))
+            .andExpect(jsonPath("$.[*].preguntaTipoPreguntaTipoPregunta").value(hasItem(DEFAULT_PREGUNTA_TIPO_PREGUNTA_TIPO_PREGUNTA)))
+            .andExpect(jsonPath("$.[*].encabezado").value(hasItem(DEFAULT_ENCABEZADO)))
+            .andExpect(jsonPath("$.[*].dato").value(hasItem(DEFAULT_DATO)));
     }
     
     @Test
@@ -177,7 +212,12 @@ public class ProyectoRespuestasResourceIT {
             .andExpect(jsonPath("$.observaciones").value(DEFAULT_OBSERVACIONES))
             .andExpect(jsonPath("$.viable").value(DEFAULT_VIABLE.booleanValue()))
             .andExpect(jsonPath("$.puntaje").value(DEFAULT_PUNTAJE.doubleValue()))
-            .andExpect(jsonPath("$.siNo").value(DEFAULT_SI_NO.booleanValue()));
+            .andExpect(jsonPath("$.siNo").value(DEFAULT_SI_NO.booleanValue()))
+            .andExpect(jsonPath("$.elemento").value(DEFAULT_ELEMENTO))
+            .andExpect(jsonPath("$.preguntaTipoPreguntaId").value(DEFAULT_PREGUNTA_TIPO_PREGUNTA_ID.intValue()))
+            .andExpect(jsonPath("$.preguntaTipoPreguntaTipoPregunta").value(DEFAULT_PREGUNTA_TIPO_PREGUNTA_TIPO_PREGUNTA))
+            .andExpect(jsonPath("$.encabezado").value(DEFAULT_ENCABEZADO))
+            .andExpect(jsonPath("$.dato").value(DEFAULT_DATO));
     }
     @Test
     @Transactional
@@ -204,7 +244,12 @@ public class ProyectoRespuestasResourceIT {
             .observaciones(UPDATED_OBSERVACIONES)
             .viable(UPDATED_VIABLE)
             .puntaje(UPDATED_PUNTAJE)
-            .siNo(UPDATED_SI_NO);
+            .siNo(UPDATED_SI_NO)
+            .elemento(UPDATED_ELEMENTO)
+            .preguntaTipoPreguntaId(UPDATED_PREGUNTA_TIPO_PREGUNTA_ID)
+            .preguntaTipoPreguntaTipoPregunta(UPDATED_PREGUNTA_TIPO_PREGUNTA_TIPO_PREGUNTA)
+            .encabezado(UPDATED_ENCABEZADO)
+            .dato(UPDATED_DATO);
         ProyectoRespuestasDTO proyectoRespuestasDTO = proyectoRespuestasMapper.toDto(updatedProyectoRespuestas);
 
         restProyectoRespuestasMockMvc.perform(put("/api/proyecto-respuestas")
@@ -221,6 +266,11 @@ public class ProyectoRespuestasResourceIT {
         assertThat(testProyectoRespuestas.isViable()).isEqualTo(UPDATED_VIABLE);
         assertThat(testProyectoRespuestas.getPuntaje()).isEqualTo(UPDATED_PUNTAJE);
         assertThat(testProyectoRespuestas.isSiNo()).isEqualTo(UPDATED_SI_NO);
+        assertThat(testProyectoRespuestas.getElemento()).isEqualTo(UPDATED_ELEMENTO);
+        assertThat(testProyectoRespuestas.getPreguntaTipoPreguntaId()).isEqualTo(UPDATED_PREGUNTA_TIPO_PREGUNTA_ID);
+        assertThat(testProyectoRespuestas.getPreguntaTipoPreguntaTipoPregunta()).isEqualTo(UPDATED_PREGUNTA_TIPO_PREGUNTA_TIPO_PREGUNTA);
+        assertThat(testProyectoRespuestas.getEncabezado()).isEqualTo(UPDATED_ENCABEZADO);
+        assertThat(testProyectoRespuestas.getDato()).isEqualTo(UPDATED_DATO);
     }
 
     @Test

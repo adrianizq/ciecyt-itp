@@ -21,6 +21,26 @@
     {
       "fieldName": "siNo",
       "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "elemento",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "preguntaTipoPreguntaId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "preguntaTipoPreguntaTipoPregunta",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "encabezado",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "dato",
+      "fieldType": "String"
     }
   ],
   "relationships": [

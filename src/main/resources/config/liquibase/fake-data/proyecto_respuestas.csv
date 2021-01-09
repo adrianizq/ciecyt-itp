@@ -1,11 +1,11 @@
-id;respuesta;observaciones;viable;puntaje;si_no
-1;NO_CUMPLE;withdrawal;false;76069;false
-2;NO_APLICA;AGP Accounts JSON;true;7033;true
-3;NO_APLICA;Research Borders Dominican Republic;true;9348;true
-4;CUMPLE;calculating Bike Representative;false;75881;true
-5;NO_CUMPLE;orchid Soft;true;19740;true
-6;CUMPLE;Highway Rubber Books;true;12131;true
-7;CUMPLE;e-commerce;false;56900;false
-8;CUMPLE;Steel application Intuitive;true;24502;false
-9;CUMPLE;Lesotho SSL;false;69219;false
-10;CUMPLE;compress quantifying;true;26325;true
+id;respuesta;observaciones;viable;puntaje;si_no;elemento;pregunta_tipo_pregunta_id;pregunta_tipo_pregunta_tipo_pregunta;encabezado;dato
+1;NO_CUMPLE;withdrawal;false;76069;false;invoice Refined;86146;AGP Accounts JSON;Generic Granite Cheese collaboration;Metrics
+2;CUMPLE;Incredible Officer;true;84304;true;Virtual;95275;program;generating Manager back up;deposit Checking Account
+3;NO_APLICA;seize moratorium;false;33262;false;Books back-end;68901;Investment Account Movies;Graphical User Interface;salmon Pike
+4;CUMPLE;compress schemas Managed;true;43154;true;Ergonomic Rubber Hat Cambridgeshire;22430;Iceland Krona;Optimization New York North Korean Won;invoice
+5;NO_APLICA;deposit;true;70562;false;Frozen Ohio Steel;16196;Incredible Incredible Soft Tuna;Illinois;Handcrafted Kids
+6;NO_APLICA;European Monetary Unit (E.M.U.-6) Handmade;false;29436;true;Future hardware;7639;Personal Loan Account Integration driver;Road;Intelligent alliance Awesome
+7;NO_APLICA;Kuwait;false;18136;true;e-tailers Jewelery;1214;Gorgeous Concrete Chicken teal Bedfordshire;Specialist;Associate
+8;NO_CUMPLE;Table;true;66897;true;cross-platform;70985;invoice Centralized;Ramp Tasty Borders;Consultant web-enabled
+9;NO_APLICA;Computers navigating;false;82187;false;Concrete tan;30187;Avon Gloves Avon;neural generate withdrawal;Vermont Handmade Steel Chicken Home Loan Account
+10;NO_APLICA;capacity magenta;true;61513;true;Serbia;42775;interface;quantify;microchip incentivize disintermediate

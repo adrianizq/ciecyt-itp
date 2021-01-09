@@ -41,6 +41,21 @@ public class ProyectoRespuestas implements Serializable {
     @Column(name = "si_no")
     private Boolean siNo;
 
+    @Column(name = "elemento")
+    private String elemento;
+
+    @Column(name = "pregunta_tipo_pregunta_id")
+    private Long preguntaTipoPreguntaId;
+
+    @Column(name = "pregunta_tipo_pregunta_tipo_pregunta")
+    private String preguntaTipoPreguntaTipoPregunta;
+
+    @Column(name = "encabezado")
+    private String encabezado;
+
+    @Column(name = "dato")
+    private String dato;
+
     @ManyToOne
     @JsonIgnoreProperties(value = "proyectoRespuestas", allowSetters = true)
     private Pregunta proyectoRespuestasPregunta;
@@ -123,6 +138,71 @@ public class ProyectoRespuestas implements Serializable {
         this.siNo = siNo;
     }
 
+    public String getElemento() {
+        return elemento;
+    }
+
+    public ProyectoRespuestas elemento(String elemento) {
+        this.elemento = elemento;
+        return this;
+    }
+
+    public void setElemento(String elemento) {
+        this.elemento = elemento;
+    }
+
+    public Long getPreguntaTipoPreguntaId() {
+        return preguntaTipoPreguntaId;
+    }
+
+    public ProyectoRespuestas preguntaTipoPreguntaId(Long preguntaTipoPreguntaId) {
+        this.preguntaTipoPreguntaId = preguntaTipoPreguntaId;
+        return this;
+    }
+
+    public void setPreguntaTipoPreguntaId(Long preguntaTipoPreguntaId) {
+        this.preguntaTipoPreguntaId = preguntaTipoPreguntaId;
+    }
+
+    public String getPreguntaTipoPreguntaTipoPregunta() {
+        return preguntaTipoPreguntaTipoPregunta;
+    }
+
+    public ProyectoRespuestas preguntaTipoPreguntaTipoPregunta(String preguntaTipoPreguntaTipoPregunta) {
+        this.preguntaTipoPreguntaTipoPregunta = preguntaTipoPreguntaTipoPregunta;
+        return this;
+    }
+
+    public void setPreguntaTipoPreguntaTipoPregunta(String preguntaTipoPreguntaTipoPregunta) {
+        this.preguntaTipoPreguntaTipoPregunta = preguntaTipoPreguntaTipoPregunta;
+    }
+
+    public String getEncabezado() {
+        return encabezado;
+    }
+
+    public ProyectoRespuestas encabezado(String encabezado) {
+        this.encabezado = encabezado;
+        return this;
+    }
+
+    public void setEncabezado(String encabezado) {
+        this.encabezado = encabezado;
+    }
+
+    public String getDato() {
+        return dato;
+    }
+
+    public ProyectoRespuestas dato(String dato) {
+        this.dato = dato;
+        return this;
+    }
+
+    public void setDato(String dato) {
+        this.dato = dato;
+    }
+
     public Pregunta getProyectoRespuestasPregunta() {
         return proyectoRespuestasPregunta;
     }
@@ -176,6 +256,11 @@ public class ProyectoRespuestas implements Serializable {
             ", viable='" + isViable() + "'" +
             ", puntaje=" + getPuntaje() +
             ", siNo='" + isSiNo() + "'" +
+            ", elemento='" + getElemento() + "'" +
+            ", preguntaTipoPreguntaId=" + getPreguntaTipoPreguntaId() +
+            ", preguntaTipoPreguntaTipoPregunta='" + getPreguntaTipoPreguntaTipoPregunta() + "'" +
+            ", encabezado='" + getEncabezado() + "'" +
+            ", dato='" + getDato() + "'" +
             "}";
     }
 }

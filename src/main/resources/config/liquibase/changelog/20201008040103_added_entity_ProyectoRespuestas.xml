@@ -30,6 +30,21 @@
             <column name="si_no" type="boolean">
                 <constraints nullable="true" />
             </column>
+            <column name="elemento" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="pregunta_tipo_pregunta_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="pregunta_tipo_pregunta_tipo_pregunta" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="encabezado" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="dato" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
             <column name="proyecto_respuestas_pregunta_id" type="bigint">
                 <constraints nullable="true" />
             </column>
@@ -64,6 +79,11 @@
             <column name="viable" type="boolean"/>
             <column name="puntaje" type="numeric"/>
             <column name="si_no" type="boolean"/>
+            <column name="elemento" type="string"/>
+            <column name="pregunta_tipo_pregunta_id" type="numeric"/>
+            <column name="pregunta_tipo_pregunta_tipo_pregunta" type="string"/>
+            <column name="encabezado" type="string"/>
+            <column name="dato" type="string"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>

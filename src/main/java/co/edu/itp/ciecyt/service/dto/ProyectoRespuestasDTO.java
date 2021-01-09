@@ -20,6 +20,16 @@ public class ProyectoRespuestasDTO implements Serializable {
 
     private Boolean siNo;
 
+    private String elemento;
+
+    private Long preguntaTipoPreguntaId;
+
+    private String preguntaTipoPreguntaTipoPregunta;
+
+    private String encabezado;
+
+    private String dato;
+
 
     private Long proyectoRespuestasPreguntaId;
 
@@ -75,6 +85,46 @@ public class ProyectoRespuestasDTO implements Serializable {
 
     public void setSiNo(Boolean siNo) {
         this.siNo = siNo;
+    }
+
+    public String getElemento() {
+        return elemento;
+    }
+
+    public void setElemento(String elemento) {
+        this.elemento = elemento;
+    }
+
+    public Long getPreguntaTipoPreguntaId() {
+        return preguntaTipoPreguntaId;
+    }
+
+    public void setPreguntaTipoPreguntaId(Long preguntaTipoPreguntaId) {
+        this.preguntaTipoPreguntaId = preguntaTipoPreguntaId;
+    }
+
+    public String getPreguntaTipoPreguntaTipoPregunta() {
+        return preguntaTipoPreguntaTipoPregunta;
+    }
+
+    public void setPreguntaTipoPreguntaTipoPregunta(String preguntaTipoPreguntaTipoPregunta) {
+        this.preguntaTipoPreguntaTipoPregunta = preguntaTipoPreguntaTipoPregunta;
+    }
+
+    public String getEncabezado() {
+        return encabezado;
+    }
+
+    public void setEncabezado(String encabezado) {
+        this.encabezado = encabezado;
+    }
+
+    public String getDato() {
+        return dato;
+    }
+
+    public void setDato(String dato) {
+        this.dato = dato;
     }
 
     public Long getProyectoRespuestasPreguntaId() {
@@ -136,6 +186,11 @@ public class ProyectoRespuestasDTO implements Serializable {
             ", viable='" + isViable() + "'" +
             ", puntaje=" + getPuntaje() +
             ", siNo='" + isSiNo() + "'" +
+            ", elemento='" + getElemento() + "'" +
+            ", preguntaTipoPreguntaId=" + getPreguntaTipoPreguntaId() +
+            ", preguntaTipoPreguntaTipoPregunta='" + getPreguntaTipoPreguntaTipoPregunta() + "'" +
+            ", encabezado='" + getEncabezado() + "'" +
+            ", dato='" + getDato() + "'" +
             ", proyectoRespuestasPreguntaId=" + getProyectoRespuestasPreguntaId() +
             ", proyectoRespuestasPreguntaPregunta='" + getProyectoRespuestasPreguntaPregunta() + "'" +
             ", proyectoRespuestasProyectoId=" + getProyectoRespuestasProyectoId() +

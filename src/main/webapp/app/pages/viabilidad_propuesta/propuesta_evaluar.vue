@@ -5,17 +5,16 @@
         <div class="col-sm-8">
            <form @submit.prevent="save()">
                 <div class="row">
-                     <div class="col-12" v-for="(ep, i) in proyectoRespuests" :key="ep.id">
+                     <div class="col-12" v-for="(ep, i) in proyectoRespuests" :key="i">
     
                     <b-card  
-       
-                    border-variant="primary"
-        
-                    header-bg-variant="light"
-                     body-bg-variant="light"
-                    header-text-variant="info">
+                      border-variant="primary"
+                      header-bg-variant="light"
+                      body-bg-variant="light"
+                     header-text-variant="info">
                   
-                     <label>{{ep.encabezado}} Instituto</label>
+                     <label>{{ep.encabezado}} </label>
+                     
                      <b-form-group
                             :label="ep.elemento"
                             :label-for="`ep-${i}`" 
@@ -222,11 +221,10 @@ export default class PropuestaEvaluar extends Vue {
                 
                     this.pregunts = res.data;
                     /////////////////////////////////77
-                                   this.pregunts.forEach(e => {
+                this.pregunts.forEach(e => {
                   var proyResp: IProyectoRespuestas = new ProyectoRespuestas();
                   proyResp.proyectoRespuestasPreguntaPregunta= e.pregunta;
                   proyResp.proyectoRespuestasPreguntaId = e.id;
-                  //elemProy.elemento = e.elemento;
                   proyResp.proyectoRespuestasProyectoId = this.proyId;
                   //ubicar un elemento, no esta en proyectoRespuestas
                   proyResp.elemento = e.preguntaElemento;
@@ -242,7 +240,7 @@ export default class PropuestaEvaluar extends Vue {
                   if (!this.proyectoRespuestasDatos){
                    this.proyectoRespuests.push(proyResp);
                   }
-                  else{
+                  /*else{
                       this.proyectoRespuests.forEach(p => {
                           if (p.proyectoRespuestasPreguntaId==e.id){
                                p.preguntaTipoPreguntaId = proyResp.preguntaTipoPreguntaId;  
@@ -254,7 +252,7 @@ export default class PropuestaEvaluar extends Vue {
                           }
                       });
                   
-                  }
+                  }*/
                 }); //fin del foreach pregunts
                     //////////////////////////////////77
                
