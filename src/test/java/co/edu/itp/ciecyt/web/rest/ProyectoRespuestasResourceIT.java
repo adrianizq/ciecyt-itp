@@ -63,6 +63,12 @@ public class ProyectoRespuestasResourceIT {
     private static final String DEFAULT_DATO = "AAAAAAAAAA";
     private static final String UPDATED_DATO = "BBBBBBBBBB";
 
+    private static final String DEFAULT_RESPUESTA_TEXTO = "AAAAAAAAAA";
+    private static final String UPDATED_RESPUESTA_TEXTO = "BBBBBBBBBB";
+
+    private static final Float DEFAULT_RESPUESTA_NUMERO = 1F;
+    private static final Float UPDATED_RESPUESTA_NUMERO = 2F;
+
     @Autowired
     private ProyectoRespuestasRepository proyectoRespuestasRepository;
 
@@ -97,7 +103,9 @@ public class ProyectoRespuestasResourceIT {
             .preguntaTipoPreguntaId(DEFAULT_PREGUNTA_TIPO_PREGUNTA_ID)
             .preguntaTipoPreguntaTipoPregunta(DEFAULT_PREGUNTA_TIPO_PREGUNTA_TIPO_PREGUNTA)
             .encabezado(DEFAULT_ENCABEZADO)
-            .dato(DEFAULT_DATO);
+            .dato(DEFAULT_DATO)
+            .respuestaTexto(DEFAULT_RESPUESTA_TEXTO)
+            .respuestaNumero(DEFAULT_RESPUESTA_NUMERO);
         return proyectoRespuestas;
     }
     /**
@@ -117,7 +125,9 @@ public class ProyectoRespuestasResourceIT {
             .preguntaTipoPreguntaId(UPDATED_PREGUNTA_TIPO_PREGUNTA_ID)
             .preguntaTipoPreguntaTipoPregunta(UPDATED_PREGUNTA_TIPO_PREGUNTA_TIPO_PREGUNTA)
             .encabezado(UPDATED_ENCABEZADO)
-            .dato(UPDATED_DATO);
+            .dato(UPDATED_DATO)
+            .respuestaTexto(UPDATED_RESPUESTA_TEXTO)
+            .respuestaNumero(UPDATED_RESPUESTA_NUMERO);
         return proyectoRespuestas;
     }
 
@@ -151,6 +161,8 @@ public class ProyectoRespuestasResourceIT {
         assertThat(testProyectoRespuestas.getPreguntaTipoPreguntaTipoPregunta()).isEqualTo(DEFAULT_PREGUNTA_TIPO_PREGUNTA_TIPO_PREGUNTA);
         assertThat(testProyectoRespuestas.getEncabezado()).isEqualTo(DEFAULT_ENCABEZADO);
         assertThat(testProyectoRespuestas.getDato()).isEqualTo(DEFAULT_DATO);
+        assertThat(testProyectoRespuestas.getRespuestaTexto()).isEqualTo(DEFAULT_RESPUESTA_TEXTO);
+        assertThat(testProyectoRespuestas.getRespuestaNumero()).isEqualTo(DEFAULT_RESPUESTA_NUMERO);
     }
 
     @Test
@@ -194,7 +206,9 @@ public class ProyectoRespuestasResourceIT {
             .andExpect(jsonPath("$.[*].preguntaTipoPreguntaId").value(hasItem(DEFAULT_PREGUNTA_TIPO_PREGUNTA_ID.intValue())))
             .andExpect(jsonPath("$.[*].preguntaTipoPreguntaTipoPregunta").value(hasItem(DEFAULT_PREGUNTA_TIPO_PREGUNTA_TIPO_PREGUNTA)))
             .andExpect(jsonPath("$.[*].encabezado").value(hasItem(DEFAULT_ENCABEZADO)))
-            .andExpect(jsonPath("$.[*].dato").value(hasItem(DEFAULT_DATO)));
+            .andExpect(jsonPath("$.[*].dato").value(hasItem(DEFAULT_DATO)))
+            .andExpect(jsonPath("$.[*].respuestaTexto").value(hasItem(DEFAULT_RESPUESTA_TEXTO)))
+            .andExpect(jsonPath("$.[*].respuestaNumero").value(hasItem(DEFAULT_RESPUESTA_NUMERO.doubleValue())));
     }
     
     @Test
@@ -217,7 +231,9 @@ public class ProyectoRespuestasResourceIT {
             .andExpect(jsonPath("$.preguntaTipoPreguntaId").value(DEFAULT_PREGUNTA_TIPO_PREGUNTA_ID.intValue()))
             .andExpect(jsonPath("$.preguntaTipoPreguntaTipoPregunta").value(DEFAULT_PREGUNTA_TIPO_PREGUNTA_TIPO_PREGUNTA))
             .andExpect(jsonPath("$.encabezado").value(DEFAULT_ENCABEZADO))
-            .andExpect(jsonPath("$.dato").value(DEFAULT_DATO));
+            .andExpect(jsonPath("$.dato").value(DEFAULT_DATO))
+            .andExpect(jsonPath("$.respuestaTexto").value(DEFAULT_RESPUESTA_TEXTO))
+            .andExpect(jsonPath("$.respuestaNumero").value(DEFAULT_RESPUESTA_NUMERO.doubleValue()));
     }
     @Test
     @Transactional
@@ -249,7 +265,9 @@ public class ProyectoRespuestasResourceIT {
             .preguntaTipoPreguntaId(UPDATED_PREGUNTA_TIPO_PREGUNTA_ID)
             .preguntaTipoPreguntaTipoPregunta(UPDATED_PREGUNTA_TIPO_PREGUNTA_TIPO_PREGUNTA)
             .encabezado(UPDATED_ENCABEZADO)
-            .dato(UPDATED_DATO);
+            .dato(UPDATED_DATO)
+            .respuestaTexto(UPDATED_RESPUESTA_TEXTO)
+            .respuestaNumero(UPDATED_RESPUESTA_NUMERO);
         ProyectoRespuestasDTO proyectoRespuestasDTO = proyectoRespuestasMapper.toDto(updatedProyectoRespuestas);
 
         restProyectoRespuestasMockMvc.perform(put("/api/proyecto-respuestas")
@@ -271,6 +289,8 @@ public class ProyectoRespuestasResourceIT {
         assertThat(testProyectoRespuestas.getPreguntaTipoPreguntaTipoPregunta()).isEqualTo(UPDATED_PREGUNTA_TIPO_PREGUNTA_TIPO_PREGUNTA);
         assertThat(testProyectoRespuestas.getEncabezado()).isEqualTo(UPDATED_ENCABEZADO);
         assertThat(testProyectoRespuestas.getDato()).isEqualTo(UPDATED_DATO);
+        assertThat(testProyectoRespuestas.getRespuestaTexto()).isEqualTo(UPDATED_RESPUESTA_TEXTO);
+        assertThat(testProyectoRespuestas.getRespuestaNumero()).isEqualTo(UPDATED_RESPUESTA_NUMERO);
     }
 
     @Test

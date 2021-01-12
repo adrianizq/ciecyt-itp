@@ -5,15 +5,24 @@
         <div class="col-sm-8">
            <form @submit.prevent="save()">
                 <div class="row">
-                     <div class="col-12" v-for="(ep, i) in proyectoRespuests" :key="i">
-    
+                   
+                  
+              <table> 
+               <tr><td><h2>Viabilidad de la Propuesta </h2></td></tr>
+               <tr><td>Título: {{proyecto.titulo}} </td></tr>
+               <tr><td>Programa: {{proyecto.programa}} </td></tr>
+                <tr><td> &nbsp; </td></tr>
+             </table>
+             <br />   <br />
+           
+                    <div class="col-12" v-for="(ep, i) in proyectoRespuests" :key="i">
                     <b-card  
                       border-variant="primary"
                       header-bg-variant="light"
                       body-bg-variant="light"
                      header-text-variant="info">
-                  
-                     <label>{{ep.encabezado}} </label>
+                     <div class="text-secondary"> Tipo de pregunta {{ep.preguntaTipoPreguntaTipoPregunta}} </div>
+                     <label  class="p-3 mb-2 bg-info text-white container-fluid">{{ep.encabezado}} </label>
                      
                      <b-form-group
                             :label="ep.elemento"
@@ -27,7 +36,7 @@
                             
                             <b-form-textarea rows="2"  max-rows="10" class="form-control" :name="`ep-${i}`"
                             :id="`ep-${i}`" v-if="ep.elemento"
-                                   v-model="ep.elemento"   />
+                                   v-model="ep.elemento"  disabled="true"  />
                        </div>
                        </b-form-group>
 
@@ -37,24 +46,45 @@
                        <div class="form-group" >
 
                             <b-form-textarea rows="2"  max-rows="10" class="form-control" :name="`ep-${i}`"
-                            :id="`ep-${i}`" 
-                                   v-model="ep.dato"   />
+                            :id="`ep-${i}` " 
+                                   v-model="ep.dato"  v-if="ep.dato!=null" readonly="true" />
                             </div>
                        </b-form-group>
 
-                        <!----------------------------------------------->
+                        <!-- TIPOS Pregunta--------------------------------------------->
                         <div class="form-group">
                         <label class="form-control-label" v-text="$t('ciecytApp.proyectoRespuestas.respuesta')" for="proyecto-respuestas-respuesta">Respuesta</label>
-                        <select class="form-control" name="respuesta"  v-model="ep.respuesta" id="proyecto-respuestas-respuesta" >
+                        <select class="form-control" c  v-model="ep.respuesta" 
+                          id="proyecto-respuestas-respuesta"
+                          v-if="ep.preguntaTipoPreguntaTipoPregunta==`Viable (sin puntaje)`" >
                             <option value="CUMPLE" v-bind:label="$t('ciecytApp.EnumRespuestas.CUMPLE')">CUMPLE</option>
                             <option value="NO_CUMPLE" v-bind:label="$t('ciecytApp.EnumRespuestas.NO_CUMPLE')">NO_CUMPLE</option>
                             <option value="NO_APLICA" v-bind:label="$t('ciecytApp.EnumRespuestas.NO_APLICA')">NO_APLICA</option>
                         </select>
-                    </div>
+                        
+                        <select class="form-control" name="respuesta"  v-model.bool="ep.siNo" 
+                          id="proyecto-respuestas-respuesta"
+                          v-if="ep.preguntaTipoPreguntaTipoPregunta==`Si o No`" >
+                            <option value="true" v-bind:label="$t('ciecytApp.EnumRespuestas.SI')">SI</option>
+                            <option value="false" v-bind:label="$t('ciecytApp.EnumRespuestas.NO')">NO</option>
+                        </select>
+
+                        <b-form-input  type="range" min="0" max="5" step="0.1"
+                         v-if="ep.preguntaTipoPreguntaTipoPregunta==`Nota (con puntaje)`" 
+                         v-model="ep.respuestaNumero">
+                        </b-form-input>
+                          <div class="mt-2">Nota: {{ ep.respuestaNumero }}</div>
+
+                        <b-form-textarea  
+                         v-if="ep.preguntaTipoPreguntaTipoPregunta==`Libre (sin puntaje ni viabilidad)`" 
+                         v-model="ep.respuestaTexto">
+                        </b-form-textarea>
+                  
+                        </div>
 
                      </b-card>
                      <hr>
-                          <div> Tipo de pregunta {{ep.preguntaTipoPreguntaTipoPregunta}} </div>
+                          
     
                     </div>
  
@@ -63,14 +93,17 @@
               
 
 <div class="form-group">
-  <label class="form-control-label" for="proyecto-respuestas-viabilidad">Viabilidad</label>
-                     <input
-                        type="checkbox"
-                        class="form-control"
-                        name="proyecto-respuestas-viabilidad"
-                        id="proyecto-respuestas-viabilidad"
-                        v-model="proyecto.viable"
-                      />
+ 
+                <br>Marque <strong>Viable </strong> si la propuesta cumple con los requisitos establecidos por el Ciecyt.
+                 <br>Si la propuesta no es viable, marque <strong>No Viable</strong></label> <br>
+
+                <input type="radio" value="true" v-model="proyecto.viable">
+                <label for="uno">Viable</label>
+                <br>
+                <input type="radio"  value="false" v-model="proyecto.viable">
+                <label for="Dos">No Viable</label>
+                <br>
+                
  </div>
 
                 <div>
@@ -206,9 +239,7 @@ export default class PropuestaEvaluar extends Vue {
 
                  res= await this.fasesService()
                 .retrieveFaseModalidad("Propuesta",this.modalidadId)   //recup los ElementosProyecto con un idproy
-                 //.find(1)
                  this.fase = res;
-                 console.log(this.fase);
 
                 res= await this.proyectoRespuestasService()
                 .retrieveProyectoRespuestas(this.proyId)   //recup los proyresp con un idproy

@@ -56,6 +56,12 @@ public class ProyectoRespuestas implements Serializable {
     @Column(name = "dato")
     private String dato;
 
+    @Column(name = "respuesta_texto")
+    private String respuestaTexto;
+
+    @Column(name = "respuesta_numero")
+    private Float respuestaNumero;
+
     @ManyToOne
     @JsonIgnoreProperties(value = "proyectoRespuestas", allowSetters = true)
     private Pregunta proyectoRespuestasPregunta;
@@ -203,6 +209,32 @@ public class ProyectoRespuestas implements Serializable {
         this.dato = dato;
     }
 
+    public String getRespuestaTexto() {
+        return respuestaTexto;
+    }
+
+    public ProyectoRespuestas respuestaTexto(String respuestaTexto) {
+        this.respuestaTexto = respuestaTexto;
+        return this;
+    }
+
+    public void setRespuestaTexto(String respuestaTexto) {
+        this.respuestaTexto = respuestaTexto;
+    }
+
+    public Float getRespuestaNumero() {
+        return respuestaNumero;
+    }
+
+    public ProyectoRespuestas respuestaNumero(Float respuestaNumero) {
+        this.respuestaNumero = respuestaNumero;
+        return this;
+    }
+
+    public void setRespuestaNumero(Float respuestaNumero) {
+        this.respuestaNumero = respuestaNumero;
+    }
+
     public Pregunta getProyectoRespuestasPregunta() {
         return proyectoRespuestasPregunta;
     }
@@ -261,6 +293,8 @@ public class ProyectoRespuestas implements Serializable {
             ", preguntaTipoPreguntaTipoPregunta='" + getPreguntaTipoPreguntaTipoPregunta() + "'" +
             ", encabezado='" + getEncabezado() + "'" +
             ", dato='" + getDato() + "'" +
+            ", respuestaTexto='" + getRespuestaTexto() + "'" +
+            ", respuestaNumero=" + getRespuestaNumero() +
             "}";
     }
 }

@@ -30,6 +30,10 @@ public class ProyectoRespuestasDTO implements Serializable {
 
     private String dato;
 
+    private String respuestaTexto;
+
+    private Float respuestaNumero;
+
 
     private Long proyectoRespuestasPreguntaId;
 
@@ -127,6 +131,22 @@ public class ProyectoRespuestasDTO implements Serializable {
         this.dato = dato;
     }
 
+    public String getRespuestaTexto() {
+        return respuestaTexto;
+    }
+
+    public void setRespuestaTexto(String respuestaTexto) {
+        this.respuestaTexto = respuestaTexto;
+    }
+
+    public Float getRespuestaNumero() {
+        return respuestaNumero;
+    }
+
+    public void setRespuestaNumero(Float respuestaNumero) {
+        this.respuestaNumero = respuestaNumero;
+    }
+
     public Long getProyectoRespuestasPreguntaId() {
         return proyectoRespuestasPreguntaId;
     }
@@ -191,6 +211,8 @@ public class ProyectoRespuestasDTO implements Serializable {
             ", preguntaTipoPreguntaTipoPregunta='" + getPreguntaTipoPreguntaTipoPregunta() + "'" +
             ", encabezado='" + getEncabezado() + "'" +
             ", dato='" + getDato() + "'" +
+            ", respuestaTexto='" + getRespuestaTexto() + "'" +
+            ", respuestaNumero=" + getRespuestaNumero() +
             ", proyectoRespuestasPreguntaId=" + getProyectoRespuestasPreguntaId() +
             ", proyectoRespuestasPreguntaPregunta='" + getProyectoRespuestasPreguntaPregunta() + "'" +
             ", proyectoRespuestasProyectoId=" + getProyectoRespuestasProyectoId() +

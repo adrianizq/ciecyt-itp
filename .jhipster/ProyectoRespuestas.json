@@ -4,7 +4,7 @@
     {
       "fieldName": "respuesta",
       "fieldType": "EnumRespuestas",
-      "fieldValues": "CUMPLE,NO_CUMPLE,NO_APLICA"
+      "fieldValues": "CUMPLE,NO_CUMPLE,NO_APLICA,SI,NO"
     },
     {
       "fieldName": "observaciones",
@@ -41,6 +41,14 @@
     {
       "fieldName": "dato",
       "fieldType": "String"
+    },
+    {
+      "fieldName": "respuestaTexto",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "respuestaNumero",
+      "fieldType": "Float"
     }
   ],
   "relationships": [
