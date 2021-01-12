@@ -21,6 +21,7 @@ export interface IProyectoRespuestas {
   siNo?: boolean;
   respuestaTexto?: string;
   respuestaNumero?: string;
+  puntajeMaximo?: number;
 }
 
 export class ProyectoRespuestas implements IProyectoRespuestas {
@@ -40,7 +41,8 @@ export class ProyectoRespuestas implements IProyectoRespuestas {
     public preguntaTipoPreguntaTipoPregunta?: string,
     public siNo?: boolean,
     public respuestaTexto?: string,
-    public respuestaNumero?: string
+    public respuestaNumero?: string,
+    public puntajeMaximo?: number
   ) {
     this.viable = this.viable || false;
   }

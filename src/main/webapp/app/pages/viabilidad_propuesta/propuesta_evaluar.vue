@@ -69,7 +69,7 @@
                             <option value="false" v-bind:label="$t('ciecytApp.EnumRespuestas.NO')">NO</option>
                         </select>
 
-                        <b-form-input  type="range" min="0" max="5" step="0.1"
+                        <b-form-input  type="range" min="0" v-bind:max="ep.puntajeMaximo" step="0.1"
                          v-if="ep.preguntaTipoPreguntaTipoPregunta==`Nota (con puntaje)`" 
                          v-model="ep.respuestaNumero">
                         </b-form-input>
@@ -272,6 +272,7 @@ export default class PropuestaEvaluar extends Vue {
                   proyResp.preguntaTipoPreguntaId = e.preguntaTipoPreguntaId;
                   proyResp.preguntaTipoPreguntaTipoPregunta = e.preguntaTipoPreguntaTipoPregunta;
                   proyResp.encabezado = e.encabezado;
+                  proyResp.puntajeMaximo = e.puntajeMaximo;
                   this.elementoProyects.forEach(x => {
                       console.log("Entra al ciclo elementoProyecto");
                     if (x.elementoProyectoElementoId == e.preguntaElementoId){
