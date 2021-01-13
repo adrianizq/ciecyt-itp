@@ -93,17 +93,21 @@
               
 
 <div class="form-group">
- 
+                
                 <br>Marque <strong>Viable </strong> si la propuesta cumple con los requisitos establecidos por el Ciecyt.
-                 <br>Si la propuesta no es viable, marque <strong>No Viable</strong></label> <br>
-
-                <input type="radio" value="true" v-model="proyecto.viable">
+                <br>Si la propuesta es viable, pero tiene correcciones marque <strong>Pendiente </strong></button>
+                 <br>Si la propuesta no es viable, marque <strong>No Viable</strong> <br>
+                <div  class="p-3 mb-2 bg-danger text-white container-fluid">
+                <input type="radio" value="VIABLE" v-model="proyecto.viabilidad">
                 <label for="uno">Viable</label>
                 <br>
-                <input type="radio"  value="false" v-model="proyecto.viable">
-                <label for="Dos">No Viable</label>
+                <input type="radio"  value="PENDIENTE" v-model="proyecto.viabilidad">
+                <label for="Dos">Pendiente</label>
                 <br>
-                
+                <input type="radio" value="NO_VIABLE" v-model="proyecto.viabilidad">
+                <label for="uno">No Viable</label>
+                <br>
+                </div>
  </div>
 
                 <div>

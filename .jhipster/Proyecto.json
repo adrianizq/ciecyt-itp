@@ -88,6 +88,11 @@
     {
       "fieldName": "recomendaciones",
       "fieldType": "String"
+    },
+    {
+      "fieldName": "viabilidad",
+      "fieldType": "EnumViabilidad",
+      "fieldValues": "VIABLE,PENDIENTE,NO_VIABLE"
     }
   ],
   "relationships": [

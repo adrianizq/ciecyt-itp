@@ -30,6 +30,7 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import co.edu.itp.ciecyt.domain.enumeration.EnumViabilidad;
 /**
  * Integration tests for the {@link ProyectoResource} REST controller.
  */
@@ -104,6 +105,9 @@ public class ProyectoResourceIT {
     private static final String DEFAULT_RECOMENDACIONES = "AAAAAAAAAA";
     private static final String UPDATED_RECOMENDACIONES = "BBBBBBBBBB";
 
+    private static final EnumViabilidad DEFAULT_VIABILIDAD = EnumViabilidad.VIABLE;
+    private static final EnumViabilidad UPDATED_VIABILIDAD = EnumViabilidad.PENDIENTE;
+
     @Autowired
     private ProyectoRepository proyectoRepository;
 
@@ -150,7 +154,8 @@ public class ProyectoResourceIT {
             .fechaEnvioProyecto(DEFAULT_FECHA_ENVIO_PROYECTO)
             .nota(DEFAULT_NOTA)
             .conclusion(DEFAULT_CONCLUSION)
-            .recomendaciones(DEFAULT_RECOMENDACIONES);
+            .recomendaciones(DEFAULT_RECOMENDACIONES)
+            .viabilidad(DEFAULT_VIABILIDAD);
         return proyecto;
     }
     /**
@@ -182,7 +187,8 @@ public class ProyectoResourceIT {
             .fechaEnvioProyecto(UPDATED_FECHA_ENVIO_PROYECTO)
             .nota(UPDATED_NOTA)
             .conclusion(UPDATED_CONCLUSION)
-            .recomendaciones(UPDATED_RECOMENDACIONES);
+            .recomendaciones(UPDATED_RECOMENDACIONES)
+            .viabilidad(UPDATED_VIABILIDAD);
         return proyecto;
     }
 
@@ -228,6 +234,7 @@ public class ProyectoResourceIT {
         assertThat(testProyecto.getNota()).isEqualTo(DEFAULT_NOTA);
         assertThat(testProyecto.getConclusion()).isEqualTo(DEFAULT_CONCLUSION);
         assertThat(testProyecto.getRecomendaciones()).isEqualTo(DEFAULT_RECOMENDACIONES);
+        assertThat(testProyecto.getViabilidad()).isEqualTo(DEFAULT_VIABILIDAD);
     }
 
     @Test
@@ -283,7 +290,8 @@ public class ProyectoResourceIT {
             .andExpect(jsonPath("$.[*].fechaEnvioProyecto").value(hasItem(sameInstant(DEFAULT_FECHA_ENVIO_PROYECTO))))
             .andExpect(jsonPath("$.[*].nota").value(hasItem(DEFAULT_NOTA.doubleValue())))
             .andExpect(jsonPath("$.[*].conclusion").value(hasItem(DEFAULT_CONCLUSION)))
-            .andExpect(jsonPath("$.[*].recomendaciones").value(hasItem(DEFAULT_RECOMENDACIONES)));
+            .andExpect(jsonPath("$.[*].recomendaciones").value(hasItem(DEFAULT_RECOMENDACIONES)))
+            .andExpect(jsonPath("$.[*].viabilidad").value(hasItem(DEFAULT_VIABILIDAD.toString())));
     }
     
     @Test
@@ -318,7 +326,8 @@ public class ProyectoResourceIT {
             .andExpect(jsonPath("$.fechaEnvioProyecto").value(sameInstant(DEFAULT_FECHA_ENVIO_PROYECTO)))
             .andExpect(jsonPath("$.nota").value(DEFAULT_NOTA.doubleValue()))
             .andExpect(jsonPath("$.conclusion").value(DEFAULT_CONCLUSION))
-            .andExpect(jsonPath("$.recomendaciones").value(DEFAULT_RECOMENDACIONES));
+            .andExpect(jsonPath("$.recomendaciones").value(DEFAULT_RECOMENDACIONES))
+            .andExpect(jsonPath("$.viabilidad").value(DEFAULT_VIABILIDAD.toString()));
     }
     @Test
     @Transactional
@@ -362,7 +371,8 @@ public class ProyectoResourceIT {
             .fechaEnvioProyecto(UPDATED_FECHA_ENVIO_PROYECTO)
             .nota(UPDATED_NOTA)
             .conclusion(UPDATED_CONCLUSION)
-            .recomendaciones(UPDATED_RECOMENDACIONES);
+            .recomendaciones(UPDATED_RECOMENDACIONES)
+            .viabilidad(UPDATED_VIABILIDAD);
         ProyectoDTO proyectoDTO = proyectoMapper.toDto(updatedProyecto);
 
         restProyectoMockMvc.perform(put("/api/proyectos")
@@ -396,6 +406,7 @@ public class ProyectoResourceIT {
         assertThat(testProyecto.getNota()).isEqualTo(UPDATED_NOTA);
         assertThat(testProyecto.getConclusion()).isEqualTo(UPDATED_CONCLUSION);
         assertThat(testProyecto.getRecomendaciones()).isEqualTo(UPDATED_RECOMENDACIONES);
+        assertThat(testProyecto.getViabilidad()).isEqualTo(UPDATED_VIABILIDAD);
     }
 
     @Test

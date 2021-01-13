@@ -1,15 +1,14 @@
 package co.edu.itp.ciecyt.domain;
 
+import co.edu.itp.ciecyt.domain.enumeration.EnumViabilidad;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import javax.persistence.*;
-
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
+import javax.persistence.*;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A Proyecto.
@@ -71,6 +70,10 @@ public class Proyecto implements Serializable {
     @Column(name = "municipio")
     private String municipio;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "viabilidad")
+    private EnumViabilidad viabilidad;
+
     @Column(name = "viable")
     private Boolean viable;
 
@@ -107,8 +110,6 @@ public class Proyecto implements Serializable {
     @ManyToOne
     @JsonIgnoreProperties(value = "proyectos", allowSetters = true)
     private LineaInvestigacion subLineaLineaInvestigacion;
-
-
 
     @ManyToOne
     @JsonIgnoreProperties(value = "facultadProyectos", allowSetters = true)
@@ -322,6 +323,22 @@ public class Proyecto implements Serializable {
         this.municipio = municipio;
     }
 
+    ///////////////////////77
+    public EnumViabilidad getViabilidad() {
+        return viabilidad;
+    }
+
+    public Proyecto viabilidad(EnumViabilidad viabilidad) {
+        this.viabilidad = viabilidad;
+        return this;
+    }
+
+    public void setViabilidad(EnumViabilidad viabilidad) {
+        this.viabilidad = viabilidad;
+    }
+
+    ///////////////////////77
+
     public Boolean isViable() {
         return viable;
     }
@@ -465,7 +482,6 @@ public class Proyecto implements Serializable {
         this.subLineaLineaInvestigacion = lineaInvestigacion;
     }
 
-
     public Facultad getFacultad() {
         return facultad;
     }
@@ -491,6 +507,7 @@ public class Proyecto implements Serializable {
     public void setProyectoPrograma(Programa programa) {
         this.proyectoPrograma = programa;
     }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -529,6 +546,7 @@ public class Proyecto implements Serializable {
             ", programa='" + getPrograma() + "'" +
             ", departamento='" + getDepartamento() + "'" +
             ", municipio='" + getMunicipio() + "'" +
+            ", viabilidad='" + getViabilidad() + "'" +
             ", viable='" + isViable() + "'" +
             ", enviado='" + isEnviado() + "'" +
             ", fechaEnvioPropuesta='" + getFechaEnvioPropuesta() + "'" +
