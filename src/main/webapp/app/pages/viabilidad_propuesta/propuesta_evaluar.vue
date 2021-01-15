@@ -72,8 +72,9 @@
                         <b-form-input  type="range" min="0" v-bind:max="ep.puntajeMaximo" step="0.1"
                          v-if="ep.preguntaTipoPreguntaTipoPregunta==`Nota (con puntaje)`" 
                          v-model="ep.respuestaNumero">
+                          <div class="mt-2">Nota: {{ ep.respuestaNumero }}</div></button>
                         </b-form-input>
-                          <div class="mt-2">Nota: {{ ep.respuestaNumero }}</div>
+                         
 
                         <b-form-textarea  
                          v-if="ep.preguntaTipoPreguntaTipoPregunta==`Libre (sin puntaje ni viabilidad)`" 
@@ -94,8 +95,10 @@
                       header-bg-variant="light"
                       body-bg-variant="light"
                      header-text-variant="info">
-                    <b-form-group >
-                    <label class="form-control-label" v-text="$t('ciecytApp.proyecto.recomendaciones')" for="proyecto-recomendaciones">Recomendaciones</label>
+                    <b-form-group 
+                    description="Si tiene comentarios o sugerencias adicionales sobre la propuesta diligencie este apartado">
+                    <label class="form-control-label" 
+                    v-text="$t('ciecytApp.proyecto.recomendaciones')" for="proyecto-recomendaciones">Recomendaciones</label>
                        
                      <div class="form-group" >
                        <b-form-textarea  class="form-control" name="proyecto-recomendaciones"
