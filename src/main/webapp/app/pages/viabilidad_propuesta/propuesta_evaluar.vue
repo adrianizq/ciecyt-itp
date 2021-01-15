@@ -86,8 +86,26 @@
                      <hr>
                           
     
-                    </div>
- 
+                    </div> <!-- fin del for each -->
+                    <!-- ------------------------------------------->
+                    <div class="col-12" >
+                    <b-card  
+                      border-variant="primary"
+                      header-bg-variant="light"
+                      body-bg-variant="light"
+                     header-text-variant="info">
+                    <b-form-group >
+                    <label class="form-control-label" v-text="$t('ciecytApp.proyecto.recomendaciones')" for="proyecto-recomendaciones">Recomendaciones</label>
+                       
+                     <div class="form-group" >
+                       <b-form-textarea  class="form-control" name="proyecto-recomendaciones"
+                                   v-model="proyecto.recomendaciones"  />
+                        </div>
+                       </b-form-group>
+                       </b-card>
+                       </div>
+                    <!-- ------------------------------------------->
+                    
                      
                 </div>
               
@@ -116,12 +134,7 @@
                         <font-awesome-icon icon="ban"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.cancel')">Cancel</span>
                     </button>
 
-<!--
-                    <router-link :to="{name: 'PropuestaIntegrantesView', query: {proyectoId: this.proyecto.id}}"  tag="button" class="btn btn-primary">
-                                <font-awesome-icon icon="save"></font-awesome-icon>
-                                <span class="d-none d-md-inline" v-text="$t('entity.action.save')">Save</span>
-                            </router-link>
--->
+
 
                     <button type="submit" id="save-entity" class="btn btn-primary">
                         <font-awesome-icon icon="save"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.save')">Save</span>
@@ -286,35 +299,12 @@ export default class PropuestaEvaluar extends Vue {
                   if (!this.proyectoRespuestasDatos){
                    this.proyectoRespuests.push(proyResp);
                   }
-                  /*else{
-                      this.proyectoRespuests.forEach(p => {
-                          if (p.proyectoRespuestasPreguntaId==e.id){
-                               p.preguntaTipoPreguntaId = proyResp.preguntaTipoPreguntaId;  
-                               p.preguntaTipoPreguntaTipoPregunta = proyResp.preguntaTipoPreguntaTipoPregunta; 
-                               p.encabezado = proyResp.encabezado;
-                               p.dato = proyResp.dato; 
-                               console.log(p.proyectoRespuestasPreguntaId + " igual?" + e.id);
-                               console.log(p.encabezado);
-                          }
-                      });
                   
-                  }*/
                 }); //fin del foreach pregunts
                     //////////////////////////////////77
                
 
 
-              //recuperar las elementosProyecto enviando un idProyecto (api)
-          
-      
-                
-
-                //if (this.proyectoRespuests.length==0){
-                  //ciclo para copiar los datos de pregunta a proyecto-respuestas
-               
- 
-                   //console.log(this.proyectoRespuests);
-                //}//del if
 
                console.log(this.proyectoRespuests);
             }
