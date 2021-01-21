@@ -137,3 +137,26 @@ jhipster:
 # ===================================================================
 
 # application:
+tomcatAjp:
+    port: 9030
+    remoteauthentication: false
+    enabled: false   
+    protocol: AJP/1.3
+    scheme: http
+
+application:
+  upload:
+    root:
+      #dir: /home/jltovarg/test/dudo
+      dir: C://adr/ciecyt_backend_vue/files
+    organization:
+      dir: organizations
+    announcement:
+      dir: announcements
+    user:
+      dir: users
+    country:
+      dir: countries
+  #image-path: http://localhost/dudo
+  image-path: http://localhost/ciecyt
+
