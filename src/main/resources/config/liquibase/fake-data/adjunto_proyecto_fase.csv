@@ -1,11 +1,11 @@
-id;nombre_adjunto;fecha_creacion;fecha_modificacion;estado_adjunto;adjunto_proyecto_fase;nombre_archivo_original;fecha_inicio;fecha_fin
-1;parse;2020-10-07;2020-10-07;96588;Quality-focused experiences;Rustic Fresh Sausages Principal Personal Loan Account;2020-10-08;2020-10-07
-2;Massachusetts tan;2020-10-07;2020-10-07;27216;index;web-enabled Colorado application;2020-10-07;2020-10-08
-3;Security;2020-10-07;2020-10-07;58065;Ports niches Grocery;Borders;2020-10-07;2020-10-07
-4;orange index feed;2020-10-07;2020-10-07;92285;microchip supply-chains Mobility;Court;2020-10-07;2020-10-07
-5;budgetary management;2020-10-07;2020-10-07;80723;disintermediate;Fresh bandwidth Principal;2020-10-07;2020-10-08
-6;Tactics Guatemala;2020-10-08;2020-10-07;44188;French Polynesia Kansas SSL;Implemented Regional;2020-10-07;2020-10-07
-7;logistical;2020-10-07;2020-10-07;13964;invoice Infrastructure Belgium;Argentine Peso;2020-10-07;2020-10-08
-8;Islands AGP;2020-10-07;2020-10-08;99123;Burg;South Dakota SQL;2020-10-07;2020-10-07
-9;withdrawal 1080p;2020-10-07;2020-10-07;56544;transmitting Small red;Jamaica flexibility;2020-10-07;2020-10-07
-10;payment even-keeled;2020-10-07;2020-10-07;82203;Chicken Clothing;Assurance District index;2020-10-07;2020-10-07
+id;nombre_adjunto;fecha_creacion;fecha_modificacion;estado_adjunto;adjunto_proyecto_fase;nombre_archivo_original;fecha_inicio;fecha_fin;archivo;archivo_content_type;archivo_content_type
+1;parse;2020-10-07;2020-10-07;96588;Quality-focused experiences;Rustic Fresh Sausages Principal Personal Loan Account;2020-10-08;2020-10-07;../fake-data/blob/hipster.png;image/png;Massachusetts tan
+2;ROI;2020-10-08;2020-10-07;42419;web-enabled Colorado application;Steel Security Consultant;2020-10-07;2020-10-07;../fake-data/blob/hipster.png;image/png;withdrawal utilize
+3;Sleek Personal Loan Account;2020-10-07;2020-10-07;18613;index;Dalasi East Caribbean Dollar Mobility;2020-10-07;2020-10-07;../fake-data/blob/hipster.png;image/png;Mobility Granite
+4;eyeballs;2020-10-08;2020-10-07;13702;Bacon grey cultivate;indexing;2020-10-07;2020-10-07;../fake-data/blob/hipster.png;image/png;purple West Virginia sexy
+5;Tasty Cotton Chips French Polynesia;2020-10-07;2020-10-07;86981;incentivize;Regional Dynamic;2020-10-07;2020-10-07;../fake-data/blob/hipster.png;image/png;Malta Fresh
+6;parsing Macedonia;2020-10-08;2020-10-07;68999;access;Islands AGP;2020-10-07;2020-10-08;../fake-data/blob/hipster.png;image/png;Multi-channelled Baby South Dakota
+7;dynamic Montana withdrawal;2020-10-07;2020-10-07;83626;Rhode Island transmitting Small;Tools;2020-10-07;2020-10-07;../fake-data/blob/hipster.png;image/png;ubiquitous
+8;payment;2020-10-07;2020-10-07;35311;Stand-alone initiatives;Clothing Chief circuit;2020-10-07;2020-10-07;../fake-data/blob/hipster.png;image/png;Bedfordshire bus
+9;Reactive Auto Loan Account COM;2020-10-07;2020-10-07;75895;Credit Card Account;Chilean Peso Unidades de fomento Refined real-time;2020-10-07;2020-10-07;../fake-data/blob/hipster.png;image/png;implement
+10;Markets infrastructure object-oriented;2020-10-07;2020-10-07;74833;online olive Awesome Frozen Pants;repurpose Reduced Soft;2020-10-08;2020-10-08;../fake-data/blob/hipster.png;image/png;multi-tasking Rustic Plastic Tuna

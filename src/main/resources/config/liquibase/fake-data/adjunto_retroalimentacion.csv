@@ -1,11 +1,11 @@
-id;nombre_adjunto;fecha_creacion;fecha_modificacion;estado_adjunto;adjunto_retroalimentacion;nombre_archivo_original;fecha_inicio;fecha_fin
-1;Florida;2020-10-08;2020-10-07;50805;Virtual;synthesizing best-of-breed copying;2020-10-08;2020-10-07
-2;Legacy Checking Account sky blue;2020-10-07;2020-10-07;92609;Kansas;Savings Account neural;2020-10-08;2020-10-07
-3;whiteboard;2020-10-08;2020-10-08;42997;Wooden envisioneer;Canadian Dollar deposit;2020-10-07;2020-10-07
-4;Jewelery withdrawal Fish;2020-10-07;2020-10-07;60623;Montana;generating New York;2020-10-07;2020-10-07
-5;deposit;2020-10-07;2020-10-07;88595;monitor Corporate;encoding Director;2020-10-07;2020-10-07
-6;client-driven stable;2020-10-07;2020-10-07;39242;Toys;back up quantifying;2020-10-07;2020-10-07
-7;New Mexico virtual;2020-10-07;2020-10-07;24080;well-modulated Consultant;Checking Account Directives Handmade Plastic Shoes;2020-10-07;2020-10-07
-8;Integration Object-based;2020-10-08;2020-10-07;66597;Senior Berkshire;protocol;2020-10-07;2020-10-07
-9;alarm;2020-10-07;2020-10-07;22577;Parkway alliance;Berkshire invoice;2020-10-07;2020-10-07
-10;wireless;2020-10-07;2020-10-07;82307;Marketing;Home Loan Account Fantastic;2020-10-07;2020-10-07
+id;nombre_adjunto;fecha_creacion;fecha_modificacion;estado_adjunto;adjunto_retroalimentacion;nombre_archivo_original;fecha_inicio;fecha_fin;archivo;archivo_content_type;archivo_content_type
+1;Florida;2020-10-08;2020-10-07;50805;Virtual;synthesizing best-of-breed copying;2020-10-08;2020-10-07;../fake-data/blob/hipster.png;image/png;Legacy Checking Account sky blue
+2;Tuvalu plum;2020-10-07;2020-10-07;59702;neural;Configurable;2020-10-07;2020-10-07;../fake-data/blob/hipster.png;image/png;Cotton
+3;Wooden envisioneer;2020-10-07;2020-10-07;14207;Beauty indigo;bluetooth;2020-10-07;2020-10-07;../fake-data/blob/hipster.png;image/png;Integration Checking Account Montana
+4;generating New York;2020-10-07;2020-10-07;2894;Cotton Personal Loan Account;monitor Corporate;2020-10-07;2020-10-07;../fake-data/blob/hipster.png;image/png;Director
+5;calculate;2020-10-07;2020-10-07;29527;Palau transform Toys;back up quantifying;2020-10-07;2020-10-07;../fake-data/blob/hipster.png;image/png;New Mexico virtual
+6;deposit Freeway Strategist;2020-10-07;2020-10-07;61516;Directives;array;2020-10-07;2020-10-07;../fake-data/blob/hipster.png;image/png;Cambridgeshire Enhanced Avon
+7;payment Senior;2020-10-07;2020-10-07;2733;Unbranded Metal Computer alarm calculating;Berkshire;2020-10-07;2020-10-07;../fake-data/blob/hipster.png;image/png;target
+8;invoice Gloves;2020-10-08;2020-10-07;80684;Auto Loan Account Unbranded;Pine;2020-10-07;2020-10-08;../fake-data/blob/hipster.png;image/png;indexing solutions
+9;Metal Legacy Cotton;2020-10-07;2020-10-07;59753;magenta interface;Utah heuristic withdrawal;2020-10-07;2020-10-07;../fake-data/blob/hipster.png;image/png;Metal calculate Savings Account
+10;evolve;2020-10-07;2020-10-07;49668;index;Course;2020-10-07;2020-10-07;../fake-data/blob/hipster.png;image/png;New Jersey Human

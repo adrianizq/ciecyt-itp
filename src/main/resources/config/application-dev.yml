@@ -47,9 +47,9 @@ spring:
     #url: jdbc:postgresql://10.10.13.7:5432/ciecyt_db
     #username: ciecyt_admin
     #password: ciecyt2020
-    url: jdbc:postgresql://localhost:5432/ciecyt_db
+    url: jdbc:postgresql://localhost:5432/ciecyt3
     username: postgres
-    password: adr45661
+    password: adMin#1
     hikari:
       poolName: Hikari
       auto-commit: false

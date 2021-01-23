@@ -32,6 +32,15 @@
     {
       "fieldName": "fechaFin",
       "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "archivo",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "any"
+    },
+    {
+      "fieldName": "archivoContentType",
+      "fieldType": "String"
     }
   ],
   "relationships": [
@@ -53,5 +62,7 @@
   "readOnly": false,
   "embedded": false,
   "clientRootFolder": "",
-  "applications": "*"
+  "applications": "*",
+  "searchEngine": false,
+  "databaseType": "sql"
 }

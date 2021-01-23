@@ -16,6 +16,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Base64Utils;
 import javax.persistence.EntityManager;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -58,6 +59,14 @@ public class AdjuntoRetroalimentacionResourceIT {
     private static final LocalDate DEFAULT_FECHA_FIN = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_FECHA_FIN = LocalDate.now(ZoneId.systemDefault());
 
+    private static final byte[] DEFAULT_ARCHIVO = TestUtil.createByteArray(1, "0");
+    private static final byte[] UPDATED_ARCHIVO = TestUtil.createByteArray(1, "1");
+    private static final String DEFAULT_ARCHIVO_CONTENT_TYPE = "image/jpg";
+    private static final String UPDATED_ARCHIVO_CONTENT_TYPE = "image/png";
+
+    //private static final String DEFAULT_ARCHIVO_CONTENT_TYPE = "AAAAAAAAAA";
+    //private static final String UPDATED_ARCHIVO_CONTENT_TYPE = "BBBBBBBBBB";
+
     @Autowired
     private AdjuntoRetroalimentacionRepository adjuntoRetroalimentacionRepository;
 
@@ -90,7 +99,10 @@ public class AdjuntoRetroalimentacionResourceIT {
             .adjuntoRetroalimentacion(DEFAULT_ADJUNTO_RETROALIMENTACION)
             .nombreArchivoOriginal(DEFAULT_NOMBRE_ARCHIVO_ORIGINAL)
             .fechaInicio(DEFAULT_FECHA_INICIO)
-            .fechaFin(DEFAULT_FECHA_FIN);
+            .fechaFin(DEFAULT_FECHA_FIN)
+            .archivo(DEFAULT_ARCHIVO)
+            .archivoContentType(DEFAULT_ARCHIVO_CONTENT_TYPE)
+            .archivoContentType(DEFAULT_ARCHIVO_CONTENT_TYPE);
         return adjuntoRetroalimentacion;
     }
     /**
@@ -108,7 +120,10 @@ public class AdjuntoRetroalimentacionResourceIT {
             .adjuntoRetroalimentacion(UPDATED_ADJUNTO_RETROALIMENTACION)
             .nombreArchivoOriginal(UPDATED_NOMBRE_ARCHIVO_ORIGINAL)
             .fechaInicio(UPDATED_FECHA_INICIO)
-            .fechaFin(UPDATED_FECHA_FIN);
+            .fechaFin(UPDATED_FECHA_FIN)
+            .archivo(UPDATED_ARCHIVO)
+            .archivoContentType(UPDATED_ARCHIVO_CONTENT_TYPE)
+            .archivoContentType(UPDATED_ARCHIVO_CONTENT_TYPE);
         return adjuntoRetroalimentacion;
     }
 
@@ -140,6 +155,9 @@ public class AdjuntoRetroalimentacionResourceIT {
         assertThat(testAdjuntoRetroalimentacion.getNombreArchivoOriginal()).isEqualTo(DEFAULT_NOMBRE_ARCHIVO_ORIGINAL);
         assertThat(testAdjuntoRetroalimentacion.getFechaInicio()).isEqualTo(DEFAULT_FECHA_INICIO);
         assertThat(testAdjuntoRetroalimentacion.getFechaFin()).isEqualTo(DEFAULT_FECHA_FIN);
+        assertThat(testAdjuntoRetroalimentacion.getArchivo()).isEqualTo(DEFAULT_ARCHIVO);
+        assertThat(testAdjuntoRetroalimentacion.getArchivoContentType()).isEqualTo(DEFAULT_ARCHIVO_CONTENT_TYPE);
+        assertThat(testAdjuntoRetroalimentacion.getArchivoContentType()).isEqualTo(DEFAULT_ARCHIVO_CONTENT_TYPE);
     }
 
     @Test
@@ -181,7 +199,10 @@ public class AdjuntoRetroalimentacionResourceIT {
             .andExpect(jsonPath("$.[*].adjuntoRetroalimentacion").value(hasItem(DEFAULT_ADJUNTO_RETROALIMENTACION)))
             .andExpect(jsonPath("$.[*].nombreArchivoOriginal").value(hasItem(DEFAULT_NOMBRE_ARCHIVO_ORIGINAL)))
             .andExpect(jsonPath("$.[*].fechaInicio").value(hasItem(DEFAULT_FECHA_INICIO.toString())))
-            .andExpect(jsonPath("$.[*].fechaFin").value(hasItem(DEFAULT_FECHA_FIN.toString())));
+            .andExpect(jsonPath("$.[*].fechaFin").value(hasItem(DEFAULT_FECHA_FIN.toString())))
+            .andExpect(jsonPath("$.[*].archivoContentType").value(hasItem(DEFAULT_ARCHIVO_CONTENT_TYPE)))
+            .andExpect(jsonPath("$.[*].archivo").value(hasItem(Base64Utils.encodeToString(DEFAULT_ARCHIVO))))
+            .andExpect(jsonPath("$.[*].archivoContentType").value(hasItem(DEFAULT_ARCHIVO_CONTENT_TYPE)));
     }
     
     @Test
@@ -202,7 +223,10 @@ public class AdjuntoRetroalimentacionResourceIT {
             .andExpect(jsonPath("$.adjuntoRetroalimentacion").value(DEFAULT_ADJUNTO_RETROALIMENTACION))
             .andExpect(jsonPath("$.nombreArchivoOriginal").value(DEFAULT_NOMBRE_ARCHIVO_ORIGINAL))
             .andExpect(jsonPath("$.fechaInicio").value(DEFAULT_FECHA_INICIO.toString()))
-            .andExpect(jsonPath("$.fechaFin").value(DEFAULT_FECHA_FIN.toString()));
+            .andExpect(jsonPath("$.fechaFin").value(DEFAULT_FECHA_FIN.toString()))
+            .andExpect(jsonPath("$.archivoContentType").value(DEFAULT_ARCHIVO_CONTENT_TYPE))
+            .andExpect(jsonPath("$.archivo").value(Base64Utils.encodeToString(DEFAULT_ARCHIVO)))
+            .andExpect(jsonPath("$.archivoContentType").value(DEFAULT_ARCHIVO_CONTENT_TYPE));
     }
     @Test
     @Transactional
@@ -232,7 +256,10 @@ public class AdjuntoRetroalimentacionResourceIT {
             .adjuntoRetroalimentacion(UPDATED_ADJUNTO_RETROALIMENTACION)
             .nombreArchivoOriginal(UPDATED_NOMBRE_ARCHIVO_ORIGINAL)
             .fechaInicio(UPDATED_FECHA_INICIO)
-            .fechaFin(UPDATED_FECHA_FIN);
+            .fechaFin(UPDATED_FECHA_FIN)
+            .archivo(UPDATED_ARCHIVO)
+            .archivoContentType(UPDATED_ARCHIVO_CONTENT_TYPE)
+            .archivoContentType(UPDATED_ARCHIVO_CONTENT_TYPE);
         AdjuntoRetroalimentacionDTO adjuntoRetroalimentacionDTO = adjuntoRetroalimentacionMapper.toDto(updatedAdjuntoRetroalimentacion);
 
         restAdjuntoRetroalimentacionMockMvc.perform(put("/api/adjunto-retroalimentacions")
@@ -252,6 +279,9 @@ public class AdjuntoRetroalimentacionResourceIT {
         assertThat(testAdjuntoRetroalimentacion.getNombreArchivoOriginal()).isEqualTo(UPDATED_NOMBRE_ARCHIVO_ORIGINAL);
         assertThat(testAdjuntoRetroalimentacion.getFechaInicio()).isEqualTo(UPDATED_FECHA_INICIO);
         assertThat(testAdjuntoRetroalimentacion.getFechaFin()).isEqualTo(UPDATED_FECHA_FIN);
+        assertThat(testAdjuntoRetroalimentacion.getArchivo()).isEqualTo(UPDATED_ARCHIVO);
+        assertThat(testAdjuntoRetroalimentacion.getArchivoContentType()).isEqualTo(UPDATED_ARCHIVO_CONTENT_TYPE);
+        assertThat(testAdjuntoRetroalimentacion.getArchivoContentType()).isEqualTo(UPDATED_ARCHIVO_CONTENT_TYPE);
     }
 
     @Test

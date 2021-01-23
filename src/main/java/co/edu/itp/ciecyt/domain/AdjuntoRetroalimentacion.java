@@ -1,5 +1,8 @@
 package co.edu.itp.ciecyt.domain;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 
@@ -11,6 +14,7 @@ import java.time.LocalDate;
  */
 @Entity
 @Table(name = "adjunto_retroalimentacion")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class AdjuntoRetroalimentacion implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -44,11 +48,18 @@ public class AdjuntoRetroalimentacion implements Serializable {
     @Column(name = "fecha_fin")
     private LocalDate fechaFin;
 
+    @Lob
+    @Column(name = "archivo")
+    private byte[] archivo;
+
+    @Column(name = "archivo_content_type")
+    private String archivoContentType;
+
     @ManyToOne
-    @JsonIgnoreProperties("adjuntoRetroalimentacions")
+    @JsonIgnoreProperties(value = "adjuntoRetroalimentacions", allowSetters = true)
     private Retroalimentacion adjuntoRetroalimentacionRetroalimentacion;
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
+    // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
         return id;
     }
@@ -161,6 +172,32 @@ public class AdjuntoRetroalimentacion implements Serializable {
         this.fechaFin = fechaFin;
     }
 
+    public byte[] getArchivo() {
+        return archivo;
+    }
+
+    public AdjuntoRetroalimentacion archivo(byte[] archivo) {
+        this.archivo = archivo;
+        return this;
+    }
+
+    public void setArchivo(byte[] archivo) {
+        this.archivo = archivo;
+    }
+
+    public String getArchivoContentType() {
+        return archivoContentType;
+    }
+
+    public AdjuntoRetroalimentacion archivoContentType(String archivoContentType) {
+        this.archivoContentType = archivoContentType;
+        return this;
+    }
+
+    public void setArchivoContentType(String archivoContentType) {
+        this.archivoContentType = archivoContentType;
+    }
+
     public Retroalimentacion getAdjuntoRetroalimentacionRetroalimentacion() {
         return adjuntoRetroalimentacionRetroalimentacion;
     }
@@ -173,7 +210,7 @@ public class AdjuntoRetroalimentacion implements Serializable {
     public void setAdjuntoRetroalimentacionRetroalimentacion(Retroalimentacion retroalimentacion) {
         this.adjuntoRetroalimentacionRetroalimentacion = retroalimentacion;
     }
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
+    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
     public boolean equals(Object o) {
@@ -191,6 +228,7 @@ public class AdjuntoRetroalimentacion implements Serializable {
         return 31;
     }
 
+    // prettier-ignore
     @Override
     public String toString() {
         return "AdjuntoRetroalimentacion{" +
@@ -203,6 +241,9 @@ public class AdjuntoRetroalimentacion implements Serializable {
             ", nombreArchivoOriginal='" + getNombreArchivoOriginal() + "'" +
             ", fechaInicio='" + getFechaInicio() + "'" +
             ", fechaFin='" + getFechaFin() + "'" +
+            ", archivo='" + getArchivo() + "'" +
+            ", archivoContentType='" + getArchivoContentType() + "'" +
+            ", archivoContentType='" + getArchivoContentType() + "'" +
             "}";
     }
 }

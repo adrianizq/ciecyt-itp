@@ -33,12 +33,6 @@ public class AdjuntoRetroalimentacionServiceImpl implements AdjuntoRetroalimenta
         this.adjuntoRetroalimentacionMapper = adjuntoRetroalimentacionMapper;
     }
 
-    /**
-     * Save a adjuntoRetroalimentacion.
-     *
-     * @param adjuntoRetroalimentacionDTO the entity to save.
-     * @return the persisted entity.
-     */
     @Override
     public AdjuntoRetroalimentacionDTO save(AdjuntoRetroalimentacionDTO adjuntoRetroalimentacionDTO) {
         log.debug("Request to save AdjuntoRetroalimentacion : {}", adjuntoRetroalimentacionDTO);
@@ -47,12 +41,6 @@ public class AdjuntoRetroalimentacionServiceImpl implements AdjuntoRetroalimenta
         return adjuntoRetroalimentacionMapper.toDto(adjuntoRetroalimentacion);
     }
 
-    /**
-     * Get all the adjuntoRetroalimentacions.
-     *
-     * @param pageable the pagination information.
-     * @return the list of entities.
-     */
     @Override
     @Transactional(readOnly = true)
     public Page<AdjuntoRetroalimentacionDTO> findAll(Pageable pageable) {
@@ -62,12 +50,6 @@ public class AdjuntoRetroalimentacionServiceImpl implements AdjuntoRetroalimenta
     }
 
 
-    /**
-     * Get one adjuntoRetroalimentacion by id.
-     *
-     * @param id the id of the entity.
-     * @return the entity.
-     */
     @Override
     @Transactional(readOnly = true)
     public Optional<AdjuntoRetroalimentacionDTO> findOne(Long id) {
@@ -76,11 +58,6 @@ public class AdjuntoRetroalimentacionServiceImpl implements AdjuntoRetroalimenta
             .map(adjuntoRetroalimentacionMapper::toDto);
     }
 
-    /**
-     * Delete the adjuntoRetroalimentacion by id.
-     *
-     * @param id the id of the entity.
-     */
     @Override
     public void delete(Long id) {
         log.debug("Request to delete AdjuntoRetroalimentacion : {}", id);

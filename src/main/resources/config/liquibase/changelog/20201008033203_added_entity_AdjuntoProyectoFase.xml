@@ -39,6 +39,12 @@
             <column name="fecha_fin" type="date">
                 <constraints nullable="true" />
             </column>
+            <column name="archivo" type="longblob">
+                <constraints nullable="true" />
+            </column>
+            <column name="archivo_content_type" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
             <column name="adjunto_proyecto_fase_proyecto_fase_id" type="bigint">
                 <constraints nullable="true" />
             </column>
@@ -73,6 +79,9 @@
             <column name="nombre_archivo_original" type="string"/>
             <column name="fecha_inicio" type="date"/>
             <column name="fecha_fin" type="date"/>
+            <column name="archivo" type="blob"/>
+            <column name="archivo_content_type" type="string"/>
+            <column name="archivo_content_type" type="string"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>

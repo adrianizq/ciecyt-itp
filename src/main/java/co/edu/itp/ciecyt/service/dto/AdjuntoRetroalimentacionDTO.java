@@ -1,13 +1,14 @@
 package co.edu.itp.ciecyt.service.dto;
+
 import java.time.LocalDate;
 import java.io.Serializable;
-import java.util.Objects;
+import javax.persistence.Lob;
 
 /**
  * A DTO for the {@link co.edu.itp.ciecyt.domain.AdjuntoRetroalimentacion} entity.
  */
 public class AdjuntoRetroalimentacionDTO implements Serializable {
-
+    
     private Long id;
 
     private String nombreAdjunto;
@@ -26,11 +27,15 @@ public class AdjuntoRetroalimentacionDTO implements Serializable {
 
     private LocalDate fechaFin;
 
+    @Lob
+    private byte[] archivo;
+
+    private String archivoContentType;
 
     private Long adjuntoRetroalimentacionRetroalimentacionId;
 
     private String adjuntoRetroalimentacionRetroalimentacionTitulo;
-
+    
     public Long getId() {
         return id;
     }
@@ -103,6 +108,22 @@ public class AdjuntoRetroalimentacionDTO implements Serializable {
         this.fechaFin = fechaFin;
     }
 
+    public byte[] getArchivo() {
+        return archivo;
+    }
+
+    public void setArchivo(byte[] archivo) {
+        this.archivo = archivo;
+    }
+
+    public String getArchivoContentType() {
+        return archivoContentType;
+    }
+
+    public void setArchivoContentType(String archivoContentType) {
+        this.archivoContentType = archivoContentType;
+    }
+
     public Long getAdjuntoRetroalimentacionRetroalimentacionId() {
         return adjuntoRetroalimentacionRetroalimentacionId;
     }
@@ -124,22 +145,19 @@ public class AdjuntoRetroalimentacionDTO implements Serializable {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof AdjuntoRetroalimentacionDTO)) {
             return false;
         }
 
-        AdjuntoRetroalimentacionDTO adjuntoRetroalimentacionDTO = (AdjuntoRetroalimentacionDTO) o;
-        if (adjuntoRetroalimentacionDTO.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), adjuntoRetroalimentacionDTO.getId());
+        return id != null && id.equals(((AdjuntoRetroalimentacionDTO) o).id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return 31;
     }
 
+    // prettier-ignore
     @Override
     public String toString() {
         return "AdjuntoRetroalimentacionDTO{" +
@@ -152,8 +170,10 @@ public class AdjuntoRetroalimentacionDTO implements Serializable {
             ", nombreArchivoOriginal='" + getNombreArchivoOriginal() + "'" +
             ", fechaInicio='" + getFechaInicio() + "'" +
             ", fechaFin='" + getFechaFin() + "'" +
-            ", adjuntoRetroalimentacionRetroalimentacion=" + getAdjuntoRetroalimentacionRetroalimentacionId() +
-            ", adjuntoRetroalimentacionRetroalimentacion='" + getAdjuntoRetroalimentacionRetroalimentacionTitulo() + "'" +
+            ", archivo='" + getArchivo() + "'" +
+            ", archivoContentType='" + getArchivoContentType() + "'" +
+            ", adjuntoRetroalimentacionRetroalimentacionId=" + getAdjuntoRetroalimentacionRetroalimentacionId() +
+            ", adjuntoRetroalimentacionRetroalimentacionTitulo='" + getAdjuntoRetroalimentacionRetroalimentacionTitulo() + "'" +
             "}";
     }
 }

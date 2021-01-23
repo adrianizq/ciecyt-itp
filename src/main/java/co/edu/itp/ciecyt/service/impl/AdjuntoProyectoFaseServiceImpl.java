@@ -33,12 +33,6 @@ public class AdjuntoProyectoFaseServiceImpl implements AdjuntoProyectoFaseServic
         this.adjuntoProyectoFaseMapper = adjuntoProyectoFaseMapper;
     }
 
-    /**
-     * Save a adjuntoProyectoFase.
-     *
-     * @param adjuntoProyectoFaseDTO the entity to save.
-     * @return the persisted entity.
-     */
     @Override
     public AdjuntoProyectoFaseDTO save(AdjuntoProyectoFaseDTO adjuntoProyectoFaseDTO) {
         log.debug("Request to save AdjuntoProyectoFase : {}", adjuntoProyectoFaseDTO);
@@ -47,12 +41,6 @@ public class AdjuntoProyectoFaseServiceImpl implements AdjuntoProyectoFaseServic
         return adjuntoProyectoFaseMapper.toDto(adjuntoProyectoFase);
     }
 
-    /**
-     * Get all the adjuntoProyectoFases.
-     *
-     * @param pageable the pagination information.
-     * @return the list of entities.
-     */
     @Override
     @Transactional(readOnly = true)
     public Page<AdjuntoProyectoFaseDTO> findAll(Pageable pageable) {
@@ -62,12 +50,6 @@ public class AdjuntoProyectoFaseServiceImpl implements AdjuntoProyectoFaseServic
     }
 
 
-    /**
-     * Get one adjuntoProyectoFase by id.
-     *
-     * @param id the id of the entity.
-     * @return the entity.
-     */
     @Override
     @Transactional(readOnly = true)
     public Optional<AdjuntoProyectoFaseDTO> findOne(Long id) {
@@ -76,11 +58,6 @@ public class AdjuntoProyectoFaseServiceImpl implements AdjuntoProyectoFaseServic
             .map(adjuntoProyectoFaseMapper::toDto);
     }
 
-    /**
-     * Delete the adjuntoProyectoFase by id.
-     *
-     * @param id the id of the entity.
-     */
     @Override
     public void delete(Long id) {
         log.debug("Request to delete AdjuntoProyectoFase : {}", id);

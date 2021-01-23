@@ -1,13 +1,14 @@
 package co.edu.itp.ciecyt.service.dto;
+
 import java.time.LocalDate;
 import java.io.Serializable;
-import java.util.Objects;
+import javax.persistence.Lob;
 
 /**
  * A DTO for the {@link co.edu.itp.ciecyt.domain.AdjuntoProyectoFase} entity.
  */
 public class AdjuntoProyectoFaseDTO implements Serializable {
-
+    
     private Long id;
 
     private String nombreAdjunto;
@@ -26,11 +27,15 @@ public class AdjuntoProyectoFaseDTO implements Serializable {
 
     private LocalDate fechaFin;
 
+    @Lob
+    private byte[] archivo;
+
+    private String archivoContentType;
 
     private Long adjuntoProyectoFaseProyectoFaseId;
 
     private String adjuntoProyectoFaseProyectoFaseTitulo;
-
+    
     public Long getId() {
         return id;
     }
@@ -103,6 +108,22 @@ public class AdjuntoProyectoFaseDTO implements Serializable {
         this.fechaFin = fechaFin;
     }
 
+    public byte[] getArchivo() {
+        return archivo;
+    }
+
+    public void setArchivo(byte[] archivo) {
+        this.archivo = archivo;
+    }
+
+    public String getArchivoContentType() {
+        return archivoContentType;
+    }
+
+    public void setArchivoContentType(String archivoContentType) {
+        this.archivoContentType = archivoContentType;
+    }
+
     public Long getAdjuntoProyectoFaseProyectoFaseId() {
         return adjuntoProyectoFaseProyectoFaseId;
     }
@@ -124,22 +145,19 @@ public class AdjuntoProyectoFaseDTO implements Serializable {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof AdjuntoProyectoFaseDTO)) {
             return false;
         }
 
-        AdjuntoProyectoFaseDTO adjuntoProyectoFaseDTO = (AdjuntoProyectoFaseDTO) o;
-        if (adjuntoProyectoFaseDTO.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), adjuntoProyectoFaseDTO.getId());
+        return id != null && id.equals(((AdjuntoProyectoFaseDTO) o).id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return 31;
     }
 
+    // prettier-ignore
     @Override
     public String toString() {
         return "AdjuntoProyectoFaseDTO{" +
@@ -152,8 +170,10 @@ public class AdjuntoProyectoFaseDTO implements Serializable {
             ", nombreArchivoOriginal='" + getNombreArchivoOriginal() + "'" +
             ", fechaInicio='" + getFechaInicio() + "'" +
             ", fechaFin='" + getFechaFin() + "'" +
-            ", adjuntoProyectoFaseProyectoFase=" + getAdjuntoProyectoFaseProyectoFaseId() +
-            ", adjuntoProyectoFaseProyectoFase='" + getAdjuntoProyectoFaseProyectoFaseTitulo() + "'" +
+            ", archivo='" + getArchivo() + "'" +
+            ", archivoContentType='" + getArchivoContentType() + "'" +
+            ", adjuntoProyectoFaseProyectoFaseId=" + getAdjuntoProyectoFaseProyectoFaseId() +
+            ", adjuntoProyectoFaseProyectoFaseTitulo='" + getAdjuntoProyectoFaseProyectoFaseTitulo() + "'" +
             "}";
     }
 }
