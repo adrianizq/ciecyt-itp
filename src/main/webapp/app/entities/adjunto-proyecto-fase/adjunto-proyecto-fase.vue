@@ -31,6 +31,7 @@
                     <th v-on:click="changeOrder('estadoAdjunto')"><span v-text="$t('ciecytApp.adjuntoProyectoFase.estadoAdjunto')">Estado Adjunto</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th v-on:click="changeOrder('adjuntoProyectoFase')"><span v-text="$t('ciecytApp.adjuntoProyectoFase.adjuntoProyectoFase')">Adjunto Proyecto Fase</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th v-on:click="changeOrder('nombreArchivoOriginal')"><span v-text="$t('ciecytApp.adjuntoProyectoFase.nombreArchivoOriginal')">Nombre Archivo Original</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
+                    <th v-on:click="changeOrder('archivo')"><span v-text="$t('ciecytApp.adjuntoProyectoFase.archivo')">Archivo</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'archivo'"></jhi-sort-indicator></th>
                     <th v-on:click="changeOrder('fechaInicio')"><span v-text="$t('ciecytApp.adjuntoProyectoFase.fechaInicio')">Fecha Inicio</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th v-on:click="changeOrder('fechaFin')"><span v-text="$t('ciecytApp.adjuntoProyectoFase.fechaFin')">Fecha Fin</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th v-on:click="changeOrder('adjuntoProyectoFaseProyectoFaseTitulo')"><span v-text="$t('ciecytApp.adjuntoProyectoFase.adjuntoProyectoFaseProyectoFase')">Adjunto Proyecto Fase Proyecto Fase</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
@@ -49,6 +50,10 @@
                     <td>{{adjuntoProyectoFase.estadoAdjunto}}</td>
                     <td>{{adjuntoProyectoFase.adjuntoProyectoFase}}</td>
                     <td>{{adjuntoProyectoFase.nombreArchivoOriginal}}</td>
+                     <td>
+                        <a v-if="adjuntoProyectoFase.archivo" v-on:click="openFile(adjuntoProyectoFase.archivoContentType, adjuntoProyectoFase.archivo)" v-text="$t('entity.action.open')">open</a>
+                        <span v-if="adjuntoProyectoFase.archivo">{{adjuntoProyectoFase.archivoContentType}}, {{byteSize(adjuntoProyectoFase.archivo)}}</span>
+                    </td>
                     <td>{{adjuntoProyectoFase.fechaInicio}}</td>
                     <td>{{adjuntoProyectoFase.fechaFin}}</td>
                     <td>

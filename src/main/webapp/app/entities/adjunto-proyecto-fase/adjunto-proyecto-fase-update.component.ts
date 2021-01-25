@@ -1,4 +1,6 @@
 import { Component, Vue, Inject } from 'vue-property-decorator';
+import { mixins } from 'vue-class-component';
+import JhiDataUtils from '@/shared/data/data-utils.service';
 
 import { numeric, required, minLength, maxLength } from 'vuelidate/lib/validators';
 
@@ -17,6 +19,7 @@ const validations: any = {
     estadoAdjunto: {},
     adjuntoProyectoFase: {},
     nombreArchivoOriginal: {},
+    archivo: {},
     fechaInicio: {},
     fechaFin: {},
   },
@@ -25,7 +28,7 @@ const validations: any = {
 @Component({
   validations,
 })
-export default class AdjuntoProyectoFaseUpdate extends Vue {
+export default class AdjuntoProyectoFaseUpdate extends mixins(JhiDataUtils) {
   @Inject('alertService') private alertService: () => AlertService;
   @Inject('adjuntoProyectoFaseService') private adjuntoProyectoFaseService: () => AdjuntoProyectoFaseService;
   public adjuntoProyectoFase: IAdjuntoProyectoFase = new AdjuntoProyectoFase();

@@ -40,6 +40,15 @@
                     <dd>
                         <span>{{adjuntoProyectoFase.nombreArchivoOriginal}}</span>
                     </dd>
+                     <dt>
+                        <span v-text="$t('ciecytApp.adjuntoProyectoFase.archivo')">Archivo</span>
+                    </dt>
+                    <dd>
+                        <div v-if="adjuntoProyectoFase.archivo">
+                            <a v-on:click="openFile(adjuntoProyectoFase.archivoContentType, adjuntoProyectoFase.archivo)" v-text="$t('entity.action.open')">open</a>
+                            {{adjuntoProyectoFase.archivoContentType}}, {{byteSize(adjuntoProyectoFase.archivo)}}
+                        </div>
+                    </dd>
                     <dt>
                         <span v-text="$t('ciecytApp.adjuntoProyectoFase.fechaInicio')">Fecha Inicio</span>
                     </dt>

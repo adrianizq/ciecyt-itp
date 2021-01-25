@@ -14,6 +14,7 @@
                         <input type="text" class="form-control" name="nombreAdjunto" id="adjunto-proyecto-fase-nombreAdjunto"
                             :class="{'valid': !$v.adjuntoProyectoFase.nombreAdjunto.$invalid, 'invalid': $v.adjuntoProyectoFase.nombreAdjunto.$invalid }" v-model="$v.adjuntoProyectoFase.nombreAdjunto.$model" />
                     </div>
+                    <!--
                     <div class="form-group">
                         <label class="form-control-label" v-text="$t('ciecytApp.adjuntoProyectoFase.fechaCreacion')" for="adjunto-proyecto-fase-fechaCreacion">Fecha Creacion</label>
                         <div class="input-group">
@@ -21,12 +22,57 @@
                             v-model="$v.adjuntoProyectoFase.fechaCreacion.$model"  />
                         </div>
                     </div>
+                    -->
+                    <div class="form-group">
+                        <label class="form-control-label" v-text="$t('ciecytApp.adjuntoProyectoFase.fechaCreacion')" for="adjunto-proyecto-fase-fechaCreacion">Fecha Creacion</label>
+                        <b-input-group class="mb-3">
+                            <b-input-group-prepend>
+                                <b-form-datepicker
+                                    aria-controls="adjunto-proyecto-fase-fechaCreacion"
+                                    v-model="$v.adjuntoProyectoFase.fechaCreacion.$model"
+                                    name="fechaCreacion"
+                                    class="form-control"
+                                    :locale="currentLanguage"
+                                    button-only
+                                    today-button
+                                    reset-button
+                                    close-button
+                                >
+                                </b-form-datepicker>
+                            </b-input-group-prepend>
+                            <b-form-input id="adjunto-proyecto-fase-fechaCreacion" type="text" class="form-control" name="fechaCreacion"  :class="{'valid': !$v.adjuntoProyectoFase.fechaCreacion.$invalid, 'invalid': $v.adjuntoProyectoFase.fechaCreacion.$invalid }"
+                            v-model="$v.adjuntoProyectoFase.fechaCreacion.$model"  />
+                        </b-input-group>
+                    </div>
+                    <!--
                     <div class="form-group">
                         <label class="form-control-label" v-text="$t('ciecytApp.adjuntoProyectoFase.fechaModificacion')" for="adjunto-proyecto-fase-fechaModificacion">Fecha Modificacion</label>
                         <div class="input-group">
                             <input id="adjunto-proyecto-fase-fechaModificacion" type="date" class="form-control" name="fechaModificacion"  :class="{'valid': !$v.adjuntoProyectoFase.fechaModificacion.$invalid, 'invalid': $v.adjuntoProyectoFase.fechaModificacion.$invalid }"
                             v-model="$v.adjuntoProyectoFase.fechaModificacion.$model"  />
                         </div>
+                    </div>
+                    -->
+                    <div class="form-group">
+                        <label class="form-control-label" v-text="$t('ciecytApp.adjuntoProyectoFase.fechaModificacion')" for="adjunto-proyecto-fase-fechaModificacion">Fecha Modificacion</label>
+                        <b-input-group class="mb-3">
+                            <b-input-group-prepend>
+                                <b-form-datepicker
+                                    aria-controls="adjunto-proyecto-fase-fechaModificacion"
+                                    v-model="$v.adjuntoProyectoFase.fechaModificacion.$model"
+                                    name="fechaModificacion"
+                                    class="form-control"
+                                    :locale="currentLanguage"
+                                    button-only
+                                    today-button
+                                    reset-button
+                                    close-button
+                                >
+                                </b-form-datepicker>
+                            </b-input-group-prepend>
+                            <b-form-input id="adjunto-proyecto-fase-fechaModificacion" type="text" class="form-control" name="fechaModificacion"  :class="{'valid': !$v.adjuntoProyectoFase.fechaModificacion.$invalid, 'invalid': $v.adjuntoProyectoFase.fechaModificacion.$invalid }"
+                            v-model="$v.adjuntoProyectoFase.fechaModificacion.$model"  />
+                        </b-input-group>
                     </div>
                     <div class="form-group">
                         <label class="form-control-label" v-text="$t('ciecytApp.adjuntoProyectoFase.estadoAdjunto')" for="adjunto-proyecto-fase-estadoAdjunto">Estado Adjunto</label>
@@ -43,6 +89,25 @@
                         <input type="text" class="form-control" name="nombreArchivoOriginal" id="adjunto-proyecto-fase-nombreArchivoOriginal"
                             :class="{'valid': !$v.adjuntoProyectoFase.nombreArchivoOriginal.$invalid, 'invalid': $v.adjuntoProyectoFase.nombreArchivoOriginal.$invalid }" v-model="$v.adjuntoProyectoFase.nombreArchivoOriginal.$model" />
                     </div>
+                     <div class="form-group">
+                        <label class="form-control-label" v-text="$t('ciecytApp.adjuntoProyectoFase.archivo')" for="adjunto-proyecto-fase-archivo">Archivo</label>
+                        <div>
+                            <div v-if="adjuntoProyectoFase.archivo" class="form-text text-danger clearfix">
+                                <a class="pull-left" v-on:click="openFile(adjuntoProyectoFase.archivoContentType, adjuntoProyectoFase.archivo)" v-text="$t('entity.action.open')">open</a><br>
+                                <span class="pull-left">{{adjuntoProyectoFase.archivoContentType}}, {{byteSize(adjuntoProyectoFase.archivo)}}</span>
+                                <button type="button" v-on:click="adjuntoProyectoFase.archivo=null;adjuntoProyectoFase.archivoContentType=null;"
+                                        class="btn btn-secondary btn-xs pull-right">
+                                    <font-awesome-icon icon="times"></font-awesome-icon>
+                                </button>
+                            </div>
+                            <input type="file" ref="file_archivo" id="file_archivo" v-on:change="setFileData($event, adjuntoProyectoFase, 'archivo', false)" v-text="$t('entity.action.addblob')"/>
+                        </div>
+                        <input type="hidden" class="form-control" name="archivo" id="adjunto-proyecto-fase-archivo"
+                            :class="{'valid': !$v.adjuntoProyectoFase.archivo.$invalid, 'invalid': $v.adjuntoProyectoFase.archivo.$invalid }" v-model="$v.adjuntoProyectoFase.archivo.$model" />
+                        <input type="hidden" class="form-control" name="archivoContentType" id="adjunto-proyecto-fase-archivoContentType"
+                            v-model="adjuntoProyectoFase.archivoContentType" />
+                    </div>
+                    <!--
                     <div class="form-group">
                         <label class="form-control-label" v-text="$t('ciecytApp.adjuntoProyectoFase.fechaInicio')" for="adjunto-proyecto-fase-fechaInicio">Fecha Inicio</label>
                         <div class="input-group">
@@ -50,12 +115,57 @@
                             v-model="$v.adjuntoProyectoFase.fechaInicio.$model"  />
                         </div>
                     </div>
+                    -->
+                     <div class="form-group">
+                        <label class="form-control-label" v-text="$t('ciecytApp.adjuntoProyectoFase.fechaInicio')" for="adjunto-proyecto-fase-fechaInicio">Fecha Inicio</label>
+                        <b-input-group class="mb-3">
+                            <b-input-group-prepend>
+                                <b-form-datepicker
+                                    aria-controls="adjunto-proyecto-fase-fechaInicio"
+                                    v-model="$v.adjuntoProyectoFase.fechaInicio.$model"
+                                    name="fechaInicio"
+                                    class="form-control"
+                                    :locale="currentLanguage"
+                                    button-only
+                                    today-button
+                                    reset-button
+                                    close-button
+                                >
+                                </b-form-datepicker>
+                            </b-input-group-prepend>
+                            <b-form-input id="adjunto-proyecto-fase-fechaInicio" type="text" class="form-control" name="fechaInicio"  :class="{'valid': !$v.adjuntoProyectoFase.fechaInicio.$invalid, 'invalid': $v.adjuntoProyectoFase.fechaInicio.$invalid }"
+                            v-model="$v.adjuntoProyectoFase.fechaInicio.$model"  />
+                        </b-input-group>
+                    </div>
+                    <!--
                     <div class="form-group">
                         <label class="form-control-label" v-text="$t('ciecytApp.adjuntoProyectoFase.fechaFin')" for="adjunto-proyecto-fase-fechaFin">Fecha Fin</label>
                         <div class="input-group">
                             <input id="adjunto-proyecto-fase-fechaFin" type="date" class="form-control" name="fechaFin"  :class="{'valid': !$v.adjuntoProyectoFase.fechaFin.$invalid, 'invalid': $v.adjuntoProyectoFase.fechaFin.$invalid }"
                             v-model="$v.adjuntoProyectoFase.fechaFin.$model"  />
                         </div>
+                    </div>
+                    -->
+                     <div class="form-group">
+                        <label class="form-control-label" v-text="$t('ciecytApp.adjuntoProyectoFase.fechaFin')" for="adjunto-proyecto-fase-fechaFin">Fecha Fin</label>
+                        <b-input-group class="mb-3">
+                            <b-input-group-prepend>
+                                <b-form-datepicker
+                                    aria-controls="adjunto-proyecto-fase-fechaFin"
+                                    v-model="$v.adjuntoProyectoFase.fechaFin.$model"
+                                    name="fechaFin"
+                                    class="form-control"
+                                    :locale="currentLanguage"
+                                    button-only
+                                    today-button
+                                    reset-button
+                                    close-button
+                                >
+                                </b-form-datepicker>
+                            </b-input-group-prepend>
+                            <b-form-input id="adjunto-proyecto-fase-fechaFin" type="text" class="form-control" name="fechaFin"  :class="{'valid': !$v.adjuntoProyectoFase.fechaFin.$invalid, 'invalid': $v.adjuntoProyectoFase.fechaFin.$invalid }"
+                            v-model="$v.adjuntoProyectoFase.fechaFin.$model"  />
+                        </b-input-group>
                     </div>
                     <div class="form-group">
                         <label class="form-control-label" v-bind:value="$t('ciecytApp.adjuntoProyectoFase.adjuntoProyectoFaseProyectoFase')" for="adjunto-proyecto-fase-adjuntoProyectoFaseProyectoFase">Adjunto Proyecto Fase Proyecto Fase</label>
