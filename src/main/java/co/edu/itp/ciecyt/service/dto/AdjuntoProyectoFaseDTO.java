@@ -31,10 +31,16 @@ public class AdjuntoProyectoFaseDTO implements Serializable {
     private byte[] archivo;
 
     private String archivoContentType;
+    private String archivoContentType;
+
 
     private Long adjuntoProyectoFaseProyectoFaseId;
 
     private String adjuntoProyectoFaseProyectoFaseTitulo;
+
+    private Long proyectoFaseProyectoId;
+
+    private String proyectoFaseProyectoTitulo;
     
     public Long getId() {
         return id;
@@ -124,6 +130,14 @@ public class AdjuntoProyectoFaseDTO implements Serializable {
         this.archivoContentType = archivoContentType;
     }
 
+    public String getArchivoContentType() {
+        return archivoContentType;
+    }
+
+    public void setArchivoContentType(String archivoContentType) {
+        this.archivoContentType = archivoContentType;
+    }
+
     public Long getAdjuntoProyectoFaseProyectoFaseId() {
         return adjuntoProyectoFaseProyectoFaseId;
     }
@@ -138,6 +152,22 @@ public class AdjuntoProyectoFaseDTO implements Serializable {
 
     public void setAdjuntoProyectoFaseProyectoFaseTitulo(String proyectoFaseTitulo) {
         this.adjuntoProyectoFaseProyectoFaseTitulo = proyectoFaseTitulo;
+    }
+
+    public Long getProyectoFaseProyectoId() {
+        return proyectoFaseProyectoId;
+    }
+
+    public void setProyectoFaseProyectoId(Long proyectoId) {
+        this.proyectoFaseProyectoId = proyectoId;
+    }
+
+    public String getProyectoFaseProyectoTitulo() {
+        return proyectoFaseProyectoTitulo;
+    }
+
+    public void setProyectoFaseProyectoTitulo(String proyectoTitulo) {
+        this.proyectoFaseProyectoTitulo = proyectoTitulo;
     }
 
     @Override
@@ -174,6 +204,8 @@ public class AdjuntoProyectoFaseDTO implements Serializable {
             ", archivoContentType='" + getArchivoContentType() + "'" +
             ", adjuntoProyectoFaseProyectoFaseId=" + getAdjuntoProyectoFaseProyectoFaseId() +
             ", adjuntoProyectoFaseProyectoFaseTitulo='" + getAdjuntoProyectoFaseProyectoFaseTitulo() + "'" +
+            ", proyectoFaseProyectoId=" + getProyectoFaseProyectoId() +
+            ", proyectoFaseProyectoTitulo='" + getProyectoFaseProyectoTitulo() + "'" +
             "}";
     }
 }

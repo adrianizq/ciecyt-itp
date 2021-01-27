@@ -9,14 +9,17 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity {@link AdjuntoProyectoFase} and its DTO {@link AdjuntoProyectoFaseDTO}.
  */
-@Mapper(componentModel = "spring", uses = {ProyectoFaseMapper.class})
+@Mapper(componentModel = "spring", uses = {ProyectoFaseMapper.class, ProyectoMapper.class})
 public interface AdjuntoProyectoFaseMapper extends EntityMapper<AdjuntoProyectoFaseDTO, AdjuntoProyectoFase> {
 
     @Mapping(source = "adjuntoProyectoFaseProyectoFase.id", target = "adjuntoProyectoFaseProyectoFaseId")
     @Mapping(source = "adjuntoProyectoFaseProyectoFase.titulo", target = "adjuntoProyectoFaseProyectoFaseTitulo")
+    @Mapping(source = "proyectoFaseProyecto.id", target = "proyectoFaseProyectoId")
+    @Mapping(source = "proyectoFaseProyecto.titulo", target = "proyectoFaseProyectoTitulo")
     AdjuntoProyectoFaseDTO toDto(AdjuntoProyectoFase adjuntoProyectoFase);
 
     @Mapping(source = "adjuntoProyectoFaseProyectoFaseId", target = "adjuntoProyectoFaseProyectoFase")
+    @Mapping(source = "proyectoFaseProyectoId", target = "proyectoFaseProyecto")
     AdjuntoProyectoFase toEntity(AdjuntoProyectoFaseDTO adjuntoProyectoFaseDTO);
 
     default AdjuntoProyectoFase fromId(Long id) {

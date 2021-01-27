@@ -6,6 +6,8 @@ export interface IAdjuntoProyectoFase {
   estadoAdjunto?: number;
   adjuntoProyectoFase?: string;
   nombreArchivoOriginal?: string;
+  archivo?: any;
+  archivoContentType?: string;
   fechaInicio?: Date;
   fechaFin?: Date;
   adjuntoProyectoFaseProyectoFaseTitulo?: string;
@@ -21,6 +23,8 @@ export class AdjuntoProyectoFase implements IAdjuntoProyectoFase {
     public estadoAdjunto?: number,
     public adjuntoProyectoFase?: string,
     public nombreArchivoOriginal?: string,
+    public archivo?: any,
+    public archivoContentType?: string,
     public fechaInicio?: Date,
     public fechaFin?: Date,
     public adjuntoProyectoFaseProyectoFaseTitulo?: string,

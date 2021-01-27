@@ -55,9 +55,15 @@ public class AdjuntoProyectoFase implements Serializable {
     @Column(name = "archivo_content_type")
     private String archivoContentType;
 
+   
+
     @ManyToOne
     @JsonIgnoreProperties(value = "adjuntoProyectoFases", allowSetters = true)
     private ProyectoFase adjuntoProyectoFaseProyectoFase;
+
+    @ManyToOne
+    @JsonIgnoreProperties(value = "adjuntoProyectoFases", allowSetters = true)
+    private Proyecto proyectoFaseProyecto;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -185,13 +191,26 @@ public class AdjuntoProyectoFase implements Serializable {
         this.archivo = archivo;
     }
 
+    public String getArchivoContentType() {
+        return archivoContentType;
+    }
+
     public AdjuntoProyectoFase archivoContentType(String archivoContentType) {
         this.archivoContentType = archivoContentType;
         return this;
     }
 
+    public void setArchivoContentType(String archivoContentType) {
+        this.archivoContentType = archivoContentType;
+    }
+
     public String getArchivoContentType() {
         return archivoContentType;
+    }
+
+    public AdjuntoProyectoFase archivoContentType(String archivoContentType) {
+        this.archivoContentType = archivoContentType;
+        return this;
     }
 
     public void setArchivoContentType(String archivoContentType) {
@@ -209,6 +228,19 @@ public class AdjuntoProyectoFase implements Serializable {
 
     public void setAdjuntoProyectoFaseProyectoFase(ProyectoFase proyectoFase) {
         this.adjuntoProyectoFaseProyectoFase = proyectoFase;
+    }
+
+    public Proyecto getProyectoFaseProyecto() {
+        return proyectoFaseProyecto;
+    }
+
+    public AdjuntoProyectoFase proyectoFaseProyecto(Proyecto proyecto) {
+        this.proyectoFaseProyecto = proyecto;
+        return this;
+    }
+
+    public void setProyectoFaseProyecto(Proyecto proyecto) {
+        this.proyectoFaseProyecto = proyecto;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
@@ -242,6 +274,7 @@ public class AdjuntoProyectoFase implements Serializable {
             ", fechaInicio='" + getFechaInicio() + "'" +
             ", fechaFin='" + getFechaFin() + "'" +
             ", archivo='" + getArchivo() + "'" +
+            ", archivoContentType='" + getArchivoContentType() + "'" +
             ", archivoContentType='" + getArchivoContentType() + "'" +
             "}";
     }

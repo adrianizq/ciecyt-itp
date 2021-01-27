@@ -64,8 +64,8 @@ public class AdjuntoProyectoFaseResourceIT {
     private static final String DEFAULT_ARCHIVO_CONTENT_TYPE = "image/jpg";
     private static final String UPDATED_ARCHIVO_CONTENT_TYPE = "image/png";
 
-    //private static final String DEFAULT_ARCHIVO_CONTENT_TYPE = "AAAAAAAAAA";
-    //private static final String UPDATED_ARCHIVO_CONTENT_TYPE = "BBBBBBBBBB";
+    private static final String DEFAULT_ARCHIVO_CONTENT_TYPE = "AAAAAAAAAA";
+    private static final String UPDATED_ARCHIVO_CONTENT_TYPE = "BBBBBBBBBB";
 
     @Autowired
     private AdjuntoProyectoFaseRepository adjuntoProyectoFaseRepository;

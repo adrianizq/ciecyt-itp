@@ -50,6 +50,13 @@
       "otherEntityRelationshipName": "adjuntoProyectoFase",
       "relationshipName": "adjuntoProyectoFaseProyectoFase",
       "otherEntityField": "titulo"
+    },
+    {
+      "relationshipName": "proyectoFaseProyecto",
+      "otherEntityName": "proyecto",
+      "relationshipType": "many-to-one",
+      "otherEntityField": "titulo",
+      "otherEntityRelationshipName": "adjuntoProyectoFase"
     }
   ],
   "changelogDate": "20201008033203",
