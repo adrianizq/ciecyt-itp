@@ -58,8 +58,10 @@ public class AdjuntoProyectoFaseResourceIT {
     private static final LocalDate DEFAULT_FECHA_FIN = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_FECHA_FIN = LocalDate.now(ZoneId.systemDefault());
 
-    private static final byte[] DEFAULT_ARCHIVO = TestUtil.createByteArray(1, "0");
-    private static final byte[] UPDATED_ARCHIVO = TestUtil.createByteArray(1, "1");
+    //private static final byte[] DEFAULT_ARCHIVO = TestUtil.createByteArray(1, "0");
+    private static final String DEFAULT_ARCHIVO = "1.png";
+    //private static final byte[] UPDATED_ARCHIVO = TestUtil.createByteArray(1, "1");
+    private static final String UPDATED_ARCHIVO = "2.png";
     private static final String DEFAULT_ARCHIVO_CONTENT_TYPE = "image/jpg";
     private static final String UPDATED_ARCHIVO_CONTENT_TYPE = "image/png";
 
@@ -204,7 +206,8 @@ public class AdjuntoProyectoFaseResourceIT {
             .andExpect(jsonPath("$.[*].nombreArchivoOriginal").value(hasItem(DEFAULT_NOMBRE_ARCHIVO_ORIGINAL)))
             .andExpect(jsonPath("$.[*].fechaInicio").value(hasItem(DEFAULT_FECHA_INICIO.toString())))
             .andExpect(jsonPath("$.[*].fechaFin").value(hasItem(DEFAULT_FECHA_FIN.toString())))
-            .andExpect(jsonPath("$.[*].archivo").value(hasItem(Base64Utils.encodeToString(DEFAULT_ARCHIVO))))
+            //.andExpect(jsonPath("$.[*].archivo").value(hasItem(Base64Utils.encodeToString(DEFAULT_ARCHIVO))))
+            .andExpect(jsonPath("$.[*].archivo").value(hasItem(DEFAULT_ARCHIVO)))
             .andExpect(jsonPath("$.[*].archivoContentType").value(hasItem(DEFAULT_ARCHIVO_CONTENT_TYPE)));
     }
 
@@ -228,7 +231,8 @@ public class AdjuntoProyectoFaseResourceIT {
             .andExpect(jsonPath("$.nombreArchivoOriginal").value(DEFAULT_NOMBRE_ARCHIVO_ORIGINAL))
             .andExpect(jsonPath("$.fechaInicio").value(DEFAULT_FECHA_INICIO.toString()))
             .andExpect(jsonPath("$.fechaFin").value(DEFAULT_FECHA_FIN.toString()))
-            .andExpect(jsonPath("$.archivo").value(Base64Utils.encodeToString(DEFAULT_ARCHIVO)))
+            //.andExpect(jsonPath("$.archivo").value(Base64Utils.encodeToString(DEFAULT_ARCHIVO)))
+            .andExpect(jsonPath("$.archivo").value(DEFAULT_ARCHIVO))
             .andExpect(jsonPath("$.archivoContentType").value(DEFAULT_ARCHIVO_CONTENT_TYPE));
     }
 

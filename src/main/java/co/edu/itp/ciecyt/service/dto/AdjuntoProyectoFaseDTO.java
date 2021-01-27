@@ -39,6 +39,10 @@ public class AdjuntoProyectoFaseDTO implements Serializable {
     private Long proyectoFaseProyectoId;
 
     private String proyectoFaseProyectoTitulo;
+    
+    private String file;
+    
+    private String urlFile;
 
     public Long getId() {
         return id;
@@ -198,4 +202,20 @@ public class AdjuntoProyectoFaseDTO implements Serializable {
             ", proyectoFaseProyectoTitulo='" + getProyectoFaseProyectoTitulo() + "'" +
             "}";
     }
+
+	public String getFile() {
+		return file;
+	}
+
+	public void setFile(String file) {
+		this.file = file;
+	}
+
+	public String getUrlFile() {
+		return urlFile;
+	}
+
+	public void setUrlFile(String ulrFile) {
+		this.urlFile = ulrFile;
+	}
 }

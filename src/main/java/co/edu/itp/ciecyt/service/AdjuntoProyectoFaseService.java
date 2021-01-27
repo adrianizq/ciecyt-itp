@@ -1,14 +1,17 @@
 package co.edu.itp.ciecyt.service;
 
 import co.edu.itp.ciecyt.service.dto.AdjuntoProyectoFaseDTO;
-import java.util.Optional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
+import java.util.Optional;
 
 /**
  * Service Interface for managing {@link co.edu.itp.ciecyt.domain.AdjuntoProyectoFase}.
  */
 public interface AdjuntoProyectoFaseService {
+
     /**
      * Save a adjuntoProyectoFase.
      *
@@ -25,6 +28,7 @@ public interface AdjuntoProyectoFaseService {
      */
     Page<AdjuntoProyectoFaseDTO> findAll(Pageable pageable);
 
+
     /**
      * Get the "id" adjuntoProyectoFase.
      *
@@ -39,4 +43,12 @@ public interface AdjuntoProyectoFaseService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+    
+    /**
+     * Carga un archivo al directorio de adjuntos de los proyectos
+     * @param dto
+     * @param file
+     * @param contentType
+     */
+    void attachFile(AdjuntoProyectoFaseDTO dto, byte[] file, String contentType);
 }

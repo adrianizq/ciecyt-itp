@@ -46,9 +46,9 @@ public class AdjuntoProyectoFase implements Serializable {
     @Column(name = "fecha_fin")
     private LocalDate fechaFin;
 
-    @Lob
+  
     @Column(name = "archivo")
-    private byte[] archivo;
+    private String archivo;
 
     @Column(name = "archivo_content_type")
     private String archivoContentType;
@@ -174,16 +174,16 @@ public class AdjuntoProyectoFase implements Serializable {
         this.fechaFin = fechaFin;
     }
 
-    public byte[] getArchivo() {
+    public String getArchivo() {
         return archivo;
     }
 
-    public AdjuntoProyectoFase archivo(byte[] archivo) {
+    public AdjuntoProyectoFase archivo(String archivo) {
         this.archivo = archivo;
         return this;
     }
 
-    public void setArchivo(byte[] archivo) {
+    public void setArchivo(String archivo) {
         this.archivo = archivo;
     }
 

@@ -13,6 +13,7 @@ public interface AdjuntoProyectoFaseMapper extends EntityMapper<AdjuntoProyectoF
     @Mapping(source = "adjuntoProyectoFaseProyectoFase.titulo", target = "adjuntoProyectoFaseProyectoFaseTitulo")
     @Mapping(source = "proyectoFaseProyecto.id", target = "proyectoFaseProyectoId")
     @Mapping(source = "proyectoFaseProyecto.titulo", target = "proyectoFaseProyectoTitulo")
+    @Mapping(target = "archivo", ignore = true)
     @Mapping(source = "archivo", target = "file")
     AdjuntoProyectoFaseDTO toDto(AdjuntoProyectoFase adjuntoProyectoFase);
 
