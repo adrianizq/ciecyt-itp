@@ -57,6 +57,14 @@ public class AdjuntoProyectoFaseResource {
             throw new BadRequestAlertException("A new adjuntoProyectoFase cannot already have an ID", ENTITY_NAME, "idexists");
         }
         AdjuntoProyectoFaseDTO result = adjuntoProyectoFaseService.save(adjuntoProyectoFaseDTO);
+        
+        //Guarda el adjunto del proyecto
+        
+        byte[] file = adjuntoProyectoFaseDTO.getArchivo();
+        if (file != null) {
+        	adjuntoProyectoFaseService.attachFile(result, file, adjuntoProyectoFaseDTO.getArchivoContentType());
+        }
+        
         return ResponseEntity.created(new URI("/api/adjunto-proyecto-fases/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -78,6 +86,14 @@ public class AdjuntoProyectoFaseResource {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         AdjuntoProyectoFaseDTO result = adjuntoProyectoFaseService.save(adjuntoProyectoFaseDTO);
+        
+        //Guarda el adjunto del proyecto
+        
+        byte[] file = adjuntoProyectoFaseDTO.getArchivo();
+        if (file != null) {
+        	adjuntoProyectoFaseService.attachFile(result, file, adjuntoProyectoFaseDTO.getArchivoContentType());
+        }
+        
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, adjuntoProyectoFaseDTO.getId().toString()))
             .body(result);

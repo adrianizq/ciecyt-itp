@@ -8,7 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
- * Service Interface for managing {@link com.kamila.dudoapp.domain.Organization}.
+ * Service Interface for managing {@link com.Files.dudoapp.domain.Organization}.
  */
 public interface OrganizationService {
     /**

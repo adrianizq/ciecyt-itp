@@ -67,9 +67,9 @@ public class OrganizationServiceImpl implements OrganizationService {
         OrganizationDTO dto = organizationMapper.toDto(organization);
         if (dto.getLogoImage() != null) {
             String urlImage = FileUtils.buildURLImage(
-                appProperties.getImagePath(),
+                appProperties.getFilesPath(),
                 dto.getImageUrl(),
-                appProperties.getUpload().getOrganization()
+                appProperties.getUpload().getFiles()
             );
             dto.setImageUrl(urlImage);
         }
@@ -92,10 +92,10 @@ public class OrganizationServiceImpl implements OrganizationService {
             log.debug(
                 "Root upload dir: {}, orgDir: {}",
                 appProperties.getUpload().getRoot().getDir(),
-                appProperties.getUpload().getOrganization().getDir()
+                appProperties.getUpload().getFiles().getDir()
             );
             Path rootDir = Paths.get(appProperties.getUpload().getRoot().getDir());
-            Path announcementDir = rootDir.resolve(appProperties.getUpload().getOrganization().getDir());
+            Path announcementDir = rootDir.resolve(appProperties.getUpload().getFiles().getDir());
             log.debug("Dir upload: {}, file: {}", announcementDir, file.getOriginalFilename());
             String nameFile = FileUtils.buildFileName(entity.getId(), FilenameUtils.getExtension(file.getOriginalFilename()));
             Files.copy(file.getInputStream(), announcementDir.resolve(nameFile));
@@ -122,7 +122,7 @@ public class OrganizationServiceImpl implements OrganizationService {
         //File rootDir = new File("/home/jltovarg/test/dudo");
         try {
             Path rootDir = Paths.get(appProperties.getUpload().getRoot().getDir());
-            Path orgDir = rootDir.resolve(appProperties.getUpload().getOrganization().getDir());
+            Path orgDir = rootDir.resolve(appProperties.getUpload().getFiles().getDir());
             log.debug("Dir upload: {}, , orgDir: {}, mimetype: {}", rootDir, orgDir, contentType);
             String ext = MimeTypes.getDefaultExt(contentType);
             String nameFile = FileUtils.buildFileName(entity.getId(), ext);
@@ -155,9 +155,9 @@ public class OrganizationServiceImpl implements OrganizationService {
                 dto -> {
                     if (dto.getLogo() != null) {
                         String urlImage = FileUtils.buildURLImage(
-                            appProperties.getImagePath(),
+                            appProperties.getFilesPath(),
                             dto.getLogo(),
-                            appProperties.getUpload().getOrganization()
+                            appProperties.getUpload().getFiles()
                         );
                         dto.setImageUrl(urlImage);
                     }
@@ -183,9 +183,9 @@ public class OrganizationServiceImpl implements OrganizationService {
                 dto -> {
                     if (dto.getLogo() != null) {
                         String urlImage = FileUtils.buildURLImage(
-                            appProperties.getImagePath(),
+                            appProperties.getFilesPath(),
                             dto.getLogo(),
-                            appProperties.getUpload().getOrganization()
+                            appProperties.getUpload().getFiles()
                         );
                         dto.setImageUrl(urlImage);
                     }
@@ -211,9 +211,9 @@ public class OrganizationServiceImpl implements OrganizationService {
                 dto -> {
                     if (dto.getLogo() != null) {
                         String urlImage = FileUtils.buildURLImage(
-                            appProperties.getImagePath(),
+                            appProperties.getFilesPath(),
                             dto.getLogo(),
-                            appProperties.getUpload().getOrganization()
+                            appProperties.getUpload().getFiles()
                         );
                         dto.setImageUrl(urlImage);
                     }

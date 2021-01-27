@@ -43,4 +43,12 @@ public interface AdjuntoProyectoFaseService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+    
+    /**
+     * Carga un archivo al directorio de adjuntos de los proyectos
+     * @param dto
+     * @param file
+     * @param contentType
+     */
+    void attachFile(AdjuntoProyectoFaseDTO dto, byte[] file, String contentType);
 }
