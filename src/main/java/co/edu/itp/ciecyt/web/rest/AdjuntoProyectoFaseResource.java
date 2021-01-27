@@ -1,12 +1,15 @@
 package co.edu.itp.ciecyt.web.rest;
 
 import co.edu.itp.ciecyt.service.AdjuntoProyectoFaseService;
-import co.edu.itp.ciecyt.web.rest.errors.BadRequestAlertException;
 import co.edu.itp.ciecyt.service.dto.AdjuntoProyectoFaseDTO;
-
+import co.edu.itp.ciecyt.web.rest.errors.BadRequestAlertException;
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,14 +17,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.List;
-import java.util.Optional;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 /**
  * REST controller for managing {@link co.edu.itp.ciecyt.domain.AdjuntoProyectoFase}.
@@ -51,21 +49,15 @@ public class AdjuntoProyectoFaseResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/adjunto-proyecto-fases")
-    public ResponseEntity<AdjuntoProyectoFaseDTO> createAdjuntoProyectoFase(@RequestBody AdjuntoProyectoFaseDTO adjuntoProyectoFaseDTO) throws URISyntaxException {
+    public ResponseEntity<AdjuntoProyectoFaseDTO> createAdjuntoProyectoFase(@RequestBody AdjuntoProyectoFaseDTO adjuntoProyectoFaseDTO)
+        throws URISyntaxException {
         log.debug("REST request to save AdjuntoProyectoFase : {}", adjuntoProyectoFaseDTO);
         if (adjuntoProyectoFaseDTO.getId() != null) {
             throw new BadRequestAlertException("A new adjuntoProyectoFase cannot already have an ID", ENTITY_NAME, "idexists");
         }
         AdjuntoProyectoFaseDTO result = adjuntoProyectoFaseService.save(adjuntoProyectoFaseDTO);
-        
-        //Guarda el adjunto del proyecto
-        
-        byte[] file = adjuntoProyectoFaseDTO.getArchivo();
-        if (file != null) {
-        	adjuntoProyectoFaseService.attachFile(result, file, adjuntoProyectoFaseDTO.getArchivoContentType());
-        }
-        
-        return ResponseEntity.created(new URI("/api/adjunto-proyecto-fases/" + result.getId()))
+        return ResponseEntity
+            .created(new URI("/api/adjunto-proyecto-fases/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
     }
@@ -80,21 +72,15 @@ public class AdjuntoProyectoFaseResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/adjunto-proyecto-fases")
-    public ResponseEntity<AdjuntoProyectoFaseDTO> updateAdjuntoProyectoFase(@RequestBody AdjuntoProyectoFaseDTO adjuntoProyectoFaseDTO) throws URISyntaxException {
+    public ResponseEntity<AdjuntoProyectoFaseDTO> updateAdjuntoProyectoFase(@RequestBody AdjuntoProyectoFaseDTO adjuntoProyectoFaseDTO)
+        throws URISyntaxException {
         log.debug("REST request to update AdjuntoProyectoFase : {}", adjuntoProyectoFaseDTO);
         if (adjuntoProyectoFaseDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         AdjuntoProyectoFaseDTO result = adjuntoProyectoFaseService.save(adjuntoProyectoFaseDTO);
-        
-        //Guarda el adjunto del proyecto
-        
-        byte[] file = adjuntoProyectoFaseDTO.getArchivo();
-        if (file != null) {
-        	adjuntoProyectoFaseService.attachFile(result, file, adjuntoProyectoFaseDTO.getArchivoContentType());
-        }
-        
-        return ResponseEntity.ok()
+        return ResponseEntity
+            .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, adjuntoProyectoFaseDTO.getId().toString()))
             .body(result);
     }
@@ -136,6 +122,9 @@ public class AdjuntoProyectoFaseResource {
     public ResponseEntity<Void> deleteAdjuntoProyectoFase(@PathVariable Long id) {
         log.debug("REST request to delete AdjuntoProyectoFase : {}", id);
         adjuntoProyectoFaseService.delete(id);
-        return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+        return ResponseEntity
+            .noContent()
+            .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
+            .build();
     }
 }

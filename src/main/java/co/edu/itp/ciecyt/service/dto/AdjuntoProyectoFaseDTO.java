@@ -1,15 +1,14 @@
 package co.edu.itp.ciecyt.service.dto;
 
-import java.time.LocalDate;
-import java.util.Arrays;
 import java.io.Serializable;
+import java.time.LocalDate;
 import javax.persistence.Lob;
 
 /**
  * A DTO for the {@link co.edu.itp.ciecyt.domain.AdjuntoProyectoFase} entity.
  */
 public class AdjuntoProyectoFaseDTO implements Serializable {
-    
+
     private Long id;
 
     private String nombreAdjunto;
@@ -28,18 +27,10 @@ public class AdjuntoProyectoFaseDTO implements Serializable {
 
     private LocalDate fechaFin;
 
+    @Lob
     private byte[] archivo;
-    
-   
 
     private String archivoContentType;
-    
-    //Campo para el mapeo del archivo
-    private String file;
-    
-    private String urlFile;
-    
-
 
     private Long adjuntoProyectoFaseProyectoFaseId;
 
@@ -48,7 +39,7 @@ public class AdjuntoProyectoFaseDTO implements Serializable {
     private Long proyectoFaseProyectoId;
 
     private String proyectoFaseProyectoTitulo;
-    
+
     public Long getId() {
         return id;
     }
@@ -187,55 +178,24 @@ public class AdjuntoProyectoFaseDTO implements Serializable {
     }
 
     // prettier-ignore
-   
-	public String getUrlFile() {
-		return urlFile;
-	}
-
-	public void setUrlFile(String urlFile) {
-		this.urlFile = urlFile;
-	}
-
-	public String getFile() {
-		return file;
-	}
-
-	public void setFile(String file) {
-		this.file = file;
-	}
-
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("AdjuntoProyectoFaseDTO [id=");
-		builder.append(id);
-		builder.append(", nombreAdjunto=");
-		builder.append(nombreAdjunto);
-		builder.append(", fechaCreacion=");
-		builder.append(fechaCreacion);
-		builder.append(", fechaModificacion=");
-		builder.append(fechaModificacion);
-		builder.append(", estadoAdjunto=");
-		builder.append(estadoAdjunto);
-		builder.append(", adjuntoProyectoFase=");
-		builder.append(adjuntoProyectoFase);
-		builder.append(", nombreArchivoOriginal=");
-		builder.append(nombreArchivoOriginal);
-		builder.append(", fechaInicio=");
-		builder.append(fechaInicio);
-		builder.append(", fechaFin=");
-		builder.append(fechaFin);
-		builder.append(", archivo=");
-		builder.append(Arrays.toString(archivo));
-		builder.append(", archivoContentType=");
-		builder.append(archivoContentType);
-		builder.append(", file=");
-		builder.append(file);
-		builder.append(", urlFile=");
-		builder.append(urlFile);
-		builder.append("]");
-		return builder.toString();
-	}
-	
-	
+    @Override
+    public String toString() {
+        return "AdjuntoProyectoFaseDTO{" +
+            "id=" + getId() +
+            ", nombreAdjunto='" + getNombreAdjunto() + "'" +
+            ", fechaCreacion='" + getFechaCreacion() + "'" +
+            ", fechaModificacion='" + getFechaModificacion() + "'" +
+            ", estadoAdjunto=" + getEstadoAdjunto() +
+            ", adjuntoProyectoFase='" + getAdjuntoProyectoFase() + "'" +
+            ", nombreArchivoOriginal='" + getNombreArchivoOriginal() + "'" +
+            ", fechaInicio='" + getFechaInicio() + "'" +
+            ", fechaFin='" + getFechaFin() + "'" +
+            ", archivo='" + getArchivo() + "'" +
+            ", archivoContentType='" + getArchivoContentType() + "'" +
+            ", adjuntoProyectoFaseProyectoFaseId=" + getAdjuntoProyectoFaseProyectoFaseId() +
+            ", adjuntoProyectoFaseProyectoFaseTitulo='" + getAdjuntoProyectoFaseProyectoFaseTitulo() + "'" +
+            ", proyectoFaseProyectoId=" + getProyectoFaseProyectoId() +
+            ", proyectoFaseProyectoTitulo='" + getProyectoFaseProyectoTitulo() + "'" +
+            "}";
+    }
 }
