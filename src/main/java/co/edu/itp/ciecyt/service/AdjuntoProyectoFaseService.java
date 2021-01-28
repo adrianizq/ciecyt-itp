@@ -1,11 +1,12 @@
 package co.edu.itp.ciecyt.service;
 
-import co.edu.itp.ciecyt.service.dto.AdjuntoProyectoFaseDTO;
+import java.util.Optional;
 
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.util.Optional;
+import co.edu.itp.ciecyt.service.dto.AdjuntoProyectoFaseDTO;
 
 /**
  * Service Interface for managing {@link co.edu.itp.ciecyt.domain.AdjuntoProyectoFase}.
@@ -51,4 +52,12 @@ public interface AdjuntoProyectoFaseService {
      * @param contentType
      */
     void attachFile(AdjuntoProyectoFaseDTO dto, byte[] file, String contentType);
+    
+    /**
+	 * Carga un archivo del directorio base 
+	 * @param dto
+	 * @return
+	 * @throws Exception
+	 */
+	Resource loadFileAsResource(AdjuntoProyectoFaseDTO dto) throws Exception;
 }
