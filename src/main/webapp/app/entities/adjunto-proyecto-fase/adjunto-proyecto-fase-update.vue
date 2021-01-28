@@ -110,7 +110,7 @@
 
                     <div class="form-group">
                    <!--<button  v-on:click="this.descargar">DownLoad</button>-->
-                   <button  @click="this.descargar" target="_blank" >DownLoad</button>
+                   <button v-if="adjuntoProyectoFase.file!=null" @click="this.descargar" target="_blank" >DownLoad</button>
                    
                   
                     </div> 
