@@ -46,4 +46,21 @@ export default class AdjuntoProyectoFaseService {
       });
     });
   }
+
+  public downloadFile(id?: any) {
+    axios({
+      url: baseApiUrl + `/downloadFile` + `/${id}`,
+      method: 'GET',
+      responseType: 'blob',
+    }).then(response => {
+      var fileURL = window.URL.createObjectURL(new Blob([response.data]));
+      var fileLink = document.createElement('a');
+
+      fileLink.href = fileURL;
+      fileLink.setAttribute('download', 'file.docx');
+      document.body.appendChild(fileLink);
+
+      fileLink.click();
+    });
+  }
 }

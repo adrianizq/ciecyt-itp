@@ -38,6 +38,10 @@ export default class AdjuntoProyectoFaseUpdate extends mixins(JhiDataUtils) {
   public proyectoFases: IProyectoFase[] = [];
   public isSaving = false;
 
+  descargar() {
+    console.log('se hizo clic');
+    this.adjuntoProyectoFaseService().downloadFile(1);
+  }
   beforeRouteEnter(to, from, next) {
     next(vm => {
       if (to.params.adjuntoProyectoFaseId) {

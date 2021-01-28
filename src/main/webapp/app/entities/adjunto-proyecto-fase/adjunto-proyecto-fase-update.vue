@@ -107,6 +107,13 @@
                         <input type="hidden" class="form-control" name="archivoContentType" id="adjunto-proyecto-fase-archivoContentType"
                             v-model="adjuntoProyectoFase.archivoContentType" />
                     </div>
+
+                    <div class="form-group">
+                   <!--<button  v-on:click="this.descargar">DownLoad</button>-->
+                   <button  @click="this.descargar" target="_blank" >DownLoad</button>
+                   
+                  
+                    </div> 
                     <!--
                     <div class="form-group">
                         <label class="form-control-label" v-text="$t('ciecytApp.adjuntoProyectoFase.fechaInicio')" for="adjunto-proyecto-fase-fechaInicio">Fecha Inicio</label>
