@@ -73,6 +73,9 @@ import InvestigacionTipoService from '@/entities/investigacion-tipo/investigacio
 import ProgramaService from '@/entities/programa/programa.service';
 // jhipster-needle-add-entity-service-to-main-import - JHipster will import entities services here
 
+//Complement model select
+import 'vue-search-select/dist/VueSearchSelect.css';
+
 Vue.config.productionTip = false;
 config.initVueApp(Vue);
 config.initFortAwesome(Vue);
