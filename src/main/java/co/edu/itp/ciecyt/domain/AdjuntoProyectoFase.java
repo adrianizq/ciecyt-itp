@@ -1,13 +1,11 @@
 package co.edu.itp.ciecyt.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import javax.persistence.*;
-
 import java.io.Serializable;
 import java.time.LocalDate;
+import javax.persistence.*;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A AdjuntoProyectoFase.
@@ -48,9 +46,9 @@ public class AdjuntoProyectoFase implements Serializable {
     @Column(name = "fecha_fin")
     private LocalDate fechaFin;
 
-    @Lob
+  
     @Column(name = "archivo")
-    private byte[] archivo;
+    private String archivo;
 
     @Column(name = "archivo_content_type")
     private String archivoContentType;
@@ -58,6 +56,10 @@ public class AdjuntoProyectoFase implements Serializable {
     @ManyToOne
     @JsonIgnoreProperties(value = "adjuntoProyectoFases", allowSetters = true)
     private ProyectoFase adjuntoProyectoFaseProyectoFase;
+
+    @ManyToOne
+    @JsonIgnoreProperties(value = "adjuntoProyectoFases", allowSetters = true)
+    private Proyecto proyectoFaseProyecto;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -172,26 +174,26 @@ public class AdjuntoProyectoFase implements Serializable {
         this.fechaFin = fechaFin;
     }
 
-    public byte[] getArchivo() {
+    public String getArchivo() {
         return archivo;
     }
 
-    public AdjuntoProyectoFase archivo(byte[] archivo) {
+    public AdjuntoProyectoFase archivo(String archivo) {
         this.archivo = archivo;
         return this;
     }
 
-    public void setArchivo(byte[] archivo) {
+    public void setArchivo(String archivo) {
         this.archivo = archivo;
+    }
+
+    public String getArchivoContentType() {
+        return archivoContentType;
     }
 
     public AdjuntoProyectoFase archivoContentType(String archivoContentType) {
         this.archivoContentType = archivoContentType;
         return this;
-    }
-
-    public String getArchivoContentType() {
-        return archivoContentType;
     }
 
     public void setArchivoContentType(String archivoContentType) {
@@ -210,6 +212,20 @@ public class AdjuntoProyectoFase implements Serializable {
     public void setAdjuntoProyectoFaseProyectoFase(ProyectoFase proyectoFase) {
         this.adjuntoProyectoFaseProyectoFase = proyectoFase;
     }
+
+    public Proyecto getProyectoFaseProyecto() {
+        return proyectoFaseProyecto;
+    }
+
+    public AdjuntoProyectoFase proyectoFaseProyecto(Proyecto proyecto) {
+        this.proyectoFaseProyecto = proyecto;
+        return this;
+    }
+
+    public void setProyectoFaseProyecto(Proyecto proyecto) {
+        this.proyectoFaseProyecto = proyecto;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -243,6 +259,7 @@ public class AdjuntoProyectoFase implements Serializable {
             ", fechaFin='" + getFechaFin() + "'" +
             ", archivo='" + getArchivo() + "'" +
             ", archivoContentType='" + getArchivoContentType() + "'" +
+           
             "}";
     }
 }

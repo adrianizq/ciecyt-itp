@@ -1,4 +1,6 @@
 import { Component, Vue, Inject } from 'vue-property-decorator';
+import { mixins } from 'vue-class-component';
+import JhiDataUtils from '@/shared/data/data-utils.service';
 
 import { numeric, required, minLength, maxLength } from 'vuelidate/lib/validators';
 
@@ -17,6 +19,7 @@ const validations: any = {
     estadoAdjunto: {},
     adjuntoProyectoFase: {},
     nombreArchivoOriginal: {},
+    archivo: {},
     fechaInicio: {},
     fechaFin: {},
   },
@@ -25,7 +28,7 @@ const validations: any = {
 @Component({
   validations,
 })
-export default class AdjuntoProyectoFaseUpdate extends Vue {
+export default class AdjuntoProyectoFaseUpdate extends mixins(JhiDataUtils) {
   @Inject('alertService') private alertService: () => AlertService;
   @Inject('adjuntoProyectoFaseService') private adjuntoProyectoFaseService: () => AdjuntoProyectoFaseService;
   public adjuntoProyectoFase: IAdjuntoProyectoFase = new AdjuntoProyectoFase();
@@ -35,6 +38,10 @@ export default class AdjuntoProyectoFaseUpdate extends Vue {
   public proyectoFases: IProyectoFase[] = [];
   public isSaving = false;
 
+  descargar() {
+    console.log('se hizo clic');
+    this.adjuntoProyectoFaseService().downloadFile(this.adjuntoProyectoFase.id);
+  }
   beforeRouteEnter(to, from, next) {
     next(vm => {
       if (to.params.adjuntoProyectoFaseId) {

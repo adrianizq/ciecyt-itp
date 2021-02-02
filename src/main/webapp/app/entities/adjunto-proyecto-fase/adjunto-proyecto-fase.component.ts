@@ -1,4 +1,5 @@
 import { mixins } from 'vue-class-component';
+import JhiDataUtils from '@/shared/data/data-utils.service';
 
 import { Component, Inject } from 'vue-property-decorator';
 import Vue2Filters from 'vue2-filters';
@@ -8,7 +9,7 @@ import AlertService from '@/shared/alert/alert.service';
 import AdjuntoProyectoFaseService from './adjunto-proyecto-fase.service';
 
 @Component
-export default class AdjuntoProyectoFase extends mixins(Vue2Filters.mixin) {
+export default class AdjuntoProyectoFase extends mixins(JhiDataUtils, Vue2Filters.mixin) {
   @Inject('alertService') private alertService: () => AlertService;
   @Inject('adjuntoProyectoFaseService') private adjuntoProyectoFaseService: () => AdjuntoProyectoFaseService;
   private removeId: number = null;

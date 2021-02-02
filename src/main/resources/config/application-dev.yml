@@ -47,9 +47,9 @@ spring:
     #url: jdbc:postgresql://10.10.13.7:5432/ciecyt_db
     #username: ciecyt_admin
     #password: ciecyt2020
-    url: jdbc:postgresql://localhost:5432/ciecyt3
+    url: jdbc:postgresql://localhost:5432/ciecyt_db
     username: postgres
-    password: adMin#1
+    password: adr45661
     hikari:
       poolName: Hikari
       auto-commit: false
@@ -137,26 +137,13 @@ jhipster:
 # ===================================================================
 
 # application:
-tomcatAjp:
-    port: 9030
-    remoteauthentication: false
-    enabled: false   
-    protocol: AJP/1.3
-    scheme: http
 
 application:
   upload:
     root:
       #dir: /home/jltovarg/test/dudo
-      dir: C://adr/ciecyt_backend_vue/files
-    organization:
-      dir: organizations
-    announcement:
-      dir: announcements
-    user:
-      dir: users
-    country:
-      dir: countries
-  #image-path: http://localhost/dudo
-  image-path: http://localhost/ciecyt
+      dir: C://adr/ciecyt_backend_vue
+    files:
+      dir: files
+  files-path: http://localhost/ciecyt
 

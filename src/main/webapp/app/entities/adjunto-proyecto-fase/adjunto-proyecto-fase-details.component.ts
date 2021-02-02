@@ -1,10 +1,12 @@
 import { Component, Vue, Inject } from 'vue-property-decorator';
+import { mixins } from 'vue-class-component';
 
 import { IAdjuntoProyectoFase } from '@/shared/model/adjunto-proyecto-fase.model';
 import AdjuntoProyectoFaseService from './adjunto-proyecto-fase.service';
+import JhiDataUtils from '@/shared/data/data-utils.service';
 
 @Component
-export default class AdjuntoProyectoFaseDetails extends Vue {
+export default class AdjuntoProyectoFaseDetails extends mixins(JhiDataUtils) {
   @Inject('adjuntoProyectoFaseService') private adjuntoProyectoFaseService: () => AdjuntoProyectoFaseService;
   public adjuntoProyectoFase: IAdjuntoProyectoFase = {};
 

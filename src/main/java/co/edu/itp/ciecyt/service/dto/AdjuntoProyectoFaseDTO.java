@@ -1,14 +1,14 @@
 package co.edu.itp.ciecyt.service.dto;
 
-import java.time.LocalDate;
 import java.io.Serializable;
+import java.time.LocalDate;
 import javax.persistence.Lob;
 
 /**
  * A DTO for the {@link co.edu.itp.ciecyt.domain.AdjuntoProyectoFase} entity.
  */
 public class AdjuntoProyectoFaseDTO implements Serializable {
-    
+
     private Long id;
 
     private String nombreAdjunto;
@@ -35,7 +35,15 @@ public class AdjuntoProyectoFaseDTO implements Serializable {
     private Long adjuntoProyectoFaseProyectoFaseId;
 
     private String adjuntoProyectoFaseProyectoFaseTitulo;
+
+    private Long proyectoFaseProyectoId;
+
+    private String proyectoFaseProyectoTitulo;
     
+    private String file;
+    
+    private String urlFile;
+
     public Long getId() {
         return id;
     }
@@ -140,6 +148,22 @@ public class AdjuntoProyectoFaseDTO implements Serializable {
         this.adjuntoProyectoFaseProyectoFaseTitulo = proyectoFaseTitulo;
     }
 
+    public Long getProyectoFaseProyectoId() {
+        return proyectoFaseProyectoId;
+    }
+
+    public void setProyectoFaseProyectoId(Long proyectoId) {
+        this.proyectoFaseProyectoId = proyectoId;
+    }
+
+    public String getProyectoFaseProyectoTitulo() {
+        return proyectoFaseProyectoTitulo;
+    }
+
+    public void setProyectoFaseProyectoTitulo(String proyectoTitulo) {
+        this.proyectoFaseProyectoTitulo = proyectoTitulo;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -174,6 +198,24 @@ public class AdjuntoProyectoFaseDTO implements Serializable {
             ", archivoContentType='" + getArchivoContentType() + "'" +
             ", adjuntoProyectoFaseProyectoFaseId=" + getAdjuntoProyectoFaseProyectoFaseId() +
             ", adjuntoProyectoFaseProyectoFaseTitulo='" + getAdjuntoProyectoFaseProyectoFaseTitulo() + "'" +
+            ", proyectoFaseProyectoId=" + getProyectoFaseProyectoId() +
+            ", proyectoFaseProyectoTitulo='" + getProyectoFaseProyectoTitulo() + "'" +
             "}";
     }
+
+	public String getFile() {
+		return file;
+	}
+
+	public void setFile(String file) {
+		this.file = file;
+	}
+
+	public String getUrlFile() {
+		return urlFile;
+	}
+
+	public void setUrlFile(String ulrFile) {
+		this.urlFile = ulrFile;
+	}
 }

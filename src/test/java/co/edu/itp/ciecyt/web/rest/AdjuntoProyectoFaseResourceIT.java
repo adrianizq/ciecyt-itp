@@ -1,12 +1,20 @@
 package co.edu.itp.ciecyt.web.rest;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
 import co.edu.itp.ciecyt.CiecytApp;
 import co.edu.itp.ciecyt.domain.AdjuntoProyectoFase;
 import co.edu.itp.ciecyt.repository.AdjuntoProyectoFaseRepository;
 import co.edu.itp.ciecyt.service.AdjuntoProyectoFaseService;
 import co.edu.itp.ciecyt.service.dto.AdjuntoProyectoFaseDTO;
 import co.edu.itp.ciecyt.service.mapper.AdjuntoProyectoFaseMapper;
-
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.List;
+import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,15 +25,6 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Base64Utils;
-import javax.persistence.EntityManager;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.hasItem;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
  * Integration tests for the {@link AdjuntoProyectoFaseResource} REST controller.
@@ -59,8 +58,10 @@ public class AdjuntoProyectoFaseResourceIT {
     private static final LocalDate DEFAULT_FECHA_FIN = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_FECHA_FIN = LocalDate.now(ZoneId.systemDefault());
 
-    private static final byte[] DEFAULT_ARCHIVO = TestUtil.createByteArray(1, "0");
-    private static final byte[] UPDATED_ARCHIVO = TestUtil.createByteArray(1, "1");
+    //private static final byte[] DEFAULT_ARCHIVO = TestUtil.createByteArray(1, "0");
+    private static final String DEFAULT_ARCHIVO = "1.png";
+    //private static final byte[] UPDATED_ARCHIVO = TestUtil.createByteArray(1, "1");
+    private static final String UPDATED_ARCHIVO = "2.png";
     private static final String DEFAULT_ARCHIVO_CONTENT_TYPE = "image/jpg";
     private static final String UPDATED_ARCHIVO_CONTENT_TYPE = "image/png";
 
@@ -101,10 +102,10 @@ public class AdjuntoProyectoFaseResourceIT {
             .fechaInicio(DEFAULT_FECHA_INICIO)
             .fechaFin(DEFAULT_FECHA_FIN)
             .archivo(DEFAULT_ARCHIVO)
-            .archivoContentType(DEFAULT_ARCHIVO_CONTENT_TYPE)
             .archivoContentType(DEFAULT_ARCHIVO_CONTENT_TYPE);
         return adjuntoProyectoFase;
     }
+
     /**
      * Create an updated entity for this test.
      *
@@ -138,9 +139,12 @@ public class AdjuntoProyectoFaseResourceIT {
         int databaseSizeBeforeCreate = adjuntoProyectoFaseRepository.findAll().size();
         // Create the AdjuntoProyectoFase
         AdjuntoProyectoFaseDTO adjuntoProyectoFaseDTO = adjuntoProyectoFaseMapper.toDto(adjuntoProyectoFase);
-        restAdjuntoProyectoFaseMockMvc.perform(post("/api/adjunto-proyecto-fases")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(adjuntoProyectoFaseDTO)))
+        restAdjuntoProyectoFaseMockMvc
+            .perform(
+                post("/api/adjunto-proyecto-fases")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(adjuntoProyectoFaseDTO))
+            )
             .andExpect(status().isCreated());
 
         // Validate the AdjuntoProyectoFase in the database
@@ -157,7 +161,6 @@ public class AdjuntoProyectoFaseResourceIT {
         assertThat(testAdjuntoProyectoFase.getFechaFin()).isEqualTo(DEFAULT_FECHA_FIN);
         assertThat(testAdjuntoProyectoFase.getArchivo()).isEqualTo(DEFAULT_ARCHIVO);
         assertThat(testAdjuntoProyectoFase.getArchivoContentType()).isEqualTo(DEFAULT_ARCHIVO_CONTENT_TYPE);
-        assertThat(testAdjuntoProyectoFase.getArchivoContentType()).isEqualTo(DEFAULT_ARCHIVO_CONTENT_TYPE);
     }
 
     @Test
@@ -170,16 +173,18 @@ public class AdjuntoProyectoFaseResourceIT {
         AdjuntoProyectoFaseDTO adjuntoProyectoFaseDTO = adjuntoProyectoFaseMapper.toDto(adjuntoProyectoFase);
 
         // An entity with an existing ID cannot be created, so this API call must fail
-        restAdjuntoProyectoFaseMockMvc.perform(post("/api/adjunto-proyecto-fases")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(adjuntoProyectoFaseDTO)))
+        restAdjuntoProyectoFaseMockMvc
+            .perform(
+                post("/api/adjunto-proyecto-fases")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(adjuntoProyectoFaseDTO))
+            )
             .andExpect(status().isBadRequest());
 
         // Validate the AdjuntoProyectoFase in the database
         List<AdjuntoProyectoFase> adjuntoProyectoFaseList = adjuntoProyectoFaseRepository.findAll();
         assertThat(adjuntoProyectoFaseList).hasSize(databaseSizeBeforeCreate);
     }
-
 
     @Test
     @Transactional
@@ -188,7 +193,8 @@ public class AdjuntoProyectoFaseResourceIT {
         adjuntoProyectoFaseRepository.saveAndFlush(adjuntoProyectoFase);
 
         // Get all the adjuntoProyectoFaseList
-        restAdjuntoProyectoFaseMockMvc.perform(get("/api/adjunto-proyecto-fases?sort=id,desc"))
+        restAdjuntoProyectoFaseMockMvc
+            .perform(get("/api/adjunto-proyecto-fases?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(adjuntoProyectoFase.getId().intValue())))
@@ -200,11 +206,11 @@ public class AdjuntoProyectoFaseResourceIT {
             .andExpect(jsonPath("$.[*].nombreArchivoOriginal").value(hasItem(DEFAULT_NOMBRE_ARCHIVO_ORIGINAL)))
             .andExpect(jsonPath("$.[*].fechaInicio").value(hasItem(DEFAULT_FECHA_INICIO.toString())))
             .andExpect(jsonPath("$.[*].fechaFin").value(hasItem(DEFAULT_FECHA_FIN.toString())))
-            .andExpect(jsonPath("$.[*].archivoContentType").value(hasItem(DEFAULT_ARCHIVO_CONTENT_TYPE)))
-            .andExpect(jsonPath("$.[*].archivo").value(hasItem(Base64Utils.encodeToString(DEFAULT_ARCHIVO))))
+            //.andExpect(jsonPath("$.[*].archivo").value(hasItem(Base64Utils.encodeToString(DEFAULT_ARCHIVO))))
+            .andExpect(jsonPath("$.[*].archivo").value(hasItem(DEFAULT_ARCHIVO)))
             .andExpect(jsonPath("$.[*].archivoContentType").value(hasItem(DEFAULT_ARCHIVO_CONTENT_TYPE)));
     }
-    
+
     @Test
     @Transactional
     public void getAdjuntoProyectoFase() throws Exception {
@@ -212,7 +218,8 @@ public class AdjuntoProyectoFaseResourceIT {
         adjuntoProyectoFaseRepository.saveAndFlush(adjuntoProyectoFase);
 
         // Get the adjuntoProyectoFase
-        restAdjuntoProyectoFaseMockMvc.perform(get("/api/adjunto-proyecto-fases/{id}", adjuntoProyectoFase.getId()))
+        restAdjuntoProyectoFaseMockMvc
+            .perform(get("/api/adjunto-proyecto-fases/{id}", adjuntoProyectoFase.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(adjuntoProyectoFase.getId().intValue()))
@@ -224,16 +231,16 @@ public class AdjuntoProyectoFaseResourceIT {
             .andExpect(jsonPath("$.nombreArchivoOriginal").value(DEFAULT_NOMBRE_ARCHIVO_ORIGINAL))
             .andExpect(jsonPath("$.fechaInicio").value(DEFAULT_FECHA_INICIO.toString()))
             .andExpect(jsonPath("$.fechaFin").value(DEFAULT_FECHA_FIN.toString()))
-            .andExpect(jsonPath("$.archivoContentType").value(DEFAULT_ARCHIVO_CONTENT_TYPE))
-            .andExpect(jsonPath("$.archivo").value(Base64Utils.encodeToString(DEFAULT_ARCHIVO)))
+            //.andExpect(jsonPath("$.archivo").value(Base64Utils.encodeToString(DEFAULT_ARCHIVO)))
+            .andExpect(jsonPath("$.archivo").value(DEFAULT_ARCHIVO))
             .andExpect(jsonPath("$.archivoContentType").value(DEFAULT_ARCHIVO_CONTENT_TYPE));
     }
+
     @Test
     @Transactional
     public void getNonExistingAdjuntoProyectoFase() throws Exception {
         // Get the adjuntoProyectoFase
-        restAdjuntoProyectoFaseMockMvc.perform(get("/api/adjunto-proyecto-fases/{id}", Long.MAX_VALUE))
-            .andExpect(status().isNotFound());
+        restAdjuntoProyectoFaseMockMvc.perform(get("/api/adjunto-proyecto-fases/{id}", Long.MAX_VALUE)).andExpect(status().isNotFound());
     }
 
     @Test
@@ -262,9 +269,12 @@ public class AdjuntoProyectoFaseResourceIT {
             .archivoContentType(UPDATED_ARCHIVO_CONTENT_TYPE);
         AdjuntoProyectoFaseDTO adjuntoProyectoFaseDTO = adjuntoProyectoFaseMapper.toDto(updatedAdjuntoProyectoFase);
 
-        restAdjuntoProyectoFaseMockMvc.perform(put("/api/adjunto-proyecto-fases")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(adjuntoProyectoFaseDTO)))
+        restAdjuntoProyectoFaseMockMvc
+            .perform(
+                put("/api/adjunto-proyecto-fases")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(adjuntoProyectoFaseDTO))
+            )
             .andExpect(status().isOk());
 
         // Validate the AdjuntoProyectoFase in the database
@@ -293,9 +303,12 @@ public class AdjuntoProyectoFaseResourceIT {
         AdjuntoProyectoFaseDTO adjuntoProyectoFaseDTO = adjuntoProyectoFaseMapper.toDto(adjuntoProyectoFase);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
-        restAdjuntoProyectoFaseMockMvc.perform(put("/api/adjunto-proyecto-fases")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(adjuntoProyectoFaseDTO)))
+        restAdjuntoProyectoFaseMockMvc
+            .perform(
+                put("/api/adjunto-proyecto-fases")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(adjuntoProyectoFaseDTO))
+            )
             .andExpect(status().isBadRequest());
 
         // Validate the AdjuntoProyectoFase in the database
@@ -312,8 +325,8 @@ public class AdjuntoProyectoFaseResourceIT {
         int databaseSizeBeforeDelete = adjuntoProyectoFaseRepository.findAll().size();
 
         // Delete the adjuntoProyectoFase
-        restAdjuntoProyectoFaseMockMvc.perform(delete("/api/adjunto-proyecto-fases/{id}", adjuntoProyectoFase.getId())
-            .accept(MediaType.APPLICATION_JSON))
+        restAdjuntoProyectoFaseMockMvc
+            .perform(delete("/api/adjunto-proyecto-fases/{id}", adjuntoProyectoFase.getId()).accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isNoContent());
 
         // Validate the database contains one less item
