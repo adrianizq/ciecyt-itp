@@ -45,17 +45,17 @@
   ],
   "relationships": [
     {
-      "relationshipType": "many-to-one",
-      "otherEntityName": "proyectoFase",
-      "otherEntityRelationshipName": "adjuntoProyectoFase",
-      "relationshipName": "adjuntoProyectoFaseProyectoFase",
-      "otherEntityField": "titulo"
-    },
-    {
       "relationshipName": "proyectoFaseProyecto",
       "otherEntityName": "proyecto",
       "relationshipType": "many-to-one",
       "otherEntityField": "titulo",
+      "otherEntityRelationshipName": "adjuntoProyectoFase"
+    },
+    {
+      "relationshipName": "adjuntoProyectoFaseFase",
+      "otherEntityName": "fases",
+      "relationshipType": "many-to-one",
+      "otherEntityField": "fase",
       "otherEntityRelationshipName": "adjuntoProyectoFase"
     }
   ],

@@ -64,6 +64,9 @@ public class Proyecto implements Serializable {
     @Column(name = "programa")
     private String programa;
 
+    @Column(name = "fase")
+    private String fase;
+
     @Column(name = "departamento")
     private String departamento;
 
@@ -118,6 +121,10 @@ public class Proyecto implements Serializable {
     @ManyToOne
     @JsonIgnoreProperties(value = "proyectos", allowSetters = true)
     private Programa proyectoPrograma;
+
+    @ManyToOne
+    @JsonIgnoreProperties(value = "proyectos", allowSetters = true)
+    private Fases proyectoFase;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -290,6 +297,20 @@ public class Proyecto implements Serializable {
 
     public Proyecto programa(String programa) {
         this.programa = programa;
+        return this;
+    }
+
+    public void setFase(String fase) {
+        this.fase = fase;
+    }
+
+
+    public String getFase() {
+        return fase;
+    }
+
+    public Proyecto fase(String fase) {
+        this.fase = fase;
         return this;
     }
 
@@ -506,6 +527,21 @@ public class Proyecto implements Serializable {
 
     public void setProyectoPrograma(Programa programa) {
         this.proyectoPrograma = programa;
+    }
+
+
+
+    public Fases getProyectoFase() {
+        return proyectoFase;
+    }
+
+    public Proyecto proyectoFase(Fases fase) {
+        this.proyectoFase = fase;
+        return this;
+    }
+
+    public void setProyectoFase(Fases fase) {
+        this.proyectoFase = fase;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

@@ -15,6 +15,24 @@ export default class FasesService {
     });
   }
 
+  public retrieveFaseModalidad(fase: string, idModalidad: number): Promise<IFases> {
+    return new Promise<IFases>(resolve => {
+      axios.get(`api/fase-modalidad/${fase}/${idModalidad}`).then(function (res) {
+        resolve(res.data);
+      });
+    });
+  }
+
+  public retrieveFaseModalidadId(idModalidad: number): Promise<any> {
+    return new Promise<any>(resolve => {
+      axios.get(`api/fase-modalidad/${idModalidad}`).then(function (res) {
+        resolve(res);
+      });
+    });
+  }
+
+  //////buscar las fasesPorModalidad
+
   public retrieve(paginationQuery?: any): Promise<any> {
     return new Promise<any>(resolve => {
       axios.get(baseApiUrl + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function (res) {
@@ -42,14 +60,6 @@ export default class FasesService {
   public update(entity: IFases): Promise<IFases> {
     return new Promise<IFases>(resolve => {
       axios.put(`${baseApiUrl}`, entity).then(function (res) {
-        resolve(res.data);
-      });
-    });
-  }
-
-  public retrieveFaseModalidad(fase: string, idModalidad: number): Promise<IFases> {
-    return new Promise<IFases>(resolve => {
-      axios.get(`api/fase-modalidad/${fase}/${idModalidad}`).then(function (res) {
         resolve(res.data);
       });
     });

@@ -8,17 +8,17 @@
     -->
     <changeSet id="20201008033203-2" author="jhipster">
         
-        <addForeignKeyConstraint baseColumnNames="adjunto_proyecto_fase_proyecto_fase_id"
-                                 baseTableName="adjunto_proyecto_fase"
-                                 constraintName="adjunto_proyecto_fase_adjunto_proyecto_fase_proyecto_fase_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="proyecto_fase"/>
-
         <addForeignKeyConstraint baseColumnNames="proyecto_fase_proyecto_id"
                                  baseTableName="adjunto_proyecto_fase"
                                  constraintName="fk_adjunto_proyecto_fase_proyecto_fase_proyecto_id"
                                  referencedColumnNames="id"
                                  referencedTableName="proyecto"/>
+
+        <addForeignKeyConstraint baseColumnNames="adjunto_proyecto_fase_fase_id"
+                                 baseTableName="adjunto_proyecto_fase"
+                                 constraintName="fk_adjunto_proyecto_fase_adjunto_proyecto_fase_fase_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="fases"/>
 
     </changeSet>
 </databaseChangeLog>

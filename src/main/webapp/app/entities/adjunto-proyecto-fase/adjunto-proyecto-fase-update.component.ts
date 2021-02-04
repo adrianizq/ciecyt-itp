@@ -4,8 +4,10 @@ import JhiDataUtils from '@/shared/data/data-utils.service';
 
 import { numeric, required, minLength, maxLength } from 'vuelidate/lib/validators';
 
-import ProyectoFaseService from '../proyecto-fase/proyecto-fase.service';
-import { IProyectoFase } from '@/shared/model/proyecto-fase.model';
+import FasesService from '../fases/fases.service';
+import { IFases, Fases } from '@/shared/model/fases.model';
+import ProyectoService from '../proyecto/proyecto.service';
+import { IProyecto, Proyecto } from '@/shared/model/proyecto.model';
 
 import AlertService from '@/shared/alert/alert.service';
 import { IAdjuntoProyectoFase, AdjuntoProyectoFase } from '@/shared/model/adjunto-proyecto-fase.model';
@@ -31,15 +33,19 @@ const validations: any = {
 export default class AdjuntoProyectoFaseUpdate extends mixins(JhiDataUtils) {
   @Inject('alertService') private alertService: () => AlertService;
   @Inject('adjuntoProyectoFaseService') private adjuntoProyectoFaseService: () => AdjuntoProyectoFaseService;
+  @Inject('fasesService') private fasesService: () => FasesService;
+  @Inject('proyectoService') private proyectoService: () => ProyectoService;
+
   public adjuntoProyectoFase: IAdjuntoProyectoFase = new AdjuntoProyectoFase();
 
-  @Inject('proyectoFaseService') private proyectoFaseService: () => ProyectoFaseService;
-
-  public proyectoFases: IProyectoFase[] = [];
+  public fases: IFases[] = [];
   public isSaving = false;
+  public proyecto: IProyecto = new Proyecto();
+  public proyId: string = null;
+  public modalidadId: number;
 
   descargar() {
-    console.log('se hizo clic');
+    //console.log('se hizo clic');
     this.adjuntoProyectoFaseService().downloadFile(this.adjuntoProyectoFase.id);
   }
   beforeRouteEnter(to, from, next) {
@@ -74,7 +80,7 @@ export default class AdjuntoProyectoFaseUpdate extends mixins(JhiDataUtils) {
     }
   }
 
-  public retrieveAdjuntoProyectoFase(adjuntoProyectoFaseId): void {
+  public retrieveAdjuntoProyectoFase(adjuntoProyectoFaseId: any): void {
     this.adjuntoProyectoFaseService()
       .find(adjuntoProyectoFaseId)
       .then(res => {
@@ -86,11 +92,22 @@ export default class AdjuntoProyectoFaseUpdate extends mixins(JhiDataUtils) {
     this.$router.go(-1);
   }
 
-  public initRelationships(): void {
-    this.proyectoFaseService()
+  initRelationships() {
+    this.proyId = this.$route.params.proyectoId;
+
+    /*let res = await this.proyectoService()
+    .findProyectoIntegrantes(parseInt(this.$route.params.proyectoId))
+      //.find(parseInt(this.$route.params.proyectoId))
+      .then(res => {
+        this.proyecto = res.data;
+        this.modalidadId = this.proyecto.proyectoModalidadId;
+        
+      });*/
+
+    this.fasesService()
       .retrieve()
       .then(res => {
-        this.proyectoFases = res.data;
+        this.fases = res;
       });
   }
 }

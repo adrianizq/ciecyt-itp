@@ -34,7 +34,7 @@
                     <th v-on:click="changeOrder('archivo')"><span v-text="$t('ciecytApp.adjuntoProyectoFase.archivo')">Archivo</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'archivo'"></jhi-sort-indicator></th>
                     <th v-on:click="changeOrder('fechaInicio')"><span v-text="$t('ciecytApp.adjuntoProyectoFase.fechaInicio')">Fecha Inicio</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th v-on:click="changeOrder('fechaFin')"><span v-text="$t('ciecytApp.adjuntoProyectoFase.fechaFin')">Fecha Fin</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
-                    <th v-on:click="changeOrder('adjuntoProyectoFaseProyectoFaseTitulo')"><span v-text="$t('ciecytApp.adjuntoProyectoFase.adjuntoProyectoFaseProyectoFase')">Adjunto Proyecto Fase Proyecto Fase</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
+                    <th v-on:click="changeOrder('adjuntoProyectoFaseFaseFase')"><span v-text="$t('ciecytApp.adjuntoProyectoFase.adjuntoProyectoFaseFase')">Adjunto Proyecto Fase  Fase</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th></th>
                 </tr>
                 </thead>
@@ -57,8 +57,8 @@
                     <td>{{adjuntoProyectoFase.fechaInicio}}</td>
                     <td>{{adjuntoProyectoFase.fechaFin}}</td>
                     <td>
-                        <div v-if="adjuntoProyectoFase.adjuntoProyectoFaseProyectoFaseId">
-                            <router-link :to="{name: 'ProyectoFaseView', params: {adjuntoProyectoFaseProyectoFaseId: adjuntoProyectoFase.adjuntoProyectoFaseProyectoFaseId}}">{{adjuntoProyectoFase.adjuntoProyectoFaseProyectoFaseTitulo}}</router-link>
+                        <div v-if="adjuntoProyectoFase.adjuntoProyectoFaseFaseId">
+                            <router-link :to="{name: 'ProyectoFaseView', params: {adjuntoProyectoFaseFaseId: adjuntoProyectoFase.adjuntoProyectoFaseFaseId}}">{{adjuntoProyectoFase.adjuntoProyectoFaseFaseFase}}</router-link>
                         </div>
                     </td>
                     <td class="text-right">

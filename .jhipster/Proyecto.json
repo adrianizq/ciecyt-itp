@@ -144,6 +144,13 @@
       "relationshipType": "many-to-one",
       "otherEntityField": "programa",
       "otherEntityRelationshipName": "proyecto"
+    },
+    {
+      "relationshipName": "proyectoFases",
+      "otherEntityName": "fases",
+      "relationshipType": "many-to-one",
+      "otherEntityField": "fase",
+      "otherEntityRelationshipName": "proyecto"
     }
   ],
   "changelogDate": "20201008035903",

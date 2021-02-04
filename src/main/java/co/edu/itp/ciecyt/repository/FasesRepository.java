@@ -14,5 +14,6 @@ import java.util.List;
 @Repository
 public interface FasesRepository extends JpaRepository<Fases, Long> {
       Fases findByFaseAndFasesModalidadId(String fase, Long idModalidad);
+      List<Fases> findByFasesModalidadId(Long idModalidad);
 
 }

@@ -63,4 +63,12 @@ export default class AdjuntoProyectoFaseService {
       fileLink.click();
     });
   }
+
+  public findAdjuntoProyectoFase(idProyecto?: any, idFase?: any): Promise<IAdjuntoProyectoFase> {
+    return new Promise<IAdjuntoProyectoFase>(resolve => {
+      axios.get(baseApiUrl + `/traer` + `/${idProyecto}` + `/${idFase}`).then(function (res) {
+        resolve(res.data);
+      });
+    });
+  }
 }

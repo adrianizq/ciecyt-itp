@@ -48,10 +48,10 @@
             <column name="archivo_content_type" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="adjunto_proyecto_fase_proyecto_fase_id" type="bigint">
+            <column name="proyecto_fase_proyecto_id" type="bigint">
                 <constraints nullable="true" />
             </column>
-            <column name="proyecto_fase_proyecto_id" type="bigint">
+            <column name="adjunto_proyecto_fase_fase_id" type="bigint">
                 <constraints nullable="true" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->

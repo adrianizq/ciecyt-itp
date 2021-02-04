@@ -9,7 +9,7 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity {@link Proyecto} and its DTO {@link ProyectoDTO}.
  */
-@Mapper(componentModel = "spring", uses = {LineaInvestigacionMapper.class, GrupoSemilleroMapper.class, ModalidadMapper.class, FacultadMapper.class, ProgramaMapper.class})
+@Mapper(componentModel = "spring", uses = {LineaInvestigacionMapper.class, GrupoSemilleroMapper.class, ModalidadMapper.class, FacultadMapper.class, ProgramaMapper.class,FasesMapper.class })
 public interface ProyectoMapper extends EntityMapper<ProyectoDTO, Proyecto> {
 
     @Mapping(source = "proyectoLineaInvestigacion.id", target = "proyectoLineaInvestigacionId")
@@ -23,6 +23,8 @@ public interface ProyectoMapper extends EntityMapper<ProyectoDTO, Proyecto> {
     @Mapping(source = "subLineaLineaInvestigacion.linea", target = "subLineaLineaInvestigacionLinea")
     @Mapping(source = "proyectoPrograma.id", target = "proyectoProgramaId")
     @Mapping(source = "proyectoPrograma.programa", target = "programa")
+    @Mapping(source = "proyectoFase.id", target = "proyectoFaseId")
+    @Mapping(source = "proyectoFase.fase", target = "fase")
     ProyectoDTO toDto(Proyecto proyecto);
 
     @Mapping(source = "proyectoLineaInvestigacionId", target = "proyectoLineaInvestigacion")
@@ -31,6 +33,7 @@ public interface ProyectoMapper extends EntityMapper<ProyectoDTO, Proyecto> {
     @Mapping(source = "facultadId", target = "facultad")
     @Mapping(source = "subLineaLineaInvestigacionId", target = "subLineaLineaInvestigacion")
     @Mapping(source = "proyectoProgramaId", target = "proyectoPrograma")
+    @Mapping(source = "proyectoFaseId", target = "proyectoFase")
     Proyecto toEntity(ProyectoDTO proyectoDTO);
 
     default Proyecto fromId(Long id) {

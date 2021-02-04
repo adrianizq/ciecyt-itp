@@ -62,11 +62,11 @@
                         <span>{{adjuntoProyectoFase.fechaFin}}</span>
                     </dd>
                     <dt>
-                        <span v-text="$t('ciecytApp.adjuntoProyectoFase.adjuntoProyectoFaseProyectoFase')">Adjunto Proyecto Fase Proyecto Fase</span>
+                        <span v-text="$t('ciecytApp.adjuntoProyectoFase.adjuntoProyectoFaseFase')">Adjunto Proyecto Fase Proyecto Fase</span>
                     </dt>
                     <dd>
-                        <div v-if="adjuntoProyectoFase.adjuntoProyectoFaseProyectoFaseId">
-                            <router-link :to="{name: 'ProyectoFaseView', params: {adjuntoProyectoFaseProyectoFaseId: adjuntoProyectoFase.adjuntoProyectoFaseProyectoFaseId}}">{{adjuntoProyectoFase.adjuntoProyectoFaseProyectoFaseTitulo}}</router-link>
+                        <div v-if="adjuntoProyectoFase.adjuntoProyectoFaseFaseId">
+                            <router-link :to="{name: 'ProyectoFaseView', params: {adjuntoProyectoFaseFaseId: adjuntoProyectoFase.adjuntoProyectoFaseFaseId}}">{{adjuntoProyectoFase.adjuntoProyectoFaseFaseFase}}</router-link>
                         </div>
                     </dd>
                 </dl>

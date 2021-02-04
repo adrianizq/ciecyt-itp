@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -48,4 +49,7 @@ public interface FasesService {
 
     @Transactional(readOnly = true)
     FasesDTO findByFaseAndFasesModalidadId(String fase, Long idModalidad) throws Exception;
+
+    @Transactional(readOnly = true)
+    public List<FasesDTO> findByFasesModalidadId(Long idModalidad) throws Exception;
 }

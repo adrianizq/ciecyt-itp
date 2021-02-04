@@ -3,7 +3,8 @@
     <div class="col-sm-4">
       <menu-lateral :proyectoId="$route.params.proyectoId"></menu-lateral>
     </div>
-    <div class="col-sm-8"  v-if="!proyecto.enviado">
+    <!--<div class="col-sm-8"  v-if="!proyecto.enviado"> -->
+    <div class="col-sm-8">
       <form @submit.prevent="save()">
         <div class="row">
           <div class="col-12">
@@ -39,6 +40,33 @@
               </b-form-checkbox>
             </div>
           </div>
+
+                    <!-------------------------DESCARGAR ----------------------->
+                     <div class="form-group">
+                        <label class="form-control-label" v-text="$t('ciecytApp.adjuntoProyectoFase.archivo')" for="adjunto-proyecto-fase-archivo">Archivo</label>
+                        <div>
+                           <div v-if="adjuntoProyectoFase.file" class="form-text text-danger clearfix">
+                           <!--<div class="form-text text-danger clearfix">-->
+                               <a class="pull-left" v-on:click="this.descargar" v-text="$t('entity.action.open')">open</a><br> 
+                                <!--<a class="pull-left" v-on:click="this.descargar">open</a><br></br>-->
+                                <span class="pull-left">{{adjuntoProyectoFase.archivoContentType}}, {{adjuntoProyectoFase.file}}, {{byteSize(adjuntoProyectoFase.file)}}</span>
+                                <!--de cerrar-->
+                                <!--<button type="button" v-on:click="adjuntoProyectoFase.file=null;adjuntoProyectoFase.archivoContentType=null;"
+                                        class="btn btn-secondary btn-xs pull-right">
+                                    <font-awesome-icon icon="times"></font-awesome-icon>
+                                </button> -->
+                            </div>
+                            <!--  boton seleccionar archivo -->
+                            <input type="file" ref="file_archivo" id="file_archivo" v-on:change="setFileData($event, adjuntoProyectoFase, 'archivo', false)" v-text="$t('entity.action.addblob')"/>
+                        </div>
+                        
+                        <input type="hidden" class="form-control" name="archivo" id="adjunto-proyecto-fase-archivo"
+                            :class="{'valid': !$v.adjuntoProyectoFase.archivo.$invalid, 'invalid': $v.adjuntoProyectoFase.archivo.$invalid }" v-model="$v.adjuntoProyectoFase.archivo.$model" />
+                        <input type="hidden" class="form-control" name="archivoContentType" id="adjunto-proyecto-fase-archivoContentType"
+                            v-model="adjuntoProyectoFase.archivoContentType" />
+                            
+                    </div>
+          <!---------------------------->
         </div>
 
         <div>
@@ -52,11 +80,11 @@
         </div>
       </form>
     </div>
-    <div class="col-sm-8"  v-if="proyecto.enviado">
+   <!--<div class="col-sm-8"  v-if="proyecto.enviado">
      <h2>Enviar la Propuesta</h2><br />
     La Propuesta ya ha sido enviada para su revisión
-    </div>
-  </div>
+    </div> -->
+  </div> 
 </template>
 
 <script lang="ts">
@@ -65,30 +93,68 @@ import { Component, Inject, Vue } from 'vue-property-decorator';
 import MenuLateral from '@/components/propuesta/menu_lateral.vue';
 import { IProyecto, Proyecto } from '@/shared/model/proyecto.model';
 import { IUser } from '@/shared/model/user.model';
+import { mixins } from 'vue-class-component';
+import JhiDataUtils from '@/shared/data/data-utils.service';
 
 import ProyectoService from '@/entities/proyecto/proyecto.service';
 import AlertService from '@/shared/alert/alert.service';
 import { IIntegranteProyecto } from '@/shared/model/integrante-proyecto.model';
+import { IAdjuntoProyectoFase, AdjuntoProyectoFase } from '@/shared/model/adjunto-proyecto-fase.model';
+import AdjuntoProyectoFaseService from '@/entities/adjunto-proyecto-fase/adjunto-proyecto-fase.service';
+
+import { IFases, Fases } from '@/shared/model/fases.model';
+import FasesService from '@/entities/fases/fases.service';
+import { resolve4 } from 'dns';
+
+const validations: any = {
+  adjuntoProyectoFase: {
+    nombreAdjunto: {},
+    fechaCreacion: {},
+    fechaModificacion: {},
+    estadoAdjunto: {},
+    adjuntoProyectoFase: {},
+    nombreArchivoOriginal: {},
+    archivo: {},
+    fechaInicio: {},
+    fechaFin: {},
+  },
+};
 
 @Component({
-  components: { MenuLateral },
+  validations, components: { MenuLateral },
 })
-export default class EnviarPropuesta extends Vue {
+
+//export default class EnviarPropuesta extends Vue {
+  export default class EnviarPropuesta extends mixins(JhiDataUtils){
   @Inject('proyectoService') private proyectoService: () => ProyectoService;
+  @Inject('adjuntoProyectoFaseService') private adjuntoProyectoFaseService: () => AdjuntoProyectoFaseService;
+  @Inject('fasesService') private fasesService: () => FasesService;
   @Inject('alertService') private alertService: () => AlertService;
+  
+  public adjuntoProyectoFase: IAdjuntoProyectoFase = new AdjuntoProyectoFase();
 
   public integrants:IIntegranteProyecto[]= [];
+   public fase:IFases= new Fases();
+   // public fases: IFases = new Fases();
+   public faseId:number;
   public terms:Boolean=false;
 
 
   public proyecto: IProyecto = new Proyecto();
   public proyId: string = null;
   public isSaving = false;
+  public modalidadId: any;
+  
+
+  descargar() {
+    //console.log('se hizo clic');
+    this.adjuntoProyectoFaseService().downloadFile(this.adjuntoProyectoFase.id);
+  }
 
   beforeRouteEnter(to, from, next) {
     next(vm => {
       if (to.params.proyectoId) {
-        vm.retrieveProyecto(to.params.proyectoId);
+        //vm.retrieveProyecto(to.params.proyectoId);
       }
       vm.initRelationships();
     });
@@ -102,18 +168,16 @@ export default class EnviarPropuesta extends Vue {
 
   public save(): void {
     this.isSaving = true;
-    //calcular la fecha actual para guardarla en
-    //proyecto.fechaEnvioPropuesta
-
-    this.proyecto.fechaEnvioPropuesta = new Date();
+ 
+   /*
+   this.proyecto.fechaEnvioPropuesta = new Date();
     this.proyecto.enviado = true;
-
+    
     if (this.proyecto.id) {
       this.proyectoService()
         .update(this.proyecto)
         .then(param => {
           this.isSaving = false;
-          //this.$router.push({ name: 'PropuestaIntegrantesView', params: { proyectoId: this.proyecto.id.toString() } });
           (<any>this).$router.go(0);
           const message = this.$t('ciecytApp.proyecto.updated', { param: param.id });
           this.alertService().showAlert(message, 'info');
@@ -126,35 +190,72 @@ export default class EnviarPropuesta extends Vue {
 
           this.proyId = String(param.id);
 
-          // this.$router.push({ name: 'PropuestaIntegrantesView', params: { proyectoId: this.proyId } });
           (<any>this).$router.go(0);
 
           const message = 'Se ha creado un nuevo proyecto';
           this.alertService().showAlert(message, 'success');
         });
     }
-    //this.submitStatus = 'PENDING';
-    //setTimeout(() => {
-    //  this.submitStatus = 'OK';
-    //}, 500);
-    //}
-    // console.log(this.submitStatus);
+*/
+    this.adjuntoProyectoFase.proyectoFaseProyectoId = this.proyecto.id;
+    this.adjuntoProyectoFase.adjuntoProyectoFaseFaseId = this.faseId;
+    
+    if(this.adjuntoProyectoFase.id) {
+     console.log("Existe el adjunto");
+      this.adjuntoProyectoFaseService()
+        .update(this.adjuntoProyectoFase)
+        .then(param => {
+            (<any>this).$router.go(0);
+          const message = this.$t('ciecytApp.adjuntoProyectoFase.updated', { param: param.id });
+          this.alertService().showAlert(message, 'info');
+        });
+    } else {
+      console.log("NO Existe el adjunto");
+      this.adjuntoProyectoFaseService()
+        .create(this.adjuntoProyectoFase)
+        .then(param => {
+          this.isSaving = false;
+           (<any>this).$router.go(0);
+          const message = this.$t('ciecytApp.adjuntoProyectoFase.created', { param: param.id });
+          this.alertService().showAlert(message, 'success');
+        });
+    }
+    //fin el guardar el adjunto
+
+    
+
+    
   }
 
-  retrieveProyecto() {
-    this.proyectoService()
+  
+  
+  async initRelationships() {
+    this.proyId = this.$route.params.proyectoId;
+
+     let res = await this.proyectoService()
     .findProyectoIntegrantes(parseInt(this.$route.params.proyectoId))
       //.find(parseInt(this.$route.params.proyectoId))
       .then(res => {
         this.proyecto = res.data;
+        this.modalidadId = this.proyecto.proyectoModalidadId;
         this.integrants = this.proyecto.listaIntegrantesProyecto;
-        console.log( res.data.listaIntegrantesProyecto);
+        
         
       });
-  }
 
-  initRelationships() {
-    this.proyId = this.$route.params.proyectoId;
+      res=  await this.fasesService().retrieveFaseModalidad("Propuesta", this.modalidadId)
+      .then(res => {
+        this.fase = res;  
+        
+      });
+
+
+      res=  await this.adjuntoProyectoFaseService()
+      .findAdjuntoProyectoFase(this.proyId,  this.fase.id)
+      .then(res => {
+        this.adjuntoProyectoFase = res;
+      });
+      
   }
 
   get isDisabled(){

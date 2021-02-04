@@ -1,7 +1,10 @@
 package co.edu.itp.ciecyt.service;
 
+import java.util.List;
 import java.util.Optional;
 
+import co.edu.itp.ciecyt.domain.IntegranteProyecto;
+import co.edu.itp.ciecyt.repository.AdjuntoProyectoFaseRepository;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -44,7 +47,7 @@ public interface AdjuntoProyectoFaseService {
      * @param id the id of the entity.
      */
     void delete(Long id);
-    
+
     /**
      * Carga un archivo al directorio de adjuntos de los proyectos
      * @param dto
@@ -52,12 +55,14 @@ public interface AdjuntoProyectoFaseService {
      * @param contentType
      */
     void attachFile(AdjuntoProyectoFaseDTO dto, byte[] file, String contentType);
-    
+
     /**
-	 * Carga un archivo del directorio base 
+	 * Carga un archivo del directorio base
 	 * @param dto
 	 * @return
 	 * @throws Exception
 	 */
 	Resource loadFileAsResource(AdjuntoProyectoFaseDTO dto) throws Exception;
+
+    List<AdjuntoProyectoFaseDTO> findByProyectoFaseProyectoIdAndAdjuntoProyectoFaseFaseId(Long idProyecto, Long idFase) throws Exception;
 }

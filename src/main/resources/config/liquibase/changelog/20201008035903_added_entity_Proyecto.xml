@@ -102,6 +102,9 @@
             <column name="proyecto_programa_id" type="bigint">
                 <constraints nullable="true" />
             </column>
+            <column name="proyecto_fases_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
         <dropDefaultValue tableName="proyecto" columnName="fecha_envio_propuesta" columnDataType="datetime"/>

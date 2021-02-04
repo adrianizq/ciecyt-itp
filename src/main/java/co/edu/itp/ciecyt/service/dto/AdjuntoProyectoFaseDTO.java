@@ -1,7 +1,11 @@
 package co.edu.itp.ciecyt.service.dto;
 
-import java.io.Serializable;
+
+
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.io.Serializable;
+import javax.persistence.Lob;
 import javax.persistence.Lob;
 
 /**
@@ -32,16 +36,17 @@ public class AdjuntoProyectoFaseDTO implements Serializable {
 
     private String archivoContentType;
 
-    private Long adjuntoProyectoFaseProyectoFaseId;
-
-    private String adjuntoProyectoFaseProyectoFaseTitulo;
-
     private Long proyectoFaseProyectoId;
 
     private String proyectoFaseProyectoTitulo;
-    
+
+    private Long adjuntoProyectoFaseFaseId;
+
+    private String adjuntoProyectoFaseFaseFase;
+
+   //Campo para el mapeo del archivo
     private String file;
-    
+
     private String urlFile;
 
     public Long getId() {
@@ -124,28 +129,13 @@ public class AdjuntoProyectoFaseDTO implements Serializable {
         this.archivo = archivo;
     }
 
+
     public String getArchivoContentType() {
         return archivoContentType;
     }
 
     public void setArchivoContentType(String archivoContentType) {
         this.archivoContentType = archivoContentType;
-    }
-
-    public Long getAdjuntoProyectoFaseProyectoFaseId() {
-        return adjuntoProyectoFaseProyectoFaseId;
-    }
-
-    public void setAdjuntoProyectoFaseProyectoFaseId(Long proyectoFaseId) {
-        this.adjuntoProyectoFaseProyectoFaseId = proyectoFaseId;
-    }
-
-    public String getAdjuntoProyectoFaseProyectoFaseTitulo() {
-        return adjuntoProyectoFaseProyectoFaseTitulo;
-    }
-
-    public void setAdjuntoProyectoFaseProyectoFaseTitulo(String proyectoFaseTitulo) {
-        this.adjuntoProyectoFaseProyectoFaseTitulo = proyectoFaseTitulo;
     }
 
     public Long getProyectoFaseProyectoId() {
@@ -164,6 +154,38 @@ public class AdjuntoProyectoFaseDTO implements Serializable {
         this.proyectoFaseProyectoTitulo = proyectoTitulo;
     }
 
+    public Long getAdjuntoProyectoFaseFaseId() {
+        return adjuntoProyectoFaseFaseId;
+    }
+
+    public void setAdjuntoProyectoFaseFaseId(Long fasesId) {
+        this.adjuntoProyectoFaseFaseId = fasesId;
+    }
+
+    public String getAdjuntoProyectoFaseFaseFase() {
+        return adjuntoProyectoFaseFaseFase;
+    }
+
+    public void setAdjuntoProyectoFaseFaseFase(String fasesFase) {
+        this.adjuntoProyectoFaseFaseFase = fasesFase;
+    }
+
+    public String getFile() {
+        return file;
+    }
+
+    public void setFile(String file) {
+        this.file = file;
+    }
+
+    public String getUrlFile() {
+        return urlFile;
+    }
+
+    public void setUrlFile(String urlFile) {
+        this.urlFile = urlFile;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -176,7 +198,7 @@ public class AdjuntoProyectoFaseDTO implements Serializable {
         return id != null && id.equals(((AdjuntoProyectoFaseDTO) o).id);
     }
 
-    @Override
+   /* @Override
     public int hashCode() {
         return 31;
     }
@@ -196,26 +218,56 @@ public class AdjuntoProyectoFaseDTO implements Serializable {
             ", fechaFin='" + getFechaFin() + "'" +
             ", archivo='" + getArchivo() + "'" +
             ", archivoContentType='" + getArchivoContentType() + "'" +
-            ", adjuntoProyectoFaseProyectoFaseId=" + getAdjuntoProyectoFaseProyectoFaseId() +
-            ", adjuntoProyectoFaseProyectoFaseTitulo='" + getAdjuntoProyectoFaseProyectoFaseTitulo() + "'" +
             ", proyectoFaseProyectoId=" + getProyectoFaseProyectoId() +
             ", proyectoFaseProyectoTitulo='" + getProyectoFaseProyectoTitulo() + "'" +
+            ", adjuntoProyectoFaseFaseId=" + getAdjuntoProyectoFaseFaseId() +
+            ", adjuntoProyectoFaseFaseFase='" + getAdjuntoProyectoFaseFaseFase() + "'" +
             "}";
-    }
+    }*/
+   @Override
+   public String toString() {
+       StringBuilder builder = new StringBuilder();
+       builder.append("AdjuntoProyectoFaseDTO [id=");
+       builder.append(id);
+       builder.append(", nombreAdjunto=");
+       builder.append(nombreAdjunto);
+       builder.append(", fechaCreacion=");
+       builder.append(fechaCreacion);
+       builder.append(", fechaModificacion=");
+       builder.append(fechaModificacion);
+       builder.append(", estadoAdjunto=");
+       builder.append(estadoAdjunto);
+       builder.append(", adjuntoProyectoFase=");
+       builder.append(adjuntoProyectoFase);
+       builder.append(", nombreArchivoOriginal=");
+       builder.append(nombreArchivoOriginal);
+       builder.append(", fechaInicio=");
+       builder.append(fechaInicio);
+       builder.append(", fechaFin=");
+       builder.append(fechaFin);
+       builder.append(", archivo=");
+       builder.append(Arrays.toString(archivo));
+       builder.append(", archivoContentType=");
+       builder.append(archivoContentType);
 
-	public String getFile() {
-		return file;
-	}
+       builder.append(", proyectoFaseProyectoId=");
+       builder.append(proyectoFaseProyectoId);
+       builder.append(", proyectoFaseProyectoTitulo=");
+       builder.append(proyectoFaseProyectoTitulo);
+       builder.append(", adjuntoProyectoFaseFaseId=");
+       builder.append(adjuntoProyectoFaseFaseId);
 
-	public void setFile(String file) {
-		this.file = file;
-	}
+       builder.append(", adjuntoProyectoFaseFaseFase=");
+       builder.append(adjuntoProyectoFaseFaseFase);
 
-	public String getUrlFile() {
-		return urlFile;
-	}
 
-	public void setUrlFile(String ulrFile) {
-		this.urlFile = ulrFile;
-	}
+
+       builder.append(", file=");
+       builder.append(file);
+       builder.append(", urlFile=");
+       builder.append(urlFile);
+       builder.append("]");
+       return builder.toString();
+   }
+
 }

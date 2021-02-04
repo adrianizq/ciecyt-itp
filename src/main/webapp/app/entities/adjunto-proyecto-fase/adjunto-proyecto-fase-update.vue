@@ -89,28 +89,39 @@
                         <input type="text" class="form-control" name="nombreArchivoOriginal" id="adjunto-proyecto-fase-nombreArchivoOriginal"
                             :class="{'valid': !$v.adjuntoProyectoFase.nombreArchivoOriginal.$invalid, 'invalid': $v.adjuntoProyectoFase.nombreArchivoOriginal.$invalid }" v-model="$v.adjuntoProyectoFase.nombreArchivoOriginal.$model" />
                     </div>
+                    <!-------------------------DESCARGAR ----------------------->
                      <div class="form-group">
                         <label class="form-control-label" v-text="$t('ciecytApp.adjuntoProyectoFase.archivo')" for="adjunto-proyecto-fase-archivo">Archivo</label>
                         <div>
-                            <div v-if="adjuntoProyectoFase.archivo" class="form-text text-danger clearfix">
-                                <a class="pull-left" v-on:click="openFile(adjuntoProyectoFase.archivoContentType, adjuntoProyectoFase.archivo)" v-text="$t('entity.action.open')">open</a><br>
-                                <span class="pull-left">{{adjuntoProyectoFase.archivoContentType}}, {{byteSize(adjuntoProyectoFase.archivo)}}</span>
-                                <button type="button" v-on:click="adjuntoProyectoFase.archivo=null;adjuntoProyectoFase.archivoContentType=null;"
+                            <div v-if="adjuntoProyectoFase.file" class="form-text text-danger clearfix">
+                                <!--<a class="pull-left" v-on:click="openFile(adjuntoProyectoFase.archivoContentType, adjuntoProyectoFase.archivo)" v-text="$t('entity.action.open')">open</a><br>
+                                <span class="pull-left">{{adjuntoProyectoFase.archivoContentType}}, {{byteSize(adjuntoProyectoFase.archivo)}}</span> -->
+                                 <a class="pull-left" v-on:click="this.descargar" v-text="$t('entity.action.open')">open</a><br>
+                                <span class="pull-left">{{adjuntoProyectoFase.archivoContentType}}, {{adjuntoProyectoFase.file}}, {{byteSize(adjuntoProyectoFase.file)}}</span>
+                                <!--de cerrar-->
+                                <!--<button type="button" v-on:click="adjuntoProyectoFase.file=null;adjuntoProyectoFase.archivoContentType=null;"
                                         class="btn btn-secondary btn-xs pull-right">
                                     <font-awesome-icon icon="times"></font-awesome-icon>
-                                </button>
+                                </button> -->
                             </div>
+                            <!--  boton seleccionar archivo -->
                             <input type="file" ref="file_archivo" id="file_archivo" v-on:change="setFileData($event, adjuntoProyectoFase, 'archivo', false)" v-text="$t('entity.action.addblob')"/>
                         </div>
+                        
                         <input type="hidden" class="form-control" name="archivo" id="adjunto-proyecto-fase-archivo"
                             :class="{'valid': !$v.adjuntoProyectoFase.archivo.$invalid, 'invalid': $v.adjuntoProyectoFase.archivo.$invalid }" v-model="$v.adjuntoProyectoFase.archivo.$model" />
                         <input type="hidden" class="form-control" name="archivoContentType" id="adjunto-proyecto-fase-archivoContentType"
                             v-model="adjuntoProyectoFase.archivoContentType" />
+                            
                     </div>
 
                     <div class="form-group">
-                   <!--<button  v-on:click="this.descargar">DownLoad</button>-->
-                   <button v-if="adjuntoProyectoFase.file!=null" @click="this.descargar" target="_blank" >DownLoad</button>
+                   <!--<button  v-on:click="this.descargar">DownLoad</button>
+                   <button v-if="adjuntoProyectoFase.file!=null" @click="this.descargar" 
+                   target="_blank" v-text="$t('entity.action.open')" >
+                   Abrir
+                   </button> -->
+                   
                    
                   
                     </div> 
@@ -175,10 +186,10 @@
                         </b-input-group>
                     </div>
                     <div class="form-group">
-                        <label class="form-control-label" v-bind:value="$t('ciecytApp.adjuntoProyectoFase.adjuntoProyectoFaseProyectoFase')" for="adjunto-proyecto-fase-adjuntoProyectoFaseProyectoFase">Adjunto Proyecto Fase Proyecto Fase</label>
-                        <select class="form-control" id="adjunto-proyecto-fase-adjuntoProyectoFaseProyectoFase" name="adjuntoProyectoFaseProyectoFase" v-model="adjuntoProyectoFase.adjuntoProyectoFaseProyectoFaseId">
+                        <label class="form-control-label" v-bind:value="$t('ciecytApp.adjuntoProyectoFase.adjuntoProyectoFaseFase')" for="adjunto-proyecto-fase-adjuntoProyectoFaseFase">Adjunto  Fase</label>
+                        <select class="form-control" id="adjunto-proyecto-fase-adjuntoProyectoFaseFase" name="adjuntoProyectoFaseFase" v-model="adjuntoProyectoFase.adjuntoProyectoFaseFaseId">
                             <option v-bind:value="null"></option>
-                            <option v-bind:value="proyectoFaseOption.id" v-for="proyectoFaseOption in proyectoFases" :key="proyectoFaseOption.id">{{proyectoFaseOption.titulo}}</option>
+                            <option v-bind:value="faseOption.id" v-for="faseOption in fases" :key="faseOption.id">{{faseOption.fase}}</option>
                         </select>
                     </div>
                 </div>

@@ -40,6 +40,7 @@ public class ProyectoDTO implements Serializable {
     private String referencias;
 
     private String programa;
+    private String fase;
 
     private String departamento;
 
@@ -68,6 +69,7 @@ public class ProyectoDTO implements Serializable {
     private Long facultadId;
 
     private Long proyectoProgramaId;
+    private Long proyectoFaseId;
 
     private List<IntegranteProyectoDTO> listaIntegrantesProyecto;
 
@@ -217,6 +219,14 @@ public class ProyectoDTO implements Serializable {
         this.programa = programa;
     }
 
+    public String getFase() {
+        return fase;
+    }
+
+    public void setFase(String fase) {
+        this.fase = fase;
+    }
+
     /********** */
 
     public String getDepartamento() {
@@ -317,6 +327,14 @@ public class ProyectoDTO implements Serializable {
         this.proyectoProgramaId = programaId;
     }
 
+    public Long getProyectoFaseId() {
+        return proyectoFaseId;
+    }
+
+    public void setProyectoFaseId(Long faseId) {
+        this.proyectoFaseId = faseId;
+    }
+
     ////////////////////////////////7777
     public EnumViabilidad getViabilidad() {
         return viabilidad;
@@ -407,6 +425,7 @@ public class ProyectoDTO implements Serializable {
             ", subLineaLineaInvestigacionLinea='" + getSubLineaLineaInvestigacionLinea() + "'" +
             ", facultadId=" + getFacultadId() +
             ", proyectoProgramaId=" + getProyectoProgramaId() +
+            ", proyectoFaseId=" + getProyectoFaseId() +
             ", viabilidad='" + getViabilidad() + "'" +
             ", viable=" + isViable() +
             ", nota=" + getNota() +

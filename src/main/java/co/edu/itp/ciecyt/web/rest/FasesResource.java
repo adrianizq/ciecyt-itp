@@ -6,6 +6,7 @@ import co.edu.itp.ciecyt.service.dto.ProyectoDTO;
 import co.edu.itp.ciecyt.web.rest.errors.BadRequestAlertException;
 import co.edu.itp.ciecyt.service.dto.FasesDTO;
 
+import co.edu.itp.ciecyt.web.rest.model.ApiMessage;
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -140,6 +141,21 @@ public class FasesResource {
         }
         catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body( e.getMessage());
+        }
+    }
+
+    /////////////////////
+    @GetMapping("/fase-modalidad/{idModalidad}")
+    public ResponseEntity<?> getFasesModalidadId(@PathVariable Long idModalidad) throws Exception {
+        log.debug("REST request to get a page of Fases");
+        try {
+            List<FasesDTO> obj = fasesService.findByFasesModalidadId(idModalidad);
+            return new ResponseEntity<>(obj, HttpStatus.OK);
+
+        }
+        catch (Exception e){
+            String error = e.getMessage();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body( new ApiMessage("ERR_99", error));
         }
     }
 

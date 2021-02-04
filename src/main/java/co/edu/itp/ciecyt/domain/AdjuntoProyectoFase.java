@@ -1,11 +1,13 @@
 package co.edu.itp.ciecyt.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import java.io.Serializable;
-import java.time.LocalDate;
-import javax.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+import javax.persistence.*;
+
+import java.io.Serializable;
+import java.time.LocalDate;
 
 /**
  * A AdjuntoProyectoFase.
@@ -46,7 +48,6 @@ public class AdjuntoProyectoFase implements Serializable {
     @Column(name = "fecha_fin")
     private LocalDate fechaFin;
 
-  
     @Column(name = "archivo")
     private String archivo;
 
@@ -55,11 +56,11 @@ public class AdjuntoProyectoFase implements Serializable {
 
     @ManyToOne
     @JsonIgnoreProperties(value = "adjuntoProyectoFases", allowSetters = true)
-    private ProyectoFase adjuntoProyectoFaseProyectoFase;
+    private Proyecto proyectoFaseProyecto;
 
     @ManyToOne
     @JsonIgnoreProperties(value = "adjuntoProyectoFases", allowSetters = true)
-    private Proyecto proyectoFaseProyecto;
+    private Fases adjuntoProyectoFaseFase;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -174,6 +175,35 @@ public class AdjuntoProyectoFase implements Serializable {
         this.fechaFin = fechaFin;
     }
 
+
+
+
+    public Proyecto getProyectoFaseProyecto() {
+        return proyectoFaseProyecto;
+    }
+
+    public AdjuntoProyectoFase proyectoFaseProyecto(Proyecto proyecto) {
+        this.proyectoFaseProyecto = proyecto;
+        return this;
+    }
+
+    public void setProyectoFaseProyecto(Proyecto proyecto) {
+        this.proyectoFaseProyecto = proyecto;
+    }
+
+    public Fases getAdjuntoProyectoFaseFase() {
+        return adjuntoProyectoFaseFase;
+    }
+
+    public AdjuntoProyectoFase adjuntoProyectoFaseFase(Fases fases) {
+        this.adjuntoProyectoFaseFase = fases;
+        return this;
+    }
+
+    public void setAdjuntoProyectoFaseFase(Fases fases) {
+        this.adjuntoProyectoFaseFase = fases;
+    }
+
     public String getArchivo() {
         return archivo;
     }
@@ -187,10 +217,6 @@ public class AdjuntoProyectoFase implements Serializable {
         this.archivo = archivo;
     }
 
-    public String getArchivoContentType() {
-        return archivoContentType;
-    }
-
     public AdjuntoProyectoFase archivoContentType(String archivoContentType) {
         this.archivoContentType = archivoContentType;
         return this;
@@ -200,30 +226,8 @@ public class AdjuntoProyectoFase implements Serializable {
         this.archivoContentType = archivoContentType;
     }
 
-    public ProyectoFase getAdjuntoProyectoFaseProyectoFase() {
-        return adjuntoProyectoFaseProyectoFase;
-    }
-
-    public AdjuntoProyectoFase adjuntoProyectoFaseProyectoFase(ProyectoFase proyectoFase) {
-        this.adjuntoProyectoFaseProyectoFase = proyectoFase;
-        return this;
-    }
-
-    public void setAdjuntoProyectoFaseProyectoFase(ProyectoFase proyectoFase) {
-        this.adjuntoProyectoFaseProyectoFase = proyectoFase;
-    }
-
-    public Proyecto getProyectoFaseProyecto() {
-        return proyectoFaseProyecto;
-    }
-
-    public AdjuntoProyectoFase proyectoFaseProyecto(Proyecto proyecto) {
-        this.proyectoFaseProyecto = proyecto;
-        return this;
-    }
-
-    public void setProyectoFaseProyecto(Proyecto proyecto) {
-        this.proyectoFaseProyecto = proyecto;
+    public String getArchivoContentType() {
+        return archivoContentType;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
@@ -259,7 +263,6 @@ public class AdjuntoProyectoFase implements Serializable {
             ", fechaFin='" + getFechaFin() + "'" +
             ", archivo='" + getArchivo() + "'" +
             ", archivoContentType='" + getArchivoContentType() + "'" +
-           
             "}";
     }
 }

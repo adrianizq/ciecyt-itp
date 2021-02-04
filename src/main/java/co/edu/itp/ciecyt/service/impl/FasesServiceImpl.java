@@ -1,9 +1,11 @@
 package co.edu.itp.ciecyt.service.impl;
 
+import co.edu.itp.ciecyt.domain.Proyecto;
 import co.edu.itp.ciecyt.service.FasesService;
 import co.edu.itp.ciecyt.domain.Fases;
 import co.edu.itp.ciecyt.repository.FasesRepository;
 import co.edu.itp.ciecyt.service.dto.FasesDTO;
+import co.edu.itp.ciecyt.service.dto.ProyectoDTO;
 import co.edu.itp.ciecyt.service.mapper.FasesMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +15,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -89,8 +93,26 @@ public class FasesServiceImpl implements FasesService {
 
     @Override
     @Transactional(readOnly = true)
-    public FasesDTO findByFaseAndFasesModalidadId(String fase, Long idModalidad) throws Exception{
-        Fases f= fasesRepository.findByFaseAndFasesModalidadId(fase,idModalidad);
+    public FasesDTO findByFaseAndFasesModalidadId(String fase, Long idModalidad) throws Exception {
+        Fases f = fasesRepository.findByFaseAndFasesModalidadId(fase, idModalidad);
         return fasesMapper.toDto(f);
+    }
+
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<FasesDTO> findByFasesModalidadId(Long idModalidad) throws Exception {
+        List<Fases> lista = new ArrayList<>();
+        lista = fasesRepository.findByFasesModalidadId(idModalidad);
+        List<FasesDTO> listDTO = new ArrayList<>();
+        if (lista != null) {
+            for (Fases p : lista) {
+                listDTO.add(fasesMapper.toDto(p));
+            }
+            return listDTO;
+        } else {
+            return null;
+
+        }
     }
 }
