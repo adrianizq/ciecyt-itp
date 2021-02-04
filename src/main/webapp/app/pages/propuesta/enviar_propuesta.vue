@@ -253,7 +253,7 @@ const validations: any = {
       res=  await this.adjuntoProyectoFaseService()
       .findAdjuntoProyectoFase(this.proyId,  this.fase.id)
       .then(res => {
-        this.adjuntoProyectoFase = res;
+        this.adjuntoProyectoFase = res.data;
       });
       
   }

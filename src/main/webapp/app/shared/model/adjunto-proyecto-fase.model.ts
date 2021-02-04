@@ -7,12 +7,14 @@ export interface IAdjuntoProyectoFase {
   adjuntoProyectoFase?: string;
   nombreArchivoOriginal?: string;
   archivo?: any;
+  file?: any;
   archivoContentType?: string;
   fechaInicio?: Date;
   fechaFin?: Date;
-  adjuntoProyectoFaseFaseFase?: string;
   adjuntoProyectoFaseFaseId?: number;
   proyectoFaseProyectoId?: number;
+  proyectoFaseProyectoTitulo?: string;
+  adjuntoProyectoFaseFaseFase?: string;
 }
 
 export class AdjuntoProyectoFase implements IAdjuntoProyectoFase {
@@ -25,11 +27,13 @@ export class AdjuntoProyectoFase implements IAdjuntoProyectoFase {
     public adjuntoProyectoFase?: string,
     public nombreArchivoOriginal?: string,
     public archivo?: any,
+    public file?: any,
     public archivoContentType?: string,
     public fechaInicio?: Date,
     public fechaFin?: Date,
-    public adjuntoProyectoFaseFaseFase?: string,
     public adjuntoProyectoFaseFaseId?: number,
-    public proyectoFaseProyectoId?: number
+    public proyectoFaseProyectoId?: number,
+    public proyectoFaseProyectoTitulo?: string,
+    public adjuntoProyectoFaseFaseFase?: string
   ) {}
 }
