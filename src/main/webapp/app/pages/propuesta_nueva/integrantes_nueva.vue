@@ -15,14 +15,28 @@
                                 :options="users"
                                 text-field="nombresApellidos"
                                 value-field="id" :id="`integrante-${i}`" v-model="integrante.integranteProyectoUserId">
-
                             </b-form-select>
                         </b-form-group>
                     </div>
-
                 </div>
 
+                <div class="row">
+                    <div class="col-12">
+                        
+                    <b-form-group
+                        label="Busca los integrantes"
+                        label-for="search-integrantes"
+                    >
+                        <multi-select :options="options"
+                            :selected-options="items"
+                            placeholder="select item"
+                            @select="onSelect">
+                        </multi-select>
+                    </b-form-group>
 
+                    </div>
+                </div>
+                <br><br>
                 <div class="row">
                     <div class="col-12">
                         <button type="button" id="cancel" class="btn btn-secondary" v-on:click="back">
@@ -40,6 +54,7 @@
 </template>
 
 <script lang="ts">
+
     import { Component, Inject, Vue } from 'vue-property-decorator';
     import AlertService from '@/shared/alert/alert.service';
 
@@ -53,11 +68,18 @@
 
     import { IIntegranteProyecto, IntegranteProyecto } from '@/shared/model/integrante-proyecto.model';
     import IntegranteProyectoService from '@/entities/integrante-proyecto/integrante-proyecto.service';
+    import 'vue-search-select/dist/VueSearchSelect.css';
+
+    //Search select 
+    import { ModelSelect } from 'vue-search-select'
+    import _ from 'lodash'
+    import { MultiSelect } from 'vue-search-select'
+
 
     const validations: any = {};
 
     @Component({
-        components: { MenuLateralNueva },
+        components: { MenuLateralNueva, ModelSelect, MultiSelect},
         validations
     })
 
@@ -80,31 +102,41 @@
         public cantEstudiantes: number = 0;
         public rolModalidadId?: number =0;
 
+        //attributes search select
+        public options : any = [];
+        public searchText: any = ''; // If value is falsy, reset searchText & searchItem
+        public items: any = [];
+        public lastSelectItem: any = {};
+
 //public proyId: string = null;
 
         beforeRouteEnter(to, from, next) {
             next(async vm => {
-
                 vm.initRelationships();
-
-                
-                
-
             });
         }
        
         mounted() {
             this.proyId = this.$route.params.proyectoId;
-             
-
-          
         }
         beforeMount() {
-            
-       
-          
         }
-
+        
+        /*Methods for multi select*/
+        public onSelect (items, lastSelectItem) {
+                this.items = items
+                this.lastSelectItem = lastSelectItem
+        }
+            // deselect option
+        public reset () {
+                this.items = [] // reset
+        }
+            // select option from parent component
+        public selectFromParentComponent () {
+                this.items = _.unionWith(this.items, [this.options[0]], _.isEqual)
+            }
+        /* End methods for multi select */
+   
         public back() {
             this.$router.push({ name: 'PropuestaInformacionGenearalNuevaEditView', params: { proyectoId: this.proyId } });
         }
@@ -112,7 +144,10 @@
         public save(): void {
             try {
                 this.isSaving = true;
+                let i=0;
                 for (let integrante of this.integrantesProyecto) {
+                    integrante.integranteProyectoUserId=this.items[i].value;
+                    i++;
                     //Actualizando el integrante
                     if (integrante.id) {
                         this.integranteProyectoService().update(integrante);
@@ -142,22 +177,22 @@
                 this.usuarioService()
                     .retrieveEstudiantes()
                     .then(res => {
-                      
                         res.data.forEach((item) => {
                             item.nombresApellidos = item.firstName + ' ' + item.lastName;
                             this.users.push(item);
+                            this.options.push({value: item.id, text: item.nombresApellidos})
 
-                        });
-
-                    });
-                
-               
-                  
-
+                            //add to list options for multiselect
+                            /*itemMultiSelect = {
+                                value: i.toString,
+                                text: item.nombresApellidos
+                            };
+                            this.options.push(itemMultiSelect);
+                            i++;*/
+                        }); 
+                    });             
                 this.proyId = parseInt(this.$route.params.proyectoId);
-
                 this.proyecto = await this.proyectoService().find(this.proyId);
-
                 /*await this.proyectoService().find(this.proyId).then
                     (res=> {
                             this.proyecto = res;
@@ -168,45 +203,34 @@
                 
                             
                  await this.integranteProyectoService()
-                    .retrieveEstudiantesProyecto(this.proyId )
+                    .retrieveEstudiantesProyecto(this.proyId)
                     .then(res => {
                        this.integrantesProyecto = res.data;
                        console.log(res.data);
                    });
                     
                   if(this.integrantesProyecto.length==0){  
-                  await this.rolesModalidadService()
-                    .findRolModalidad("Estudiante", this.modalidadId )
-                    .then(res => {
-                        this.rolesModalidad = res;
-                        this.cantEstudiantes = res.cantidad;
-                        this.rolModalidadId = res.id;
-                        
-                         for (var i = 0; i < this.cantEstudiantes; i++) {
-                            let integrante = new IntegranteProyecto();
+                    await this.rolesModalidadService()
+                        .findRolModalidad("Estudiante", this.modalidadId )
+                        .then(res => {
+                            this.rolesModalidad = res;
+                            this.cantEstudiantes = res.cantidad;
+                            this.rolModalidadId = res.id;
+                            
+                            for (var i = 0; i < this.cantEstudiantes; i++) {
+                                let integrante = new IntegranteProyecto();
 
-                            integrante.integranteProyectoProyectoId = this.proyId;
-                            integrante.integranteProyectoRolesModalidadId = this.rolModalidadId;
+                                integrante.integranteProyectoProyectoId = this.proyId;
+                                integrante.integranteProyectoRolesModalidadId = this.rolModalidadId;
 
-                            this.integrantesProyecto.push(integrante);
-                           
-                        }
-                        
-
-                      
+                                this.integrantesProyecto.push(integrante);                            
+                            }
                     });
-               
                   }
-               
-
-               
-               
 
             } catch (e) {
-
             }
         }
-
     }
 </script>
 
