@@ -246,14 +246,15 @@ const validations: any = {
       res=  await this.fasesService().retrieveFaseModalidad("Propuesta", this.modalidadId)
       .then(res => {
         this.fase = res;  
-        
+        this.faseId = this.fase.id;
+
       });
 
 
       res=  await this.adjuntoProyectoFaseService()
       .findAdjuntoProyectoFase(this.proyId,  this.fase.id)
       .then(res => {
-        this.adjuntoProyectoFase = res.data;
+        this.adjuntoProyectoFase = res;
       });
       
   }
