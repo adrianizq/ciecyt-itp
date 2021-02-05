@@ -41,7 +41,28 @@
     {
       "fieldName": "archivoContentType",
       "fieldType": "String"
+    },
+    {
+      "fieldName": "proyectoFaseProyectoId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "proyectoFaseProyectoTitulo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "adjuntoProyectoFaseFaseId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "adjuntoProyectoFaseFaseFase",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "file",
+      "fieldType": "String"
     }
+    
   ],
   "relationships": [
     {

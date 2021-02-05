@@ -5,7 +5,8 @@
     </div>
     <!--<div class="col-sm-8"  v-if="!proyecto.enviado"> -->
     <div class="col-sm-8">
-      <form @submit.prevent="save()">
+      <!--<form @submit.prevent="save()">-->
+         <form name="enviarAdjunto" role="form" novalidate v-on:submit.prevent="save()" >
         <div class="row">
           <div class="col-12">
             
@@ -45,27 +46,25 @@
                      <div class="form-group">
                         <label class="form-control-label" v-text="$t('ciecytApp.adjuntoProyectoFase.archivo')" for="adjunto-proyecto-fase-archivo">Archivo</label>
                         <div>
-                           <div v-if="adjuntoProyectoFase.file" class="form-text text-danger clearfix">
+                           <div v-if="adjuntoProyectoFase.archivo" class="form-text text-danger clearfix">
                            <!--<div class="form-text text-danger clearfix">-->
-                               <a class="pull-left" v-on:click="this.descargar" v-text="$t('entity.action.open')">open</a><br> 
-                                <!--<a class="pull-left" v-on:click="this.descargar">open</a><br></br>-->
-                                <span class="pull-left">{{adjuntoProyectoFase.archivoContentType}}, {{adjuntoProyectoFase.file}}, {{byteSize(adjuntoProyectoFase.file)}}</span>
+                               <!--<a class="pull-left" v-on:click="this.descargar" v-text="$t('entity.action.open')">open</a><br> -->
+                                <a class="pull-left" v-on:click="openFile(adjuntoProyectoFase.archivoContentType, adjuntoProyectoFase.archivo)" v-text="$t('entity.action.open')">open</a><br></br>
+                               <span class="pull-left">{{adjuntoProyectoFase.archivoContentType}}, {{byteSize(adjuntoProyectoFase.archivo)}}</span>
+                               
                                 <!--de cerrar-->
-                                <!--<button type="button" v-on:click="adjuntoProyectoFase.file=null;adjuntoProyectoFase.archivoContentType=null;"
+                               <button type="button" v-on:click="adjuntoProyectoFase.archivo=null;adjuntoProyectoFase.archivoContentType=null;"
                                         class="btn btn-secondary btn-xs pull-right">
                                     <font-awesome-icon icon="times"></font-awesome-icon>
-                                </button> -->
+                                </button>
                             </div>
                             <!--  boton seleccionar archivo -->
-                            <input type="file" ref="file_archivo" id="file_archivo" v-on:change="setFileData($event, adjuntoProyectoFase, 'archivo', false)" v-text="$t('entity.action.addblob')"/>
+                           <input type="file" ref="file_archivo" id="file_archivo" v-on:change="setFileData($event, adjuntoProyectoFase, 'archivo', false)" v-text="$t('entity.action.addblob')"/>
                         </div>
-                        
                         <input type="hidden" class="form-control" name="archivo" id="adjunto-proyecto-fase-archivo"
                             :class="{'valid': !$v.adjuntoProyectoFase.archivo.$invalid, 'invalid': $v.adjuntoProyectoFase.archivo.$invalid }" v-model="$v.adjuntoProyectoFase.archivo.$model" />
                         <input type="hidden" class="form-control" name="archivoContentType" id="adjunto-proyecto-fase-archivoContentType"
-                            v-model="adjuntoProyectoFase.archivoContentType" />
-                            
-                    </div>
+                            v-model="adjuntoProyectoFase.archivoContentType" />          </div>
           <!---------------------------->
         </div>
 
@@ -205,6 +204,7 @@ const validations: any = {
       this.adjuntoProyectoFaseService()
         .update(this.adjuntoProyectoFase)
         .then(param => {
+            this.isSaving = false;
             (<any>this).$router.go(0);
           const message = this.$t('ciecytApp.adjuntoProyectoFase.updated', { param: param.id });
           this.alertService().showAlert(message, 'info');
@@ -220,11 +220,7 @@ const validations: any = {
           this.alertService().showAlert(message, 'success');
         });
     }
-    //fin el guardar el adjunto
-
-    
-
-    
+   
   }
 
   

@@ -62,8 +62,7 @@ public class AdjuntoProyectoFaseResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/adjunto-proyecto-fases")
-    public ResponseEntity<AdjuntoProyectoFaseDTO> createAdjuntoProyectoFase(@RequestBody AdjuntoProyectoFaseDTO adjuntoProyectoFaseDTO)
-        throws URISyntaxException {
+    public ResponseEntity<AdjuntoProyectoFaseDTO> createAdjuntoProyectoFase(@RequestBody AdjuntoProyectoFaseDTO adjuntoProyectoFaseDTO) throws URISyntaxException {
         log.debug("REST request to save AdjuntoProyectoFase : {}", adjuntoProyectoFaseDTO);
         if (adjuntoProyectoFaseDTO.getId() != null) {
             throw new BadRequestAlertException("A new adjuntoProyectoFase cannot already have an ID", ENTITY_NAME, "idexists");
@@ -77,11 +76,11 @@ public class AdjuntoProyectoFaseResource {
             adjuntoProyectoFaseService.attachFile(result, file, adjuntoProyectoFaseDTO.getArchivoContentType());
         }
 
-        return ResponseEntity
-            .created(new URI("/api/adjunto-proyecto-fases/" + result.getId()))
+        return ResponseEntity.created(new URI("/api/adjunto-proyecto-fases/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
     }
+
 
     /**
      * {@code PUT  /adjunto-proyecto-fases} : Updates an existing adjuntoProyectoFase.
@@ -93,8 +92,7 @@ public class AdjuntoProyectoFaseResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/adjunto-proyecto-fases")
-    public ResponseEntity<AdjuntoProyectoFaseDTO> updateAdjuntoProyectoFase(@RequestBody AdjuntoProyectoFaseDTO adjuntoProyectoFaseDTO)
-        throws URISyntaxException {
+    public ResponseEntity<AdjuntoProyectoFaseDTO> updateAdjuntoProyectoFase(@RequestBody AdjuntoProyectoFaseDTO adjuntoProyectoFaseDTO) throws URISyntaxException {
         log.debug("REST request to update AdjuntoProyectoFase : {}", adjuntoProyectoFaseDTO);
         if (adjuntoProyectoFaseDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
@@ -108,8 +106,7 @@ public class AdjuntoProyectoFaseResource {
             adjuntoProyectoFaseService.attachFile(result, file, adjuntoProyectoFaseDTO.getArchivoContentType());
         }
 
-        return ResponseEntity
-            .ok()
+        return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, adjuntoProyectoFaseDTO.getId().toString()))
             .body(result);
     }
@@ -128,6 +125,7 @@ public class AdjuntoProyectoFaseResource {
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
+
     /**
      * {@code GET  /adjunto-proyecto-fases/:id} : get the "id" adjuntoProyectoFase.
      *
@@ -141,6 +139,7 @@ public class AdjuntoProyectoFaseResource {
         return ResponseUtil.wrapOrNotFound(adjuntoProyectoFaseDTO);
     }
 
+
     /**
      * {@code DELETE  /adjunto-proyecto-fases/:id} : delete the "id" adjuntoProyectoFase.
      *
@@ -151,10 +150,7 @@ public class AdjuntoProyectoFaseResource {
     public ResponseEntity<Void> deleteAdjuntoProyectoFase(@PathVariable Long id) {
         log.debug("REST request to delete AdjuntoProyectoFase : {}", id);
         adjuntoProyectoFaseService.delete(id);
-        return ResponseEntity
-            .noContent()
-            .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
-            .build();
+        return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
 
     /**
@@ -165,14 +161,16 @@ public class AdjuntoProyectoFaseResource {
      */
     @GetMapping("/adjunto-proyecto-fases/downloadFile/{id}")
     public ResponseEntity<Resource> downloadFile(@PathVariable Long id, HttpServletRequest request) {
+
         log.debug("Download AdjuntoProyectoFase : {}", id);
         Optional<AdjuntoProyectoFaseDTO> adjunto = adjuntoProyectoFaseService.findOne(id);
 
         Resource resource = null;
 
-        if (adjunto.isPresent()) {
+        if(adjunto.isPresent()) {
+
             try {
-                resource = adjuntoProyectoFaseService.loadFileAsResource(adjunto.get());
+                resource = adjuntoProyectoFaseService.loadFileAsResource( adjunto.get() );
             } catch (Exception e) {
                 log.error("Error cargando archivo: {} ", adjunto.get(), e);
             }
@@ -186,18 +184,22 @@ public class AdjuntoProyectoFaseResource {
 
             // Fallback to the default content type if type could not be determined
 
-            if (contentType == null) {
+            if(contentType == null) {
                 contentType = "application/octet-stream";
             }
 
-            return ResponseEntity
-                .ok()
+
+            return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(contentType))
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
                 .body(resource);
+
         } else {
+
             return ResponseEntity.notFound().build();
+
         }
+
     }
 
     ////////////////////////////////////////////////////

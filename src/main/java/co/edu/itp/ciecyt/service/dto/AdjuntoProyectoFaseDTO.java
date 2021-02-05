@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.io.Serializable;
 import javax.persistence.Lob;
-import javax.persistence.Lob;
+
 
 /**
  * A DTO for the {@link co.edu.itp.ciecyt.domain.AdjuntoProyectoFase} entity.
@@ -224,6 +224,7 @@ public class AdjuntoProyectoFaseDTO implements Serializable {
             ", adjuntoProyectoFaseFaseFase='" + getAdjuntoProyectoFaseFaseFase() + "'" +
             "}";
     }*/
+    /*
    @Override
    public String toString() {
        StringBuilder builder = new StringBuilder();
@@ -269,5 +270,36 @@ public class AdjuntoProyectoFaseDTO implements Serializable {
        builder.append("]");
        return builder.toString();
    }
+*/
+
+
+
+    @Override
+    public int hashCode() {
+        return 31;
+    }
+
+    // prettier-ignore
+    @Override
+    public String toString() {
+        return "AdjuntoProyectoFaseDTO{" +
+            "id=" + getId() +
+
+            ", nombreAdjunto='" + getNombreAdjunto() + "'" +
+            ", fechaCreacion='" + getFechaCreacion() + "'" +
+            ", fechaModificacion='" + getFechaModificacion() + "'" +
+            ", estadoAdjunto=" + getEstadoAdjunto() +
+            ", adjuntoProyectoFase='" + getAdjuntoProyectoFase() + "'" +
+            ", nombreArchivoOriginal='" + getNombreArchivoOriginal() + "'" +
+            ", fechaInicio='" + getFechaInicio() + "'" +
+            ", fechaFin='" + getFechaFin() + "'" +
+            ", archivo='" + getArchivo() + "'" +
+            ", archivoContentType='" + getArchivoContentType() + "'" +
+            ", adjuntoProyectoFaseFaseFase='" + getAdjuntoProyectoFaseFaseFase() + "'" +
+            ", proyectoFaseProyectoId=" + getProyectoFaseProyectoId() +
+            ", proyectoFaseProyectoTitulo='" + getProyectoFaseProyectoTitulo() + "'" +
+            ", adjuntoProyectoFaseFaseId=" + getAdjuntoProyectoFaseFaseId() +
+            "}";
+    }
 
 }

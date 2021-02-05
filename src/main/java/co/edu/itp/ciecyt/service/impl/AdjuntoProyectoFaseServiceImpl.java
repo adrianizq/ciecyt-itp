@@ -1,15 +1,5 @@
 package co.edu.itp.ciecyt.service.impl;
 
-import co.edu.itp.ciecyt.config.ApplicationProperties;
-import co.edu.itp.ciecyt.domain.AdjuntoProyectoFase;
-import co.edu.itp.ciecyt.domain.IntegranteProyecto;
-import co.edu.itp.ciecyt.repository.AdjuntoProyectoFaseRepository;
-import co.edu.itp.ciecyt.service.AdjuntoProyectoFaseService;
-import co.edu.itp.ciecyt.service.dto.AdjuntoProyectoFaseDTO;
-import co.edu.itp.ciecyt.service.dto.IntegranteProyectoDTO;
-import co.edu.itp.ciecyt.service.mapper.AdjuntoProyectoFaseMapper;
-import co.edu.itp.ciecyt.service.util.FileUtils;
-import co.edu.itp.ciecyt.service.util.MimeTypes;
 import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
@@ -19,6 +9,7 @@ import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
@@ -27,6 +18,15 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import co.edu.itp.ciecyt.config.ApplicationProperties;
+import co.edu.itp.ciecyt.domain.AdjuntoProyectoFase;
+import co.edu.itp.ciecyt.repository.AdjuntoProyectoFaseRepository;
+import co.edu.itp.ciecyt.service.AdjuntoProyectoFaseService;
+import co.edu.itp.ciecyt.service.dto.AdjuntoProyectoFaseDTO;
+import co.edu.itp.ciecyt.service.mapper.AdjuntoProyectoFaseMapper;
+import co.edu.itp.ciecyt.service.util.FileUtils;
+import co.edu.itp.ciecyt.service.util.MimeTypes;
 
 /**
  * Service Implementation for managing {@link AdjuntoProyectoFase}.
@@ -43,11 +43,8 @@ public class AdjuntoProyectoFaseServiceImpl implements AdjuntoProyectoFaseServic
 
     private final ApplicationProperties appProperties;
 
-    public AdjuntoProyectoFaseServiceImpl(
-        AdjuntoProyectoFaseRepository adjuntoProyectoFaseRepository,
-        AdjuntoProyectoFaseMapper adjuntoProyectoFaseMapper,
-        ApplicationProperties appProperties
-    ) {
+    public AdjuntoProyectoFaseServiceImpl(AdjuntoProyectoFaseRepository adjuntoProyectoFaseRepository,
+                                          AdjuntoProyectoFaseMapper adjuntoProyectoFaseMapper, ApplicationProperties appProperties) {
         this.adjuntoProyectoFaseRepository = adjuntoProyectoFaseRepository;
         this.adjuntoProyectoFaseMapper = adjuntoProyectoFaseMapper;
         this.appProperties = appProperties;
@@ -59,10 +56,15 @@ public class AdjuntoProyectoFaseServiceImpl implements AdjuntoProyectoFaseServic
         AdjuntoProyectoFase adjuntoProyectoFase = adjuntoProyectoFaseMapper.toEntity(adjuntoProyectoFaseDTO);
         adjuntoProyectoFase = adjuntoProyectoFaseRepository.save(adjuntoProyectoFase);
 
-        AdjuntoProyectoFaseDTO dto = adjuntoProyectoFaseMapper.toDto(adjuntoProyectoFase);
+
+        AdjuntoProyectoFaseDTO dto  = adjuntoProyectoFaseMapper.toDto(adjuntoProyectoFase);
 
         if (dto.getArchivo() != null) {
-            String fileUrl = FileUtils.buildURLImage(appProperties.getFilesPath(), dto.getFile(), appProperties.getUpload().getFiles());
+            String fileUrl = FileUtils.buildURLImage(
+                appProperties.getFilesPath(),
+                dto.getFile(),
+                appProperties.getUpload().getFiles()
+            );
             dto.setUrlFile(fileUrl);
         }
         return dto;
@@ -72,11 +74,8 @@ public class AdjuntoProyectoFaseServiceImpl implements AdjuntoProyectoFaseServic
     @Transactional(readOnly = true)
     public Page<AdjuntoProyectoFaseDTO> findAll(Pageable pageable) {
         log.debug("Request to get all AdjuntoProyectoFases");
-        return adjuntoProyectoFaseRepository
-            .findAll(pageable)
-            .map(adjuntoProyectoFaseMapper::toDto)
-            .map(
-                dto -> {
+        return adjuntoProyectoFaseRepository.findAll(pageable)
+            .map(adjuntoProyectoFaseMapper::toDto).map(dto -> {
                     if (dto.getArchivo() != null) {
                         String urlFile = FileUtils.buildURLImage(
                             appProperties.getFilesPath(),
@@ -90,15 +89,13 @@ public class AdjuntoProyectoFaseServiceImpl implements AdjuntoProyectoFaseServic
             );
     }
 
+
     @Override
     @Transactional(readOnly = true)
     public Optional<AdjuntoProyectoFaseDTO> findOne(Long id) {
         log.debug("Request to get AdjuntoProyectoFase : {}", id);
-        return adjuntoProyectoFaseRepository
-            .findById(id)
-            .map(adjuntoProyectoFaseMapper::toDto)
-            .map(
-                dto -> {
+        return adjuntoProyectoFaseRepository.findById(id)
+            .map(adjuntoProyectoFaseMapper::toDto).map(dto -> {
                     if (dto.getArchivo() != null) {
                         String urlFile = FileUtils.buildURLImage(
                             appProperties.getFilesPath(),
@@ -117,6 +114,7 @@ public class AdjuntoProyectoFaseServiceImpl implements AdjuntoProyectoFaseServic
         log.debug("Request to delete AdjuntoProyectoFase : {}", id);
         adjuntoProyectoFaseRepository.deleteById(id);
     }
+
 
     /**
      * Ajunta un arhivo de imagen a la organizacion
@@ -148,7 +146,6 @@ public class AdjuntoProyectoFaseServiceImpl implements AdjuntoProyectoFaseServic
             throw new RuntimeException("Could not store the file. Error: " + e.getMessage());
         }
     }
-
     /**
      * Carga un archivo del directorio base
      * @param dto
@@ -157,7 +154,9 @@ public class AdjuntoProyectoFaseServiceImpl implements AdjuntoProyectoFaseServic
      */
     @Override
     public Resource loadFileAsResource(AdjuntoProyectoFaseDTO dto) throws Exception {
+
         try {
+
             Path rootDir = Paths.get(appProperties.getUpload().getRoot().getDir());
             Path filesDir = rootDir.resolve(appProperties.getUpload().getFiles().getDir());
             log.debug("Dir upload: {}, , filesDir: {}, file: {}", rootDir, filesDir, dto.getFile());
@@ -166,14 +165,22 @@ public class AdjuntoProyectoFaseServiceImpl implements AdjuntoProyectoFaseServic
 
             Resource resource = new UrlResource(filePath.toUri());
 
-            if (resource.exists()) {
+            if(resource.exists()) {
+
                 return resource;
+
             } else {
+
                 throw new FileNotFoundException("File not found " + dto.getFile());
+
             }
+
         } catch (MalformedURLException ex) {
+
             throw new FileNotFoundException("File not found " + dto.getFile());
+
         }
+
     }
 
     @Override
