@@ -43,31 +43,28 @@
           </div>
 
                     <!-------------------------DESCARGAR ----------------------->
-                     <div class="form-group">
+                       <div class="form-group">
                         <label class="form-control-label" v-text="$t('ciecytApp.adjuntoProyectoFase.archivo')" for="adjunto-proyecto-fase-archivo">Archivo</label>
                         <div>
-                           <div v-if="adjuntoProyectoFase.archivo" class="form-text text-danger clearfix">
-                           <!--<div class="form-text text-danger clearfix">-->
-                               <!--<a class="pull-left" v-on:click="this.descargar" v-text="$t('entity.action.open')">open</a><br> -->
-                                <a class="pull-left" v-on:click="openFile(adjuntoProyectoFase.archivoContentType, adjuntoProyectoFase.archivo)" v-text="$t('entity.action.open')">open</a><br></br>
-                               <span class="pull-left">{{adjuntoProyectoFase.archivoContentType}}, {{byteSize(adjuntoProyectoFase.archivo)}}</span>
-                               
-                                <!--de cerrar-->
-                               <button type="button" v-on:click="adjuntoProyectoFase.archivo=null;adjuntoProyectoFase.archivoContentType=null;"
+                            <div v-if="adjuntoProyectoFase.id"  class="form-text text-danger clearfix">
+                                <a class="pull-left" v-on:click="openFile(adjuntoProyectoFase.archivoContentType, adjuntoProyectoFase.file)" v-text="$t('entity.action.open')">open</a><br>
+                                <span class="pull-left">{{adjuntoProyectoFase.archivoContentType}}, {{byteSize(adjuntoProyectoFase.file)}}</span>
+                                <button type="button" v-on:click="adjuntoProyectoFase.file=null;adjuntoProyectoFase.archivoContentType=null;"
                                         class="btn btn-secondary btn-xs pull-right">
                                     <font-awesome-icon icon="times"></font-awesome-icon>
                                 </button>
-                            </div>
-                            <!--  boton seleccionar archivo -->
-                           <input type="file" ref="file_archivo" id="file_archivo" v-on:change="setFileData($event, adjuntoProyectoFase, 'archivo', false)" v-text="$t('entity.action.addblob')"/>
+                            </div> 
+                            <input type="file" ref="file_archivo" id="file_archivo" v-on:change="setFileData($event, adjuntoProyectoFase, 'archivo', false)" v-text="$t('entity.action.addblob')"/>
                         </div>
                         <input type="hidden" class="form-control" name="archivo" id="adjunto-proyecto-fase-archivo"
                             :class="{'valid': !$v.adjuntoProyectoFase.archivo.$invalid, 'invalid': $v.adjuntoProyectoFase.archivo.$invalid }" v-model="$v.adjuntoProyectoFase.archivo.$model" />
                         <input type="hidden" class="form-control" name="archivoContentType" id="adjunto-proyecto-fase-archivoContentType"
-                            v-model="adjuntoProyectoFase.archivoContentType" />          </div>
-          <!---------------------------->
-        </div>
+                            v-model="adjuntoProyectoFase.archivoContentType" />
+                    </div> 
 
+                     
+        </div>
+                   
         <div>
           <button type="button" id="cancel-save" class="btn btn-secondary" v-on:click="previousState()">
             <font-awesome-icon icon="ban"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.cancel')">Cancel</span>
@@ -116,6 +113,7 @@ const validations: any = {
     archivo: {},
     fechaInicio: {},
     fechaFin: {},
+    file: {},
   },
 };
 
@@ -130,6 +128,8 @@ const validations: any = {
   @Inject('fasesService') private fasesService: () => FasesService;
   @Inject('alertService') private alertService: () => AlertService;
   
+  //public adjuntoProyectoFase: IAdjuntoProyectoFase = new AdjuntoProyectoFase();
+  public adjuntoProyectoFass:IAdjuntoProyectoFase[] =[];
   public adjuntoProyectoFase: IAdjuntoProyectoFase = new AdjuntoProyectoFase();
 
   public integrants:IIntegranteProyecto[]= [];
@@ -250,7 +250,15 @@ const validations: any = {
       res=  await this.adjuntoProyectoFaseService()
       .findAdjuntoProyectoFase(this.proyId,  this.fase.id)
       .then(res => {
-        this.adjuntoProyectoFase = res;
+        this.adjuntoProyectoFass = res.data;
+        if(this.adjuntoProyectoFass.length==0){
+         this.adjuntoProyectoFase =  new AdjuntoProyectoFase();
+        }
+        else{
+          this.adjuntoProyectoFase = this.adjuntoProyectoFass[0];
+        }
+         console.log(this.adjuntoProyectoFass);
+         console.log(this.adjuntoProyectoFase);
       });
       
   }

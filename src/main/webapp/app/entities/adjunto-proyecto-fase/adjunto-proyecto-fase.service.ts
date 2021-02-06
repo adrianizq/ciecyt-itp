@@ -64,14 +64,6 @@ export default class AdjuntoProyectoFaseService {
     });
   }
 
-  /* public findAdjuntoProyectoFase(idProyecto?: any, idFase?: any): Promise<IAdjuntoProyectoFase> {
-    return new Promise<IAdjuntoProyectoFase>(resolve => {
-      axios.get(baseApiUrl + `/traer` + `/${idProyecto}` + `/${idFase}`).then(function (res) {
-        resolve(res.data);
-      });
-    });
-  }*/
-
   public findAdjuntoProyectoFase(idProyecto?: any, idFase?: any): Promise<any> {
     return new Promise<any>(resolve => {
       axios.get(baseApiUrl + `/traer` + `/${idProyecto}` + `/${idFase}`).then(function (res) {
@@ -79,4 +71,12 @@ export default class AdjuntoProyectoFaseService {
       });
     });
   }
+
+  /*public findAdjuntoProyectoFase(idProyecto?: any, idFase?: any): Promise<IAdjuntoProyectoFase> {
+    return new Promise<IAdjuntoProyectoFase>(resolve => {
+      axios.get(baseApiUrl + `/traer` + `/${idProyecto}` + `/${idFase}`).then(function (res) {
+        resolve(res.data);
+      });
+    });
+  }*/
 }
