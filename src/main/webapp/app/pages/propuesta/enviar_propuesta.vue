@@ -52,10 +52,10 @@
                                 <!--<a class="pull-left" v-on:click="openFile(adjuntoProyectoFase.archivoContentType, adjuntoProyectoFase.file)" v-text="$t('entity.action.open')">open</a><br> -->
                                 <a class="pull-left" v-on:click="this.descargar" v-text="$t('entity.action.open')">open</a>
                                 <span class="pull-left">{{adjuntoProyectoFase.archivoContentType}}, {{byteSize(adjuntoProyectoFase.file)}}</span>
-                                <button type="button" v-on:click="adjuntoProyectoFase.file=null;adjuntoProyectoFase.archivoContentType=null;"
+                                <button type="button" v-on:click="this.eliminar" v-text="$t('entity.action.delete')">
                                         class="btn btn-secondary btn-xs pull-right">
                                     <font-awesome-icon icon="times"></font-awesome-icon>
-                                </button>
+                                </button> 
                             </div> 
                             <input type="file" ref="file_archivo" id="file_archivo" v-on:change="setFileData($event, adjuntoProyectoFase, 'archivo', false)" v-text="$t('entity.action.addblob')"/>
                         </div>
@@ -173,6 +173,15 @@ const validations: any = {
     //console.log('se hizo clic');
     this.adjuntoProyectoFaseService().downloadFile(this.adjuntoProyectoFase.id);
   }
+
+  eliminar(ob) {
+    console.log('entro a eliminar');
+    this.adjuntoProyectoFaseService().delete(this.adjuntoProyectoFase.id);
+    this.adjuntoProyectoFass=null;
+        //this.isSaving = false;
+           (<any>this).$router.go(0);
+  }
+
 
   beforeRouteEnter(to, from, next) {
     next(vm => {
