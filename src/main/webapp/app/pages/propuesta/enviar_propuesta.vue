@@ -57,7 +57,7 @@
                                     <font-awesome-icon icon="times"></font-awesome-icon>
                                 </button> 
                             </div> 
-                            <input type="file" ref="file_archivo" id="file_archivo" v-on:change="setFileData($event, adjuntoProyectoFase, 'archivo', false)" v-text="$t('entity.action.addblob')"/>
+                            <input type="file" ref="file_archivo" id="file_archivo" v-on:change="asignarData($event, adjuntoProyectoFase, 'archivo', false)" v-text="$t('entity.action.addblob')"/>
                         </div>
                         <input type="hidden" class="form-control" name="archivo" id="adjunto-proyecto-fase-archivo"
                             :class="{'valid': !$v.adjuntoProyectoFase.archivo.$invalid, 'invalid': $v.adjuntoProyectoFase.archivo.$invalid }" v-model="$v.adjuntoProyectoFase.archivo.$model" />
@@ -180,6 +180,15 @@ const validations: any = {
     this.adjuntoProyectoFass=null;
         //this.isSaving = false;
            (<any>this).$router.go(0);
+  }
+
+  asignarData(event, entity, field, isImage){
+     var fileData =  event.target.files[0];
+    this.adjuntoProyectoFase.nombreArchivoOriginal= fileData.name;
+    console.log(this.adjuntoProyectoFase.nombreArchivoOriginal);
+
+    this.setFileData(event, entity, field, isImage)
+    
   }
 
 
