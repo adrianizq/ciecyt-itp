@@ -47,17 +47,20 @@
                         <label class="form-control-label" v-text="$t('ciecytApp.adjuntoProyectoFase.archivo')" for="adjunto-proyecto-fase-archivo">Archivo</label>
                         <div>
                             <div v-if="adjuntoProyectoFase.id"  class="form-text text-danger clearfix">
-                            
+                             
                             
                                 <!--<a class="pull-left" v-on:click="openFile(adjuntoProyectoFase.archivoContentType, adjuntoProyectoFase.file)" v-text="$t('entity.action.open')">open</a><br> -->
                                 <a class="pull-left" v-on:click="this.descargar" v-text="$t('entity.action.open')">open</a>
-                                <span class="pull-left">{{adjuntoProyectoFase.archivoContentType}}, {{byteSize(adjuntoProyectoFase.file)}}</span>
-                                <button type="button" v-on:click="this.eliminar" v-text="$t('entity.action.delete')">
+                                <span class="pull-left">{{adjuntoProyectoFase.nombreArchivoOriginal}}, {{byteSize(adjuntoProyectoFase.file)}}</span>
+
+                                <button type="button" v-on:click="this.eliminar"
                                         class="btn btn-secondary btn-xs pull-right">
                                     <font-awesome-icon icon="times"></font-awesome-icon>
                                 </button> 
+                                <br></br>
+                                 <span class="pull-left">Si desea subir un archivo diferente tiene que eliminar el actual</span>
                             </div> 
-                            <input type="file" ref="file_archivo" id="file_archivo" v-on:change="asignarData($event, adjuntoProyectoFase, 'archivo', false)" v-text="$t('entity.action.addblob')"/>
+                            <input v-if="!adjuntoProyectoFase.id" type="file" ref="file_archivo" id="file_archivo" v-on:change="asignarData($event, adjuntoProyectoFase, 'archivo', false)" v-text="$t('entity.action.addblob')"/>
                         </div>
                         <input type="hidden" class="form-control" name="archivo" id="adjunto-proyecto-fase-archivo"
                             :class="{'valid': !$v.adjuntoProyectoFase.archivo.$invalid, 'invalid': $v.adjuntoProyectoFase.archivo.$invalid }" v-model="$v.adjuntoProyectoFase.archivo.$model" />
@@ -67,26 +70,7 @@
                             v-model="adjuntoProyectoFase.nombreArchivoOriginal" />
                     </div> 
                   
-                  <!--
-                   <div class="form-group">
-                        <label class="form-control-label" v-text="$t('ciecytApp.adjuntoProyectoFase.archivo')" for="adjunto-proyecto-fase-archivo">Archivo</label>
-                        <div>
-                            <div v-if="adjuntoProyectoFase.file" class="form-text text-danger clearfix">
-                                <a class="pull-left" v-on:click="openFile(adjuntoProyectoFase.archivoContentType, adjuntoProyectoFase.file)" v-text="$t('entity.action.open')">open</a><br>
-                                <span class="pull-left">{{adjuntoProyectoFase.archivoContentType}}, {{byteSize(adjuntoProyectoFase.file)}}</span>
-                                <button type="button" v-on:click="adjuntoProyectoFase.file=null;adjuntoProyectoFase.archivoContentType=null;"
-                                        class="btn btn-secondary btn-xs pull-right">
-                                    <font-awesome-icon icon="times"></font-awesome-icon>
-                                </button>
-                            </div>
-                            <input type="file" ref="file_file" id="file_file" v-on:change="setFileData($event, adjuntoProyectoFase, 'file', false)" v-text="$t('entity.action.addblob')"/>
-                        </div>
-                        <input type="hidden" class="form-control" name="file" id="adjunto-proyecto-fase-file"
-                            :class="{'valid': !$v.adjuntoProyectoFase.file.$invalid, 'invalid': $v.adjuntoProyectoFase.file.$invalid }" v-model="$v.adjuntoProyectoFase.file.$model" />
-                        <input type="hidden" class="form-control" name="archivoContentType" id="adjunto-proyecto-fase-archivoContentType"
-                            v-model="adjuntoProyectoFase.archivoContentType" />
-                    </div>
-                     -->
+                
         </div>
                    
         <div>
