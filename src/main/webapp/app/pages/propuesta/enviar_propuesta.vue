@@ -171,7 +171,7 @@ const validations: any = {
 
   descargar() {
     //console.log('se hizo clic');
-    this.adjuntoProyectoFaseService().downloadFile(this.adjuntoProyectoFase.id);
+    this.adjuntoProyectoFaseService().downloadFile(this.adjuntoProyectoFase.id, this.adjuntoProyectoFase.nombreArchivoOriginal);
   }
 
   eliminar(ob) {

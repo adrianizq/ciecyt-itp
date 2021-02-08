@@ -47,7 +47,7 @@ export default class AdjuntoProyectoFaseService {
     });
   }
 
-  public downloadFile(id?: any) {
+  public downloadFile(id?: any, fileName?: any) {
     axios({
       url: baseApiUrl + `/downloadFile` + `/${id}`,
       method: 'GET',
@@ -57,7 +57,8 @@ export default class AdjuntoProyectoFaseService {
       var fileLink = document.createElement('a');
 
       fileLink.href = fileURL;
-      fileLink.setAttribute('download', 'file.docx');
+      //fileLink.setAttribute('download', 'file.docx');
+      fileLink.setAttribute('download', fileName);
       document.body.appendChild(fileLink);
 
       fileLink.click();
