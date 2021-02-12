@@ -8,6 +8,7 @@ import co.edu.itp.ciecyt.repository.UserRepository;
 import co.edu.itp.ciecyt.security.AuthoritiesConstants;
 import co.edu.itp.ciecyt.security.SecurityUtils;
 import co.edu.itp.ciecyt.service.dto.UserDTO;
+import co.edu.itp.ciecyt.service.dto.UserInfoDTO;
 import co.edu.itp.ciecyt.service.mapper.UserMapper;
 
 import io.github.jhipster.security.RandomUtil;
@@ -38,6 +39,8 @@ public class UserService {
     private final Logger log = LoggerFactory.getLogger(UserService.class);
 
     private final UserRepository userRepository;
+    private final UserInfoService userInfoService;
+
 
     private final PasswordEncoder passwordEncoder;
 
@@ -46,14 +49,16 @@ public class UserService {
 
     private final CacheManager cacheManager;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, 
-            AuthorityRepository authorityRepository, CacheManager cacheManager, UserMapper userMapper) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder,
+            AuthorityRepository authorityRepository, CacheManager cacheManager, UserMapper userMapper,
+                       UserInfoService userInfoService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authorityRepository = authorityRepository;
         this.cacheManager = cacheManager;
         this.userMapper = userMapper;
-    }
+        this.userInfoService = userInfoService;
+     }
 
     public Optional<User> activateRegistration(String key) {
         log.debug("Activating user for activation key {}", key);
@@ -127,6 +132,12 @@ public class UserService {
         userRepository.save(newUser);
         this.clearUserCaches(newUser);
         log.debug("Created Information for User: {}", newUser);
+
+        //Crea la relacion con user info para los datos personalizados
+        UserInfoDTO info = userDTO.getUserInfo(); //ya viene el objeto cargado
+        info.setUserId(newUser.getId());
+        userInfoService.save(info);
+        log.debug("Created Information for UserInfo: {}", info);
         return newUser;
     }
 
@@ -170,6 +181,12 @@ public class UserService {
         userRepository.save(user);
         this.clearUserCaches(user);
         log.debug("Created Information for User: {}", user);
+
+        UserInfoDTO info = userDTO.getUserInfo(); //ya viene el objeto cargado
+        info.setUserId(user.getId());
+        userInfoService.save(info);
+        log.debug("Created Information for UserInfo: {}", info);
+
         return user;
     }
 
@@ -204,6 +221,22 @@ public class UserService {
                     .forEach(managedAuthorities::add);
                 this.clearUserCaches(user);
                 log.debug("Changed Information for User: {}", user);
+
+                Optional <UserInfoDTO> infOld = userInfoService.findOne(user.getId());
+
+                UserInfoDTO update = infOld.get();
+
+                UserInfoDTO info = userDTO.getUserInfo(); //ya viene el objeto cargado
+                info.setUserId(user.getId());
+                update.setCelular(info.getCelular());
+                update.setNuip(info.getNuip());
+                update.setCodigoItp(info.getCodigoItp());
+                update.setFoto(info.getFoto());
+                update.setFotoContentType(info.getFotoContentType());
+                userInfoService.save(update);
+                log.debug("Created Information for UserInfo: {}", info);
+
+
                 return user;
             })
             .map(UserDTO::new);
@@ -226,6 +259,7 @@ public class UserService {
      * @param langKey   language key.
      * @param imageUrl  image URL of user.
      */
+    //no llamar llamar al otro
     public void updateUser(String firstName, String lastName, String email, String langKey, String imageUrl) {
         SecurityUtils.getCurrentUserLogin()
             .flatMap(userRepository::findOneByLogin)
@@ -259,9 +293,22 @@ public class UserService {
             });
     }
 
-    @Transactional(readOnly = true)
+    /*@Transactional(readOnly = true)
     public Page<UserDTO> getAllManagedUsers(Pageable pageable) {
         return userRepository.findAllByLoginNot(pageable, Constants.ANONYMOUS_USER).map(UserDTO::new);
+    }*/
+
+    @Transactional(readOnly = true)
+    public Page<UserDTO> getAllManagedUsers(Pageable pageable) {
+        //return userRepository.findAllByLoginNot(pageable, Constants.ANONYMOUS_USER).map(UserDTO::new);
+        //.map(UserDTO::new);
+        return userRepository.findAllByLoginNot(pageable, Constants.ANONYMOUS_USER)
+            .map(userMapper::userToUserDTO)
+            .map(user->{
+                userInfoService.findOne(user.getId()).ifPresent(user::setUserInfo);
+                return user;
+            });
+
     }
 
     @Transactional(readOnly = true)
@@ -318,12 +365,20 @@ public List<UserDTO> getAllAsesoresNoPage() {
     List <User> list= userRepository.findAll(Specification.where(isRol(asesor)));
 
     listDTO = userMapper.usersToUserDTOs(list);
+
+    for (UserDTO userDto:listDTO) {
+        Optional <UserInfoDTO> userInfoDTO = userInfoService.findOne(userDto.getId());
+        if(userInfoDTO.isPresent()){
+            userDto.setUserInfo(userInfoDTO.get());
+        }
+    }
     return listDTO;
+
 }
 
 
 
-
+//Ejemplo de como acomodar las listas de este tipo
 @Transactional(readOnly = true)
 public List<UserDTO> getAllEstudiantesNoPage() {
     List <UserDTO> listDTO = new ArrayList<>();
@@ -331,7 +386,27 @@ public List<UserDTO> getAllEstudiantesNoPage() {
     List <User> list= userRepository.findAll(Specification.where(isRol(estudiante)));
 
     listDTO = userMapper.usersToUserDTOs(list);
+
+
+
+    //en el for hay un error
+    for (UserDTO userDto:listDTO) {
+        Optional <UserInfoDTO> userInfoDTO = userInfoService.findOne(userDto.getId());
+        if(userInfoDTO.isPresent()){
+            userDto.setUserInfo(userInfoDTO.get());
+        }
+    }
+
+
     return listDTO;
+
+
+   /* return userRepository.findAllByLoginNot(pageable, AuthoritiesConstants.ESTUDIANTE)
+        .map(userMapper::userToUserDTO)
+        .map(user->{
+            userInfoService.findOne(user.getId()).ifPresent(user::setUserInfo);
+            return user;
+        });*/
 }
 
 
@@ -342,8 +417,18 @@ public List<UserDTO> getAllJuradosNoPage() {
     List <User> list= userRepository.findAll(Specification.where(isRol(jurado)));
 
     listDTO = userMapper.usersToUserDTOs(list);
-    return listDTO;
-}
 
+    for (UserDTO userDto:listDTO) {
+        Optional <UserInfoDTO> userInfoDTO = userInfoService.findOne(userDto.getId());
+        if(userInfoDTO.isPresent()){
+            userDto.setUserInfo(userInfoDTO.get());
+        }
+
+    }
+    return listDTO;
+
+
+
+}
 
 }

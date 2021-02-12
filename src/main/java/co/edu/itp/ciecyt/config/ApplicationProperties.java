@@ -1,5 +1,6 @@
 package co.edu.itp.ciecyt.config;
 
+import co.edu.itp.ciecyt.domain.User;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
@@ -15,6 +16,8 @@ public class ApplicationProperties {
 
     private String filesPath;
 
+
+
     public String getFilesPath() {
         return this.filesPath;
     }
@@ -27,13 +30,15 @@ public class ApplicationProperties {
         return this.upload;
     }
 
+
+
     public static class Upload {
 
         private final Root root = new Root();
 
         private final Files files = new Files();
 
-        
+        private final User user = new User() ;
 
         public Root getRoot() {
             return this.root;
@@ -43,13 +48,16 @@ public class ApplicationProperties {
             return this.files;
         }
 
-       
 
+        public User getUser(){
+            return this.user;
+        }
         public static class Root extends DirPath {}
 
         public static class Files extends DirPath {}
 
-        
+
+
     }
 
     public static class DirPath {

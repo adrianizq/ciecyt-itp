@@ -59,7 +59,7 @@ export default class UsuarioService {
   public retrieveAsesores(paginationQuery?: any): Promise<any> {
     return new Promise<any>(resolve => {
       //axios.get(`api/users/asesores` + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function(res) {
-      //  resolve(res);
+      //resolve(res);
       axios.get(`api/users/asesores`).then(function (res) {
         resolve(res);
       });
@@ -68,8 +68,8 @@ export default class UsuarioService {
 
   public retrieveEstudiantes(paginationQuery?: any): Promise<any> {
     return new Promise<any>(resolve => {
-      //axios.get(`api/users/asesores` + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function(res) {
-      //  resolve(res);
+      //axios.get(`api/users/estudiantes` + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function(res) {
+      // resolve(res);
       axios.get(`api/users/estudiantes`).then(function (res) {
         resolve(res);
       });
@@ -78,8 +78,8 @@ export default class UsuarioService {
 
   public retrieveJurados(paginationQuery?: any): Promise<any> {
     return new Promise<any>(resolve => {
-      //axios.get(`api/users/asesores` + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function(res) {
-      //  resolve(res);
+      //axios.get(`api/users/jurados` + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function(res) {
+      // resolve(res);
       axios.get(`api/users/jurados`).then(function (res) {
         resolve(res);
       });

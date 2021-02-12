@@ -55,13 +55,14 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findOneWithAuthoritiesByEmailIgnoreCase(String email);
 
     Page<User> findAllByLoginNot(Pageable pageable, String login);
-
-  //  @EntityGraph(attributePaths = "authorities")
-   // List <User> findAllWithAuthorities(String authority);
+    List<User> findAllByLoginNot(String login);
 
 
-    public List <User> findAll(Specification<User> where);
+      public List <User>
 
+
+
+      findAll(Specification<User> where); //Lo tenia asi
 
 
 

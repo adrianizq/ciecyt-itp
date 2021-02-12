@@ -5,8 +5,11 @@ import co.edu.itp.ciecyt.domain.User;
 import co.edu.itp.ciecyt.repository.UserRepository;
 import co.edu.itp.ciecyt.security.AuthoritiesConstants;
 import co.edu.itp.ciecyt.service.MailService;
+import co.edu.itp.ciecyt.service.UserInfoQueryService;
+import co.edu.itp.ciecyt.service.UserInfoService;
 import co.edu.itp.ciecyt.service.UserService;
 import co.edu.itp.ciecyt.service.dto.UserDTO;
+import co.edu.itp.ciecyt.service.dto.UserInfoDTO;
 import co.edu.itp.ciecyt.web.rest.errors.BadRequestAlertException;
 import co.edu.itp.ciecyt.web.rest.errors.EmailAlreadyUsedException;
 import co.edu.itp.ciecyt.web.rest.errors.LoginAlreadyUsedException;
@@ -16,6 +19,7 @@ import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 
+import liquibase.pro.packaged.p;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -72,6 +76,7 @@ public class UserResource {
     private final UserRepository userRepository;
 
     private final MailService mailService;
+    private UserInfoService userInfoService;
     //private final MessageSource messageSource;
 
     //public UserResource(UserService userService, UserRepository userRepository, MailService mailService , MessageSource messageSource) {
@@ -148,6 +153,7 @@ public class UserResource {
      * @param pageable the pagination information.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body all users.
      */
+
     @GetMapping("/users")
     public ResponseEntity<List<UserDTO>> getAllUsers(Pageable pageable) {
         final Page<UserDTO> page = userService.getAllManagedUsers(pageable);
@@ -199,7 +205,8 @@ public class UserResource {
         //Optional<User> user = userService.getUserWithAuthorities();
         //Locale locale = Locale.forLanguageTag(user.get().getLangKey());
         try{
-        final List<UserDTO> listAsesores = userService.getAllAsesoresNoPage();
+       // final List<UserDTO> listAsesores = userService.getAllAsesoresNoPage();
+            final List<UserDTO> listAsesores = userService.getAllAsesoresNoPage();
 
         return new ResponseEntity<>(listAsesores, HttpStatus.OK);
 

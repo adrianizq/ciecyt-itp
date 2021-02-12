@@ -53,6 +53,8 @@ public class UserDTO {
 
     private Set<String> authorities;
 
+    private UserInfoDTO userInfo;
+
     public UserDTO() {
         // Empty constructor needed for Jackson.
     }
@@ -179,6 +181,16 @@ public class UserDTO {
         this.authorities = authorities;
     }
 
+
+    public UserInfoDTO getUserInfo() {
+        return this.userInfo;
+    }
+
+    public void setUserInfo(UserInfoDTO userInfo) {
+        this.userInfo = userInfo;
+    }
+
+
     @Override
     public String toString() {
         return "UserDTO{" +
@@ -193,6 +205,7 @@ public class UserDTO {
             ", createdDate=" + createdDate +
             ", lastModifiedBy='" + lastModifiedBy + '\'' +
             ", lastModifiedDate=" + lastModifiedDate +
+            ", userInfo=" + userInfo +
             ", authorities=" + authorities +
             "}";
     }

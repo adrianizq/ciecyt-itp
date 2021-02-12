@@ -54,6 +54,7 @@
     <include file="config/liquibase/changelog/20201008040803_added_entity_TipoPregunta.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20201008040903_added_entity_Usuario.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20201008041003_added_entity_Programa.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210209153331_added_entity_UserInfo.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20201008033203_added_entity_constraints_AdjuntoProyectoFase.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20201008033303_added_entity_constraints_AdjuntoRetroalimentacion.xml" relativeToChangelogFile="false"/>
@@ -85,6 +86,7 @@
     <include file="config/liquibase/changelog/20201008040503_added_entity_constraints_RolMenu.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20201008040703_added_entity_constraints_Solicitud.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20201008041003_added_entity_constraints_Programa.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210209153331_added_entity_constraints_UserInfo.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
 </databaseChangeLog>
