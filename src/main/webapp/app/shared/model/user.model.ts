@@ -1,3 +1,5 @@
+import { IUserInfo, UserInfo } from './user-info.model';
+
 export interface IUser {
   id?: any;
   login?: string;
@@ -12,6 +14,8 @@ export interface IUser {
   lastModifiedBy?: string;
   lastModifiedDate?: Date;
   password?: string;
+  userInfo?: IUserInfo[];
+
   // nombresApellidos?: string;
 }
 
@@ -29,7 +33,8 @@ export class User implements IUser {
     public createdDate?: Date,
     public lastModifiedBy?: string,
     public lastModifiedDate?: Date,
-    public password?: string //public nombresApellidos?: string,
+    public password?: string, //public nombresApellidos?: string,
+    public userInfo?: UserInfo[]
   ) {
     /*this.nombresApellidos=this.firstName + " " + this.lastName*/
   }

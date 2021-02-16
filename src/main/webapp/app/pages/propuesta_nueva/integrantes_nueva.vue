@@ -5,7 +5,7 @@
         </div>
         <div class="col-sm-8">
             <form @submit.prevent="save()">
-                <div class="row">
+                <!--<div class="row">
                     <div class="col-12" v-for="(integrante, i) in integrantesProyecto" :key="i">
                         <b-form-group
                             :label="`Integrante # ${i + 1}`"
@@ -18,20 +18,30 @@
                             </b-form-select>
                         </b-form-group>
                     </div>
-                </div>
+                </div>-->
+                <!-- https://github.com/moreta/vue-search-select -->
 
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-12" v-for="(integrante, i) in integrantesProyecto" :key="i">
                         
                     <b-form-group
                         label="Busca los integrantes"
                         label-for="search-integrantes"
                     >
-                        <multi-select :options="options"
-                            :selected-options="items"
-                            placeholder="select item"
-                            @select="onSelect">
-                        </multi-select>
+                        <model-select 
+
+
+                            :options="options"
+                             
+                            @input="selectFromParentComponent"
+                            
+                            placeholder="busque por nombre o cedula"
+                          
+                            v-model="integrante.integranteProyectoUserId"
+                           
+                           
+                            >
+                        </model-select>
                     </b-form-group>
 
                     </div>
@@ -68,18 +78,21 @@
 
     import { IIntegranteProyecto, IntegranteProyecto } from '@/shared/model/integrante-proyecto.model';
     import IntegranteProyectoService from '@/entities/integrante-proyecto/integrante-proyecto.service';
-    import 'vue-search-select/dist/VueSearchSelect.css';
+    //import 'vue-search-select/dist/VueSearchSelect.css';
+    import 'vue-search-select/dist/VueSearchSelect.css'
+    
 
     //Search select 
-    import { ModelSelect } from 'vue-search-select'
-    import _ from 'lodash'
-    import { MultiSelect } from 'vue-search-select'
+   
+    //import _ from 'lodash'
+    import { ModelSelect} from 'vue-search-select'
+import { userInfo } from 'os';
 
 
     const validations: any = {};
 
     @Component({
-        components: { MenuLateralNueva, ModelSelect, MultiSelect},
+        components: { MenuLateralNueva, ModelSelect},
         validations
     })
 
@@ -105,7 +118,11 @@
         //attributes search select
         public options : any = [];
         public searchText: any = ''; // If value is falsy, reset searchText & searchItem
-        public items: any = [];
+       public items: any = [];
+       public item: {
+          value: '',
+          text: ''
+        };
         public lastSelectItem: any = {};
 
 //public proyId: string = null;
@@ -123,19 +140,36 @@
         }
         
         /*Methods for multi select*/
-        public onSelect (items, lastSelectItem) {
-                this.items = items
-                this.lastSelectItem = lastSelectItem
-        }
+        //public onSelect (items, lastSelectItem) {
+        //     console.log("selected");
+        //        this.items = items;
+
+           //     this.lastSelectItem = lastSelectItem;
+              
+        //}
             // deselect option
-        public reset () {
-                this.items = [] // reset
-        }
+       // public reset () {
+       //         this.items = [] // reset
+       // }
             // select option from parent component
-        public selectFromParentComponent () {
-                this.items = _.unionWith(this.items, [this.options[0]], _.isEqual)
-            }
+        //public selectFromParentComponent () {
+         //       this.items = _.unionWith(this.items, [this.options[0]], _.isEqual)
+         //   }
         /* End methods for multi select */
+
+
+        ////////////////////////////////77777
+        reset () {
+        this.item = {value=0, text=""};
+      }
+      selectFromParentComponent () {
+        // select option from parent component
+         console.log(this.integrantesProyecto);
+       // this.item = this.options[0];
+       // this.items.push(this.item);
+       
+      }
+        //////////////////////////////////////77
    
         public back() {
             this.$router.push({ name: 'PropuestaInformacionGenearalNuevaEditView', params: { proyectoId: this.proyId } });
@@ -143,10 +177,12 @@
 
         public save(): void {
             try {
+                console.log(this.item)
                 this.isSaving = true;
                 let i=0;
                 for (let integrante of this.integrantesProyecto) {
-                    integrante.integranteProyectoUserId=this.items[i].value;
+                    
+                    //integrante.integranteProyectoUserId=this.items[i].value;
                     i++;
                     //Actualizando el integrante
                     if (integrante.id) {
@@ -178,9 +214,18 @@
                     .retrieveEstudiantes()
                     .then(res => {
                         res.data.forEach((item) => {
-                            item.nombresApellidos = item.firstName + ' ' + item.lastName;
+                            //console.log(item.userInfo)
+                            if(item.firstName && item.lastName && item.userInfo ){
+                                if(item.userInfo.nuip)
+                                item.nombresApellidos = item.firstName + ' ' + item.lastName  + ' ' +  item.userInfo.nuip;
+                            }else{
+                                item.nombresApellidos = item.firstName + ' ' + item.lastName;
+                            }
+
+                            //item.nombresApellidos = item.firstName + ' ' + item.lastName + ' ' + item.userInfo.nuip;
                             this.users.push(item);
                             this.options.push({value: item.id, text: item.nombresApellidos})
+                            //this.options.push({value: item.id, text: item.nombresApellidos,  any:  item.userInfo.nuip })
 
                             //add to list options for multiselect
                             /*itemMultiSelect = {
@@ -206,7 +251,7 @@
                     .retrieveEstudiantesProyecto(this.proyId)
                     .then(res => {
                        this.integrantesProyecto = res.data;
-                       console.log(res.data);
+                       //console.log(res.data);
                    });
                     
                   if(this.integrantesProyecto.length==0){  
