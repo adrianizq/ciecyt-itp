@@ -28,17 +28,7 @@
               />
               <div class="text-danger" v-if="!$v.proyecto.titulo.required">Este campo es requerido</div>
             </div>
-            <!--
-                        <div class="form-group"  :class="{ 'form-group--error': $v.proyecto.url.$error }">
-                            <label class="form-control-label " v-text="$t('ciecytApp.proyecto.url')" for="proyecto-url">Url</label>
-                            <input type="text" class="form-control" name="url" id="proyecto-url"
-                                   v-model="proyecto.url"
-                                        placeholder="Ingrese la Url del proyecto si existe"
-                                   />
-                            <div class="error" v-if="!$v.proyecto.url.url">La URL no es válida, ej: http://www.itp.edu.co</div>       
-                                
-                        </div>     
-                      -->
+         
             <div class="form-group">
               <label class="form-control-label" v-text="$t('ciecytApp.proyecto.lugarEjecucion')" for="proyecto-url"
                 >Lugar de Ejecución</label
@@ -57,25 +47,7 @@
               />
               <div class="text-danger" v-if="!$v.proyecto.lugarEjecucion.required">Este campo es requerido</div>
             </div>
-            <!--
-                        <div class="form-group"  >
-                            <label class="form-control-label " v-text="$t('ciecytApp.proyecto.duracion')" for="proyecto-duracion">Duración en meses</label>
-                            <input type="text" class="form-control" name="duracion" id="proyecto-duracion"
-                                   v-model="proyecto.duracion"
-                                        placeholder="Duración en meses"
-                                   />
-                        </div>        
--->
-            <!--
-                         <div class="form-group"  >
-                            <label class="form-control-label " v-text="$t('ciecytApp.proyecto.tipo')" for="proyecto-tipo">Tipo de Investigación</label>
-                            <input type="text" class="form-control" name="tipo" id="proyecto-tipo"
-                                   v-model="proyecto.tipo"
-                                        placeholder="Investigación Básica, Investigación Aplicada, Desarrollo Tecnológico o Experimental, etc"
-                                   />
-                        </div>        
--->
-
+          
             <div class="form-group">
               <label for="datepicker-sm">Fecha de Inicio</label>
               <b-form-datepicker
@@ -110,27 +82,6 @@
               <div class="text-danger" v-if="!$v.proyecto.fechaFin.required">Este campo es requerido</div>
             </div>
 
-            <!--   
-
-                         <div class="form-group"  :class="{ 'form-group--error': $v.proyecto.palabrasClave.$error }">
-                            <label class="form-control-label " v-text="$t('ciecytApp.proyecto.palabrasClave')" for="proyecto-palabras-clave">Palabras Clave</label>
-                            <textarea   rows="3" cols="6" class="form-control" name="palabrasClave" id="proyecto-palabras-clave"
-                                   v-model="proyecto.palabrasClave"
-                                   @input="setPalabrasClave($event.target.value)"
-                                    placeholder="Ingrese las palabras clave separadas por comas"/>
-                                     <div class="error" v-if="!$v.proyecto.palabrasClave.required&&!iniciandoPalabrasClave">Las palabra clave son requeridas</div>
-                        </div>
-
-                          <div class="form-group"  >
-                            <label class="form-control-label " v-text="$t('ciecytApp.proyecto.referencias')" for="proyecto-referencias">Referencias</label>
-                            <textarea   rows="3" cols="6" class="form-control" name="referencias" id="proyecto-referencias"
-                                   v-model="proyecto.referencias"
-                                  
-                                    placeholder="Ingrese las referencias bibliográficas"/>
-                                     
-                        </div>
-                       
-                    -->
           </div>
 
           <div class="col-md-6 col-12">
@@ -237,7 +188,7 @@
             <div class="form-group">
               <label class="form-control-label" v-text="$t('ciecytApp.proyecto.asesor')" for="asesor">Asesor</label>
 
-              <b-form-select
+              <!--<b-form-select
                 :options="users"
                 text-field="nombresApellidos"
                 value-field="id"
@@ -248,7 +199,17 @@
                   'is-valid': !$v.proyecto.asesorId.$invalid,
                 }"
               >
-              </b-form-select>
+              </b-form-select> -->
+                 <model-select 
+                            :options="options"
+                             placeholder="busque por nombre o cedula"
+                             v-model="proyecto.asesorId"
+                             :class="{
+                             'is-invalid': $v.proyecto.asesorId.$error,
+                             'is-valid': !$v.proyecto.asesorId.$invalid,
+                             }"
+                            >
+                        </model-select>
               <div class="text-danger" v-if="!$v.proyecto.asesorId.required">Este campo es requerido</div>
             </div>
           </div>
@@ -293,6 +254,8 @@ import { numeric, required, minLength, maxLength, between, url } from 'vuelidate
 import { id } from 'date-fns/esm/locale';
 import { IIntegranteProyecto, IntegranteProyecto } from '@/shared/model/integrante-proyecto.model';
 //import { id } from 'date-fns/locale';
+import 'vue-search-select/dist/VueSearchSelect.css'
+import { ModelSelect} from 'vue-search-select'
 
 const validations: any = {
   proyecto: {
@@ -320,7 +283,7 @@ const validations: any = {
 };
 
 @Component({
-  components: { MenuLateralNueva },
+  components: { MenuLateralNueva, ModelSelect },
 
   validations,
 })
@@ -349,6 +312,7 @@ export default class PropuestaInformacionGeneral extends Vue {
   public integranteProyecto: IIntegranteProyecto = new IntegranteProyecto();
   public programs: IPrograma[] = [];
   public programa: IPrograma = new Programa();
+  public options : any = [];
 
   public isSaving = false;
 
@@ -518,8 +482,15 @@ export default class PropuestaInformacionGeneral extends Vue {
       .retrieveAsesores()
       .then(res => {
         res.data.forEach(item => {
-          item.nombresApellidos = item.firstName + ' ' + item.lastName;
-          this.users.push(item);
+
+        if(item.firstName && item.lastName && item.userInfo ){
+            if(item.userInfo.nuip)
+               item.nombresApellidos = item.firstName + ' ' + item.lastName  + ' ' +  item.userInfo.nuip;
+        }else if(item.firstName && item.lastName){
+            item.nombresApellidos = item.firstName + ' ' + item.lastName;
+        }
+         this.users.push(item);
+         this.options.push({value: item.id, text: item.nombresApellidos})
         });
       });
   }

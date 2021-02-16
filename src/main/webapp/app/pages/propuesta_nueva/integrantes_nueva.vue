@@ -5,45 +5,21 @@
         </div>
         <div class="col-sm-8">
             <form @submit.prevent="save()">
-                <!--<div class="row">
-                    <div class="col-12" v-for="(integrante, i) in integrantesProyecto" :key="i">
-                        <b-form-group
-                            :label="`Integrante # ${i + 1}`"
-                            :label-for="`integrante-${i}`"
-                        >
-                            <b-form-select
-                                :options="users"
-                                text-field="nombresApellidos"
-                                value-field="id" :id="`integrante-${i}`" v-model="integrante.integranteProyectoUserId">
-                            </b-form-select>
-                        </b-form-group>
-                    </div>
-                </div>-->
-                <!-- https://github.com/moreta/vue-search-select -->
-
+               <!-- https://github.com/moreta/vue-search-select -->
                 <div class="row">
                     <div class="col-12" v-for="(integrante, i) in integrantesProyecto" :key="i">
-                        
                     <b-form-group
                         label="Busca los integrantes"
                         label-for="search-integrantes"
                     >
                         <model-select 
-
-
                             :options="options"
-                             
                             @input="selectFromParentComponent"
-                            
                             placeholder="busque por nombre o cedula"
-                          
                             v-model="integrante.integranteProyectoUserId"
-                           
-                           
                             >
                         </model-select>
                     </b-form-group>
-
                     </div>
                 </div>
                 <br><br>
@@ -78,13 +54,9 @@
 
     import { IIntegranteProyecto, IntegranteProyecto } from '@/shared/model/integrante-proyecto.model';
     import IntegranteProyectoService from '@/entities/integrante-proyecto/integrante-proyecto.service';
-    //import 'vue-search-select/dist/VueSearchSelect.css';
-    import 'vue-search-select/dist/VueSearchSelect.css'
-    
-
-    //Search select 
    
-    //import _ from 'lodash'
+    import 'vue-search-select/dist/VueSearchSelect.css'
+ 
     import { ModelSelect} from 'vue-search-select'
 import { userInfo } from 'os';
 
@@ -119,12 +91,7 @@ import { userInfo } from 'os';
         public options : any = [];
         public searchText: any = ''; // If value is falsy, reset searchText & searchItem
        public items: any = [];
-       public item: {
-          value: '',
-          text: ''
-        };
-        public lastSelectItem: any = {};
-
+      
 //public proyId: string = null;
 
         beforeRouteEnter(to, from, next) {
@@ -140,36 +107,8 @@ import { userInfo } from 'os';
         }
         
         /*Methods for multi select*/
-        //public onSelect (items, lastSelectItem) {
-        //     console.log("selected");
-        //        this.items = items;
-
-           //     this.lastSelectItem = lastSelectItem;
-              
-        //}
-            // deselect option
-       // public reset () {
-       //         this.items = [] // reset
-       // }
-            // select option from parent component
-        //public selectFromParentComponent () {
-         //       this.items = _.unionWith(this.items, [this.options[0]], _.isEqual)
-         //   }
-        /* End methods for multi select */
-
-
-        ////////////////////////////////77777
-        reset () {
-        this.item = {value=0, text=""};
-      }
-      selectFromParentComponent () {
-        // select option from parent component
-         console.log(this.integrantesProyecto);
-       // this.item = this.options[0];
-       // this.items.push(this.item);
+        //https://vue-search-select.netlify.app/#/model
        
-      }
-        //////////////////////////////////////77
    
         public back() {
             this.$router.push({ name: 'PropuestaInformacionGenearalNuevaEditView', params: { proyectoId: this.proyId } });
@@ -177,7 +116,6 @@ import { userInfo } from 'os';
 
         public save(): void {
             try {
-                console.log(this.item)
                 this.isSaving = true;
                 let i=0;
                 for (let integrante of this.integrantesProyecto) {
@@ -214,26 +152,17 @@ import { userInfo } from 'os';
                     .retrieveEstudiantes()
                     .then(res => {
                         res.data.forEach((item) => {
-                            //console.log(item.userInfo)
                             if(item.firstName && item.lastName && item.userInfo ){
                                 if(item.userInfo.nuip)
                                 item.nombresApellidos = item.firstName + ' ' + item.lastName  + ' ' +  item.userInfo.nuip;
-                            }else{
+                            }else if(item.firstName && item.lastName){
                                 item.nombresApellidos = item.firstName + ' ' + item.lastName;
                             }
 
-                            //item.nombresApellidos = item.firstName + ' ' + item.lastName + ' ' + item.userInfo.nuip;
                             this.users.push(item);
                             this.options.push({value: item.id, text: item.nombresApellidos})
-                            //this.options.push({value: item.id, text: item.nombresApellidos,  any:  item.userInfo.nuip })
 
-                            //add to list options for multiselect
-                            /*itemMultiSelect = {
-                                value: i.toString,
-                                text: item.nombresApellidos
-                            };
-                            this.options.push(itemMultiSelect);
-                            i++;*/
+                            
                         }); 
                     });             
                 this.proyId = parseInt(this.$route.params.proyectoId);

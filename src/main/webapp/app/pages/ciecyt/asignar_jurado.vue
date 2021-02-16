@@ -11,12 +11,19 @@
                             :label="`Jurado # ${i + 1}`"
                             :label-for="`integrante-${i}`"
                         >
-                            <b-form-select
+                            <!--<b-form-select
                                 :options="users"
                                 text-field="nombresApellidos"
                                 value-field="id" :id="`integrante-${i}`" v-model="integrante.integranteProyectoUserId">
 
-                            </b-form-select>
+                            </b-form-select>-->
+                            <model-select 
+                            :options="options"
+                            @input="selectFromParentComponent"
+                            placeholder="busque por nombre o cedula"
+                            v-model="integrante.integranteProyectoUserId"
+                            >
+                        </model-select>
                         </b-form-group>
                     </div>
 
@@ -53,11 +60,14 @@
 
     import { IIntegranteProyecto, IntegranteProyecto } from '@/shared/model/integrante-proyecto.model';
     import IntegranteProyectoService from '@/entities/integrante-proyecto/integrante-proyecto.service';
+     import 'vue-search-select/dist/VueSearchSelect.css'
+ 
+    import { ModelSelect} from 'vue-search-select'
 
     const validations: any = {};
 
     @Component({
-        components: { MenuLateralCiecyt },
+        components: { MenuLateralCiecyt, ModelSelect },
         validations
     })
 
@@ -79,6 +89,7 @@
         public n: number = 0;
         public cantJurados: number = 0;
         public rolModalidadId?: number =0;
+          public options : any = [];
 
 //public proyId: string = null;
 
@@ -117,12 +128,12 @@
                     //Actualizando el integrante
                     if (integrante.id) {
                         this.integranteProyectoService().update(integrante);
+                         (<any>this).$router.go(0);
                     } else {
                         //Creando un nuevo integrante
                         this.integranteProyectoService().create(integrante)
                             .then(param => {
-                               // this.$router.push({ name: 'PropuestaElementosView', params: { proyectoId: this.proyId } });
-                            });
+                                    (<any>this).$router.go(0);                            });
                     }
                      var proyId: string = String(this.proyId);
                     // this.$router.push({ name: 'PropuestaElementosView', params: { proyectoId: proyId } });
@@ -143,8 +154,15 @@
                     .then(res => {
                       
                         res.data.forEach((item) => {
-                            item.nombresApellidos = item.firstName + ' ' + item.lastName;
+                           if(item.firstName && item.lastName && item.userInfo ){
+                                if(item.userInfo.nuip)
+                                item.nombresApellidos = item.firstName + ' ' + item.lastName  + ' ' +  item.userInfo.nuip;
+                            }else if(item.firstName && item.lastName){
+                                item.nombresApellidos = item.firstName + ' ' + item.lastName;
+                            }
+
                             this.users.push(item);
+                            this.options.push({value: item.id, text: item.nombresApellidos})
 
                         });
 
