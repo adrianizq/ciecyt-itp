@@ -14,7 +14,7 @@ export interface IUser {
   lastModifiedBy?: string;
   lastModifiedDate?: Date;
   password?: string;
-  userInfo?: IUserInfo[];
+  userInfo?: IUserInfo;
 
   // nombresApellidos?: string;
 }
@@ -34,7 +34,7 @@ export class User implements IUser {
     public lastModifiedBy?: string,
     public lastModifiedDate?: Date,
     public password?: string, //public nombresApellidos?: string,
-    public userInfo?: UserInfo[]
+    public userInfo?: UserInfo
   ) {
     /*this.nombresApellidos=this.firstName + " " + this.lastName*/
   }

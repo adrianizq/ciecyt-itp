@@ -93,6 +93,10 @@
       "fieldName": "viabilidad",
       "fieldType": "EnumViabilidad",
       "fieldValues": "VIABLE,PENDIENTE,NO_VIABLE"
+    },
+    {
+      "fieldName": "preEnviado",
+      "fieldType": "Boolean"
     }
   ],
   "relationships": [

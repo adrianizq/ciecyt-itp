@@ -83,6 +83,9 @@ public class Proyecto implements Serializable {
     @Column(name = "enviado")
     private Boolean enviado;
 
+    @Column(name = "pre_enviado")
+    private Boolean preEnviado;
+
     @Column(name = "fecha_envio_propuesta")
     private ZonedDateTime fechaEnvioPropuesta;
 
@@ -386,6 +389,19 @@ public class Proyecto implements Serializable {
         this.enviado = enviado;
     }
 
+    public Boolean isPreEnviado() {
+        return preEnviado;
+    }
+
+    public Proyecto preEnviado(Boolean preEnviado) {
+        this.preEnviado = preEnviado;
+        return this;
+    }
+
+    public void setPreEnviado(Boolean preEnviado) {
+        this.preEnviado = preEnviado;
+    }
+
     public ZonedDateTime getFechaEnvioPropuesta() {
         return fechaEnvioPropuesta;
     }
@@ -585,6 +601,7 @@ public class Proyecto implements Serializable {
             ", viabilidad='" + getViabilidad() + "'" +
             ", viable='" + isViable() + "'" +
             ", enviado='" + isEnviado() + "'" +
+            ", preEnviado='" + isPreEnviado() + "'" +
             ", fechaEnvioPropuesta='" + getFechaEnvioPropuesta() + "'" +
             ", fechaEnvioProyecto='" + getFechaEnvioProyecto() + "'" +
             ", nota=" + getNota() +

@@ -108,6 +108,9 @@ public class ProyectoResourceIT {
     private static final EnumViabilidad DEFAULT_VIABILIDAD = EnumViabilidad.VIABLE;
     private static final EnumViabilidad UPDATED_VIABILIDAD = EnumViabilidad.PENDIENTE;
 
+    private static final Boolean DEFAULT_PRE_ENVIADO = false;
+    private static final Boolean UPDATED_PRE_ENVIADO = true;
+
     @Autowired
     private ProyectoRepository proyectoRepository;
 
@@ -155,7 +158,8 @@ public class ProyectoResourceIT {
             .nota(DEFAULT_NOTA)
             .conclusion(DEFAULT_CONCLUSION)
             .recomendaciones(DEFAULT_RECOMENDACIONES)
-            .viabilidad(DEFAULT_VIABILIDAD);
+            .viabilidad(DEFAULT_VIABILIDAD)
+            .preEnviado(DEFAULT_PRE_ENVIADO);
         return proyecto;
     }
     /**
@@ -188,7 +192,8 @@ public class ProyectoResourceIT {
             .nota(UPDATED_NOTA)
             .conclusion(UPDATED_CONCLUSION)
             .recomendaciones(UPDATED_RECOMENDACIONES)
-            .viabilidad(UPDATED_VIABILIDAD);
+            .viabilidad(UPDATED_VIABILIDAD)
+            .preEnviado(UPDATED_PRE_ENVIADO);
         return proyecto;
     }
 
@@ -235,6 +240,7 @@ public class ProyectoResourceIT {
         assertThat(testProyecto.getConclusion()).isEqualTo(DEFAULT_CONCLUSION);
         assertThat(testProyecto.getRecomendaciones()).isEqualTo(DEFAULT_RECOMENDACIONES);
         assertThat(testProyecto.getViabilidad()).isEqualTo(DEFAULT_VIABILIDAD);
+        assertThat(testProyecto.isPreEnviado()).isEqualTo(DEFAULT_PRE_ENVIADO);
     }
 
     @Test
@@ -291,7 +297,8 @@ public class ProyectoResourceIT {
             .andExpect(jsonPath("$.[*].nota").value(hasItem(DEFAULT_NOTA.doubleValue())))
             .andExpect(jsonPath("$.[*].conclusion").value(hasItem(DEFAULT_CONCLUSION)))
             .andExpect(jsonPath("$.[*].recomendaciones").value(hasItem(DEFAULT_RECOMENDACIONES)))
-            .andExpect(jsonPath("$.[*].viabilidad").value(hasItem(DEFAULT_VIABILIDAD.toString())));
+            .andExpect(jsonPath("$.[*].viabilidad").value(hasItem(DEFAULT_VIABILIDAD.toString())))
+            .andExpect(jsonPath("$.[*].preEnviado").value(hasItem(DEFAULT_PRE_ENVIADO.booleanValue())));
     }
     
     @Test
@@ -327,7 +334,8 @@ public class ProyectoResourceIT {
             .andExpect(jsonPath("$.nota").value(DEFAULT_NOTA.doubleValue()))
             .andExpect(jsonPath("$.conclusion").value(DEFAULT_CONCLUSION))
             .andExpect(jsonPath("$.recomendaciones").value(DEFAULT_RECOMENDACIONES))
-            .andExpect(jsonPath("$.viabilidad").value(DEFAULT_VIABILIDAD.toString()));
+            .andExpect(jsonPath("$.viabilidad").value(DEFAULT_VIABILIDAD.toString()))
+            .andExpect(jsonPath("$.preEnviado").value(DEFAULT_PRE_ENVIADO.booleanValue()));
     }
     @Test
     @Transactional
@@ -372,7 +380,8 @@ public class ProyectoResourceIT {
             .nota(UPDATED_NOTA)
             .conclusion(UPDATED_CONCLUSION)
             .recomendaciones(UPDATED_RECOMENDACIONES)
-            .viabilidad(UPDATED_VIABILIDAD);
+            .viabilidad(UPDATED_VIABILIDAD)
+            .preEnviado(UPDATED_PRE_ENVIADO);
         ProyectoDTO proyectoDTO = proyectoMapper.toDto(updatedProyecto);
 
         restProyectoMockMvc.perform(put("/api/proyectos")
@@ -407,6 +416,7 @@ public class ProyectoResourceIT {
         assertThat(testProyecto.getConclusion()).isEqualTo(UPDATED_CONCLUSION);
         assertThat(testProyecto.getRecomendaciones()).isEqualTo(UPDATED_RECOMENDACIONES);
         assertThat(testProyecto.getViabilidad()).isEqualTo(UPDATED_VIABILIDAD);
+        assertThat(testProyecto.isPreEnviado()).isEqualTo(UPDATED_PRE_ENVIADO);
     }
 
     @Test

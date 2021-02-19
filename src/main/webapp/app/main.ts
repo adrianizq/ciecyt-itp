@@ -67,6 +67,7 @@ import AdjuntoRetroalimentacionService from '@/entities/adjunto-retroalimentacio
 import FichaTecnicaService from '@/entities/ficha-tecnica/ficha-tecnica.service';
 import CategorizacionService from '@/entities/categorizacion/categorizacion.service';
 import UsuarioService from '@/entities/usuario/usuario.service';
+import UserInfoService from '@/entities/user-info/user-info.service';
 import MenuService from '@/entities/menu/menu.service';
 import RolMenuService from '@/entities/rol-menu/rol-menu.service';
 import InvestigacionTipoService from '@/entities/investigacion-tipo/investigacion-tipo.service';
@@ -171,6 +172,7 @@ new Vue({
     fichaTecnicaService: () => new FichaTecnicaService(),
     categorizacionService: () => new CategorizacionService(),
     usuarioService: () => new UsuarioService(),
+    userInfoService: () => new UserInfoService(),
     menuService: () => new MenuService(),
     rolMenuService: () => new RolMenuService(),
     investigacionTipoService: () => new InvestigacionTipoService(),

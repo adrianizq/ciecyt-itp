@@ -2,6 +2,8 @@ import { email, maxLength, minLength, required } from 'vuelidate/lib/validators'
 import { Component, Inject, Vue } from 'vue-property-decorator';
 import UserManagementService from './user-management.service';
 import { IUser, User } from '@/shared/model/user.model';
+import UserInfoService from '@/entities/user-info/user-info.service';
+import { IUserInfo, UserInfo } from '@/shared/model/user-info.model';
 import AlertService from '@/shared/alert/alert.service';
 
 function loginValidator(value) {
@@ -32,6 +34,13 @@ const validations: any = {
       maxLength: maxLength(254),
     },
   },
+  userInfo: {
+    nuip: {
+      required,
+      minLength: minLength(6),
+      maxLength: maxLength(10),
+    },
+  },
 };
 
 @Component({
@@ -40,9 +49,14 @@ const validations: any = {
 export default class JhiUserManagementEdit extends Vue {
   @Inject('alertService') private alertService: () => AlertService;
   @Inject('userService') private userManagementService: () => UserManagementService;
+  @Inject('userInfoService') private userInfoService: () => UserInfoService;
+
   public userAccount: IUser;
   public isSaving = false;
   public authorities: any[] = [];
+  // public userInfos: IUserInfo[] = [];
+  public userInfo: IUserInfo = new UserInfo();
+  public userId: any;
   public languages: any = this.$store.getters.languages;
 
   beforeRouteEnter(to, from, next) {
@@ -68,11 +82,16 @@ export default class JhiUserManagementEdit extends Vue {
       });
   }
 
-  public init(userId: number): void {
-    this.userManagementService()
+  public async init(userId: number) {
+    let res = await this.userManagementService()
       .get(userId)
       .then(res => {
         this.userAccount = res.data;
+      });
+    res = await this.userInfoService()
+      .find(this.userAccount.id)
+      .then(res => {
+        this.userInfo = res;
       });
   }
 
@@ -83,6 +102,11 @@ export default class JhiUserManagementEdit extends Vue {
   public save(): void {
     this.isSaving = true;
     if (this.userAccount.id) {
+      if (this.userInfo) {
+        //this.userAccount.userInfo.push(this.userInfo);
+        console.log(this.userInfo);
+        this.userAccount.userInfo = this.userInfo;
+      }
       this.userManagementService()
         .update(this.userAccount)
         .then(res => {

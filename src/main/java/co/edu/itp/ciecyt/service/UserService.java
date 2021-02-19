@@ -231,8 +231,8 @@ public class UserService {
                 update.setCelular(info.getCelular());
                 update.setNuip(info.getNuip());
                 update.setCodigoItp(info.getCodigoItp());
-                update.setFoto(info.getFoto());
-                update.setFotoContentType(info.getFotoContentType());
+                //update.setFoto(info.getFoto());
+                //update.setFotoContentType(info.getFotoContentType());
                 userInfoService.save(update);
                 log.debug("Created Information for UserInfo: {}", info);
 
