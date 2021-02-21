@@ -16,6 +16,8 @@
                     <dd>{{user.firstName}}</dd>
                     <dt><span v-text="$t('userManagement.lastName')">Last Name</span></dt>
                     <dd>{{user.lastName}}</dd>
+                    <dt v-if="userInfo"><span>Identificacion</span></dt>
+                    <dd v-if="userInfo">{{userInfo.nuip}}</dd>
                     <dt><span v-text="$t('userManagement.email')">Email</span></dt>
                     <dd>{{user.email}}</dd>
                     <!--<dt><span v-text="$t('userManagement.langKey')">Lang Key</span></dt>
