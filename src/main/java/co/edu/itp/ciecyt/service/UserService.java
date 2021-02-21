@@ -153,9 +153,9 @@ public class UserService {
     }
 
     public User createUser(UserDTO userDTO) {
-    	
+
     	log.debug("Informacion del usuario a crear: {}", userDTO);
-    	
+
         User user = new User();
         user.setLogin(userDTO.getLogin().toLowerCase());
         user.setFirstName(userDTO.getFirstName());
@@ -180,11 +180,11 @@ public class UserService {
                 .map(Optional::get).collect(Collectors.toSet());
             user.setAuthorities(authorities);
         }
-       
-        userRepository.save(user);
+
+        User u = userRepository.save(user);
         this.clearUserCaches(user);
         log.debug("Created Information for User: {}", user);
-        
+
         //Valida la informacion del userinfo
         UserInfoDTO info = null;
         if(userDTO.getUserInfo() != null ) {
@@ -193,7 +193,7 @@ public class UserService {
         	info = new UserInfoDTO() ;
         }
         //Asigna el Id del user creado en la linea 183
-        info.setUserId(user.getId());
+        info.setUserId(u.getId());
         userInfoService.save(info);
         log.debug("Created Information for UserInfo: {}", info);
 
