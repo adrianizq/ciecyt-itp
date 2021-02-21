@@ -153,6 +153,9 @@ public class UserService {
     }
 
     public User createUser(UserDTO userDTO) {
+    	
+    	log.debug("Informacion del usuario a crear: {}", userDTO);
+    	
         User user = new User();
         user.setLogin(userDTO.getLogin().toLowerCase());
         user.setFirstName(userDTO.getFirstName());
@@ -173,25 +176,24 @@ public class UserService {
         user.setActivated(true);
         if (userDTO.getAuthorities() != null) {
             Set<Authority> authorities = userDTO.getAuthorities().stream()
-                .map(authorityRepository::findById)
-                .filter(Optional::isPresent)
-                .map(Optional::get)
-                .collect(Collectors.toSet());
+                .map(authorityRepository::findById).filter(Optional::isPresent)
+                .map(Optional::get).collect(Collectors.toSet());
             user.setAuthorities(authorities);
         }
-        User u = new User();
-        u = userRepository.save(user);
+       
         userRepository.save(user);
-
         this.clearUserCaches(user);
         log.debug("Created Information for User: {}", user);
-        UserInfoDTO info;
-        if(userDTO!=null) {
-           info= userDTO.getUserInfo(); //ya viene el objeto cargado
-        }else{
-            info =new UserInfoDTO() ;
+        
+        //Valida la informacion del userinfo
+        UserInfoDTO info = null;
+        if(userDTO.getUserInfo() != null ) {
+        	info = userDTO.getUserInfo();
+        }else {
+        	info = new UserInfoDTO() ;
         }
-        info.setUserId(u.getId());
+        //Asigna el Id del user creado en la linea 183
+        info.setUserId(user.getId());
         userInfoService.save(info);
         log.debug("Created Information for UserInfo: {}", info);
 
