@@ -6,6 +6,7 @@ import co.edu.itp.ciecyt.service.UserService;
 import co.edu.itp.ciecyt.service.dto.UserDTO;
 import co.edu.itp.ciecyt.service.dto.UserInfoCriteria;
 import co.edu.itp.ciecyt.service.dto.UserInfoDTO;
+import co.edu.itp.ciecyt.service.dto.UsuarioDTO;
 import co.edu.itp.ciecyt.web.rest.errors.BadRequestAlertException;
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.HeaderUtil;
@@ -71,7 +72,26 @@ public class UserInfoResource {
     }
 
     /**
-     * {@code PUT  /user-infos} : Updates an existing userInfo.
+     * {@code POST  /user-infos} : Create a new usuario.
+     *
+     * @param userInfoDTO the usuarioDTO to create.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new usuarioDTO, or with status {@code 400 (Bad Request)} if the usuario has already an ID.
+     * @throws URISyntaxException if the Location URI syntax is incorrect.
+     */
+    @PostMapping("/user-info")
+    public ResponseEntity< UserInfoDTO> createUsuario(@RequestBody  UserInfoDTO userInfoDTO) throws URISyntaxException {
+        log.debug("REST request to save Usuario : {}", userInfoDTO);
+        if (userInfoDTO.getId() != null) {
+            throw new BadRequestAlertException("A new userInfo cannot already have an ID", ENTITY_NAME, "idexists");
+        }
+        UserInfoDTO result = userInfoService.save(userInfoDTO);
+        return ResponseEntity.created(new URI("/api/user-info/" + result.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
+            .body(result);
+    }
+
+    /**
+     * {@code PUT  /user-info} : Updates an existing userInfo.
      *
      * @param userInfoDTO the userInfoDTO to update.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated userInfoDTO,

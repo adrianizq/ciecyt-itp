@@ -103,7 +103,6 @@ export default class JhiUserManagementEdit extends Vue {
     this.isSaving = true;
     if (this.userAccount.id) {
       if (this.userInfo) {
-        //this.userAccount.userInfo.push(this.userInfo);
         console.log(this.userInfo);
         this.userAccount.userInfo = this.userInfo;
       }

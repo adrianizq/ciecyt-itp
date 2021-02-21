@@ -3,6 +3,7 @@ package co.edu.itp.ciecyt.service;
 import co.edu.itp.ciecyt.config.Constants;
 import co.edu.itp.ciecyt.domain.Authority;
 import co.edu.itp.ciecyt.domain.User;
+import co.edu.itp.ciecyt.domain.UserInfo;
 import co.edu.itp.ciecyt.repository.AuthorityRepository;
 import co.edu.itp.ciecyt.repository.UserRepository;
 import co.edu.itp.ciecyt.security.AuthoritiesConstants;
@@ -134,10 +135,10 @@ public class UserService {
         log.debug("Created Information for User: {}", newUser);
 
         //Crea la relacion con user info para los datos personalizados
-        UserInfoDTO info = userDTO.getUserInfo(); //ya viene el objeto cargado
+        /*UserInfoDTO info = userDTO.getUserInfo(); //ya viene el objeto cargado
         info.setUserId(newUser.getId());
         userInfoService.save(info);
-        log.debug("Created Information for UserInfo: {}", info);
+        log.debug("Created Information for UserInfo: {}", info);*/
         return newUser;
     }
 
@@ -178,12 +179,19 @@ public class UserService {
                 .collect(Collectors.toSet());
             user.setAuthorities(authorities);
         }
+        User u = new User();
+        u = userRepository.save(user);
         userRepository.save(user);
+
         this.clearUserCaches(user);
         log.debug("Created Information for User: {}", user);
-
-        UserInfoDTO info = userDTO.getUserInfo(); //ya viene el objeto cargado
-        info.setUserId(user.getId());
+        UserInfoDTO info;
+        if(userDTO!=null) {
+           info= userDTO.getUserInfo(); //ya viene el objeto cargado
+        }else{
+            info =new UserInfoDTO() ;
+        }
+        info.setUserId(u.getId());
         userInfoService.save(info);
         log.debug("Created Information for UserInfo: {}", info);
 
