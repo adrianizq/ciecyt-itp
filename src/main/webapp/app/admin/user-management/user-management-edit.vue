@@ -62,7 +62,7 @@
 
                     <!--  User Info ---------------------------->
                     <div class="form-group">
-                        <label class="form-control-label" for="nuip" v-text="$t('userInfo.nuip')">Documento</label>
+                        <label class="form-control-label" for="nuip" >Número de Documento</label>
                         <input type="text" class="form-control" id="nuip" name="nuip" v-bind:placeholder="$t('settings.form[\'nuip.placeholder\']')"
                                :class="{'valid': !$v.userInfo.nuip.$invalid, 'invalid': $v.userInfo.nuip.$invalid }"
                                v-model="userInfo.nuip" maxlength=50>

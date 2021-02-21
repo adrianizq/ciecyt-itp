@@ -51,7 +51,7 @@ public class UserService {
     private final CacheManager cacheManager;
 
     public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder,
-            AuthorityRepository authorityRepository, CacheManager cacheManager, UserMapper userMapper,
+                       AuthorityRepository authorityRepository, CacheManager cacheManager, UserMapper userMapper,
                        UserInfoService userInfoService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
@@ -59,7 +59,7 @@ public class UserService {
         this.cacheManager = cacheManager;
         this.userMapper = userMapper;
         this.userInfoService = userInfoService;
-     }
+    }
 
     public Optional<User> activateRegistration(String key) {
         log.debug("Activating user for activation key {}", key);
@@ -144,7 +144,7 @@ public class UserService {
 
     private boolean removeNonActivatedUser(User existingUser) {
         if (existingUser.getActivated()) {
-             return false;
+            return false;
         }
         userRepository.delete(existingUser);
         userRepository.flush();
@@ -154,7 +154,7 @@ public class UserService {
 
     public User createUser(UserDTO userDTO) {
 
-    	log.debug("Informacion del usuario a crear: {}", userDTO);
+        log.debug("Informacion del usuario a crear: {}", userDTO);
 
         User user = new User();
         user.setLogin(userDTO.getLogin().toLowerCase());
@@ -188,9 +188,9 @@ public class UserService {
         //Valida la informacion del userinfo
         UserInfoDTO info = null;
         if(userDTO.getUserInfo() != null ) {
-        	info = userDTO.getUserInfo();
+            info = userDTO.getUserInfo();
         }else {
-        	info = new UserInfoDTO() ;
+            info = new UserInfoDTO() ;
         }
         //Asigna el Id del user creado en la linea 183
         info.setUserId(u.getId());
@@ -253,7 +253,10 @@ public class UserService {
     }
 
     public void deleteUser(String login) {
-        userRepository.findOneByLogin(login).ifPresent(user -> {
+         userRepository.findOneByLogin(login).ifPresent(user -> {
+             userInfoService.findOne(user.getId()).ifPresent(userInfo ->{
+                 userInfoService.delete(user.getId());
+             });
             userRepository.delete(user);
             this.clearUserCaches(user);
             log.debug("Deleted User: {}", user);
@@ -368,47 +371,47 @@ public class UserService {
         return (obj, cq, cb) -> cb.isMember(role, obj.get("authorities"));
     }
 
-@Transactional(readOnly = true)
-public List<UserDTO> getAllAsesoresNoPage() {
-    List <UserDTO> listDTO = new ArrayList<>();
-    Authority asesor = authorityRepository.findById(AuthoritiesConstants.ASESOR).get();
-    List <User> list= userRepository.findAll(Specification.where(isRol(asesor)));
+    @Transactional(readOnly = true)
+    public List<UserDTO> getAllAsesoresNoPage() {
+        List <UserDTO> listDTO = new ArrayList<>();
+        Authority asesor = authorityRepository.findById(AuthoritiesConstants.ASESOR).get();
+        List <User> list= userRepository.findAll(Specification.where(isRol(asesor)));
 
-    listDTO = userMapper.usersToUserDTOs(list);
+        listDTO = userMapper.usersToUserDTOs(list);
 
-    for (UserDTO userDto:listDTO) {
-        Optional <UserInfoDTO> userInfoDTO = userInfoService.findOne(userDto.getId());
-        if(userInfoDTO.isPresent()){
-            userDto.setUserInfo(userInfoDTO.get());
+        for (UserDTO userDto:listDTO) {
+            Optional <UserInfoDTO> userInfoDTO = userInfoService.findOne(userDto.getId());
+            if(userInfoDTO.isPresent()){
+                userDto.setUserInfo(userInfoDTO.get());
+            }
         }
-    }
-    return listDTO;
+        return listDTO;
 
-}
-
-
-
-//Ejemplo de como acomodar las listas de este tipo
-@Transactional(readOnly = true)
-public List<UserDTO> getAllEstudiantesNoPage() {
-    List <UserDTO> listDTO = new ArrayList<>();
-    Authority estudiante = authorityRepository.findById(AuthoritiesConstants.ESTUDIANTE).get();
-    List <User> list= userRepository.findAll(Specification.where(isRol(estudiante)));
-
-    listDTO = userMapper.usersToUserDTOs(list);
-
-
-
-    //en el for hay un error
-    for (UserDTO userDto:listDTO) {
-        Optional <UserInfoDTO> userInfoDTO = userInfoService.findOne(userDto.getId());
-        if(userInfoDTO.isPresent()){
-            userDto.setUserInfo(userInfoDTO.get());
-        }
     }
 
 
-    return listDTO;
+
+    //Ejemplo de como acomodar las listas de este tipo
+    @Transactional(readOnly = true)
+    public List<UserDTO> getAllEstudiantesNoPage() {
+        List <UserDTO> listDTO = new ArrayList<>();
+        Authority estudiante = authorityRepository.findById(AuthoritiesConstants.ESTUDIANTE).get();
+        List <User> list= userRepository.findAll(Specification.where(isRol(estudiante)));
+
+        listDTO = userMapper.usersToUserDTOs(list);
+
+
+
+        //en el for hay un error
+        for (UserDTO userDto:listDTO) {
+            Optional <UserInfoDTO> userInfoDTO = userInfoService.findOne(userDto.getId());
+            if(userInfoDTO.isPresent()){
+                userDto.setUserInfo(userInfoDTO.get());
+            }
+        }
+
+
+        return listDTO;
 
 
    /* return userRepository.findAllByLoginNot(pageable, AuthoritiesConstants.ESTUDIANTE)
@@ -417,28 +420,28 @@ public List<UserDTO> getAllEstudiantesNoPage() {
             userInfoService.findOne(user.getId()).ifPresent(user::setUserInfo);
             return user;
         });*/
-}
+    }
 
 
-@Transactional(readOnly = true)
-public List<UserDTO> getAllJuradosNoPage() {
-    List <UserDTO> listDTO = new ArrayList<>();
-    Authority jurado = authorityRepository.findById(AuthoritiesConstants.JURADO).get();
-    List <User> list= userRepository.findAll(Specification.where(isRol(jurado)));
+    @Transactional(readOnly = true)
+    public List<UserDTO> getAllJuradosNoPage() {
+        List <UserDTO> listDTO = new ArrayList<>();
+        Authority jurado = authorityRepository.findById(AuthoritiesConstants.JURADO).get();
+        List <User> list= userRepository.findAll(Specification.where(isRol(jurado)));
 
-    listDTO = userMapper.usersToUserDTOs(list);
+        listDTO = userMapper.usersToUserDTOs(list);
 
-    for (UserDTO userDto:listDTO) {
-        Optional <UserInfoDTO> userInfoDTO = userInfoService.findOne(userDto.getId());
-        if(userInfoDTO.isPresent()){
-            userDto.setUserInfo(userInfoDTO.get());
+        for (UserDTO userDto:listDTO) {
+            Optional <UserInfoDTO> userInfoDTO = userInfoService.findOne(userDto.getId());
+            if(userInfoDTO.isPresent()){
+                userDto.setUserInfo(userInfoDTO.get());
+            }
+
         }
+        return listDTO;
+
+
 
     }
-    return listDTO;
-
-
-
-}
 
 }
