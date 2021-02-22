@@ -57,7 +57,8 @@
                                     <font-awesome-icon icon="times"></font-awesome-icon>
                                 </button> 
                             </div> 
-                            <input type="file" ref="file_archivo" id="file_archivo" v-on:change="asignarData($event, adjuntoProyectoFase, 'archivo', false)" v-text="$t('entity.action.addblob')"/>
+                            <input v-if="adjuntoProyectoFase.file==null" type="file" ref="file_archivo" id="file_archivo" v-on:change="asignarData($event, adjuntoProyectoFase, 'archivo', false)" v-text="$t('entity.action.addblob')"/>
+                            <span  v-if="adjuntoProyectoFase.file!=null">Si desea subir otro adjunto de la propuesta, deberá eliminar el archivo actual</span>
                         </div>
                         <input type="hidden" class="form-control" name="archivo" id="adjunto-proyecto-fase-archivo"
                             :class="{'valid': !$v.adjuntoProyectoFase.archivo.$invalid, 'invalid': $v.adjuntoProyectoFase.archivo.$invalid }" v-model="$v.adjuntoProyectoFase.archivo.$model" />
@@ -67,26 +68,7 @@
                             v-model="adjuntoProyectoFase.nombreArchivoOriginal" />
                     </div> 
                   
-                  <!--
-                   <div class="form-group">
-                        <label class="form-control-label" v-text="$t('ciecytApp.adjuntoProyectoFase.archivo')" for="adjunto-proyecto-fase-archivo">Archivo</label>
-                        <div>
-                            <div v-if="adjuntoProyectoFase.file" class="form-text text-danger clearfix">
-                                <a class="pull-left" v-on:click="openFile(adjuntoProyectoFase.archivoContentType, adjuntoProyectoFase.file)" v-text="$t('entity.action.open')">open</a><br>
-                                <span class="pull-left">{{adjuntoProyectoFase.archivoContentType}}, {{byteSize(adjuntoProyectoFase.file)}}</span>
-                                <button type="button" v-on:click="adjuntoProyectoFase.file=null;adjuntoProyectoFase.archivoContentType=null;"
-                                        class="btn btn-secondary btn-xs pull-right">
-                                    <font-awesome-icon icon="times"></font-awesome-icon>
-                                </button>
-                            </div>
-                            <input type="file" ref="file_file" id="file_file" v-on:change="setFileData($event, adjuntoProyectoFase, 'file', false)" v-text="$t('entity.action.addblob')"/>
-                        </div>
-                        <input type="hidden" class="form-control" name="file" id="adjunto-proyecto-fase-file"
-                            :class="{'valid': !$v.adjuntoProyectoFase.file.$invalid, 'invalid': $v.adjuntoProyectoFase.file.$invalid }" v-model="$v.adjuntoProyectoFase.file.$model" />
-                        <input type="hidden" class="form-control" name="archivoContentType" id="adjunto-proyecto-fase-archivoContentType"
-                            v-model="adjuntoProyectoFase.archivoContentType" />
-                    </div>
-                     -->
+                  
         </div>
                    
         <div>
@@ -159,7 +141,7 @@ const validations: any = {
   public integrants:IIntegranteProyecto[]= [];
    public fase:IFases= new Fases();
    // public fases: IFases = new Fases();
-   public faseId:any;
+   public faseId:number;
   public terms:Boolean=false;
 
 
@@ -171,7 +153,7 @@ const validations: any = {
 
   descargar() {
     //console.log('se hizo clic');
-    this.adjuntoProyectoFaseService().downloadFile(this.adjuntoProyectoFase.id);
+    this.adjuntoProyectoFaseService().downloadFile(this.adjuntoProyectoFase.id, this.adjuntoProyectoFase.nombreArchivoOriginal);
   }
 
   eliminar(ob) {
@@ -210,34 +192,7 @@ const validations: any = {
   public save(): void {
     this.isSaving = true;
  
-   /*
-   this.proyecto.fechaEnvioPropuesta = new Date();
-    this.proyecto.enviado = true;
-    
-    if (this.proyecto.id) {
-      this.proyectoService()
-        .update(this.proyecto)
-        .then(param => {
-          this.isSaving = false;
-          (<any>this).$router.go(0);
-          const message = this.$t('ciecytApp.proyecto.updated', { param: param.id });
-          this.alertService().showAlert(message, 'info');
-        });
-    } else {
-      this.proyectoService()
-        .create(this.proyecto)
-        .then(param => {
-          this.isSaving = false;
-
-          this.proyId = String(param.id);
-
-          (<any>this).$router.go(0);
-
-          const message = 'Se ha creado un nuevo proyecto';
-          this.alertService().showAlert(message, 'success');
-        });
-    }
-*/
+   
     this.adjuntoProyectoFase.proyectoFaseProyectoId = this.proyecto.id;
     this.adjuntoProyectoFase.adjuntoProyectoFaseFaseId = this.faseId;
      this.adjuntoProyectoFase.fechaCreacion = new Date();
