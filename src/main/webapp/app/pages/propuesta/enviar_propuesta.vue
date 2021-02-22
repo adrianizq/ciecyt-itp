@@ -3,7 +3,7 @@
     <div class="col-sm-4">
       <menu-lateral :proyectoId="$route.params.proyectoId"></menu-lateral>
     </div>
-    <div class="col-sm-8"  v-if="!proyecto.enviado">
+    <div class="col-sm-8"  v-if="!proyecto.preEnviado">
       <form @submit.prevent="save()">
         <div class="row">
           <div class="col-12">
@@ -18,13 +18,12 @@
              <ol></ol>
             
         </ul>
-                Se va a enviar la Propuesta al CIECYT, para ser revisada por el Asesor. <br />
-
+                Se va a enviar la Propuesta al Ciecyt, para ser revisada por su Asesor. <br />
                 Para realizar esta operación, debe haber diligenciado correctamente los datos de su propuesta
                 <br /> 
 
                 <br />Si está de acuerdo marque la opcion
-                <strong>Enviar para Vibilidad </strong>
+                <strong>Enviar al Asesor </strong>
                 y de click en el boton <strong>Enviar </strong></label
               >
 
@@ -36,7 +35,7 @@
               v-model='terms'
         
               >
-                Enviar para Viabilidad
+                Enviar al Asesor
               </b-form-checkbox>
             </div>
           </div>
@@ -53,9 +52,9 @@
         </div>
       </form>
     </div>
-    <div class="col-sm-8"  v-if="proyecto.enviado">
+    <div class="col-sm-8"  v-if="proyecto.preEnviado">
      <h2>Enviar la Propuesta</h2><br />
-    La Propuesta ya ha sido enviada para su revisión
+    La Propuesta ya ha sido enviada al Asesor para su revisión
     </div>
   </div>
 </template>
