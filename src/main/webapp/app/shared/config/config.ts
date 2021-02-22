@@ -159,6 +159,11 @@ export function initVueXStore(vue) {
           to: '/propuesta/cronograma',
         },
         {
+          title: 'Adjuntar la Propuesta',
+          description: 'Envíe el archivo con su propuesta',
+          to: '/propuesta/adjuntar_propuesta',
+        },
+        {
           title: 'Enviar la Propuesta',
           description: 'En esta sección enviará su propuesta al Ciecyt',
           to: '/propuesta/enviar_propuesta',

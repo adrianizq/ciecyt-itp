@@ -303,6 +303,7 @@ const PropuestaImpactosEsperado = () => import('../pages/propuesta/impactos_espe
 const PropuestaEntidades = () => import('../pages/propuesta/entidades.vue');
 const PropuestaCronograma = () => import('../pages/propuesta/cronograma.vue');
 const PropuestaEnviarPropuesta = () => import('../pages/propuesta/enviar_propuesta.vue');
+const PropuestaAdjuntarPropuesta = () => import('../pages/propuesta/adjuntar_propuesta.vue');
 
 const PropuestaLineaInformacionGeneral = () => import('../pages/propuesta_linea/informacion_general_linea.vue');
 const PropuestaLineaIntegrantes = () => import('../pages/propuesta_linea/integrantes_linea.vue');
@@ -1756,6 +1757,12 @@ export default new Router({
       path: '/propuesta/enviar_propuesta/:proyectoId',
       name: 'PropuestaEnviarPropuestaView',
       component: PropuestaEnviarPropuesta,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    {
+      path: '/propuesta/adjuntar_propuesta/:proyectoId',
+      name: 'PropuestaAdjuntarPropuestaView',
+      component: PropuestaAdjuntarPropuesta,
       meta: { authorities: ['ROLE_USER'] }
     },
     {
