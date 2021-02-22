@@ -12,33 +12,10 @@
             
             <div class="form-group">
               <label class="form-control-label" for="proyecto-titulo">
-               <h2>Enviar la Propuesta</h2><br />
+               <h2>Adjuntar Archivo a la Propuesta</h2><br />
+              </label>
 
-               <ul>
-               <li>Título {{proyecto.titulo}} </li>
-            <li v-for="l in integrants" v-bind:key="l">{{l.integranteProyectoRolesModalidadRol}}: {{l.integranteProyectoUserLogin}}</li>
-             <ol></ol>
-            
-        </ul>
-                Se va a enviar la Propuesta al CIECYT, para ser revisada por un Jurado de Viabilidad. <br />
-                Para realizar esta operación, debe haber diligenciado correctamente los datos de su propuesta
-                <br /> 
-
-                <br />Si está de acuerdo marque la opcion
-                <strong>Enviar para Vibilidad </strong>
-                y de click en el boton <strong>Enviar </strong></label
-              >
-
-              <b-form-checkbox type="checkbox" 
-              class="form-control" 
-              name="terms"
-              value="terms"
-              id='terms'
-              v-model='terms'
-        
-              >
-                Enviar para Viabilidad
-              </b-form-checkbox>
+             
             </div>
           </div>
 
@@ -47,20 +24,18 @@
                         <label class="form-control-label" v-text="$t('ciecytApp.adjuntoProyectoFase.archivo')" for="adjunto-proyecto-fase-archivo">Archivo</label>
                         <div>
                             <div v-if="adjuntoProyectoFase.id"  class="form-text text-danger clearfix">
-                             
+                            
                             
                                 <!--<a class="pull-left" v-on:click="openFile(adjuntoProyectoFase.archivoContentType, adjuntoProyectoFase.file)" v-text="$t('entity.action.open')">open</a><br> -->
                                 <a class="pull-left" v-on:click="this.descargar" v-text="$t('entity.action.open')">open</a>
-                                <span class="pull-left">{{adjuntoProyectoFase.nombreArchivoOriginal}}, {{byteSize(adjuntoProyectoFase.file)}}</span>
-
-                                <button type="button" v-on:click="this.eliminar"
+                                <span class="pull-left">{{adjuntoProyectoFase.archivoContentType}}, {{byteSize(adjuntoProyectoFase.file)}}</span>
+                                <button type="button" v-on:click="this.eliminar" v-text="$t('entity.action.delete')">
                                         class="btn btn-secondary btn-xs pull-right">
                                     <font-awesome-icon icon="times"></font-awesome-icon>
                                 </button> 
-                                <br></br>
-                                 <span class="pull-left">Si desea subir un archivo diferente tiene que eliminar el actual</span>
                             </div> 
-                            <input v-if="!adjuntoProyectoFase.id" type="file" ref="file_archivo" id="file_archivo" v-on:change="asignarData($event, adjuntoProyectoFase, 'archivo', false)" v-text="$t('entity.action.addblob')"/>
+                            <input v-if="adjuntoProyectoFase.file==null" type="file" ref="file_archivo" id="file_archivo" v-on:change="asignarData($event, adjuntoProyectoFase, 'archivo', false)" v-text="$t('entity.action.addblob')"/>
+                            <span  v-if="adjuntoProyectoFase.file!=null">Si desea subir otro adjunto de la propuesta, deberá eliminar el archivo actual</span>
                         </div>
                         <input type="hidden" class="form-control" name="archivo" id="adjunto-proyecto-fase-archivo"
                             :class="{'valid': !$v.adjuntoProyectoFase.archivo.$invalid, 'invalid': $v.adjuntoProyectoFase.archivo.$invalid }" v-model="$v.adjuntoProyectoFase.archivo.$model" />
@@ -70,7 +45,7 @@
                             v-model="adjuntoProyectoFase.nombreArchivoOriginal" />
                     </div> 
                   
-                
+                  
         </div>
                    
         <div>
@@ -102,7 +77,7 @@ import JhiDataUtils from '@/shared/data/data-utils.service';
 
 import ProyectoService from '@/entities/proyecto/proyecto.service';
 import AlertService from '@/shared/alert/alert.service';
-import { IIntegranteProyecto } from '@/shared/model/integrante-proyecto.model';
+//import { IIntegranteProyecto } from '@/shared/model/integrante-proyecto.model';
 import { IAdjuntoProyectoFase, AdjuntoProyectoFase } from '@/shared/model/adjunto-proyecto-fase.model';
 import AdjuntoProyectoFaseService from '@/entities/adjunto-proyecto-fase/adjunto-proyecto-fase.service';
 
@@ -140,7 +115,7 @@ const validations: any = {
   public adjuntoProyectoFass:IAdjuntoProyectoFase[] =[];
   public adjuntoProyectoFase: IAdjuntoProyectoFase = new AdjuntoProyectoFase();
 
-  public integrants:IIntegranteProyecto[]= [];
+  //public integrants:IIntegranteProyecto[]= [];
    public fase:IFases= new Fases();
    // public fases: IFases = new Fases();
    public faseId:number;
@@ -194,34 +169,7 @@ const validations: any = {
   public save(): void {
     this.isSaving = true;
  
-   /*
-   this.proyecto.fechaEnvioPropuesta = new Date();
-    this.proyecto.enviado = true;
-    
-    if (this.proyecto.id) {
-      this.proyectoService()
-        .update(this.proyecto)
-        .then(param => {
-          this.isSaving = false;
-          (<any>this).$router.go(0);
-          const message = this.$t('ciecytApp.proyecto.updated', { param: param.id });
-          this.alertService().showAlert(message, 'info');
-        });
-    } else {
-      this.proyectoService()
-        .create(this.proyecto)
-        .then(param => {
-          this.isSaving = false;
-
-          this.proyId = String(param.id);
-
-          (<any>this).$router.go(0);
-
-          const message = 'Se ha creado un nuevo proyecto';
-          this.alertService().showAlert(message, 'success');
-        });
-    }
-*/
+   
     this.adjuntoProyectoFase.proyectoFaseProyectoId = this.proyecto.id;
     this.adjuntoProyectoFase.adjuntoProyectoFaseFaseId = this.faseId;
      this.adjuntoProyectoFase.fechaCreacion = new Date();
@@ -263,14 +211,14 @@ const validations: any = {
       .then(res => {
         this.proyecto = res.data;
         this.modalidadId = this.proyecto.proyectoModalidadId;
-        this.integrants = this.proyecto.listaIntegrantesProyecto;
+        //this.integrants = this.proyecto.listaIntegrantesProyecto;
         
         
       });
 
       res=  await this.fasesService().retrieveFaseModalidad("Propuesta", this.modalidadId)
       .then(res => {
-        this.fase = res;  
+        this.fase = res.data;  
         this.faseId = this.fase.id;
 
       });
@@ -293,7 +241,7 @@ const validations: any = {
   }
 
   get isDisabled(){
-    	return !this.terms;
+    	return this.adjuntoProyectoFase.file!=null;
     }
 }
 </script>
