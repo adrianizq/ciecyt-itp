@@ -31,20 +31,6 @@
       "otherEntityField": "tipoPregunta"
     },
     {
-      "relationshipType": "many-to-one",
-      "otherEntityName": "modalidad",
-      "otherEntityRelationshipName": "pregunta",
-      "relationshipName": "preguntaModalidad",
-      "otherEntityField": "modalidad"
-    },
-    {
-      "relationshipType": "many-to-one",
-      "otherEntityName": "rolesModalidad",
-      "otherEntityRelationshipName": "pregunta",
-      "relationshipName": "preguntaRolesModalidad",
-      "otherEntityField": "rol"
-    },
-    {
       "relationshipName": "preguntaElemento",
       "otherEntityName": "elemento",
       "relationshipType": "many-to-one",

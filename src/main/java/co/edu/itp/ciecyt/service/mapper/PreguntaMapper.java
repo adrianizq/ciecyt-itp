@@ -9,15 +9,11 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity {@link Pregunta} and its DTO {@link PreguntaDTO}.
  */
-@Mapper(componentModel = "spring", uses = {TipoPreguntaMapper.class, ModalidadMapper.class, RolesModalidadMapper.class, ElementoMapper.class, FasesMapper.class})
+@Mapper(componentModel = "spring", uses = {TipoPreguntaMapper.class, ElementoMapper.class, FasesMapper.class})
 public interface PreguntaMapper extends EntityMapper<PreguntaDTO, Pregunta> {
 
     @Mapping(source = "preguntaTipoPregunta.id", target = "preguntaTipoPreguntaId")
     @Mapping(source = "preguntaTipoPregunta.tipoPregunta", target = "preguntaTipoPreguntaTipoPregunta")
-    @Mapping(source = "preguntaModalidad.id", target = "preguntaModalidadId")
-    @Mapping(source = "preguntaModalidad.modalidad", target = "preguntaModalidadModalidad")
-    @Mapping(source = "preguntaRolesModalidad.id", target = "preguntaRolesModalidadId")
-    @Mapping(source = "preguntaRolesModalidad.rol", target = "preguntaRolesModalidadRol")
     @Mapping(source = "preguntaElemento.id", target = "preguntaElementoId")
     @Mapping(source = "preguntaElemento.elemento", target = "preguntaElementoElemento")
     @Mapping(source = "preguntaFase.id", target = "preguntaFaseId")
@@ -25,8 +21,6 @@ public interface PreguntaMapper extends EntityMapper<PreguntaDTO, Pregunta> {
     PreguntaDTO toDto(Pregunta pregunta);
 
     @Mapping(source = "preguntaTipoPreguntaId", target = "preguntaTipoPregunta")
-    @Mapping(source = "preguntaModalidadId", target = "preguntaModalidad")
-    @Mapping(source = "preguntaRolesModalidadId", target = "preguntaRolesModalidad")
     @Mapping(source = "preguntaElementoId", target = "preguntaElemento")
     @Mapping(source = "preguntaFaseId", target = "preguntaFase")
     Pregunta toEntity(PreguntaDTO preguntaDTO);

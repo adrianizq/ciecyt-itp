@@ -14,18 +14,6 @@
                                  referencedColumnNames="id"
                                  referencedTableName="tipo_pregunta"/>
 
-        <addForeignKeyConstraint baseColumnNames="pregunta_modalidad_id"
-                                 baseTableName="pregunta"
-                                 constraintName="fk_pregunta_pregunta_modalidad_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="modalidad"/>
-
-        <addForeignKeyConstraint baseColumnNames="pregunta_roles_modalidad_id"
-                                 baseTableName="pregunta"
-                                 constraintName="fk_pregunta_pregunta_roles_modalidad_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="roles_modalidad"/>
-
         <addForeignKeyConstraint baseColumnNames="pregunta_elemento_id"
                                  baseTableName="pregunta"
                                  constraintName="fk_pregunta_pregunta_elemento_id"

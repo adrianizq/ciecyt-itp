@@ -44,14 +44,6 @@ public class Pregunta implements Serializable {
 
     @ManyToOne
     @JsonIgnoreProperties(value = "preguntas", allowSetters = true)
-    private Modalidad preguntaModalidad;
-
-    @ManyToOne
-    @JsonIgnoreProperties(value = "preguntas", allowSetters = true)
-    private RolesModalidad preguntaRolesModalidad;
-
-    @ManyToOne
-    @JsonIgnoreProperties(value = "preguntas", allowSetters = true)
     private Elemento preguntaElemento;
 
     @ManyToOne
@@ -143,32 +135,6 @@ public class Pregunta implements Serializable {
 
     public void setPreguntaTipoPregunta(TipoPregunta tipoPregunta) {
         this.preguntaTipoPregunta = tipoPregunta;
-    }
-
-    public Modalidad getPreguntaModalidad() {
-        return preguntaModalidad;
-    }
-
-    public Pregunta preguntaModalidad(Modalidad modalidad) {
-        this.preguntaModalidad = modalidad;
-        return this;
-    }
-
-    public void setPreguntaModalidad(Modalidad modalidad) {
-        this.preguntaModalidad = modalidad;
-    }
-
-    public RolesModalidad getPreguntaRolesModalidad() {
-        return preguntaRolesModalidad;
-    }
-
-    public Pregunta preguntaRolesModalidad(RolesModalidad rolesModalidad) {
-        this.preguntaRolesModalidad = rolesModalidad;
-        return this;
-    }
-
-    public void setPreguntaRolesModalidad(RolesModalidad rolesModalidad) {
-        this.preguntaRolesModalidad = rolesModalidad;
     }
 
     public Elemento getPreguntaElemento() {

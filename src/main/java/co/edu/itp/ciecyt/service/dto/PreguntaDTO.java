@@ -24,14 +24,6 @@ public class PreguntaDTO implements Serializable {
 
     private String preguntaTipoPreguntaTipoPregunta;
 
-    private Long preguntaModalidadId;
-
-    private String preguntaModalidadModalidad;
-
-    private Long preguntaRolesModalidadId;
-
-    private String preguntaRolesModalidadRol;
-
     private Long preguntaElementoId;
 
     private String preguntaElementoElemento;
@@ -104,38 +96,6 @@ public class PreguntaDTO implements Serializable {
         this.preguntaTipoPreguntaTipoPregunta = tipoPreguntaTipoPregunta;
     }
 
-    public Long getPreguntaModalidadId() {
-        return preguntaModalidadId;
-    }
-
-    public void setPreguntaModalidadId(Long modalidadId) {
-        this.preguntaModalidadId = modalidadId;
-    }
-
-    public String getPreguntaModalidadModalidad() {
-        return preguntaModalidadModalidad;
-    }
-
-    public void setPreguntaModalidadModalidad(String modalidadModalidad) {
-        this.preguntaModalidadModalidad = modalidadModalidad;
-    }
-
-    public Long getPreguntaRolesModalidadId() {
-        return preguntaRolesModalidadId;
-    }
-
-    public void setPreguntaRolesModalidadId(Long rolesModalidadId) {
-        this.preguntaRolesModalidadId = rolesModalidadId;
-    }
-
-    public String getPreguntaRolesModalidadRol() {
-        return preguntaRolesModalidadRol;
-    }
-
-    public void setPreguntaRolesModalidadRol(String rolesModalidadRol) {
-        this.preguntaRolesModalidadRol = rolesModalidadRol;
-    }
-
     public Long getPreguntaElementoId() {
         return preguntaElementoId;
     }
@@ -197,10 +157,6 @@ public class PreguntaDTO implements Serializable {
             ", puntajeMaximo=" + getPuntajeMaximo() +
             ", preguntaTipoPreguntaId=" + getPreguntaTipoPreguntaId() +
             ", preguntaTipoPreguntaTipoPregunta='" + getPreguntaTipoPreguntaTipoPregunta() + "'" +
-            ", preguntaModalidadId=" + getPreguntaModalidadId() +
-            ", preguntaModalidadModalidad='" + getPreguntaModalidadModalidad() + "'" +
-            ", preguntaRolesModalidadId=" + getPreguntaRolesModalidadId() +
-            ", preguntaRolesModalidadRol='" + getPreguntaRolesModalidadRol() + "'" +
             ", preguntaElementoId=" + getPreguntaElementoId() +
             ", preguntaElementoElemento='" + getPreguntaElementoElemento() + "'" +
             ", preguntaFaseId=" + getPreguntaFaseId() +

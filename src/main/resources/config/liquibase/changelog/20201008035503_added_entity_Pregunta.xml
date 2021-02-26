@@ -33,12 +33,6 @@
             <column name="pregunta_tipo_pregunta_id" type="bigint">
                 <constraints nullable="true" />
             </column>
-            <column name="pregunta_modalidad_id" type="bigint">
-                <constraints nullable="true" />
-            </column>
-            <column name="pregunta_roles_modalidad_id" type="bigint">
-                <constraints nullable="true" />
-            </column>
             <column name="pregunta_elemento_id" type="bigint">
                 <constraints nullable="true" />
             </column>
