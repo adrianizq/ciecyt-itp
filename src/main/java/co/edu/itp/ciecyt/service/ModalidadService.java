@@ -4,7 +4,9 @@ import co.edu.itp.ciecyt.service.dto.ModalidadDTO;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -43,4 +45,8 @@ public interface ModalidadService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+    ////////////////////////////////777777
+    @Transactional(readOnly = true)
+    List<ModalidadDTO> findByPreguntaId(Long idPregunta) throws Exception;
 }

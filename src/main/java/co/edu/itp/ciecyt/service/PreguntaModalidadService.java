@@ -41,5 +41,5 @@ public interface PreguntaModalidadService {
      */
     void delete(Long id);
 
-    //public List<PreguntaModalidadDTO> findByModalidad2(Long idModalidad);
+    public List<PreguntaModalidadDTO> findByModalidad2Id(Long idModalidad);
 }

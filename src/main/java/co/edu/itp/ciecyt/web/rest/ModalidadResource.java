@@ -1,6 +1,7 @@
 package co.edu.itp.ciecyt.web.rest;
 
 import co.edu.itp.ciecyt.service.ModalidadService;
+import co.edu.itp.ciecyt.service.dto.PreguntaDTO;
 import co.edu.itp.ciecyt.web.rest.errors.BadRequestAlertException;
 import co.edu.itp.ciecyt.service.dto.ModalidadDTO;
 
@@ -124,5 +125,20 @@ public class ModalidadResource {
         log.debug("REST request to delete Modalidad : {}", id);
         modalidadService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+    }
+
+    ////////////////////////////////////////77777777777777
+    @GetMapping("/modalidad-pregunta/{idPregunta}")
+    public ResponseEntity<?> getModalidadPregunta(@PathVariable Long idPregunta) {
+        log.debug("REST request to get Pregunta Modalidad : {}", idPregunta);
+        try{
+            final List<ModalidadDTO> DTO = modalidadService.findByPreguntaId(idPregunta);
+
+            return new ResponseEntity<>(DTO, HttpStatus.OK);
+
+        }catch (Exception e){
+
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body( e.getMessage());
+        }
     }
 }

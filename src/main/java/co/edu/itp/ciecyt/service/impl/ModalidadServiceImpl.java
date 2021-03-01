@@ -1,9 +1,14 @@
 package co.edu.itp.ciecyt.service.impl;
 
+import co.edu.itp.ciecyt.domain.Pregunta;
+import co.edu.itp.ciecyt.domain.PreguntaModalidad;
+import co.edu.itp.ciecyt.repository.PreguntaModalidadRepository;
 import co.edu.itp.ciecyt.service.ModalidadService;
 import co.edu.itp.ciecyt.domain.Modalidad;
 import co.edu.itp.ciecyt.repository.ModalidadRepository;
+import co.edu.itp.ciecyt.service.PreguntaModalidadService;
 import co.edu.itp.ciecyt.service.dto.ModalidadDTO;
+import co.edu.itp.ciecyt.service.dto.PreguntaDTO;
 import co.edu.itp.ciecyt.service.mapper.ModalidadMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +18,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -27,10 +34,14 @@ public class ModalidadServiceImpl implements ModalidadService {
     private final ModalidadRepository modalidadRepository;
 
     private final ModalidadMapper modalidadMapper;
+    private final PreguntaModalidadRepository preguntaModalidadRepository;
 
-    public ModalidadServiceImpl(ModalidadRepository modalidadRepository, ModalidadMapper modalidadMapper) {
+
+
+    public ModalidadServiceImpl(ModalidadRepository modalidadRepository, ModalidadMapper modalidadMapper, PreguntaModalidadRepository preguntaModalidadRepository) {
         this.modalidadRepository = modalidadRepository;
         this.modalidadMapper = modalidadMapper;
+        this.preguntaModalidadRepository = preguntaModalidadRepository;
     }
 
     /**
@@ -85,5 +96,36 @@ public class ModalidadServiceImpl implements ModalidadService {
     public void delete(Long id) {
         log.debug("Request to delete Modalidad : {}", id);
         modalidadRepository.deleteById(id);
+    }
+
+    ////////////////////////////////777777
+    @Override
+    @Transactional(readOnly = true)
+    public List<ModalidadDTO> findByPreguntaId(Long idPregunta) throws Exception {
+        log.debug("Request to get all Modalidad de una idPRegunta con una idModalidad");
+        List<ModalidadDTO> listDTO = new ArrayList<>();
+        List<Modalidad> list = new ArrayList<>();
+
+
+        List<PreguntaModalidad> lpm = preguntaModalidadRepository.findByPreguntaId(idPregunta);
+
+        for (PreguntaModalidad m: lpm
+        ) {
+            //PreguntaDTO pDto = new PreguntaDTO();
+
+            Optional<Modalidad> modalidad = modalidadRepository.findById(m.getModalidad2().getId());
+            Modalidad mo = new Modalidad();
+            if(modalidad.isPresent()){
+                mo = modalidad.get();
+            }
+            list.add(mo);
+
+
+        }
+
+        for (Modalidad modalidad : list) {
+            listDTO.add(modalidadMapper.toDto(modalidad));
+        }
+        return listDTO;
     }
 }

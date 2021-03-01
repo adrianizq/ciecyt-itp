@@ -51,12 +51,15 @@ public class PreguntaModalidadServiceImpl implements PreguntaModalidadService {
             .collect(Collectors.toCollection(LinkedList::new));
     }
 
-    /*@Override
+    @Override
     @Transactional(readOnly = true)
-    public List<PreguntaModalidadDTO> findByModalidad2(Long idModalidad){
-        return preguntaModalidadRepository.findByModalidad2Id(idModalidad);
+    public List<PreguntaModalidadDTO> findByModalidad2Id(Long idModalidad){
+        return preguntaModalidadRepository.findByModalidad2Id(idModalidad)
+            .stream()
+            .map(preguntaModalidadMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
 
-    }*/
+    }
 
 
     @Override
