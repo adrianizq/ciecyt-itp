@@ -27,9 +27,7 @@ public class PreguntaAuthority implements Serializable {
     @JsonIgnoreProperties(value = "preguntaAuthorities", allowSetters = true)
     private Pregunta pregunta3;
 
-    @ManyToOne
-    @JsonIgnoreProperties(value = "preguntaAuthorities", allowSetters = true)
-    private Authority authority3;
+    private String authorityName;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -53,17 +51,18 @@ public class PreguntaAuthority implements Serializable {
         this.pregunta3 = pregunta;
     }
 
-    public Authority getAuthority3() {
-        return authority3;
+    /////////////////////////////////////////777
+    public String getAuthorityName() {
+        return authorityName;
     }
 
-    public PreguntaAuthority authority3(Authority authority) {
-        this.authority3 = authority;
+    public PreguntaAuthority authorityName(String authorityName) {
+        this.authorityName = authorityName;
         return this;
     }
 
-    public void setAuthority3(Authority authority) {
-        this.authority3 = authority;
+    public void setAuthorityName(String authorityName) {
+        this.authorityName = authorityName;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 

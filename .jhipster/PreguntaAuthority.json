@@ -8,13 +8,6 @@
       "relationshipType": "many-to-one",
       "otherEntityField": "pregunta",
       "otherEntityRelationshipName": "preguntaAuthority"
-    },
-    {
-      "relationshipName": "authority3",
-      "otherEntityName": "authority",
-      "relationshipType": "many-to-one",
-      "otherEntityField": "name",
-      "otherEntityRelationshipName": "preguntaAuthority"
     }
   ],
   "fields": [],

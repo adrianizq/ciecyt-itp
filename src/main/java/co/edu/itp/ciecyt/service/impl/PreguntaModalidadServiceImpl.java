@@ -51,6 +51,13 @@ public class PreguntaModalidadServiceImpl implements PreguntaModalidadService {
             .collect(Collectors.toCollection(LinkedList::new));
     }
 
+    /*@Override
+    @Transactional(readOnly = true)
+    public List<PreguntaModalidadDTO> findByModalidad2(Long idModalidad){
+        return preguntaModalidadRepository.findByModalidad2Id(idModalidad);
+
+    }*/
+
 
     @Override
     @Transactional(readOnly = true)
@@ -65,4 +72,7 @@ public class PreguntaModalidadServiceImpl implements PreguntaModalidadService {
         log.debug("Request to delete PreguntaModalidad : {}", id);
         preguntaModalidadRepository.deleteById(id);
     }
+
+
+
 }

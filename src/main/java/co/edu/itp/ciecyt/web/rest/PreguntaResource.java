@@ -1,7 +1,9 @@
 package co.edu.itp.ciecyt.web.rest;
 
+import co.edu.itp.ciecyt.service.PreguntaModalidadService;
 import co.edu.itp.ciecyt.service.PreguntaService;
 import co.edu.itp.ciecyt.service.dto.ElementoDTO;
+import co.edu.itp.ciecyt.service.dto.PreguntaModalidadDTO;
 import co.edu.itp.ciecyt.web.rest.errors.BadRequestAlertException;
 import co.edu.itp.ciecyt.service.dto.PreguntaDTO;
 
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,9 +42,15 @@ public class PreguntaResource {
     private String applicationName;
 
     private final PreguntaService preguntaService;
+    private final PreguntaModalidadService preguntaModalidadService;
 
-    public PreguntaResource(PreguntaService preguntaService) {
+
+
+
+    public PreguntaResource(PreguntaService preguntaService, PreguntaModalidadService preguntaModalidadService) {
+
         this.preguntaService = preguntaService;
+        this.preguntaModalidadService = preguntaModalidadService;
     }
 
     /**
@@ -136,6 +145,7 @@ public class PreguntaResource {
         log.debug("REST request to get Pregunta Modalidad : {}", idModalidad);
         try{
             final List<PreguntaDTO> DTO = preguntaService.findByPreguntaModalidadId(idModalidad);
+
             return new ResponseEntity<>(DTO, HttpStatus.OK);
 
         }catch (Exception e){

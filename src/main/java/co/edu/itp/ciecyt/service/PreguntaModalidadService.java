@@ -40,4 +40,6 @@ public interface PreguntaModalidadService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+    //public List<PreguntaModalidadDTO> findByModalidad2(Long idModalidad);
 }

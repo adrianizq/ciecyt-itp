@@ -1,12 +1,13 @@
 package co.edu.itp.ciecyt.service.dto;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * A DTO for the {@link co.edu.itp.ciecyt.domain.Pregunta} entity.
  */
 public class PreguntaDTO implements Serializable {
-    
+
     private Long id;
 
     private String encabezado;
@@ -31,7 +32,12 @@ public class PreguntaDTO implements Serializable {
     private Long preguntaFaseId;
 
     private String preguntaFaseFase;
-    
+
+    private List<PreguntaAuthorityDTO> ListPreguntaAuthorityDTO;
+    private List<PreguntaModalidadDTO> ListPreguntaModalidadDTO;
+
+
+
     public Long getId() {
         return id;
     }
@@ -126,6 +132,22 @@ public class PreguntaDTO implements Serializable {
 
     public void setPreguntaFaseFase(String fasesFase) {
         this.preguntaFaseFase = fasesFase;
+    }
+
+    public List<PreguntaAuthorityDTO> getListPreguntaAuthorityDTO() {
+        return ListPreguntaAuthorityDTO;
+    }
+
+    public void setListPreguntaAuthorityDTO(List<PreguntaAuthorityDTO> listPreguntaAuthorityDTO) {
+        ListPreguntaAuthorityDTO = listPreguntaAuthorityDTO;
+    }
+
+    public List<PreguntaModalidadDTO> getListPreguntaModalidadDTO() {
+        return ListPreguntaModalidadDTO;
+    }
+
+    public void setListPreguntaModalidadDTO(List<PreguntaModalidadDTO> listPreguntaModalidadDTO) {
+        ListPreguntaModalidadDTO = listPreguntaModalidadDTO;
     }
 
     @Override

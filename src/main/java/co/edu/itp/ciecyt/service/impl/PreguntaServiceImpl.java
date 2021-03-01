@@ -1,12 +1,22 @@
 package co.edu.itp.ciecyt.service.impl;
 
 import co.edu.itp.ciecyt.domain.Elemento;
+import co.edu.itp.ciecyt.domain.PreguntaAuthority;
+import co.edu.itp.ciecyt.domain.PreguntaModalidad;
+import co.edu.itp.ciecyt.repository.PreguntaAuthorityRepository;
+import co.edu.itp.ciecyt.repository.PreguntaModalidadRepository;
+import co.edu.itp.ciecyt.service.PreguntaAuthorityService;
+import co.edu.itp.ciecyt.service.PreguntaModalidadService;
 import co.edu.itp.ciecyt.service.PreguntaService;
 import co.edu.itp.ciecyt.domain.Pregunta;
 import co.edu.itp.ciecyt.repository.PreguntaRepository;
 import co.edu.itp.ciecyt.service.dto.ElementoDTO;
+import co.edu.itp.ciecyt.service.dto.PreguntaAuthorityDTO;
 import co.edu.itp.ciecyt.service.dto.PreguntaDTO;
+import co.edu.itp.ciecyt.service.dto.PreguntaModalidadDTO;
+import co.edu.itp.ciecyt.service.mapper.PreguntaAuthorityMapper;
 import co.edu.itp.ciecyt.service.mapper.PreguntaMapper;
+import co.edu.itp.ciecyt.service.mapper.PreguntaModalidadMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,12 +39,36 @@ public class PreguntaServiceImpl implements PreguntaService {
     private final Logger log = LoggerFactory.getLogger(PreguntaServiceImpl.class);
 
     private final PreguntaRepository preguntaRepository;
+    private final PreguntaModalidadRepository preguntaModalidadRepository;
+    private final PreguntaAuthorityRepository preguntaAuthorityRepository;
+
+
+
+    private final PreguntaAuthorityService preguntaAuthorityService;
+    private final PreguntaModalidadService preguntaModalidadService;
+
 
     private final PreguntaMapper preguntaMapper;
+    private final PreguntaModalidadMapper preguntaModalidadMapper;
+    private final PreguntaAuthorityMapper preguntaAuthorityMapper;
 
-    public PreguntaServiceImpl(PreguntaRepository preguntaRepository, PreguntaMapper preguntaMapper) {
+
+    public PreguntaServiceImpl(PreguntaRepository preguntaRepository,
+                               PreguntaModalidadRepository preguntaModalidadRepository,
+                               PreguntaAuthorityRepository preguntaAuthorityRepository,
+                               PreguntaMapper preguntaMapper,
+                               PreguntaModalidadMapper preguntaModalidadMapper,
+                               PreguntaAuthorityService preguntaAuthorityService,
+                               PreguntaModalidadService preguntaModalidadService,
+                               PreguntaAuthorityMapper preguntaAuthorityMapper) {
         this.preguntaRepository = preguntaRepository;
         this.preguntaMapper = preguntaMapper;
+        this.preguntaAuthorityService = preguntaAuthorityService;
+        this.preguntaModalidadService = preguntaModalidadService;
+        this.preguntaModalidadMapper = preguntaModalidadMapper;
+        this.preguntaModalidadRepository = preguntaModalidadRepository;
+        this.preguntaAuthorityRepository = preguntaAuthorityRepository;
+        this.preguntaAuthorityMapper = preguntaAuthorityMapper;
     }
 
     @Override
@@ -42,6 +76,35 @@ public class PreguntaServiceImpl implements PreguntaService {
         log.debug("Request to save Pregunta : {}", preguntaDTO);
         Pregunta pregunta = preguntaMapper.toEntity(preguntaDTO);
         pregunta = preguntaRepository.save(pregunta);
+        return preguntaMapper.toDto(pregunta);
+    }
+
+    public PreguntaDTO saveModalidadAuthority(PreguntaDTO preguntaDTO) {
+        log.debug("Request to save Pregunta : {}", preguntaDTO);
+        Pregunta pregunta = preguntaMapper.toEntity(preguntaDTO);
+        pregunta = preguntaRepository.save(pregunta);
+        //guardar las modalidades
+        List <PreguntaModalidadDTO> lpmDto= new ArrayList<>();
+            lpmDto = preguntaDTO.getListPreguntaModalidadDTO();
+        if (lpmDto!=null){
+            for (PreguntaModalidadDTO pmDto: lpmDto
+                 ) {
+                pmDto.setPreguntaId(pregunta.getId());
+                PreguntaModalidad pm = preguntaModalidadMapper.toEntity(pmDto);
+                preguntaModalidadRepository.save(pm);
+            }
+        }
+       //guardar las authority
+        List <PreguntaAuthorityDTO> lpaDto;
+        lpaDto = preguntaDTO.getListPreguntaAuthorityDTO();
+        if (lpaDto!=null){
+            for (PreguntaAuthorityDTO paDto: lpaDto
+            ) {
+                paDto.setPregunta3Id(pregunta.getId());
+                PreguntaAuthority pa = preguntaAuthorityMapper.toEntity(paDto);
+                preguntaAuthorityRepository.save(pa);
+            }
+        }
         return preguntaMapper.toDto(pregunta);
     }
 
@@ -67,13 +130,32 @@ public class PreguntaServiceImpl implements PreguntaService {
         log.debug("Request to delete Pregunta : {}", id);
         preguntaRepository.deleteById(id);
     }
-
+//OK
     @Override
     @Transactional(readOnly = true)
     public List<PreguntaDTO> findByPreguntaModalidadId(Long idModalidad) throws Exception {
         log.debug("Request to get all Preguntas de una modalidad con una idModalidad");
         List<PreguntaDTO> listDTO = new ArrayList<>();
-        List<Pregunta> list = preguntaRepository.findByPreguntaModalidadId(idModalidad);
+        List<Pregunta> list = new ArrayList<>();
+
+
+        List<PreguntaModalidad> lpm = preguntaModalidadRepository.findByModalidad2Id(idModalidad);
+
+        //tengo que recorrer la lista PreguntaModalidad buscando cuales
+        //preguntas tienen el idModalidad
+        for (PreguntaModalidad pm: lpm
+             ) {
+            //PreguntaDTO pDto = new PreguntaDTO();
+
+            Optional<Pregunta> p = preguntaRepository.findById(pm.getPregunta().getId());
+            Pregunta pr = new Pregunta();
+            if(p.isPresent()){
+                pr = p.get();
+            }
+           list.add(pr);
+
+
+        }
 
         for (Pregunta pregunta : list) {
             listDTO.add(preguntaMapper.toDto(pregunta));
@@ -84,7 +166,27 @@ public class PreguntaServiceImpl implements PreguntaService {
     public List<PreguntaDTO> findByPreguntaModalidadIdAndPreguntaFaseId(Long idModalidad, Long idFase) throws Exception{
         log.debug("Request to get all Preguntas de una modalidad con una idModalidad");
         List<PreguntaDTO> listDTO = new ArrayList<>();
-        List<Pregunta> list = preguntaRepository.findByPreguntaModalidadIdAndPreguntaFaseId(idModalidad, idFase);
+        List<Pregunta> list = new ArrayList<>();
+
+        //List<PreguntaDTO> listPreguntaDTO = new ArrayList<>();
+        List<Pregunta> listPregunta = preguntaRepository.findByPreguntaFaseId(idFase);
+
+        List<PreguntaModalidad> listPreguntaModalidad= preguntaModalidadRepository.findByModalidad2Id(idModalidad);
+
+        if(listPregunta!=null) {
+            for (Pregunta pregunta : listPregunta
+            ) {
+                if(listPreguntaModalidad!=null) {
+                    for (PreguntaModalidad preguntaModalidad : listPreguntaModalidad
+                    ) {
+                        if (pregunta.getId() == preguntaModalidad.getPregunta().getId()) {
+                            list.add(pregunta);
+                        }
+
+                    }
+                }
+            }
+        }
 
         for (Pregunta pregunta : list) {
             listDTO.add(preguntaMapper.toDto(pregunta));

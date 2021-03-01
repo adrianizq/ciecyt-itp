@@ -1,12 +1,14 @@
 package co.edu.itp.ciecyt.service.dto;
 
+import co.edu.itp.ciecyt.domain.PreguntaAuthority;
+
 import java.io.Serializable;
 
 /**
  * A DTO for the {@link co.edu.itp.ciecyt.domain.PreguntaAuthority} entity.
  */
 public class PreguntaAuthorityDTO implements Serializable {
-    
+
     private Long id;
 
 
@@ -14,10 +16,9 @@ public class PreguntaAuthorityDTO implements Serializable {
 
     private String pregunta3Pregunta;
 
-    private Long authority3Id;
+    private String authorityName;
 
-    private String authority3Name;
-    
+
     public Long getId() {
         return id;
     }
@@ -42,20 +43,12 @@ public class PreguntaAuthorityDTO implements Serializable {
         this.pregunta3Pregunta = preguntaPregunta;
     }
 
-    public Long getAuthority3Id() {
-        return authority3Id;
+    public String getAuthorityName() {
+        return authorityName;
     }
 
-    public void setAuthority3Id(Long authorityId) {
-        this.authority3Id = authorityId;
-    }
-
-    public String getAuthority3Name() {
-        return authority3Name;
-    }
-
-    public void setAuthority3Name(String authorityName) {
-        this.authority3Name = authorityName;
+    public void setAuthorityName(String authorityName) {
+        this.authorityName = authorityName;
     }
 
     @Override
@@ -82,8 +75,7 @@ public class PreguntaAuthorityDTO implements Serializable {
             "id=" + getId() +
             ", pregunta3Id=" + getPregunta3Id() +
             ", pregunta3Pregunta='" + getPregunta3Pregunta() + "'" +
-            ", authority3Id=" + getAuthority3Id() +
-            ", authority3Name='" + getAuthority3Name() + "'" +
+            ", authorityName='" + getAuthorityName() + "'" +
             "}";
     }
 }
