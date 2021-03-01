@@ -34,10 +34,10 @@
                     <div class="form-group">
                         <label class="form-control-label" v-bind:value="$t('ciecytApp.pregunta.preguntaModalidad')" for="pregunta-preguntaModalidad">Modalidad</label>
                         <select class="form-control" id="pregunta-preguntaModalidad" 
-                        name="preguntaModalidad" multiple v-model="pregunta.preguntaAuthority"
+                        name="modalidadesAsignadas" multiple v-model="modalidadesAsignadas"
                         >
-                          
-                            <option v-bind:value="modalidadOption.id" v-for="modalidadOption in modalidads" :key="modalidadOption.id">{{modalidadOption.modalidad}}</option>
+                            <!--<option v-bind:value="modalidadOption.id" v-for="modalidadOption in modalidads" :key="modalidadOption.id">{{modalidadOption.modalidad}}</option> -->
+                             <option v-for="modalidadOption of modalidads" :value="modalidadOption.id" :key="modalidadOption.id">{{modalidadOption.modalidad}}</option>
                         </select>
                     </div>
                     <div class="form-group">

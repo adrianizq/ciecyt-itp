@@ -47,6 +47,8 @@ export default class PreguntaUpdate extends Vue {
 
   public modalidads: IModalidad[] = [];
 
+  public modalidadesAsignadas: IModalidad[] = [];
+
   @Inject('rolesModalidadService') private rolesModalidadService: () => RolesModalidadService;
 
   public rolesModalidads: IRolesModalidad[] = [];
@@ -61,14 +63,16 @@ export default class PreguntaUpdate extends Vue {
 
   public elemento: IElemento = new Elemento();
 
+  public preguntaId: any;
+
   public isSaving = false;
 
   beforeRouteEnter(to, from, next) {
     next(vm => {
       if (to.params.preguntaId) {
-        vm.retrievePregunta(to.params.preguntaId);
+        //vm.retrievePregunta(to.params.preguntaId);
+        vm.initRelationships(to.params.preguntaId);
       }
-      vm.initRelationships();
     });
   }
 
@@ -139,40 +143,47 @@ export default class PreguntaUpdate extends Vue {
     });
   }
 
-  public retrievePregunta(preguntaId): void {
-    this.preguntaService()
-      .find(preguntaId)
-      .then(res => {
-        this.pregunta = res;
-      });
-  }
+  // public retrievePregunta(preguntaId): void {
+
+  // }
 
   public previousState(): void {
     this.$router.go(-1);
   }
 
-  public initRelationships(): void {
-    this.tipoPreguntaService()
+  async initRelationships(preguntaId) {
+    let res = await this.preguntaService()
+      .find(preguntaId)
+      .then(res => {
+        this.pregunta = res;
+        this.preguntaId = res.id;
+      });
+    res = await this.tipoPreguntaService()
       .retrieve()
       .then(res => {
         this.tipoPreguntas = res.data;
       });
-    this.modalidadService()
+    res = await this.modalidadService()
       .retrieve()
       .then(res => {
         this.modalidads = res.data;
       });
-    this.rolesModalidadService()
+    res = await this.modalidadService()
+      .retrieveModalidadPregunta(parseInt(preguntaId))
+      .then(res => {
+        this.modalidadesAsignadas = res.data;
+      });
+    res = await this.rolesModalidadService()
       .retrieve()
       .then(res => {
         this.rolesModalidads = res.data;
       });
-    this.elementoService()
+    res = await this.elementoService()
       .retrieve()
       .then(res => {
         this.elements = res.data;
       });
-    this.fasesService()
+    res = await this.fasesService()
       .retrieve()
       .then(res => {
         this.fass = res.data;
