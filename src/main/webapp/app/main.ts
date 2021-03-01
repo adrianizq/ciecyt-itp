@@ -76,6 +76,7 @@ import ProgramaService from '@/entities/programa/programa.service';
 
 //Complement model select
 import 'vue-search-select/dist/VueSearchSelect.css';
+import PreguntaModalidadService from './entities/pregunta-modalidad/pregunta-modalidad.service';
 
 Vue.config.productionTip = false;
 config.initVueApp(Vue);
@@ -176,6 +177,7 @@ new Vue({
     menuService: () => new MenuService(),
     rolMenuService: () => new RolMenuService(),
     investigacionTipoService: () => new InvestigacionTipoService(),
+    preguntaModalidadService: () => new PreguntaModalidadService(),
     programaService: () => new ProgramaService(),
     // jhipster-needle-add-entity-service-to-main - JHipster will import entities services here
     accountService: () => accountService,

@@ -21,6 +21,9 @@ import AlertService from '@/shared/alert/alert.service';
 import { IPregunta, Pregunta } from '@/shared/model/pregunta.model';
 import PreguntaService from './pregunta.service';
 
+import { IPreguntaModalidad, PreguntaModalidad } from '@/shared/model/pregunta-modalidad.model';
+import PreguntaModalidadService from '@/entities/pregunta-modalidad/pregunta-modalidad.service';
+
 const validations: any = {
   pregunta: {
     encabezado: {},
@@ -128,6 +131,7 @@ export default class PreguntaUpdate extends Vue {
           this.alertService().showAlert(message, 'success');
         });
     }
+    //actualizar preguntaModalidadService
   }
 
   get Elementos() {
