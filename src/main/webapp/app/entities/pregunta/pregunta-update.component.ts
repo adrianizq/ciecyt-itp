@@ -37,7 +37,8 @@ const validations: any = {
 export default class PreguntaUpdate extends Vue {
   @Inject('alertService') private alertService: () => AlertService;
   @Inject('preguntaService') private preguntaService: () => PreguntaService;
-  public pregunta: IPregunta = new Pregunta();
+  public pregunta: IPregunta;
+  public modalidadesAsignadas: IModalidad[] = [];
 
   @Inject('tipoPreguntaService') private tipoPreguntaService: () => TipoPreguntaService;
 
@@ -46,8 +47,6 @@ export default class PreguntaUpdate extends Vue {
   @Inject('modalidadService') private modalidadService: () => ModalidadService;
 
   public modalidads: IModalidad[] = [];
-
-  public modalidadesAsignadas: IModalidad[] = [];
 
   @Inject('rolesModalidadService') private rolesModalidadService: () => RolesModalidadService;
 
@@ -66,6 +65,12 @@ export default class PreguntaUpdate extends Vue {
   public preguntaId: any;
 
   public isSaving = false;
+
+  public constructor() {
+    super();
+    this.pregunta = new Pregunta();
+    this.pregunta.listPreguntaModalidadDTO = [];
+  }
 
   beforeRouteEnter(to, from, next) {
     next(vm => {
@@ -172,6 +177,11 @@ export default class PreguntaUpdate extends Vue {
       .retrieveModalidadPregunta(parseInt(preguntaId))
       .then(res => {
         this.modalidadesAsignadas = res.data;
+        /*this.modalidadesAsignadas.forEach(modal => {
+          console.log("Asignando" + modal)
+          this.pregunta.listPreguntaModalidadDTO.push(modal);
+        });*/
+        //this.pregunta.listPreguntaModalidadDTO = this.modalidadesAsignadas;
       });
     this.rolesModalidadService()
       .retrieve()
