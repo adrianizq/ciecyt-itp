@@ -259,7 +259,7 @@ export default class PropuestaEvaluar extends Vue {
 
                  res= await this.fasesService()
                 .retrieveFaseModalidad("Propuesta",this.modalidadId)   //recup los ElementosProyecto con un idproy
-                 this.fase = res;
+                 this.fase = res.data;
 
                 res= await this.proyectoRespuestasService()
                 .retrieveProyectoRespuestas(this.proyId)   //recup los proyresp con un idproy
