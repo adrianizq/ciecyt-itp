@@ -49,7 +49,7 @@ export default class ModalidadService {
 
   public retrieveModalidadPregunta(idPregunta?: any): Promise<any> {
     return new Promise<any>(resolve => {
-      axios.get('/api/modalidad-pregunta/' + `/${idPregunta}`).then(function (res) {
+      axios.get('/api/modalidad-pregunta' + `/${idPregunta}`).then(function (res) {
         resolve(res);
       });
     });

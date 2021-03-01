@@ -173,17 +173,17 @@ export default class PreguntaUpdate extends Vue {
       .then(res => {
         this.modalidadesAsignadas = res.data;
       });
-    res = await this.rolesModalidadService()
+    this.rolesModalidadService()
       .retrieve()
       .then(res => {
         this.rolesModalidads = res.data;
       });
-    res = await this.elementoService()
+    this.elementoService()
       .retrieve()
       .then(res => {
         this.elements = res.data;
       });
-    res = await this.fasesService()
+    this.fasesService()
       .retrieve()
       .then(res => {
         this.fass = res.data;
