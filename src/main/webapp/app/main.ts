@@ -76,7 +76,7 @@ import ProgramaService from '@/entities/programa/programa.service';
 
 //Complement model select
 import 'vue-search-select/dist/VueSearchSelect.css';
-import PreguntaModalidadService from './entities/pregunta-modalidad/pregunta-modalidad.service';
+import PreguntaModalidadService from '@/entities/pregunta-modalidad/pregunta-modalidad.service';
 
 Vue.config.productionTip = false;
 config.initVueApp(Vue);
