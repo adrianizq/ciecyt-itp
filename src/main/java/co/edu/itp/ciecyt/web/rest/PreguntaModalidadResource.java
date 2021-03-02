@@ -103,6 +103,14 @@ public class PreguntaModalidadResource {
         return ResponseUtil.wrapOrNotFound(preguntaModalidadDTO);
     }
 
+    /*@GetMapping("/pregunta-modalidad-preguntaid-modalidadid/{idPregunta/{idModalidad}}")
+    public ResponseEntity<PreguntaModalidadDTO> getPreguntaModalidad(@PathVariable Long idPregunta, @PathVariable Long idModalidad) {
+        log.debug("REST request to get PreguntaModalidad : {}", idPregunta);
+        PreguntaModalidadDTO preguntaModalidadDTO = preguntaModalidadService.findByPreguntaIdAndModalidad2Id(idPregunta,idModalidad);
+        return ResponseUtil.wrapOrNotFound(preguntaModalidadDTO);
+    }*/
+    //findByPreguntaIdAndModalidad2Id
+
     /**
      * {@code DELETE  /pregunta-modalidads/:id} : delete the "id" preguntaModalidad.
      *
@@ -116,11 +124,24 @@ public class PreguntaModalidadResource {
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
 
-    @GetMapping("/pregunta-pregunta-modalidad/{id}")
-    public ResponseEntity<?> getPreguntaPreguntaModalidad(@PathVariable Long id) {
-        log.debug("REST request to get PreguntaPreguntaModalidad : {}", id);
+    @GetMapping("/pregunta-pregunta-modalidad/{idModalidad}")
+    public ResponseEntity<?> getPreguntaPreguntaModalidad(@PathVariable Long idModalidad) {
+        log.debug("REST request to get PreguntaPreguntaModalidad : {}", idModalidad);
         try {
-            List<PreguntaModalidadDTO> preguntaModalidadDTO = preguntaModalidadService.findByModalidad2Id(id);
+            List<PreguntaModalidadDTO> preguntaModalidadDTO = preguntaModalidadService.findByModalidad2Id(idModalidad);
+            return new ResponseEntity<>(preguntaModalidadDTO, HttpStatus.OK);
+        } catch (Exception e) {
+            log.debug(e.getMessage());
+            return null;
+        }
+    }
+
+
+    @GetMapping("/pregunta-modalidad-preguntaid/{idPregunta}")
+    public ResponseEntity<?> getPreguntaModalidadIdPregunta(@PathVariable Long idPregunta) {
+        log.debug("REST request to get PreguntaPreguntaModalidad : {}", idPregunta);
+        try {
+            List<PreguntaModalidadDTO> preguntaModalidadDTO = preguntaModalidadService.findByPreguntaId(idPregunta);
             return new ResponseEntity<>(preguntaModalidadDTO, HttpStatus.OK);
         } catch (Exception e) {
             log.debug(e.getMessage());

@@ -63,6 +63,8 @@ export default class PreguntaUpdate extends Vue {
 
   public elements: IElemento[] = [];
 
+  public preguntasModalidsPreguntaId: IPreguntaModalidad[] = [];
+
   public elemento: IElemento = new Elemento();
 
   public preguntaId: any;
@@ -107,20 +109,43 @@ export default class PreguntaUpdate extends Vue {
         }
       });
     }
-    console.log(this.pregunta.preguntaFase); //si lo muestra
 
     //  console.log(this.pregunta.preguntaElemento);
     //}
 
     if (this.pregunta.id) {
+      this.preguntasModalidsPreguntaId.forEach(pm => {
+        this.preguntaModalidadService().delete(pm.id);
+        //.then(() => {
+        //const message = this.$t('ciecytApp.acuerdo.deleted', { param: this.removeId });
+        //this.alertService().showAlert(message, 'danger');
+        //this.getAlertFromStore();
+        //this.removeId = null;
+        //this.closeDialog();
+        // });
+      });
+
       this.preguntaService()
         .update(this.pregunta)
         .then(param => {
           this.isSaving = false;
-          this.$router.go(-1);
+          // this.$router.go(-1);
+          (<any>this).$router.go(0);
           const message = this.$t('ciecytApp.pregunta.updated', { param: param.id });
           this.alertService().showAlert(message, 'info');
         });
+      /////////
+
+      /*this.modalidadesAsignadas.forEach(element => {
+          pr= new PreguntaModalidad();
+          pr.preguntaId = this.preguntaId;
+          pr.modalidadId = element[0];
+          this.preguntaModalidadService(). 
+          .create(pr)
+          .then(param => {
+            this.isSaving = false;
+           });   
+        });*/
     } else {
       this.preguntaService()
         .create(this.pregunta)
@@ -131,7 +156,7 @@ export default class PreguntaUpdate extends Vue {
           this.alertService().showAlert(message, 'success');
         });
     }
-    //actualizar preguntaModalidadService
+    console.log(this.modalidadesAsignadas);
   }
 
   get Elementos() {
@@ -187,6 +212,13 @@ export default class PreguntaUpdate extends Vue {
         });*/
         //this.pregunta.listPreguntaModalidadDTO = this.modalidadesAsignadas;
       });
+
+    //se obtienen las preguntasModalidad de la pregunta actual
+    res = await this.preguntaModalidadService().retrievePreguntaModalidadIdPregunta(parseInt(preguntaId));
+    then(res => {
+      this.preguntasModalidsPreguntaId = res.data;
+    });
+
     this.rolesModalidadService()
       .retrieve()
       .then(res => {

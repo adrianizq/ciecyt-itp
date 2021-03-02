@@ -1,5 +1,6 @@
 package co.edu.itp.ciecyt.service;
 
+import co.edu.itp.ciecyt.domain.PreguntaModalidad;
 import co.edu.itp.ciecyt.service.dto.PreguntaModalidadDTO;
 
 import java.util.List;
@@ -26,6 +27,7 @@ public interface PreguntaModalidadService {
     List<PreguntaModalidadDTO> findAll();
 
 
+
     /**
      * Get the "id" preguntaModalidad.
      *
@@ -42,4 +44,8 @@ public interface PreguntaModalidadService {
     void delete(Long id);
 
     public List<PreguntaModalidadDTO> findByModalidad2Id(Long idModalidad);
+    public List<PreguntaModalidadDTO> findByPreguntaId(Long idPregunta);
+
+
+       // public PreguntaModalidad findByPreguntaIdAndModalidad2Id(Long idPregunta, Long idModalidad);
 }

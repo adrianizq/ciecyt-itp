@@ -47,13 +47,23 @@ export default class PreguntaModalidadService {
     });
   }
 
-  /* public retrievePreguntasModalidad(id: number, paginationQuery?: any): Promise<any> {
+  public retrievePreguntasModalidad(id: number): Promise<any> {
     return new Promise<any>(resolve => {
-      axios.get('api/pregunta-modalidad' + `/${id}` + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function (res) {
+      axios.get('api/pregunta-modalidad' + `/${id}`).then(function (res) {
         resolve(res);
       });
     });
-  }*/
+  }
+
+  public retrievePreguntaModalidadIdPregunta(idPregunta: number): Promise<any> {
+    return new Promise<any>(resolve => {
+      axios.get('api/pregunta-modalidad-preguntaid' + `/${idPregunta}`).then(function (res) {
+        resolve(res);
+      });
+    });
+  }
+
+  ///api/pregunta-modalidad-preguntaid/
 
   /*public retrievePreguntasModalidadyFase(id: number, idFase: number, paginationQuery?: any): Promise<any> {
     return new Promise<any>(resolve => {

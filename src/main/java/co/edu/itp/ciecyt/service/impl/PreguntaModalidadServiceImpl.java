@@ -61,6 +61,22 @@ public class PreguntaModalidadServiceImpl implements PreguntaModalidadService {
 
     }
 
+    /*@Override
+    public PreguntaModalidadDTO findByPreguntaIdAndModalidad2Id(Long idPregunta, Long idModalidad) {
+        PreguntaModalidad preguntaModalidad =preguntaModalidadRepository.findByPreguntaIdAndModalidad2Id(idPregunta, idModalidad);
+        return preguntaModalidadMapper.toDto(preguntaModalidad);
+    }*/
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<PreguntaModalidadDTO> findByPreguntaId(Long idPregunta){
+        return  preguntaModalidadRepository.findByPreguntaId(idPregunta)
+            .stream()
+            .map(preguntaModalidadMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
+    }
+
+
 
     @Override
     @Transactional(readOnly = true)
