@@ -1,7 +1,7 @@
 export interface IPreguntaModalidad {
   id?: number;
   preguntaId?: number;
-  modalidadId?: number;
+  modalidad2Id?: number;
 }
 
 export class PreguntaModalidad implements IPreguntaModalidad {

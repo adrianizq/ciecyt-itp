@@ -41,7 +41,7 @@ export default class PreguntaUpdate extends Vue {
   @Inject('alertService') private alertService: () => AlertService;
   @Inject('preguntaService') private preguntaService: () => PreguntaService;
   public pregunta: IPregunta;
-  public modalidadesAsignadas: IModalidad[] = [];
+  public modalidadesAsignadas: any = [];
 
   @Inject('tipoPreguntaService') private tipoPreguntaService: () => TipoPreguntaService;
 
@@ -61,6 +61,8 @@ export default class PreguntaUpdate extends Vue {
 
   @Inject('elementoService') private elementoService: () => ElementoService;
 
+  @Inject('preguntaModalidadService') private preguntaModalidadService: () => PreguntaModalidadService;
+
   public elements: IElemento[] = [];
 
   public preguntasModalidsPreguntaId: IPreguntaModalidad[] = [];
@@ -70,6 +72,8 @@ export default class PreguntaUpdate extends Vue {
   public preguntaId: any;
 
   public isSaving = false;
+
+  public selected: any = [];
 
   public constructor() {
     super();
@@ -113,39 +117,40 @@ export default class PreguntaUpdate extends Vue {
     //  console.log(this.pregunta.preguntaElemento);
     //}
 
+    //borrar funciona
     if (this.pregunta.id) {
       this.preguntasModalidsPreguntaId.forEach(pm => {
         this.preguntaModalidadService().delete(pm.id);
-        //.then(() => {
-        //const message = this.$t('ciecytApp.acuerdo.deleted', { param: this.removeId });
-        //this.alertService().showAlert(message, 'danger');
-        //this.getAlertFromStore();
-        //this.removeId = null;
-        //this.closeDialog();
-        // });
       });
+
+      //crear todavia no funciona
+
+      for (var i = 0; i < this.modalidadesAsignadas.length; i++) {
+        //this.modalidadesAsignadas.forEach(element => {
+        let pr = new PreguntaModalidad();
+        pr.preguntaId = this.preguntaId;
+        pr.modalidad2Id = parseInt(this.modalidadesAsignadas[i]);
+
+        console.log(pr);
+        this.preguntaModalidadService()
+          .create(pr)
+          .then(param => {
+            this.isSaving = false;
+          });
+      }
 
       this.preguntaService()
         .update(this.pregunta)
         .then(param => {
           this.isSaving = false;
           // this.$router.go(-1);
-          (<any>this).$router.go(0);
+          //(<any>this).$router.go(0);
           const message = this.$t('ciecytApp.pregunta.updated', { param: param.id });
           this.alertService().showAlert(message, 'info');
         });
       /////////
 
-      /*this.modalidadesAsignadas.forEach(element => {
-          pr= new PreguntaModalidad();
-          pr.preguntaId = this.preguntaId;
-          pr.modalidadId = element[0];
-          this.preguntaModalidadService(). 
-          .create(pr)
-          .then(param => {
-            this.isSaving = false;
-           });   
-        });*/
+      // console.log(this.selected);
     } else {
       this.preguntaService()
         .create(this.pregunta)
@@ -156,7 +161,7 @@ export default class PreguntaUpdate extends Vue {
           this.alertService().showAlert(message, 'success');
         });
     }
-    console.log(this.modalidadesAsignadas);
+    //console.log(this.modalidadesAsignadas);
   }
 
   get Elementos() {
@@ -214,10 +219,11 @@ export default class PreguntaUpdate extends Vue {
       });
 
     //se obtienen las preguntasModalidad de la pregunta actual
-    res = await this.preguntaModalidadService().retrievePreguntaModalidadIdPregunta(parseInt(preguntaId));
-    then(res => {
-      this.preguntasModalidsPreguntaId = res.data;
-    });
+    res = await this.preguntaModalidadService()
+      .retrievePreguntaModalidadIdPregunta(parseInt(preguntaId))
+      .then(res => {
+        this.preguntasModalidsPreguntaId = res.data;
+      });
 
     this.rolesModalidadService()
       .retrieve()

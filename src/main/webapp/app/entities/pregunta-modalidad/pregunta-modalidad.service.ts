@@ -47,9 +47,9 @@ export default class PreguntaModalidadService {
     });
   }
 
-  public retrievePreguntasModalidad(id: number): Promise<any> {
+  public retrievePreguntasModalidad(idModalidad: number): Promise<any> {
     return new Promise<any>(resolve => {
-      axios.get('api/pregunta-modalidad' + `/${id}`).then(function (res) {
+      axios.get('api/pregunta-modalidad' + `/${idModalidad}`).then(function (res) {
         resolve(res);
       });
     });

@@ -35,10 +35,9 @@
                         <label class="form-control-label" v-bind:value="$t('ciecytApp.pregunta.preguntaModalidad')" for="pregunta-preguntaModalidad">Modalidad</label>
                          <select class="form-control" multiple name="modalidad"  v-model="modalidadesAsignadas" >
                              <option v-for="modalidad of modalidads" 
-                             :value="modalidad"
-                             :key="modalidad"
-                             
-                             >
+                             :value="modalidad.id"
+                             :key="modalidad.id">
+                            
                               {{modalidad.modalidad}}
                             </option>
                         </select>
