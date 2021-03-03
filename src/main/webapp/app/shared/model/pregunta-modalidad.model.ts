@@ -5,5 +5,5 @@ export interface IPreguntaModalidad {
 }
 
 export class PreguntaModalidad implements IPreguntaModalidad {
-  constructor(public id?: number, public preguntaId?: number, public modalidadId?: number) {}
+  constructor(public id?: number, public preguntaId?: number, public modalidad2Id?: number) {}
 }

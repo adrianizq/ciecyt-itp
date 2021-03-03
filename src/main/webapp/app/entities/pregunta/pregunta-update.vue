@@ -36,7 +36,7 @@
                          <select class="form-control" multiple name="modalidad"  v-model="modalidadesAsignadas" >
                              <option v-for="modalidad of modalidads" 
                              :value="modalidad.id"
-                             :key="modalidad.id">
+                             >
                             
                               {{modalidad.modalidad}}
                             </option>

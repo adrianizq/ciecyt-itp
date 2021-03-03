@@ -41,7 +41,7 @@ export default class PreguntaUpdate extends Vue {
   @Inject('alertService') private alertService: () => AlertService;
   @Inject('preguntaService') private preguntaService: () => PreguntaService;
   public pregunta: IPregunta;
-  public modalidadesAsignadas: any = [];
+  public modalidadesAsignadas: IModalidad[] = [];
 
   @Inject('tipoPreguntaService') private tipoPreguntaService: () => TipoPreguntaService;
 
@@ -119,25 +119,7 @@ export default class PreguntaUpdate extends Vue {
 
     //borrar funciona
     if (this.pregunta.id) {
-      this.preguntasModalidsPreguntaId.forEach(pm => {
-        this.preguntaModalidadService().delete(pm.id);
-      });
-
-      //crear todavia no funciona
-
-      for (var i = 0; i < this.modalidadesAsignadas.length; i++) {
-        //this.modalidadesAsignadas.forEach(element => {
-        let pr = new PreguntaModalidad();
-        pr.preguntaId = this.preguntaId;
-        pr.modalidad2Id = parseInt(this.modalidadesAsignadas[i]);
-
-        console.log(pr);
-        this.preguntaModalidadService()
-          .create(pr)
-          .then(param => {
-            this.isSaving = false;
-          });
-      }
+      this.updatePreguntasModalidad();
 
       this.preguntaService()
         .update(this.pregunta)
@@ -210,7 +192,7 @@ export default class PreguntaUpdate extends Vue {
     res = await this.modalidadService()
       .retrieveModalidadPregunta(parseInt(preguntaId))
       .then(res => {
-        this.modalidadesAsignadas = res.data;
+        this.modalidadesAsignadas = res.data.modalidad2Id;
         /*this.modalidadesAsignadas.forEach(modal => {
           console.log("Asignando" + modal)
           this.pregunta.listPreguntaModalidadDTO.push(modal);
@@ -241,16 +223,75 @@ export default class PreguntaUpdate extends Vue {
         this.fass = res.data;
       });
   }
-  /*
-  setRolesModalidad(value) {
-    this.rolesModalidads.filter(rol => {
-      return rol == this.pregunta.preguntaModalidadId;
+
+  async updatePreguntasModalidad() {
+    let res = await this.preguntasModalidsPreguntaId.forEach(element => {
+      this.preguntaModalidadService()
+        .delete(element.id)
+        .then(param => {
+          this.isSaving = false;
+        });
     });
+    res = await this.modalidadesAsignadas.forEach(element => {
+      if (!this.seEncuentraPreguntaModalidad(element.id)) {
+        let pr = new PreguntaModalidad();
+        pr.preguntaId = this.preguntaId;
+        pr.modalidad2Id = element;
+        this.preguntaModalidadService()
+          .create(pr)
+          .then(param => {
+            this.isSaving = false;
+          });
+      }
+    });
+
+    /*this.modalidadesAsignadas.forEach(element => {
+      if(!this.seEncuentraPreguntaModalidad(element.id)){
+      let pr = new PreguntaModalidad();
+      pr.preguntaId = this.preguntaId;
+      pr.modalidad2Id = element;
+
+      console.log(pr);
+      this.preguntaModalidadService()
+        .create(pr)
+        .then(param => {
+          this.isSaving = false;
+        });
+      }
+      else{
+
+      }
+    });
+
+    this.preguntasModalidsPreguntaId.forEach(element => {
+      if(this.seEncuentraModalidad(element.id)==false){
+     
+      this.preguntaModalidadService()
+        .delete(element.id)
+        .then(param => {
+          this.isSaving = false;
+        });
+      }
+    });*/
   }
 
-  setFases(value) {
-    this.fass.filter(fase => {
-      return fase == this.pregunta.preguntaModalidadId;
+  seEncuentraModalidad(id) {
+    this.modalidadesAsignadas.forEach(ma => {
+      if (ma.id == id) {
+        return true;
+      }
     });
-  }*/
+
+    return false;
+  }
+
+  seEncuentraPreguntaModalidad(id) {
+    this.preguntasModalidsPreguntaId.forEach(pm => {
+      if (pm.modalidad2Id == id) {
+        return true;
+      }
+    });
+
+    return false;
+  }
 }
