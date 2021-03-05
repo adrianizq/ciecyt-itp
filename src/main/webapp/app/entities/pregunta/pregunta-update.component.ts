@@ -41,6 +41,7 @@ export default class PreguntaUpdate extends Vue {
   @Inject('alertService') private alertService: () => AlertService;
   @Inject('preguntaService') private preguntaService: () => PreguntaService;
   public pregunta: IPregunta;
+
   public modalidadesAsignadas: IModalidad[] = [];
 
   @Inject('tipoPreguntaService') private tipoPreguntaService: () => TipoPreguntaService;
@@ -78,7 +79,7 @@ export default class PreguntaUpdate extends Vue {
   public constructor() {
     super();
     this.pregunta = new Pregunta();
-    this.pregunta.listPreguntaModalidadDTO = [];
+    this.pregunta.preguntaModalidads = [];
   }
 
   beforeRouteEnter(to, from, next) {
@@ -117,10 +118,18 @@ export default class PreguntaUpdate extends Vue {
     //  console.log(this.pregunta.preguntaElemento);
     //}
 
-    //borrar funciona
-    if (this.pregunta.id) {
-      this.updatePreguntasModalidad();
+    //crear las modalidades en cada pregunta
+    this.modalidadesAsignadas.forEach(element => {
+      //this.pregunta.preguntaModalidads=null;
+      var pr: IPreguntaModalidad = new PreguntaModalidad();
+      pr.preguntaId = this.preguntaId;
+      pr.modalidad2Id = element.id;
+      console.log(pr);
 
+      this.pregunta.preguntaModalidads.push(pr);
+    });
+
+    if (this.pregunta.id) {
       this.preguntaService()
         .update(this.pregunta)
         .then(param => {
@@ -192,12 +201,12 @@ export default class PreguntaUpdate extends Vue {
     res = await this.modalidadService()
       .retrieveModalidadPregunta(parseInt(preguntaId))
       .then(res => {
-        this.modalidadesAsignadas = res.data.modalidad2Id;
+        this.modalidadesAsignadas = res.data;
         /*this.modalidadesAsignadas.forEach(modal => {
           console.log("Asignando" + modal)
           this.pregunta.listPreguntaModalidadDTO.push(modal);
         });*/
-        //this.pregunta.listPreguntaModalidadDTO = this.modalidadesAsignadas;
+        this.pregunta.preguntaModalidads = this.modalidadesAsignadas;
       });
 
     //se obtienen las preguntasModalidad de la pregunta actual
@@ -222,76 +231,5 @@ export default class PreguntaUpdate extends Vue {
       .then(res => {
         this.fass = res.data;
       });
-  }
-
-  async updatePreguntasModalidad() {
-    let res = await this.preguntasModalidsPreguntaId.forEach(element => {
-      this.preguntaModalidadService()
-        .delete(element.id)
-        .then(param => {
-          this.isSaving = false;
-        });
-    });
-    res = await this.modalidadesAsignadas.forEach(element => {
-      if (!this.seEncuentraPreguntaModalidad(element.id)) {
-        let pr = new PreguntaModalidad();
-        pr.preguntaId = this.preguntaId;
-        pr.modalidad2Id = element;
-        this.preguntaModalidadService()
-          .create(pr)
-          .then(param => {
-            this.isSaving = false;
-          });
-      }
-    });
-
-    /*this.modalidadesAsignadas.forEach(element => {
-      if(!this.seEncuentraPreguntaModalidad(element.id)){
-      let pr = new PreguntaModalidad();
-      pr.preguntaId = this.preguntaId;
-      pr.modalidad2Id = element;
-
-      console.log(pr);
-      this.preguntaModalidadService()
-        .create(pr)
-        .then(param => {
-          this.isSaving = false;
-        });
-      }
-      else{
-
-      }
-    });
-
-    this.preguntasModalidsPreguntaId.forEach(element => {
-      if(this.seEncuentraModalidad(element.id)==false){
-     
-      this.preguntaModalidadService()
-        .delete(element.id)
-        .then(param => {
-          this.isSaving = false;
-        });
-      }
-    });*/
-  }
-
-  seEncuentraModalidad(id) {
-    this.modalidadesAsignadas.forEach(ma => {
-      if (ma.id == id) {
-        return true;
-      }
-    });
-
-    return false;
-  }
-
-  seEncuentraPreguntaModalidad(id) {
-    this.preguntasModalidsPreguntaId.forEach(pm => {
-      if (pm.modalidad2Id == id) {
-        return true;
-      }
-    });
-
-    return false;
   }
 }

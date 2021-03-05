@@ -1,4 +1,5 @@
 import { IModalidad } from './modalidad.model';
+import { IPreguntaModalidad } from './pregunta-modalidad.model';
 
 export interface IPregunta {
   id?: number;
@@ -16,7 +17,7 @@ export interface IPregunta {
   preguntaFase?: string;
   preguntaFaseId?: number;
   puntajeMaximo?: number;
-  listPreguntaModalidadDTO?: IModalidad[];
+  preguntaModalidads?: IPreguntaModalidad[];
 }
 
 export class Pregunta implements IPregunta {
@@ -36,6 +37,6 @@ export class Pregunta implements IPregunta {
     public preguntaFase?: string,
     public preguntaFaseId?: number,
     public puntajeMaximo?: number,
-    public listPreguntaModalidadDTO?: IModalidad[]
+    public preguntaModalidads?: IPreguntaModalidad[]
   ) {}
 }

@@ -17,6 +17,7 @@ import co.edu.itp.ciecyt.service.dto.PreguntaModalidadDTO;
 import co.edu.itp.ciecyt.service.mapper.PreguntaAuthorityMapper;
 import co.edu.itp.ciecyt.service.mapper.PreguntaMapper;
 import co.edu.itp.ciecyt.service.mapper.PreguntaModalidadMapper;
+import org.hibernate.annotations.Synchronize;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -82,29 +83,30 @@ public class PreguntaServiceImpl implements PreguntaService {
     public PreguntaDTO saveModalidadAuthority(PreguntaDTO preguntaDTO) {
         log.debug("Request to save Pregunta : {}", preguntaDTO);
         Pregunta pregunta = preguntaMapper.toEntity(preguntaDTO);
-        pregunta = preguntaRepository.save(pregunta);
-        //guardar las modalidades
+        preguntaRepository.save(pregunta);
+
+        //primero borrar las preguntaModalidad
+        //List <PreguntaModalidad> pmL = preguntaModalidadRepository.findByPreguntaId(pregunta.getId());
+
+        List <PreguntaModalidad> pmL = preguntaModalidadRepository.findByPreguntaId(pregunta.getId());
+
+
+        for(PreguntaModalidad pm: pmL){
+              preguntaModalidadRepository.delete(pm);
+
+        }
+
+        //guardar las preguntamodalidades
         List <PreguntaModalidadDTO> lpmDto= new ArrayList<>();
-            lpmDto = preguntaDTO.getListPreguntaModalidadDTO();
+            lpmDto = preguntaDTO.getPreguntaModalidads();
         if (lpmDto!=null){
             for (PreguntaModalidadDTO pmDto: lpmDto
                  ) {
                 pmDto.setPreguntaId(pregunta.getId());
                 PreguntaModalidad pm = preguntaModalidadMapper.toEntity(pmDto);
                 preguntaModalidadRepository.save(pm);
+                }
             }
-        }
-       //guardar las authority
-        List <PreguntaAuthorityDTO> lpaDto;
-        lpaDto = preguntaDTO.getListPreguntaAuthorityDTO();
-        if (lpaDto!=null){
-            for (PreguntaAuthorityDTO paDto: lpaDto
-            ) {
-                paDto.setPregunta3Id(pregunta.getId());
-                PreguntaAuthority pa = preguntaAuthorityMapper.toEntity(paDto);
-                preguntaAuthorityRepository.save(pa);
-            }
-        }
         return preguntaMapper.toDto(pregunta);
     }
 

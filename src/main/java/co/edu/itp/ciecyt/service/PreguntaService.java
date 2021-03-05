@@ -23,6 +23,8 @@ public interface PreguntaService {
      */
     PreguntaDTO save(PreguntaDTO preguntaDTO);
 
+    PreguntaDTO saveModalidadAuthority(PreguntaDTO preguntaDTO);
+
     /**
      * Get all the preguntas.
      *

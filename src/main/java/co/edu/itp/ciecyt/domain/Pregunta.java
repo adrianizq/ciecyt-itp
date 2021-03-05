@@ -1,12 +1,16 @@
 package co.edu.itp.ciecyt.domain;
 
+import co.edu.itp.ciecyt.service.dto.ModalidadDTO;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * A Pregunta.
@@ -50,7 +54,6 @@ public class Pregunta implements Serializable {
     @JsonIgnoreProperties(value = "preguntas", allowSetters = true)
     private Fases preguntaFase;
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
         return id;
     }

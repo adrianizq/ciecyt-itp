@@ -66,7 +66,9 @@ public class PreguntaResource {
         if (preguntaDTO.getId() != null) {
             throw new BadRequestAlertException("A new pregunta cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        PreguntaDTO result = preguntaService.save(preguntaDTO);
+        //PreguntaDTO result = preguntaService.save(preguntaDTO);
+        PreguntaDTO result = preguntaService.saveModalidadAuthority(preguntaDTO);
+
         return ResponseEntity.created(new URI("/api/preguntas/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -87,7 +89,8 @@ public class PreguntaResource {
         if (preguntaDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        PreguntaDTO result = preguntaService.save(preguntaDTO);
+        //PreguntaDTO result = preguntaService.save(preguntaDTO);
+        PreguntaDTO result = preguntaService.saveModalidadAuthority(preguntaDTO);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, preguntaDTO.getId().toString()))
             .body(result);

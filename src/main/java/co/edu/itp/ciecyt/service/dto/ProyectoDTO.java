@@ -483,7 +483,6 @@ public class ProyectoDTO implements Serializable {
 
     /////////////
 
-
     public Boolean isPreEnviado() {
         return preEnviado;
     }

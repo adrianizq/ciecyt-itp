@@ -1,7 +1,13 @@
 package co.edu.itp.ciecyt.service.dto;
 
+import co.edu.itp.ciecyt.domain.Authority;
+import co.edu.itp.ciecyt.domain.Modalidad;
+import co.edu.itp.ciecyt.domain.Pregunta;
+
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * A DTO for the {@link co.edu.itp.ciecyt.domain.Pregunta} entity.
@@ -33,10 +39,27 @@ public class PreguntaDTO implements Serializable {
 
     private String preguntaFaseFase;
 
-    private List<PreguntaAuthorityDTO> ListPreguntaAuthorityDTO;
-    private List<PreguntaModalidadDTO> ListPreguntaModalidadDTO;
+    private List<PreguntaAuthorityDTO> authorities;
+
+    private List<PreguntaModalidadDTO> preguntaModalidads;
 
 
+
+    public List<PreguntaAuthorityDTO> getAuthorities() {
+        return authorities;
+    }
+
+    public void setAuthorities(List<PreguntaAuthorityDTO> authorities) {
+        this.authorities = authorities;
+    }
+
+    public List<PreguntaModalidadDTO> getPreguntaModalidads() {
+        return preguntaModalidads;
+    }
+
+    public void setPreguntaModalidads(List<PreguntaModalidadDTO> preguntaModalidads) {
+        this.preguntaModalidads = preguntaModalidads;
+    }
 
     public Long getId() {
         return id;
@@ -134,7 +157,7 @@ public class PreguntaDTO implements Serializable {
         this.preguntaFaseFase = fasesFase;
     }
 
-    public List<PreguntaAuthorityDTO> getListPreguntaAuthorityDTO() {
+    /*public List<PreguntaAuthorityDTO> getListPreguntaAuthorityDTO() {
         return ListPreguntaAuthorityDTO;
     }
 
@@ -149,6 +172,8 @@ public class PreguntaDTO implements Serializable {
     public void setListPreguntaModalidadDTO(List<PreguntaModalidadDTO> listPreguntaModalidadDTO) {
         ListPreguntaModalidadDTO = listPreguntaModalidadDTO;
     }
+
+     */
 
     @Override
     public boolean equals(Object o) {
@@ -185,4 +210,6 @@ public class PreguntaDTO implements Serializable {
             ", preguntaFaseFase='" + getPreguntaFaseFase() + "'" +
             "}";
     }
+
+
 }
