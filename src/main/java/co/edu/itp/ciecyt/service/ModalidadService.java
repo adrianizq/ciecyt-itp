@@ -47,6 +47,7 @@ public interface ModalidadService {
     void delete(Long id);
 
     ////////////////////////////////777777
-    @Transactional(readOnly = true)
-    List<ModalidadDTO> findByPreguntaId(Long idPregunta) throws Exception;
+    //@Transactional(readOnly = true)
+    //List<ModalidadDTO> findByPreguntaId(Long idPregunta) throws Exception;
+    List<ModalidadDTO> findByPreguntaId(Long idPregunta);
 }

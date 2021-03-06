@@ -99,33 +99,47 @@ public class ModalidadServiceImpl implements ModalidadService {
     }
 
     ////////////////////////////////777777
-    @Override
+    /*@Override
     @Transactional(readOnly = true)
     public List<ModalidadDTO> findByPreguntaId(Long idPregunta) throws Exception {
         log.debug("Request to get all Modalidad de una idPRegunta con una idModalidad");
         List<ModalidadDTO> listDTO = new ArrayList<>();
         List<Modalidad> list = new ArrayList<>();
-
-
         List<PreguntaModalidad> lpm = preguntaModalidadRepository.findByPreguntaId(idPregunta);
-
         for (PreguntaModalidad m: lpm
         ) {
-            //PreguntaDTO pDto = new PreguntaDTO();
-
             Optional<Modalidad> modalidad = modalidadRepository.findById(m.getModalidad2().getId());
             Modalidad mo = new Modalidad();
             if(modalidad.isPresent()){
                 mo = modalidad.get();
             }
             list.add(mo);
-
-
         }
-
         for (Modalidad modalidad : list) {
             listDTO.add(modalidadMapper.toDto(modalidad));
         }
         return listDTO;
+    }*/
+    @Override
+    @Transactional(readOnly = true)
+    public List<ModalidadDTO> findByPreguntaId(Long idPregunta){
+        List <ModalidadDTO> listDTO = new ArrayList<>();
+        List<PreguntaModalidad> pml = preguntaModalidadRepository.findByPreguntaId(idPregunta);
+        List <Modalidad> lModalidades = new ArrayList<>();
+
+        for(PreguntaModalidad p: pml){
+            Modalidad m = new Modalidad();
+            Optional <Modalidad> om = modalidadRepository.findById(p.getModalidad2().getId());
+            if (om.isPresent()){
+                m= om.get();
+                lModalidades.add(m);
+            }
+        }
+        for (Modalidad modalidad : lModalidades) {
+            listDTO.add(modalidadMapper.toDto(modalidad));
+        }
+        return listDTO;
+
     }
+
 }

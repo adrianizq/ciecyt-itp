@@ -79,7 +79,8 @@ public class PreguntaServiceImpl implements PreguntaService {
         pregunta = preguntaRepository.save(pregunta);
         return preguntaMapper.toDto(pregunta);
     }
-
+    @Override
+    @Transactional(readOnly = false)
     public PreguntaDTO saveModalidadAuthority(PreguntaDTO preguntaDTO) {
         log.debug("Request to save Pregunta : {}", preguntaDTO);
         Pregunta pregunta = preguntaMapper.toEntity(preguntaDTO);

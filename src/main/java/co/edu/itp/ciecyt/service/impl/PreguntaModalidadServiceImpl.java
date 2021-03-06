@@ -1,8 +1,11 @@
 package co.edu.itp.ciecyt.service.impl;
 
+import co.edu.itp.ciecyt.domain.Modalidad;
+import co.edu.itp.ciecyt.repository.ModalidadRepository;
 import co.edu.itp.ciecyt.service.PreguntaModalidadService;
 import co.edu.itp.ciecyt.domain.PreguntaModalidad;
 import co.edu.itp.ciecyt.repository.PreguntaModalidadRepository;
+import co.edu.itp.ciecyt.service.dto.ModalidadDTO;
 import co.edu.itp.ciecyt.service.dto.PreguntaModalidadDTO;
 import co.edu.itp.ciecyt.service.mapper.PreguntaModalidadMapper;
 import org.slf4j.Logger;
@@ -11,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -26,11 +30,13 @@ public class PreguntaModalidadServiceImpl implements PreguntaModalidadService {
     private final Logger log = LoggerFactory.getLogger(PreguntaModalidadServiceImpl.class);
 
     private final PreguntaModalidadRepository preguntaModalidadRepository;
+    private final ModalidadRepository modalidadRepository;
 
     private final PreguntaModalidadMapper preguntaModalidadMapper;
 
-    public PreguntaModalidadServiceImpl(PreguntaModalidadRepository preguntaModalidadRepository, PreguntaModalidadMapper preguntaModalidadMapper) {
+    public PreguntaModalidadServiceImpl(PreguntaModalidadRepository preguntaModalidadRepository, ModalidadRepository modalidadRepository, PreguntaModalidadMapper preguntaModalidadMapper) {
         this.preguntaModalidadRepository = preguntaModalidadRepository;
+        this.modalidadRepository = modalidadRepository;
         this.preguntaModalidadMapper = preguntaModalidadMapper;
     }
 
@@ -75,6 +81,8 @@ public class PreguntaModalidadServiceImpl implements PreguntaModalidadService {
             .map(preguntaModalidadMapper::toDto)
             .collect(Collectors.toCollection(LinkedList::new));
     }
+
+
 
 
 
