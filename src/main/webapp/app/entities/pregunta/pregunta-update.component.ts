@@ -117,10 +117,10 @@ export default class PreguntaUpdate extends Vue {
 
     //  console.log(this.pregunta.preguntaElemento);
     //}
-
+    //this.pregunta.preguntaModalidads=null;
+    this.pregunta.preguntaModalidads = [];
     //crear las modalidades en cada pregunta
     this.modalidadesAsignadas.forEach(element => {
-      //this.pregunta.preguntaModalidads=null;
       var pr: IPreguntaModalidad = new PreguntaModalidad();
       pr.preguntaId = this.preguntaId;
       pr.modalidad2Id = element.id;

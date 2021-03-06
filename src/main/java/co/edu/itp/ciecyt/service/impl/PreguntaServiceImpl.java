@@ -86,28 +86,38 @@ public class PreguntaServiceImpl implements PreguntaService {
         Pregunta pregunta = preguntaMapper.toEntity(preguntaDTO);
         preguntaRepository.save(pregunta);
 
-        //primero borrar las preguntaModalidad
-        //List <PreguntaModalidad> pmL = preguntaModalidadRepository.findByPreguntaId(pregunta.getId());
-
         List <PreguntaModalidad> pmL = preguntaModalidadRepository.findByPreguntaId(pregunta.getId());
-
-
-        for(PreguntaModalidad pm: pmL){
-              preguntaModalidadRepository.delete(pm);
-
-        }
-
-        //guardar las preguntamodalidades
         List <PreguntaModalidadDTO> lpmDto= new ArrayList<>();
-            lpmDto = preguntaDTO.getPreguntaModalidads();
-        if (lpmDto!=null){
-            for (PreguntaModalidadDTO pmDto: lpmDto
-                 ) {
+        lpmDto = preguntaDTO.getPreguntaModalidads();
+        //ciclo para insertar
+        boolean exite;
+        for (PreguntaModalidadDTO pmDto: lpmDto
+        ) { exite=false;
+            for (PreguntaModalidad pm: pmL){
+                if (pm.getModalidad2().getId() == pmDto.getModalidad2Id()){
+                    exite=true;
+                }
+            }
+            if(!exite){
                 pmDto.setPreguntaId(pregunta.getId());
                 PreguntaModalidad pm = preguntaModalidadMapper.toEntity(pmDto);
                 preguntaModalidadRepository.save(pm);
+            }
+        }
+        ///ciclo para borrar
+        for(PreguntaModalidad pm: pmL){
+            exite=false;
+            for (PreguntaModalidadDTO pmDto: lpmDto
+            ) {
+                if (pm.getModalidad2().getId() == pmDto.getModalidad2Id()){
+                    exite=true;
                 }
             }
+            if(!exite) {
+                preguntaModalidadRepository.delete(pm);
+            }
+        }
+
         return preguntaMapper.toDto(pregunta);
     }
 
