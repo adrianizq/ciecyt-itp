@@ -127,6 +127,7 @@ export default class PreguntaUpdate extends Vue {
       console.log(pr);
 
       this.pregunta.preguntaModalidads.push(pr);
+      console.log(this.pregunta.preguntaModalidads);
     });
 
     if (this.pregunta.id) {
@@ -134,7 +135,7 @@ export default class PreguntaUpdate extends Vue {
         .update(this.pregunta)
         .then(param => {
           this.isSaving = false;
-          // this.$router.go(-1);
+          this.$router.go(-1);
           //(<any>this).$router.go(0);
           const message = this.$t('ciecytApp.pregunta.updated', { param: param.id });
           this.alertService().showAlert(message, 'info');
@@ -148,6 +149,7 @@ export default class PreguntaUpdate extends Vue {
         .then(param => {
           this.isSaving = false;
           this.$router.go(-1);
+          // (<any>this).$router.go(0);
           const message = this.$t('ciecytApp.pregunta.created', { param: param.id });
           this.alertService().showAlert(message, 'success');
         });
@@ -206,7 +208,7 @@ export default class PreguntaUpdate extends Vue {
           console.log("Asignando" + modal)
           this.pregunta.listPreguntaModalidadDTO.push(modal);
         });*/
-        this.pregunta.preguntaModalidads = this.modalidadesAsignadas;
+        //this.pregunta.preguntaModalidads = this.modalidadesAsignadas;
       });
 
     //se obtienen las preguntasModalidad de la pregunta actual
