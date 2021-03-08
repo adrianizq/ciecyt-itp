@@ -24,6 +24,11 @@ import PreguntaService from './pregunta.service';
 import { IPreguntaModalidad, PreguntaModalidad } from '@/shared/model/pregunta-modalidad.model';
 import PreguntaModalidadService from '@/entities/pregunta-modalidad/pregunta-modalidad.service';
 
+import { IPreguntaAuthority, PreguntaAuthority } from '@/shared/model/pregunta-modalidad.model';
+import PreguntaAuthorityService from '@/entities/pregunta-authority/pregunta-authority.service';
+
+import UserManagementService from '../../admin/user-management/user-management.service';
+
 const validations: any = {
   pregunta: {
     encabezado: {},
@@ -44,6 +49,8 @@ export default class PreguntaUpdate extends Vue {
 
   public modalidadesAsignadas: IModalidad[] = [];
 
+  public authoritiesAsignadas: any[] = [];
+
   @Inject('tipoPreguntaService') private tipoPreguntaService: () => TipoPreguntaService;
 
   public tipoPreguntas: ITipoPregunta[] = [];
@@ -51,6 +58,8 @@ export default class PreguntaUpdate extends Vue {
   @Inject('modalidadService') private modalidadService: () => ModalidadService;
 
   public modalidads: IModalidad[] = [];
+
+  public authorities: any[] = [];
 
   @Inject('rolesModalidadService') private rolesModalidadService: () => RolesModalidadService;
 
@@ -63,10 +72,17 @@ export default class PreguntaUpdate extends Vue {
   @Inject('elementoService') private elementoService: () => ElementoService;
 
   @Inject('preguntaModalidadService') private preguntaModalidadService: () => PreguntaModalidadService;
+  @Inject('preguntaAuthorityService') private preguntaAuthorityService: () => PreguntaAuthorityService;
+
+  @Inject('userService') private userManagementService: () => UserManagementService;
 
   public elements: IElemento[] = [];
 
   public preguntasModalidsPreguntaId: IPreguntaModalidad[] = [];
+
+  public preguntasAuthoritsPreguntaId: IPreguntaAuthority[] = [];
+
+  public authoritiesPreguntaId: any[] = [];
 
   public elemento: IElemento = new Elemento();
 
@@ -115,11 +131,7 @@ export default class PreguntaUpdate extends Vue {
       });
     }
 
-    //  console.log(this.pregunta.preguntaElemento);
-    //}
-    //this.pregunta.preguntaModalidads=null;
     this.pregunta.preguntaModalidads = [];
-    //crear las modalidades en cada pregunta
     this.modalidadesAsignadas.forEach(element => {
       var pr: IPreguntaModalidad = new PreguntaModalidad();
       pr.preguntaId = this.preguntaId;
@@ -204,11 +216,19 @@ export default class PreguntaUpdate extends Vue {
       .retrieveModalidadPregunta(parseInt(preguntaId))
       .then(res => {
         this.modalidadesAsignadas = res.data;
-        /*this.modalidadesAsignadas.forEach(modal => {
-          console.log("Asignando" + modal)
-          this.pregunta.listPreguntaModalidadDTO.push(modal);
-        });*/
-        //this.pregunta.preguntaModalidads = this.modalidadesAsignadas;
+      });
+
+    res = await this.userManagementService()
+      .retrieveAuthorities()
+      .then(_res => {
+        this.authorities = _res.data;
+      });
+
+    //retrievePreguntasAuthority
+    res = await this.preguntaAuthorityService()
+      .retrievePreguntasAuthority(parseInt(preguntaId))
+      .then(res => {
+        this.authoritiesAsignadas = res.data;
       });
 
     //se obtienen las preguntasModalidad de la pregunta actual
@@ -216,6 +236,12 @@ export default class PreguntaUpdate extends Vue {
       .retrievePreguntaModalidadIdPregunta(parseInt(preguntaId))
       .then(res => {
         this.preguntasModalidsPreguntaId = res.data;
+      });
+
+    res = await this.preguntaAuthorityService()
+      .retrievePreguntaAuthorityIdPregunta(parseInt(preguntaId))
+      .then(res => {
+        this.preguntasAuthoritsPreguntaId = res.data;
       });
 
     this.rolesModalidadService()

@@ -120,6 +120,9 @@ public class ModalidadServiceImpl implements ModalidadService {
         }
         return listDTO;
     }*/
+
+    //este se lo hizo en ModalidadService // se hubiera podido en PreguntaModalidadService
+    //para authority se hace en PreguntaAuthorityService, ya que no hay ModalidadService
     @Override
     @Transactional(readOnly = true)
     public List<ModalidadDTO> findByPreguntaId(Long idPregunta){

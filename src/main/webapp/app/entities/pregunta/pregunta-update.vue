@@ -42,6 +42,21 @@
                             </option>
                         </select>
                     </div>
+
+                    <div class="form-group">
+                        <label class="form-control-label" v-bind:value="$t('ciecytApp.pregunta.authority')" for="pregunta-authority">Rol</label>
+                         <select class="form-control" multiple name="authority"  v-model="authoritiesAsignadas" >
+                             <option v-for="authority of authorities" 
+                             :value="authority"
+                             >
+                            
+                              {{authority.name}}
+                            </option>
+                        </select>
+                    </div>
+
+
+                    <!--
                     <div class="form-group">
                         <label class="form-control-label" v-bind:value="$t('ciecytApp.pregunta.preguntaRolesModalidad')" for="pregunta-preguntaRolesModalidad">Rol Modalidad</label>
                        
@@ -57,7 +72,7 @@
                                 </option>
                         </b-form-select>
                     </div>
-               
+               -->
 <!-- fases -->
                       <div class="form-group">
                         <label class="form-control-label" v-bind:value="$t('ciecytApp.pregunta.preguntaFase')" for="pregunta-preguntaFase">Fase</label>

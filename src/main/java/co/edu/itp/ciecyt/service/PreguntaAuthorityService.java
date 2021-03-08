@@ -1,6 +1,8 @@
 package co.edu.itp.ciecyt.service;
 
+import co.edu.itp.ciecyt.domain.Authority;
 import co.edu.itp.ciecyt.service.dto.PreguntaAuthorityDTO;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -40,4 +42,11 @@ public interface PreguntaAuthorityService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+    List<PreguntaAuthorityDTO> findByPreguntaId(Long idPregunta);
+
+    //este se lo hizo para buscar las autoridades por id de pregunta
+    //para authority se hace aqui en PreguntaAuthorityService, ya que no hay AuthorityService
+    @Transactional(readOnly = true)
+    List<Authority> findByPreguntaAuthorityPreguntaId(Long idPregunta);
 }

@@ -87,63 +87,34 @@ public class PreguntaServiceImpl implements PreguntaService {
         Pregunta pregunta = preguntaMapper.toEntity(preguntaDTO);
         preguntaRepository.save(pregunta);
 
+        //Guardar las modalidades
         List <PreguntaModalidad> pmL = preguntaModalidadRepository.findByPreguntaId(pregunta.getId());
         List <PreguntaModalidadDTO> lpmDto= new ArrayList<>();
         lpmDto = preguntaDTO.getPreguntaModalidads();
-
-
         for(PreguntaModalidad pm: pmL){
             preguntaModalidadRepository.delete(pm);
-
-
         }
         pmL = preguntaModalidadRepository.findByPreguntaId(pregunta.getId());
-        
-
-        //PreguntaModalidadDTO anterior = null;
         for (PreguntaModalidadDTO pmDto: lpmDto){
                 pmDto.setPreguntaId(pregunta.getId());
                 PreguntaModalidad pm = preguntaModalidadMapper.toEntity(pmDto);
                preguntaModalidadRepository.save(pm);
-              // anterior=pmDto;
+        }
 
+        //Guardar las authorities
+        List <PreguntaAuthority> paL = preguntaAuthorityRepository.findByPregunta3Id(pregunta.getId());
+        List <PreguntaAuthorityDTO> lpaDto = new ArrayList<>();
+        lpaDto = preguntaDTO.getAuthorities();
+        for(PreguntaAuthority pa: paL){
+            preguntaAuthorityRepository.delete(pa);
         }
-        //ciclo para insertar
-        /*
-        boolean existe;
-        for (PreguntaModalidadDTO pmDto: lpmDto
-        ) { existe=false;
-            for (PreguntaModalidad pm: pmL){
-                if (pm.equals(pmDto)){
-                    existe=true;
-                    break;
-                }
-            }
-            if(existe==false){
-                pmDto.setPreguntaId(pregunta.getId());
-                PreguntaModalidad pm = preguntaModalidadMapper.toEntity(pmDto);
-                //preguntasModalidadAGrabar[]
-                preguntaModalidadRepository.save(pm);
-            }
+        paL = preguntaAuthorityRepository.findByPregunta3Id(pregunta.getId());
+        for (PreguntaAuthorityDTO paDto: lpaDto){
+            paDto.setPregunta3Id(pregunta.getId());
+            PreguntaAuthority pa = preguntaAuthorityMapper.toEntity(paDto);
+            preguntaAuthorityRepository.save(pa);
         }
-        */
-        /*
 
-        ///ciclo para borrar
-        for(PreguntaModalidad pm: pmL){
-            existe=false;
-            for (PreguntaModalidadDTO pmDto: lpmDto
-            ) {
-                if (pm.getModalidad2().getId() == pmDto.getModalidad2Id()){
-                    existe=true;
-                }
-            }
-            if(!existe) {
-                //preguntasModalidadABorrar[]
-                //preguntaModalidadRepository.delete(pm);
-            }
-        }
-*/
         return preguntaMapper.toDto(pregunta);
     }
 

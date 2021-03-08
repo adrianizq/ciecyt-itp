@@ -1,6 +1,9 @@
 package co.edu.itp.ciecyt.web.rest;
 
+import co.edu.itp.ciecyt.domain.Authority;
 import co.edu.itp.ciecyt.service.PreguntaAuthorityService;
+import co.edu.itp.ciecyt.service.dto.ModalidadDTO;
+import co.edu.itp.ciecyt.service.dto.PreguntaModalidadDTO;
 import co.edu.itp.ciecyt.web.rest.errors.BadRequestAlertException;
 import co.edu.itp.ciecyt.service.dto.PreguntaAuthorityDTO;
 
@@ -9,6 +12,7 @@ import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -112,5 +116,33 @@ public class PreguntaAuthorityResource {
         log.debug("REST request to delete PreguntaAuthority : {}", id);
         preguntaAuthorityService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+    }
+
+
+    @GetMapping("/pregunta-authority-preguntaid/{idPregunta}")
+    public ResponseEntity<?> getPreguntaAuthorityIdPregunta(@PathVariable Long idPregunta) {
+        log.debug("REST request to get PreguntaPreguntaModalidad : {}", idPregunta);
+        try {
+            List<PreguntaAuthorityDTO> preguntaAuthorityDTO = preguntaAuthorityService.findByPreguntaId(idPregunta);
+            return new ResponseEntity<>(preguntaAuthorityDTO, HttpStatus.OK);
+        } catch (Exception e) {
+            log.debug(e.getMessage());
+            return null;
+        }
+    }
+
+
+    @GetMapping("/pregunta-authority/{idPregunta}")
+    public ResponseEntity<?> getAuthorityPregunta(@PathVariable Long idPregunta) {
+        log.debug("REST request to get Pregunta authority : {}", idPregunta);
+        try{
+            final List<Authority> DTO = preguntaAuthorityService.findByPreguntaAuthorityPreguntaId(idPregunta);
+
+            return new ResponseEntity<>(DTO, HttpStatus.OK);
+
+        }catch (Exception e){
+
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body( e.getMessage());
+        }
     }
 }

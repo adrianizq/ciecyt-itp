@@ -47,9 +47,9 @@ export default class IPreguntaAuthorityService {
     });
   }
 
-  public retrievePreguntasAuthority(idAuthority: number): Promise<any> {
+  public retrievePreguntasAuthority(idPregunta: number): Promise<any> {
     return new Promise<any>(resolve => {
-      axios.get('api/pregunta-authority' + `/${idAuthority}`).then(function (res) {
+      axios.get('api/pregunta-authority' + `/${idPregunta}`).then(function (res) {
         resolve(res);
       });
     });

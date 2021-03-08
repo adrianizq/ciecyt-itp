@@ -127,7 +127,7 @@ public class ModalidadResource {
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
 
-    ////////////////////////////////////////77777777777777
+    //////////////////////////////////////// en authority va en PreguntaAhuthorityResource
     @GetMapping("/modalidad-pregunta/{idPregunta}")
     public ResponseEntity<?> getModalidadPregunta(@PathVariable Long idPregunta) {
         log.debug("REST request to get Pregunta Modalidad : {}", idPregunta);

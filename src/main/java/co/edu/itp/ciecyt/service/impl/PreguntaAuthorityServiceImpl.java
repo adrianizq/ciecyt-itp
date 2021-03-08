@@ -1,5 +1,7 @@
 package co.edu.itp.ciecyt.service.impl;
 
+import co.edu.itp.ciecyt.domain.Authority;
+import co.edu.itp.ciecyt.repository.AuthorityRepository;
 import co.edu.itp.ciecyt.service.PreguntaAuthorityService;
 import co.edu.itp.ciecyt.domain.PreguntaAuthority;
 import co.edu.itp.ciecyt.repository.PreguntaAuthorityRepository;
@@ -11,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -28,6 +31,7 @@ public class PreguntaAuthorityServiceImpl implements PreguntaAuthorityService {
     private final PreguntaAuthorityRepository preguntaAuthorityRepository;
 
     private final PreguntaAuthorityMapper preguntaAuthorityMapper;
+    private AuthorityRepository authorityRepository;
 
     public PreguntaAuthorityServiceImpl(PreguntaAuthorityRepository preguntaAuthorityRepository, PreguntaAuthorityMapper preguntaAuthorityMapper) {
         this.preguntaAuthorityRepository = preguntaAuthorityRepository;
@@ -64,5 +68,34 @@ public class PreguntaAuthorityServiceImpl implements PreguntaAuthorityService {
     public void delete(Long id) {
         log.debug("Request to delete PreguntaAuthority : {}", id);
         preguntaAuthorityRepository.deleteById(id);
+    }
+
+
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<PreguntaAuthorityDTO> findByPreguntaId(Long idPregunta){
+        return  preguntaAuthorityRepository.findByPregunta3Id(idPregunta)
+            .stream()
+            .map(preguntaAuthorityMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
+    }
+
+    //este se lo hizo para buscar las autoridades por id de pregunta
+    //para authority se hace aqui en PreguntaAuthorityService, ya que no hay AuthorityService
+    @Override
+    @Transactional(readOnly = true)
+    public List<Authority> findByPreguntaAuthorityPreguntaId(Long idPregunta){
+        List<PreguntaAuthority> pal = preguntaAuthorityRepository.findByPregunta3Id(idPregunta);
+        List <Authority> lAutoridades = new ArrayList<>();
+
+        for(PreguntaAuthority pa: pal){
+            Authority a = new Authority();
+            a.setName(pa.getAuthorityName());
+                lAutoridades.add(a);
+        }
+
+        return lAutoridades;
+
     }
 }

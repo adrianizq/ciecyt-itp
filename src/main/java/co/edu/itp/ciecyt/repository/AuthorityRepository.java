@@ -11,5 +11,5 @@ import java.util.List;
  * Spring Data JPA repository for the {@link Authority} entity.
  */
 public interface AuthorityRepository extends JpaRepository<Authority, String> {
-    //List<Authority> findByAuthorityName(String authority);
+   Authority findByName(String authority);
 }
