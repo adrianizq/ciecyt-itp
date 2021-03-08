@@ -136,7 +136,7 @@ public class PreguntaAuthorityResource {
     public ResponseEntity<?> getAuthorityPregunta(@PathVariable Long idPregunta) {
         log.debug("REST request to get Pregunta authority : {}", idPregunta);
         try{
-            final List<Authority> DTO = preguntaAuthorityService.findByPreguntaAuthorityPreguntaId(idPregunta);
+            final List<String> DTO = preguntaAuthorityService.findByPreguntaAuthorityPreguntaId(idPregunta);
 
             return new ResponseEntity<>(DTO, HttpStatus.OK);
 

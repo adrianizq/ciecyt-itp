@@ -1,6 +1,5 @@
 package co.edu.itp.ciecyt.service.impl;
 
-import co.edu.itp.ciecyt.domain.Authority;
 import co.edu.itp.ciecyt.repository.AuthorityRepository;
 import co.edu.itp.ciecyt.service.PreguntaAuthorityService;
 import co.edu.itp.ciecyt.domain.PreguntaAuthority;
@@ -85,14 +84,14 @@ public class PreguntaAuthorityServiceImpl implements PreguntaAuthorityService {
     //para authority se hace aqui en PreguntaAuthorityService, ya que no hay AuthorityService
     @Override
     @Transactional(readOnly = true)
-    public List<Authority> findByPreguntaAuthorityPreguntaId(Long idPregunta){
+    public List<String> findByPreguntaAuthorityPreguntaId(Long idPregunta){
         List<PreguntaAuthority> pal = preguntaAuthorityRepository.findByPregunta3Id(idPregunta);
-        List <Authority> lAutoridades = new ArrayList<>();
+        List <String> lAutoridades = new ArrayList<>();
 
         for(PreguntaAuthority pa: pal){
-            Authority a = new Authority();
-            a.setName(pa.getAuthorityName());
-                lAutoridades.add(a);
+            String a = new String();
+            a = pa.getAuthorityName();
+            lAutoridades.add(a);
         }
 
         return lAutoridades;

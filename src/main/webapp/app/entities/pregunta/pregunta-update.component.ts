@@ -28,6 +28,7 @@ import { IPreguntaAuthority, PreguntaAuthority } from '@/shared/model/pregunta-m
 import PreguntaAuthorityService from '@/entities/pregunta-authority/pregunta-authority.service';
 
 import UserManagementService from '../../admin/user-management/user-management.service';
+import { IAuthority } from '@/shared/model/authority.model';
 
 const validations: any = {
   pregunta: {
@@ -49,7 +50,7 @@ export default class PreguntaUpdate extends Vue {
 
   public modalidadesAsignadas: IModalidad[] = [];
 
-  public authoritiesAsignadas: string[] = [];
+  public authoritiesAsignadas: IAuthority[] = [];
 
   @Inject('tipoPreguntaService') private tipoPreguntaService: () => TipoPreguntaService;
 
@@ -82,7 +83,7 @@ export default class PreguntaUpdate extends Vue {
 
   public preguntasAuthoritsPreguntaId: IPreguntaAuthority[] = [];
 
-  public authoritiesPreguntaId: any[] = [];
+  public authoritiesPreguntaId: IPreguntaModalidad[] = [];
 
   public elemento: IElemento = new Elemento();
 
@@ -244,11 +245,11 @@ export default class PreguntaUpdate extends Vue {
         this.preguntasAuthoritsPreguntaId = res.data;
       });
 
-    this.rolesModalidadService()
+    /* this.rolesModalidadService()
       .retrieve()
       .then(res => {
         this.rolesModalidads = res.data;
-      });
+      });*/
     this.elementoService()
       .retrieve()
       .then(res => {
