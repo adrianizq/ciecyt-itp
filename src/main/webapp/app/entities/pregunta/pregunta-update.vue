@@ -50,7 +50,7 @@
                              :value="authority"
                              >
                             
-                              {{authority.name}}
+                              {{authority}}
                             </option>
                         </select>
                     </div>

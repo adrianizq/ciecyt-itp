@@ -49,7 +49,7 @@ export default class PreguntaUpdate extends Vue {
 
   public modalidadesAsignadas: IModalidad[] = [];
 
-  public authoritiesAsignadas: any[] = [];
+  public authoritiesAsignadas: string[] = [];
 
   @Inject('tipoPreguntaService') private tipoPreguntaService: () => TipoPreguntaService;
 
