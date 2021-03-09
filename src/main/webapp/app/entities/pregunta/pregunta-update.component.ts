@@ -24,7 +24,7 @@ import PreguntaService from './pregunta.service';
 import { IPreguntaModalidad, PreguntaModalidad } from '@/shared/model/pregunta-modalidad.model';
 import PreguntaModalidadService from '@/entities/pregunta-modalidad/pregunta-modalidad.service';
 
-import { IPreguntaAuthority, PreguntaAuthority } from '@/shared/model/pregunta-modalidad.model';
+import { IPreguntaAuthority, PreguntaAuthority } from '@/shared/model/pregunta-authority.model';
 import PreguntaAuthorityService from '@/entities/pregunta-authority/pregunta-authority.service';
 
 import UserManagementService from '../../admin/user-management/user-management.service';
@@ -97,6 +97,7 @@ export default class PreguntaUpdate extends Vue {
     super();
     this.pregunta = new Pregunta();
     this.pregunta.preguntaModalidads = [];
+    this.pregunta.authorities = [];
   }
 
   beforeRouteEnter(to, from, next) {
@@ -137,10 +138,17 @@ export default class PreguntaUpdate extends Vue {
       var pr: IPreguntaModalidad = new PreguntaModalidad();
       pr.preguntaId = this.preguntaId;
       pr.modalidad2Id = element.id;
-      console.log(pr);
-
       this.pregunta.preguntaModalidads.push(pr);
-      console.log(this.pregunta.preguntaModalidads);
+      // console.log(this.pregunta.preguntaModalidads);
+    });
+
+    this.pregunta.authorities = [];
+    this.authoritiesAsignadas.forEach(element => {
+      var pr: IPreguntaAuthority = new PreguntaAuthority();
+      pr.pregunta3Id = this.preguntaId;
+      pr.authorityName = element;
+      this.pregunta.authorities.push(pr);
+      console.log(this.pregunta.authorities);
     });
 
     if (this.pregunta.id) {
@@ -233,11 +241,11 @@ export default class PreguntaUpdate extends Vue {
       });
 
     //se obtienen las preguntasModalidad de la pregunta actual
-    res = await this.preguntaModalidadService()
+    /* res = await this.preguntaModalidadService()
       .retrievePreguntaModalidadIdPregunta(parseInt(preguntaId))
       .then(res => {
         this.preguntasModalidsPreguntaId = res.data;
-      });
+      }); */
 
     res = await this.preguntaAuthorityService()
       .retrievePreguntaAuthorityIdPregunta(parseInt(preguntaId))

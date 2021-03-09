@@ -18,6 +18,7 @@ export interface IPregunta {
   preguntaFaseId?: number;
   puntajeMaximo?: number;
   preguntaModalidads?: IPreguntaModalidad[];
+  authorities?: any[];
 }
 
 export class Pregunta implements IPregunta {
@@ -37,6 +38,7 @@ export class Pregunta implements IPregunta {
     public preguntaFase?: string,
     public preguntaFaseId?: number,
     public puntajeMaximo?: number,
-    public preguntaModalidads?: IPreguntaModalidad[]
+    public preguntaModalidads?: IPreguntaModalidad[],
+    public authorities?: any[]
   ) {}
 }

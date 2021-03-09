@@ -1,9 +1,9 @@
-export interface IPreguntaModalidad {
+export interface IPreguntaAuthority {
   id?: number;
   pregunta3Id?: number;
-  authorityName?: number;
+  authorityName?: string;
 }
 
-export class PreguntaModalidad implements IPreguntaModalidad {
-  constructor(public id?: number, public pregunta3Id?: number, public authorityName?: number) {}
+export class PreguntaAuthority implements IPreguntaAuthority {
+  constructor(public id?: number, public pregunta3Id?: number, public authorityName?: string) {}
 }

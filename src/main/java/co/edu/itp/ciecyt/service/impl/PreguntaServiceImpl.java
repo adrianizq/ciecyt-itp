@@ -108,7 +108,7 @@ public class PreguntaServiceImpl implements PreguntaService {
         for(PreguntaAuthority pa: paL){
             preguntaAuthorityRepository.delete(pa);
         }
-        paL = preguntaAuthorityRepository.findByPregunta3Id(pregunta.getId());
+       paL = preguntaAuthorityRepository.findByPregunta3Id(pregunta.getId());
         for (PreguntaAuthorityDTO paDto: lpaDto){
             paDto.setPregunta3Id(pregunta.getId());
             PreguntaAuthority pa = preguntaAuthorityMapper.toEntity(paDto);
