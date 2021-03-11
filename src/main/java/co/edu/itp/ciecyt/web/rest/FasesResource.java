@@ -130,7 +130,7 @@ public class FasesResource {
     }
 
 
-
+/*
     /////////////////////
     @GetMapping("/fase-modalidad/{fase}/{idModalidad}")
     public ResponseEntity<?> getFaseAndFasesModalidadId(@PathVariable String fase, @PathVariable Long idModalidad) {
@@ -159,6 +159,6 @@ public class FasesResource {
         }
     }
 
-
+*/
 
 }

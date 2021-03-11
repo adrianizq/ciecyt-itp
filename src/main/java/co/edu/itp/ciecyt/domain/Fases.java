@@ -1,5 +1,7 @@
 package co.edu.itp.ciecyt.domain;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 
@@ -10,6 +12,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "fases")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Fases implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -25,11 +28,7 @@ public class Fases implements Serializable {
     @Column(name = "notificable")
     private Boolean notificable;
 
-    @ManyToOne
-    @JsonIgnoreProperties("fases")
-    private Modalidad fasesModalidad;
-
-    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
+    // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
         return id;
     }
@@ -63,20 +62,7 @@ public class Fases implements Serializable {
     public void setNotificable(Boolean notificable) {
         this.notificable = notificable;
     }
-
-    public Modalidad getFasesModalidad() {
-        return fasesModalidad;
-    }
-
-    public Fases fasesModalidad(Modalidad modalidad) {
-        this.fasesModalidad = modalidad;
-        return this;
-    }
-
-    public void setFasesModalidad(Modalidad modalidad) {
-        this.fasesModalidad = modalidad;
-    }
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
+    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
     public boolean equals(Object o) {
@@ -94,6 +80,7 @@ public class Fases implements Serializable {
         return 31;
     }
 
+    // prettier-ignore
     @Override
     public String toString() {
         return "Fases{" +

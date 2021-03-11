@@ -10,15 +10,7 @@
       "fieldType": "Boolean"
     }
   ],
-  "relationships": [
-    {
-      "relationshipType": "many-to-one",
-      "otherEntityName": "modalidad",
-      "otherEntityRelationshipName": "fases",
-      "relationshipName": "fasesModalidad",
-      "otherEntityField": "modalidad"
-    }
-  ],
+  "relationships": [],
   "changelogDate": "20201008034403",
   "entityTableName": "fases",
   "dto": "mapstruct",
@@ -29,5 +21,7 @@
   "readOnly": false,
   "embedded": false,
   "clientRootFolder": "",
-  "applications": "*"
+  "applications": "*",
+  "searchEngine": false,
+  "databaseType": "sql"
 }

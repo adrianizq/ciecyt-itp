@@ -54,25 +54,7 @@
                             </option>
                         </select>
                     </div>
-
-
-                    <!--
-                    <div class="form-group">
-                        <label class="form-control-label" v-bind:value="$t('ciecytApp.pregunta.preguntaRolesModalidad')" for="pregunta-preguntaRolesModalidad">Rol Modalidad</label>
-                       
-                        <b-form-select text-field="pregunta-roles-modalidad" value-field="id" id="rol"
-                            v-model="pregunta.preguntaRolesModalidadId"
-                            
-                             >
-                            <option v-for="(selectOption, indexOpt) in Roles"
-                                        :key="indexOpt"
-                                        :value="selectOption.id"
-                                >
-                                    ({{ selectOption.id }}) {{ selectOption.rol }}
-                                </option>
-                        </b-form-select>
-                    </div>
-               -->
+        
 <!-- fases -->
                       <div class="form-group">
                         <label class="form-control-label" v-bind:value="$t('ciecytApp.pregunta.preguntaFase')" for="pregunta-preguntaFase">Fase</label>

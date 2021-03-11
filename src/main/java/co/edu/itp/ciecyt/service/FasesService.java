@@ -47,9 +47,11 @@ public interface FasesService {
      */
     void delete(Long id);
 
-    @Transactional(readOnly = true)
+    /*@Transactional(readOnly = true)
     FasesDTO findByFaseAndFasesModalidadId(String fase, Long idModalidad) throws Exception;
 
     @Transactional(readOnly = true)
     public List<FasesDTO> findByFasesModalidadId(Long idModalidad) throws Exception;
+
+     */
 }

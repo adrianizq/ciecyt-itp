@@ -8,9 +8,6 @@ import { ITipoPregunta } from '@/shared/model/tipo-pregunta.model';
 import ModalidadService from '../modalidad/modalidad.service';
 import { IModalidad } from '@/shared/model/modalidad.model';
 
-import RolesModalidadService from '../roles-modalidad/roles-modalidad.service';
-import { IRolesModalidad } from '@/shared/model/roles-modalidad.model';
-
 import FasesService from '../fases/fases.service';
 import { IFases } from '@/shared/model/fases.model';
 
@@ -61,10 +58,6 @@ export default class PreguntaUpdate extends Vue {
   public modalidads: IModalidad[] = [];
 
   public authorities: any[] = [];
-
-  @Inject('rolesModalidadService') private rolesModalidadService: () => RolesModalidadService;
-
-  public rolesModalidads: IRolesModalidad[] = [];
 
   @Inject('fasesService') private fasesService: () => FasesService;
 
@@ -178,27 +171,25 @@ export default class PreguntaUpdate extends Vue {
     //console.log(this.modalidadesAsignadas);
   }
 
-  get Elementos() {
+  /*get Elementos() {
     return this.elements.filter(elemento => {
       return elemento.elementoModalidadId == this.pregunta.preguntaModalidadId;
     });
+  }*/
+
+  get Elementos() {
+    return this.elements;
   }
 
-  get Roles() {
-    return this.rolesModalidads.filter(rol => {
-      return rol.rolesModalidadModalidadId == this.pregunta.preguntaModalidadId;
-    });
-  }
-
-  get Fases() {
+  /* get Fases() {
     return this.fass.filter(fase => {
       return fase.fasesModalidadId == this.pregunta.preguntaModalidadId;
     });
+  }*/
+
+  get Fases() {
+    return this.fass;
   }
-
-  // public retrievePregunta(preguntaId): void {
-
-  // }
 
   public previousState(): void {
     this.$router.go(-1);
@@ -240,24 +231,12 @@ export default class PreguntaUpdate extends Vue {
         this.authoritiesAsignadas = res.data;
       });
 
-    //se obtienen las preguntasModalidad de la pregunta actual
-    /* res = await this.preguntaModalidadService()
-      .retrievePreguntaModalidadIdPregunta(parseInt(preguntaId))
-      .then(res => {
-        this.preguntasModalidsPreguntaId = res.data;
-      }); */
-
     res = await this.preguntaAuthorityService()
       .retrievePreguntaAuthorityIdPregunta(parseInt(preguntaId))
       .then(res => {
         this.preguntasAuthoritsPreguntaId = res.data;
       });
 
-    /* this.rolesModalidadService()
-      .retrieve()
-      .then(res => {
-        this.rolesModalidads = res.data;
-      });*/
     this.elementoService()
       .retrieve()
       .then(res => {

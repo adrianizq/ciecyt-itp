@@ -21,9 +21,6 @@
             <column name="notificable" type="boolean">
                 <constraints nullable="true" />
             </column>
-            <column name="fases_modalidad_id" type="bigint">
-                <constraints nullable="true" />
-            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
     </changeSet>

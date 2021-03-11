@@ -13,7 +13,7 @@ import java.util.List;
 @SuppressWarnings("unused")
 @Repository
 public interface FasesRepository extends JpaRepository<Fases, Long> {
-      Fases findByFaseAndFasesModalidadId(String fase, Long idModalidad);
-      List<Fases> findByFasesModalidadId(Long idModalidad);
+     // Fases findByFaseAndFasesModalidadId(String fase, Long idModalidad);
+      //List<Fases> findByFasesModalidadId(Long idModalidad);
 
 }
