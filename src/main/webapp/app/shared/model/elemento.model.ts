@@ -4,8 +4,9 @@ export interface IElemento {
   descripcion?: string;
   elementoFormatoFormato?: string;
   elementoFormatoId?: number;
-  elementoModalidadModalidad?: string;
-  elementoModalidadId?: number;
+  elementoFasesFase?: string;
+  elementoFasesId?: number;
+  modalidadId?: number;
 }
 
 export class Elemento implements IElemento {
@@ -16,6 +17,7 @@ export class Elemento implements IElemento {
     public elementoFormatoFormato?: string,
     public elementoFormatoId?: number,
     public elementoFasesFase?: string,
-    public elementoFasesId?: number
+    public elementoFasesId?: number,
+    public modalidadId?: number
   ) {}
 }

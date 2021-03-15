@@ -29,6 +29,7 @@
                     <th v-on:click="changeOrder('descripcion')"><span v-text="$t('ciecytApp.elemento.descripcion')">Descripcion</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th v-on:click="changeOrder('elementoFormatoFormato')"><span v-text="$t('ciecytApp.elemento.elementoFormato')">Elemento Formato</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th v-on:click="changeOrder('elementoFasesFase')"><span v-text="$t('ciecytApp.elemento.elementoFase')">Fase</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
+                    <th v-on:click="changeOrder('modalidad')"><span v-text="$t('ciecytApp.elemento.modalidad')">Fase</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th></th>
                 </tr>
                 </thead>
@@ -45,11 +46,13 @@
                             <router-link :to="{name: 'FormatoView', params: {elementoFormatoId: elemento.elementoFormatoId}}">{{elemento.elementoFormatoFormato}}</router-link>
                         </div>
                     </td>
+                    <td>{{elemento.elementoFasesFase}}</td>
                     <td>
-                        <div v-if="elemento.elementoModalidadId">
-                            <router-link :to="{name: 'ModalidadView', params: {elementoModalidadId: elemento.elementoModalidadId}}">{{elemento.elementoModalidadModalidad}}</router-link>
+                        <div v-if="elemento.modalidadId">
+                            <router-link :to="{name: 'ModalidadView', params: {modalidadId: elemento.modalidadId}}">{{elemento.modalidadId}}</router-link>
                         </div>
                     </td>
+                     
                     <td class="text-right">
                         <div class="btn-group">
                             <router-link :to="{name: 'ElementoView', params: {elementoId: elemento.id}}" tag="button" class="btn btn-info btn-sm details">
@@ -60,6 +63,7 @@
                                 <font-awesome-icon icon="pencil-alt"></font-awesome-icon>
                                 <span class="d-none d-md-inline" v-text="$t('entity.action.edit')">Edit</span>
                             </router-link>
+                            
                             <b-button v-on:click="prepareRemove(elemento)"
                                    variant="danger"
                                    class="btn btn-sm"
@@ -69,6 +73,7 @@
                             </b-button>
                         </div>
                     </td>
+                    
                 </tr>
                 </tbody>
             </table>

@@ -18,8 +18,9 @@
       },
       "elemento": "Elemento",
       "descripcion": "Descripcion",
-      "elementoFormato": "Elemento Formato",
-      "elementoFase": "Elemento Fase"
+      "elementoFormato": "Formato",
+      "elementoFase": "Fase",
+      "modalidad": "Modalidad"
     }
   }
 }

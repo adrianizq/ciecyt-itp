@@ -24,14 +24,26 @@
                             <router-link :to="{name: 'FormatoView', params: {elementoFormatoId: elemento.elementoFormatoId}}">{{elemento.elementoFormatoFormato}}</router-link>
                         </div>
                     </dd>
+
                     <dt>
-                        <span v-text="$t('ciecytApp.elemento.elementoModalidad')">Elemento Modalidad</span>
+                        <span v-text="$t('ciecytApp.elemento.modalidad')">Elemento Modalidad</span>
                     </dt>
                     <dd>
-                        <div v-if="elemento.elementoModalidadId">
-                            <router-link :to="{name: 'ModalidadView', params: {elementoModalidadId: elemento.elementoModalidadId}}">{{elemento.elementoModalidadModalidad}}</router-link>
+                        <div v-if="elemento.modalidadId">
+                            <router-link :to="{name: 'ModalidadView', params: {modalidadId: elemento.modalidadId}}">{{elemento.modalidadId}}</router-link>
                         </div>
                     </dd>
+
+                    <dt>
+                        <span v-text="$t('ciecytApp.elemento.elementoFase')">Fase</span>
+                    </dt>
+                    <dd>
+                      <div  v-if="elemento.elementoFasesId">
+                         <router-link :to="{name: 'FasesView', params: {fasesId: elemento.elementoFasesId}}">{{elemento.elementoFasesId}}</router-link>
+                       </div>
+                    </dd>
+
+                    
                 </dl>
                 <button type="submit"
                         v-on:click.prevent="previousState()"
