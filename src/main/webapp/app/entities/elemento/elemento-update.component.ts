@@ -5,8 +5,8 @@ import { numeric, required, minLength, maxLength } from 'vuelidate/lib/validator
 import FormatoService from '../formato/formato.service';
 import { IFormato } from '@/shared/model/formato.model';
 
-import ModalidadService from '../modalidad/modalidad.service';
-import { IModalidad } from '@/shared/model/modalidad.model';
+import FasesService from '../fases/fases.service';
+import { IFases } from '@/shared/model/fases.model';
 
 import AlertService from '@/shared/alert/alert.service';
 import { IElemento, Elemento } from '@/shared/model/elemento.model';
@@ -31,9 +31,9 @@ export default class ElementoUpdate extends Vue {
 
   public formatoes: IFormato[] = [];
 
-  @Inject('modalidadService') private modalidadService: () => ModalidadService;
+  @Inject('fasesService') private fasesService: () => FasesService;
 
-  public modalidads: IModalidad[] = [];
+  public fases: IFases[] = [];
   public isSaving = false;
 
   beforeRouteEnter(to, from, next) {
@@ -86,10 +86,10 @@ export default class ElementoUpdate extends Vue {
       .then(res => {
         this.formatoes = res.data;
       });
-    this.modalidadService()
+    this.fasesService()
       .retrieve()
       .then(res => {
-        this.modalidads = res.data;
+        this.fases = res.data;
       });
   }
 }

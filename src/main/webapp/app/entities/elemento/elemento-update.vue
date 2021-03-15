@@ -27,10 +27,10 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label class="form-control-label" v-bind:value="$t('ciecytApp.elemento.elementoModalidad')" for="elemento-elementoModalidad">Elemento Modalidad</label>
-                        <select class="form-control" id="elemento-elementoModalidad" name="elementoModalidad" v-model="elemento.elementoModalidadId">
+                        <label class="form-control-label" v-bind:value="$t('ciecytApp.elemento.elementoFase')" for="elemento-elementoFase">Elemento Fase</label>
+                        <select class="form-control" id="elemento-elementoModalidad" name="elementoModalidad" v-model="elemento.elementoFasesId">
                             <option v-bind:value="null"></option>
-                            <option v-bind:value="modalidadOption.id" v-for="modalidadOption in modalidads" :key="modalidadOption.id">{{modalidadOption.modalidad}}</option>
+                            <option v-bind:value="faseOption.id" v-for="faseOption in fases" :key="faseOption.id">{{faseOption.fase}}</option>
                         </select>
                     </div>
                 </div>

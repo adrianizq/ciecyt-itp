@@ -28,7 +28,7 @@
                     <th v-on:click="changeOrder('elemento')"><span v-text="$t('ciecytApp.elemento.elemento')">Elemento</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th v-on:click="changeOrder('descripcion')"><span v-text="$t('ciecytApp.elemento.descripcion')">Descripcion</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th v-on:click="changeOrder('elementoFormatoFormato')"><span v-text="$t('ciecytApp.elemento.elementoFormato')">Elemento Formato</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
-                    <th v-on:click="changeOrder('elementoModalidadModalidad')"><span v-text="$t('ciecytApp.elemento.elementoModalidad')">Elemento Modalidad</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
+                    <th v-on:click="changeOrder('elementoFasesFase')"><span v-text="$t('ciecytApp.elemento.elementoFase')">Fase</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th></th>
                 </tr>
                 </thead>

@@ -15,7 +15,7 @@ export class Elemento implements IElemento {
     public descripcion?: string,
     public elementoFormatoFormato?: string,
     public elementoFormatoId?: number,
-    public elementoModalidadModalidad?: string,
-    public elementoModalidadId?: number
+    public elementoFasesFase?: string,
+    public elementoFasesId?: number
   ) {}
 }

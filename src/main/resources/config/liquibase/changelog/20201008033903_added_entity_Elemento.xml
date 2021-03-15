@@ -21,10 +21,13 @@
             <column name="descripcion" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
+            <column name="modalidad_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
             <column name="elemento_formato_id" type="bigint">
                 <constraints nullable="true" />
             </column>
-            <column name="elemento_modalidad_id" type="bigint">
+            <column name="elemento_fases_id" type="bigint">
                 <constraints nullable="true" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
@@ -52,6 +55,7 @@
             <column name="id" type="numeric"/>
             <column name="elemento" type="string"/>
             <column name="descripcion" type="string"/>
+            <column name="modalidad_id" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>

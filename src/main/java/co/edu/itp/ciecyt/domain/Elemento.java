@@ -1,5 +1,8 @@
 package co.edu.itp.ciecyt.domain;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 
@@ -10,6 +13,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "elemento")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Elemento implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -25,15 +29,18 @@ public class Elemento implements Serializable {
     @Column(name = "descripcion")
     private String descripcion;
 
+    @Column(name = "modalidad_id")
+    private Long modalidadId;
+
     @ManyToOne
-    @JsonIgnoreProperties("elementos")
+    @JsonIgnoreProperties(value = "elementos", allowSetters = true)
     private Formato elementoFormato;
 
     @ManyToOne
-    @JsonIgnoreProperties("elementos")
-    private Modalidad elementoModalidad;
+    @JsonIgnoreProperties(value = "elementos", allowSetters = true)
+    private Fases elementoFases;
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
+    // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
         return id;
     }
@@ -68,6 +75,19 @@ public class Elemento implements Serializable {
         this.descripcion = descripcion;
     }
 
+    public Long getModalidadId() {
+        return modalidadId;
+    }
+
+    public Elemento modalidadId(Long modalidadId) {
+        this.modalidadId = modalidadId;
+        return this;
+    }
+
+    public void setModalidadId(Long modalidadId) {
+        this.modalidadId = modalidadId;
+    }
+
     public Formato getElementoFormato() {
         return elementoFormato;
     }
@@ -81,19 +101,19 @@ public class Elemento implements Serializable {
         this.elementoFormato = formato;
     }
 
-    public Modalidad getElementoModalidad() {
-        return elementoModalidad;
+    public Fases getElementoFases() {
+        return elementoFases;
     }
 
-    public Elemento elementoModalidad(Modalidad modalidad) {
-        this.elementoModalidad = modalidad;
+    public Elemento elementoFases(Fases fases) {
+        this.elementoFases = fases;
         return this;
     }
 
-    public void setElementoModalidad(Modalidad modalidad) {
-        this.elementoModalidad = modalidad;
+    public void setElementoFases(Fases fases) {
+        this.elementoFases = fases;
     }
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
+    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
     public boolean equals(Object o) {
@@ -111,12 +131,14 @@ public class Elemento implements Serializable {
         return 31;
     }
 
+    // prettier-ignore
     @Override
     public String toString() {
         return "Elemento{" +
             "id=" + getId() +
             ", elemento='" + getElemento() + "'" +
             ", descripcion='" + getDescripcion() + "'" +
+            ", modalidadId=" + getModalidadId() +
             "}";
     }
 }

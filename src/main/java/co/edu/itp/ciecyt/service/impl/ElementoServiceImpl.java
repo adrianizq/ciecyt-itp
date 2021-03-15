@@ -92,12 +92,26 @@ public class ElementoServiceImpl implements ElementoService {
 
 
 
-    @Override
+  /*  @Override
     @Transactional(readOnly = true)
     public List<ElementoDTO> findByElementoModalidadId(Long idModalidad) throws Exception {
         log.debug("Request to get all Elementos de una modalidad con una idModalidad");
         List<ElementoDTO> listDTO = new ArrayList<>();
         List<Elemento> list = elementoRepository.findByElementoModalidadId(idModalidad);
+        //listDTO = integranteProyectoMapper.usersToUserDTOs(list);
+
+        for (Elemento elemento : list) {
+            listDTO.add(elementoMapper.toDto(elemento));
+        }
+        return listDTO;
+    }*/
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<ElementoDTO> findByElementoFasesId(Long idFase) throws Exception {
+        log.debug("Request to get all Elementos de una modalidad con una idModalidad");
+        List<ElementoDTO> listDTO = new ArrayList<>();
+        List<Elemento> list = elementoRepository.findByElementoFasesId(idFase);
         //listDTO = integranteProyectoMapper.usersToUserDTOs(list);
 
         for (Elemento elemento : list) {

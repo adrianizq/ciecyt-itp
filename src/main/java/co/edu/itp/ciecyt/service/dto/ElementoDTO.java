@@ -1,12 +1,12 @@
 package co.edu.itp.ciecyt.service.dto;
+
 import java.io.Serializable;
-import java.util.Objects;
 
 /**
  * A DTO for the {@link co.edu.itp.ciecyt.domain.Elemento} entity.
  */
 public class ElementoDTO implements Serializable {
-
+    
     private Long id;
 
     private String elemento;
@@ -18,10 +18,10 @@ public class ElementoDTO implements Serializable {
 
     private String elementoFormatoFormato;
 
-    private Long elementoModalidadId;
+    private Long elementoFasesId;
 
-    private String elementoModalidadModalidad;
-
+    private String elementoFasesFase;
+    
     public Long getId() {
         return id;
     }
@@ -62,20 +62,20 @@ public class ElementoDTO implements Serializable {
         this.elementoFormatoFormato = formatoFormato;
     }
 
-    public Long getElementoModalidadId() {
-        return elementoModalidadId;
+    public Long getElementoFasesId() {
+        return elementoFasesId;
     }
 
-    public void setElementoModalidadId(Long modalidadId) {
-        this.elementoModalidadId = modalidadId;
+    public void setElementoFasesId(Long fasesId) {
+        this.elementoFasesId = fasesId;
     }
 
-    public String getElementoModalidadModalidad() {
-        return elementoModalidadModalidad;
+    public String getElementoFasesFase() {
+        return elementoFasesFase;
     }
 
-    public void setElementoModalidadModalidad(String modalidadModalidad) {
-        this.elementoModalidadModalidad = modalidadModalidad;
+    public void setElementoFasesFase(String fasesFase) {
+        this.elementoFasesFase = fasesFase;
     }
 
     @Override
@@ -83,32 +83,29 @@ public class ElementoDTO implements Serializable {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof ElementoDTO)) {
             return false;
         }
 
-        ElementoDTO elementoDTO = (ElementoDTO) o;
-        if (elementoDTO.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), elementoDTO.getId());
+        return id != null && id.equals(((ElementoDTO) o).id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return 31;
     }
 
+    // prettier-ignore
     @Override
     public String toString() {
         return "ElementoDTO{" +
             "id=" + getId() +
             ", elemento='" + getElemento() + "'" +
             ", descripcion='" + getDescripcion() + "'" +
-            ", elementoFormato=" + getElementoFormatoId() +
-            ", elementoFormato='" + getElementoFormatoFormato() + "'" +
-            ", elementoModalidad=" + getElementoModalidadId() +
-            ", elementoModalidad='" + getElementoModalidadModalidad() + "'" +
+            ", elementoFormatoId=" + getElementoFormatoId() +
+            ", elementoFormatoFormato='" + getElementoFormatoFormato() + "'" +
+            ", elementoFasesId=" + getElementoFasesId() +
+            ", elementoFasesFase='" + getElementoFasesFase() + "'" +
             "}";
     }
 }

@@ -8,6 +8,10 @@
     {
       "fieldName": "descripcion",
       "fieldType": "String"
+    },
+    {
+      "fieldName": "modalidadId",
+      "fieldType": "Long"
     }
   ],
   "relationships": [
@@ -19,11 +23,11 @@
       "otherEntityField": "formato"
     },
     {
+      "relationshipName": "elementoFases",
+      "otherEntityName": "fases",
       "relationshipType": "many-to-one",
-      "otherEntityName": "modalidad",
-      "otherEntityRelationshipName": "elemento",
-      "relationshipName": "elementoModalidad",
-      "otherEntityField": "modalidad"
+      "otherEntityField": "fase",
+      "otherEntityRelationshipName": "elemento"
     }
   ],
   "changelogDate": "20201008033903",
@@ -36,5 +40,7 @@
   "readOnly": false,
   "embedded": false,
   "clientRootFolder": "",
-  "applications": "*"
+  "applications": "*",
+  "searchEngine": false,
+  "databaseType": "sql"
 }

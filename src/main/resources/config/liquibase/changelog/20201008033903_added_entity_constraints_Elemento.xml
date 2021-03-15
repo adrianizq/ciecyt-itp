@@ -14,11 +14,11 @@
                                  referencedColumnNames="id"
                                  referencedTableName="formato"/>
 
-        <addForeignKeyConstraint baseColumnNames="elemento_modalidad_id"
+        <addForeignKeyConstraint baseColumnNames="elemento_fases_id"
                                  baseTableName="elemento"
-                                 constraintName="fk_elemento_elemento_modalidad_id"
+                                 constraintName="fk_elemento_elemento_fases_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="modalidad"/>
+                                 referencedTableName="fases"/>
 
     </changeSet>
 </databaseChangeLog>
