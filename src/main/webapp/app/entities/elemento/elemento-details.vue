@@ -39,7 +39,7 @@
                     </dt>
                     <dd>
                       <div  v-if="elemento.elementoFasesId">
-                         <router-link :to="{name: 'FasesView', params: {fasesId: elemento.elementoFasesId}}">{{elemento.elementoFasesId}}</router-link>
+                         <router-link :to="{name: 'FasesView', params: {fasesId: elemento.elementoFasesId}}">{{elemento.elementoFasesFase}}</router-link>
                        </div>
                     </dd>
 
