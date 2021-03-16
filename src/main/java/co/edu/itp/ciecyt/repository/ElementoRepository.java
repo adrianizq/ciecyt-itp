@@ -16,5 +16,6 @@ public interface ElementoRepository extends JpaRepository<Elemento, Long> {
 
     //List<Elemento> findByElementoModalidadId(Long idModalidad);
     List<Elemento> findByElementoFasesId(Long idFase);
+    List<Elemento> findAllByOrderByIdAsc();
 
 }

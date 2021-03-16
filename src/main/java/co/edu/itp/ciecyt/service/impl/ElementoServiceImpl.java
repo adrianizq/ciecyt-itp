@@ -4,7 +4,6 @@ import co.edu.itp.ciecyt.service.ElementoService;
 import co.edu.itp.ciecyt.domain.Elemento;
 import co.edu.itp.ciecyt.repository.ElementoRepository;
 import co.edu.itp.ciecyt.service.dto.ElementoDTO;
-import co.edu.itp.ciecyt.service.dto.IntegranteProyectoDTO;
 import co.edu.itp.ciecyt.service.mapper.ElementoMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -62,6 +61,30 @@ public class ElementoServiceImpl implements ElementoService {
         log.debug("Request to get all Elementos");
         return elementoRepository.findAll(pageable)
             .map(elementoMapper::toDto);
+    }
+
+    //   public List<ElementoDTO> findAllByOrderByIdAsc() throws Exception;
+
+    /**
+     * Get all the elementos withou page.
+     *
+     *  @return the list of entities.
+     */
+    @Override
+    @Transactional(readOnly = true)
+    public List<ElementoDTO> findAllByOrderByIdAsc() {
+        log.debug("Request to get all Elementos");
+        List<ElementoDTO> elementoDTOS = new ArrayList<>();
+        List<Elemento> elementoList;
+        elementoList = elementoRepository.findAllByOrderByIdAsc();
+        for (Elemento e: elementoList
+             ) {
+            ElementoDTO elementoDTO;
+            elementoDTO = elementoMapper.toDto(e);
+            elementoDTOS.add(elementoDTO);
+
+        }
+        return  elementoDTOS;
     }
 
 

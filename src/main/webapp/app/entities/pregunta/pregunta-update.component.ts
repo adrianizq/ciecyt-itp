@@ -171,15 +171,15 @@ export default class PreguntaUpdate extends Vue {
     //console.log(this.modalidadesAsignadas);
   }
 
-  /*get Elementos() {
-    return this.elements.filter(elemento => {
-      return elemento.elementoModalidadId == this.pregunta.preguntaModalidadId;
-    });
-  }*/
-
   get Elementos() {
-    return this.elements;
+    return this.elements.filter(elemento => {
+      return elemento.elementoFasesId == this.pregunta.preguntaFaseId;
+    });
   }
+
+  /*get Elementos() {
+    return this.elements;
+ }*/
 
   /* get Fases() {
     return this.fass.filter(fase => {
@@ -237,15 +237,17 @@ export default class PreguntaUpdate extends Vue {
         this.preguntasAuthoritsPreguntaId = res.data;
       });
 
-    this.elementoService()
-      .retrieve()
-      .then(res => {
-        this.elements = res.data;
-      });
     this.fasesService()
       .retrieve()
       .then(res => {
         this.fass = res.data;
+      });
+
+    this.elementoService()
+      .retrieveNoPage()
+      //.retrieve()
+      .then(res => {
+        this.elements = res.data;
       });
   }
 }

@@ -101,6 +101,8 @@ public class ElementoResource {
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
+    //findAllByOrderByIdAsc
+
     /**
      * {@code GET  /elementos/:id} : get the "id" elemento.
      *
@@ -160,6 +162,27 @@ public class ElementoResource {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body( e.getMessage());
         }
     }
+
+    /**
+     * {@code GET  /elementos} : get all the elementos.
+     *
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of elementos in body.
+     */
+    @GetMapping("/elementos-nopage")
+    public ResponseEntity<?> getAllElementosNoPage() throws Exception {
+        log.debug("REST request to get a page of Elementos");
+
+        try {
+        List <ElementoDTO> elementoDTOS = elementoService.findAllByOrderByIdAsc();
+
+            return new ResponseEntity<>(elementoDTOS, HttpStatus.OK);
+        } catch (Exception e) {
+
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+
+    }
+
 
 
 }

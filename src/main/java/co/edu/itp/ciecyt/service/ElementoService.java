@@ -47,4 +47,5 @@ public interface ElementoService {
 
    // public List<ElementoDTO> findByElementoModalidadId(Long idModalidad) throws Exception;
    public List<ElementoDTO> findByElementoFasesId(Long idFase) throws Exception;
+   public List<ElementoDTO> findAllByOrderByIdAsc() throws Exception;
 }

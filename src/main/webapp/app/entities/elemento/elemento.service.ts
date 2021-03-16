@@ -23,6 +23,14 @@ export default class ElementoService {
     });
   }
 
+  public retrieveNoPage(): Promise<any> {
+    return new Promise<any>(resolve => {
+      axios.get(baseApiUrl + `-nopage`).then(function (res) {
+        resolve(res);
+      });
+    });
+  }
+
   public delete(id: number): Promise<any> {
     return new Promise<any>(resolve => {
       axios.delete(`${baseApiUrl}/${id}`).then(function (res) {
