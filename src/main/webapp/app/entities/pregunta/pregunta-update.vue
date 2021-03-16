@@ -32,6 +32,11 @@
                             <option v-bind:value="tipoPreguntaOption.id" v-for="tipoPreguntaOption in tipoPreguntas" :key="tipoPreguntaOption.id">{{tipoPreguntaOption.tipoPregunta}}</option>
                         </select>
                     </div>
+                    <div class="form-group" v-if="tipoNota">
+                        <label class="form-control-label" v-text="$t('ciecytApp.pregunta.puntajeMaximo')" for="pregunta-puntaje-maximo">Puntaje Máximo</label>
+                        <input type="text" class="form-control" name="puntaje-maximo" id="pregunta-puntaje-maximo"
+                            :class="{'valid': !$v.pregunta.puntajeMaximo.$invalid, 'invalid': $v.pregunta.pregunta.$invalid }" v-model="$v.pregunta.puntajeMaximo.$model" />
+                    </div>
                     <div class="form-group">
                         <label class="form-control-label" v-bind:value="$t('ciecytApp.pregunta.preguntaModalidad')" for="pregunta-preguntaModalidad">Modalidad</label>
                          <select class="form-control" multiple name="modalidad"  v-model="modalidadesAsignadas" >
@@ -94,11 +99,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group" v-if="tipoNota">
-                        <label class="form-control-label" v-text="$t('ciecytApp.pregunta.puntajeMaximo')" for="pregunta-puntaje-maximo">Puntaje Máximo</label>
-                        <input type="text" class="form-control" name="puntaje-maximo" id="pregunta-puntaje-maximo"
-                            :class="{'valid': !$v.pregunta.puntajeMaximo.$invalid, 'invalid': $v.pregunta.pregunta.$invalid }" v-model="$v.pregunta.puntajeMaximo.$model" />
-                    </div>
+                    
                 <!--------------------------------------------->
                 <div>
                     <button type="button" id="cancel-save" class="btn btn-secondary" v-on:click="previousState()">
