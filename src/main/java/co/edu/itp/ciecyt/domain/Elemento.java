@@ -29,9 +29,6 @@ public class Elemento implements Serializable {
     @Column(name = "descripcion")
     private String descripcion;
 
-    @Column(name = "modalidad_id")
-    private Long modalidadId;
-
     @ManyToOne
     @JsonIgnoreProperties(value = "elementos", allowSetters = true)
     private Formato elementoFormato;
@@ -73,19 +70,6 @@ public class Elemento implements Serializable {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
-    }
-
-    public Long getModalidadId() {
-        return modalidadId;
-    }
-
-    public Elemento modalidadId(Long modalidadId) {
-        this.modalidadId = modalidadId;
-        return this;
-    }
-
-    public void setModalidadId(Long modalidadId) {
-        this.modalidadId = modalidadId;
     }
 
     public Formato getElementoFormato() {
@@ -138,7 +122,6 @@ public class Elemento implements Serializable {
             "id=" + getId() +
             ", elemento='" + getElemento() + "'" +
             ", descripcion='" + getDescripcion() + "'" +
-            ", modalidadId=" + getModalidadId() +
             "}";
     }
 }

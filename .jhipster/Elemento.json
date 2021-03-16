@@ -8,10 +8,6 @@
     {
       "fieldName": "descripcion",
       "fieldType": "String"
-    },
-    {
-      "fieldName": "modalidadId",
-      "fieldType": "Long"
     }
   ],
   "relationships": [

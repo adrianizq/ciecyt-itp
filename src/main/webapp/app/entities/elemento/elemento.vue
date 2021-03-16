@@ -29,7 +29,7 @@
                     <th v-on:click="changeOrder('descripcion')"><span v-text="$t('ciecytApp.elemento.descripcion')">Descripcion</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th v-on:click="changeOrder('elementoFormatoFormato')"><span v-text="$t('ciecytApp.elemento.elementoFormato')">Elemento Formato</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th v-on:click="changeOrder('elementoFasesFase')"><span v-text="$t('ciecytApp.elemento.elementoFase')">Fase</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
-                    <th v-on:click="changeOrder('modalidad')"><span v-text="$t('ciecytApp.elemento.modalidad')">Fase</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
+                    <!--<th v-on:click="changeOrder('modalidad')"><span v-text="$t('ciecytApp.elemento.modalidad')">Fase</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>-->
                     <th></th>
                 </tr>
                 </thead>
@@ -47,11 +47,11 @@
                         </div>
                     </td>
                     <td>{{elemento.elementoFasesFase}}</td>
-                    <td>
+                    <!--<td>
                         <div v-if="elemento.modalidadId">
                             <router-link :to="{name: 'ModalidadView', params: {modalidadId: elemento.modalidadId}}">{{elemento.modalidadId}}</router-link>
                         </div>
-                    </td>
+                    </td>-->
                      
                     <td class="text-right">
                         <div class="btn-group">

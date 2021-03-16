@@ -25,14 +25,14 @@
                         </div>
                     </dd>
 
-                    <dt>
+                    <!--<dt>
                         <span v-text="$t('ciecytApp.elemento.modalidad')">Elemento Modalidad</span>
                     </dt>
                     <dd>
                         <div v-if="elemento.modalidadId">
                             <router-link :to="{name: 'ModalidadView', params: {modalidadId: elemento.modalidadId}}">{{elemento.modalidadId}}</router-link>
                         </div>
-                    </dd>
+                    </dd> -->
 
                     <dt>
                         <span v-text="$t('ciecytApp.elemento.elementoFase')">Fase</span>

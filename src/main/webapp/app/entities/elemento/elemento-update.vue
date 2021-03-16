@@ -33,14 +33,14 @@
                             <option v-bind:value="faseOption.id" v-for="faseOption in fases" :key="faseOption.id">{{faseOption.fase}}</option>
                         </select>
                     </div>
-                     <div class="form-group">
+                    <!-- <div class="form-group">
                         <label class="form-control-label" v-bind:value="$t('ciecytApp.elemento.elementoModalidad')" for="elemento-elementoModalidad">Modalidad</label>
                         <select class="form-control" id="elemento-elementoModalidad" name="elementoModalidad" v-model="elemento.elementoModalidadId"
                         >
                             <option v-bind:value="null">Todas las modalidades</option>
                             <option v-bind:value="modalidadOption.id" v-for="modalidadOption in modalidads" :key="modalidadOption.id">{{modalidadOption.modalidad}}</option>
                         </select>
-                    </div>
+                    </div> -->
                 </div>
                 <div>
                     <button type="button" id="cancel-save" class="btn btn-secondary" v-on:click="previousState()">
