@@ -80,6 +80,8 @@ export default class PreguntaUpdate extends Vue {
 
   public elemento: IElemento = new Elemento();
 
+  public tipoNota: boolean;
+
   public preguntaId: any;
 
   public isSaving = false;
@@ -177,6 +179,20 @@ export default class PreguntaUpdate extends Vue {
     });
   }
 
+  setTipoPregunta(event) {
+    var seleccionadaId = event.target.value;
+    this.tipoNota = false;
+    this.tipoPreguntas.forEach(tp => {
+      if (tp.tipoDato == 'nota' && seleccionadaId == tp.id) {
+        this.tipoNota = true;
+        return;
+      }
+    });
+
+    //console.log(this.tipoNota);
+    console.log(event.target.value);
+  }
+
   /*get Elementos() {
     return this.elements;
  }*/
@@ -206,6 +222,16 @@ export default class PreguntaUpdate extends Vue {
       .retrieve()
       .then(res => {
         this.tipoPreguntas = res.data;
+        /////////////////////77
+        var seleccionadaId = this.pregunta.preguntaTipoPreguntaId;
+        this.tipoNota = false;
+        this.tipoPreguntas.forEach(tp => {
+          if (tp.tipoDato == 'nota' && seleccionadaId == tp.id) {
+            this.tipoNota = true;
+            return;
+          }
+        });
+        /////////////////////////////777
       });
     res = await this.modalidadService()
       .retrieve()
