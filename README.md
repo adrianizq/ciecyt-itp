@@ -191,6 +191,6 @@ To configure CI for your project, run the ci-cd sub-generator (`jhipster ci-cd`)
 
 ./mvnw -Dmaven.test.skip=true -Pprod,no-liquibase clean verify package
 
-## EJECUTAR DUDO
+## EJECUTAR APP
 
-java -jar /opt/dudo-backend/ciecyt-0.3.0.war
+java -jar /opt/ciecyt-backend/ciecyt-0.3.0.war
