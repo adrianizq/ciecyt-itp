@@ -33,9 +33,9 @@ spring:
       enabled: false
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:postgresql://localhost:5432/ciecyt
-    username: ciecyt
-    password:
+    url: jdbc:postgresql://10.10.13.7:5432/ciecyt_db
+    username: ciecyt_admin
+    password: ciecyt2020
     hikari:
       poolName: Hikari
       auto-commit: false
@@ -136,7 +136,7 @@ application:
   upload:
     root:
       #dir: /home/jltovarg/test/dudo
-      dir: C://adr/ciecyt_backend_vue
+      dir: /home/adrian/ciecytapp
     files:
       dir: files
   files-path: http://localhost/ciecyt
