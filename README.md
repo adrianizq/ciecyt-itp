@@ -180,3 +180,17 @@ To configure CI for your project, run the ci-cd sub-generator (`jhipster ci-cd`)
 [protractor]: https://www.protractortest.org/
 [leaflet]: https://leafletjs.com/
 [definitelytyped]: https://definitelytyped.org/
+
+## Empaquetar Dev
+
+./mvnw -Dmaven.test.skip=true -Pdev,no-liquibase clean verify package
+
+./mvnw -Dmaven.test.skip=true -Pdev,no-liquibase clean package
+
+## Empaquetar Prod
+
+./mvnw -Dmaven.test.skip=true -Pprod,no-liquibase clean verify package
+
+## EJECUTAR DUDO
+
+java -jar /opt/dudo-backend/ciecyt-0.3.0.war
