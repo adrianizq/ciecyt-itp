@@ -191,6 +191,10 @@ To configure CI for your project, run the ci-cd sub-generator (`jhipster ci-cd`)
 
 ./mvnw -Dmaven.test.skip=true -Pprod,no-liquibase clean verify package
 
+## SUBIR ARCHIVO AL SERVIDOR
+
+scp -i target/ciecyt-0.3.0.war adrian@10.10.13.7:/home/adrian
+
 ## EJECUTAR APP
 
 java -jar /opt/ciecyt-backend/ciecyt-0.3.0.war
