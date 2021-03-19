@@ -3,13 +3,16 @@ import { mixins } from 'vue-class-component';
 import { Component, Inject } from 'vue-property-decorator';
 import Vue2Filters from 'vue2-filters';
 import { IRetroalimentacion } from '@/shared/model/retroalimentacion.model';
-import AlertService from '@/shared/alert/alert.service';
+//import AlertService from '@/shared/alert/alert.service';
+import AlertMixin from '@/shared/alert/alert.mixin';
 
 import RetroalimentacionService from './retroalimentacion.service';
 
-@Component
-export default class Retroalimentacion extends mixins(Vue2Filters.mixin) {
-  @Inject('alertService') private alertService: () => AlertService;
+@Component({
+  mixins: [Vue2Filters.mixin],
+})
+export default class Retroalimentacion extends mixins(AlertMixin) {
+  //@Inject('alertService') private alertService: () => AlertService;
   @Inject('retroalimentacionService') private retroalimentacionService: () => RetroalimentacionService;
   private removeId: number = null;
   public itemsPerPage = 20;

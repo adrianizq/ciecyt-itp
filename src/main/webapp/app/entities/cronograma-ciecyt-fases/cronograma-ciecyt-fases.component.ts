@@ -3,13 +3,16 @@ import { mixins } from 'vue-class-component';
 import { Component, Inject } from 'vue-property-decorator';
 import Vue2Filters from 'vue2-filters';
 import { ICronogramaCiecytFases } from '@/shared/model/cronograma-ciecyt-fases.model';
-import AlertService from '@/shared/alert/alert.service';
+//import AlertService from '@/shared/alert/alert.service';
+import AlertMixin from '@/shared/alert/alert.mixin';
 
 import CronogramaCiecytFasesService from './cronograma-ciecyt-fases.service';
 
-@Component
-export default class CronogramaCiecytFases extends mixins(Vue2Filters.mixin) {
-  @Inject('alertService') private alertService: () => AlertService;
+@Component({
+  mixins: [Vue2Filters.mixin],
+})
+export default class CronogramaCiecytFases extends mixins(AlertMixin) {
+  //@Inject('alertService') private alertService: () => AlertService;
   @Inject('cronogramaCiecytFasesService') private cronogramaCiecytFasesService: () => CronogramaCiecytFasesService;
   private removeId: number = null;
   public itemsPerPage = 20;

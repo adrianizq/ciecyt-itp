@@ -3,13 +3,16 @@ import { mixins } from 'vue-class-component';
 import { Component, Inject } from 'vue-property-decorator';
 import Vue2Filters from 'vue2-filters';
 import { IGrupoSemillero } from '@/shared/model/grupo-semillero.model';
-import AlertService from '@/shared/alert/alert.service';
+//import AlertService from '@/shared/alert/alert.service';
+import AlertMixin from '@/shared/alert/alert.mixin';
 
 import GrupoSemilleroService from './grupo-semillero.service';
 
-@Component
-export default class GrupoSemillero extends mixins(Vue2Filters.mixin) {
-  @Inject('alertService') private alertService: () => AlertService;
+@Component({
+  mixins: [Vue2Filters.mixin],
+})
+export default class GrupoSemillero extends mixins(AlertMixin) {
+  //@Inject('alertService') private alertService: () => AlertService;
   @Inject('grupoSemilleroService') private grupoSemilleroService: () => GrupoSemilleroService;
   private removeId: number = null;
   public itemsPerPage = 20;

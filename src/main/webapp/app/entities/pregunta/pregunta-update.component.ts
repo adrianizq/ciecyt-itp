@@ -141,7 +141,7 @@ export default class PreguntaUpdate extends Vue {
     this.authoritiesAsignadas.forEach(element => {
       var pr: IPreguntaAuthority = new PreguntaAuthority();
       pr.pregunta3Id = this.preguntaId;
-      pr.authorityName = element;
+      pr.authorityName = element.toString();
       this.pregunta.authorities.push(pr);
       console.log(this.pregunta.authorities);
     });

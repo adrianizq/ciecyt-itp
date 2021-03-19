@@ -7,6 +7,7 @@ import ElementoService from './elemento.service';
 export default class ElementoDetails extends Vue {
   @Inject('elementoService') private elementoService: () => ElementoService;
   public elemento: IElemento = {};
+  public $t = null;
 
   beforeRouteEnter(to, from, next) {
     next(vm => {

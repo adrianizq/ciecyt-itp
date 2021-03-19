@@ -1,17 +1,9 @@
-import { mixins } from 'vue-class-component';
+import { Component, Inject, Vue } from 'vue-property-decorator';
+import AlertService from '@/shared/alert/alert.service';
 
-import { Component, Inject } from 'vue-property-decorator';
-import Vue2Filters from 'vue2-filters';
-//import AlertService from '@/shared/alert/alert.service';
-import AlertMixin from '@/shared/alert/alert.mixin';
-
-@Component({
-  mixins: [Vue2Filters.mixin],
-})
-export default class Rol extends mixins(AlertMixin) {
-  //@Inject('alertService') private alertService: () => AlertService;
-
-  private ROLES = ['ROLE_ADMIN', 'ROLE_USER', 'ROLE_ASESOR', 'ROLE_JURADO', 'ROLE_DOCENTE', 'ROLE_CIECYT', 'ROLE_ESTUDIANTE'];
+@Component
+export default class AlertMixin extends Vue {
+  @Inject('alertService') protected alertService: () => AlertService;
 
   public dismissCountDown: number = this.$store.getters.dismissCountDown;
   public dismissSecs: number = this.$store.getters.dismissSecs;

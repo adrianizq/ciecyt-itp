@@ -116,7 +116,7 @@ router.beforeEach((to, from, next) => {
   }
 });
 
-/* tslint:disable */
+/*tslint:disable */
 new Vue({
   el: '#app',
   components: { App },

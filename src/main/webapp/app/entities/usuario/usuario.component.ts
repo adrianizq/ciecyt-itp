@@ -3,13 +3,16 @@ import { mixins } from 'vue-class-component';
 import { Component, Inject } from 'vue-property-decorator';
 import Vue2Filters from 'vue2-filters';
 import { IUsuario } from '@/shared/model/usuario.model';
-import AlertService from '@/shared/alert/alert.service';
+//import AlertService from '@/shared/alert/alert.service';
+import AlertMixin from '@/shared/alert/alert.mixin';
 
 import UsuarioService from './usuario.service';
 
-@Component
-export default class Usuario extends mixins(Vue2Filters.mixin) {
-  @Inject('alertService') private alertService: () => AlertService;
+@Component({
+  mixins: [Vue2Filters.mixin],
+})
+export default class Usuario extends mixins(AlertMixin) {
+  //@Inject('alertService') private alertService: () => AlertService;
   @Inject('usuarioService') private usuarioService: () => UsuarioService;
   private removeId: number = null;
   public itemsPerPage = 20;

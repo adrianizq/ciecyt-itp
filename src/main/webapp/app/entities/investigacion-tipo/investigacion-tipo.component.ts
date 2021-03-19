@@ -4,12 +4,15 @@ import { Component, Inject } from 'vue-property-decorator';
 import Vue2Filters from 'vue2-filters';
 import { IInvestigacionTipo } from '@/shared/model/investigacion-tipo.model';
 import AlertService from '@/shared/alert/alert.service';
+import AlertMixin from '@/shared/alert/alert.mixin';
 
 import InvestigacionTipoService from './investigacion-tipo.service';
 
-@Component
-export default class InvestigacionTipo extends mixins(Vue2Filters.mixin) {
-  @Inject('alertService') private alertService: () => AlertService;
+@Component({
+  mixins: [Vue2Filters.mixin],
+})
+export default class InvestigacionTipo extends mixins(AlertMixin) {
+  //@Inject('alertService') private alertService: () => AlertService;
   @Inject('investigacionTipoService') private investigacionTipoService: () => InvestigacionTipoService;
   private removeId: number = null;
   public itemsPerPage = 20;
