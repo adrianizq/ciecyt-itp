@@ -30,40 +30,7 @@ describe('Service Tests', () => {
     beforeEach(() => {
       service = new InformacionPasantiaService();
 
-      elemDefault = new InformacionPasantia(
-        0,
-        0,
-        'AAAAAAA',
-        'AAAAAAA',
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        0,
-        false,
-        false,
-        false,
-        false,
-        'AAAAAAA',
-        'AAAAAAA',
-        'AAAAAAA',
-        'AAAAAAA',
-        'AAAAAAA',
-        'AAAAAAA',
-        'AAAAAAA',
-        'AAAAAAA',
-        'AAAAAAA',
-        'AAAAAAA',
-        'AAAAAAA',
-        'AAAAAAA',
-        'AAAAAAA',
-        'AAAAAAA',
-        'AAAAAAA',
-        'AAAAAAA'
-      );
+      elemDefault = new InformacionPasantia();
     });
 
     describe('Service methods', () => {

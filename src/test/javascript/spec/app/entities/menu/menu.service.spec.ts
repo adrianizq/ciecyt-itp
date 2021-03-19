@@ -30,7 +30,7 @@ describe('Service Tests', () => {
     beforeEach(() => {
       service = new MenuService();
 
-      elemDefault = new Menu(0, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', false, false, 0);
+      elemDefault = new Menu(0, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA');
     });
 
     describe('Service methods', () => {
