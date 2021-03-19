@@ -108,7 +108,7 @@
     "start": "npm run webpack:dev",
     "start-tls": "npm run webpack:dev -- --env.tls",
     "serve": "npm run start",
-    "build": "vue-cli-service build --skip-plugins @vue/cli-plugin-eslint",
+    "build": "npm run webpack:prod",
     "jest": "jest --coverage --logHeapUsage --maxWorkers=2 --no-cache --config src/test/javascript/jest.conf.js",
     "jest:update": "npm run jest -- --updateSnapshot",
     "webpack:build": "npm run cleanup && npm run webpack:build:main",

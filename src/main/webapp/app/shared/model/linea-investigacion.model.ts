@@ -6,6 +6,7 @@ export interface ILineaInvestigacion {
   lineaPadreId?: number;
   lineaInvestigacionProgramaPrograma?: string;
   lineaInvestigacionProgramaId?: number;
+  lineaInvestigacionFacultadId?: number;
 }
 
 export class LineaInvestigacion implements ILineaInvestigacion {
