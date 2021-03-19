@@ -1,0 +1,68 @@
+{
+  "name": "AdjuntoRetroalimentacion",
+  "fields": [
+    {
+      "fieldName": "nombreAdjunto",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "fechaCreacion",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "fechaModificacion",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "estadoAdjunto",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "adjuntoRetroalimentacion",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "nombreArchivoOriginal",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "fechaInicio",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "fechaFin",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "archivo",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "any"
+    },
+    {
+      "fieldName": "archivoContentType",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "retroalimentacion",
+      "otherEntityRelationshipName": "adjuntoRetroalimentacion",
+      "relationshipName": "adjuntoRetroalimentacionRetroalimentacion",
+      "otherEntityField": "titulo"
+    }
+  ],
+  "changelogDate": "20201008033303",
+  "entityTableName": "adjunto_retroalimentacion",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*",
+  "searchEngine": false,
+  "databaseType": "sql"
+}
