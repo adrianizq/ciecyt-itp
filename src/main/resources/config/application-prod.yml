@@ -14,6 +14,8 @@
 # ===================================================================
 
 logging:
+  path: /home/adrian/ciecytapp/logs
+  file: ${logging.path}/app.log
   level:
     ROOT: INFO
     io.github.jhipster: INFO
