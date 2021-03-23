@@ -224,7 +224,7 @@ export default class PreguntaUpdate extends Vue {
           this.preguntaId = res.id;
         });
     }
-    res = await this.tipoPreguntaService()
+    let res = await this.tipoPreguntaService()
       .retrieve()
       .then(res => {
         this.tipoPreguntas = res.data;
