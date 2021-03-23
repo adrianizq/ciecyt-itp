@@ -91,13 +91,13 @@ public class FasesServiceImpl implements FasesService {
         fasesRepository.deleteById(id);
     }
 
-    /*@Override
+    @Override
     @Transactional(readOnly = true)
-    public FasesDTO findByFaseAndFasesModalidadId(String fase, Long idModalidad) throws Exception {
-        Fases f = fasesRepository.findByFaseAndFasesModalidadId(fase, idModalidad);
+    public FasesDTO findByFase(String fase) throws Exception {
+        Fases f = fasesRepository.findByFase(fase);
         return fasesMapper.toDto(f);
     }
-*/
+
 /*
     @Override
     @Transactional(readOnly = true)

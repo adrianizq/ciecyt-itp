@@ -80,9 +80,9 @@ export default class PreguntaUpdate extends Vue {
 
   public elemento: IElemento = new Elemento();
 
-  public tipoNota: boolean;
+  public tipoNota: boolean = false;
 
-  public preguntaId: any;
+  public preguntaId: any = null;
 
   public isSaving = false;
 
@@ -97,10 +97,13 @@ export default class PreguntaUpdate extends Vue {
 
   beforeRouteEnter(to, from, next) {
     next(vm => {
-      if (to.params.preguntaId) {
-        //vm.retrievePregunta(to.params.preguntaId);
-        vm.initRelationships(to.params.preguntaId);
-      }
+      // if (to.params.preguntaId) {
+      //vm.retrievePregunta(to.params.preguntaId);
+      vm.initRelationships(to.params.preguntaId);
+      // }
+      // else{
+      //   vm.initRelationships(null);
+      // }
     });
   }
 
@@ -212,25 +215,30 @@ export default class PreguntaUpdate extends Vue {
   }
 
   async initRelationships(preguntaId) {
-    let res = await this.preguntaService()
-      .find(preguntaId)
-      .then(res => {
-        this.pregunta = res;
-        this.preguntaId = res.id;
-      });
+    console.log(preguntaId);
+    if (preguntaId) {
+      let res = await this.preguntaService()
+        .find(preguntaId)
+        .then(res => {
+          this.pregunta = res;
+          this.preguntaId = res.id;
+        });
+    }
     res = await this.tipoPreguntaService()
       .retrieve()
       .then(res => {
         this.tipoPreguntas = res.data;
         /////////////////////77
-        var seleccionadaId = this.pregunta.preguntaTipoPreguntaId;
-        this.tipoNota = false;
-        this.tipoPreguntas.forEach(tp => {
-          if (tp.tipoDato == 'nota' && seleccionadaId == tp.id) {
-            this.tipoNota = true;
-            return;
-          }
-        });
+        if (this.preguntaId) {
+          var seleccionadaId = this.pregunta.preguntaTipoPreguntaId;
+          this.tipoNota = false;
+          this.tipoPreguntas.forEach(tp => {
+            if (tp.tipoDato == 'nota' && seleccionadaId == tp.id) {
+              this.tipoNota = true;
+              return;
+            }
+          });
+        }
         /////////////////////////////777
       });
     res = await this.modalidadService()
@@ -238,11 +246,14 @@ export default class PreguntaUpdate extends Vue {
       .then(res => {
         this.modalidads = res.data;
       });
-    res = await this.modalidadService()
-      .retrieveModalidadPregunta(parseInt(preguntaId))
-      .then(res => {
-        this.modalidadesAsignadas = res.data;
-      });
+
+    if (this.preguntaId) {
+      res = await this.modalidadService()
+        .retrieveModalidadPregunta(parseInt(preguntaId))
+        .then(res => {
+          this.modalidadesAsignadas = res.data;
+        });
+    }
 
     res = await this.userManagementService()
       .retrieveAuthorities()
@@ -250,18 +261,21 @@ export default class PreguntaUpdate extends Vue {
         this.authorities = _res.data;
       });
 
-    //retrievePreguntasAuthority
-    res = await this.preguntaAuthorityService()
-      .retrievePreguntasAuthority(parseInt(preguntaId))
-      .then(res => {
-        this.authoritiesAsignadas = res.data;
-      });
+    if (this.preguntaId) {
+      res = await this.preguntaAuthorityService()
+        .retrievePreguntasAuthority(parseInt(preguntaId))
+        .then(res => {
+          this.authoritiesAsignadas = res.data;
+        });
+    }
 
-    res = await this.preguntaAuthorityService()
-      .retrievePreguntaAuthorityIdPregunta(parseInt(preguntaId))
-      .then(res => {
-        this.preguntasAuthoritsPreguntaId = res.data;
-      });
+    if (this.preguntaId) {
+      res = await this.preguntaAuthorityService()
+        .retrievePreguntaAuthorityIdPregunta(parseInt(preguntaId))
+        .then(res => {
+          this.preguntasAuthoritsPreguntaId = res.data;
+        });
+    }
 
     this.fasesService()
       .retrieve()

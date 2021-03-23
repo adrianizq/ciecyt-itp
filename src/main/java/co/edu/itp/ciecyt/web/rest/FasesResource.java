@@ -130,13 +130,13 @@ public class FasesResource {
     }
 
 
-/*
+
     /////////////////////
-    @GetMapping("/fase-modalidad/{fase}/{idModalidad}")
-    public ResponseEntity<?> getFaseAndFasesModalidadId(@PathVariable String fase, @PathVariable Long idModalidad) {
+    @GetMapping("/fase/{fase}")
+    public ResponseEntity<?> getFase(@PathVariable String fase) {
         log.debug("REST request to get a page of Fases");
         try {
-            final FasesDTO obj = fasesService.findByFaseAndFasesModalidadId(fase, idModalidad);
+            final FasesDTO obj = fasesService.findByFase(fase);
             return new ResponseEntity<>(obj, HttpStatus.OK);
         }
         catch (Exception e){
@@ -144,8 +144,7 @@ public class FasesResource {
         }
     }
 
-    /////////////////////
-    @GetMapping("/fase-modalidad/{idModalidad}")
+/*    @GetMapping("/fase-modalidad/{idModalidad}")
     public ResponseEntity<?> getFasesModalidadId(@PathVariable Long idModalidad) throws Exception {
         log.debug("REST request to get a page of Fases");
         try {

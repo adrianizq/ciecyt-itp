@@ -55,13 +55,11 @@ export default class PreguntaService {
     });
   }
 
-  public retrievePreguntasModalidadyFase(id: number, idFase: number, paginationQuery?: any): Promise<any> {
+  public retrievePreguntasModalidadyFase(id: number, idFase: number): Promise<any> {
     return new Promise<any>(resolve => {
-      axios
-        .get('api/pregunta-modalidad-fase' + `/${id}` + `/${idFase}` + `?${buildPaginationQueryOpts(paginationQuery)}`)
-        .then(function (res) {
-          resolve(res);
-        });
+      axios.get('api/pregunta-modalidad-fase' + `/${id}` + `/${idFase}`).then(function (res) {
+        resolve(res);
+      });
     });
   }
 }
