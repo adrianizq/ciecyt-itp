@@ -142,6 +142,7 @@ public class ElementoResource {
     public ResponseEntity<?> getElementoModalidad(@PathVariable Long idModalidad) {
         log.debug("REST request to get Elemento Modalidad : {}", idModalidad);
         try{
+            //final List<ElementoDTO> elementoDTO = elementoService.findByElementoModalidadId(idModalidad);
             final List<ElementoDTO> elementoDTO = elementoService.findByElementoModalidadId(idModalidad);
             return new ResponseEntity<>(elementoDTO, HttpStatus.OK);
 

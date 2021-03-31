@@ -15,6 +15,14 @@ export default class FasesService {
     });
   }
 
+  public findByFase(fase: string): Promise<IFases> {
+    return new Promise<IFases>(resolve => {
+      axios.get(`api/fase/${fase}`).then(function (res) {
+        resolve(res.data);
+      });
+    });
+  }
+
   public retrieveFaseModalidad(fase: string, idModalidad: any): Promise<any> {
     return new Promise<any>(resolve => {
       axios.get(`api/fase-modalidad/${fase}/${idModalidad}`).then(function (res) {

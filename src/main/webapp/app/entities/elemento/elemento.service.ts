@@ -62,4 +62,12 @@ export default class ElementoService {
       });
     });
   }
+
+  public retrieveElementosFase(id: number): Promise<any> {
+    return new Promise<any>(resolve => {
+      axios.get('api/elemento-fases' + `/${id}`).then(function (res) {
+        resolve(res);
+      });
+    });
+  }
 }

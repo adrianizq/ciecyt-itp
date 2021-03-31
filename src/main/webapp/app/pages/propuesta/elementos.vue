@@ -83,6 +83,8 @@ import ElementoProyectoService from '@/entities/elemento-proyecto/elemento-proye
 import { IElementoProyecto, ElementoProyecto } from '@/shared/model/elemento-proyecto.model';
 import { IProyecto, Proyecto } from '@/shared/model/proyecto.model';
 import ProyectoService from '@/entities/proyecto/proyecto.service';
+import { IFases, Fases } from '@/shared/model/fases.model';
+import FasesService from '@/entities/fases/fases.service';
 
 
     const validations: any = {};
@@ -99,6 +101,7 @@ export default class Elementos extends Vue {
    @Inject('proyectoService') private proyectoService: () => ProyectoService;
    @Inject('elementoService') private elementoService: () => ElementoService;
    @Inject('elementoProyectoService') private elementoProyectoService: () => ElementoProyectoService;
+   @Inject('fasesService') private fasesService: () => FasesService;
    @Inject('alertService') private alertService: () => AlertService;
 
 
@@ -108,6 +111,7 @@ export default class Elementos extends Vue {
     public proyecto: IProyecto = new Proyecto();
     public proyId: any = null;
     public modalidadId: number = 0;
+    public fase: IFases = new Fases();
 
     public isSaving = false;
 
@@ -160,8 +164,11 @@ export default class Elementos extends Vue {
                 this.modalidadId = this.proyecto.proyectoModalidadId;
 
  
-              //recuperar las elementosProyecto enviando un idProyecto (api)
-            //
+                await this.fasesService()
+                    .findByFase("Propuesta")
+                    .then(res=> {
+                        this.fase = res;
+                    })
             
               this.elementoProyectoService()
                 .retrieveElementoProyecto(this.proyId)
@@ -177,7 +184,8 @@ export default class Elementos extends Vue {
                        //Obtenienedo los elementos de acuerdo a la modalidad
            
               this.elementoService()
-                .retrieveElementosModalidad( this.modalidadId)
+                //.retrieveElementosModalidad( this.modalidadId)
+                .retrieveElementosFase(this.fase.id)
                 .then(res => {
                     this.elements = res.data;
                   //copiar los datos de elementos a elemento-proyecto
