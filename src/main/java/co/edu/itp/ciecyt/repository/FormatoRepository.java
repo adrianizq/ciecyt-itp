@@ -1,4 +1,5 @@
 package co.edu.itp.ciecyt.repository;
+import co.edu.itp.ciecyt.domain.Fases;
 import co.edu.itp.ciecyt.domain.Formato;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
@@ -10,5 +11,5 @@ import org.springframework.stereotype.Repository;
 @SuppressWarnings("unused")
 @Repository
 public interface FormatoRepository extends JpaRepository<Formato, Long> {
-
+    Formato findByCodigo(String codigo);
 }

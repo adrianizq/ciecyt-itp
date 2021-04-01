@@ -85,6 +85,8 @@ import { IProyecto, Proyecto } from '@/shared/model/proyecto.model';
 import ProyectoService from '@/entities/proyecto/proyecto.service';
 import { IFases, Fases } from '@/shared/model/fases.model';
 import FasesService from '@/entities/fases/fases.service';
+import { IFormato, Formato } from '@/shared/model/formato.model';
+import FormatoService from '@/entities/formato/formato.service';
 
 
     const validations: any = {};
@@ -102,6 +104,7 @@ export default class Elementos extends Vue {
    @Inject('elementoService') private elementoService: () => ElementoService;
    @Inject('elementoProyectoService') private elementoProyectoService: () => ElementoProyectoService;
    @Inject('fasesService') private fasesService: () => FasesService;
+   @Inject('formatoService') private formatoService: () => FormatoService;
    @Inject('alertService') private alertService: () => AlertService;
 
 
@@ -112,6 +115,8 @@ export default class Elementos extends Vue {
     public proyId: any = null;
     public modalidadId: number = 0;
     public fase: IFases = new Fases();
+    public formato: IFormato = new Formato();
+    public codigoFormato ="F-INV-008";
 
     public isSaving = false;
 
@@ -168,7 +173,13 @@ export default class Elementos extends Vue {
                     .findByFase("Propuesta")
                     .then(res=> {
                         this.fase = res;
-                    })
+                    });
+
+                     await this.formatoService()
+                    .findByCodigo(this.codigoFormato)
+                    .then(res=> {
+                        this.formato = res;
+                    });
             
               this.elementoProyectoService()
                 .retrieveElementoProyecto(this.proyId)
@@ -185,7 +196,8 @@ export default class Elementos extends Vue {
            
               this.elementoService()
                 //.retrieveElementosModalidad( this.modalidadId)
-                .retrieveElementosFase(this.fase.id)
+                //.retrieveElementosFase(this.fase.id)
+                .retrieveElementosFaseFormato(this.fase.id, this.formato.id)
                 .then(res => {
                     this.elements = res.data;
                   //copiar los datos de elementos a elemento-proyecto

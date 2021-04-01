@@ -1,6 +1,7 @@
 package co.edu.itp.ciecyt.web.rest;
 
 import co.edu.itp.ciecyt.service.FormatoService;
+import co.edu.itp.ciecyt.service.dto.FasesDTO;
 import co.edu.itp.ciecyt.web.rest.errors.BadRequestAlertException;
 import co.edu.itp.ciecyt.service.dto.FormatoDTO;
 
@@ -82,6 +83,19 @@ public class FormatoResource {
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, formatoDTO.getId().toString()))
             .body(result);
+    }
+
+    /////////////////////
+    @GetMapping("/formato/{codigo}")
+    public ResponseEntity<?> getFormatoByCodigo(@PathVariable String codigo) {
+        log.debug("REST request to get a page of Fases");
+        try {
+            final FormatoDTO obj = formatoService.findByCodigo(codigo);
+            return new ResponseEntity<>(obj, HttpStatus.OK);
+        }
+        catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body( e.getMessage());
+        }
     }
 
     /**

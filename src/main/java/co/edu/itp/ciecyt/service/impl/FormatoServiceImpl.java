@@ -1,8 +1,10 @@
 package co.edu.itp.ciecyt.service.impl;
 
+import co.edu.itp.ciecyt.domain.Fases;
 import co.edu.itp.ciecyt.service.FormatoService;
 import co.edu.itp.ciecyt.domain.Formato;
 import co.edu.itp.ciecyt.repository.FormatoRepository;
+import co.edu.itp.ciecyt.service.dto.FasesDTO;
 import co.edu.itp.ciecyt.service.dto.FormatoDTO;
 import co.edu.itp.ciecyt.service.mapper.FormatoMapper;
 import org.slf4j.Logger;
@@ -85,5 +87,12 @@ public class FormatoServiceImpl implements FormatoService {
     public void delete(Long id) {
         log.debug("Request to delete Formato : {}", id);
         formatoRepository.deleteById(id);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public FormatoDTO findByCodigo(String codigo) throws Exception {
+        Formato f = formatoRepository.findByCodigo(codigo);
+        return formatoMapper.toDto(f);
     }
 }

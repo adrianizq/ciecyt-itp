@@ -4,6 +4,7 @@ import co.edu.itp.ciecyt.service.dto.FormatoDTO;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -43,4 +44,7 @@ public interface FormatoService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+    @Transactional(readOnly = true)
+    FormatoDTO findByCodigo(String codigo) throws Exception;
 }

@@ -142,4 +142,20 @@ public class ElementoServiceImpl implements ElementoService {
         }
         return listDTO;
     }
+
+    //    List<Elemento> findByElementoFasesIdAndElementoFormatoId(Long idFase, Long idFormato);
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<ElementoDTO> findByElementoFasesIdAndElementoFormatoId(Long idFase, Long idFormato) throws Exception {
+        log.debug("Request to get all Elementos de una modalidad con una idModalidad");
+        List<ElementoDTO> listDTO = new ArrayList<>();
+        List<Elemento> list = elementoRepository.findByElementoFasesIdAndElementoFormatoId(idFase, idFormato);
+        //listDTO = integranteProyectoMapper.usersToUserDTOs(list);
+
+        for (Elemento elemento : list) {
+            listDTO.add(elementoMapper.toDto(elemento));
+        }
+        return listDTO;
+    }
 }

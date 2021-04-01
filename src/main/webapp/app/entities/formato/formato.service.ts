@@ -15,6 +15,14 @@ export default class FormatoService {
     });
   }
 
+  public findByCodigo(codigo: string): Promise<IFormato> {
+    return new Promise<IFormato>(resolve => {
+      axios.get(`api/formato/${codigo}`).then(function (res) {
+        resolve(res.data);
+      });
+    });
+  }
+
   public retrieve(paginationQuery?: any): Promise<any> {
     return new Promise<any>(resolve => {
       axios.get(baseApiUrl + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function (res) {

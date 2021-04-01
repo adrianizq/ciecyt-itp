@@ -151,11 +151,26 @@ public class ElementoResource {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body( e.getMessage());
         }
     }*/
+    //se reemplazara por getElementoFaseFormato
     @GetMapping("/elemento-fases/{idFase}")
     public ResponseEntity<?> getElementoFase(@PathVariable Long idFase) {
         log.debug("REST request to get Elemento Modalidad : {}", idFase);
         try{
             final List<ElementoDTO> elementoDTO = elementoService.findByElementoFasesId(idFase);
+            return new ResponseEntity<>(elementoDTO, HttpStatus.OK);
+
+        }catch (Exception e){
+
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body( e.getMessage());
+        }
+    }
+
+
+    @GetMapping("/elemento-fase-formato/{idFase}/{idFormato}")
+    public ResponseEntity<?> getElementoFaseFormato(@PathVariable Long idFase, @PathVariable Long idFormato) {
+        log.debug("REST request to get Elemento Modalidad : {}", idFase);
+        try{
+            final List<ElementoDTO> elementoDTO = elementoService.findByElementoFasesIdAndElementoFormatoId(idFase,idFormato);
             return new ResponseEntity<>(elementoDTO, HttpStatus.OK);
 
         }catch (Exception e){
