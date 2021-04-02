@@ -181,7 +181,7 @@ export default class Elementos extends Vue {
                         this.formato = res;
                     });
             
-              this.elementoProyectoService()
+                this.elementoProyectoService()
                 .retrieveElementoProyecto(this.proyId)
                 .then(res=> {
 
@@ -194,7 +194,7 @@ export default class Elementos extends Vue {
 
                        //Obtenienedo los elementos de acuerdo a la modalidad
            
-              this.elementoService()
+              await this.elementoService()
                 //.retrieveElementosModalidad( this.modalidadId)
                 //.retrieveElementosFase(this.fase.id)
                 .retrieveElementosFaseFormato(this.fase.id, this.formato.id)

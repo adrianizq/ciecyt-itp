@@ -21,7 +21,8 @@
                             <b-form-select
                                 :options="users"
                                 text-field="nombresApellidos"
-                                value-field="id" :id="`integrante-${i}`" v-model="integrante.integranteProyectoUserId">
+                                value-field="id" :id="`integrante-${i}`" v-model="integrante.integranteProyectoUserId"
+                                disabled="true">
 
                             </b-form-select>
                         </b-form-group>

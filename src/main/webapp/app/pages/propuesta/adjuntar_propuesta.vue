@@ -216,12 +216,20 @@ const validations: any = {
         
       });
 
-      res=  await this.fasesService().retrieveFaseModalidad("Propuesta", this.modalidadId)
+      /*res=  await this.fasesService().retrieveFaseModalidad("Propuesta", this.modalidadId)
       .then(res => {
         this.fase = res.data;  
         this.faseId = this.fase.id;
 
+      });*/
+
+      res=  await this.fasesService().findByFase("Propuesta")
+      .then(res => {
+        this.fase = res;  
+        this.faseId = this.fase.id;
+
       });
+
 
 
       res=  await this.adjuntoProyectoFaseService()
