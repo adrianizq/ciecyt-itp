@@ -158,9 +158,6 @@ public class PreguntaResource {
     }
 
 
-
-    //////////////////////////////////////////////////////////77777777777777777777
-    /////////////777777777777777777777777777777777777777777777
     /**
      *      *
      * @param idModalidad the id of the preguntaDTO to retrieve.
@@ -171,6 +168,24 @@ public class PreguntaResource {
         log.debug("REST request to get Pregunta Modalidad Fase : {}", idModalidad, idFase);
         try{
             final List<PreguntaDTO> DTO = preguntaService.findByPreguntaModalidadIdAndPreguntaFaseId(idModalidad, idFase);
+            return new ResponseEntity<>(DTO, HttpStatus.OK);
+
+        }catch (Exception e){
+
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body( e.getMessage());
+        }
+    }
+
+    /**
+     *      *
+     * @param idModalidad the id of the preguntaDTO to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the preguntaDTO, or with status {@code 404 (Not Found)}.
+     */
+    @GetMapping("/pregunta-modalidad-fase-authority/{idModalidad}/{idFase}/{authority}")
+    public ResponseEntity<?> getPreguntaModalidadFaseAuthority(@PathVariable Long idModalidad, @PathVariable Long idFase, @PathVariable String  authority) {
+        log.debug("REST request to get Pregunta Modalidad Fase Authority: {}", idModalidad, idFase, authority);
+        try{
+            final List<PreguntaDTO> DTO = preguntaService.findByPreguntaModalidadIdAndPreguntaFaseIdAndAuthority(idModalidad, idFase,authority);
             return new ResponseEntity<>(DTO, HttpStatus.OK);
 
         }catch (Exception e){

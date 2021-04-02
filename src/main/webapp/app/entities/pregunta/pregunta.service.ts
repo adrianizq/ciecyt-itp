@@ -62,4 +62,12 @@ export default class PreguntaService {
       });
     });
   }
+
+  public retrievePreguntasModalidadyFaseyAuthority(id: number, idFase: number, authority: string): Promise<any> {
+    return new Promise<any>(resolve => {
+      axios.get('api/pregunta-modalidad-fase-authority' + `/${id}` + `/${idFase}` + `/${authority}`).then(function (res) {
+        resolve(res);
+      });
+    });
+  }
 }

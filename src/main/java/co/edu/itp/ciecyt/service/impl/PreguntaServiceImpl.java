@@ -177,12 +177,8 @@ public class PreguntaServiceImpl implements PreguntaService {
         log.debug("Request to get all Preguntas de una modalidad con una idModalidad");
         List<PreguntaDTO> listDTO = new ArrayList<>();
         List<Pregunta> list = new ArrayList<>();
-
-        //List<PreguntaDTO> listPreguntaDTO = new ArrayList<>();
         List<Pregunta> listPregunta = preguntaRepository.findByPreguntaFaseId(idFase);
-
         List<PreguntaModalidad> listPreguntaModalidad= preguntaModalidadRepository.findByModalidad2Id(idModalidad);
-
         if(listPregunta!=null) {
             for (Pregunta pregunta : listPregunta
             ) {
@@ -197,13 +193,53 @@ public class PreguntaServiceImpl implements PreguntaService {
                 }
             }
         }
-
         for (Pregunta pregunta : list) {
             listDTO.add(preguntaMapper.toDto(pregunta));
         }
         return listDTO;
     }
 
-    // findByPreguntaModalidadIdAndPreguntaFaseIdAndAuthority   crear ...
+    public List<PreguntaDTO> findByPreguntaModalidadIdAndPreguntaFaseIdAndAuthority(Long idModalidad, Long idFase, String authority) throws Exception{
+        log.debug("Request to get all Preguntas de una modalidad con una idModalidad");
+        List<PreguntaDTO> listDTO = new ArrayList<>();
+        List<Pregunta> list = new ArrayList<>();
+        List<Pregunta> list2 = new ArrayList<>();
+        List<Pregunta> listPregunta = preguntaRepository.findByPreguntaFaseId(idFase);
+        List<PreguntaModalidad> listPreguntaModalidad= preguntaModalidadRepository.findByModalidad2Id(idModalidad);
+        //busca las lista de preguntas de acuerdo a la modalidad
+        if(listPregunta!=null) {
+            for (Pregunta pregunta : listPregunta
+            ) {
+                if(listPreguntaModalidad!=null) {
+                    for (PreguntaModalidad preguntaModalidad : listPreguntaModalidad
+                    ) {
+                        if (pregunta.getId() == preguntaModalidad.getPregunta().getId()) {
+                            list.add(pregunta);
+                        }
+
+                    }
+                }
+            }
+        }
+        List<PreguntaAuthority> listPreguntaAuthority= preguntaAuthorityRepository.findByAuthorityName(authority);
+        if(listPregunta!=null) {
+            for (Pregunta pregunta : list
+            ) {
+                if(listPreguntaAuthority!=null) {
+                    for (PreguntaAuthority preguntaAuthority : listPreguntaAuthority
+                    ) {
+                        if (pregunta.getId() == preguntaAuthority.getPregunta3().getId()){
+                            list2.add(pregunta);
+                        }
+
+                    }
+                }
+            }
+        }
+        for (Pregunta pregunta : list2) {
+            listDTO.add(preguntaMapper.toDto(pregunta));
+        }
+        return listDTO;
+    }
 
 }

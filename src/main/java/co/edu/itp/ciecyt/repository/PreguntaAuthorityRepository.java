@@ -14,6 +14,6 @@ import java.util.List;
 @SuppressWarnings("unused")
 @Repository
 public interface PreguntaAuthorityRepository extends JpaRepository<PreguntaAuthority, Long> {
-    List<PreguntaAuthority> findByAuthorityName(Long idAuthority);
+    List<PreguntaAuthority> findByAuthorityName(String authority);
     List<PreguntaAuthority> findByPregunta3Id(Long idPregunta);
 }

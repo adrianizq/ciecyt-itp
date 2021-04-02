@@ -198,6 +198,7 @@ export default class PropuestaEvaluar extends Vue {
 
     public isSaving = false;
     public proyectoRespuestasDatos: boolean;
+    public  authority: any="ROLE_VIABILIDAD";
     public mounted(): void {
     }
 
@@ -278,7 +279,8 @@ export default class PropuestaEvaluar extends Vue {
               //if (this.proyectoRespuests.length==0){
                 res = await  this.preguntaService()
                 //.retrievePreguntasModalidad( this.modalidadId) //recup pregs por molalid 
-                .retrievePreguntasModalidadyFase( this.modalidadId, this.fase.id) //recup pregs por molalid y fase
+                //.retrievePreguntasModalidadyFase( this.modalidadId, this.fase.id) //recup pregs por molalid y fase
+                 .retrievePreguntasModalidadyFaseyAuthority(this.modalidadId, this.fase.id, this.authority)
                 
                     this.pregunts = res.data;
                     /////////////////////////////////77
