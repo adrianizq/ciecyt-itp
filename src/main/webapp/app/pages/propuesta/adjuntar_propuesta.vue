@@ -119,6 +119,7 @@ const validations: any = {
    public fase:IFases= new Fases();
    // public fases: IFases = new Fases();
    public faseId:number;
+   public faseFase:string="Propuesta";
   public terms:Boolean=false;
 
 
@@ -223,7 +224,7 @@ const validations: any = {
 
       });*/
 
-      res=  await this.fasesService().findByFase("Propuesta")
+      res=  await this.fasesService().findByFase(this.faseFase)
       .then(res => {
         this.fase = res;  
         this.faseId = this.fase.id;
