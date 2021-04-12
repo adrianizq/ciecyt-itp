@@ -14,4 +14,5 @@ import java.util.List;
 @Repository
 public interface ProyectoRespuestasRepository extends JpaRepository<ProyectoRespuestas, Long> {
     List<ProyectoRespuestas> findByProyectoRespuestasProyectoIdOrderByProyectoRespuestasProyectoId(Long idProyecto);
+    List<ProyectoRespuestas> findByProyectoRespuestasProyectoIdAndFaseIdAndAuthority(Long idProyecto, Long faseId, String authority);
 }

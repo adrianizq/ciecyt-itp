@@ -1,13 +1,13 @@
 package co.edu.itp.ciecyt.service.dto;
 
-import java.io.Serializable;
 import co.edu.itp.ciecyt.domain.enumeration.EnumRespuestas;
+import java.io.Serializable;
 
 /**
  * A DTO for the {@link co.edu.itp.ciecyt.domain.ProyectoRespuestas} entity.
  */
 public class ProyectoRespuestasDTO implements Serializable {
-    
+
     private Long id;
 
     private EnumRespuestas respuesta;
@@ -34,7 +34,6 @@ public class ProyectoRespuestasDTO implements Serializable {
 
     private Float respuestaNumero;
 
-
     private Long proyectoRespuestasPreguntaId;
 
     private String proyectoRespuestasPreguntaPregunta;
@@ -42,7 +41,11 @@ public class ProyectoRespuestasDTO implements Serializable {
     private Long proyectoRespuestasProyectoId;
 
     private String proyectoRespuestasProyectoTitulo;
-    
+
+    private Long faseId;
+
+    private String authority;
+
     public Long getId() {
         return id;
     }
@@ -177,6 +180,22 @@ public class ProyectoRespuestasDTO implements Serializable {
 
     public void setProyectoRespuestasProyectoTitulo(String proyectoTitulo) {
         this.proyectoRespuestasProyectoTitulo = proyectoTitulo;
+    }
+
+    public Long getFaseId() {
+        return faseId;
+    }
+
+    public void setFaseId(Long faseId) {
+        this.faseId = faseId;
+    }
+
+    public String getAuthority() {
+        return authority;
+    }
+
+    public void setAuthority(String authority) {
+        this.authority = authority;
     }
 
     @Override

@@ -69,6 +69,12 @@ public class ProyectoRespuestasResourceIT {
     private static final Float DEFAULT_RESPUESTA_NUMERO = 1F;
     private static final Float UPDATED_RESPUESTA_NUMERO = 2F;
 
+    private static final Long DEFAULT_FASE_ID = 1L;
+    private static final Long UPDATED_FASE_ID = 2L;
+
+    private static final String DEFAULT_AUTHORITY = "AAAAAAAAAA";
+    private static final String UPDATED_AUTHORITY = "BBBBBBBBBB";
+
     @Autowired
     private ProyectoRespuestasRepository proyectoRespuestasRepository;
 
@@ -105,7 +111,9 @@ public class ProyectoRespuestasResourceIT {
             .encabezado(DEFAULT_ENCABEZADO)
             .dato(DEFAULT_DATO)
             .respuestaTexto(DEFAULT_RESPUESTA_TEXTO)
-            .respuestaNumero(DEFAULT_RESPUESTA_NUMERO);
+            .respuestaNumero(DEFAULT_RESPUESTA_NUMERO)
+            .faseId(DEFAULT_FASE_ID)
+            .authority(DEFAULT_AUTHORITY);
         return proyectoRespuestas;
     }
     /**
@@ -127,7 +135,9 @@ public class ProyectoRespuestasResourceIT {
             .encabezado(UPDATED_ENCABEZADO)
             .dato(UPDATED_DATO)
             .respuestaTexto(UPDATED_RESPUESTA_TEXTO)
-            .respuestaNumero(UPDATED_RESPUESTA_NUMERO);
+            .respuestaNumero(UPDATED_RESPUESTA_NUMERO)
+            .faseId(UPDATED_FASE_ID)
+            .authority(UPDATED_AUTHORITY);
         return proyectoRespuestas;
     }
 
@@ -163,6 +173,8 @@ public class ProyectoRespuestasResourceIT {
         assertThat(testProyectoRespuestas.getDato()).isEqualTo(DEFAULT_DATO);
         assertThat(testProyectoRespuestas.getRespuestaTexto()).isEqualTo(DEFAULT_RESPUESTA_TEXTO);
         assertThat(testProyectoRespuestas.getRespuestaNumero()).isEqualTo(DEFAULT_RESPUESTA_NUMERO);
+        assertThat(testProyectoRespuestas.getFaseId()).isEqualTo(DEFAULT_FASE_ID);
+        assertThat(testProyectoRespuestas.getAuthority()).isEqualTo(DEFAULT_AUTHORITY);
     }
 
     @Test
@@ -208,7 +220,9 @@ public class ProyectoRespuestasResourceIT {
             .andExpect(jsonPath("$.[*].encabezado").value(hasItem(DEFAULT_ENCABEZADO)))
             .andExpect(jsonPath("$.[*].dato").value(hasItem(DEFAULT_DATO)))
             .andExpect(jsonPath("$.[*].respuestaTexto").value(hasItem(DEFAULT_RESPUESTA_TEXTO)))
-            .andExpect(jsonPath("$.[*].respuestaNumero").value(hasItem(DEFAULT_RESPUESTA_NUMERO.doubleValue())));
+            .andExpect(jsonPath("$.[*].respuestaNumero").value(hasItem(DEFAULT_RESPUESTA_NUMERO.doubleValue())))
+            .andExpect(jsonPath("$.[*].faseId").value(hasItem(DEFAULT_FASE_ID.intValue())))
+            .andExpect(jsonPath("$.[*].authority").value(hasItem(DEFAULT_AUTHORITY)));
     }
     
     @Test
@@ -233,7 +247,9 @@ public class ProyectoRespuestasResourceIT {
             .andExpect(jsonPath("$.encabezado").value(DEFAULT_ENCABEZADO))
             .andExpect(jsonPath("$.dato").value(DEFAULT_DATO))
             .andExpect(jsonPath("$.respuestaTexto").value(DEFAULT_RESPUESTA_TEXTO))
-            .andExpect(jsonPath("$.respuestaNumero").value(DEFAULT_RESPUESTA_NUMERO.doubleValue()));
+            .andExpect(jsonPath("$.respuestaNumero").value(DEFAULT_RESPUESTA_NUMERO.doubleValue()))
+            .andExpect(jsonPath("$.faseId").value(DEFAULT_FASE_ID.intValue()))
+            .andExpect(jsonPath("$.authority").value(DEFAULT_AUTHORITY));
     }
     @Test
     @Transactional
@@ -267,7 +283,9 @@ public class ProyectoRespuestasResourceIT {
             .encabezado(UPDATED_ENCABEZADO)
             .dato(UPDATED_DATO)
             .respuestaTexto(UPDATED_RESPUESTA_TEXTO)
-            .respuestaNumero(UPDATED_RESPUESTA_NUMERO);
+            .respuestaNumero(UPDATED_RESPUESTA_NUMERO)
+            .faseId(UPDATED_FASE_ID)
+            .authority(UPDATED_AUTHORITY);
         ProyectoRespuestasDTO proyectoRespuestasDTO = proyectoRespuestasMapper.toDto(updatedProyectoRespuestas);
 
         restProyectoRespuestasMockMvc.perform(put("/api/proyecto-respuestas")
@@ -291,6 +309,8 @@ public class ProyectoRespuestasResourceIT {
         assertThat(testProyectoRespuestas.getDato()).isEqualTo(UPDATED_DATO);
         assertThat(testProyectoRespuestas.getRespuestaTexto()).isEqualTo(UPDATED_RESPUESTA_TEXTO);
         assertThat(testProyectoRespuestas.getRespuestaNumero()).isEqualTo(UPDATED_RESPUESTA_NUMERO);
+        assertThat(testProyectoRespuestas.getFaseId()).isEqualTo(UPDATED_FASE_ID);
+        assertThat(testProyectoRespuestas.getAuthority()).isEqualTo(UPDATED_AUTHORITY);
     }
 
     @Test

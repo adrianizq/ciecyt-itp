@@ -1,26 +1,29 @@
 <template>
 
     <div class="row">
-<!--
-        <div class="col-sm-4">
-            <menu-lateral :proyectoId='$route.params.proyectoId'></menu-lateral>
-        </div>
--->
+
         <div class="col-sm-8">
            <form @submit.prevent="save()">
                 <div class="row">
-                     <div class="col-12" v-for="(ep, i) in proyectoRespuests" :key="i">
-
-                    
+                   
+                  
+              <table> 
+               <tr><td><h2>Viabilidad de la Propuesta </h2></td></tr>
+               <tr><td>Título: {{proyecto.titulo}} </td></tr>
+               <tr><td>Programa: {{proyecto.programa}} </td></tr>
+                <tr><td> &nbsp; </td></tr>
+             </table>
+             <br />   <br />
+           
+                    <div class="col-12" v-for="(ep, i) in proyectoRespuests" :key="i">
                     <b-card  
-       
-                    border-variant="primary"
-        
-                    header-bg-variant="light"
-                     body-bg-variant="light"
-                    header-text-variant="info">
-                      
-
+                      border-variant="primary"
+                      header-bg-variant="light"
+                      body-bg-variant="light"
+                     header-text-variant="info">
+                     <div class="text-secondary"> Tipo de pregunta {{ep.preguntaTipoPreguntaTipoPregunta}} </div>
+                     <label  class="p-3 mb-2 bg-info text-white container-fluid">{{ep.encabezado}} </label>
+                     
                      <b-form-group
                             :label="ep.elemento"
                             :label-for="`ep-${i}`" 
@@ -28,10 +31,12 @@
                                                    
                        >
                        <div class="form-group" >
+                           
 
+                            
                             <b-form-textarea rows="2"  max-rows="10" class="form-control" :name="`ep-${i}`"
-                            :id="`ep-${i}`" 
-                                   v-model="ep.elemento"   />
+                            :id="`ep-${i}`" v-if="ep.elemento"
+                                   v-model="ep.elemento"  disabled="true"  />
                        </div>
                        </b-form-group>
 
@@ -41,40 +46,89 @@
                        <div class="form-group" >
 
                             <b-form-textarea rows="2"  max-rows="10" class="form-control" :name="`ep-${i}`"
-                            :id="`ep-${i}`" 
-                                   v-model="ep.dato"   />
+                            :id="`ep-${i}` " 
+                                   v-model="ep.dato"  v-if="ep.dato!=null" readonly="true" />
                             </div>
                        </b-form-group>
 
-                        <!----------------------------------------------->
+                        <!-- TIPOS Pregunta--------------------------------------------->
                         <div class="form-group">
                         <label class="form-control-label" v-text="$t('ciecytApp.proyectoRespuestas.respuesta')" for="proyecto-respuestas-respuesta">Respuesta</label>
-                        <select class="form-control" name="respuesta"  v-model="ep.respuesta" id="proyecto-respuestas-respuesta" >
+                        <select class="form-control" c  v-model="ep.respuesta" 
+                          id="proyecto-respuestas-respuesta"
+                          v-if="ep.preguntaTipoPreguntaTipoPregunta==`Viable (sin puntaje)`" >
                             <option value="CUMPLE" v-bind:label="$t('ciecytApp.EnumRespuestas.CUMPLE')">CUMPLE</option>
                             <option value="NO_CUMPLE" v-bind:label="$t('ciecytApp.EnumRespuestas.NO_CUMPLE')">NO_CUMPLE</option>
                             <option value="NO_APLICA" v-bind:label="$t('ciecytApp.EnumRespuestas.NO_APLICA')">NO_APLICA</option>
                         </select>
-                    </div>
+                        
+                        <select class="form-control" name="respuesta"  v-model.bool="ep.siNo" 
+                          id="proyecto-respuestas-respuesta"
+                          v-if="ep.preguntaTipoPreguntaTipoPregunta==`Si o No`" >
+                            <option value="true" v-bind:label="$t('ciecytApp.EnumRespuestas.SI')">SI</option>
+                            <option value="false" v-bind:label="$t('ciecytApp.EnumRespuestas.NO')">NO</option>
+                        </select>
+
+                        <b-form-input  type="range" min="0" v-bind:max="ep.puntajeMaximo" step="0.1"
+                         v-if="ep.preguntaTipoPreguntaTipoPregunta==`Nota (con puntaje)`" 
+                         v-model="ep.respuestaNumero">
+                          <div class="mt-2">Nota: {{ ep.respuestaNumero }}</div></button>
+                        </b-form-input>
+                         
+
+                        <b-form-textarea  
+                         v-if="ep.preguntaTipoPreguntaTipoPregunta==`Libre (sin puntaje ni viabilidad)`" 
+                         v-model="ep.respuestaTexto">
+                        </b-form-textarea>
+                  
+                        </div>
 
                      </b-card>
                      <hr>
-                       <!------------------------------------------------->
+                          
     
-                    </div>
- 
+                    </div> <!-- fin del for each -->
+                    <!-- ------------------------------------------->
+                    <div class="col-12" >
+                    <b-card  
+                      border-variant="primary"
+                      header-bg-variant="light"
+                      body-bg-variant="light"
+                     header-text-variant="info">
+                    <b-form-group 
+                    description="Si tiene comentarios o sugerencias adicionales sobre la propuesta diligencie este apartado">
+                    <label class="form-control-label" 
+                    v-text="$t('ciecytApp.proyecto.recomendaciones')" for="proyecto-recomendaciones">Recomendaciones</label>
+                       
+                     <div class="form-group" >
+                       <b-form-textarea  class="form-control" name="proyecto-recomendaciones"
+                                   v-model="proyecto.recomendaciones"  />
+                        </div>
+                       </b-form-group>
+                       </b-card>
+                       </div>
+                    <!-- ------------------------------------------->
+                    
                      
                 </div>
               
 
 <div class="form-group">
-  <label class="form-control-label" for="proyecto-respuestas-viabilidad">Viabilidad</label>
-                     <input
-                        type="checkbox"
-                        class="form-control"
-                        name="proyecto-respuestas-viabilidad"
-                        id="proyecto-respuestas-viabilidad"
-                        v-model="proyecto.viable"
-                      />
+                
+                <br>Marque <strong>Viable </strong> si la propuesta cumple con los requisitos establecidos por el Ciecyt.
+                <br>Si la propuesta es viable, pero tiene correcciones marque <strong>Pendiente </strong></button>
+                 <br>Si la propuesta no es viable, marque <strong>No Viable</strong> <br>
+                <div  class="p-3 mb-2 bg-danger text-white container-fluid">
+                <input type="radio" value="VIABLE" v-model="proyecto.viabilidad">
+                <label for="uno">Viable</label>
+                <br>
+                <input type="radio"  value="PENDIENTE" v-model="proyecto.viabilidad">
+                <label for="Dos">Pendiente</label>
+                <br>
+                <input type="radio" value="NO_VIABLE" v-model="proyecto.viabilidad">
+                <label for="uno">No Viable</label>
+                <br>
+                </div>
  </div>
 
                 <div>
@@ -83,12 +137,7 @@
                         <font-awesome-icon icon="ban"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.cancel')">Cancel</span>
                     </button>
 
-<!--
-                    <router-link :to="{name: 'PropuestaIntegrantesView', query: {proyectoId: this.proyecto.id}}"  tag="button" class="btn btn-primary">
-                                <font-awesome-icon icon="save"></font-awesome-icon>
-                                <span class="d-none d-md-inline" v-text="$t('entity.action.save')">Save</span>
-                            </router-link>
--->
+
 
                     <button type="submit" id="save-entity" class="btn btn-primary">
                         <font-awesome-icon icon="save"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.save')">Save</span>
@@ -114,6 +163,8 @@ import { IProyecto, Proyecto } from '@/shared/model/proyecto.model';
 import ProyectoService from '@/entities/proyecto/proyecto.service';
 import { IElementoProyecto, ElementoProyecto } from '@/shared/model/elemento-proyecto.model';
 import ElementoProyectoService from '@/entities/elemento-proyecto/elemento-proyecto.service';
+import FasesService from '@/entities/fases/fases.service';
+import { IFases, Fases } from '@/shared/model/fases.model';
 
 
     const validations: any = {};
@@ -130,11 +181,13 @@ export default class PropuestaEvaluar extends Vue {
    @Inject('proyectoService') private proyectoService: () => ProyectoService;
    @Inject('proyectoRespuestasService') private proyectoRespuestasService: () => ProyectoRespuestasService;
    @Inject('preguntaService') private preguntaService: () => PreguntaService;
+   @Inject('fasesService') private fasesService: () => FasesService;
    @Inject('elementoProyectoService') private elementoProyectoService: () => ElementoProyectoService;
    @Inject('alertService') private alertService: () => AlertService;
 
 
     public pregunts: IPregunta[] = [];
+    public fase: IFases = new Fases();
     public proyectoRespuests: IProyectoRespuestas[] =[];
     public elementoProyects: IElementoProyecto[]=[];
     public elemProy: ElementoProyecto;
@@ -144,7 +197,10 @@ export default class PropuestaEvaluar extends Vue {
     public enumRespuestas: EnumRespuestas;
 
     public isSaving = false;
-
+    public proyectoRespuestasDatos: boolean;
+    public  authority: any="ROLE_JURADO";
+    public mounted(): void {
+    }
 
         beforeRouteEnter(to, from, next) {
             next(vm => {
@@ -160,13 +216,21 @@ export default class PropuestaEvaluar extends Vue {
                 this.isSaving = true;
                 for (let e of this.proyectoRespuests) {
                     if (e.id) {
-                        this.proyectoRespuestasService().update(e); 
+                     // if (e.proyectoRespuestasProyectoId==this.proyId) {
+                        this.proyectoRespuestasService().update(e)
+                        .then(param => {
+                            //this.$router.push({ name: 'PropuestaPresupuestoView',params:{ proyectoId: this.proyId}});
+                            (<any>this).$router.go(0);
+                        });
+                      
                     } else {
+                        
                         this.proyectoRespuestasService().create(e)
                         .then(param => {
-                            (<any>this).$router.go(0);
                             //this.$router.push({ name: 'PropuestaPresupuestoView',params:{ proyectoId: this.proyId}});
+                            (<any>this).$router.go(0);
                         });
+                        
                     }
                 }
                 
@@ -189,49 +253,65 @@ export default class PropuestaEvaluar extends Vue {
                this.proyId = parseInt(this.$route.params.proyectoId);
                this.proyecto = await this.proyectoService().find(this.proyId);
                this.modalidadId = this.proyecto.proyectoModalidadId;
-              //recuperar las elementosProyecto enviando un idProyecto (api)
-          
-              this.proyectoRespuestasService()
+
+                let res= await this.elementoProyectoService()
+                .retrieveElementoProyecto(this.proyId)   //recup los ElementosProyecto con un idproy
+                 this.elementoProyects = res.data;
+
+                 res= await this.fasesService()
+                .retrieveFase("Proyecto")   //recup los ElementosProyecto con un idproy
+                 this.fase = res.data;
+
+                res= await this.proyectoRespuestasService()
                 .retrieveProyectoRespuestas(this.proyId)   //recup los proyresp con un idproy
-                .then(res=> {
+                this.proyectoRespuests = res.data;
+                if (this.proyectoRespuests.length>0){
+                        this.proyectoRespuestasDatos=true;
+                    }
+                else{
+                        this.proyectoRespuestasDatos=false;
+                    }
+                    //console.log(this.proyectoRespuestasDatos);
+               
+                
 
-                    this.proyectoRespuests = res.data;
-                });
-               await this.elementoProyectoService()
-                .retrieveElementoProyecto(this.proyId)   //recup los proyresp con un idproy
-                .then(res=> {
-
-                    this.elementoProyects = res.data;
-                    //console.log(this.elementoProyects);
-                });
               //Obtenienedo los elementos de acuerdo a la modalidad
-              await this.preguntaService()
-                .retrievePreguntasModalidad( this.modalidadId) //recup pregs por molalid 
-                .then(res => {
+              //if (this.proyectoRespuests.length==0){
+                res = await  this.preguntaService()
+                //.retrievePreguntasModalidad( this.modalidadId) //recup pregs por molalid 
+                //.retrievePreguntasModalidadyFase( this.modalidadId, this.fase.id) //recup pregs por molalid y fase
+                 .retrievePreguntasModalidadyFaseyAuthority(this.modalidadId, this.fase.id, this.authority)
+                
                     this.pregunts = res.data;
-                  //cliclo para copiar los datos de pregunta a proyecto-respuestas
-                  this.pregunts.forEach(e => {
+                    /////////////////////////////////77
+                this.pregunts.forEach(e => {
                   var proyResp: IProyectoRespuestas = new ProyectoRespuestas();
                   proyResp.proyectoRespuestasPreguntaPregunta= e.pregunta;
                   proyResp.proyectoRespuestasPreguntaId = e.id;
-                  //elemProy.elemento = e.elemento;
                   proyResp.proyectoRespuestasProyectoId = this.proyId;
                   //ubicar un elemento, no esta en proyectoRespuestas
                   proyResp.elemento = e.preguntaElemento;
-                
-                  //this.elemProy = this.buscarElementoProyecto(e.elementoId);
+                  proyResp.preguntaTipoPreguntaId = e.preguntaTipoPreguntaId;
+                  proyResp.preguntaTipoPreguntaTipoPregunta = e.preguntaTipoPreguntaTipoPregunta;
+                  proyResp.encabezado = e.encabezado;
+                  proyResp.puntajeMaximo = e.puntajeMaximo;
                   this.elementoProyects.forEach(x => {
                       console.log("Entra al ciclo elementoProyecto");
                     if (x.elementoProyectoElementoId == e.preguntaElementoId){
                          proyResp.dato = x.dato;    
                     }
                   });
+                  if (!this.proyectoRespuestasDatos){
+                   this.proyectoRespuests.push(proyResp);
+                  }
+                  
+                }); //fin del foreach pregunts
+                    //////////////////////////////////77
+               
 
-                 
-                  this.proyectoRespuests.push(proyResp);
-                  }); 
-                   //console.log(this.proyectoRespuests);
-                 });
+
+
+               console.log(this.proyectoRespuests);
             }
             catch(e){
               console.log("error al recuperar la informacion de elemento ");

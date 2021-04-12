@@ -51,6 +51,12 @@
             <column name="respuesta_numero" type="${floatType}">
                 <constraints nullable="true" />
             </column>
+            <column name="fase_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="authority" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
             <column name="proyecto_respuestas_pregunta_id" type="bigint">
                 <constraints nullable="true" />
             </column>
@@ -92,6 +98,8 @@
             <column name="dato" type="string"/>
             <column name="respuesta_texto" type="string"/>
             <column name="respuesta_numero" type="numeric"/>
+            <column name="fase_id" type="numeric"/>
+            <column name="authority" type="string"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>

@@ -49,6 +49,14 @@
     {
       "fieldName": "respuestaNumero",
       "fieldType": "Float"
+    },
+    {
+      "fieldName": "faseId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "authority",
+      "fieldType": "String"
     }
   ],
   "relationships": [

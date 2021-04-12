@@ -319,6 +319,7 @@ const PropuestaListado = () => import('../pages/viabilidad_propuesta/listado.vue
 const PropuestaListadoAsesor = () => import('../pages/viabilidad_propuesta/listado_asesor.vue');
 const PropuestaListadoCiecyt = () => import('../pages/ciecyt/listado_ciecyt.vue');
 const PropuestaEvaluar = () => import('../pages/viabilidad_propuesta/propuesta_evaluar.vue');
+const AsesoriaEvaluar = () => import('../pages/viabilidad_propuesta/asesoria_evaluar.vue');
 const ProyectoEvaluar = () => import('../pages/viabilidad_propuesta/proyecto_evaluar.vue');
 
 const AsignarJurado = () => import('../pages/ciecyt/asignar_jurado.vue');
@@ -1897,6 +1898,14 @@ export default new Router({
       component: PropuestaEvaluar,
       meta: { authorities: ['ROLE_JURADO']['ROLE_ADMIN']  }
     },
+
+    {
+      path: '/viabilidad-propuesta/asesoria-evaluar/:proyectoId',
+      name: 'AsesoriaEvaluarView',
+      component: AsesoriaEvaluar,
+      meta: { authorities: ['ROLE_JURADO']['ROLE_ADMIN']  }
+    },
+
 
     {
       path: '/viabilidad-propuesta/proyecto-evaluar/:proyectoId',

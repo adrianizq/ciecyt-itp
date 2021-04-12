@@ -62,6 +62,12 @@ public class ProyectoRespuestas implements Serializable {
     @Column(name = "respuesta_numero")
     private Float respuestaNumero;
 
+    @Column(name = "fase_id")
+    private Long faseId;
+
+    @Column(name = "authority")
+    private String authority;
+
     @ManyToOne
     @JsonIgnoreProperties(value = "proyectoRespuestas", allowSetters = true)
     private Pregunta proyectoRespuestasPregunta;
@@ -235,6 +241,32 @@ public class ProyectoRespuestas implements Serializable {
         this.respuestaNumero = respuestaNumero;
     }
 
+    public Long getFaseId() {
+        return faseId;
+    }
+
+    public ProyectoRespuestas faseId(Long faseId) {
+        this.faseId = faseId;
+        return this;
+    }
+
+    public void setFaseId(Long faseId) {
+        this.faseId = faseId;
+    }
+
+    public String getAuthority() {
+        return authority;
+    }
+
+    public ProyectoRespuestas authority(String authority) {
+        this.authority = authority;
+        return this;
+    }
+
+    public void setAuthority(String authority) {
+        this.authority = authority;
+    }
+
     public Pregunta getProyectoRespuestasPregunta() {
         return proyectoRespuestasPregunta;
     }
@@ -295,6 +327,8 @@ public class ProyectoRespuestas implements Serializable {
             ", dato='" + getDato() + "'" +
             ", respuestaTexto='" + getRespuestaTexto() + "'" +
             ", respuestaNumero=" + getRespuestaNumero() +
+            ", faseId=" + getFaseId() +
+            ", authority='" + getAuthority() + "'" +
             "}";
     }
 }

@@ -8,7 +8,7 @@
                    
                   
               <table> 
-               <tr><td><h2>Viabilidad de la Propuesta </h2></td></tr>
+               <tr><td><h2>Envío de la Propuesta - Asesor</h2></td></tr>
                <tr><td>Título: {{proyecto.titulo}} </td></tr>
                <tr><td>Programa: {{proyecto.programa}} </td></tr>
                 <tr><td> &nbsp; </td></tr>
@@ -115,18 +115,16 @@
 
 <div class="form-group">
                 
-                <br>Marque <strong>Viable </strong> si la propuesta cumple con los requisitos establecidos por el Ciecyt.
-                <br>Si la propuesta es viable, pero tiene correcciones marque <strong>Pendiente </strong></button>
-                 <br>Si la propuesta no es viable, marque <strong>No Viable</strong> <br>
+                <br>Marque <strong>Enviar </strong> si la propuesta cumple con los requisitos establecidos por el Ciecyt.
+                <br>Si la propuesta no cumple o está icompleta, marque <strong>No Enviar</strong> <br>
                 <div  class="p-3 mb-2 bg-danger text-white container-fluid">
-                <input type="radio" value="VIABLE" v-model="proyecto.viabilidad">
-                <label for="uno">Viable</label>
+                <input type="radio" value="true" v-model="proyecto.enviado">
+                <label for="uno">Enviar la Propuesta</label>
                 <br>
-                <input type="radio"  value="PENDIENTE" v-model="proyecto.viabilidad">
-                <label for="Dos">Pendiente</label>
+                <input type="radio"  value="false" v-model="proyecto.enviado">
+                <label for="Dos">No Enviar la Propuesta</label>
                 <br>
-                <input type="radio" value="NO_VIABLE" v-model="proyecto.viabilidad">
-                <label for="uno">No Viable</label>
+                
                 <br>
                 </div>
  </div>
@@ -193,8 +191,6 @@ export default class PropuestaEvaluar extends Vue {
     public elemProy: ElementoProyecto;
     public proyecto: IProyecto = new Proyecto();
     public proyId: any = null;
-  
-  
     public modalidadId: number = 0;
     public enumRespuestas: EnumRespuestas;
 
@@ -218,8 +214,7 @@ export default class PropuestaEvaluar extends Vue {
                 this.isSaving = true;
                 for (let e of this.proyectoRespuests) {
                     if (e.id) {
-                        e.faseId=this.fase.id;
-                        e.authority=this.authority;
+                     // if (e.proyectoRespuestasProyectoId==this.proyId) {
                         this.proyectoRespuestasService().update(e)
                         .then(param => {
                             //this.$router.push({ name: 'PropuestaPresupuestoView',params:{ proyectoId: this.proyId}});
@@ -266,7 +261,7 @@ export default class PropuestaEvaluar extends Vue {
                  this.fase = res.data;
 
                 res= await this.proyectoRespuestasService()
-                .retrieveProyectoRespuestas(this.proyId, this.fase.id, this.authority)   //recup los proyresp con un idproy
+                .retrieveProyectoRespuestas(this.proyId)   //recup los proyresp con un idproy
                 this.proyectoRespuests = res.data;
                 if (this.proyectoRespuests.length>0){
                         this.proyectoRespuestasDatos=true;

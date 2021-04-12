@@ -79,4 +79,16 @@ public class ProyectoRespuestasServiceImpl implements ProyectoRespuestasService 
         }
         return listDTO;
     }
+
+    @Override
+    public List<ProyectoRespuestasDTO> findByProyectoRespuestasProyectoIdFaseAuthority(Long idProyecto, Long idFase, String authority) throws Exception {
+        log.debug("Request to get all ElementoProyecto whit a idProyecto");
+        List<ProyectoRespuestasDTO> listDTO = new ArrayList<>();
+        List<ProyectoRespuestas> list = proyectoRespuestasRepository.findByProyectoRespuestasProyectoIdAndFaseIdAndAuthority(idProyecto,idFase,authority);
+
+        for (ProyectoRespuestas obj : list) {
+            listDTO.add(proyectoRespuestasMapper.toDto(obj));
+        }
+        return listDTO;
+    }
 }

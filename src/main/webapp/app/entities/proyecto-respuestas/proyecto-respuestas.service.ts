@@ -47,9 +47,10 @@ export default class ProyectoRespuestasService {
     });
   }
 
-  public retrieveProyectoRespuestas(id?: number, paginationQuery?: any): Promise<any> {
+  public retrieveProyectoRespuestas(id?: number, faseId?: number, authority?: string): Promise<any> {
     return new Promise<any>(resolve => {
-      axios.get('api/proyecto-respuestas-proyecto' + `/${id}` + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function (res) {
+      //axios.get('api/proyecto-respuestas-proyecto' + `/${id}`).then(function (res) {
+      axios.get('api/proyecto-respuestas-proyecto-fase-authority' + `/${id}/${faseId}/${authority}`).then(function (res) {
         resolve(res);
       });
     });

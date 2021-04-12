@@ -129,6 +129,7 @@ public class ProyectoRespuestasResource {
 
 
     /////////////777777777777777777777777777777777777777777777
+    //se reemplaza con el metodo siguiente a este
 
     /**
      * {@code GET  /proyecto-respuestas-proyectos/:id} : get the "id" idProyecto.
@@ -141,6 +142,25 @@ public class ProyectoRespuestasResource {
         log.debug("REST request to get ProyectoRespuestasProyecto : {}", idProyecto);
         try {
             final List<ProyectoRespuestasDTO> proyectoRespuestasDTO = proyectoRespuestasService.findByProyectoRespuestasProyectoId(idProyecto);
+            return new ResponseEntity<>(proyectoRespuestasDTO, HttpStatus.OK);
+
+        } catch (Exception e) {
+
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
+
+    /**
+     * {@code GET   : get the "id" idProyecto.
+     *
+     * @param idProyecto the id of the proyectoRespuestasDTO to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the proyectoRespuestasDTO, or with status {@code 404 (Not Found)}.
+     */
+    @GetMapping("/proyecto-respuestas-proyecto-fase-authority/{idProyecto}/{idFase}/{authority}")
+    public ResponseEntity<?> getProyectoRespuestasProyectoFaseAuthority(@PathVariable Long idProyecto, @PathVariable Long idFase,@PathVariable String authority) {
+        log.debug("REST request to get ProyectoRespuestasProyecto : {}", idProyecto);
+        try {
+            final List<ProyectoRespuestasDTO> proyectoRespuestasDTO = proyectoRespuestasService.findByProyectoRespuestasProyectoIdFaseAuthority(idProyecto,idFase,authority);
             return new ResponseEntity<>(proyectoRespuestasDTO, HttpStatus.OK);
 
         } catch (Exception e) {

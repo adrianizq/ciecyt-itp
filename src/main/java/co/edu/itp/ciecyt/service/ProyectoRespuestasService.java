@@ -47,4 +47,6 @@ public interface ProyectoRespuestasService {
     void delete(Long id);
 
     List<ProyectoRespuestasDTO> findByProyectoRespuestasProyectoId(Long idProyecto) throws Exception ;
+
+    List<ProyectoRespuestasDTO> findByProyectoRespuestasProyectoIdFaseAuthority(Long idProyecto, Long idFase, String Authority) throws Exception;
 }
