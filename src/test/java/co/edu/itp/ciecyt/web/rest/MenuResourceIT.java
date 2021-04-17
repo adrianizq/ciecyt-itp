@@ -50,6 +50,9 @@ public class MenuResourceIT {
     private static final Integer DEFAULT_ORDEN = 1;
     private static final Integer UPDATED_ORDEN = 2;
 
+    private static final String DEFAULT_ROL = "AAAAAAAAAA";
+    private static final String UPDATED_ROL = "BBBBBBBBBB";
+
     @Autowired
     private MenuRepository menuRepository;
 
@@ -80,7 +83,8 @@ public class MenuResourceIT {
             .icono(DEFAULT_ICONO)
             .activo(DEFAULT_ACTIVO)
             .esPublico(DEFAULT_ES_PUBLICO)
-            .orden(DEFAULT_ORDEN);
+            .orden(DEFAULT_ORDEN)
+            .rol(DEFAULT_ROL);
         return menu;
     }
     /**
@@ -96,7 +100,8 @@ public class MenuResourceIT {
             .icono(UPDATED_ICONO)
             .activo(UPDATED_ACTIVO)
             .esPublico(UPDATED_ES_PUBLICO)
-            .orden(UPDATED_ORDEN);
+            .orden(UPDATED_ORDEN)
+            .rol(UPDATED_ROL);
         return menu;
     }
 
@@ -126,6 +131,7 @@ public class MenuResourceIT {
         assertThat(testMenu.isActivo()).isEqualTo(DEFAULT_ACTIVO);
         assertThat(testMenu.isEsPublico()).isEqualTo(DEFAULT_ES_PUBLICO);
         assertThat(testMenu.getOrden()).isEqualTo(DEFAULT_ORDEN);
+        assertThat(testMenu.getRol()).isEqualTo(DEFAULT_ROL);
     }
 
     @Test
@@ -165,7 +171,8 @@ public class MenuResourceIT {
             .andExpect(jsonPath("$.[*].icono").value(hasItem(DEFAULT_ICONO)))
             .andExpect(jsonPath("$.[*].activo").value(hasItem(DEFAULT_ACTIVO.booleanValue())))
             .andExpect(jsonPath("$.[*].esPublico").value(hasItem(DEFAULT_ES_PUBLICO.booleanValue())))
-            .andExpect(jsonPath("$.[*].orden").value(hasItem(DEFAULT_ORDEN)));
+            .andExpect(jsonPath("$.[*].orden").value(hasItem(DEFAULT_ORDEN)))
+            .andExpect(jsonPath("$.[*].rol").value(hasItem(DEFAULT_ROL)));
     }
     
     @Test
@@ -184,7 +191,8 @@ public class MenuResourceIT {
             .andExpect(jsonPath("$.icono").value(DEFAULT_ICONO))
             .andExpect(jsonPath("$.activo").value(DEFAULT_ACTIVO.booleanValue()))
             .andExpect(jsonPath("$.esPublico").value(DEFAULT_ES_PUBLICO.booleanValue()))
-            .andExpect(jsonPath("$.orden").value(DEFAULT_ORDEN));
+            .andExpect(jsonPath("$.orden").value(DEFAULT_ORDEN))
+            .andExpect(jsonPath("$.rol").value(DEFAULT_ROL));
     }
     @Test
     @Transactional
@@ -212,7 +220,8 @@ public class MenuResourceIT {
             .icono(UPDATED_ICONO)
             .activo(UPDATED_ACTIVO)
             .esPublico(UPDATED_ES_PUBLICO)
-            .orden(UPDATED_ORDEN);
+            .orden(UPDATED_ORDEN)
+            .rol(UPDATED_ROL);
         MenuDTO menuDTO = menuMapper.toDto(updatedMenu);
 
         restMenuMockMvc.perform(put("/api/menus")
@@ -230,6 +239,7 @@ public class MenuResourceIT {
         assertThat(testMenu.isActivo()).isEqualTo(UPDATED_ACTIVO);
         assertThat(testMenu.isEsPublico()).isEqualTo(UPDATED_ES_PUBLICO);
         assertThat(testMenu.getOrden()).isEqualTo(UPDATED_ORDEN);
+        assertThat(testMenu.getRol()).isEqualTo(UPDATED_ROL);
     }
 
     @Test

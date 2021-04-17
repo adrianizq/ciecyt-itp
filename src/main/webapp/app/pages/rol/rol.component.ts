@@ -11,7 +11,16 @@ import AlertMixin from '@/shared/alert/alert.mixin';
 export default class Rol extends mixins(AlertMixin) {
   //@Inject('alertService') private alertService: () => AlertService;
 
-  private ROLES = ['ROLE_ADMIN', 'ROLE_USER', 'ROLE_ASESOR', 'ROLE_JURADO', 'ROLE_DOCENTE', 'ROLE_CIECYT', 'ROLE_ESTUDIANTE'];
+  private ROLES = [
+    'ROLE_ADMIN',
+    'ROLE_USER',
+    'ROLE_ASESOR',
+    'ROLE_JURADO',
+    'ROLE_DOCENTE',
+    'ROLE_CIECYT',
+    'ROLE_ESTUDIANTE',
+    'ROLE_VIABILIDAD',
+  ];
 
   public dismissCountDown: number = this.$store.getters.dismissCountDown;
   public dismissSecs: number = this.$store.getters.dismissSecs;

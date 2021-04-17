@@ -1,4 +1,7 @@
 package co.edu.itp.ciecyt.service.dto;
+import co.edu.itp.ciecyt.domain.Menu;
+
+import javax.persistence.Column;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
@@ -22,11 +25,12 @@ public class MenuDTO implements Serializable {
 
     private Integer orden;
 
+    private String rol;
 
     private Long menuPadreId;
 
     private String menuPadreNombre;
-    
+
     private List<MenuDTO> childMenus;
 
     public Long getId() {
@@ -99,6 +103,14 @@ public class MenuDTO implements Serializable {
 
     public void setMenuPadreNombre(String menuNombre) {
         this.menuPadreNombre = menuNombre;
+    }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
     }
 
     @Override

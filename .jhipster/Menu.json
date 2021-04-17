@@ -24,6 +24,10 @@
     {
       "fieldName": "orden",
       "fieldType": "Integer"
+    },
+    {
+      "fieldName": "rol",
+      "fieldType": "String"
     }
   ],
   "relationships": [
@@ -45,5 +49,7 @@
   "readOnly": false,
   "embedded": false,
   "clientRootFolder": "",
-  "applications": "*"
+  "applications": "*",
+  "searchEngine": false,
+  "databaseType": "sql"
 }

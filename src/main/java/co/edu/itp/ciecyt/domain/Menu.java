@@ -1,5 +1,8 @@
 package co.edu.itp.ciecyt.domain;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 
@@ -10,6 +13,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "menu")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Menu implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -37,11 +41,14 @@ public class Menu implements Serializable {
     @Column(name = "orden")
     private Integer orden;
 
+    @Column(name = "rol")
+    private String rol;
+
     @ManyToOne
-    @JsonIgnoreProperties("menus")
+    @JsonIgnoreProperties(value = "menus", allowSetters = true)
     private Menu menuPadre;
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
+    // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
         return id;
     }
@@ -128,6 +135,19 @@ public class Menu implements Serializable {
         this.orden = orden;
     }
 
+    public String getRol() {
+        return rol;
+    }
+
+    public Menu rol(String rol) {
+        this.rol = rol;
+        return this;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
+
     public Menu getMenuPadre() {
         return menuPadre;
     }
@@ -140,7 +160,7 @@ public class Menu implements Serializable {
     public void setMenuPadre(Menu menu) {
         this.menuPadre = menu;
     }
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
+    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
     public boolean equals(Object o) {
@@ -158,6 +178,7 @@ public class Menu implements Serializable {
         return 31;
     }
 
+    // prettier-ignore
     @Override
     public String toString() {
         return "Menu{" +
@@ -168,6 +189,7 @@ public class Menu implements Serializable {
             ", activo='" + isActivo() + "'" +
             ", esPublico='" + isEsPublico() + "'" +
             ", orden=" + getOrden() +
+            ", rol='" + getRol() + "'" +
             "}";
     }
 }
