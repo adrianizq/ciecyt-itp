@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
+import co.edu.itp.ciecyt.service.dto.ProyectoDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -121,6 +122,37 @@ public class MenuResource {
 		HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
 		return ResponseEntity.ok().headers(headers).body(page.getContent());
 	}
+
+    @GetMapping("/menus-no-page")
+    public  ResponseEntity<?>  getAllMenusNoPage() throws Exception {
+        log.debug("REST request to get a page of Menus");
+
+
+        try {
+            List<MenuDTO> menuDTOS = menuService.findAllOrderByOrden();
+
+            ResponseEntity<MenuDTO> responseEntity = new ResponseEntity(menuDTOS, HttpStatus.OK);
+            return responseEntity;
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/menus-rol/{rol}")
+    public  ResponseEntity<?>  getMenusByRolNoPage(@PathVariable String rol) throws Exception {
+        log.debug("REST request to get a page of Menus");
+
+
+        try {
+           List<MenuDTO> menuDTOS = menuService.findByRolOrderByOrden(rol);
+
+            ResponseEntity<MenuDTO> responseEntity = new ResponseEntity(menuDTOS, HttpStatus.OK);
+            return responseEntity;
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
+
 
 
 

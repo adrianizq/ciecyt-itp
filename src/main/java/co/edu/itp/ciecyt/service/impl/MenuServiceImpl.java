@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import co.edu.itp.ciecyt.domain.Proyecto;
+import co.edu.itp.ciecyt.service.dto.ProyectoDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -49,17 +51,45 @@ public class MenuServiceImpl implements MenuService {
         return menuMapper.toDto(menu);
     }
 
-    /**
-     * Get all the menus.
-     *
-     * @param pageable the pagination information.
-     * @return the list of entities.
-     */
+//solo se usa para el crud y no para llamar a todos los menus porque esta paginado
     @Override
     @Transactional(readOnly = true)
     public Page<MenuDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Menus");
         return menuRepository.findAll(pageable).map(menuMapper::toDto);
+    }
+
+    //se usa para ser llamado para encontrar todos los menus porque no esta paginado
+    //
+    @Override
+    @Transactional(readOnly = true)
+    public List<MenuDTO> findAllOrderByOrden() {
+        log.debug("Request to get all Menus");
+        List<MenuDTO> listDTO = new ArrayList<>();
+
+        List <Menu> listMenu = menuRepository.findAll();
+
+        for (Menu m :listMenu ) {
+            listDTO.add(menuMapper.toDto(m));
+        }
+        return  listDTO;
+    }
+
+
+
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<MenuDTO> findByRolOrderByOrden(String rol) throws Exception {
+        log.debug("Request to get all Menus");
+        List<MenuDTO> listDTO = new ArrayList<>();
+
+        List <Menu> listMenu = menuRepository.findByRolOrderByOrden(rol);
+
+        for (Menu m :listMenu ) {
+            listDTO.add(menuMapper.toDto(m));
+        }
+        return  listDTO;
     }
 
     /**
@@ -86,12 +116,7 @@ public class MenuServiceImpl implements MenuService {
         menuRepository.deleteById(id);
     }
 
-    /**
-     * ADR Get all the menus.
-     *
-     * @param pageable the pagination information.
-     * @return the list of entities.
-     */
+
     @Override
     @Transactional(readOnly = true)
     public List<Menu> findAllFathers() throws Exception {
@@ -99,12 +124,12 @@ public class MenuServiceImpl implements MenuService {
         List <Menu> lista_padres= menuRepository.buscarMenusPadre();
         List <Menu> lista_hijos=null;
         //return menuRepository.buscarMenusPadre();
-        
+
         List <Menu> lm = new ArrayList<>();
         for (Menu mp :lista_padres){
             //agregar a cada item de lista menu primero el padre
             //despues cada hijo
-           
+
             if (mp.getMenuPadre()!=null){
                 //lista_hijos = menuRepository.buscarMenusHijosDe(mp.getId());
 
@@ -112,8 +137,8 @@ public class MenuServiceImpl implements MenuService {
         }
         return lista_padres;
     }
-    
-    
+
+
     /**
      * Get all the menus.
      *
@@ -134,7 +159,7 @@ public class MenuServiceImpl implements MenuService {
 
        /* return menuUserRepository.buscarMenusUsuario(userService.getUserWithAuthorities().get().getId(), pageable)
                 .map(menuMapper::toDto);*/
-    	
+
     	 return menuRepository.buscarMenusUsuario(userId, pageable).map(menuMapper::toDto);
     }
 
@@ -150,14 +175,14 @@ public class MenuServiceImpl implements MenuService {
 	        }
          */
     	List<MenuDTO> listDto = new ArrayList<>();
-    	
+
     	List<Menu> list = menuRepository.buscarMenusUsuarioNoPage( userId );
     	for (Menu menu : list) {
 			listDto.add( menuMapper.toDto(menu));
 		}
-    	
+
         return listDto;
-                
+
     }
 
 
@@ -165,17 +190,17 @@ public class MenuServiceImpl implements MenuService {
     @Transactional(readOnly = true)
 	public List<MenuDTO> getAllMenuSystem() throws Exception {
     	List<MenuDTO> listAll = new ArrayList<>();
-    	
+
     	List<Menu> list = menuRepository.getAllMenuSystem();
     	for (Menu menu : list) {
     		listAll.add( menuMapper.toDto(menu));
 		}
-    	
+
     	List<MenuDTO> listDTO = populateTree(null, listAll );
-    	
+
         return listDTO;
 	}
-    
+
     private List<MenuDTO> populateTree( MenuDTO nodo, List<MenuDTO> listAll ) throws Exception {
 		Long idParent = 0l;
 		if ( nodo == null){
@@ -185,7 +210,7 @@ public class MenuServiceImpl implements MenuService {
 			idParent = nodo.getId();
 		}
 
-	
+
 		List<MenuDTO> list = findNodosByParent(listAll, idParent);
 
 		for (MenuDTO child : list) {
@@ -225,6 +250,6 @@ public class MenuServiceImpl implements MenuService {
 		return list;
 	}
 
-    
+
 
 }

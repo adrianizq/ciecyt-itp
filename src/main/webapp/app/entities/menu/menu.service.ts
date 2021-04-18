@@ -7,6 +7,14 @@ import { IMenu, MenuBar, MenuChildren } from '@/shared/model/menu.model';
 const baseApiUrl = 'api/menus';
 
 export default class MenuService {
+  /* public all(): Promise<MenuBar[]> {
+    return new Promise<MenuBar[]>(resolve => {
+      const paginationQuery = {
+        page: 0,
+        size: 100,
+        sort: ['id,asc'],
+      };*/
+
   public all(): Promise<MenuBar[]> {
     return new Promise<MenuBar[]>(resolve => {
       const paginationQuery = {
@@ -15,7 +23,36 @@ export default class MenuService {
         sort: ['id,asc'],
       };
 
-      this.retrieve(paginationQuery).then(res => {
+      /*this.retrieve(paginationQuery).then(res => {
+        const menus: IMenu[] = res.data;
+
+        const parent: MenuBar[] = [];
+
+        menus.map(menu => {
+          if (!menu.menuPadreId) {
+            delete menu.menuPadreNombre;
+
+            const children: MenuChildren[] = [];
+            parent.push({
+              ...menu,
+            });
+          }
+        });
+
+        parent.map(par => {
+          par.children = [];
+
+          menus.map(menu => {
+            if (menu.menuPadreId === par.id) {
+              par.children.push(menu);
+            }
+          });
+        });
+
+        resolve(parent);
+      });
+      */
+      this.retrieveNoPage().then(res => {
         const menus: IMenu[] = res.data;
 
         const parent: MenuBar[] = [];
@@ -63,6 +100,13 @@ export default class MenuService {
   public retrieve(paginationQuery?: any): Promise<any> {
     return new Promise<any>(resolve => {
       axios.get(baseApiUrl + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function (res) {
+        resolve(res);
+      });
+    });
+  }
+  public retrieveNoPage(): Promise<any> {
+    return new Promise<any>(resolve => {
+      axios.get(`api/menus-no-page`).then(function (res) {
         resolve(res);
       });
     });

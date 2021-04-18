@@ -46,12 +46,16 @@ public interface MenuService {
      */
     void delete(Long id);
 
-    
+
     List<Menu> findAllFathers() throws Exception;
-    
+
     Page<MenuDTO> buscarAllByUser(Long userId, Pageable pageable) throws Exception;
 
 	List<MenuDTO> buscarAllByUserNoPage(Long userId) throws Exception;
-	
+
 	List<MenuDTO> getAllMenuSystem() throws Exception;
+
+	List <MenuDTO> findAllOrderByOrden() throws Exception;
+
+    List <MenuDTO> findByRolOrderByOrden(String rol) throws Exception;
 }
