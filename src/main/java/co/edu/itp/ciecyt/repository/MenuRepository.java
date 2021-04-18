@@ -53,7 +53,8 @@ public interface MenuRepository extends JpaRepository<Menu, Long> {
 			" ORDER BY m.orden"
 			,nativeQuery = true)
 	public List<Menu> buscarMenusUsuarioNoPage(Long idUser);
-    public List<Menu> findByRolOrderByOrden(String rol);
+   // public List<Menu> findByRolOrderByOrden(String rol);
+    public List<Menu> findByRolContainingOrderByOrden(String rol);
     public List <Menu> findAll();
 
 }

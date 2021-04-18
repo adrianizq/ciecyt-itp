@@ -84,7 +84,7 @@ public class MenuServiceImpl implements MenuService {
         log.debug("Request to get all Menus");
         List<MenuDTO> listDTO = new ArrayList<>();
 
-        List <Menu> listMenu = menuRepository.findByRolOrderByOrden(rol);
+        List <Menu> listMenu = menuRepository.findByRolContainingOrderByOrden(rol);
 
         for (Menu m :listMenu ) {
             listDTO.add(menuMapper.toDto(m));
