@@ -46,26 +46,53 @@ export default class MenuService {
       });
     });
   }
-
+  ///
   public ciecyt(): Promise<MenuBar[]> {
     return new Promise<MenuBar[]>(resolve => {
       this.retrieveMenusRol('CIECYT').then(res => {
-        const menus: IMenu[] = res.data;
+        const menusCiecyt: IMenu[] = res.data;
         const parent: MenuBar[] = [];
-        menus.map(menu => {
-          if (!menu.menuPadreId) {
-            delete menu.menuPadreNombre;
+        menusCiecyt.map(menusCiecyt => {
+          if (!menusCiecyt.menuPadreId) {
+            delete menusCiecyt.menuPadreNombre;
             const children: MenuChildren[] = [];
             parent.push({
-              ...menu,
+              ...menusCiecyt,
             });
           }
         });
         parent.map(par => {
           par.children = [];
-          menus.map(menu => {
-            if (menu.menuPadreId === par.id) {
-              par.children.push(menu);
+          menusCiecyt.map(menusCiecyt => {
+            if (menusCiecyt.menuPadreId === par.id) {
+              par.children.push(menusCiecyt);
+            }
+          });
+        });
+        resolve(parent);
+      });
+    });
+  }
+  //////////////
+  public jurado(): Promise<MenuBar[]> {
+    return new Promise<MenuBar[]>(resolve => {
+      this.retrieveMenusRol('JURADO').then(res => {
+        const menusJurado: IMenu[] = res.data;
+        const parent: MenuBar[] = [];
+        menusJurado.map(menuJurado => {
+          if (!menuJurado.menuPadreId) {
+            delete menuJurado.menuPadreNombre;
+            const children: MenuChildren[] = [];
+            parent.push({
+              ...menuJurado,
+            });
+          }
+        });
+        parent.map(par => {
+          par.children = [];
+          menusJurado.map(menuJurado => {
+            if (menuJurado.menuPadreId === par.id) {
+              par.children.push(menuJurado);
             }
           });
         });

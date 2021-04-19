@@ -24,6 +24,7 @@ export default class JhiNavbar extends Vue {
   private languages: any = this.$store.getters.languages;
   public menus: MenuBar[] = [];
   public menusCiecyt: MenuBar[] = [];
+  public menusJurado: MenuBar[] = [];
 
   created() {
     this.menuService()
@@ -35,6 +36,12 @@ export default class JhiNavbar extends Vue {
       .ciecyt()
       .then(res => {
         this.menusCiecyt = res;
+      });
+
+    this.menuService()
+      .jurado()
+      .then(res => {
+        this.menusJurado = res;
       });
 
     this.translationService().refreshTranslation(this.currentLanguage);
