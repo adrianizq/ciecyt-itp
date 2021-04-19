@@ -23,12 +23,18 @@ export default class JhiNavbar extends Vue {
   private currentLanguage = this.$store.getters.currentLanguage;
   private languages: any = this.$store.getters.languages;
   public menus: MenuBar[] = [];
+  public menusCiecyt: MenuBar[] = [];
 
   created() {
     this.menuService()
       .all()
       .then(res => {
         this.menus = res;
+      });
+    this.menuService()
+      .ciecyt()
+      .then(res => {
+        this.menusCiecyt = res;
       });
 
     this.translationService().refreshTranslation(this.currentLanguage);

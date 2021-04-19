@@ -22,71 +22,56 @@ export default class MenuService {
         size: 100,
         sort: ['id,asc'],
       };
-
-      /*this.retrieve(paginationQuery).then(res => {
-        const menus: IMenu[] = res.data;
-
-        const parent: MenuBar[] = [];
-
-        menus.map(menu => {
-          if (!menu.menuPadreId) {
-            delete menu.menuPadreNombre;
-
-            const children: MenuChildren[] = [];
-            parent.push({
-              ...menu,
-            });
-          }
-        });
-
-        parent.map(par => {
-          par.children = [];
-
-          menus.map(menu => {
-            if (menu.menuPadreId === par.id) {
-              par.children.push(menu);
-            }
-          });
-        });
-
-        resolve(parent);
-      });
-      */
       this.retrieveNoPage().then(res => {
         const menus: IMenu[] = res.data;
-
         const parent: MenuBar[] = [];
-
         menus.map(menu => {
           if (!menu.menuPadreId) {
             delete menu.menuPadreNombre;
-
             const children: MenuChildren[] = [];
             parent.push({
               ...menu,
             });
           }
         });
-
         parent.map(par => {
           par.children = [];
-
           menus.map(menu => {
             if (menu.menuPadreId === par.id) {
               par.children.push(menu);
             }
           });
         });
-
         resolve(parent);
       });
     });
+  }
 
-    /*return new Promise<IMenu>(resolve => {
-      axios.get('api/menus-padre').then(res => {
-        resolve(res.data);
+  public ciecyt(): Promise<MenuBar[]> {
+    return new Promise<MenuBar[]>(resolve => {
+      this.retrieveMenusRol('CIECYT').then(res => {
+        const menus: IMenu[] = res.data;
+        const parent: MenuBar[] = [];
+        menus.map(menu => {
+          if (!menu.menuPadreId) {
+            delete menu.menuPadreNombre;
+            const children: MenuChildren[] = [];
+            parent.push({
+              ...menu,
+            });
+          }
+        });
+        parent.map(par => {
+          par.children = [];
+          menus.map(menu => {
+            if (menu.menuPadreId === par.id) {
+              par.children.push(menu);
+            }
+          });
+        });
+        resolve(parent);
       });
-    });*/
+    });
   }
 
   public find(id: number): Promise<IMenu> {
@@ -107,6 +92,14 @@ export default class MenuService {
   public retrieveNoPage(): Promise<any> {
     return new Promise<any>(resolve => {
       axios.get(`api/menus-no-page`).then(function (res) {
+        resolve(res);
+      });
+    });
+  }
+
+  public retrieveMenusRol(rol?: any): Promise<any> {
+    return new Promise<any>(resolve => {
+      axios.get(`api/menus-rol/${rol}`).then(function (res) {
         resolve(res);
       });
     });
