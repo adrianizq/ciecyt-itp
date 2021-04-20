@@ -58,7 +58,7 @@
             </b-navbar-nav>
 
 
-            <!-- Para rol Ciecyt-->
+            <!-- Para rol Ciecyt -->
              <b-navbar-nav class="ml-auto"   v-if="hasAnyAuthority('ROLE_CIECYT')">
                 <template v-for="menu in menusCiecyt">
                     <b-nav-item :to="menu.url" exact v-if="!menu.children.length">
@@ -73,19 +73,19 @@
                     <b-nav-item-dropdown align="left"
                         right
                         href="javascript:void(0);"
-                        :id="menusCiecyt.id.toString()"
-                        :class="{'router-link-active': subIsActive(menusCiecyt.url)}"
+                        :id="menu.id.toString()"
+                        :class="{'router-link-active': subIsActive(menu.url)}"
                         active-class="active"
                         class="pointer"
                        
                         v-else>
                     <span slot="button-content" class="navbar-dropdown-menu">
-                        <font-awesome-icon :icon="menusCiecyt.icono || 'asterisk'"/>
+                        <font-awesome-icon :icon="menu.icono || 'asterisk'"/>
                         <span>
-                            {{ menusCiecyt.nombre }}
+                            {{ menu.nombre }}
                         </span>
                     </span>
-                        <template v-for="submenu in menusCiecyt.children">
+                        <template v-for="submenu in menu.children">
                             <b-dropdown-item :to="submenu.url" tag="b-dropdown-item" v-if="isUrl(submenu.url)">
                                 <font-awesome-icon :icon="submenu.icono || 'asterisk'"/>
                                 <span>{{ submenu.nombre }}</span>
@@ -102,7 +102,7 @@
                 </template>
 
               
-            </b-navbar-nav>
+            </b-navbar-nav> 
             
             <!-- Para rol Jurado-->
              <b-navbar-nav class="ml-auto"   v-if="hasAnyAuthority('ROLE_JURADO')">
@@ -119,19 +119,19 @@
                     <b-nav-item-dropdown align="left"
                         right
                         href="javascript:void(0);"
-                        :id="menusJurado.id.toString()"
+                        :id="menu.id.toString()"
                         :class="{'router-link-active': subIsActive(menusJurado.url)}"
                         active-class="active"
                         class="pointer"
                        
                         v-else>
                     <span slot="button-content" class="navbar-dropdown-menu">
-                        <font-awesome-icon :icon="menusJurado.icono || 'asterisk'"/>
+                        <font-awesome-icon :icon="menu.icono || 'asterisk'"/>
                         <span>
-                            {{ menusJurado.nombre }}
+                            {{ menu.nombre }}
                         </span>
                     </span>
-                        <template v-for="submenu in menusJurado.children">
+                        <template v-for="submenu in menu.children">
                             <b-dropdown-item :to="submenu.url" tag="b-dropdown-item" v-if="isUrl(submenu.url)">
                                 <font-awesome-icon :icon="submenu.icono || 'asterisk'"/>
                                 <span>{{ submenu.nombre }}</span>
