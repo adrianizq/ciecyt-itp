@@ -101,6 +101,34 @@ export default class MenuService {
     });
   }
 
+  //////////////
+  public asesor(): Promise<MenuBar[]> {
+    return new Promise<MenuBar[]>(resolve => {
+      this.retrieveMenusRol('ASESOR').then(res => {
+        const menusAsesor: IMenu[] = res.data;
+        const parent: MenuBar[] = [];
+        menusAsesor.map(menusAsesor => {
+          if (!menusAsesor.menuPadreId) {
+            delete menusAsesor.menuPadreNombre;
+            const children: MenuChildren[] = [];
+            parent.push({
+              ...menusAsesor,
+            });
+          }
+        });
+        parent.map(par => {
+          par.children = [];
+          menusAsesor.map(menusAsesor => {
+            if (menusAsesor.menuPadreId === par.id) {
+              par.children.push(menusAsesor);
+            }
+          });
+        });
+        resolve(parent);
+      });
+    });
+  }
+
   public find(id: number): Promise<IMenu> {
     return new Promise<IMenu>(resolve => {
       axios.get(`${baseApiUrl}/${id}`).then(function (res) {

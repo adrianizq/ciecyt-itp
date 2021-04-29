@@ -149,6 +149,52 @@
 
               
             </b-navbar-nav>
+
+                        <!-- Para rol Asesor-->
+             <b-navbar-nav class="ml-auto"   v-if="hasAnyAuthority('ROLE_ASESOR')">
+                <template v-for="menu in menusAsesor">
+                    <b-nav-item :to="menu.url" exact v-if="!menu.children.length">
+                        <span>
+                            <font-awesome-icon :icon="menu.icono || 'asterisk'"/>
+                            <span>
+                                {{menu.nombre}}
+                            </span>
+                        </span>
+                    </b-nav-item>
+
+                    <b-nav-item-dropdown align="left"
+                        right
+                        href="javascript:void(0);"
+                        :id="menu.id.toString()"
+                        :class="{'router-link-active': subIsActive(menusAsesor.url)}"
+                        active-class="active"
+                        class="pointer"
+                       
+                        v-else>
+                    <span slot="button-content" class="navbar-dropdown-menu">
+                        <font-awesome-icon :icon="menu.icono || 'asterisk'"/>
+                        <span>
+                            {{ menu.nombre }}
+                        </span>
+                    </span>
+                        <template v-for="submenu in menu.children">
+                            <b-dropdown-item :to="submenu.url" tag="b-dropdown-item" v-if="isUrl(submenu.url)">
+                                <font-awesome-icon :icon="submenu.icono || 'asterisk'"/>
+                                <span>{{ submenu.nombre }}</span>
+                            </b-dropdown-item>
+
+                            <b-dropdown-item v-if="!isUrl(submenu.url)" @click="actionMenu(submenu.url)">
+                                <font-awesome-icon :icon="submenu.icono || 'asterisk'"/>
+                                <span>{{ submenu.nombre }}</span>
+                            </b-dropdown-item>
+                        </template>
+
+
+                    </b-nav-item-dropdown>
+                </template>
+
+              
+            </b-navbar-nav>
         </b-collapse>
     </b-navbar>
 </template>

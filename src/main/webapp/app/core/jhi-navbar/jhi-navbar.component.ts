@@ -25,6 +25,7 @@ export default class JhiNavbar extends Vue {
   public menus: MenuBar[] = [];
   public menusCiecyt: MenuBar[] = [];
   public menusJurado: MenuBar[] = [];
+  public menusAsesor: MenuBar[] = [];
 
   created() {
     this.menuService()
@@ -42,6 +43,12 @@ export default class JhiNavbar extends Vue {
       .jurado()
       .then(res => {
         this.menusJurado = res;
+      });
+
+    this.menuService()
+      .asesor()
+      .then(res => {
+        this.menusAsesor = res;
       });
 
     this.translationService().refreshTranslation(this.currentLanguage);
