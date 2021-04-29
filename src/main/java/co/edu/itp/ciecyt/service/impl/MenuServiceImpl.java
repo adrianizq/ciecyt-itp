@@ -92,6 +92,46 @@ public class MenuServiceImpl implements MenuService {
         return  listDTO;
     }
 
+    //////// traer de un string varios roles para ser buscados en los menus
+    @Override
+    @Transactional(readOnly = true)
+    public List<MenuDTO> findByRoles(String rol) throws Exception {
+        log.debug("Request to get all Menus");
+        List <Menu> listMenu = new ArrayList<>();
+        String[] array = new String[0];
+        try {
+            array = rol.split("\\s+");
+        } catch (Exception ex) {
+           log.debug("Error dividiendo la cadena " + ex.getMessage());
+        }
+        for (String s : array)
+        {
+            List <Menu> lMen = menuRepository.findByRolContainingOrderByOrden(s);
+            for (Menu m:lMen ){
+                if(!existeMenu(m,listMenu)) {
+                    listMenu.add(m);
+                }
+            }
+        }
+        List<MenuDTO> listDTO = new ArrayList<>();
+
+        for (Menu m :listMenu ) {
+            listDTO.add(menuMapper.toDto(m));
+        }
+        return  listDTO;
+    }
+
+    private boolean existeMenu(Menu lm,  List <Menu>  lista) {
+        boolean existe=false;
+        for (Menu menu :lista ) {
+           if (lm.getId()==menu.getId()){
+               existe=true;
+               break;
+           }
+        }
+        return existe;
+    }
+
     /**
      * Get one menu by id.
      *

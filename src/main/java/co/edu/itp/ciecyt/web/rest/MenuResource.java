@@ -154,6 +154,24 @@ public class MenuResource {
     }
 
 
+    //se trabaja con el rol como string pero enviando varios valores separados por espacios
+    //para los diferentes roles
+    @GetMapping("/menus-roles/{rol}")
+    public  ResponseEntity<?>  getMenusRoles(@PathVariable String rol) throws Exception {
+        log.debug("REST request to get a page of Menus");
+
+
+        try {
+            List<MenuDTO> menuDTOS = menuService.findByRoles(rol);
+
+            ResponseEntity<MenuDTO> responseEntity = new ResponseEntity(menuDTOS, HttpStatus.OK);
+            return responseEntity;
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
+
+
 
 
 	/**

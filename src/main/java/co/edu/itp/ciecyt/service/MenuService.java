@@ -5,6 +5,7 @@ import co.edu.itp.ciecyt.service.dto.MenuDTO;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -30,6 +31,10 @@ public interface MenuService {
      */
     Page<MenuDTO> findAll(Pageable pageable);
 
+
+    //////// traer de un string varios roles para ser buscados en los menus
+    @Transactional(readOnly = true)
+    List<MenuDTO> findByRoles(String rol) throws Exception;
 
     /**
      * Get the "id" menu.

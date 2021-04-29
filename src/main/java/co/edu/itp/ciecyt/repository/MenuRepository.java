@@ -55,6 +55,7 @@ public interface MenuRepository extends JpaRepository<Menu, Long> {
 	public List<Menu> buscarMenusUsuarioNoPage(Long idUser);
    // public List<Menu> findByRolOrderByOrden(String rol);
     public List<Menu> findByRolContainingOrderByOrden(String rol);
+
     public List <Menu> findAll();
 
 }
