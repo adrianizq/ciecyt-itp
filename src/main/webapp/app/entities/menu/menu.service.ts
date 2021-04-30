@@ -7,14 +7,6 @@ import { IMenu, MenuBar, MenuChildren } from '@/shared/model/menu.model';
 const baseApiUrl = 'api/menus';
 
 export default class MenuService {
-  /* public all(): Promise<MenuBar[]> {
-    return new Promise<MenuBar[]>(resolve => {
-      const paginationQuery = {
-        page: 0,
-        size: 100,
-        sort: ['id,asc'],
-      };*/
-
   public all(): Promise<MenuBar[]> {
     return new Promise<MenuBar[]>(resolve => {
       const paginationQuery = {
@@ -46,81 +38,26 @@ export default class MenuService {
       });
     });
   }
-  ///
-  public ciecyt(): Promise<MenuBar[]> {
+  //////////////////
+  public allRoles(rol?: any): Promise<MenuBar[]> {
     return new Promise<MenuBar[]>(resolve => {
-      this.retrieveMenusRol('CIECYT').then(res => {
-        const menusCiecyt: IMenu[] = res.data;
+      this.retrieveMenusRoles(rol).then(res => {
+        const menus: IMenu[] = res.data;
         const parent: MenuBar[] = [];
-        menusCiecyt.map(menusCiecyt => {
-          if (!menusCiecyt.menuPadreId) {
-            delete menusCiecyt.menuPadreNombre;
+        menus.map(menu => {
+          if (!menu.menuPadreId) {
+            delete menu.menuPadreNombre;
             const children: MenuChildren[] = [];
             parent.push({
-              ...menusCiecyt,
+              ...menu,
             });
           }
         });
         parent.map(par => {
           par.children = [];
-          menusCiecyt.map(menusCiecyt => {
-            if (menusCiecyt.menuPadreId === par.id) {
-              par.children.push(menusCiecyt);
-            }
-          });
-        });
-        resolve(parent);
-      });
-    });
-  }
-  //////////////
-  public jurado(): Promise<MenuBar[]> {
-    return new Promise<MenuBar[]>(resolve => {
-      this.retrieveMenusRol('JURADO').then(res => {
-        const menusJurado: IMenu[] = res.data;
-        const parent: MenuBar[] = [];
-        menusJurado.map(menuJurado => {
-          if (!menuJurado.menuPadreId) {
-            delete menuJurado.menuPadreNombre;
-            const children: MenuChildren[] = [];
-            parent.push({
-              ...menuJurado,
-            });
-          }
-        });
-        parent.map(par => {
-          par.children = [];
-          menusJurado.map(menuJurado => {
-            if (menuJurado.menuPadreId === par.id) {
-              par.children.push(menuJurado);
-            }
-          });
-        });
-        resolve(parent);
-      });
-    });
-  }
-
-  //////////////
-  public asesor(): Promise<MenuBar[]> {
-    return new Promise<MenuBar[]>(resolve => {
-      this.retrieveMenusRol('ASESOR').then(res => {
-        const menusAsesor: IMenu[] = res.data;
-        const parent: MenuBar[] = [];
-        menusAsesor.map(menusAsesor => {
-          if (!menusAsesor.menuPadreId) {
-            delete menusAsesor.menuPadreNombre;
-            const children: MenuChildren[] = [];
-            parent.push({
-              ...menusAsesor,
-            });
-          }
-        });
-        parent.map(par => {
-          par.children = [];
-          menusAsesor.map(menusAsesor => {
-            if (menusAsesor.menuPadreId === par.id) {
-              par.children.push(menusAsesor);
+          menus.map(menu => {
+            if (menu.menuPadreId === par.id) {
+              par.children.push(menu);
             }
           });
         });
@@ -155,6 +92,16 @@ export default class MenuService {
   public retrieveMenusRol(rol?: any): Promise<any> {
     return new Promise<any>(resolve => {
       axios.get(`api/menus-rol/${rol}`).then(function (res) {
+        resolve(res);
+      });
+    });
+  }
+  //retorna los menus con los roles que se le pasa en rol
+  //estos roles estan separados con espacios
+  //en MenuRes
+  public retrieveMenusRoles(rol?: any): Promise<any> {
+    return new Promise<any>(resolve => {
+      axios.get(`api/menus-roles/${rol}`).then(function (res) {
         resolve(res);
       });
     });

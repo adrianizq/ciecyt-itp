@@ -23,32 +23,53 @@ export default class JhiNavbar extends Vue {
   private currentLanguage = this.$store.getters.currentLanguage;
   private languages: any = this.$store.getters.languages;
   public menus: MenuBar[] = [];
-  public menusCiecyt: MenuBar[] = [];
-  public menusJurado: MenuBar[] = [];
-  public menusAsesor: MenuBar[] = [];
+  public menusTodos: MenuBar[] = [];
+  public roles: any = '';
 
-  created() {
-    this.menuService()
+  /*beforeCreate() {
+    
+    
+  }*/
+  async created() {
+    await this.menuService()
+      //trae todos los menus pero se usa porque sino no encuntra las autoridades
       .all()
       .then(res => {
+        this.menusTodos = res;
+        if (this.hasAnyAuthority('ROLE_ADMIN')) {
+          this.roles += 'ADMIN,';
+        }
+        if (this.hasAnyAuthority('ROLE_CIECYT')) {
+          this.roles += 'CIECYT,';
+        }
+        if (this.hasAnyAuthority('ROLE_JURADO')) {
+          this.roles += 'JURADO,';
+        }
+        if (this.hasAnyAuthority('ROLE_ASESOR')) {
+          this.roles += 'ASESOR,';
+        }
+        if (this.hasAnyAuthority('ROLE_VIABILIDAD')) {
+          this.roles += 'VIABILIDAD,';
+        }
+        if (this.hasAnyAuthority('ROLE_ESTUDIANTE')) {
+          this.roles += 'ESTUDIANTE,';
+        }
+
+        //this.roles = this.roles.trim();
+        /* if(this.roles=""){
+         this.roles="ANONYMOUS"
+       }*/
+        //this.roles=
+        console.log(this.roles);
+      });
+
+    await this.menuService()
+      //trae todos los menus pero se usa porque sino no encuntra las autoridades
+      .allRoles(this.roles)
+      .then(res => {
         this.menus = res;
-      });
-    this.menuService()
-      .ciecyt()
-      .then(res => {
-        this.menusCiecyt = res;
-      });
 
-    this.menuService()
-      .jurado()
-      .then(res => {
-        this.menusJurado = res;
-      });
-
-    this.menuService()
-      .asesor()
-      .then(res => {
-        this.menusAsesor = res;
+        console.log(this.menus);
       });
 
     this.translationService().refreshTranslation(this.currentLanguage);

@@ -100,7 +100,7 @@ public class MenuServiceImpl implements MenuService {
         List <Menu> listMenu = new ArrayList<>();
         String[] array = new String[0];
         try {
-            array = rol.split("\\s+");
+            array = rol.split(",");
         } catch (Exception ex) {
            log.debug("Error dividiendo la cadena " + ex.getMessage());
         }
