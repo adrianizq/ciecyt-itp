@@ -93,6 +93,7 @@ public class CacheConfiguration {
             createCache(cm, co.edu.itp.ciecyt.domain.UserInfo.class.getName());
             createCache(cm, co.edu.itp.ciecyt.domain.PreguntaModalidad.class.getName());
             createCache(cm, co.edu.itp.ciecyt.domain.PreguntaAuthority.class.getName());
+            createCache(cm, co.edu.itp.ciecyt.domain.ElementoModalidad.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }
