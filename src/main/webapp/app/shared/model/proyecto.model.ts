@@ -37,6 +37,7 @@ export interface IProyecto {
   fechaEnvioPropuesta?: Date;
   fechaEnvioProyecto?: Date;
   recomendaciones?: string;
+  //comentario
 }
 
 export class Proyecto implements IProyecto {
