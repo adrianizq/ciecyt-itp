@@ -22,6 +22,10 @@ public interface ElementoService {
      */
     ElementoDTO save(ElementoDTO elementoDTO);
 
+    ////////////////////////////////////////////////////////////////////////
+    @Transactional(readOnly = false)
+    ElementoDTO saveModalidad(ElementoDTO elementoDTO);
+
     /**
      * Get all the elementos.
      *

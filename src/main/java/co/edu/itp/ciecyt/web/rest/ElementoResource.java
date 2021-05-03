@@ -58,7 +58,8 @@ public class ElementoResource {
         if (elementoDTO.getId() != null) {
             throw new BadRequestAlertException("A new elemento cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        ElementoDTO result = elementoService.save(elementoDTO);
+        //ElementoDTO result = elementoService.save(elementoDTO);
+        ElementoDTO result = elementoService.saveModalidad(elementoDTO);
         return ResponseEntity.created(new URI("/api/elementos/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -79,7 +80,8 @@ public class ElementoResource {
         if (elementoDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        ElementoDTO result = elementoService.save(elementoDTO);
+        //ElementoDTO result = elementoService.save(elementoDTO);
+        ElementoDTO result = elementoService.saveModalidad(elementoDTO);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, elementoDTO.getId().toString()))
             .body(result);

@@ -77,6 +77,8 @@ import ProgramaService from '@/entities/programa/programa.service';
 //Complement model select
 import 'vue-search-select/dist/VueSearchSelect.css';
 import PreguntaModalidadService from '@/entities/pregunta-modalidad/pregunta-modalidad.service';
+import ElementoModalidadService from '@/entities/elemento-modalidad/elemento-modalidad.service';
+
 import PreguntaAuthorityService from '@/entities/pregunta-authority/pregunta-authority.service';
 
 Vue.config.productionTip = false;
@@ -179,6 +181,7 @@ new Vue({
     rolMenuService: () => new RolMenuService(),
     investigacionTipoService: () => new InvestigacionTipoService(),
     preguntaModalidadService: () => new PreguntaModalidadService(),
+    elementoModalidadService: () => new ElementoModalidadService(),
     preguntaAuthorityService: () => new PreguntaAuthorityService(),
 
     programaService: () => new ProgramaService(),

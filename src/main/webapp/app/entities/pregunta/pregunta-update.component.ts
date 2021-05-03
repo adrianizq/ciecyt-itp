@@ -111,7 +111,7 @@ export default class PreguntaUpdate extends Vue {
     this.isSaving = true;
 
     //console.log(this.pregunta.elementoId); //si reporta
-
+    //1
     if (this.pregunta.preguntaElementoId) {
       this.elements.forEach(item => {
         if (item.id == this.pregunta.preguntaElementoId) {
@@ -121,7 +121,7 @@ export default class PreguntaUpdate extends Vue {
       });
     }
 
-    //
+    //2
     if (this.pregunta.preguntaFaseId) {
       this.fass.forEach(item => {
         if (item.id == this.pregunta.preguntaFaseId) {
@@ -130,7 +130,7 @@ export default class PreguntaUpdate extends Vue {
         }
       });
     }
-
+    //3
     this.pregunta.preguntaModalidads = [];
     this.modalidadesAsignadas.forEach(element => {
       var pr: IPreguntaModalidad = new PreguntaModalidad();
@@ -139,7 +139,7 @@ export default class PreguntaUpdate extends Vue {
       this.pregunta.preguntaModalidads.push(pr);
       // console.log(this.pregunta.preguntaModalidads);
     });
-
+    //4
     this.pregunta.authorities = [];
     this.authoritiesAsignadas.forEach(element => {
       var pr: IPreguntaAuthority = new PreguntaAuthority();

@@ -11,9 +11,14 @@ import { IFormato } from '@/shared/model/formato.model';
 import FasesService from '../fases/fases.service';
 import { IFases } from '@/shared/model/fases.model';
 
+import ModalidadService from '../modalidad/modalidad.service';
+import { IElementoModalidad, ElementoModalidad } from '@/shared/model/elemento-modalidad.model';
+import ElementoModalidadService from '@/entities/elemento-modalidad/elemento-modalidad.service';
+
 import AlertService from '@/shared/alert/alert.service';
 import { IElemento, Elemento } from '@/shared/model/elemento.model';
 import ElementoService from './elemento.service';
+import { IModalidad } from '@/shared/model/modalidad.model';
 
 const validations: any = {
   elemento: {
@@ -28,7 +33,15 @@ const validations: any = {
 export default class ElementoUpdate extends Vue {
   @Inject('alertService') private alertService: () => AlertService;
   @Inject('elementoService') private elementoService: () => ElementoService;
+  @Inject('elementoModalidadService') private elementoModalidadService: () => ElementoModalidadService;
+  @Inject('modalidadService') private modalidadService: () => ModalidadService;
+
+  public modalidads: IModalidad[] = [];
+
   public elemento: IElemento = new Elemento();
+  public elementosModalidsElementoId: IElementoModalidad[] = [];
+
+  public elementoId: any = null;
 
   @Inject('formatoService') private formatoService: () => FormatoService;
 
@@ -39,19 +52,50 @@ export default class ElementoUpdate extends Vue {
 
   public fases: IFases[] = [];
   public isSaving = false;
+  public modalidadesAsignadas: IModalidad[] = [];
+
+  public constructor() {
+    super();
+    this.elemento = new Elemento();
+    this.elemento.elementoModalidads = [];
+  }
+
   //  public modalidads: IModalidad[] = [];
 
   beforeRouteEnter(to, from, next) {
     next(vm => {
-      if (to.params.elementoId) {
-        vm.retrieveElemento(to.params.elementoId);
-      }
-      vm.initRelationships();
+      // if (to.params.elementoId) {
+      //  this.elementoId=to.params.elementoId;
+      vm.initRelationships(to.params.elementoId);
+      // }
     });
   }
 
   public save(): void {
     this.isSaving = true;
+
+    //1 No (basado en pregunta-update.component.ts)
+    //2
+    if (this.elemento.elementoFasesId) {
+      this.fases.forEach(item => {
+        if (item.id == this.elemento.elementoFasesId) {
+          //this.elemento = item;
+          this.elemento.elementoFasesFase = item.fase;
+        }
+      });
+    }
+    //3
+    this.elemento.elementoModalidads = [];
+    this.modalidadesAsignadas.forEach(element => {
+      var pr: IElementoModalidad = new ElementoModalidad();
+      pr.elementoId = this.elementoId;
+      pr.modalidadId = element.id;
+      this.elemento.elementoModalidads.push(pr);
+      // console.log(this.pregunta.preguntaModalidads);
+    });
+
+    //4 No
+
     if (this.elemento.id) {
       this.elementoService()
         .update(this.elemento)
@@ -73,20 +117,21 @@ export default class ElementoUpdate extends Vue {
     }
   }
 
-  public retrieveElemento(elementoId): void {
-    this.elementoService()
-      .find(elementoId)
-      .then(res => {
-        this.elemento = res;
-      });
-  }
-
   public previousState(): void {
     this.$router.go(-1);
   }
 
-  public initRelationships(): void {
-    this.formatoService()
+  async initRelationships(elementoId) {
+    if (elementoId) {
+      let res = await this.elementoService()
+        .find(elementoId)
+        .then(res => {
+          this.elemento = res;
+          this.elementoId = res.id;
+        });
+    }
+
+    let res = await this.formatoService()
       .retrieve()
       .then(res => {
         this.formatoes = res.data;
@@ -96,10 +141,20 @@ export default class ElementoUpdate extends Vue {
       .then(res => {
         this.fases = res.data;
       });
-    /*this.modalidadService()
+
+    res = await this.modalidadService()
       .retrieve()
       .then(res => {
         this.modalidads = res.data;
-      });*/
+      });
+
+    if (this.elementoId) {
+      res = await this.elementoModalidadService()
+        .retrieveModalidadElemento(parseInt(this.elementoId))
+        .then(res => {
+          this.modalidadesAsignadas = res.data;
+          console.log('modAsig!' + this.modalidadesAsignadas);
+        });
+    }
   }
 }

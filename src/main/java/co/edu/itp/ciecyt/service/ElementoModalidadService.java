@@ -1,6 +1,8 @@
 package co.edu.itp.ciecyt.service;
 
 import co.edu.itp.ciecyt.service.dto.ElementoModalidadDTO;
+import co.edu.itp.ciecyt.service.dto.ModalidadDTO;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -40,4 +42,10 @@ public interface ElementoModalidadService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+    @Transactional(readOnly = true)
+    List<ElementoModalidadDTO> findByModalidadId(Long idModalidad);
+
+    @Transactional(readOnly = true)
+    List<ModalidadDTO> findByElementoId(Long idElemento);
 }

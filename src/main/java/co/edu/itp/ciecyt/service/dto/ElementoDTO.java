@@ -1,12 +1,13 @@
 package co.edu.itp.ciecyt.service.dto;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * A DTO for the {@link co.edu.itp.ciecyt.domain.Elemento} entity.
  */
 public class ElementoDTO implements Serializable {
-    
+
     private Long id;
 
     private String elemento;
@@ -21,7 +22,18 @@ public class ElementoDTO implements Serializable {
     private Long elementoFasesId;
 
     private String elementoFasesFase;
-    
+
+    private List<ElementoModalidadDTO> elementoModalidads;
+
+    public List<ElementoModalidadDTO> getElementoModalidads() {
+        return elementoModalidads;
+    }
+
+    public void setElementoModalidads(List<ElementoModalidadDTO> elementoModalidads) {
+        this.elementoModalidads = elementoModalidads;
+    }
+
+
     public Long getId() {
         return id;
     }

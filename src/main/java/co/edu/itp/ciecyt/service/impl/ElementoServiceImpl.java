@@ -1,10 +1,12 @@
 package co.edu.itp.ciecyt.service.impl;
 
+import co.edu.itp.ciecyt.domain.*;
+import co.edu.itp.ciecyt.repository.ElementoModalidadRepository;
 import co.edu.itp.ciecyt.service.ElementoService;
-import co.edu.itp.ciecyt.domain.Elemento;
 import co.edu.itp.ciecyt.repository.ElementoRepository;
-import co.edu.itp.ciecyt.service.dto.ElementoDTO;
+import co.edu.itp.ciecyt.service.dto.*;
 import co.edu.itp.ciecyt.service.mapper.ElementoMapper;
+import co.edu.itp.ciecyt.service.mapper.ElementoModalidadMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,12 +29,16 @@ public class ElementoServiceImpl implements ElementoService {
     private final Logger log = LoggerFactory.getLogger(ElementoServiceImpl.class);
 
     private final ElementoRepository elementoRepository;
+    private final ElementoModalidadRepository elementoModalidadRepository;
 
     private final ElementoMapper elementoMapper;
+    private final ElementoModalidadMapper elementoModalidadMapper;
 
-    public ElementoServiceImpl(ElementoRepository elementoRepository, ElementoMapper elementoMapper) {
+    public ElementoServiceImpl(ElementoRepository elementoRepository, ElementoModalidadRepository elementoModalidadRepository, ElementoMapper elementoMapper, ElementoModalidadMapper elementoModalidadMapper) {
         this.elementoRepository = elementoRepository;
+        this.elementoModalidadRepository = elementoModalidadRepository;
         this.elementoMapper = elementoMapper;
+        this.elementoModalidadMapper = elementoModalidadMapper;
     }
 
     /**
@@ -48,6 +54,35 @@ public class ElementoServiceImpl implements ElementoService {
         elemento = elementoRepository.save(elemento);
         return elementoMapper.toDto(elemento);
     }
+
+    ////////////////////////////////////////////////////////////////////////
+    @Override
+    @Transactional(readOnly = false)
+    public ElementoDTO saveModalidad(ElementoDTO elementoDTO) {
+        log.debug("Request to save Elemento : {}", elementoDTO);
+        Elemento elemento = elementoMapper.toEntity(elementoDTO);
+        elementoRepository.save(elemento);
+
+        //Guardar las modalidades
+        List <ElementoModalidad> pmL = elementoModalidadRepository.findByElementoId(elemento.getId());
+        List <ElementoModalidadDTO> lpmDto= new ArrayList<>();
+        //lpmDto = preguntaDTO.getPreguntaModalidads();
+        lpmDto = elementoDTO.getElementoModalidads();
+        for(ElementoModalidad pm: pmL){
+            elementoModalidadRepository.delete(pm);
+        }
+        pmL = elementoModalidadRepository.findByElementoId(elemento.getId());
+        for (ElementoModalidadDTO pmDto: lpmDto){
+            pmDto.setElementoId(elemento.getId());
+            ElementoModalidad pm = elementoModalidadMapper.toEntity(pmDto);
+            elementoModalidadRepository.save(pm);
+        }
+
+
+        return elementoMapper.toDto(elemento);
+    }
+
+    /////////////////////////////////////////////////////////////////////
 
     /**
      * Get all the elementos.

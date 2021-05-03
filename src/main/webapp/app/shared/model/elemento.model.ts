@@ -1,3 +1,5 @@
+import { IElementoModalidad } from './elemento-modalidad.model';
+
 export interface IElemento {
   id?: number;
   elemento?: string;
@@ -6,6 +8,7 @@ export interface IElemento {
   elementoFormatoId?: number;
   elementoFasesFase?: string;
   elementoFasesId?: number;
+  elementoModalidads?: IElementoModalidad[];
   modalidadId?: number;
 }
 
