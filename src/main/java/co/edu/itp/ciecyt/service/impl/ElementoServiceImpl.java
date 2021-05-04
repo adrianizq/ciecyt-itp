@@ -145,6 +145,12 @@ public class ElementoServiceImpl implements ElementoService {
     @Override
     public void delete(Long id) {
         log.debug("Request to delete Elemento : {}", id);
+        //borrar las Modalidades asociadas al elemento
+        List <ElementoModalidad> pmL = elementoModalidadRepository.findByElementoId(id);
+        for(ElementoModalidad pm: pmL){
+            elementoModalidadRepository.delete(pm);
+        }
+        //borrar el elemento
         elementoRepository.deleteById(id);
     }
 

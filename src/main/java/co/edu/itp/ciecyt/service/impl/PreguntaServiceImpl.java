@@ -138,6 +138,17 @@ public class PreguntaServiceImpl implements PreguntaService {
     @Override
     public void delete(Long id) {
         log.debug("Request to delete Pregunta : {}", id);
+        //borrar las Authorities asociadas a la pregunta
+        List <PreguntaAuthority> paL = preguntaAuthorityRepository.findByPregunta3Id(id);
+        for(PreguntaAuthority pa: paL){
+            preguntaAuthorityRepository.delete(pa);
+        }
+        //borrar las Modalidades asociadas a la pregunta
+        List <PreguntaModalidad> pmL = preguntaModalidadRepository.findByPreguntaId(id);
+        for(PreguntaModalidad pm: pmL){
+            preguntaModalidadRepository.delete(pm);
+        }
+        //por ultimo borrar la pregunta
         preguntaRepository.deleteById(id);
     }
 //OK
