@@ -64,7 +64,7 @@ export default class PreguntaUpdate extends Vue {
   //public elementoModalidads: IElementoModalidad[] = [];
 
   public authorities: any[] = [];
-  public existeElemento: boolean;
+  public existeElemento: boolean = false;
 
   @Inject('fasesService') private fasesService: () => FasesService;
 
@@ -211,9 +211,10 @@ export default class PreguntaUpdate extends Vue {
           //this.elementoModalidads = res.data;
           this.modalidadesAsignadas = res.data;
         });
+    } else {
       this.existeElemento = false;
     }
-    //console.log(this.elementoModalidads);
+    console.log(this.existeElemento);
   }
 
   get Fases() {
