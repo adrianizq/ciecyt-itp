@@ -8,6 +8,9 @@ import { ITipoPregunta } from '@/shared/model/tipo-pregunta.model';
 import ModalidadService from '../modalidad/modalidad.service';
 import { IModalidad } from '@/shared/model/modalidad.model';
 
+import ElementoModalidadService from '../elemento-modalidad/elemento-modalidad.service';
+import { IElementoModalidad } from '@/shared/model/elemento-modalidad.model';
+
 import FasesService from '../fases/fases.service';
 import { IFases } from '@/shared/model/fases.model';
 
@@ -54,8 +57,11 @@ export default class PreguntaUpdate extends Vue {
   public tipoPreguntas: ITipoPregunta[] = [];
 
   @Inject('modalidadService') private modalidadService: () => ModalidadService;
+  @Inject('elementoModalidadService') private elementoModalidadService: () => ElementoModalidadService;
 
   public modalidads: IModalidad[] = [];
+
+  //public elementoModalidads: IElementoModalidad[] = [];
 
   public authorities: any[] = [];
 
@@ -191,20 +197,21 @@ export default class PreguntaUpdate extends Vue {
         return;
       }
     });
-
-    //console.log(this.tipoNota);
-    console.log(event.target.value);
+    //console.log(event.target.value);
   }
 
-  /*get Elementos() {
-    return this.elements;
- }*/
-
-  /* get Fases() {
-    return this.fass.filter(fase => {
-      return fase.fasesModalidadId == this.pregunta.preguntaModalidadId;
-    });
-  }*/
+  setModalidades(event) {
+    var seleccionadaId = event;
+    if (seleccionadaId) {
+      let res = this.elementoModalidadService()
+        .retrieveModalidadElemento(seleccionadaId)
+        .then(res => {
+          //this.elementoModalidads = res.data;
+          this.modalidadesAsignadas = res.data;
+        });
+    }
+    //console.log(this.elementoModalidads);
+  }
 
   get Fases() {
     return this.fass;

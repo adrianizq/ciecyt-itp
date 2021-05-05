@@ -32,11 +32,34 @@
                             <option v-bind:value="tipoPreguntaOption.id" v-for="tipoPreguntaOption in tipoPreguntas" :key="tipoPreguntaOption.id">{{tipoPreguntaOption.tipoPregunta}}</option>
                         </select>
                     </div>
+                    <!--Puntaje MAx-->
                     <div class="form-group" v-if="tipoNota">
                         <label class="form-control-label" v-text="$t('ciecytApp.pregunta.puntajeMaximo')" for="pregunta-puntaje-maximo">Puntaje Máximo</label>
                         <input type="text" class="form-control" name="puntaje-maximo" id="pregunta-puntaje-maximo"
                             :class="{'valid': !$v.pregunta.puntajeMaximo.$invalid, 'invalid': $v.pregunta.pregunta.$invalid }" v-model="$v.pregunta.puntajeMaximo.$model" />
                     </div>
+                    <!---Elemento------------------------------------------>
+                 <div class="col-md-6 col-12">
+                      <div class="form-group" >
+                            <label class="form-control-label "  for="pregunta-elemento">Elemento</label> 
+                            <b-form-select text-field="pregunta-elemento" value-field="id" id="elemento"
+                            v-model="pregunta.preguntaElementoId"  @change="setModalidades($event)"
+                            
+                             >
+                              <option v-bind:value="null"></option>
+                                <option v-for="(selectOption, indexOpt) in Elementos"
+                                        :key="indexOpt"
+                                        :value="selectOption.id"
+                                >
+                                    ({{ selectOption.id }}) {{ selectOption.elemento }}
+                                </option>
+                            </b-form-select>
+                            
+                        </div>
+                    </div>
+                    
+                    
+                    <!--Modalidad-->
                     <div class="form-group">
                         <label class="form-control-label" v-bind:value="$t('ciecytApp.pregunta.preguntaModalidad')" for="pregunta-preguntaModalidad">Modalidad</label>
                          <select class="form-control" multiple name="modalidad"  v-model="modalidadesAsignadas" >
@@ -80,25 +103,7 @@
                 </div>
 
 
-                <!--------------------------------------------->
-                 <div class="col-md-6 col-12">
-                      <div class="form-group" >
-                            <label class="form-control-label "  for="pregunta-elemento">Elemento</label> 
-                            <b-form-select text-field="pregunta-elemento" value-field="id" id="elemento"
-                            v-model="pregunta.preguntaElementoId"
-                            
-                             >
-                                <option v-for="(selectOption, indexOpt) in Elementos"
-                                        :key="indexOpt"
-                                        :value="selectOption.id"
-                                >
-                                    ({{ selectOption.id }}) {{ selectOption.elemento }}
-                                </option>
-                            </b-form-select>
-                            
-                        </div>
-                    </div>
-
+                
                     
                 <!--------------------------------------------->
                 <div>
