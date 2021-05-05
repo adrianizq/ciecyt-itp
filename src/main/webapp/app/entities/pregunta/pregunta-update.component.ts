@@ -64,6 +64,7 @@ export default class PreguntaUpdate extends Vue {
   //public elementoModalidads: IElementoModalidad[] = [];
 
   public authorities: any[] = [];
+  public existeElemento: boolean;
 
   @Inject('fasesService') private fasesService: () => FasesService;
 
@@ -203,12 +204,14 @@ export default class PreguntaUpdate extends Vue {
   setModalidades(event) {
     var seleccionadaId = event;
     if (seleccionadaId) {
+      this.existeElemento = true;
       let res = this.elementoModalidadService()
         .retrieveModalidadElemento(seleccionadaId)
         .then(res => {
           //this.elementoModalidads = res.data;
           this.modalidadesAsignadas = res.data;
         });
+      this.existeElemento = false;
     }
     //console.log(this.elementoModalidads);
   }
@@ -229,6 +232,12 @@ export default class PreguntaUpdate extends Vue {
         .then(res => {
           this.pregunta = res;
           this.preguntaId = res.id;
+          if (res.preguntaElementoId != null) {
+            this.existeElemento = true;
+          } else {
+            this.existeElemento = false;
+          }
+          console.log(this.existeElemento);
         });
     }
     let res = await this.tipoPreguntaService()

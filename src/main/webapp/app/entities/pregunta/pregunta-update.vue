@@ -38,6 +38,22 @@
                         <input type="text" class="form-control" name="puntaje-maximo" id="pregunta-puntaje-maximo"
                             :class="{'valid': !$v.pregunta.puntajeMaximo.$invalid, 'invalid': $v.pregunta.pregunta.$invalid }" v-model="$v.pregunta.puntajeMaximo.$model" />
                     </div>
+                    <!-- fases -->
+                      <div class="form-group">
+                        <label class="form-control-label" v-bind:value="$t('ciecytApp.pregunta.preguntaFase')" for="pregunta-preguntaFase">Fase</label>
+                       
+                        <b-form-select text-field="pregunta-fase" value-field="id" id="fase"
+                            v-model="pregunta.preguntaFaseId"
+                            
+                             >
+                            <option v-for="(selectOption, indexOpt) in Fases"
+                                        :key="indexOpt"
+                                        :value="selectOption.id"
+                                >
+                                    ({{ selectOption.id }}) {{ selectOption.fase }}
+                                </option>
+                        </b-form-select>
+                    </div>
                     <!---Elemento------------------------------------------>
                  <div class="col-md-6 col-12">
                       <div class="form-group" >
@@ -62,7 +78,8 @@
                     <!--Modalidad-->
                     <div class="form-group">
                         <label class="form-control-label" v-bind:value="$t('ciecytApp.pregunta.preguntaModalidad')" for="pregunta-preguntaModalidad">Modalidad</label>
-                         <select class="form-control" multiple name="modalidad"  v-model="modalidadesAsignadas" >
+                         <select class="form-control" multiple name="modalidad"  
+                         v-model="modalidadesAsignadas" :disabled="existeElemento">
                              <option v-for="modalidad of modalidads" 
                              :value="modalidad"
                              >
@@ -84,22 +101,7 @@
                         </select>
                     </div>
         
-<!-- fases -->
-                      <div class="form-group">
-                        <label class="form-control-label" v-bind:value="$t('ciecytApp.pregunta.preguntaFase')" for="pregunta-preguntaFase">Fase</label>
-                       
-                        <b-form-select text-field="pregunta-fase" value-field="id" id="fase"
-                            v-model="pregunta.preguntaFaseId"
-                            
-                             >
-                            <option v-for="(selectOption, indexOpt) in Fases"
-                                        :key="indexOpt"
-                                        :value="selectOption.id"
-                                >
-                                    ({{ selectOption.id }}) {{ selectOption.fase }}
-                                </option>
-                        </b-form-select>
-                    </div>
+                    
                 </div>
 
 
