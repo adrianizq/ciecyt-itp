@@ -199,7 +199,7 @@ export default class PropuestaEvaluar extends Vue {
     public enumRespuestas: EnumRespuestas;
 
     public isSaving = false;
-    public proyectoRespuestasDatos: boolean;
+    public proyectoRespuestasDatos: boolean = false;
     public  authority: any="ROLE_VIABILIDAD";
     public mounted(): void {
     }
