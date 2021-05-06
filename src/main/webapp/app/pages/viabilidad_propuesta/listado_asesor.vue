@@ -27,7 +27,10 @@
                 <tr>
                     <th v-on:click="changeOrder('id')"><span v-text="$t('global.field.id')">ID</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th v-on:click="changeOrder('titulo')"><span v-text="$t('ciecytApp.proyecto.titulo')">Titulo</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
-                    <th v-on:click="changeOrder('tipo')"><span v-text="$t('ciecytApp.proyecto.tipo')">Tipo</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
+                    <th v-on:click="changeOrder('modalidad')">
+                <span v-text="$t('ciecytApp.proyecto.modalidad')">Modalidad</span> <font-awesome-icon icon="sort"></font-awesome-icon>
+              </th>
+                    
                     <th></th>
                 </tr>
                 </thead>
@@ -40,7 +43,7 @@
                     </td>
 
                     <td>{{proyecto.titulo}}</td>
-                    <td>{{proyecto.tipo}}</td>
+                    <td>{{proyecto.proyectoModalidadModalidad}}</td>
                    
                 
                     

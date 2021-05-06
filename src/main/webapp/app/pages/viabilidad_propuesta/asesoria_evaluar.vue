@@ -196,7 +196,7 @@ export default class PropuestaEvaluar extends Vue {
 
     public isSaving = false;
     public proyectoRespuestasDatos: boolean;
-    public  authority: any="ROLE_VIABILIDAD";
+    public  authority: any="ROLE_ASESOR";
     public mounted(): void {
     }
 

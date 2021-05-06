@@ -217,9 +217,10 @@ export default class PropuestaEvaluar extends Vue {
                 //this.enumRespuestas.
                 this.isSaving = true;
                 for (let e of this.proyectoRespuests) {
-                    if (e.id) {
-                        e.faseId=this.fase.id;
+                       e.faseId=this.fase.id;
                         e.authority=this.authority;
+                    if (e.id) {
+                        
                         this.proyectoRespuestasService().update(e)
                         .then(param => {
                             //this.$router.push({ name: 'PropuestaPresupuestoView',params:{ proyectoId: this.proyId}});
