@@ -1,6 +1,9 @@
 package co.edu.itp.ciecyt.service.dto;
 
+import co.edu.itp.ciecyt.domain.ProyectoRespuestas;
 import co.edu.itp.ciecyt.domain.enumeration.EnumRespuestas;
+
+import javax.persistence.Column;
 import java.io.Serializable;
 
 /**
@@ -45,6 +48,9 @@ public class ProyectoRespuestasDTO implements Serializable {
     private Long faseId;
 
     private String authority;
+
+    private Integer puntajeMaximo;
+
 
     public Long getId() {
         return id;
@@ -196,6 +202,14 @@ public class ProyectoRespuestasDTO implements Serializable {
 
     public void setAuthority(String authority) {
         this.authority = authority;
+    }
+
+    public Integer getPuntajeMaximo() {
+        return puntajeMaximo;
+    }
+
+    public void setPuntajeMaximo(Integer puntajeMaximo) {
+        this.puntajeMaximo = puntajeMaximo;
     }
 
     @Override

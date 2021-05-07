@@ -8,7 +8,7 @@
                    
                   
               <table> 
-               <tr><td><h2>Envío de la Propuesta - Asesor</h2></td></tr>
+               <tr><td><h2>Envío de la Propuesta por el Asesor</h2></td></tr>
                <tr><td>Título: {{proyecto.titulo}} </td></tr>
                <tr><td>Programa: {{proyecto.programa}} </td></tr>
                 <tr><td> &nbsp; </td></tr>
@@ -213,6 +213,8 @@ export default class PropuestaEvaluar extends Vue {
                 //this.enumRespuestas.
                 this.isSaving = true;
                 for (let e of this.proyectoRespuests) {
+                    e.faseId=this.fase.id;
+                    e.authority=this.authority;
                     if (e.id) {
                      // if (e.proyectoRespuestasProyectoId==this.proyId) {
                         this.proyectoRespuestasService().update(e)

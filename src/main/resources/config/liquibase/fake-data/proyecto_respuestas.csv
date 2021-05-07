@@ -1,11 +1,11 @@
-id;respuesta;observaciones;viable;puntaje;si_no;elemento;pregunta_tipo_pregunta_id;pregunta_tipo_pregunta_tipo_pregunta;encabezado;dato;respuesta_texto;respuesta_numero;fase_id;authority
-1;NO_APLICA;withdrawal;false;76069;false;invoice Refined;86146;AGP Accounts JSON;Generic Granite Cheese collaboration;Metrics;Granite Martinique Open-architected;9348;64328;holistic
-2;SI;Virtual;true;13865;true;transmitter Wisconsin ivory;2238;deposit Checking Account;overriding parsing Garden;Berkshire frictionless Lithuanian Litas;Rubber;736;2071;Metal Pines synergies
-3;NO_APLICA;salmon Pike;true;68166;true;Handcrafted Steel;73386;Intuitive open-source systems;Regional Ergonomic Rubber Hat;SSL Clothing;capacitor Borders;63217;68276;multi-tasking compress
-4;SI;Direct Planner;true;11659;false;Avon;31744;projection;Towels Phased;deposit;Cotton azure;43863;68068;Handmade Plastic Norfolk Island
-5;NO;Re-engineered Books Road;true;11063;false;Ergonomic Rubber Soap;22971;drive AGP Kuwait;Fish killer;Jewelery;Australian Dollar;28842;24219;teal Bedfordshire website
-6;CUMPLE;payment Toys;true;5017;false;Credit Card Account Engineer;79414;alarm invoice;Unbranded;Bulgarian Lev Analyst;Way cross-platform;47038;55391;Quetzal paradigm synergies
-7;CUMPLE;Sleek Concrete tan;false;90222;true;Gloves;51792;transmit;generate withdrawal Customer;Handmade Steel Chicken Home Loan Account middleware;Web capacity magenta;51764;61513;Granite redundant
-8;CUMPLE;Oregon microchip incentivize;false;38411;true;Junctions orchid;70925;Turkish Lira;Branding;Practical Congo;Grocery relationships Chicken;46132;80091;Solutions
-9;NO_APLICA;Devolved back up;true;72140;false;array;82553;calculate Borders e-business;black monitor Automated;silver cutting-edge;Berkshire payment;93018;90452;Optimized Streets
-10;SI;encompassing repurpose interfaces;true;28245;false;program withdrawal Road;83794;Operations e-enable;Concrete EXE Developer;archive COM Tasty Metal Shirt;Prairie responsive;21670;896;USB
+id;respuesta;observaciones;viable;puntaje;si_no;elemento;pregunta_tipo_pregunta_id;pregunta_tipo_pregunta_tipo_pregunta;encabezado;dato;respuesta_texto;respuesta_numero;fase_id;authority;puntaje_maximo
+1;NO_APLICA;withdrawal;false;76069;false;invoice Refined;86146;AGP Accounts JSON;Generic Granite Cheese collaboration;Metrics;Granite Martinique Open-architected;9348;64328;holistic;19022
+2;CUMPLE;SMS generating Manager;true;2238;true;orchid Soft;83575;parsing;open architecture;seize moratorium;attitude Alabama;2071;79735;Sri Lanka Rupee;60225
+3;NO_APLICA;salmon Pike;true;68166;true;Handcrafted Steel;73386;Intuitive open-source systems;Regional Ergonomic Rubber Hat;SSL Clothing;capacitor Borders;63217;68276;multi-tasking compress;83468
+4;NO;Cambridgeshire Frozen Ohio;false;605;false;Incredible Incredible Soft Tuna;15447;Phased Handcrafted;Checking Account;azure bandwidth;Handmade Plastic Norfolk Island;90637;26838;markets;89934
+5;CUMPLE;Road;true;11063;false;Ergonomic Rubber Soap;22971;drive AGP Kuwait;Fish killer;Jewelery;Australian Dollar;28842;24219;teal Bedfordshire website;30422
+6;NO_APLICA;Alabama Montana;false;17586;false;Rand responsive;37854;payment AGP Unbranded;Bulgarian Lev Analyst;Way cross-platform;Venezuela Quetzal;30018;71725;Computers navigating;1765
+7;NO_CUMPLE;Avon Gloves Avon;true;81276;true;Norway tertiary Vermont;5637;Handmade Home Loan Account middleware;Web capacity magenta;Home Loan Account Granite;e-services interface Licensed;59207;72643;maroon Innovative innovate;54895
+8;CUMPLE;virtual Branding scalable;false;52669;false;Grocery relationships Chicken;46132;Frozen Health transmit;Health ROI Cheese;wireless;Metal;36047;82553;calculate Borders e-business;81989
+9;SI;Incredible Concrete Chips;false;85884;true;expedite capacitor;90452;Optimized Streets;Unbranded Strategist;compressing 24/365 system;compressing transition;73700;24607;info-mediaries bus;37703
+10;NO;Developer Paradigm;false;86225;true;Technician;39933;Prairie responsive;Music;transmit static Officer;ubiquitous;2061;73616;bypass Intelligent Steel Cheese withdrawal;96809

@@ -68,6 +68,9 @@ public class ProyectoRespuestas implements Serializable {
     @Column(name = "authority")
     private String authority;
 
+    @Column(name = "puntaje_maximo")
+    private Integer puntajeMaximo;
+
     @ManyToOne
     @JsonIgnoreProperties(value = "proyectoRespuestas", allowSetters = true)
     private Pregunta proyectoRespuestasPregunta;
@@ -267,6 +270,19 @@ public class ProyectoRespuestas implements Serializable {
         this.authority = authority;
     }
 
+    public Integer getPuntajeMaximo() {
+        return puntajeMaximo;
+    }
+
+    public ProyectoRespuestas puntajeMaximo(Integer puntajeMaximo) {
+        this.puntajeMaximo = puntajeMaximo;
+        return this;
+    }
+
+    public void setPuntajeMaximo(Integer puntajeMaximo) {
+        this.puntajeMaximo = puntajeMaximo;
+    }
+
     public Pregunta getProyectoRespuestasPregunta() {
         return proyectoRespuestasPregunta;
     }
@@ -329,6 +345,7 @@ public class ProyectoRespuestas implements Serializable {
             ", respuestaNumero=" + getRespuestaNumero() +
             ", faseId=" + getFaseId() +
             ", authority='" + getAuthority() + "'" +
+            ", puntajeMaximo=" + getPuntajeMaximo() +
             "}";
     }
 }

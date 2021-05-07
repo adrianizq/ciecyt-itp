@@ -75,6 +75,9 @@ public class ProyectoRespuestasResourceIT {
     private static final String DEFAULT_AUTHORITY = "AAAAAAAAAA";
     private static final String UPDATED_AUTHORITY = "BBBBBBBBBB";
 
+    private static final Integer DEFAULT_PUNTAJE_MAXIMO = 1;
+    private static final Integer UPDATED_PUNTAJE_MAXIMO = 2;
+
     @Autowired
     private ProyectoRespuestasRepository proyectoRespuestasRepository;
 
@@ -113,7 +116,8 @@ public class ProyectoRespuestasResourceIT {
             .respuestaTexto(DEFAULT_RESPUESTA_TEXTO)
             .respuestaNumero(DEFAULT_RESPUESTA_NUMERO)
             .faseId(DEFAULT_FASE_ID)
-            .authority(DEFAULT_AUTHORITY);
+            .authority(DEFAULT_AUTHORITY)
+            .puntajeMaximo(DEFAULT_PUNTAJE_MAXIMO);
         return proyectoRespuestas;
     }
     /**
@@ -137,7 +141,8 @@ public class ProyectoRespuestasResourceIT {
             .respuestaTexto(UPDATED_RESPUESTA_TEXTO)
             .respuestaNumero(UPDATED_RESPUESTA_NUMERO)
             .faseId(UPDATED_FASE_ID)
-            .authority(UPDATED_AUTHORITY);
+            .authority(UPDATED_AUTHORITY)
+            .puntajeMaximo(UPDATED_PUNTAJE_MAXIMO);
         return proyectoRespuestas;
     }
 
@@ -175,6 +180,7 @@ public class ProyectoRespuestasResourceIT {
         assertThat(testProyectoRespuestas.getRespuestaNumero()).isEqualTo(DEFAULT_RESPUESTA_NUMERO);
         assertThat(testProyectoRespuestas.getFaseId()).isEqualTo(DEFAULT_FASE_ID);
         assertThat(testProyectoRespuestas.getAuthority()).isEqualTo(DEFAULT_AUTHORITY);
+        assertThat(testProyectoRespuestas.getPuntajeMaximo()).isEqualTo(DEFAULT_PUNTAJE_MAXIMO);
     }
 
     @Test
@@ -222,7 +228,8 @@ public class ProyectoRespuestasResourceIT {
             .andExpect(jsonPath("$.[*].respuestaTexto").value(hasItem(DEFAULT_RESPUESTA_TEXTO)))
             .andExpect(jsonPath("$.[*].respuestaNumero").value(hasItem(DEFAULT_RESPUESTA_NUMERO.doubleValue())))
             .andExpect(jsonPath("$.[*].faseId").value(hasItem(DEFAULT_FASE_ID.intValue())))
-            .andExpect(jsonPath("$.[*].authority").value(hasItem(DEFAULT_AUTHORITY)));
+            .andExpect(jsonPath("$.[*].authority").value(hasItem(DEFAULT_AUTHORITY)))
+            .andExpect(jsonPath("$.[*].puntajeMaximo").value(hasItem(DEFAULT_PUNTAJE_MAXIMO)));
     }
     
     @Test
@@ -249,7 +256,8 @@ public class ProyectoRespuestasResourceIT {
             .andExpect(jsonPath("$.respuestaTexto").value(DEFAULT_RESPUESTA_TEXTO))
             .andExpect(jsonPath("$.respuestaNumero").value(DEFAULT_RESPUESTA_NUMERO.doubleValue()))
             .andExpect(jsonPath("$.faseId").value(DEFAULT_FASE_ID.intValue()))
-            .andExpect(jsonPath("$.authority").value(DEFAULT_AUTHORITY));
+            .andExpect(jsonPath("$.authority").value(DEFAULT_AUTHORITY))
+            .andExpect(jsonPath("$.puntajeMaximo").value(DEFAULT_PUNTAJE_MAXIMO));
     }
     @Test
     @Transactional
@@ -285,7 +293,8 @@ public class ProyectoRespuestasResourceIT {
             .respuestaTexto(UPDATED_RESPUESTA_TEXTO)
             .respuestaNumero(UPDATED_RESPUESTA_NUMERO)
             .faseId(UPDATED_FASE_ID)
-            .authority(UPDATED_AUTHORITY);
+            .authority(UPDATED_AUTHORITY)
+            .puntajeMaximo(UPDATED_PUNTAJE_MAXIMO);
         ProyectoRespuestasDTO proyectoRespuestasDTO = proyectoRespuestasMapper.toDto(updatedProyectoRespuestas);
 
         restProyectoRespuestasMockMvc.perform(put("/api/proyecto-respuestas")
@@ -311,6 +320,7 @@ public class ProyectoRespuestasResourceIT {
         assertThat(testProyectoRespuestas.getRespuestaNumero()).isEqualTo(UPDATED_RESPUESTA_NUMERO);
         assertThat(testProyectoRespuestas.getFaseId()).isEqualTo(UPDATED_FASE_ID);
         assertThat(testProyectoRespuestas.getAuthority()).isEqualTo(UPDATED_AUTHORITY);
+        assertThat(testProyectoRespuestas.getPuntajeMaximo()).isEqualTo(UPDATED_PUNTAJE_MAXIMO);
     }
 
     @Test

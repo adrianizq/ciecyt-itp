@@ -57,6 +57,10 @@
     {
       "fieldName": "authority",
       "fieldType": "String"
+    },
+    {
+      "fieldName": "puntajeMaximo",
+      "fieldType": "Integer"
     }
   ],
   "relationships": [
