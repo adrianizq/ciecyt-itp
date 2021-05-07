@@ -40,7 +40,7 @@
             <!-- JURADO ---------------------------------->
             <tr v-for="proyecto in proyects" :key="proyecto.id">
               <td>
-                <router-link :to="{ name: 'ProyectoEvaluarView', params: { proyectoId: proyecto.id } }">{{ proyecto.id }}</router-link>
+                 {{ proyecto.id }} 
               </td>
 
               <td>{{ proyecto.titulo }}</td>
@@ -49,17 +49,20 @@
 
               <td class="text-right">
                 <div class="btn-group">
-                  <router-link
+                  <router-link v-if="proyecto.enviado==true"
                     :to="{ name: 'PropuestaEvaluarView', params: { proyectoId: proyecto.id } }"
                   
                   >
-                      
-                   
                     <button type="submit" id="save-entity"   class="btn btn-info" v-if="proyecto.viabilidad==null">
                         <font-awesome-icon icon="pencil-alt"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.eval')">Evaluar</span>
    
                     </button>
+                    
                     <button type="submit" id="save-entity"   class="btn btn-secondary" v-if="proyecto.viabilidad==`VIABLE`">
+                        <font-awesome-icon icon="pencil-alt"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.eval')">Evaluar</span>
+   
+                    </button>
+                    <button type="submit" id="save-entity"   class="btn btn-link" v-if="proyecto.viabilidad==`NO_VIABLE`">
                         <font-awesome-icon icon="pencil-alt"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.eval')">Evaluar</span>
    
                     </button>
