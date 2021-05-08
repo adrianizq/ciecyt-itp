@@ -163,7 +163,7 @@ export default class Listado extends Vue {
       size: this.itemsPerPage,
       sort: this.sort()
     };
-    if (this.autoridades.includes('ROLE_JURADO')) {
+    if (this.autoridades.includes('ROLE_VIABILIDAD')) {
       this.proyectoService()
         //.retrieveProyectoIntegranteAuthority(this.userid, 'ROLE_JURADO', paginationQuery)
         .retrieveProyectoIntegranteRol(this.userid, 'Viabilidad', paginationQuery)

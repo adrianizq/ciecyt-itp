@@ -14,12 +14,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.support.PageableExecutionUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 
 /**
  * REST controller for managing {@link co.edu.itp.ciecyt.domain.Proyecto}.
@@ -221,22 +229,35 @@ public class ProyectoResource {
         }
     }
 
-    //////////////////////////////////////////////////////////////////777777777777777777777
 
-    //////////////////////////////////////////////////////////////////777777777777777777777
-
+//https://www.programcreek.com/java-api-examples/?class=org.springframework.data.domain.Pageable&method=getPageSize
     @GetMapping("/proyectos-integrante-rol/{idUsuario}/{rol}")
-    public ResponseEntity<?> findByIntegranteProyectoRol(@PathVariable Long idUsuario, @PathVariable String rol) {
+    public ResponseEntity<?> findByIntegranteProyectoRol(@PathVariable Long idUsuario, @PathVariable String rol, Pageable pageable) {
         log.debug("REST request to get Proyecto : {}", idUsuario, rol);
 
         try {
+
             final List<ProyectoDTO> proyectoDTO = proyectoService.findByIntegranteProyectoRol(idUsuario, rol);
-            ResponseEntity<ProyectoDTO> responseEntity = new ResponseEntity(proyectoDTO, HttpStatus.OK);
-            return responseEntity;
+            int totalElements = proyectoDTO.size();
+            if (pageable == null) {
+                pageable = PageRequest.of(0, 20);
+            }
+            int fromIndex = pageable.getPageSize() * pageable.getPageNumber();
+            int toIndex = pageable.getPageSize() * (pageable.getPageNumber() + 1);
+            if (toIndex > totalElements) {
+                toIndex = totalElements;
+            }
+            List<ProyectoDTO> indexObjects = proyectoDTO.subList(fromIndex, toIndex);
+            Page<ProyectoDTO> page = new PageImpl<>(indexObjects, pageable, totalElements);
+
+            HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+            return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+            e.printStackTrace();
+            return null;
         }
+
     }
-    //////////////////////////////////////////////////////////////////777777777777777777777
 
 }
