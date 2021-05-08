@@ -6,14 +6,23 @@
            <form @submit.prevent="save()">
                 <div class="row">
                    
-                  
+                 <div class="col-12">
+                    <b-card  
+                      border-variant="primary"
+                      header-bg-variant="light"
+                      body-bg-variant="light"
+                     header-text-variant="info">  
+                   
               <table> 
                <tr><td><h2>Viabilidad de la Propuesta </h2></td></tr>
                <tr><td>Título: {{proyecto.titulo}} </td></tr>
                <tr><td>Programa: {{proyecto.programa}} </td></tr>
                 <tr><td> &nbsp; </td></tr>
              </table>
-             <br />   <br />
+             </b-card>
+              <hr></hr>
+                    </div> 
+                   
            
                     <div class="col-12" v-for="(ep, i) in proyectoRespuests" :key="i">
                     <b-card  
@@ -113,13 +122,20 @@
                      
                 </div>
               
-
-<div class="form-group">
-                
+   <hr></hr>
+ <div class="col-12" >
+  
+          <b-card  border-variant="primary"
+                      header-bg-variant="light"
+                      body-bg-variant="light"
+                     header-text-variant="info">  
+                       Viabilidad
+          <div  class="p-3 mb-2 bg-white container-fluid">
+                           
                 <br>Marque <strong>Viable </strong> si la propuesta cumple con los requisitos establecidos por el Ciecyt.
                 <br>Si la propuesta es viable, pero tiene correcciones marque <strong>Pendiente </strong></button>
                  <br>Si la propuesta no es viable, marque <strong>No Viable</strong> <br>
-                <div  class="p-3 mb-2 bg-danger text-white container-fluid">
+                <div  >
                 <input type="radio" value="VIABLE" v-model="proyecto.viabilidad">
                 <label for="uno">Viable</label>
                 <br>
@@ -130,8 +146,10 @@
                 <label for="uno">No Viable</label>
                 <br>
                 </div>
- </div>
-
+                 </div>
+                </b-card>
+</div>
+<hr></hr>
                 <div>
 
                     <button type="button" id="cancel-save" class="btn btn-secondary" v-on:click="previousState()">
@@ -322,6 +340,9 @@ export default class PropuestaEvaluar extends Vue {
               console.log("error al recuperar la informacion de elemento ");
             }
         }
+public previousState() {
+    this.$router.go(-1);
+  }
         
 }
 </script>
