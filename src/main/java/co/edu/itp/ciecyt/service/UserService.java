@@ -139,6 +139,19 @@ public class UserService {
         info.setUserId(newUser.getId());
         userInfoService.save(info);
         log.debug("Created Information for UserInfo: {}", info);*/
+
+        //Valida la informacion del userinfo
+        UserInfoDTO info = null;
+        if(userDTO.getUserInfo() != null ) {
+            info = userDTO.getUserInfo();
+        }else {
+            info = new UserInfoDTO() ;
+        }
+        //Asigna el Id del user creado en la linea 183
+        info.setUserId(newUser.getId());
+        userInfoService.save(info);
+        log.debug("Created Information for UserInfo: {}", info);
+
         return newUser;
     }
 
