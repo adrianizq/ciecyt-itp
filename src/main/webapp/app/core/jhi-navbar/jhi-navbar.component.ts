@@ -56,21 +56,32 @@ export default class JhiNavbar extends Vue {
         }
 
         //this.roles = this.roles.trim();
-        /* if(this.roles=""){
+        /*
+         if(this.roles=""){
          this.roles="ANONYMOUS"
        }*/
         //this.roles=
         console.log(this.roles);
       });
+    if (this.roles) {
+      await this.menuService()
+        //trae todos los menus pero se usa porque sino no encuntra las autoridades
+        .allRoles(this.roles)
+        .then(res => {
+          this.menus = res;
 
-    await this.menuService()
-      //trae todos los menus pero se usa porque sino no encuntra las autoridades
-      .allRoles(this.roles)
-      .then(res => {
-        this.menus = res;
+          console.log(this.roles);
+        });
+    } else {
+      await this.menuService()
+        //trae todos los menus pero se usa porque sino no encuntra las autoridades
+        .allRoles('ANONYMOUS')
+        .then(res => {
+          this.menus = res;
 
-        console.log(this.menus);
-      });
+          //console.log(this.roles);
+        });
+    }
 
     this.translationService().refreshTranslation(this.currentLanguage);
   }
