@@ -294,6 +294,11 @@ export function initVueXStore(vue) {
           description: 'Espacio para revisar las propuestas a cargo',
           to: '/viabilidad-propuesta/listado-asesor',
         },
+        {
+          title: 'Jurado',
+          description: 'Evaluar los proyectos',
+          to: '/viabilidad-propuesta/listado-jurado',
+        },
       ],
       menu_lateral_ciecyt: [
         {

@@ -316,6 +316,7 @@ const PropuestaLineaCronograma = () => import('../pages/propuesta_linea/cronogra
 const PropuestaLineaEstadoPropuestas = () => import('../pages/propuesta_linea/estado_propuestas_linea.vue');
 
 const PropuestaListado = () => import('../pages/viabilidad_propuesta/listado.vue');
+const ProyectoListadoJurado = () => import('../pages/viabilidad_propuesta/listado_jurado.vue');
 const PropuestaListadoAsesor = () => import('../pages/viabilidad_propuesta/listado_asesor.vue');
 const PropuestaListadoCiecyt = () => import('../pages/ciecyt/listado_ciecyt.vue');
 const PropuestaEvaluar = () => import('../pages/viabilidad_propuesta/propuesta_evaluar.vue');
@@ -1866,6 +1867,12 @@ export default new Router({
       path: '/viabilidad-propuesta/listado',
       name: 'PropuestaListadoView',
       component: PropuestaListado,
+      meta: { authorities: ['ROLE_VIABILIDAD']['ROLE_ADMIN'] }
+    },
+    {
+      path: '/viabilidad-propuesta/listado-jurado',
+      name: 'PropuestaListadoJuradoView',
+      component: ProyectoListadoJurado,
       meta: { authorities: ['ROLE_JURADO']['ROLE_ADMIN'] }
     },
 

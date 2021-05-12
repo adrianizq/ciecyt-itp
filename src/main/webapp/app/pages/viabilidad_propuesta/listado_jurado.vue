@@ -4,7 +4,7 @@
 
     <div>
       <h2 id="page-heading">
-        <span id="proyecto-heading">Mis propuestas - Viabilidad </span>
+        <span id="proyecto-heading">Mis proyectos - Jurado </span>
       </h2>
       <b-alert
         :show="dismissCountDown"
@@ -125,8 +125,8 @@ export default class Listado extends Vue {
   public propOrder = 'id';
   public reverse = false;
   public totalItems = 0;
-  public rol: any="Viabilidad";
-  public role: any = "ROLE_VIABILIDAD";
+  public rol: any="Jurado";
+  public role: any = "ROLE_JURADO";
 
   public isFetching = false;
   public dismissCountDown: number = this.$store.getters.dismissCountDown;
