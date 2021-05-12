@@ -87,6 +87,15 @@
             <column name="pre_enviado" type="boolean">
                 <constraints nullable="true" />
             </column>
+            <column name="fecha_pre_envio_propuesta" type="datetime">
+                <constraints nullable="true" />
+            </column>
+            <column name="fecha_viabilidad_propuesta" type="datetime">
+                <constraints nullable="true" />
+            </column>
+            <column name="fecha_sustentacion_proyecto" type="datetime">
+                <constraints nullable="true" />
+            </column>
             <column name="proyecto_linea_investigacion_id" type="bigint">
                 <constraints nullable="true" />
             </column>
@@ -112,6 +121,9 @@
         </createTable>
         <dropDefaultValue tableName="proyecto" columnName="fecha_envio_propuesta" columnDataType="datetime"/>
         <dropDefaultValue tableName="proyecto" columnName="fecha_envio_proyecto" columnDataType="datetime"/>
+        <dropDefaultValue tableName="proyecto" columnName="fecha_pre_envio_propuesta" columnDataType="datetime"/>
+        <dropDefaultValue tableName="proyecto" columnName="fecha_viabilidad_propuesta" columnDataType="datetime"/>
+        <dropDefaultValue tableName="proyecto" columnName="fecha_sustentacion_proyecto" columnDataType="datetime"/>
     </changeSet>
 
     <changeSet id="20201008035903-1-relations" author="jhipster">
@@ -157,6 +169,9 @@
             <column name="recomendaciones" type="string"/>
             <column name="viabilidad" type="string"/>
             <column name="pre_enviado" type="boolean"/>
+            <column name="fecha_pre_envio_propuesta" type="datetime"/>
+            <column name="fecha_viabilidad_propuesta" type="datetime"/>
+            <column name="fecha_sustentacion_proyecto" type="datetime"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>

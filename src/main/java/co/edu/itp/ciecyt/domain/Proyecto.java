@@ -92,6 +92,16 @@ public class Proyecto implements Serializable {
     @Column(name = "fecha_envio_proyecto")
     private ZonedDateTime fechaEnvioProyecto;
 
+
+    @Column(name = "fecha_pre_envio_propuesta")
+    private ZonedDateTime fechaPreEnvioPropuesta;
+
+    @Column(name = "fecha_viabilidad_propuesta")
+    private ZonedDateTime fechaViabilidadPropuesta;
+
+    @Column(name = "fecha_sustentacion_proyecto")
+    private ZonedDateTime fechaSustentacionProyecto;
+
     @Column(name = "nota")
     private Float nota;
 
@@ -428,6 +438,46 @@ public class Proyecto implements Serializable {
         this.fechaEnvioProyecto = fechaEnvioProyecto;
     }
 
+    public ZonedDateTime getFechaPreEnvioPropuesta() {
+        return fechaPreEnvioPropuesta;
+    }
+
+    public Proyecto fechaPreEnvioPropuesta(ZonedDateTime fechaPreEnvioPropuesta) {
+        this.fechaPreEnvioPropuesta = fechaPreEnvioPropuesta;
+        return this;
+    }
+
+    public void setFechaPreEnvioPropuesta(ZonedDateTime fechaPreEnvioPropuesta) {
+        this.fechaPreEnvioPropuesta = fechaPreEnvioPropuesta;
+    }
+
+    public ZonedDateTime getFechaViabilidadPropuesta() {
+        return fechaViabilidadPropuesta;
+    }
+
+    public Proyecto fechaViabilidadPropuesta(ZonedDateTime fechaViabilidadPropuesta) {
+        this.fechaViabilidadPropuesta = fechaViabilidadPropuesta;
+        return this;
+    }
+
+    public void setFechaViabilidadPropuesta(ZonedDateTime fechaViabilidadPropuesta) {
+        this.fechaViabilidadPropuesta = fechaViabilidadPropuesta;
+    }
+
+    public ZonedDateTime getFechaSustentacionProyecto() {
+        return fechaSustentacionProyecto;
+    }
+
+    public Proyecto fechaSustentacionProyecto(ZonedDateTime fechaSustentacionProyecto) {
+        this.fechaSustentacionProyecto = fechaSustentacionProyecto;
+        return this;
+    }
+
+    public void setFechaSustentacionProyecto(ZonedDateTime fechaSustentacionProyecto) {
+        this.fechaSustentacionProyecto = fechaSustentacionProyecto;
+    }
+
+
     public Float getNota() {
         return nota;
     }
@@ -604,6 +654,9 @@ public class Proyecto implements Serializable {
             ", preEnviado='" + isPreEnviado() + "'" +
             ", fechaEnvioPropuesta='" + getFechaEnvioPropuesta() + "'" +
             ", fechaEnvioProyecto='" + getFechaEnvioProyecto() + "'" +
+            ", fechaPreEnvioPropuesta='" + getFechaPreEnvioPropuesta() + "'" +
+            ", fechaViabilidadPropuesta='" + getFechaViabilidadPropuesta() + "'" +
+            ", fechaSustentacionProyecto='" + getFechaSustentacionProyecto() + "'" +
             ", nota=" + getNota() +
             ", conclusion='" + getConclusion() + "'" +
             ", recomendaciones='" + getRecomendaciones() + "'" +

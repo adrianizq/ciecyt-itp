@@ -87,6 +87,12 @@ public class ProyectoDTO implements Serializable {
 
     private ZonedDateTime fechaEnvioProyecto;
 
+    private ZonedDateTime fechaPreEnvioPropuesta;
+
+    private ZonedDateTime fechaViabilidadPropuesta;
+
+    private ZonedDateTime fechaSustentacionProyecto;
+
     private Float nota;
 
     private String conclusion;
@@ -506,4 +512,30 @@ public class ProyectoDTO implements Serializable {
     public void setFechaEnvioProyecto(ZonedDateTime fechaEnvioProyecto) {
         this.fechaEnvioProyecto = fechaEnvioProyecto;
     }
+
+    public ZonedDateTime getFechaPreEnvioPropuesta() {
+        return fechaPreEnvioPropuesta;
+    }
+
+    public void setFechaPreEnvioPropuesta(ZonedDateTime fechaPreEnvioPropuesta) {
+        this.fechaPreEnvioPropuesta = fechaPreEnvioPropuesta;
+    }
+
+    public ZonedDateTime getFechaViabilidadPropuesta() {
+        return fechaViabilidadPropuesta;
+    }
+
+    public void setFechaViabilidadPropuesta(ZonedDateTime fechaViabilidadPropuesta) {
+        this.fechaViabilidadPropuesta = fechaViabilidadPropuesta;
+    }
+
+    public ZonedDateTime getFechaSustentacionProyecto() {
+        return fechaSustentacionProyecto;
+    }
+
+
+    public void setFechaSustentacionProyecto(ZonedDateTime fechaSustentacionProyecto) {
+        this.fechaSustentacionProyecto = fechaSustentacionProyecto;
+    }
+
 }

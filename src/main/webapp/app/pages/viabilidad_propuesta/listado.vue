@@ -37,7 +37,6 @@
             </tr>
           </thead>
           <tbody>
-            <!-- JURADO ---------------------------------->
             <tr v-for="proyecto in proyects" :key="proyecto.id">
               <td>
                  {{ proyecto.id }} 
@@ -62,7 +61,7 @@
                         <font-awesome-icon icon="pencil-alt"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.eval')">Evaluar</span>
    
                     </button>
-                    <button type="submit" id="save-entity"   class="btn btn-link" v-if="proyecto.viabilidad==`NO_VIABLE`">
+                    <button type="submit" id="save-entity"   class="btn btn-link" v-if="proyecto.viabilidad==`PENDIENTE`">
                         <font-awesome-icon icon="pencil-alt"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.eval')">Evaluar</span>
    
                     </button>
@@ -178,7 +177,7 @@ export default class Listado extends Vue {
             this.isFetching = false;
           }
         );
-    } //del if ROLE_ESTUDIANTE
+    } 
     if (this.autoridades.includes('ROLE_ESTUDIANTE')) {
       this.proyectoService()
         //.retrieveProyectoIntegrante(this.userid,paginationQuery) //todos los roles no borrar
@@ -194,7 +193,7 @@ export default class Listado extends Vue {
             this.isFetching = false;
           }
         );
-    } //del if ROLE_ESTUDIANTE
+    } 
   }
 
   public prepareRemove(instance: IProyecto): void {

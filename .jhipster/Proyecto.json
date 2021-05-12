@@ -97,6 +97,18 @@
     {
       "fieldName": "preEnviado",
       "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "fechaPreEnvioPropuesta",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "fechaViabilidadPropuesta",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "fechaSustentacionProyecto",
+      "fieldType": "ZonedDateTime"
     }
   ],
   "relationships": [

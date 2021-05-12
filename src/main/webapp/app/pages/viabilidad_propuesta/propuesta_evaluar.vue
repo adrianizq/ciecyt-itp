@@ -162,6 +162,10 @@
                         <font-awesome-icon icon="save"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.save')">Save</span>
                     </button>
 
+                    <button type="submit" id="save-entity" class="btn btn-primary"  v-on:click="saveAndPreviousState()">
+                        <font-awesome-icon icon="save"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.saveandback')">Save</span>
+                    </button>
+
 
                 </div>
 
@@ -220,6 +224,7 @@ export default class PropuestaEvaluar extends Vue {
     public isSaving = false;
     public proyectoRespuestasDatos: boolean = false;
     public  authority: any="ROLE_VIABILIDAD";
+     public nombreFase: any = "Propuesta";
     public mounted(): void {
     }
 
@@ -282,7 +287,7 @@ export default class PropuestaEvaluar extends Vue {
                  this.elementoProyects = res.data;
 
                  res= await this.fasesService()
-                .retrieveFase("Propuesta")   //recup los ElementosProyecto con un idproy
+                .retrieveFase(this.nombreFase)   
                  this.fase = res.data;
 
                 res= await this.proyectoRespuestasService()
@@ -299,14 +304,10 @@ export default class PropuestaEvaluar extends Vue {
                 
 
               //Obtenienedo los elementos de acuerdo a la modalidad
-              //if (this.proyectoRespuests.length==0){
                 res = await  this.preguntaService()
-                //.retrievePreguntasModalidad( this.modalidadId) //recup pregs por molalid 
-                //.retrievePreguntasModalidadyFase( this.modalidadId, this.fase.id) //recup pregs por molalid y fase
                  .retrievePreguntasModalidadyFaseyAuthority(this.modalidadId, this.fase.id, this.authority)
                 
                     this.pregunts = res.data;
-                    /////////////////////////////////77
                 this.pregunts.forEach(e => {
                   var proyResp: IProyectoRespuestas = new ProyectoRespuestas();
                   proyResp.proyectoRespuestasPreguntaPregunta= e.pregunta;
@@ -329,11 +330,7 @@ export default class PropuestaEvaluar extends Vue {
                   }
                   
                 }); //fin del foreach pregunts
-                    //////////////////////////////////77
-               
-
-
-
+    
                console.log(this.proyectoRespuests);
             }
             catch(e){
@@ -344,7 +341,14 @@ public previousState() {
     this.$router.go(-1);
   }
         
+
+public saveAndPreviousState() {
+    //this.save();
+    this.$router.go(-1);
+  }
+        
 }
+
 </script>
 
 <style scoped>
