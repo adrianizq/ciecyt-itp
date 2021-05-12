@@ -48,8 +48,8 @@
 
               <td class="text-right">
                 <div class="btn-group">
-                  <router-link v-if="proyecto.enviado==true"
-                    :to="{ name: 'PropuestaEvaluarView', params: { proyectoId: proyecto.id } }"
+                  <router-link v-if="proyecto.viabilidad==`VIABLE`"
+                    :to="{ name: 'ProyectoEvaluarView', params: { proyectoId: proyecto.id } }"
                   
                   >
                     <button type="submit" id="save-entity"   class="btn btn-info" v-if="proyecto.viabilidad==null">
