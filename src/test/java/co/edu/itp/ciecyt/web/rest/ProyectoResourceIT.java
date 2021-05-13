@@ -120,6 +120,9 @@ public class ProyectoResourceIT {
     private static final ZonedDateTime DEFAULT_FECHA_SUSTENTACION_PROYECTO = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
     private static final ZonedDateTime UPDATED_FECHA_SUSTENTACION_PROYECTO = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
 
+    private static final Boolean DEFAULT_SUSTENTAR = false;
+    private static final Boolean UPDATED_SUSTENTAR = true;
+
     @Autowired
     private ProyectoRepository proyectoRepository;
 
@@ -171,7 +174,8 @@ public class ProyectoResourceIT {
             .preEnviado(DEFAULT_PRE_ENVIADO)
             .fechaPreEnvioPropuesta(DEFAULT_FECHA_PRE_ENVIO_PROPUESTA)
             .fechaViabilidadPropuesta(DEFAULT_FECHA_VIABILIDAD_PROPUESTA)
-            .fechaSustentacionProyecto(DEFAULT_FECHA_SUSTENTACION_PROYECTO);
+            .fechaSustentacionProyecto(DEFAULT_FECHA_SUSTENTACION_PROYECTO)
+            .sustentar(DEFAULT_SUSTENTAR);
         return proyecto;
     }
     /**
@@ -208,7 +212,8 @@ public class ProyectoResourceIT {
             .preEnviado(UPDATED_PRE_ENVIADO)
             .fechaPreEnvioPropuesta(UPDATED_FECHA_PRE_ENVIO_PROPUESTA)
             .fechaViabilidadPropuesta(UPDATED_FECHA_VIABILIDAD_PROPUESTA)
-            .fechaSustentacionProyecto(UPDATED_FECHA_SUSTENTACION_PROYECTO);
+            .fechaSustentacionProyecto(UPDATED_FECHA_SUSTENTACION_PROYECTO)
+            .sustentar(UPDATED_SUSTENTAR);
         return proyecto;
     }
 
@@ -259,6 +264,7 @@ public class ProyectoResourceIT {
         assertThat(testProyecto.getFechaPreEnvioPropuesta()).isEqualTo(DEFAULT_FECHA_PRE_ENVIO_PROPUESTA);
         assertThat(testProyecto.getFechaViabilidadPropuesta()).isEqualTo(DEFAULT_FECHA_VIABILIDAD_PROPUESTA);
         assertThat(testProyecto.getFechaSustentacionProyecto()).isEqualTo(DEFAULT_FECHA_SUSTENTACION_PROYECTO);
+        assertThat(testProyecto.isSustentar()).isEqualTo(DEFAULT_SUSTENTAR);
     }
 
     @Test
@@ -319,7 +325,8 @@ public class ProyectoResourceIT {
             .andExpect(jsonPath("$.[*].preEnviado").value(hasItem(DEFAULT_PRE_ENVIADO.booleanValue())))
             .andExpect(jsonPath("$.[*].fechaPreEnvioPropuesta").value(hasItem(sameInstant(DEFAULT_FECHA_PRE_ENVIO_PROPUESTA))))
             .andExpect(jsonPath("$.[*].fechaViabilidadPropuesta").value(hasItem(sameInstant(DEFAULT_FECHA_VIABILIDAD_PROPUESTA))))
-            .andExpect(jsonPath("$.[*].fechaSustentacionProyecto").value(hasItem(sameInstant(DEFAULT_FECHA_SUSTENTACION_PROYECTO))));
+            .andExpect(jsonPath("$.[*].fechaSustentacionProyecto").value(hasItem(sameInstant(DEFAULT_FECHA_SUSTENTACION_PROYECTO))))
+            .andExpect(jsonPath("$.[*].sustentar").value(hasItem(DEFAULT_SUSTENTAR.booleanValue())));
     }
     
     @Test
@@ -359,7 +366,8 @@ public class ProyectoResourceIT {
             .andExpect(jsonPath("$.preEnviado").value(DEFAULT_PRE_ENVIADO.booleanValue()))
             .andExpect(jsonPath("$.fechaPreEnvioPropuesta").value(sameInstant(DEFAULT_FECHA_PRE_ENVIO_PROPUESTA)))
             .andExpect(jsonPath("$.fechaViabilidadPropuesta").value(sameInstant(DEFAULT_FECHA_VIABILIDAD_PROPUESTA)))
-            .andExpect(jsonPath("$.fechaSustentacionProyecto").value(sameInstant(DEFAULT_FECHA_SUSTENTACION_PROYECTO)));
+            .andExpect(jsonPath("$.fechaSustentacionProyecto").value(sameInstant(DEFAULT_FECHA_SUSTENTACION_PROYECTO)))
+            .andExpect(jsonPath("$.sustentar").value(DEFAULT_SUSTENTAR.booleanValue()));
     }
     @Test
     @Transactional
@@ -408,7 +416,8 @@ public class ProyectoResourceIT {
             .preEnviado(UPDATED_PRE_ENVIADO)
             .fechaPreEnvioPropuesta(UPDATED_FECHA_PRE_ENVIO_PROPUESTA)
             .fechaViabilidadPropuesta(UPDATED_FECHA_VIABILIDAD_PROPUESTA)
-            .fechaSustentacionProyecto(UPDATED_FECHA_SUSTENTACION_PROYECTO);
+            .fechaSustentacionProyecto(UPDATED_FECHA_SUSTENTACION_PROYECTO)
+            .sustentar(UPDATED_SUSTENTAR);
         ProyectoDTO proyectoDTO = proyectoMapper.toDto(updatedProyecto);
 
         restProyectoMockMvc.perform(put("/api/proyectos")
@@ -447,6 +456,7 @@ public class ProyectoResourceIT {
         assertThat(testProyecto.getFechaPreEnvioPropuesta()).isEqualTo(UPDATED_FECHA_PRE_ENVIO_PROPUESTA);
         assertThat(testProyecto.getFechaViabilidadPropuesta()).isEqualTo(UPDATED_FECHA_VIABILIDAD_PROPUESTA);
         assertThat(testProyecto.getFechaSustentacionProyecto()).isEqualTo(UPDATED_FECHA_SUSTENTACION_PROYECTO);
+        assertThat(testProyecto.isSustentar()).isEqualTo(UPDATED_SUSTENTAR);
     }
 
     @Test

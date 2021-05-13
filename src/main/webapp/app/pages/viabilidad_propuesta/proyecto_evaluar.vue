@@ -6,14 +6,23 @@
            <form @submit.prevent="save()">
                 <div class="row">
                    
-                  
+                 <div class="col-12">
+                    <b-card  
+                      border-variant="primary"
+                      header-bg-variant="light"
+                      body-bg-variant="light"
+                     header-text-variant="info">  
+                   
               <table> 
-               <tr><td><h2>Viabilidad de la Propuesta </h2></td></tr>
+               <tr><td><h2>Evaluación del Proyecto </h2></td></tr>
                <tr><td>Título: {{proyecto.titulo}} </td></tr>
                <tr><td>Programa: {{proyecto.programa}} </td></tr>
                 <tr><td> &nbsp; </td></tr>
              </table>
-             <br />   <br />
+             </b-card>
+              <hr></hr>
+                    </div> 
+                   
            
                     <div class="col-12" v-for="(ep, i) in proyectoRespuests" :key="i">
                     <b-card  
@@ -69,11 +78,12 @@
                             <option value="false" v-bind:label="$t('ciecytApp.EnumRespuestas.NO')">NO</option>
                         </select>
 
-                        <b-form-input  type="range" min="0" v-bind:max="ep.puntajeMaximo" step="0.1"
+                        <b-form-input  type="range" min="0" v-bind:max="ep.puntajeMaximo" :step="0.1"
                          v-if="ep.preguntaTipoPreguntaTipoPregunta==`Nota (con puntaje)`" 
                          v-model="ep.respuestaNumero">
-                          <div class="mt-2">Nota: {{ ep.respuestaNumero }}</div></button>
-                        </b-form-input>
+                         </b-form-input>
+                          <div class="mt-2">Nota: {{ ep.respuestaNumero }}</div>
+                        
                          
 
                         <b-form-textarea  
@@ -112,25 +122,33 @@
                      
                 </div>
               
-
-<div class="form-group">
+   <hr></hr>
+ <div class="col-12" >
+  
+          <b-card  border-variant="primary"
+                      header-bg-variant="light"
+                      body-bg-variant="light"
+                     header-text-variant="info">  
+                       Evaluación
+          <div  class="p-3 mb-2 bg-white container-fluid">
+                           
+                <br>Marque <strong>Sustentar </strong> si el proyecto cumple con los requisitos para la sustentación.
+                <br>Si el proyecto está no listo para sustentar, marque <strong>Pendiente Sustentar </strong></button>
+                 
+                <div  >
+                <input type="radio" value="true" v-model="proyecto.sustentar">
+                <label for="uno">Sustentar</label>
+                <br>
+                <input type="radio"  value="false" v-model="proyecto.sustentar">
+                <label for="Dos">Pendiente Sustentar</label>
+                <br>
                 
-                <br>Marque <strong>Viable </strong> si la propuesta cumple con los requisitos establecidos por el Ciecyt.
-                <br>Si la propuesta es viable, pero tiene correcciones marque <strong>Pendiente </strong></button>
-                 <br>Si la propuesta no es viable, marque <strong>No Viable</strong> <br>
-                <div  class="p-3 mb-2 bg-danger text-white container-fluid">
-                <input type="radio" value="VIABLE" v-model="proyecto.viabilidad">
-                <label for="uno">Viable</label>
-                <br>
-                <input type="radio"  value="PENDIENTE" v-model="proyecto.viabilidad">
-                <label for="Dos">Pendiente</label>
-                <br>
-                <input type="radio" value="NO_VIABLE" v-model="proyecto.viabilidad">
-                <label for="uno">No Viable</label>
                 <br>
                 </div>
- </div>
-
+                 </div>
+                </b-card>
+</div>
+<hr></hr>
                 <div>
 
                     <button type="button" id="cancel-save" class="btn btn-secondary" v-on:click="previousState()">
@@ -141,6 +159,10 @@
 
                     <button type="submit" id="save-entity" class="btn btn-primary">
                         <font-awesome-icon icon="save"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.save')">Save</span>
+                    </button>
+
+                    <button type="submit" id="save-entity" class="btn btn-primary"  v-on:click="saveAndPreviousState()">
+                        <font-awesome-icon icon="save"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.saveandback')">Save</span>
                     </button>
 
 
@@ -193,12 +215,15 @@ export default class PropuestaEvaluar extends Vue {
     public elemProy: ElementoProyecto;
     public proyecto: IProyecto = new Proyecto();
     public proyId: any = null;
+  
+  
     public modalidadId: number = 0;
     public enumRespuestas: EnumRespuestas;
 
     public isSaving = false;
-    public proyectoRespuestasDatos: boolean;
+    public proyectoRespuestasDatos: boolean = false;
     public  authority: any="ROLE_JURADO";
+     public nombreFase: any = "Proyecto";
     public mounted(): void {
     }
 
@@ -215,8 +240,10 @@ export default class PropuestaEvaluar extends Vue {
                 //this.enumRespuestas.
                 this.isSaving = true;
                 for (let e of this.proyectoRespuests) {
+                       e.faseId=this.fase.id;
+                        e.authority=this.authority;
                     if (e.id) {
-                     // if (e.proyectoRespuestasProyectoId==this.proyId) {
+                        
                         this.proyectoRespuestasService().update(e)
                         .then(param => {
                             //this.$router.push({ name: 'PropuestaPresupuestoView',params:{ proyectoId: this.proyId}});
@@ -259,11 +286,11 @@ export default class PropuestaEvaluar extends Vue {
                  this.elementoProyects = res.data;
 
                  res= await this.fasesService()
-                .retrieveFase("Proyecto")   //recup los ElementosProyecto con un idproy
+                .retrieveFase(this.nombreFase)   
                  this.fase = res.data;
 
                 res= await this.proyectoRespuestasService()
-                .retrieveProyectoRespuestas(this.proyId)   //recup los proyresp con un idproy
+                .retrieveProyectoRespuestas(this.proyId, this.fase.id, this.authority)   //recup los proyresp con un idproy
                 this.proyectoRespuests = res.data;
                 if (this.proyectoRespuests.length>0){
                         this.proyectoRespuestasDatos=true;
@@ -276,14 +303,10 @@ export default class PropuestaEvaluar extends Vue {
                 
 
               //Obtenienedo los elementos de acuerdo a la modalidad
-              //if (this.proyectoRespuests.length==0){
                 res = await  this.preguntaService()
-                //.retrievePreguntasModalidad( this.modalidadId) //recup pregs por molalid 
-                //.retrievePreguntasModalidadyFase( this.modalidadId, this.fase.id) //recup pregs por molalid y fase
                  .retrievePreguntasModalidadyFaseyAuthority(this.modalidadId, this.fase.id, this.authority)
                 
                     this.pregunts = res.data;
-                    /////////////////////////////////77
                 this.pregunts.forEach(e => {
                   var proyResp: IProyectoRespuestas = new ProyectoRespuestas();
                   proyResp.proyectoRespuestasPreguntaPregunta= e.pregunta;
@@ -306,19 +329,25 @@ export default class PropuestaEvaluar extends Vue {
                   }
                   
                 }); //fin del foreach pregunts
-                    //////////////////////////////////77
-               
-
-
-
+    
                console.log(this.proyectoRespuests);
             }
             catch(e){
               console.log("error al recuperar la informacion de elemento ");
             }
         }
+public previousState() {
+    this.$router.go(-1);
+  }
+        
+
+public saveAndPreviousState() {
+    //this.save();
+    this.$router.go(-1);
+  }
         
 }
+
 </script>
 
 <style scoped>

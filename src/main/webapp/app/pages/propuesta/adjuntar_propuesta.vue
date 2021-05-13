@@ -28,7 +28,7 @@
                             
                                 <!--<a class="pull-left" v-on:click="openFile(adjuntoProyectoFase.archivoContentType, adjuntoProyectoFase.file)" v-text="$t('entity.action.open')">open</a><br> -->
                                 <a class="pull-left" v-on:click="this.descargar" v-text="$t('entity.action.open')">open</a>
-                                <span class="pull-left">{{adjuntoProyectoFase.archivoContentType}}, {{byteSize(adjuntoProyectoFase.file)}}</span>
+                                <span class="pull-left">{{adjuntoProyectoFase.nombreArchivoOriginal }} <br /> {{adjuntoProyectoFase.archivoContentType}}, {{byteSize(adjuntoProyectoFase.file)}}</span>
                                 <button type="button" v-on:click="this.eliminar" v-text="$t('entity.action.delete')">
                                         class="btn btn-secondary btn-xs pull-right">
                                     <font-awesome-icon icon="times"></font-awesome-icon>

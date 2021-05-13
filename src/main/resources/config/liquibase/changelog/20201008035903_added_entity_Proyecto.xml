@@ -96,6 +96,9 @@
             <column name="fecha_sustentacion_proyecto" type="datetime">
                 <constraints nullable="true" />
             </column>
+            <column name="sustentar" type="boolean">
+                <constraints nullable="true" />
+            </column>
             <column name="proyecto_linea_investigacion_id" type="bigint">
                 <constraints nullable="true" />
             </column>
@@ -172,6 +175,7 @@
             <column name="fecha_pre_envio_propuesta" type="datetime"/>
             <column name="fecha_viabilidad_propuesta" type="datetime"/>
             <column name="fecha_sustentacion_proyecto" type="datetime"/>
+            <column name="sustentar" type="boolean"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>

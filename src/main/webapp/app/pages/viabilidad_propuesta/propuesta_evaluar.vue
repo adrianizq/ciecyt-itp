@@ -13,15 +13,52 @@
                       body-bg-variant="light"
                      header-text-variant="info">  
                    
-              <table> 
-               <tr><td><h2>Viabilidad de la Propuesta </h2></td></tr>
-               <tr><td>Título: {{proyecto.titulo}} </td></tr>
-               <tr><td>Programa: {{proyecto.programa}} </td></tr>
-                <tr><td> &nbsp; </td></tr>
-             </table>
-             </b-card>
-              <hr></hr>
+                    <table> 
+                    <tr><td><h2>Viabilidad de la Propuesta </h2></td></tr>
+                    <tr><td>Título: {{proyecto.titulo}} </td></tr>
+                    <tr><td>Programa: {{proyecto.programa}} </td></tr>
+                    <tr><td> &nbsp; </td></tr>
+                    </table>
+                  </b-card>
+                  <hr></hr>
+                </div> 
+
+                <div class="col-12">
+                    <b-card  
+                      border-variant="primary"
+                      header-bg-variant="light"
+                      body-bg-variant="light"
+                     header-text-variant="info">  
+                
+                    <!-------------------------DESCARGAR ------->
+                       <div class="form-group">
+                        <label class="form-control-label" v-text="$t('ciecytApp.adjuntoProyectoFase.archivo')" for="adjunto-proyecto-fase-archivo">Archivo</label>
+                        <div>
+                            <div v-if="adjuntoProyectoFase.id"  class="form-text text-danger clearfix">
+                            
+                            
+                                <!--<a class="pull-left" v-on:click="openFile(adjuntoProyectoFase.archivoContentType, adjuntoProyectoFase.file)" v-text="$t('entity.action.open')">open</a><br> -->
+                                <a class="pull-left" v-on:click="this.descargar" v-text="$t('entity.action.open')">open </a>
+                                <span class="pull-left">{{adjuntoProyectoFase.nombreArchivoOriginal }} <br /> {{adjuntoProyectoFase.archivoContentType}}, {{byteSize(adjuntoProyectoFase.file)}}</span>
+                                
+                            </div> 
+                           
+                           <!-- <input v-if="adjuntoProyectoFase.file==null" type="file" ref="file_archivo" id="file_archivo" v-on:change="asignarData($event, adjuntoProyectoFase, 'archivo', false)" v-text="$t('entity.action.addblob')"/>-->
+                            
+                        </div>
+                         <!--
+                        <input type="hidden" class="form-control" name="archivo" id="adjunto-proyecto-fase-archivo"
+                            :class="{'valid': !$v.adjuntoProyectoFase.archivo.$invalid, 'invalid': $v.adjuntoProyectoFase.archivo.$invalid }" v-model="$v.adjuntoProyectoFase.archivo.$model" />
+                        <input type="hidden" class="form-control" name="archivoContentType" id="adjunto-proyecto-fase-archivoContentType"
+                            v-model="adjuntoProyectoFase.archivoContentType" />
+                         <input type="hidden" class="form-control" name="fileName" id="adjunto-proyecto-fase-fileName"
+                            v-model="adjuntoProyectoFase.nombreArchivoOriginal" />
+                            -->
                     </div> 
+                   </b-card>
+                  <hr></hr>
+                </div> 
+               
                    
            
                     <div class="col-12" v-for="(ep, i) in proyectoRespuests" :key="i">
@@ -176,6 +213,7 @@
 
 <script lang="ts">
 import { Component, Inject, Vue } from 'vue-property-decorator';
+import { mixins } from 'vue-class-component';
 import MenuLateral from '@/components/propuesta/menu_lateral.vue';
 import AlertService from '@/shared/alert/alert.service';
 import ProyectoRespuestasService from '@/entities/proyecto-respuestas/proyecto-respuestas.service';
@@ -188,9 +226,28 @@ import { IElementoProyecto, ElementoProyecto } from '@/shared/model/elemento-pro
 import ElementoProyectoService from '@/entities/elemento-proyecto/elemento-proyecto.service';
 import FasesService from '@/entities/fases/fases.service';
 import { IFases, Fases } from '@/shared/model/fases.model';
+import { IAdjuntoProyectoFase, AdjuntoProyectoFase } from '@/shared/model/adjunto-proyecto-fase.model';
+import JhiDataUtils from '@/shared/data/data-utils.service';
+
+import AdjuntoProyectoFaseService from '@/entities/adjunto-proyecto-fase/adjunto-proyecto-fase.service';
 
 
-    const validations: any = {};
+
+    const validations: any = {
+
+    adjuntoProyectoFase: {
+    nombreAdjunto: {},
+    fechaCreacion: {},
+    fechaModificacion: {},
+    estadoAdjunto: {},
+    adjuntoProyectoFase: {},
+    nombreArchivoOriginal: {},
+    archivo: {},
+    fechaInicio: {},
+    fechaFin: {},
+    file: {},
+  },
+    };
 
    @Component({
         components: { MenuLateral },
@@ -198,7 +255,7 @@ import { IFases, Fases } from '@/shared/model/fases.model';
     })
 
 
-export default class PropuestaEvaluar extends Vue {
+export default class PropuestaEvaluar extends mixins(JhiDataUtils){
 
 
    @Inject('proyectoService') private proyectoService: () => ProyectoService;
@@ -206,8 +263,11 @@ export default class PropuestaEvaluar extends Vue {
    @Inject('preguntaService') private preguntaService: () => PreguntaService;
    @Inject('fasesService') private fasesService: () => FasesService;
    @Inject('elementoProyectoService') private elementoProyectoService: () => ElementoProyectoService;
+   @Inject('adjuntoProyectoFaseService') private adjuntoProyectoFaseService: () => AdjuntoProyectoFaseService;
    @Inject('alertService') private alertService: () => AlertService;
 
+    public adjuntoProyectoFass:IAdjuntoProyectoFase[] =[];
+    public adjuntoProyectoFase: IAdjuntoProyectoFase = new AdjuntoProyectoFase();
 
     public pregunts: IPregunta[] = [];
     public fase: IFases = new Fases();
@@ -235,6 +295,20 @@ export default class PropuestaEvaluar extends Vue {
             });
         }
 
+
+     descargar() {
+        //console.log('se hizo clic');
+        this.adjuntoProyectoFaseService().downloadFile(this.adjuntoProyectoFase.id, this.adjuntoProyectoFase.nombreArchivoOriginal);
+     }
+
+     asignarData(event, entity, field, isImage){
+     var fileData =  event.target.files[0];
+    this.adjuntoProyectoFase.nombreArchivoOriginal= fileData.name;
+    console.log(this.adjuntoProyectoFase.nombreArchivoOriginal);
+
+    this.setFileData(event, entity, field, isImage)
+    
+  }
         public save(): void {//debo guardar un elemento proyecto
             try {
                 //this.pregunts[0].preguntaTipoPreguntaTipoPregunta
@@ -331,7 +405,21 @@ export default class PropuestaEvaluar extends Vue {
                   
                 }); //fin del foreach pregunts
     
-               console.log(this.proyectoRespuests);
+          
+       res=  await this.adjuntoProyectoFaseService()
+      .findAdjuntoProyectoFase(this.proyId,  this.fase.id)
+      .then(res => {
+        this.adjuntoProyectoFass = res.data;
+        if(this.adjuntoProyectoFass.length==0){
+         this.adjuntoProyectoFase =  new AdjuntoProyectoFase();
+        }
+        else{
+          this.adjuntoProyectoFase = this.adjuntoProyectoFass[0];
+        }
+         console.log(this.adjuntoProyectoFass);
+        
+      });
+     
             }
             catch(e){
               console.log("error al recuperar la informacion de elemento ");

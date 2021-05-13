@@ -83,6 +83,8 @@ public class ProyectoDTO implements Serializable {
 
     private Boolean preEnviado;
 
+    private Boolean sustentar;
+
     private ZonedDateTime fechaEnvioPropuesta;
 
     private ZonedDateTime fechaEnvioProyecto;
@@ -537,5 +539,14 @@ public class ProyectoDTO implements Serializable {
     public void setFechaSustentacionProyecto(ZonedDateTime fechaSustentacionProyecto) {
         this.fechaSustentacionProyecto = fechaSustentacionProyecto;
     }
+
+    public void setSustentar(Boolean sustentar) {
+        this.sustentar = sustentar;
+    }
+
+    public Boolean isSustentar() {
+        return sustentar;
+    }
+
 
 }

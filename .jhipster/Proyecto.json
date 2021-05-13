@@ -109,6 +109,10 @@
     {
       "fieldName": "fechaSustentacionProyecto",
       "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "sustentar",
+      "fieldType": "Boolean"
     }
   ],
   "relationships": [
