@@ -1,12 +1,20 @@
 package co.edu.itp.ciecyt.web.rest;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
 import co.edu.itp.ciecyt.CiecytApp;
 import co.edu.itp.ciecyt.domain.AdjuntoRetroalimentacion;
 import co.edu.itp.ciecyt.repository.AdjuntoRetroalimentacionRepository;
 import co.edu.itp.ciecyt.service.AdjuntoRetroalimentacionService;
 import co.edu.itp.ciecyt.service.dto.AdjuntoRetroalimentacionDTO;
 import co.edu.itp.ciecyt.service.mapper.AdjuntoRetroalimentacionMapper;
-
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.List;
+import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,15 +25,6 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Base64Utils;
-import javax.persistence.EntityManager;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.hasItem;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
  * Integration tests for the {@link AdjuntoRetroalimentacionResource} REST controller.
@@ -64,8 +63,12 @@ public class AdjuntoRetroalimentacionResourceIT {
     private static final String DEFAULT_ARCHIVO_CONTENT_TYPE = "image/jpg";
     private static final String UPDATED_ARCHIVO_CONTENT_TYPE = "image/png";
 
-    //private static final String DEFAULT_ARCHIVO_CONTENT_TYPE = "AAAAAAAAAA";
-    //private static final String UPDATED_ARCHIVO_CONTENT_TYPE = "BBBBBBBBBB";
+
+    private static final String DEFAULT_AUTHORITY = "AAAAAAAAAA";
+    private static final String UPDATED_AUTHORITY = "BBBBBBBBBB";
+
+    private static final String DEFAULT_FILE = "AAAAAAAAAA";
+    private static final String UPDATED_FILE = "BBBBBBBBBB";
 
     @Autowired
     private AdjuntoRetroalimentacionRepository adjuntoRetroalimentacionRepository;
@@ -102,9 +105,11 @@ public class AdjuntoRetroalimentacionResourceIT {
             .fechaFin(DEFAULT_FECHA_FIN)
             .archivo(DEFAULT_ARCHIVO)
             .archivoContentType(DEFAULT_ARCHIVO_CONTENT_TYPE)
-            .archivoContentType(DEFAULT_ARCHIVO_CONTENT_TYPE);
+            .authority(DEFAULT_AUTHORITY)
+            .file(DEFAULT_FILE);
         return adjuntoRetroalimentacion;
     }
+
     /**
      * Create an updated entity for this test.
      *
@@ -123,7 +128,8 @@ public class AdjuntoRetroalimentacionResourceIT {
             .fechaFin(UPDATED_FECHA_FIN)
             .archivo(UPDATED_ARCHIVO)
             .archivoContentType(UPDATED_ARCHIVO_CONTENT_TYPE)
-            .archivoContentType(UPDATED_ARCHIVO_CONTENT_TYPE);
+            .authority(UPDATED_AUTHORITY)
+            .file(UPDATED_FILE);
         return adjuntoRetroalimentacion;
     }
 
@@ -138,9 +144,12 @@ public class AdjuntoRetroalimentacionResourceIT {
         int databaseSizeBeforeCreate = adjuntoRetroalimentacionRepository.findAll().size();
         // Create the AdjuntoRetroalimentacion
         AdjuntoRetroalimentacionDTO adjuntoRetroalimentacionDTO = adjuntoRetroalimentacionMapper.toDto(adjuntoRetroalimentacion);
-        restAdjuntoRetroalimentacionMockMvc.perform(post("/api/adjunto-retroalimentacions")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(adjuntoRetroalimentacionDTO)))
+        restAdjuntoRetroalimentacionMockMvc
+            .perform(
+                post("/api/adjunto-retro-alimentacions")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(adjuntoRetroalimentacionDTO))
+            )
             .andExpect(status().isCreated());
 
         // Validate the AdjuntoRetroalimentacion in the database
@@ -158,6 +167,8 @@ public class AdjuntoRetroalimentacionResourceIT {
         assertThat(testAdjuntoRetroalimentacion.getArchivo()).isEqualTo(DEFAULT_ARCHIVO);
         assertThat(testAdjuntoRetroalimentacion.getArchivoContentType()).isEqualTo(DEFAULT_ARCHIVO_CONTENT_TYPE);
         assertThat(testAdjuntoRetroalimentacion.getArchivoContentType()).isEqualTo(DEFAULT_ARCHIVO_CONTENT_TYPE);
+        assertThat(testAdjuntoRetroalimentacion.getAuthority()).isEqualTo(DEFAULT_AUTHORITY);
+        assertThat(testAdjuntoRetroalimentacion.getFile()).isEqualTo(DEFAULT_FILE);
     }
 
     @Test
@@ -170,16 +181,18 @@ public class AdjuntoRetroalimentacionResourceIT {
         AdjuntoRetroalimentacionDTO adjuntoRetroalimentacionDTO = adjuntoRetroalimentacionMapper.toDto(adjuntoRetroalimentacion);
 
         // An entity with an existing ID cannot be created, so this API call must fail
-        restAdjuntoRetroalimentacionMockMvc.perform(post("/api/adjunto-retroalimentacions")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(adjuntoRetroalimentacionDTO)))
+        restAdjuntoRetroalimentacionMockMvc
+            .perform(
+                post("/api/adjunto-retro-alimentacions")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(adjuntoRetroalimentacionDTO))
+            )
             .andExpect(status().isBadRequest());
 
         // Validate the AdjuntoRetroalimentacion in the database
         List<AdjuntoRetroalimentacion> adjuntoRetroalimentacionList = adjuntoRetroalimentacionRepository.findAll();
         assertThat(adjuntoRetroalimentacionList).hasSize(databaseSizeBeforeCreate);
     }
-
 
     @Test
     @Transactional
@@ -188,7 +201,8 @@ public class AdjuntoRetroalimentacionResourceIT {
         adjuntoRetroalimentacionRepository.saveAndFlush(adjuntoRetroalimentacion);
 
         // Get all the adjuntoRetroalimentacionList
-        restAdjuntoRetroalimentacionMockMvc.perform(get("/api/adjunto-retroalimentacions?sort=id,desc"))
+        restAdjuntoRetroalimentacionMockMvc
+            .perform(get("/api/adjunto-retro-alimentacions?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(adjuntoRetroalimentacion.getId().intValue())))
@@ -202,9 +216,11 @@ public class AdjuntoRetroalimentacionResourceIT {
             .andExpect(jsonPath("$.[*].fechaFin").value(hasItem(DEFAULT_FECHA_FIN.toString())))
             .andExpect(jsonPath("$.[*].archivoContentType").value(hasItem(DEFAULT_ARCHIVO_CONTENT_TYPE)))
             .andExpect(jsonPath("$.[*].archivo").value(hasItem(Base64Utils.encodeToString(DEFAULT_ARCHIVO))))
-            .andExpect(jsonPath("$.[*].archivoContentType").value(hasItem(DEFAULT_ARCHIVO_CONTENT_TYPE)));
+            .andExpect(jsonPath("$.[*].archivoContentType").value(hasItem(DEFAULT_ARCHIVO_CONTENT_TYPE)))
+            .andExpect(jsonPath("$.[*].authority").value(hasItem(DEFAULT_AUTHORITY)))
+            .andExpect(jsonPath("$.[*].file").value(hasItem(DEFAULT_FILE)));
     }
-    
+
     @Test
     @Transactional
     public void getAdjuntoRetroalimentacion() throws Exception {
@@ -212,7 +228,8 @@ public class AdjuntoRetroalimentacionResourceIT {
         adjuntoRetroalimentacionRepository.saveAndFlush(adjuntoRetroalimentacion);
 
         // Get the adjuntoRetroalimentacion
-        restAdjuntoRetroalimentacionMockMvc.perform(get("/api/adjunto-retroalimentacions/{id}", adjuntoRetroalimentacion.getId()))
+        restAdjuntoRetroalimentacionMockMvc
+            .perform(get("/api/adjunto-retro-alimentacions/{id}", adjuntoRetroalimentacion.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(adjuntoRetroalimentacion.getId().intValue()))
@@ -226,13 +243,17 @@ public class AdjuntoRetroalimentacionResourceIT {
             .andExpect(jsonPath("$.fechaFin").value(DEFAULT_FECHA_FIN.toString()))
             .andExpect(jsonPath("$.archivoContentType").value(DEFAULT_ARCHIVO_CONTENT_TYPE))
             .andExpect(jsonPath("$.archivo").value(Base64Utils.encodeToString(DEFAULT_ARCHIVO)))
-            .andExpect(jsonPath("$.archivoContentType").value(DEFAULT_ARCHIVO_CONTENT_TYPE));
+            .andExpect(jsonPath("$.archivoContentType").value(DEFAULT_ARCHIVO_CONTENT_TYPE))
+            .andExpect(jsonPath("$.authority").value(DEFAULT_AUTHORITY))
+            .andExpect(jsonPath("$.file").value(DEFAULT_FILE));
     }
+
     @Test
     @Transactional
     public void getNonExistingAdjuntoRetroalimentacion() throws Exception {
         // Get the adjuntoRetroalimentacion
-        restAdjuntoRetroalimentacionMockMvc.perform(get("/api/adjunto-retroalimentacions/{id}", Long.MAX_VALUE))
+        restAdjuntoRetroalimentacionMockMvc
+            .perform(get("/api/adjunto-retro-alimentacions/{id}", Long.MAX_VALUE))
             .andExpect(status().isNotFound());
     }
 
@@ -245,7 +266,9 @@ public class AdjuntoRetroalimentacionResourceIT {
         int databaseSizeBeforeUpdate = adjuntoRetroalimentacionRepository.findAll().size();
 
         // Update the adjuntoRetroalimentacion
-        AdjuntoRetroalimentacion updatedAdjuntoRetroalimentacion = adjuntoRetroalimentacionRepository.findById(adjuntoRetroalimentacion.getId()).get();
+        AdjuntoRetroalimentacion updatedAdjuntoRetroalimentacion = adjuntoRetroalimentacionRepository
+            .findById(adjuntoRetroalimentacion.getId())
+            .get();
         // Disconnect from session so that the updates on updatedAdjuntoRetroalimentacion are not directly saved in db
         em.detach(updatedAdjuntoRetroalimentacion);
         updatedAdjuntoRetroalimentacion
@@ -259,12 +282,17 @@ public class AdjuntoRetroalimentacionResourceIT {
             .fechaFin(UPDATED_FECHA_FIN)
             .archivo(UPDATED_ARCHIVO)
             .archivoContentType(UPDATED_ARCHIVO_CONTENT_TYPE)
-            .archivoContentType(UPDATED_ARCHIVO_CONTENT_TYPE);
+            .archivoContentType(UPDATED_ARCHIVO_CONTENT_TYPE)
+            .authority(UPDATED_AUTHORITY)
+            .file(UPDATED_FILE);
         AdjuntoRetroalimentacionDTO adjuntoRetroalimentacionDTO = adjuntoRetroalimentacionMapper.toDto(updatedAdjuntoRetroalimentacion);
 
-        restAdjuntoRetroalimentacionMockMvc.perform(put("/api/adjunto-retroalimentacions")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(adjuntoRetroalimentacionDTO)))
+        restAdjuntoRetroalimentacionMockMvc
+            .perform(
+                put("/api/adjunto-retro-alimentacions")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(adjuntoRetroalimentacionDTO))
+            )
             .andExpect(status().isOk());
 
         // Validate the AdjuntoRetroalimentacion in the database
@@ -282,6 +310,8 @@ public class AdjuntoRetroalimentacionResourceIT {
         assertThat(testAdjuntoRetroalimentacion.getArchivo()).isEqualTo(UPDATED_ARCHIVO);
         assertThat(testAdjuntoRetroalimentacion.getArchivoContentType()).isEqualTo(UPDATED_ARCHIVO_CONTENT_TYPE);
         assertThat(testAdjuntoRetroalimentacion.getArchivoContentType()).isEqualTo(UPDATED_ARCHIVO_CONTENT_TYPE);
+        assertThat(testAdjuntoRetroalimentacion.getAuthority()).isEqualTo(UPDATED_AUTHORITY);
+        assertThat(testAdjuntoRetroalimentacion.getFile()).isEqualTo(UPDATED_FILE);
     }
 
     @Test
@@ -293,9 +323,12 @@ public class AdjuntoRetroalimentacionResourceIT {
         AdjuntoRetroalimentacionDTO adjuntoRetroalimentacionDTO = adjuntoRetroalimentacionMapper.toDto(adjuntoRetroalimentacion);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
-        restAdjuntoRetroalimentacionMockMvc.perform(put("/api/adjunto-retroalimentacions")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(adjuntoRetroalimentacionDTO)))
+        restAdjuntoRetroalimentacionMockMvc
+            .perform(
+                put("/api/adjunto-retro-alimentacions")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(adjuntoRetroalimentacionDTO))
+            )
             .andExpect(status().isBadRequest());
 
         // Validate the AdjuntoRetroalimentacion in the database
@@ -312,8 +345,8 @@ public class AdjuntoRetroalimentacionResourceIT {
         int databaseSizeBeforeDelete = adjuntoRetroalimentacionRepository.findAll().size();
 
         // Delete the adjuntoRetroalimentacion
-        restAdjuntoRetroalimentacionMockMvc.perform(delete("/api/adjunto-retroalimentacions/{id}", adjuntoRetroalimentacion.getId())
-            .accept(MediaType.APPLICATION_JSON))
+        restAdjuntoRetroalimentacionMockMvc
+            .perform(delete("/api/adjunto-retro-alimentacions/{id}", adjuntoRetroalimentacion.getId()).accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isNoContent());
 
         // Validate the database contains one less item
@@ -321,3 +354,4 @@ public class AdjuntoRetroalimentacionResourceIT {
         assertThat(adjuntoRetroalimentacionList).hasSize(databaseSizeBeforeDelete - 1);
     }
 }
+

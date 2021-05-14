@@ -4,7 +4,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
     <!--
-        Added the constraints for entity AdjuntoRetroalimentacion.
+        Added the constraints for entity AdjuntoRetroAlimentacion.
     -->
     <changeSet id="20201008033303-2" author="jhipster">
         
@@ -13,6 +13,18 @@
                                  constraintName="adjunto_retroalimentacion_adjunto_retroalimentacion_retroali_id"
                                  referencedColumnNames="id"
                                  referencedTableName="retroalimentacion"/>
+
+        <addForeignKeyConstraint baseColumnNames="adjunto_retroalimentacion_proyecto_id"
+                                 baseTableName="adjunto_retroalimentacion"
+                                 constraintName="adjunto_retroalimentacion_adjunto_retroalimentacion_proyecto_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="proyecto"/>
+
+        <addForeignKeyConstraint baseColumnNames="adjunto_retroalimentacion_fase_id"
+                                 baseTableName="adjunto_retroalimentacion"
+                                 constraintName="fk_adjunto_retroalimentacion_adjunto_retroalimentacion_fase_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="fases"/>
 
     </changeSet>
 </databaseChangeLog>

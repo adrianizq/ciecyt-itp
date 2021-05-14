@@ -1,14 +1,14 @@
 package co.edu.itp.ciecyt.service.dto;
 
-import java.time.LocalDate;
 import java.io.Serializable;
+import java.time.LocalDate;
 import javax.persistence.Lob;
 
 /**
  * A DTO for the {@link co.edu.itp.ciecyt.domain.AdjuntoRetroalimentacion} entity.
  */
 public class AdjuntoRetroalimentacionDTO implements Serializable {
-    
+
     private Long id;
 
     private String nombreAdjunto;
@@ -32,10 +32,22 @@ public class AdjuntoRetroalimentacionDTO implements Serializable {
 
     private String archivoContentType;
 
+    private String authority;
+
+    private String file;
+
     private Long adjuntoRetroalimentacionRetroalimentacionId;
 
     private String adjuntoRetroalimentacionRetroalimentacionTitulo;
-    
+
+    private Long adjuntoRetroalimentacionProyectoId;
+
+    private String adjuntoRetroalimentacionProyectoTitulo;
+
+    private Long adjuntoRetroalimentacionFaseId;
+
+    private String adjuntoRetroalimentacionFaseFase;
+
     public Long getId() {
         return id;
     }
@@ -124,6 +136,22 @@ public class AdjuntoRetroalimentacionDTO implements Serializable {
         this.archivoContentType = archivoContentType;
     }
 
+    public String getAuthority() {
+        return authority;
+    }
+
+    public void setAuthority(String authority) {
+        this.authority = authority;
+    }
+
+    public String getFile() {
+        return file;
+    }
+
+    public void setFile(String file) {
+        this.file = file;
+    }
+
     public Long getAdjuntoRetroalimentacionRetroalimentacionId() {
         return adjuntoRetroalimentacionRetroalimentacionId;
     }
@@ -138,6 +166,38 @@ public class AdjuntoRetroalimentacionDTO implements Serializable {
 
     public void setAdjuntoRetroalimentacionRetroalimentacionTitulo(String retroalimentacionTitulo) {
         this.adjuntoRetroalimentacionRetroalimentacionTitulo = retroalimentacionTitulo;
+    }
+
+    public Long getAdjuntoRetroalimentacionProyectoId() {
+        return adjuntoRetroalimentacionProyectoId;
+    }
+
+    public void setAdjuntoRetroalimentacionProyectoId(Long proyectoId) {
+        this.adjuntoRetroalimentacionProyectoId = proyectoId;
+    }
+
+    public String getAdjuntoRetroalimentacionProyectoTitulo() {
+        return adjuntoRetroalimentacionProyectoTitulo;
+    }
+
+    public void setAdjuntoRetroalimentacionProyectoTitulo(String proyectoTitulo) {
+        this.adjuntoRetroalimentacionProyectoTitulo = proyectoTitulo;
+    }
+
+    public Long getAdjuntoRetroalimentacionFaseId() {
+        return adjuntoRetroalimentacionFaseId;
+    }
+
+    public void setAdjuntoRetroalimentacionFaseId(Long fasesId) {
+        this.adjuntoRetroalimentacionFaseId = fasesId;
+    }
+
+    public String getAdjuntoRetroalimentacionFaseFase() {
+        return adjuntoRetroalimentacionFaseFase;
+    }
+
+    public void setAdjuntoRetroalimentacionFaseFase(String fasesFase) {
+        this.adjuntoRetroalimentacionFaseFase = fasesFase;
     }
 
     @Override
@@ -172,8 +232,14 @@ public class AdjuntoRetroalimentacionDTO implements Serializable {
             ", fechaFin='" + getFechaFin() + "'" +
             ", archivo='" + getArchivo() + "'" +
             ", archivoContentType='" + getArchivoContentType() + "'" +
+            ", authority='" + getAuthority() + "'" +
+            ", file='" + getFile() + "'" +
             ", adjuntoRetroalimentacionRetroalimentacionId=" + getAdjuntoRetroalimentacionRetroalimentacionId() +
             ", adjuntoRetroalimentacionRetroalimentacionTitulo='" + getAdjuntoRetroalimentacionRetroalimentacionTitulo() + "'" +
+            ", adjuntoRetroalimentacionProyectoId=" + getAdjuntoRetroalimentacionProyectoId() +
+            ", adjuntoRetroalimentacionProyectoTitulo='" + getAdjuntoRetroalimentacionProyectoTitulo() + "'" +
+            ", adjuntoRetroalimentacionFaseId=" + getAdjuntoRetroalimentacionFaseId() +
+            ", adjuntoRetroalimentacionFaseFase='" + getAdjuntoRetroalimentacionFaseFase() + "'" +
             "}";
     }
 }

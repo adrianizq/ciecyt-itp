@@ -1,8 +1,9 @@
 package co.edu.itp.ciecyt.domain;
 
-import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
+
 import co.edu.itp.ciecyt.web.rest.TestUtil;
+import org.junit.jupiter.api.Test;
 
 public class AdjuntoRetroalimentacionTest {
 

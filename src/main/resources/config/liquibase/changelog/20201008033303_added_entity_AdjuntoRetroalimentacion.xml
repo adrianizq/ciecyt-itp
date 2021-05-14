@@ -8,7 +8,7 @@
 
     
     <!--
-        Added the entity AdjuntoRetroalimentacion.
+        Added the entity AdjuntoRetroAlimentacion.
     -->
     <changeSet id="20201008033303-1" author="jhipster">
         <createTable tableName="adjunto_retroalimentacion">
@@ -48,7 +48,19 @@
             <column name="archivo_content_type" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
+            <column name="authority" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="file" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
             <column name="adjunto_retroalimentacion_retroalimentacion_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="adjunto_retroalimentacion_proyecto_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="adjunto_retroalimentacion_fase_id" type="bigint">
                 <constraints nullable="true" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
@@ -85,6 +97,8 @@
             <column name="archivo" type="blob"/>
             <column name="archivo_content_type" type="string"/>
             <column name="archivo_content_type" type="string"/>
+            <column name="authority" type="string"/>
+            <column name="file" type="string"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>

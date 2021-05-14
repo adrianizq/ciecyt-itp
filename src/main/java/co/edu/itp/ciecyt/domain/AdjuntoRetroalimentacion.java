@@ -1,13 +1,11 @@
 package co.edu.itp.ciecyt.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import javax.persistence.*;
-
 import java.io.Serializable;
 import java.time.LocalDate;
+import javax.persistence.*;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A AdjuntoRetroalimentacion.
@@ -55,9 +53,23 @@ public class AdjuntoRetroalimentacion implements Serializable {
     @Column(name = "archivo_content_type")
     private String archivoContentType;
 
+    @Column(name = "authority")
+    private String authority;
+
+    @Column(name = "file")
+    private String file;
+
     @ManyToOne
     @JsonIgnoreProperties(value = "adjuntoRetroalimentacions", allowSetters = true)
     private Retroalimentacion adjuntoRetroalimentacionRetroalimentacion;
+
+    @ManyToOne
+    @JsonIgnoreProperties(value = "adjuntoRetroalimentacions", allowSetters = true)
+    private Proyecto adjuntoRetroalimentacionProyecto;
+
+    @ManyToOne
+    @JsonIgnoreProperties(value = "adjuntoRetroalimentacions", allowSetters = true)
+    private Fases adjuntoRetroalimentacionFase;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -198,6 +210,32 @@ public class AdjuntoRetroalimentacion implements Serializable {
         this.archivoContentType = archivoContentType;
     }
 
+    public String getAuthority() {
+        return authority;
+    }
+
+    public AdjuntoRetroalimentacion authority(String authority) {
+        this.authority = authority;
+        return this;
+    }
+
+    public void setAuthority(String authority) {
+        this.authority = authority;
+    }
+
+    public String getFile() {
+        return file;
+    }
+
+    public AdjuntoRetroalimentacion file(String file) {
+        this.file = file;
+        return this;
+    }
+
+    public void setFile(String file) {
+        this.file = file;
+    }
+
     public Retroalimentacion getAdjuntoRetroalimentacionRetroalimentacion() {
         return adjuntoRetroalimentacionRetroalimentacion;
     }
@@ -210,6 +248,33 @@ public class AdjuntoRetroalimentacion implements Serializable {
     public void setAdjuntoRetroalimentacionRetroalimentacion(Retroalimentacion retroalimentacion) {
         this.adjuntoRetroalimentacionRetroalimentacion = retroalimentacion;
     }
+
+    public Proyecto getAdjuntoRetroalimentacionProyecto() {
+        return adjuntoRetroalimentacionProyecto;
+    }
+
+    public AdjuntoRetroalimentacion adjuntoRetroalimentacionProyecto(Proyecto proyecto) {
+        this.adjuntoRetroalimentacionProyecto = proyecto;
+        return this;
+    }
+
+    public void setAdjuntoRetroalimentacionProyecto(Proyecto proyecto) {
+        this.adjuntoRetroalimentacionProyecto = proyecto;
+    }
+
+    public Fases getAdjuntoRetroalimentacionFase() {
+        return adjuntoRetroalimentacionFase;
+    }
+
+    public AdjuntoRetroalimentacion adjuntoRetroalimentacionFase(Fases fases) {
+        this.adjuntoRetroalimentacionFase = fases;
+        return this;
+    }
+
+    public void setAdjuntoRetroalimentacionFase(Fases fases) {
+        this.adjuntoRetroalimentacionFase = fases;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -243,7 +308,9 @@ public class AdjuntoRetroalimentacion implements Serializable {
             ", fechaFin='" + getFechaFin() + "'" +
             ", archivo='" + getArchivo() + "'" +
             ", archivoContentType='" + getArchivoContentType() + "'" +
-            ", archivoContentType='" + getArchivoContentType() + "'" +
+            ", authority='" + getAuthority() + "'" +
+            ", file='" + getFile() + "'" +
             "}";
     }
 }
+
