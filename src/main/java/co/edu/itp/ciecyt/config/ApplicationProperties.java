@@ -14,9 +14,9 @@ public class ApplicationProperties {
 
     private final Upload upload = new Upload();
 
+    private final Upload upload2 = new Upload();
+
     private String filesPath;
-
-
 
     public String getFilesPath() {
         return this.filesPath;
@@ -30,7 +30,9 @@ public class ApplicationProperties {
         return this.upload;
     }
 
-
+    public Upload getUpload2() {
+        return upload2;
+    }
 
     public static class Upload {
 

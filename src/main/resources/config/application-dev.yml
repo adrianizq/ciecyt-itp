@@ -147,5 +147,12 @@ application:
       dir: C://adr/ciecyt_backend_vue
     files:
       dir: files
-  files-path: http://localhost/ciecyt
+  upload2:
+    root:
+      #dir: /home/jltovarg/test/dudo
+      dir: C://adr/ciecyt_backend_vue
+    files:
+      dir: filesretro      
+  files-path: C://adr/ciecyt_backend_vue
+
 

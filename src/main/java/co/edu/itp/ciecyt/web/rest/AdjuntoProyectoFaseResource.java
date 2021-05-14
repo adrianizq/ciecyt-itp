@@ -204,7 +204,7 @@ public class AdjuntoProyectoFaseResource {
 
     ////////////////////////////////////////////////////
     /**
-     * {@code GET  /integrante-proyectos/:id} : get the "id" idProyecto.
+     * {@code GET  /adjunto-proyecto-fases/:id} : get the "id" idProyecto.
      *
      * @param idProyecto the id of the adjuntoProyectoFaseDTO to retrieve.
      * @param idFase the id of the adjuntoProyectoFaseDTO to retrieve.

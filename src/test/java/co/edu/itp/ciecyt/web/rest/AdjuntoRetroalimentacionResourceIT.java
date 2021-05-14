@@ -58,8 +58,11 @@ public class AdjuntoRetroalimentacionResourceIT {
     private static final LocalDate DEFAULT_FECHA_FIN = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_FECHA_FIN = LocalDate.now(ZoneId.systemDefault());
 
-    private static final byte[] DEFAULT_ARCHIVO = TestUtil.createByteArray(1, "0");
-    private static final byte[] UPDATED_ARCHIVO = TestUtil.createByteArray(1, "1");
+   // private static final byte[] DEFAULT_ARCHIVO = TestUtil.createByteArray(1, "0");
+   // private static final byte[] UPDATED_ARCHIVO = TestUtil.createByteArray(1, "1");
+    private static final String DEFAULT_ARCHIVO = "AAAAAAAAAA";
+    private static final String UPDATED_ARCHIVO = "BBBBBBBBBB";
+
     private static final String DEFAULT_ARCHIVO_CONTENT_TYPE = "image/jpg";
     private static final String UPDATED_ARCHIVO_CONTENT_TYPE = "image/png";
 
@@ -105,8 +108,8 @@ public class AdjuntoRetroalimentacionResourceIT {
             .fechaFin(DEFAULT_FECHA_FIN)
             .archivo(DEFAULT_ARCHIVO)
             .archivoContentType(DEFAULT_ARCHIVO_CONTENT_TYPE)
-            .authority(DEFAULT_AUTHORITY)
-            .file(DEFAULT_FILE);
+            .authority(DEFAULT_AUTHORITY);
+            //.file(DEFAULT_FILE);
         return adjuntoRetroalimentacion;
     }
 
@@ -128,8 +131,8 @@ public class AdjuntoRetroalimentacionResourceIT {
             .fechaFin(UPDATED_FECHA_FIN)
             .archivo(UPDATED_ARCHIVO)
             .archivoContentType(UPDATED_ARCHIVO_CONTENT_TYPE)
-            .authority(UPDATED_AUTHORITY)
-            .file(UPDATED_FILE);
+            .authority(UPDATED_AUTHORITY);
+            //.file(UPDATED_FILE);
         return adjuntoRetroalimentacion;
     }
 
@@ -168,7 +171,7 @@ public class AdjuntoRetroalimentacionResourceIT {
         assertThat(testAdjuntoRetroalimentacion.getArchivoContentType()).isEqualTo(DEFAULT_ARCHIVO_CONTENT_TYPE);
         assertThat(testAdjuntoRetroalimentacion.getArchivoContentType()).isEqualTo(DEFAULT_ARCHIVO_CONTENT_TYPE);
         assertThat(testAdjuntoRetroalimentacion.getAuthority()).isEqualTo(DEFAULT_AUTHORITY);
-        assertThat(testAdjuntoRetroalimentacion.getFile()).isEqualTo(DEFAULT_FILE);
+        //assertThat(testAdjuntoRetroalimentacion.getFile()).isEqualTo(DEFAULT_FILE);
     }
 
     @Test
@@ -215,7 +218,8 @@ public class AdjuntoRetroalimentacionResourceIT {
             .andExpect(jsonPath("$.[*].fechaInicio").value(hasItem(DEFAULT_FECHA_INICIO.toString())))
             .andExpect(jsonPath("$.[*].fechaFin").value(hasItem(DEFAULT_FECHA_FIN.toString())))
             .andExpect(jsonPath("$.[*].archivoContentType").value(hasItem(DEFAULT_ARCHIVO_CONTENT_TYPE)))
-            .andExpect(jsonPath("$.[*].archivo").value(hasItem(Base64Utils.encodeToString(DEFAULT_ARCHIVO))))
+            //.andExpect(jsonPath("$.[*].archivo").value(hasItem(Base64Utils.encodeToString(DEFAULT_ARCHIVO))))
+            .andExpect(jsonPath("$.[*].archivo").value(hasItem(DEFAULT_ARCHIVO)))
             .andExpect(jsonPath("$.[*].archivoContentType").value(hasItem(DEFAULT_ARCHIVO_CONTENT_TYPE)))
             .andExpect(jsonPath("$.[*].authority").value(hasItem(DEFAULT_AUTHORITY)))
             .andExpect(jsonPath("$.[*].file").value(hasItem(DEFAULT_FILE)));
@@ -242,7 +246,8 @@ public class AdjuntoRetroalimentacionResourceIT {
             .andExpect(jsonPath("$.fechaInicio").value(DEFAULT_FECHA_INICIO.toString()))
             .andExpect(jsonPath("$.fechaFin").value(DEFAULT_FECHA_FIN.toString()))
             .andExpect(jsonPath("$.archivoContentType").value(DEFAULT_ARCHIVO_CONTENT_TYPE))
-            .andExpect(jsonPath("$.archivo").value(Base64Utils.encodeToString(DEFAULT_ARCHIVO)))
+            //.andExpect(jsonPath("$.archivo").value(Base64Utils.encodeToString(DEFAULT_ARCHIVO)))
+            .andExpect(jsonPath("$.archivo").value(DEFAULT_ARCHIVO))
             .andExpect(jsonPath("$.archivoContentType").value(DEFAULT_ARCHIVO_CONTENT_TYPE))
             .andExpect(jsonPath("$.authority").value(DEFAULT_AUTHORITY))
             .andExpect(jsonPath("$.file").value(DEFAULT_FILE));
@@ -283,8 +288,8 @@ public class AdjuntoRetroalimentacionResourceIT {
             .archivo(UPDATED_ARCHIVO)
             .archivoContentType(UPDATED_ARCHIVO_CONTENT_TYPE)
             .archivoContentType(UPDATED_ARCHIVO_CONTENT_TYPE)
-            .authority(UPDATED_AUTHORITY)
-            .file(UPDATED_FILE);
+            .authority(UPDATED_AUTHORITY);
+            //.file(UPDATED_FILE);
         AdjuntoRetroalimentacionDTO adjuntoRetroalimentacionDTO = adjuntoRetroalimentacionMapper.toDto(updatedAdjuntoRetroalimentacion);
 
         restAdjuntoRetroalimentacionMockMvc
@@ -311,7 +316,7 @@ public class AdjuntoRetroalimentacionResourceIT {
         assertThat(testAdjuntoRetroalimentacion.getArchivoContentType()).isEqualTo(UPDATED_ARCHIVO_CONTENT_TYPE);
         assertThat(testAdjuntoRetroalimentacion.getArchivoContentType()).isEqualTo(UPDATED_ARCHIVO_CONTENT_TYPE);
         assertThat(testAdjuntoRetroalimentacion.getAuthority()).isEqualTo(UPDATED_AUTHORITY);
-        assertThat(testAdjuntoRetroalimentacion.getFile()).isEqualTo(UPDATED_FILE);
+        //assertThat(testAdjuntoRetroalimentacion.getFile()).isEqualTo(UPDATED_FILE);
     }
 
     @Test

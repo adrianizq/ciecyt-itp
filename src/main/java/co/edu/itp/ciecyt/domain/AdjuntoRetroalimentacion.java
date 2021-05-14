@@ -46,9 +46,8 @@ public class AdjuntoRetroalimentacion implements Serializable {
     @Column(name = "fecha_fin")
     private LocalDate fechaFin;
 
-    @Lob
     @Column(name = "archivo")
-    private byte[] archivo;
+    private String archivo;
 
     @Column(name = "archivo_content_type")
     private String archivoContentType;
@@ -56,12 +55,11 @@ public class AdjuntoRetroalimentacion implements Serializable {
     @Column(name = "authority")
     private String authority;
 
-    @Column(name = "file")
-    private String file;
 
-    @ManyToOne
-    @JsonIgnoreProperties(value = "adjuntoRetroalimentacions", allowSetters = true)
-    private Retroalimentacion adjuntoRetroalimentacionRetroalimentacion;
+
+   // @ManyToOne
+   // @JsonIgnoreProperties(value = "adjuntoRetroalimentacions", allowSetters = true)
+   // private Retroalimentacion adjuntoRetroalimentacionRetroalimentacion;
 
     @ManyToOne
     @JsonIgnoreProperties(value = "adjuntoRetroalimentacions", allowSetters = true)
@@ -184,16 +182,16 @@ public class AdjuntoRetroalimentacion implements Serializable {
         this.fechaFin = fechaFin;
     }
 
-    public byte[] getArchivo() {
+    public String getArchivo() {
         return archivo;
     }
 
-    public AdjuntoRetroalimentacion archivo(byte[] archivo) {
+    public AdjuntoRetroalimentacion archivo(String archivo) {
         this.archivo = archivo;
         return this;
     }
 
-    public void setArchivo(byte[] archivo) {
+    public void setArchivo(String archivo) {
         this.archivo = archivo;
     }
 
@@ -223,31 +221,7 @@ public class AdjuntoRetroalimentacion implements Serializable {
         this.authority = authority;
     }
 
-    public String getFile() {
-        return file;
-    }
 
-    public AdjuntoRetroalimentacion file(String file) {
-        this.file = file;
-        return this;
-    }
-
-    public void setFile(String file) {
-        this.file = file;
-    }
-
-    public Retroalimentacion getAdjuntoRetroalimentacionRetroalimentacion() {
-        return adjuntoRetroalimentacionRetroalimentacion;
-    }
-
-    public AdjuntoRetroalimentacion adjuntoRetroalimentacionRetroalimentacion(Retroalimentacion retroalimentacion) {
-        this.adjuntoRetroalimentacionRetroalimentacion = retroalimentacion;
-        return this;
-    }
-
-    public void setAdjuntoRetroalimentacionRetroalimentacion(Retroalimentacion retroalimentacion) {
-        this.adjuntoRetroalimentacionRetroalimentacion = retroalimentacion;
-    }
 
     public Proyecto getAdjuntoRetroalimentacionProyecto() {
         return adjuntoRetroalimentacionProyecto;
@@ -309,7 +283,7 @@ public class AdjuntoRetroalimentacion implements Serializable {
             ", archivo='" + getArchivo() + "'" +
             ", archivoContentType='" + getArchivoContentType() + "'" +
             ", authority='" + getAuthority() + "'" +
-            ", file='" + getFile() + "'" +
+
             "}";
     }
 }

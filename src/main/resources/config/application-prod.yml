@@ -140,5 +140,11 @@ application:
       #dir: /home/jltovarg/test/dudo
       dir: /home/adrian/ciecytapp
     files:
-      dir: files
+      dir: files      
+  upload2:
+    root:
+      #dir: /home/jltovarg/test/dudo
+      dir: /home/adrian/ciecytapp
+    files:
+      dir: filesretro      
   files-path: http://localhost/ciecyt

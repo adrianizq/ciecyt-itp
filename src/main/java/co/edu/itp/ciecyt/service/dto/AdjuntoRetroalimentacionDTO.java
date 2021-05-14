@@ -34,11 +34,11 @@ public class AdjuntoRetroalimentacionDTO implements Serializable {
 
     private String authority;
 
+    //Campo para el mapeo del archivo
     private String file;
 
-    private Long adjuntoRetroalimentacionRetroalimentacionId;
+    private String urlFile;
 
-    private String adjuntoRetroalimentacionRetroalimentacionTitulo;
 
     private Long adjuntoRetroalimentacionProyectoId;
 
@@ -152,22 +152,13 @@ public class AdjuntoRetroalimentacionDTO implements Serializable {
         this.file = file;
     }
 
-    public Long getAdjuntoRetroalimentacionRetroalimentacionId() {
-        return adjuntoRetroalimentacionRetroalimentacionId;
+    public String getUrlFile() {
+        return urlFile;
     }
 
-    public void setAdjuntoRetroalimentacionRetroalimentacionId(Long retroalimentacionId) {
-        this.adjuntoRetroalimentacionRetroalimentacionId = retroalimentacionId;
+    public void setUrlFile(String urlFile) {
+        this.urlFile = urlFile;
     }
-
-    public String getAdjuntoRetroalimentacionRetroalimentacionTitulo() {
-        return adjuntoRetroalimentacionRetroalimentacionTitulo;
-    }
-
-    public void setAdjuntoRetroalimentacionRetroalimentacionTitulo(String retroalimentacionTitulo) {
-        this.adjuntoRetroalimentacionRetroalimentacionTitulo = retroalimentacionTitulo;
-    }
-
     public Long getAdjuntoRetroalimentacionProyectoId() {
         return adjuntoRetroalimentacionProyectoId;
     }
@@ -233,9 +224,6 @@ public class AdjuntoRetroalimentacionDTO implements Serializable {
             ", archivo='" + getArchivo() + "'" +
             ", archivoContentType='" + getArchivoContentType() + "'" +
             ", authority='" + getAuthority() + "'" +
-            ", file='" + getFile() + "'" +
-            ", adjuntoRetroalimentacionRetroalimentacionId=" + getAdjuntoRetroalimentacionRetroalimentacionId() +
-            ", adjuntoRetroalimentacionRetroalimentacionTitulo='" + getAdjuntoRetroalimentacionRetroalimentacionTitulo() + "'" +
             ", adjuntoRetroalimentacionProyectoId=" + getAdjuntoRetroalimentacionProyectoId() +
             ", adjuntoRetroalimentacionProyectoTitulo='" + getAdjuntoRetroalimentacionProyectoTitulo() + "'" +
             ", adjuntoRetroalimentacionFaseId=" + getAdjuntoRetroalimentacionFaseId() +

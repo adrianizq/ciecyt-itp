@@ -39,7 +39,7 @@
             <column name="fecha_fin" type="date">
                 <constraints nullable="true" />
             </column>
-            <column name="archivo" type="longblob">
+            <column name="archivo" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
             <column name="archivo_content_type" type="varchar(255)">

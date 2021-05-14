@@ -1,6 +1,7 @@
 package co.edu.itp.ciecyt.web.rest;
 
 import co.edu.itp.ciecyt.service.AdjuntoRetroalimentacionService;
+import co.edu.itp.ciecyt.service.dto.AdjuntoProyectoFaseDTO;
 import co.edu.itp.ciecyt.web.rest.errors.BadRequestAlertException;
 import co.edu.itp.ciecyt.service.dto.AdjuntoRetroalimentacionDTO;
 
@@ -10,14 +11,18 @@ import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -57,6 +62,11 @@ public class AdjuntoRetroalimentacionResource {
             throw new BadRequestAlertException("A new adjuntoRetroalimentacion cannot already have an ID", ENTITY_NAME, "idexists");
         }
         AdjuntoRetroalimentacionDTO result = adjuntoRetroalimentacionService.save(adjuntoRetroalimentacionDTO);
+
+        byte[] file = adjuntoRetroalimentacionDTO.getArchivo();
+        if (file != null) {
+            adjuntoRetroalimentacionService.attachFile(result, file, adjuntoRetroalimentacionDTO.getArchivoContentType());
+        }
         return ResponseEntity.created(new URI("/api/adjunto-retroalimentacions/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -78,6 +88,15 @@ public class AdjuntoRetroalimentacionResource {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         AdjuntoRetroalimentacionDTO result = adjuntoRetroalimentacionService.save(adjuntoRetroalimentacionDTO);
+
+        //Guarda el adjunto del proyecto
+
+        byte[] file = adjuntoRetroalimentacionDTO.getArchivo();
+        if (file != null) {
+            adjuntoRetroalimentacionService.attachFile(result, file, adjuntoRetroalimentacionDTO.getArchivoContentType());
+        }
+
+
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, adjuntoRetroalimentacionDTO.getId().toString()))
             .body(result);
@@ -122,4 +141,81 @@ public class AdjuntoRetroalimentacionResource {
         adjuntoRetroalimentacionService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
+
+    /**
+     * {@code DOWNLOAD  /adjunto-retroalimentacions/downloadFile/{id}} : download the "id" adjuntoRetroalimentacion.
+     * @param id
+     * @param request
+     * @return
+     */
+    @GetMapping("/adjunto-retroalimentacions/downloadFile/{id}")
+    public ResponseEntity<Resource> downloadFile(@PathVariable Long id, HttpServletRequest request) {
+
+        log.debug("Download AdjuntoProyectoFase : {}", id);
+        Optional<AdjuntoRetroalimentacionDTO> adjunto = adjuntoRetroalimentacionService.findOne(id);
+
+        Resource resource = null;
+
+        if(adjunto.isPresent()) {
+
+            try {
+                resource = adjuntoRetroalimentacionService.loadFileAsResource( adjunto.get() );
+            } catch (Exception e) {
+                log.error("Error cargando archivo: {} ", adjunto.get(), e);
+            }
+            // Try to determine file's content type
+            String contentType = null;
+            try {
+                contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
+            } catch (IOException ex) {
+                log.info("Could not determine file type: {}", adjunto.get(), ex);
+            }
+
+            // Fallback to the default content type if type could not be determined
+
+            if(contentType == null) {
+                contentType = "application/octet-stream";
+            }
+
+
+            return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType(contentType))
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
+                .body(resource);
+
+        } else {
+
+            return ResponseEntity.notFound().build();
+
+        }
+
+    }
+
+    /**
+     * {@code GET  /adjunto-retroalimentacions/:id} : get the "id" idProyecto.
+     *
+     * @param idProyecto the id of the adjuntoProyectoFaseDTO to retrieve.
+     * @param idFase the id of the adjuntoProyectoFaseDTO to retrieve.
+     * @param authority the id of the adjuntoProyectoFaseDTO to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the integranteProyectoDTO, or with status {@code 404 (Not Found)}.
+     */
+    @GetMapping("/adjunto-retroalimentacions/traer/{idProyecto}/{idFase}/{authority}")
+    public ResponseEntity<?> findByAdjuntoRetroalimentacionProyectoIdAndAdjuntoRetroalimentacionFaseIdAndAuthority(
+        @PathVariable Long idProyecto,
+        @PathVariable Long idFase,
+        @PathVariable String authority
+    ) {
+        log.debug("REST request to get AdjuntoRetroalimentacion : {}", idProyecto, idFase, authority);
+        try {
+            final List<AdjuntoRetroalimentacionDTO> adjuntoRetroalimentacionDTO = adjuntoRetroalimentacionService.findByAdjuntoRetroalimentacionProyectoIdAndAdjuntoRetroalimentacionFaseIdAndAuthority(
+                idProyecto,
+                idFase,
+                authority
+            );
+            return new ResponseEntity<>(adjuntoRetroalimentacionDTO, HttpStatus.OK);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
+
 }
