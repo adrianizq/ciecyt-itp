@@ -352,7 +352,7 @@ export default class PropuestaEvaluar extends mixins(JhiDataUtils){
 
      descargarRetro() {
         //console.log('se hizo clic');
-        this.adjuntoRetroalimentacionService().downloadFile(this.adjuntoProyectoFase.id, this.adjuntoProyectoFase.nombreArchivoOriginal);
+        this.adjuntoRetroalimentacionService().downloadFile(this.adjuntoRetroalimentacion.id, this.adjuntoRetroalimentacion.nombreArchivoOriginal);
      }
 
      eliminarRetro(ob) {
