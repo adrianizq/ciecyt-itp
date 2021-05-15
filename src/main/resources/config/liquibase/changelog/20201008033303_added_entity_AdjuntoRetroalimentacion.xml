@@ -45,16 +45,7 @@
             <column name="archivo_content_type" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="archivo_content_type" type="varchar(255)">
-                <constraints nullable="true" />
-            </column>
             <column name="authority" type="varchar(255)">
-                <constraints nullable="true" />
-            </column>
-            <column name="file" type="varchar(255)">
-                <constraints nullable="true" />
-            </column>
-            <column name="adjunto_retroalimentacion_retroalimentacion_id" type="bigint">
                 <constraints nullable="true" />
             </column>
             <column name="adjunto_retroalimentacion_proyecto_id" type="bigint">

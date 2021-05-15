@@ -46,4 +46,30 @@ export default class AdjuntoRetroalimentacionService {
       });
     });
   }
+
+  public downloadFile(id?: any, fileName?: any) {
+    axios({
+      url: baseApiUrl + `/downloadFile` + `/${id}`,
+      method: 'GET',
+      responseType: 'blob',
+    }).then(response => {
+      var fileURL = window.URL.createObjectURL(new Blob([response.data]));
+      var fileLink = document.createElement('a');
+
+      fileLink.href = fileURL;
+      //fileLink.setAttribute('download', 'file.docx');
+      fileLink.setAttribute('download', fileName);
+      document.body.appendChild(fileLink);
+
+      fileLink.click();
+    });
+  }
+
+  public findAdjuntoRetroalimentacionProyectoFaseAuthority(idProyecto?: any, idFase?: any, authority?: any): Promise<any> {
+    return new Promise<any>(resolve => {
+      axios.get(baseApiUrl + `/traer` + `/${idProyecto}` + `/${idFase}` + `/${authority}`).then(function (res) {
+        resolve(res);
+      });
+    });
+  }
 }

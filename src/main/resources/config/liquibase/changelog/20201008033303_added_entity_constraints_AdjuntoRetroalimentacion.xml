@@ -8,12 +8,6 @@
     -->
     <changeSet id="20201008033303-2" author="jhipster">
         
-        <addForeignKeyConstraint baseColumnNames="adjunto_retroalimentacion_retroalimentacion_id"
-                                 baseTableName="adjunto_retroalimentacion"
-                                 constraintName="adjunto_retroalimentacion_adjunto_retroalimentacion_retroali_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="retroalimentacion"/>
-
         <addForeignKeyConstraint baseColumnNames="adjunto_retroalimentacion_proyecto_id"
                                  baseTableName="adjunto_retroalimentacion"
                                  constraintName="adjunto_retroalimentacion_adjunto_retroalimentacion_proyecto_id"

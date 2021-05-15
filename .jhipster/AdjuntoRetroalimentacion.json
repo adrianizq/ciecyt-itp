@@ -41,15 +41,27 @@
     {
       "fieldName": "archivoContentType",
       "fieldType": "String"
+    },
+    {
+      "fieldName": "file",
+      "fieldType": "String"
     }
+
   ],
   "relationships": [
     {
+      "relationshipName": "adjuntoRetroalimentacionProyecto",
+      "otherEntityName": "proyecto",
       "relationshipType": "many-to-one",
-      "otherEntityName": "retroalimentacion",
-      "otherEntityRelationshipName": "adjuntoRetroalimentacion",
-      "relationshipName": "adjuntoRetroalimentacionRetroalimentacion",
-      "otherEntityField": "titulo"
+      "otherEntityField": "titulo",
+      "otherEntityRelationshipName": "adjuntoRetroalimentacion"
+    },
+    {
+      "relationshipName": "adjuntoRetroalimentacionFase",
+      "otherEntityName": "fases",
+      "relationshipType": "many-to-one",
+      "otherEntityField": "fase",
+      "otherEntityRelationshipName": "adjuntoRetroalimentacion"
     }
   ],
   "changelogDate": "20201008033303",

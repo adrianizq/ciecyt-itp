@@ -160,6 +160,34 @@
                 </div>
               
    <hr></hr>
+
+ <!-------------------------DESCARGAR ------->
+                       <div class="form-group">
+                        <label class="form-control-label" v-text="$t('ciecytApp.adjuntoRetroalimentacion.archivo')" for="adjunto-retroalimentacion-archivo">Archivo</label>
+                        <div>
+                            <div v-if="adjuntoRetroalimentacion.id"  class="form-text text-danger clearfix">
+                            
+                            
+                                <!--<a class="pull-left" v-on:click="openFile(adjuntoProyectoFase.archivoContentType, adjuntoProyectoFase.file)" v-text="$t('entity.action.open')">open</a><br> -->
+                                <a class="pull-left" v-on:click="this.descargarRetro" v-text="$t('entity.action.open')">open</a>
+                                <span class="pull-left">{{adjuntoRetroalimentacion.nombreArchivoOriginal }} <br /> {{adjuntoRetroalimentacion.archivoContentType}}, {{byteSize(adjuntoRetroalimentacion.file)}}</span>
+                                <button type="button" v-on:click="this.eliminarRetro" v-text="$t('entity.action.delete')">
+                                        class="btn btn-secondary btn-xs pull-right">
+                                    <font-awesome-icon icon="times"></font-awesome-icon>
+                                </button> 
+                            </div> 
+                            <input v-if="adjuntoRetroalimentacion.file==null" type="file" ref="file_archivo" id="file_archivo" v-on:change="asignarDataRetro($event, adjuntoRetroalimentacion, 'archivo', false)" v-text="$t('entity.action.addblob')"/>
+                            <span  v-if="adjuntoRetroalimentacion.file!=null">Si desea subir otro adjunto, deberá eliminar el archivo actual</span>
+                        </div>
+                        <input type="hidden" class="form-control" name="archivo" id="adjunto-retroalimentacion-archivo"
+                            :class="{'valid': !$v.adjuntoRetroalimentacion.archivo.$invalid, 'invalid': $v.adjuntoRetroalimentacion.archivo.$invalid }" v-model="$v.adjuntoRetroalimentacion.archivo.$model" />
+                        <input type="hidden" class="form-control" name="archivoContentType" id="adjunto-retroalimentacion-archivoContentType"
+                            v-model="adjuntoRetroalimentacion.archivoContentType" />
+                         <input type="hidden" class="form-control" name="fileName" id="adjunto-retroalimentacion-fileName"
+                            v-model="adjuntoRetroalimentacion.nombreArchivoOriginal" />
+                    </div> 
+
+
  <div class="col-12" >
   
           <b-card  border-variant="primary"
@@ -227,9 +255,13 @@ import ElementoProyectoService from '@/entities/elemento-proyecto/elemento-proye
 import FasesService from '@/entities/fases/fases.service';
 import { IFases, Fases } from '@/shared/model/fases.model';
 import { IAdjuntoProyectoFase, AdjuntoProyectoFase } from '@/shared/model/adjunto-proyecto-fase.model';
+import AdjuntoProyectoFaseService from '@/entities/adjunto-proyecto-fase/adjunto-proyecto-fase.service';
+
+import { IAdjuntoRetroalimentacion, AdjuntoRetroalimentacion } from '@/shared/model/adjunto-retroalimentacion.model';
+import AdjuntoRetroalimentacionService from '@/entities/adjunto-retroalimentacion/adjunto-retroalimentacion.service';
+
 import JhiDataUtils from '@/shared/data/data-utils.service';
 
-import AdjuntoProyectoFaseService from '@/entities/adjunto-proyecto-fase/adjunto-proyecto-fase.service';
 
 
 
@@ -241,6 +273,18 @@ import AdjuntoProyectoFaseService from '@/entities/adjunto-proyecto-fase/adjunto
     fechaModificacion: {},
     estadoAdjunto: {},
     adjuntoProyectoFase: {},
+    nombreArchivoOriginal: {},
+    archivo: {},
+    fechaInicio: {},
+    fechaFin: {},
+    file: {},
+  },
+   adjuntoRetroalimentacion: {
+    nombreAdjunto: {},
+    fechaCreacion: {},
+    fechaModificacion: {},
+    estadoAdjunto: {},
+    adjuntoRetroalimentacion: {},
     nombreArchivoOriginal: {},
     archivo: {},
     fechaInicio: {},
@@ -264,10 +308,15 @@ export default class PropuestaEvaluar extends mixins(JhiDataUtils){
    @Inject('fasesService') private fasesService: () => FasesService;
    @Inject('elementoProyectoService') private elementoProyectoService: () => ElementoProyectoService;
    @Inject('adjuntoProyectoFaseService') private adjuntoProyectoFaseService: () => AdjuntoProyectoFaseService;
+   @Inject('adjuntoRetroalimentacionService') private adjuntoRetroalimentacionService: () => AdjuntoRetroalimentacionService;
+
    @Inject('alertService') private alertService: () => AlertService;
 
     public adjuntoProyectoFass:IAdjuntoProyectoFase[] =[];
     public adjuntoProyectoFase: IAdjuntoProyectoFase = new AdjuntoProyectoFase();
+
+    public adjuntoRetroalimentacions:IAdjuntoRetroalimentacion[] =[];
+    public adjuntoRetroalimentacion: IAdjuntoRetroalimentacion = new AdjuntoRetroalimentacion();
 
     public pregunts: IPregunta[] = [];
     public fase: IFases = new Fases();
@@ -301,10 +350,34 @@ export default class PropuestaEvaluar extends mixins(JhiDataUtils){
         this.adjuntoProyectoFaseService().downloadFile(this.adjuntoProyectoFase.id, this.adjuntoProyectoFase.nombreArchivoOriginal);
      }
 
+     descargarRetro() {
+        //console.log('se hizo clic');
+        this.adjuntoRetroalimentacionService().downloadFile(this.adjuntoProyectoFase.id, this.adjuntoProyectoFase.nombreArchivoOriginal);
+     }
+
+     eliminarRetro(ob) {
+    console.log('entro a eliminar');
+    this.adjuntoRetroalimentacionService().delete(this.adjuntoRetroalimentacion.id);
+    //this.adjuntoProyectoFass=null;
+    this.adjuntoRetroalimentacions = null;
+        //this.isSaving = false;
+           (<any>this).$router.go(0);
+  }
+
+
      asignarData(event, entity, field, isImage){
      var fileData =  event.target.files[0];
     this.adjuntoProyectoFase.nombreArchivoOriginal= fileData.name;
     console.log(this.adjuntoProyectoFase.nombreArchivoOriginal);
+
+    this.setFileData(event, entity, field, isImage)
+    
+  }
+
+  asignarDataRetro(event, entity, field, isImage){
+     var fileData =  event.target.files[0];
+    this.adjuntoRetroalimentacion.nombreArchivoOriginal= fileData.name;
+    console.log(this.adjuntoRetroalimentacion.nombreArchivoOriginal);
 
     this.setFileData(event, entity, field, isImage)
     
@@ -314,6 +387,37 @@ export default class PropuestaEvaluar extends mixins(JhiDataUtils){
                 //this.pregunts[0].preguntaTipoPreguntaTipoPregunta
                 //this.enumRespuestas.
                 this.isSaving = true;
+
+                /////////////////////////////////////////////////
+                this.adjuntoRetroalimentacion.adjuntoRetroalimentacionProyectoId = this.proyecto.id;
+    this.adjuntoRetroalimentacion.adjuntoRetroalimentacionFaseId = this.fase.id;
+    this.adjuntoRetroalimentacion.authority = this.authority;
+     this.adjuntoRetroalimentacion.fechaCreacion = new Date();
+     //this.adjuntoRetroalimentacion.proyectoFaseProyectoTitulo =  this.proyecto.titulo;
+
+    
+    if(this.adjuntoRetroalimentacion.id) {
+     console.log("Existe el adjunto");
+      this.adjuntoRetroalimentacionService()
+        .update(this.adjuntoRetroalimentacion)
+        .then(param => {
+            this.isSaving = false;
+            //(<any>this).$router.go(0);
+          const message = this.$t('ciecytApp.adjuntoRetroalimentacion.updated', { param: param.id });
+          this.alertService().showAlert(message, 'info');
+        });
+    } else {
+      console.log("NO Existe el adjunto");
+      this.adjuntoRetroalimentacionService()
+        .create(this.adjuntoRetroalimentacion)
+        .then(param => {
+          this.isSaving = false;
+           //(<any>this).$router.go(0);
+          const message = this.$t('ciecytApp.adjuntoRetroalimentacion.created', { param: param.id });
+          this.alertService().showAlert(message, 'success');
+        });
+    }
+   /////////////////////////////////////////////////
                 for (let e of this.proyectoRespuests) {
                        e.faseId=this.fase.id;
                         e.authority=this.authority;
@@ -321,16 +425,16 @@ export default class PropuestaEvaluar extends mixins(JhiDataUtils){
                         
                         this.proyectoRespuestasService().update(e)
                         .then(param => {
-                            //this.$router.push({ name: 'PropuestaPresupuestoView',params:{ proyectoId: this.proyId}});
-                            (<any>this).$router.go(0);
+                           // //this.$router.push({ name: 'PropuestaPresupuestoView',params:{ proyectoId: this.proyId}});
+                           // (<any>this).$router.go(0);
                         });
                       
                     } else {
                         
                         this.proyectoRespuestasService().create(e)
                         .then(param => {
-                            //this.$router.push({ name: 'PropuestaPresupuestoView',params:{ proyectoId: this.proyId}});
-                            (<any>this).$router.go(0);
+                           // //this.$router.push({ name: 'PropuestaPresupuestoView',params:{ proyectoId: this.proyId}});
+                           // (<any>this).$router.go(0);
                         });
                         
                     }
@@ -418,6 +522,20 @@ export default class PropuestaEvaluar extends mixins(JhiDataUtils){
         }
          console.log(this.adjuntoProyectoFass);
         
+      });
+
+      res=  await this.adjuntoRetroalimentacionService()
+      .findAdjuntoRetroalimentacionProyectoFaseAuthority(this.proyId,  this.fase.id, this.authority)
+      .then(res => {
+        this.adjuntoRetroalimentacions = res.data;
+        if(this.adjuntoRetroalimentacions.length==0){
+         this.adjuntoRetroalimentacion =  new AdjuntoRetroalimentacion();
+        }
+        else{
+          this.adjuntoRetroalimentacion = this.adjuntoRetroalimentacions[0];
+        }
+         console.log(this.adjuntoRetroalimentacions);
+         console.log(this.adjuntoRetroalimentacion);
       });
      
             }
