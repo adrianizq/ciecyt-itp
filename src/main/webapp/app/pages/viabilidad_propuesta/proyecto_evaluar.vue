@@ -149,7 +149,7 @@
                        
                      <div class="form-group" >
                        <b-form-textarea  class="form-control" name="proyecto-recomendaciones"
-                                   v-model="proyecto.recomendaciones"  />
+                                   v-model="proyecto.recomendacionesJuradoProyecto"  />
                         </div>
                        </b-form-group>
                        </b-card>
@@ -190,29 +190,29 @@
 
  <div class="col-12" >
   
-          <b-card  border-variant="primary"
+           <b-card  border-variant="primary"
                       header-bg-variant="light"
                       body-bg-variant="light"
                      header-text-variant="info">  
-                       Viabilidad
+                       Evaluación
           <div  class="p-3 mb-2 bg-white container-fluid">
                            
-                <br>Marque <strong>Viable </strong> si la propuesta cumple con los requisitos establecidos por el Ciecyt.
-                <br>Si la propuesta es viable, pero tiene correcciones marque <strong>Pendiente </strong></button>
-                 <br>Si la propuesta no es viable, marque <strong>No Viable</strong> <br>
+                <br>Marque <strong>Sustentar </strong> si el proyecto cumple con los requisitos para la sustentación.
+                <br>Si el proyecto está no listo para sustentar, marque <strong>Pendiente Sustentar </strong></button>
+                 
                 <div  >
-                <input type="radio" value="VIABLE" v-model="proyecto.viabilidad">
-                <label for="uno">Viable</label>
+                <input type="radio" value="true" v-model="proyecto.sustentar">
+                <label for="uno">Sustentar</label>
                 <br>
-                <input type="radio"  value="PENDIENTE" v-model="proyecto.viabilidad">
-                <label for="Dos">Pendiente</label>
+                <input type="radio"  value="false" v-model="proyecto.sustentar">
+                <label for="Dos">Pendiente Sustentar</label>
                 <br>
-                <input type="radio" value="NO_VIABLE" v-model="proyecto.viabilidad">
-                <label for="uno">No Viable</label>
+                
                 <br>
                 </div>
                  </div>
                 </b-card>
+
 </div>
 <hr></hr>
                 <div>
@@ -332,8 +332,8 @@ export default class PropuestaEvaluar extends mixins(JhiDataUtils){
 
     public isSaving = false;
     public proyectoRespuestasDatos: boolean = false;
-    public  authority: any="ROLE_VIABILIDAD";
-     public nombreFase: any = "Propuesta";
+    public  authority: any="ROLE_JURADO";
+     public nombreFase: any = "Proyecto";
     public mounted(): void {
     }
 
@@ -426,7 +426,7 @@ export default class PropuestaEvaluar extends mixins(JhiDataUtils){
                         this.proyectoRespuestasService().update(e)
                         .then(param => {
                            // //this.$router.push({ name: 'PropuestaPresupuestoView',params:{ proyectoId: this.proyId}});
-                           // (<any>this).$router.go(0);
+                            (<any>this).$router.go(0);
                         });
                       
                     } else {
@@ -434,7 +434,7 @@ export default class PropuestaEvaluar extends mixins(JhiDataUtils){
                         this.proyectoRespuestasService().create(e)
                         .then(param => {
                            // //this.$router.push({ name: 'PropuestaPresupuestoView',params:{ proyectoId: this.proyId}});
-                           // (<any>this).$router.go(0);
+                            (<any>this).$router.go(0);
                         });
                         
                     }

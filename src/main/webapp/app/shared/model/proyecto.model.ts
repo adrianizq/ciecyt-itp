@@ -37,6 +37,10 @@ export interface IProyecto {
   fechaEnvioPropuesta?: Date;
   fechaEnvioProyecto?: Date;
   recomendaciones?: string;
+  recomendacionesJuradoProyecto?: string;
+  recomendacionesAsesorPropuesta?: string;
+  recomendacionesAsesorProyecto?: string;
+  recomendacionesJuradoSustentacion?: string;
   //comentario
 }
 
@@ -77,6 +81,10 @@ export class Proyecto implements IProyecto {
     public preEnviado?: boolean,
     public fechaEnvioPropuesta?: Date,
     public fechaEnvioProyecto?: Date,
-    public recomendaciones?: string
+    public recomendaciones?: string,
+    public recomendacionesJuradoProyecto?: string,
+    public recomendacionesAsesorPropuesta?: string,
+    public recomendacionesAsesorProyecto?: string,
+    public recomendacionesJuradoSustentacion?: string
   ) {}
 }

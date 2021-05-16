@@ -247,11 +247,12 @@ export default class Listado extends Vue {
 
   public isSaving = false;
 
+  /*
   beforeRouteEnter(to, from, next) {
     next(vm => {
       vm.initRelationships();
     });
-  }
+  }*/
 
   public get username(): string {
     return this.$store.getters.account ? this.$store.getters.account.login : '';

@@ -426,7 +426,7 @@ export default class PropuestaEvaluar extends mixins(JhiDataUtils){
                         this.proyectoRespuestasService().update(e)
                         .then(param => {
                            // //this.$router.push({ name: 'PropuestaPresupuestoView',params:{ proyectoId: this.proyId}});
-                           // (<any>this).$router.go(0);
+                            (<any>this).$router.go(0);
                         });
                       
                     } else {
@@ -434,7 +434,7 @@ export default class PropuestaEvaluar extends mixins(JhiDataUtils){
                         this.proyectoRespuestasService().create(e)
                         .then(param => {
                            // //this.$router.push({ name: 'PropuestaPresupuestoView',params:{ proyectoId: this.proyId}});
-                           // (<any>this).$router.go(0);
+                            (<any>this).$router.go(0);
                         });
                         
                     }
