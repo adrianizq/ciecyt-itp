@@ -116,6 +116,19 @@ public class Proyecto implements Serializable {
     @Column(name = "recomendaciones")
     private String recomendaciones;
 
+    @Column(name = "recomendaciones_jurado_proyecto")
+    private String recomendacionesJuradoProyecto;
+
+    @Column(name = "recomendaciones_asesor_propuesta")
+    private String recomendacionesAsesorPropuesta;
+
+    @Column(name = "recomendaciones_asesor_proyecto")
+    private String recomendacionesAsesorProyecto;
+
+    @Column(name = "recomendaciones_jurado_sustentacion")
+    private String recomendacionesJuradoSustentacion;
+
+
     @ManyToOne
     @JsonIgnoreProperties(value = "proyectos", allowSetters = true)
     private LineaInvestigacion proyectoLineaInvestigacion;
@@ -632,6 +645,59 @@ public class Proyecto implements Serializable {
         this.proyectoFase = fase;
     }
 
+    public String getRecomendacionesJuradoProyecto() {
+        return recomendacionesJuradoProyecto;
+    }
+
+    public Proyecto recomendacionesJuradoProyecto(String recomendacionesJuradoProyecto) {
+        this.recomendacionesJuradoProyecto = recomendacionesJuradoProyecto;
+        return this;
+    }
+
+    public void setRecomendacionesJuradoProyecto(String recomendacionesJuradoProyecto) {
+        this.recomendacionesJuradoProyecto = recomendacionesJuradoProyecto;
+    }
+
+    public String getRecomendacionesAsesorPropuesta() {
+        return recomendacionesAsesorPropuesta;
+    }
+
+    public Proyecto recomendacionesAsesorPropuesta(String recomendacionesAsesorPropuesta) {
+        this.recomendacionesAsesorPropuesta = recomendacionesAsesorPropuesta;
+        return this;
+    }
+
+    public void setRecomendacionesAsesorPropuesta(String recomendacionesAsesorPropuesta) {
+        this.recomendacionesAsesorPropuesta = recomendacionesAsesorPropuesta;
+    }
+
+    public String getRecomendacionesAsesorProyecto() {
+        return recomendacionesAsesorProyecto;
+    }
+
+    public Proyecto recomendacionesAsesorProyecto(String recomendacionesAsesorProyecto) {
+        this.recomendacionesAsesorProyecto = recomendacionesAsesorProyecto;
+        return this;
+    }
+
+    public void setRecomendacionesAsesorProyecto(String recomendacionesAsesorProyecto) {
+        this.recomendacionesAsesorProyecto = recomendacionesAsesorProyecto;
+    }
+
+    public String getRecomendacionesJuradoSustentacion() {
+        return recomendacionesJuradoSustentacion;
+    }
+
+    public Proyecto recomendacionesJuradoSustentacion(String recomendacionesJuradoSustentacion) {
+        this.recomendacionesJuradoSustentacion = recomendacionesJuradoSustentacion;
+        return this;
+    }
+
+    public void setRecomendacionesJuradoSustentacion(String recomendacionesJuradoSustentacion) {
+        this.recomendacionesJuradoSustentacion = recomendacionesJuradoSustentacion;
+    }
+
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -683,6 +749,11 @@ public class Proyecto implements Serializable {
             ", nota=" + getNota() +
             ", conclusion='" + getConclusion() + "'" +
             ", recomendaciones='" + getRecomendaciones() + "'" +
+            ", recomendacionesJuradoProyecto='" + getRecomendacionesJuradoProyecto() + "'" +
+            ", recomendacionesAsesorPropuesta='" + getRecomendacionesAsesorPropuesta() + "'" +
+            ", recomendacionesAsesorProyecto='" + getRecomendacionesAsesorProyecto() + "'" +
+            ", recomendacionesJuradoSustentacion='" + getRecomendacionesJuradoSustentacion() + "'" +
+
             "}";
     }
 }

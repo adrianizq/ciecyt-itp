@@ -113,6 +113,22 @@
     {
       "fieldName": "sustentar",
       "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "recomendacionesJuradoProyecto",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "recomendacionesAsesorPropuesta",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "recomendacionesAsesorProyecto",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "recomendacionesJuradoSustentacion",
+      "fieldType": "String"
     }
   ],
   "relationships": [

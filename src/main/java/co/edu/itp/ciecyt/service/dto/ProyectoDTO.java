@@ -101,6 +101,15 @@ public class ProyectoDTO implements Serializable {
 
     private String recomendaciones;
 
+
+    private String recomendacionesJuradoProyecto;
+
+    private String recomendacionesAsesorPropuesta;
+
+    private String recomendacionesAsesorProyecto;
+
+    private String recomendacionesJuradoSustentacion;
+
     // private String proyectoProgramaPrograma;
 
     //adr
@@ -388,6 +397,39 @@ public class ProyectoDTO implements Serializable {
         this.recomendaciones = recomendaciones;
     }
 
+    public String getRecomendacionesJuradoProyecto() {
+        return recomendacionesJuradoProyecto;
+    }
+
+    public void setRecomendacionesJuradoProyecto(String recomendacionesJuradoProyecto) {
+        this.recomendacionesJuradoProyecto = recomendacionesJuradoProyecto;
+    }
+
+    public String getRecomendacionesAsesorPropuesta() {
+        return recomendacionesAsesorPropuesta;
+    }
+
+    public void setRecomendacionesAsesorPropuesta(String recomendacionesAsesorPropuesta) {
+        this.recomendacionesAsesorPropuesta = recomendacionesAsesorPropuesta;
+    }
+
+    public String getRecomendacionesAsesorProyecto() {
+        return recomendacionesAsesorProyecto;
+    }
+
+    public void setRecomendacionesAsesorProyecto(String recomendacionesAsesorProyecto) {
+        this.recomendacionesAsesorProyecto = recomendacionesAsesorProyecto;
+    }
+
+    public String getRecomendacionesJuradoSustentacion() {
+        return recomendacionesJuradoSustentacion;
+    }
+
+    public void setRecomendacionesJuradoSustentacion(String recomendacionesJuradoSustentacion) {
+        this.recomendacionesJuradoSustentacion = recomendacionesJuradoSustentacion;
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -441,6 +483,10 @@ public class ProyectoDTO implements Serializable {
             ", nota=" + getNota() +
             ", conclusion='" + getConclusion() + "'" +
             ", recomendaciones='" + getRecomendaciones() + "'" +
+            ", recomendacionesJuradoProyecto='" + getRecomendacionesJuradoProyecto() + "'" +
+            ", recomendacionesAsesorPropuesta='" + getRecomendacionesAsesorPropuesta() + "'" +
+            ", recomendacionesAsesorProyecto='" + getRecomendacionesAsesorProyecto() + "'" +
+            ", recomendacionesJuradoSustentacion='" + getRecomendacionesJuradoSustentacion() + "'" +
            // ", proyectoProgramaPrograma='" + getProyectoProgramaPrograma() + "'" +
             "}";
     }

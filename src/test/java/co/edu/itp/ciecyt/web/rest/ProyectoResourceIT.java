@@ -123,6 +123,18 @@ public class ProyectoResourceIT {
     private static final Boolean DEFAULT_SUSTENTAR = false;
     private static final Boolean UPDATED_SUSTENTAR = true;
 
+    private static final String DEFAULT_RECOMENDACIONES_JURADO_PROYECTO = "AAAAAAAAAA";
+    private static final String UPDATED_RECOMENDACIONES_JURADO_PROYECTO = "BBBBBBBBBB";
+
+    private static final String DEFAULT_RECOMENDACIONES_ASESOR_PROPUESTA = "AAAAAAAAAA";
+    private static final String UPDATED_RECOMENDACIONES_ASESOR_PROPUESTA = "BBBBBBBBBB";
+
+    private static final String DEFAULT_RECOMENDACIONES_ASESOR_PROYECTO = "AAAAAAAAAA";
+    private static final String UPDATED_RECOMENDACIONES_ASESOR_PROYECTO = "BBBBBBBBBB";
+
+    private static final String DEFAULT_RECOMENDACIONES_JURADO_SUSTENTACION = "AAAAAAAAAA";
+    private static final String UPDATED_RECOMENDACIONES_JURADO_SUSTENTACION = "BBBBBBBBBB";
+
     @Autowired
     private ProyectoRepository proyectoRepository;
 
@@ -175,7 +187,11 @@ public class ProyectoResourceIT {
             .fechaPreEnvioPropuesta(DEFAULT_FECHA_PRE_ENVIO_PROPUESTA)
             .fechaViabilidadPropuesta(DEFAULT_FECHA_VIABILIDAD_PROPUESTA)
             .fechaSustentacionProyecto(DEFAULT_FECHA_SUSTENTACION_PROYECTO)
-            .sustentar(DEFAULT_SUSTENTAR);
+            .sustentar(DEFAULT_SUSTENTAR)
+            .recomendacionesJuradoProyecto(DEFAULT_RECOMENDACIONES_JURADO_PROYECTO)
+            .recomendacionesAsesorPropuesta(DEFAULT_RECOMENDACIONES_ASESOR_PROPUESTA)
+            .recomendacionesAsesorProyecto(DEFAULT_RECOMENDACIONES_ASESOR_PROYECTO)
+            .recomendacionesJuradoSustentacion(DEFAULT_RECOMENDACIONES_JURADO_SUSTENTACION);
         return proyecto;
     }
     /**
@@ -213,7 +229,11 @@ public class ProyectoResourceIT {
             .fechaPreEnvioPropuesta(UPDATED_FECHA_PRE_ENVIO_PROPUESTA)
             .fechaViabilidadPropuesta(UPDATED_FECHA_VIABILIDAD_PROPUESTA)
             .fechaSustentacionProyecto(UPDATED_FECHA_SUSTENTACION_PROYECTO)
-            .sustentar(UPDATED_SUSTENTAR);
+            .sustentar(UPDATED_SUSTENTAR)
+            .recomendacionesJuradoProyecto(UPDATED_RECOMENDACIONES_JURADO_PROYECTO)
+            .recomendacionesAsesorPropuesta(UPDATED_RECOMENDACIONES_ASESOR_PROPUESTA)
+            .recomendacionesAsesorProyecto(UPDATED_RECOMENDACIONES_ASESOR_PROYECTO)
+            .recomendacionesJuradoSustentacion(UPDATED_RECOMENDACIONES_JURADO_SUSTENTACION);
         return proyecto;
     }
 
@@ -265,6 +285,10 @@ public class ProyectoResourceIT {
         assertThat(testProyecto.getFechaViabilidadPropuesta()).isEqualTo(DEFAULT_FECHA_VIABILIDAD_PROPUESTA);
         assertThat(testProyecto.getFechaSustentacionProyecto()).isEqualTo(DEFAULT_FECHA_SUSTENTACION_PROYECTO);
         assertThat(testProyecto.isSustentar()).isEqualTo(DEFAULT_SUSTENTAR);
+        assertThat(testProyecto.getRecomendacionesJuradoProyecto()).isEqualTo(DEFAULT_RECOMENDACIONES_JURADO_PROYECTO);
+        assertThat(testProyecto.getRecomendacionesAsesorPropuesta()).isEqualTo(DEFAULT_RECOMENDACIONES_ASESOR_PROPUESTA);
+        assertThat(testProyecto.getRecomendacionesAsesorProyecto()).isEqualTo(DEFAULT_RECOMENDACIONES_ASESOR_PROYECTO);
+        assertThat(testProyecto.getRecomendacionesJuradoSustentacion()).isEqualTo(DEFAULT_RECOMENDACIONES_JURADO_SUSTENTACION);
     }
 
     @Test
@@ -326,7 +350,11 @@ public class ProyectoResourceIT {
             .andExpect(jsonPath("$.[*].fechaPreEnvioPropuesta").value(hasItem(sameInstant(DEFAULT_FECHA_PRE_ENVIO_PROPUESTA))))
             .andExpect(jsonPath("$.[*].fechaViabilidadPropuesta").value(hasItem(sameInstant(DEFAULT_FECHA_VIABILIDAD_PROPUESTA))))
             .andExpect(jsonPath("$.[*].fechaSustentacionProyecto").value(hasItem(sameInstant(DEFAULT_FECHA_SUSTENTACION_PROYECTO))))
-            .andExpect(jsonPath("$.[*].sustentar").value(hasItem(DEFAULT_SUSTENTAR.booleanValue())));
+            .andExpect(jsonPath("$.[*].sustentar").value(hasItem(DEFAULT_SUSTENTAR.booleanValue())))
+            .andExpect(jsonPath("$.[*].recomendacionesJuradoProyecto").value(hasItem(DEFAULT_RECOMENDACIONES_JURADO_PROYECTO)))
+            .andExpect(jsonPath("$.[*].recomendacionesAsesorPropuesta").value(hasItem(DEFAULT_RECOMENDACIONES_ASESOR_PROPUESTA)))
+            .andExpect(jsonPath("$.[*].recomendacionesAsesorProyecto").value(hasItem(DEFAULT_RECOMENDACIONES_ASESOR_PROYECTO)))
+            .andExpect(jsonPath("$.[*].recomendacionesJuradoSustentacion").value(hasItem(DEFAULT_RECOMENDACIONES_JURADO_SUSTENTACION)));
     }
     
     @Test
@@ -367,7 +395,11 @@ public class ProyectoResourceIT {
             .andExpect(jsonPath("$.fechaPreEnvioPropuesta").value(sameInstant(DEFAULT_FECHA_PRE_ENVIO_PROPUESTA)))
             .andExpect(jsonPath("$.fechaViabilidadPropuesta").value(sameInstant(DEFAULT_FECHA_VIABILIDAD_PROPUESTA)))
             .andExpect(jsonPath("$.fechaSustentacionProyecto").value(sameInstant(DEFAULT_FECHA_SUSTENTACION_PROYECTO)))
-            .andExpect(jsonPath("$.sustentar").value(DEFAULT_SUSTENTAR.booleanValue()));
+            .andExpect(jsonPath("$.sustentar").value(DEFAULT_SUSTENTAR.booleanValue()))
+            .andExpect(jsonPath("$.recomendacionesJuradoProyecto").value(DEFAULT_RECOMENDACIONES_JURADO_PROYECTO))
+            .andExpect(jsonPath("$.recomendacionesAsesorPropuesta").value(DEFAULT_RECOMENDACIONES_ASESOR_PROPUESTA))
+            .andExpect(jsonPath("$.recomendacionesAsesorProyecto").value(DEFAULT_RECOMENDACIONES_ASESOR_PROYECTO))
+            .andExpect(jsonPath("$.recomendacionesJuradoSustentacion").value(DEFAULT_RECOMENDACIONES_JURADO_SUSTENTACION));
     }
     @Test
     @Transactional
@@ -417,7 +449,11 @@ public class ProyectoResourceIT {
             .fechaPreEnvioPropuesta(UPDATED_FECHA_PRE_ENVIO_PROPUESTA)
             .fechaViabilidadPropuesta(UPDATED_FECHA_VIABILIDAD_PROPUESTA)
             .fechaSustentacionProyecto(UPDATED_FECHA_SUSTENTACION_PROYECTO)
-            .sustentar(UPDATED_SUSTENTAR);
+            .sustentar(UPDATED_SUSTENTAR)
+            .recomendacionesJuradoProyecto(UPDATED_RECOMENDACIONES_JURADO_PROYECTO)
+            .recomendacionesAsesorPropuesta(UPDATED_RECOMENDACIONES_ASESOR_PROPUESTA)
+            .recomendacionesAsesorProyecto(UPDATED_RECOMENDACIONES_ASESOR_PROYECTO)
+            .recomendacionesJuradoSustentacion(UPDATED_RECOMENDACIONES_JURADO_SUSTENTACION);
         ProyectoDTO proyectoDTO = proyectoMapper.toDto(updatedProyecto);
 
         restProyectoMockMvc.perform(put("/api/proyectos")
@@ -457,6 +493,10 @@ public class ProyectoResourceIT {
         assertThat(testProyecto.getFechaViabilidadPropuesta()).isEqualTo(UPDATED_FECHA_VIABILIDAD_PROPUESTA);
         assertThat(testProyecto.getFechaSustentacionProyecto()).isEqualTo(UPDATED_FECHA_SUSTENTACION_PROYECTO);
         assertThat(testProyecto.isSustentar()).isEqualTo(UPDATED_SUSTENTAR);
+        assertThat(testProyecto.getRecomendacionesJuradoProyecto()).isEqualTo(UPDATED_RECOMENDACIONES_JURADO_PROYECTO);
+        assertThat(testProyecto.getRecomendacionesAsesorPropuesta()).isEqualTo(UPDATED_RECOMENDACIONES_ASESOR_PROPUESTA);
+        assertThat(testProyecto.getRecomendacionesAsesorProyecto()).isEqualTo(UPDATED_RECOMENDACIONES_ASESOR_PROYECTO);
+        assertThat(testProyecto.getRecomendacionesJuradoSustentacion()).isEqualTo(UPDATED_RECOMENDACIONES_JURADO_SUSTENTACION);
     }
 
     @Test
