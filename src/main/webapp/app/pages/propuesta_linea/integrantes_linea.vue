@@ -3,9 +3,16 @@
         <div class="col-sm-4">
             <menu-lateral-linea :proyectoId='$route.params.proyectoId'></menu-lateral-linea>
         </div>
+        
         <div class="col-sm-8">
             <form @submit.prevent="save()">
                 <div class="row">
+
+            <div class="form-group">
+              <label class="form-control-label" for="encabezado">
+               <h2>Integrantes</h2>
+               </label>
+              </div>
                     <div class="col-12" v-for="(integrante, i) in integrantesProyecto" :key="i">
                         <b-form-group
                             :label="`Integrante # ${i + 1}`"
@@ -14,7 +21,8 @@
                             <b-form-select
                                 :options="users"
                                 text-field="nombresApellidos"
-                                value-field="id" :id="`integrante-${i}`" v-model="integrante.integranteProyectoUserId">
+                                value-field="id" :id="`integrante-${i}`" v-model="integrante.integranteProyectoUserId"
+                                disabled="true">
 
                             </b-form-select>
                         </b-form-group>
@@ -61,7 +69,7 @@
         validations
     })
 
-    export default class PropuestaIntegrantesLinea extends Vue {
+    export default class PropuestaIntegrantes extends Vue {
         @Inject('usuarioService') private usuarioService: () => UsuarioService;
         @Inject('proyectoService') private proyectoService: () => ProyectoService;
         @Inject('integranteProyectoService') private integranteProyectoService: () => IntegranteProyectoService;
@@ -106,7 +114,7 @@
         }
 
         public back() {
-            this.$router.push({ name: 'PropuestaLineaInformacionGeneralLineaEditView', params: { proyectoId: this.proyId } });
+            this.$router.push({ name: 'PropuestaInformacionGeneraEditlView', params: { proyectoId: this.proyId } });
         }
 
         public save(): void {
@@ -120,11 +128,11 @@
                         //Creando un nuevo integrante
                         this.integranteProyectoService().create(integrante)
                             .then(param => {
-                                this.$router.push({ name: 'PropuestaLineaElementosView', params: { proyectoId: this.proyId } });
+                                this.$router.push({ name: 'PropuestaElementosView', params: { proyectoId: this.proyId } });
                             });
                     }
                      var proyId: string = String(this.proyId);
-                     this.$router.push({ name: 'PropuestaLineaElementosView', params: { proyectoId: proyId } });
+                     this.$router.push({ name: 'PropuestaElementosView', params: { proyectoId: proyId } });
 
                 }
 

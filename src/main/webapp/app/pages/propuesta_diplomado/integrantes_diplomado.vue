@@ -3,14 +3,16 @@
         <div class="col-sm-4">
             <menu-lateral-diplomado :proyectoId='$route.params.proyectoId'></menu-lateral-diplomado>
         </div>
+        
         <div class="col-sm-8">
             <form @submit.prevent="save()">
                 <div class="row">
-                  <div class="form-group">
+
+            <div class="form-group">
               <label class="form-control-label" for="encabezado">
                <h2>Integrantes</h2>
                </label>
-           </div>
+              </div>
                     <div class="col-12" v-for="(integrante, i) in integrantesProyecto" :key="i">
                         <b-form-group
                             :label="`Integrante # ${i + 1}`"
@@ -19,7 +21,8 @@
                             <b-form-select
                                 :options="users"
                                 text-field="nombresApellidos"
-                                value-field="id" :id="`integrante-${i}`" v-model="integrante.integranteProyectoUserId">
+                                value-field="id" :id="`integrante-${i}`" v-model="integrante.integranteProyectoUserId"
+                                disabled="true">
 
                             </b-form-select>
                         </b-form-group>

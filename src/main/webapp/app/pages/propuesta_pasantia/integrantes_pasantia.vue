@@ -3,14 +3,16 @@
         <div class="col-sm-4">
             <menu-lateral-pasantia :proyectoId='$route.params.proyectoId'></menu-lateral-pasantia>
         </div>
+        
         <div class="col-sm-8">
             <form @submit.prevent="save()">
                 <div class="row">
-                     <div class="form-group">
+
+            <div class="form-group">
               <label class="form-control-label" for="encabezado">
                <h2>Integrantes</h2>
                </label>
-           </div>
+              </div>
                     <div class="col-12" v-for="(integrante, i) in integrantesProyecto" :key="i">
                         <b-form-group
                             :label="`Integrante # ${i + 1}`"
@@ -19,7 +21,8 @@
                             <b-form-select
                                 :options="users"
                                 text-field="nombresApellidos"
-                                value-field="id" :id="`integrante-${i}`" v-model="integrante.integranteProyectoUserId">
+                                value-field="id" :id="`integrante-${i}`" v-model="integrante.integranteProyectoUserId"
+                                disabled="true">
 
                             </b-form-select>
                         </b-form-group>
@@ -59,8 +62,6 @@
     import { IIntegranteProyecto, IntegranteProyecto } from '@/shared/model/integrante-proyecto.model';
     import IntegranteProyectoService from '@/entities/integrante-proyecto/integrante-proyecto.service';
 
-    import LoginService from '@/account/login.service';
-
     const validations: any = {};
 
     @Component({
@@ -74,9 +75,6 @@
         @Inject('integranteProyectoService') private integranteProyectoService: () => IntegranteProyectoService;
         @Inject('rolesModalidadService') private rolesModalidadService: () => RolesModalidadService;
         @Inject('alertService') private alertService: () => AlertService;
-        ///////////////////////////////////////////7777
-        @Inject('loginService')
-        
 
         public users: IUser[] = [];
         public rolesModalidad: IRolesModalidad;
@@ -89,29 +87,6 @@
         public n: number = 0;
         public cantEstudiantes: number = 0;
         public rolModalidadId?: number =0;
-
-
-        ///////////////////////////////////////////////////////////////////777
-      
-  private loginService: () => LoginService;
-  public autoridadElegida: any = null;
-  public openLogin(): void {
-    this.loginService().openLogin((<any>this).$root);
-  }
-  public get authenticated(): boolean {
-    return this.$store.getters.authenticated;
-  }
-  public get username(): string {
-    return this.$store.getters.account ? this.$store.getters.account.login : '';
-  }
-  public get userid(): number {
-    return this.$store.getters.account ? this.$store.getters.account.id : '';
-  }
-  public get authorities(): string {
-    //console.log(this.$store.getters.account);
-    return this.$store.getters.account ? this.$store.getters.account.authorities : '';
-  }
-        ////////////////////////////////////////////////////////////////////7
 
 //public proyId: string = null;
 
@@ -139,7 +114,7 @@
         }
 
         public back() {
-            this.$router.push({ name: 'PropuestaPasantiaInformacionGeneraEditlView', params: { proyectoId: this.proyId } });
+            this.$router.push({ name: 'PropuestaInformacionGeneraEditlView', params: { proyectoId: this.proyId } });
         }
 
         public save(): void {
@@ -153,11 +128,11 @@
                         //Creando un nuevo integrante
                         this.integranteProyectoService().create(integrante)
                             .then(param => {
-                                this.$router.push({ name: 'PropuestaPasantiaInformacionEmpresaView', params: { proyectoId: this.proyId } });
+                                this.$router.push({ name: 'PropuestaElementosView', params: { proyectoId: this.proyId } });
                             });
                     }
                      var proyId: string = String(this.proyId);
-                     this.$router.push({ name: 'PropuestaPasantiaInformacionEmpresaView', params: { proyectoId: proyId } });
+                     this.$router.push({ name: 'PropuestaElementosView', params: { proyectoId: proyId } });
 
                 }
 
@@ -177,9 +152,13 @@
                         res.data.forEach((item) => {
                             item.nombresApellidos = item.firstName + ' ' + item.lastName;
                             this.users.push(item);
+
                         });
+
                     });
                 
+               
+                  
 
                 this.proyId = parseInt(this.$route.params.proyectoId);
 
@@ -212,16 +191,16 @@
                          for (var i = 0; i < this.cantEstudiantes; i++) {
                             let integrante = new IntegranteProyecto();
 
-                            if(i==0){//el primer usuario es el usuario actual
-                            integrante.integranteProyectoUserId = this.userid;
-                            }
                             integrante.integranteProyectoProyectoId = this.proyId;
                             integrante.integranteProyectoRolesModalidadId = this.rolModalidadId;
 
                             this.integrantesProyecto.push(integrante);
                            
                         }
-                     });
+                        
+
+                      
+                    });
                
                   }
                
