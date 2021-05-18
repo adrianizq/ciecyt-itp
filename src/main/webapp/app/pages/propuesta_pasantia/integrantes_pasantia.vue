@@ -33,12 +33,12 @@
 
                 <div class="row">
                     <div class="col-12">
-                        <button type="button" id="cancel" class="btn btn-secondary" v-on:click="back">
+                        <!--<button type="button" id="cancel" class="btn btn-secondary" v-on:click="back">
                             <font-awesome-icon icon="arrow-left"></font-awesome-icon>&nbsp;Volver
                         </button>
                         <button type="button" id="save" class="btn btn-primary" v-on:click="save()">
                             <font-awesome-icon icon="save"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.save')">Guardar</span>
-                        </button>
+                        </button>-->
                     </div>
                 </div>
 
@@ -117,7 +117,7 @@
             this.$router.push({ name: 'PropuestaInformacionGeneraEditlView', params: { proyectoId: this.proyId } });
         }
 
-        public save(): void {
+        /*public save(): void {
             try {
                 this.isSaving = true;
                 for (let integrante of this.integrantesProyecto) {
@@ -139,7 +139,7 @@
             } catch (e) {
                 //TODO: mostrar mensajes de error
             }
-        }
+        }*/
 
          async initRelationships() {
             try {
