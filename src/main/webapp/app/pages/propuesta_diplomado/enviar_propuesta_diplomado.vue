@@ -1,9 +1,9 @@
 <template>
   <div class="row">
     <div class="col-sm-4">
-      <menu-lateral :proyectoId="$route.params.proyectoId"></menu-lateral>
+      <menu-lateral-diplomado :proyectoId="$route.params.proyectoId"></menu-lateral-diplomado>
     </div>
-    <div class="col-sm-8"  v-if="!proyecto.enviado">
+    <div class="col-sm-8"  v-if="!proyecto.preEnviado">
       <form @submit.prevent="save()">
         <div class="row">
           <div class="col-12">
@@ -18,12 +18,12 @@
              <ol></ol>
             
         </ul>
-                Se va a enviar la Propuesta al CIECYT, para ser revisada por un Jurado de Viabilidad. <br />
+                Se va a enviar la Propuesta al Ciecyt, para ser revisada por su Asesor. <br />
                 Para realizar esta operación, debe haber diligenciado correctamente los datos de su propuesta
                 <br /> 
 
                 <br />Si está de acuerdo marque la opcion
-                <strong>Enviar para Vibilidad </strong>
+                <strong>Enviar al Asesor </strong>
                 y de click en el boton <strong>Enviar </strong></label
               >
 
@@ -35,7 +35,7 @@
               v-model='terms'
         
               >
-                Enviar para Viabilidad
+                Enviar al Asesor
               </b-form-checkbox>
             </div>
           </div>
@@ -52,9 +52,9 @@
         </div>
       </form>
     </div>
-    <div class="col-sm-8"  v-if="proyecto.enviado">
+    <div class="col-sm-8"  v-if="proyecto.preEnviado">
      <h2>Enviar la Propuesta</h2><br />
-    La Propuesta ya ha sido enviada para su revisión
+    La Propuesta ya ha sido enviada al Asesor para su revisión
     </div>
   </div>
 </template>
@@ -62,7 +62,7 @@
 <script lang="ts">
 import { Component, Inject, Vue } from 'vue-property-decorator';
 
-import MenuLateral from '@/components/propuesta/menu_lateral.vue';
+import MenuLateralDiplomado from '@/components/propuesta_diplomado/menu_lateral_diplomado.vue';
 import { IProyecto, Proyecto } from '@/shared/model/proyecto.model';
 import { IUser } from '@/shared/model/user.model';
 
@@ -71,7 +71,7 @@ import AlertService from '@/shared/alert/alert.service';
 import { IIntegranteProyecto } from '@/shared/model/integrante-proyecto.model';
 
 @Component({
-  components: { MenuLateral },
+  components: { MenuLateralDiplomado },
 })
 export default class EnviarPropuesta extends Vue {
   @Inject('proyectoService') private proyectoService: () => ProyectoService;
@@ -106,7 +106,7 @@ export default class EnviarPropuesta extends Vue {
     //proyecto.fechaEnvioPropuesta
 
     this.proyecto.fechaEnvioPropuesta = new Date();
-    this.proyecto.enviado = true;
+    this.proyecto.preEnviado = true;
 
     if (this.proyecto.id) {
       this.proyectoService()

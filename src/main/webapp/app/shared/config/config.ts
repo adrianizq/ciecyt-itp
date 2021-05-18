@@ -168,6 +168,11 @@ export function initVueXStore(vue) {
           description: 'En esta sección enviará su propuesta al Ciecyt',
           to: '/propuesta/enviar_propuesta',
         },
+        {
+          title: 'Retroalimentacón',
+          description: 'Encuentre las correcciones de Asesores, Viablidad, Jurados',
+          to: '/propuesta/retroalimentacion',
+        },
       ],
 
       //Menu Lateral Linea //
@@ -214,10 +219,27 @@ export function initVueXStore(vue) {
           description: 'Cronograma de Actividades',
           to: '/propuesta-linea/cronograma-linea',
         },
-        {
+        /*{
           title: 'Estado de Propuestas',
           description: 'Muestra el estado de sus propuestas',
           to: '/propuesta-linea/estado_propuestas-linea',
+        }, */
+
+        /////////////////////////7
+        {
+          title: 'Adjuntar la Propuesta',
+          description: 'Envíe el archivo con su propuesta',
+          to: '/propuesta-linea/adjuntar-propuesta-linea',
+        },
+        {
+          title: 'Enviar la Propuesta',
+          description: 'En esta sección enviará su propuesta al Ciecyt',
+          to: '/propuesta-linea/enviar-propuesta-linea',
+        },
+        {
+          title: 'Retroalimentacón',
+          description: 'Encuentre las correcciones de Asesores, Viablidad, Jurados',
+          to: '/propuesta-linea/retroalimentacion-linea',
         },
       ],
 
@@ -248,10 +270,21 @@ export function initVueXStore(vue) {
           description: 'En el cronograma se deben crear items para: avance del 50%, informe final 100% y sustentacion',
           to: '/propuesta-pasantia/cronograma-pasantia',
         },
+        /////////////////////////7
+        {
+          title: 'Adjuntar la Propuesta',
+          description: 'Envíe el archivo con su propuesta',
+          to: '/propuesta-pasantia/adjuntar-propuesta-pasantia',
+        },
         {
           title: 'Enviar la Propuesta',
           description: 'En esta sección enviará su propuesta al Ciecyt',
           to: '/propuesta-pasantia/enviar-propuesta-pasantia',
+        },
+        {
+          title: 'Retroalimentacón',
+          description: 'Encuentre las correcciones de Asesores, Viablidad, Jurados',
+          to: '/propuesta-pasantia/retroalimentacion-pasantia',
         },
       ],
       /*Menu Lateral Diplomado*/
@@ -276,10 +309,22 @@ export function initVueXStore(vue) {
           description: 'En el cronograma se deben crear items para: avance del 50%, informe final 100% y sustentacion',
           to: '/propuesta-diplomado/cronograma-diplomado',
         },
+
+        /////////////////////////7
+        {
+          title: 'Adjuntar la Propuesta',
+          description: 'Envíe el archivo con su propuesta',
+          to: '/propuesta-diplomado/adjuntar-propuesta-diplomado',
+        },
         {
           title: 'Enviar la Propuesta',
           description: 'En esta sección enviará su propuesta al Ciecyt',
           to: '/propuesta-diplomado/enviar-propuesta-diplomado',
+        },
+        {
+          title: 'Retroalimentacón',
+          description: 'Encuentre las correcciones de Asesores, Viablidad, Jurados',
+          to: '/propuesta-diplomado/retroalimentacion-diplomado',
         },
       ],
 

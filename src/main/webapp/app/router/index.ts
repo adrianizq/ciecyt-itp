@@ -288,12 +288,16 @@ const PropuestaPasantiaInformacionEmpresa = () => import('../pages/propuesta_pas
 const PropuestaPasantiaElementos = () => import('../pages/propuesta_pasantia/elementos_pasantia.vue');
 const PropuestaPasantiaCronograma = () => import('../pages/propuesta_pasantia/cronograma_pasantia.vue');
 const PropuestaEnviarPropuestaPasantia = () => import('../pages/propuesta_pasantia/enviar_propuesta_pasantia.vue');
+const PropuestaAdjuntarPropuestaPasantia = () => import('../pages/propuesta_pasantia/adjuntar_propuesta_pasantia.vue');
+const PropuestaRetroalimentacionPasantia = () => import('../pages/propuesta_pasantia/retroalimentacion_pasantia.vue');
 
 const PropuestaDiplomadoInformacionGeneral = () => import('../pages/propuesta_diplomado/informacion_general_diplomado.vue');
 const PropuestaDiplomadoIntegrantes = () => import('../pages/propuesta_diplomado/integrantes_diplomado.vue');
 const PropuestaDiplomadoElementos = () => import('../pages/propuesta_diplomado/elementos_diplomado.vue');
 const PropuestaDiplomadoCronograma = () => import('../pages/propuesta_diplomado/cronograma_diplomado.vue');
 const PropuestaEnviarPropuestaDiplomado = () => import('../pages/propuesta_diplomado/enviar_propuesta_diplomado.vue');
+const PropuestaAdjuntarPropuestaDiplomado = () => import('../pages/propuesta_diplomado/adjuntar_propuesta_diplomado.vue');
+const PropuestaRetroalimentacionDiplomado = () => import('../pages/propuesta_diplomado/retroalimentacion_diplomado.vue');
 
 const PropuestaIntegrantes = () => import('../pages/propuesta/integrantes.vue');
 const PropuestaElementos = () => import('../pages/propuesta/elementos.vue');
@@ -303,6 +307,7 @@ const PropuestaImpactosEsperado = () => import('../pages/propuesta/impactos_espe
 const PropuestaEntidades = () => import('../pages/propuesta/entidades.vue');
 const PropuestaCronograma = () => import('../pages/propuesta/cronograma.vue');
 const PropuestaEnviarPropuesta = () => import('../pages/propuesta/enviar_propuesta.vue');
+const PropuestaRetroalimentacion = () => import('../pages/propuesta/retroalimentacion.vue');
 const PropuestaAdjuntarPropuesta = () => import('../pages/propuesta/adjuntar_propuesta.vue');
 
 const PropuestaLineaInformacionGeneral = () => import('../pages/propuesta_linea/informacion_general_linea.vue');
@@ -314,6 +319,9 @@ const PropuestaLineaImpactosEsperado = () => import('../pages/propuesta_linea/im
 const PropuestaLineaEntidades = () => import('../pages/propuesta_linea/entidades_linea.vue');
 const PropuestaLineaCronograma = () => import('../pages/propuesta_linea/cronograma_linea.vue');
 const PropuestaLineaEstadoPropuestas = () => import('../pages/propuesta_linea/estado_propuestas_linea.vue');
+const PropuestaAdjuntarPropuestaLinea = () => import('../pages/propuesta_linea/adjuntar_propuesta_linea.vue');
+const PropuestaRetroalimentacionLinea = () => import('../pages/propuesta_linea/retroalimentacion_linea.vue');
+const PropuestaEnviarPropuestaLinea = () => import('../pages/propuesta_linea/enviar_propuesta_linea.vue');
 
 const PropuestaListado = () => import('../pages/viabilidad_propuesta/listado.vue');
 const ProyectoListadoJurado = () => import('../pages/viabilidad_propuesta/listado_jurado.vue');
@@ -1666,12 +1674,28 @@ export default new Router({
       meta: { authorities: ['ROLE_USER'] }
     },
 
+     
+    {
+      path: '/propuesta-pasantia/retroalimentacion-pasantia/:proyectoId',
+      name: 'PropuestaRetroalimentacionPasantiaView',
+      component: PropuestaRetroalimentacionPasantia,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    {
+      path: '/propuesta-pasantia/adjuntar-propuesta-pasantia/:proyectoId',
+      name: 'PropuestaAdjuntarPropuestaPasantiaView',
+      component: PropuestaAdjuntarPropuestaPasantia,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+   
     {
       path: '/propuesta-pasantia/enviar-propuesta-pasantia/:proyectoId',
       name: 'PropuestaEnviarPropuestaPasantiaView',
       component: PropuestaEnviarPropuestaPasantia,
       meta: { authorities: ['ROLE_USER'] }
     },
+    //////////////
+    
     ////////////////////////////////////////7
     //Diplomado
     {
@@ -1713,6 +1737,21 @@ export default new Router({
       meta: { authorities: ['ROLE_USER'] }
     },
 
+    ////////////////////////////////////////////////77
+  
+    {
+      path: '/propuesta-diplomado/retroalimentacion-diplomado/:proyectoId',
+      name: 'PropuestaRetroalimentacionDiplomadoView',
+      component: PropuestaRetroalimentacionDiplomado,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    {
+      path: '/propuesta-diplomado/adjuntar-propuesta-diplomado/:proyectoId',
+      name: 'PropuestaAdjuntarPropuestaDiplomadoView',
+      component: PropuestaAdjuntarPropuestaDiplomado,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+   
     {
       path: '/propuesta-diplomado/enviar-propuesta-diplomado/:proyectoId',
       name: 'PropuestaEnviarPropuestaDiplomadoView',
@@ -1759,6 +1798,12 @@ export default new Router({
       path: '/propuesta/enviar_propuesta/:proyectoId',
       name: 'PropuestaEnviarPropuestaView',
       component: PropuestaEnviarPropuesta,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    {
+      path: '/propuesta/retroalimentacion/:proyectoId',
+      name: 'RetroalimentacionView',
+      component: PropuestaRetroalimentacion,
       meta: { authorities: ['ROLE_USER'] }
     },
     {
@@ -1859,6 +1904,29 @@ export default new Router({
       component: PropuestaLineaImpactosEsperado,
       meta: { authorities: ['ROLE_USER'] }
     },
+
+     ////////////////////////////////////////////////77
+  
+     {
+      path: '/propuesta-linea/retroalimentacion-linea/:proyectoId',
+      name: 'PropuestaRetroalimentacionLineaView',
+      component: PropuestaRetroalimentacionLinea,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    {
+      path: '/propuesta-linea/adjuntar-propuesta-linea/:proyectoId',
+      name: 'PropuestaAdjuntarPropuestaLineaView',
+      component: PropuestaAdjuntarPropuestaLinea,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+   
+    {
+      path: '/propuesta-linea/enviar-propuesta-linea/:proyectoId',
+      name: 'PropuestaEnviarPropuestaLineaView',
+      component: PropuestaEnviarPropuestaLinea,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+   
 
     ////////////////////////////////////////////////////////777777777
 

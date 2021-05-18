@@ -23,6 +23,9 @@
       "adjuntoRetroalimentacion": "Adjunto Retroalimentacion",
       "nombreArchivoOriginal": "Nombre Archivo Original",
       "archivo": "Archivo Adjunto",
+      "correcionesAsesor": "Correcciones del Asesor",
+      "correcionesPropuesta": "Correcciones de la Propuesta",
+      "correcionesProyecto": "Correcciones del Proyecto",
       "fechaInicio": "Fecha Inicio",
       "fechaFin": "Fecha Fin",
       "adjuntoRetroalimentacionRetroalimentacion": "Adjunto Retroalimentacion Retroalimentacion"
