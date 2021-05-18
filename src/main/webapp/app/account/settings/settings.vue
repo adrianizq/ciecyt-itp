@@ -80,6 +80,22 @@
                             </small>
                         </div>
                     </div>
+
+            <!--  User Info ---------------------------->
+                    <div class="form-group">
+                        <label class="form-control-label" for="nuip" >Número de Documento</label>
+                        <input type="text" class="form-control" id="nuip" name="nuip" v-bind:placeholder="$t('settings.form[\'nuip.placeholder\']')"
+                               :class="{'valid': !$v.userInfo.nuip.$invalid, 'invalid': $v.userInfo.nuip.$invalid }"
+                               v-model="userInfo.nuip" maxlength=50>
+                        <div v-if="$v.userInfo.nuip.$anyDirty && $v.userInfo.nuip.$invalid">
+                            <small class="form-text text-danger"
+                                   v-if="!$v.userInfo.nuip.maxLength" v-text="$t('entity.validation.maxlength')">
+                                Your last name cannot be longer than 50 characters.
+                            </small>
+                        </div>
+                    </div>
+                    <!-- ---------------------------------------->
+
                     <div class="form-group" v-if="languages && Object.keys(languages).length > 1">
                         <label for="langKey" v-text="$t('settings.form.language')">Language</label>
                         <select class="form-control" id="langKey" name="langKey" v-model="settingsAccount.langKey">
