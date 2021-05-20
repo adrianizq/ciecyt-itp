@@ -1,5 +1,8 @@
 package co.edu.itp.ciecyt.domain;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 
@@ -10,6 +13,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "elemento_proyecto")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class ElementoProyecto implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -25,15 +29,18 @@ public class ElementoProyecto implements Serializable {
     @Column(name = "elemento_proyecto_proyecto_descripcion")
     private String elementoProyectoProyectoDescripcion;
 
+    @Column(name = "elemento_fases_id")
+    private Long elementoFasesId;
+
     @ManyToOne
-    @JsonIgnoreProperties("elementoProyectos")
+    @JsonIgnoreProperties(value = "elementoProyectos", allowSetters = true)
     private Elemento elementoProyectoElemento;
 
     @ManyToOne
-    @JsonIgnoreProperties("elementoProyectos")
+    @JsonIgnoreProperties(value = "elementoProyectos", allowSetters = true)
     private Proyecto elementoProyectoProyecto;
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
+    // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
         return id;
     }
@@ -68,6 +75,19 @@ public class ElementoProyecto implements Serializable {
         this.elementoProyectoProyectoDescripcion = elementoProyectoProyectoDescripcion;
     }
 
+    public Long getElementoFasesId() {
+        return elementoFasesId;
+    }
+
+    public ElementoProyecto elementoFasesId(Long elementoFasesId) {
+        this.elementoFasesId = elementoFasesId;
+        return this;
+    }
+
+    public void setElementoFasesId(Long elementoFasesId) {
+        this.elementoFasesId = elementoFasesId;
+    }
+
     public Elemento getElementoProyectoElemento() {
         return elementoProyectoElemento;
     }
@@ -93,7 +113,7 @@ public class ElementoProyecto implements Serializable {
     public void setElementoProyectoProyecto(Proyecto proyecto) {
         this.elementoProyectoProyecto = proyecto;
     }
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
+    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
     public boolean equals(Object o) {
@@ -111,12 +131,14 @@ public class ElementoProyecto implements Serializable {
         return 31;
     }
 
+    // prettier-ignore
     @Override
     public String toString() {
         return "ElementoProyecto{" +
             "id=" + getId() +
             ", dato='" + getDato() + "'" +
             ", elementoProyectoProyectoDescripcion='" + getElementoProyectoProyectoDescripcion() + "'" +
+            ", elementoFasesId=" + getElementoFasesId() +
             "}";
     }
 }

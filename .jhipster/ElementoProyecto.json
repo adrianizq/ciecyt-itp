@@ -8,6 +8,10 @@
     {
       "fieldName": "elementoProyectoProyectoDescripcion",
       "fieldType": "String"
+    },
+    {
+      "fieldName": "elementoFasesId",
+      "fieldType": "Long"
     }
   ],
   "relationships": [
@@ -36,5 +40,7 @@
   "readOnly": false,
   "embedded": false,
   "clientRootFolder": "",
-  "applications": "*"
+  "applications": "*",
+  "searchEngine": false,
+  "databaseType": "sql"
 }

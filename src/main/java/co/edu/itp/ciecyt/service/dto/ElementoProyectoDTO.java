@@ -1,17 +1,19 @@
 package co.edu.itp.ciecyt.service.dto;
+
 import java.io.Serializable;
-import java.util.Objects;
 
 /**
  * A DTO for the {@link co.edu.itp.ciecyt.domain.ElementoProyecto} entity.
  */
 public class ElementoProyectoDTO implements Serializable {
-
+    
     private Long id;
 
     private String dato;
 
     private String elementoProyectoProyectoDescripcion;
+
+    private Long elementoFasesId;
 
 
     private Long elementoProyectoElementoId;
@@ -21,7 +23,7 @@ public class ElementoProyectoDTO implements Serializable {
     private Long elementoProyectoProyectoId;
 
     private String elementoProyectoProyectoTitulo;
-
+    
     public Long getId() {
         return id;
     }
@@ -44,6 +46,14 @@ public class ElementoProyectoDTO implements Serializable {
 
     public void setElementoProyectoProyectoDescripcion(String elementoProyectoProyectoDescripcion) {
         this.elementoProyectoProyectoDescripcion = elementoProyectoProyectoDescripcion;
+    }
+
+    public Long getElementoFasesId() {
+        return elementoFasesId;
+    }
+
+    public void setElementoFasesId(Long elementoFasesId) {
+        this.elementoFasesId = elementoFasesId;
     }
 
     public Long getElementoProyectoElementoId() {
@@ -83,32 +93,30 @@ public class ElementoProyectoDTO implements Serializable {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof ElementoProyectoDTO)) {
             return false;
         }
 
-        ElementoProyectoDTO elementoProyectoDTO = (ElementoProyectoDTO) o;
-        if (elementoProyectoDTO.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), elementoProyectoDTO.getId());
+        return id != null && id.equals(((ElementoProyectoDTO) o).id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return 31;
     }
 
+    // prettier-ignore
     @Override
     public String toString() {
         return "ElementoProyectoDTO{" +
             "id=" + getId() +
             ", dato='" + getDato() + "'" +
             ", elementoProyectoProyectoDescripcion='" + getElementoProyectoProyectoDescripcion() + "'" +
-            ", elementoProyectoElemento=" + getElementoProyectoElementoId() +
-            ", elementoProyectoElemento='" + getElementoProyectoElementoElemento() + "'" +
-            ", elementoProyectoProyecto=" + getElementoProyectoProyectoId() +
-            ", elementoProyectoProyecto='" + getElementoProyectoProyectoTitulo() + "'" +
+            ", elementoFasesId=" + getElementoFasesId() +
+            ", elementoProyectoElementoId=" + getElementoProyectoElementoId() +
+            ", elementoProyectoElementoElemento='" + getElementoProyectoElementoElemento() + "'" +
+            ", elementoProyectoProyectoId=" + getElementoProyectoProyectoId() +
+            ", elementoProyectoProyectoTitulo='" + getElementoProyectoProyectoTitulo() + "'" +
             "}";
     }
 }

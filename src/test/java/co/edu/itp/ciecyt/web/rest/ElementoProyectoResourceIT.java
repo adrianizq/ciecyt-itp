@@ -38,6 +38,9 @@ public class ElementoProyectoResourceIT {
     private static final String DEFAULT_ELEMENTO_PROYECTO_PROYECTO_DESCRIPCION = "AAAAAAAAAA";
     private static final String UPDATED_ELEMENTO_PROYECTO_PROYECTO_DESCRIPCION = "BBBBBBBBBB";
 
+    private static final Long DEFAULT_ELEMENTO_FASES_ID = 1L;
+    private static final Long UPDATED_ELEMENTO_FASES_ID = 2L;
+
     @Autowired
     private ElementoProyectoRepository elementoProyectoRepository;
 
@@ -64,7 +67,8 @@ public class ElementoProyectoResourceIT {
     public static ElementoProyecto createEntity(EntityManager em) {
         ElementoProyecto elementoProyecto = new ElementoProyecto()
             .dato(DEFAULT_DATO)
-            .elementoProyectoProyectoDescripcion(DEFAULT_ELEMENTO_PROYECTO_PROYECTO_DESCRIPCION);
+            .elementoProyectoProyectoDescripcion(DEFAULT_ELEMENTO_PROYECTO_PROYECTO_DESCRIPCION)
+            .elementoFasesId(DEFAULT_ELEMENTO_FASES_ID);
         return elementoProyecto;
     }
     /**
@@ -76,7 +80,8 @@ public class ElementoProyectoResourceIT {
     public static ElementoProyecto createUpdatedEntity(EntityManager em) {
         ElementoProyecto elementoProyecto = new ElementoProyecto()
             .dato(UPDATED_DATO)
-            .elementoProyectoProyectoDescripcion(UPDATED_ELEMENTO_PROYECTO_PROYECTO_DESCRIPCION);
+            .elementoProyectoProyectoDescripcion(UPDATED_ELEMENTO_PROYECTO_PROYECTO_DESCRIPCION)
+            .elementoFasesId(UPDATED_ELEMENTO_FASES_ID);
         return elementoProyecto;
     }
 
@@ -102,6 +107,7 @@ public class ElementoProyectoResourceIT {
         ElementoProyecto testElementoProyecto = elementoProyectoList.get(elementoProyectoList.size() - 1);
         assertThat(testElementoProyecto.getDato()).isEqualTo(DEFAULT_DATO);
         assertThat(testElementoProyecto.getElementoProyectoProyectoDescripcion()).isEqualTo(DEFAULT_ELEMENTO_PROYECTO_PROYECTO_DESCRIPCION);
+        assertThat(testElementoProyecto.getElementoFasesId()).isEqualTo(DEFAULT_ELEMENTO_FASES_ID);
     }
 
     @Test
@@ -137,7 +143,8 @@ public class ElementoProyectoResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(elementoProyecto.getId().intValue())))
             .andExpect(jsonPath("$.[*].dato").value(hasItem(DEFAULT_DATO)))
-            .andExpect(jsonPath("$.[*].elementoProyectoProyectoDescripcion").value(hasItem(DEFAULT_ELEMENTO_PROYECTO_PROYECTO_DESCRIPCION)));
+            .andExpect(jsonPath("$.[*].elementoProyectoProyectoDescripcion").value(hasItem(DEFAULT_ELEMENTO_PROYECTO_PROYECTO_DESCRIPCION)))
+            .andExpect(jsonPath("$.[*].elementoFasesId").value(hasItem(DEFAULT_ELEMENTO_FASES_ID.intValue())));
     }
     
     @Test
@@ -152,7 +159,8 @@ public class ElementoProyectoResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(elementoProyecto.getId().intValue()))
             .andExpect(jsonPath("$.dato").value(DEFAULT_DATO))
-            .andExpect(jsonPath("$.elementoProyectoProyectoDescripcion").value(DEFAULT_ELEMENTO_PROYECTO_PROYECTO_DESCRIPCION));
+            .andExpect(jsonPath("$.elementoProyectoProyectoDescripcion").value(DEFAULT_ELEMENTO_PROYECTO_PROYECTO_DESCRIPCION))
+            .andExpect(jsonPath("$.elementoFasesId").value(DEFAULT_ELEMENTO_FASES_ID.intValue()));
     }
     @Test
     @Transactional
@@ -176,7 +184,8 @@ public class ElementoProyectoResourceIT {
         em.detach(updatedElementoProyecto);
         updatedElementoProyecto
             .dato(UPDATED_DATO)
-            .elementoProyectoProyectoDescripcion(UPDATED_ELEMENTO_PROYECTO_PROYECTO_DESCRIPCION);
+            .elementoProyectoProyectoDescripcion(UPDATED_ELEMENTO_PROYECTO_PROYECTO_DESCRIPCION)
+            .elementoFasesId(UPDATED_ELEMENTO_FASES_ID);
         ElementoProyectoDTO elementoProyectoDTO = elementoProyectoMapper.toDto(updatedElementoProyecto);
 
         restElementoProyectoMockMvc.perform(put("/api/elemento-proyectos")
@@ -190,6 +199,7 @@ public class ElementoProyectoResourceIT {
         ElementoProyecto testElementoProyecto = elementoProyectoList.get(elementoProyectoList.size() - 1);
         assertThat(testElementoProyecto.getDato()).isEqualTo(UPDATED_DATO);
         assertThat(testElementoProyecto.getElementoProyectoProyectoDescripcion()).isEqualTo(UPDATED_ELEMENTO_PROYECTO_PROYECTO_DESCRIPCION);
+        assertThat(testElementoProyecto.getElementoFasesId()).isEqualTo(UPDATED_ELEMENTO_FASES_ID);
     }
 
     @Test
