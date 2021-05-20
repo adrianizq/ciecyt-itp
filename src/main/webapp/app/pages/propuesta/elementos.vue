@@ -180,21 +180,8 @@ export default class Elementos extends Vue {
                     .then(res=> {
                         this.formato = res;
                     });
-            
-                this.elementoProyectoService()
-                .retrieveElementoProyecto(this.proyId, this.fase.id)
-                .then(res=> {
 
-                    this.elementosProyecto = res.data;
-
-                   
-               
-                });
-            ////////////////////////////////////////////////////77    
-
-                       //Obtenienedo los elementos de acuerdo a la modalidad
-           
-              await this.elementoService()
+                await this.elementoService()
                 //.retrieveElementosModalidad( this.modalidadId)
                 //.retrieveElementosFase(this.fase.id)
                 .retrieveElementosFaseFormato(this.fase.id, this.formato.id)
@@ -214,6 +201,21 @@ export default class Elementos extends Vue {
                  });
             
             ///////////////////////////////////////////////////////7
+            
+                await this.elementoProyectoService()
+                .retrieveElementoProyecto(this.proyId, this.fase.id)
+                .then(res=> {
+
+                    this.elementosProyecto = res.data;
+
+                   
+               
+                });
+            ////////////////////////////////////////////////////77    
+
+                       //Obtenienedo los elementos de acuerdo a la modalidad
+           
+              
 
               
 
