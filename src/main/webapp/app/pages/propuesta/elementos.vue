@@ -181,6 +181,16 @@ export default class Elementos extends Vue {
                         this.formato = res;
                     });
 
+            ///////////////////////////////////////////////////////7
+                var  elementosProyectoTemp: IElementoProyecto[] =[];
+                await this.elementoProyectoService()
+                .retrieveElementoProyecto(this.proyId, this.fase.id)
+                .then(res=> {
+                     //this.elementosProyecto = res.data;
+                     elementosProyectoTemp = res.data;
+                });
+            ////////////////////////////////////////////////////77    
+
                 await this.elementoService()
                 //.retrieveElementosModalidad( this.modalidadId)
                 //.retrieveElementosFase(this.fase.id)
@@ -189,35 +199,30 @@ export default class Elementos extends Vue {
                     this.elements = res.data;
                   //copiar los datos de elementos a elemento-proyecto
                   this.elements.forEach(e => {
-                  var elemProy: IElementoProyecto = new ElementoProyecto();
-                  elemProy.elementoProyectoElementoElemento= e.elemento;
-                  elemProy.elementoProyectoProyectoDescripcion = e.descripcion;
-                  elemProy.elementoProyectoElementoId = e.id;
-                  elemProy.elementoProyectoProyectoId = this.proyId;
-                  this.elementosProyecto.push(elemProy);
+                       var existe= false;
+                         elementosProyectoTemp.forEach(ep => {
+                             if(e.id==ep.elementoProyectoElementoId){
+                               
+                                this.elementosProyecto.push(ep);
+                    
+                                 existe=true;
+                             }
+                         });
+                  
+                    if(existe==false){
+                    var elemProy: IElementoProyecto = new ElementoProyecto();
+                    elemProy.elementoProyectoElementoElemento= e.elemento;
+                    elemProy.elementoProyectoProyectoDescripcion = e.descripcion;
+                    elemProy.elementoProyectoElementoId = e.id;
+                    elemProy.elementoProyectoProyectoId = this.proyId;
+                    this.elementosProyecto.push(elemProy);
+                    }
+                     
 
                   }); 
-                   console.log("elements");
-                 });
-            
-            ///////////////////////////////////////////////////////7
-            
-                await this.elementoProyectoService()
-                .retrieveElementoProyecto(this.proyId, this.fase.id)
-                .then(res=> {
-
-                    this.elementosProyecto = res.data;
-
-                   
-               
+         
                 });
-            ////////////////////////////////////////////////////77    
-
-                       //Obtenienedo los elementos de acuerdo a la modalidad
            
-              
-
-              
 
             }
             catch(e){
@@ -225,6 +230,8 @@ export default class Elementos extends Vue {
             }
 
         }
+
+       
 
 }
 </script>
