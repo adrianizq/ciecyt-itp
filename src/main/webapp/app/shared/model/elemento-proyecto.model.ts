@@ -6,6 +6,7 @@ export interface IElementoProyecto {
   elementoProyectoElementoId?: number;
   elementoProyectoProyectoTitulo?: string;
   elementoProyectoProyectoId?: number;
+  elementoFasesId?: number;
 }
 
 export class ElementoProyecto implements IElementoProyecto {
@@ -16,6 +17,7 @@ export class ElementoProyecto implements IElementoProyecto {
     public elementoProyectoElementoElemento?: string,
     public elementoProyectoElementoId?: number,
     public elementoProyectoProyectoTitulo?: string,
-    public elementoProyectoProyectoId?: number
+    public elementoProyectoProyectoId?: number,
+    public elementoFasesId?: number
   ) {}
 }

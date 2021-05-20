@@ -15,7 +15,7 @@ import java.util.List;
 public interface ElementoProyectoRepository extends JpaRepository<ElementoProyecto, Long> {
     //List<ElementoProyecto> findByElementoProyectoProyectoId(Long idProyecto);
     List<ElementoProyecto> findByElementoProyectoProyectoIdOrderByElementoProyectoElementoId(Long idProyecto);
-    List<ElementoProyecto> findByElementoProyectoProyectoIdOrderByElementoProyectoElementoIdAndElementoFasesId(Long idProyecto, Long idFase);
+    List<ElementoProyecto> findByElementoProyectoProyectoIdAndElementoFasesIdOrderByElementoProyectoElementoId(Long idProyecto, Long idFase);
 
 
 }

@@ -96,7 +96,7 @@ public class ElementoProyectoServiceImpl implements ElementoProyectoService {
         List<ElementoProyectoDTO> listDTO = new ArrayList<>();
         ////List<ElementoProyecto> list = elementoProyectoRepository.findByElementoProyectoProyectoId(idProyecto);
         //List<ElementoProyecto> list = elementoProyectoRepository.findByElementoProyectoProyectoIdOrderByElementoProyectoElementoId(idProyecto);
-        List<ElementoProyecto> list = elementoProyectoRepository.findByElementoProyectoProyectoIdOrderByElementoProyectoElementoIdAndElementoFasesId(idProyecto, idFase);
+        List<ElementoProyecto> list = elementoProyectoRepository.findByElementoProyectoProyectoIdAndElementoFasesIdOrderByElementoProyectoElementoId(idProyecto, idFase);
 
 
         for (ElementoProyecto obj : list) {
