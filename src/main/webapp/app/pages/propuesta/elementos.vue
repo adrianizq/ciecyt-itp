@@ -182,7 +182,7 @@ export default class Elementos extends Vue {
                     });
             
                 this.elementoProyectoService()
-                .retrieveElementoProyecto(this.proyId)
+                .retrieveElementoProyecto(this.proyId, this.fase.id)
                 .then(res=> {
 
                     this.elementosProyecto = res.data;

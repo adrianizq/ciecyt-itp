@@ -46,6 +46,8 @@ public interface ElementoProyectoService {
      */
     void delete(Long id);
 
-    List<ElementoProyectoDTO> findByElementoProyectoProyectoId(Long idProyecto) throws Exception ;
+    //List<ElementoProyectoDTO> findByElementoProyectoProyectoId(Long idProyecto) throws Exception ;
+    List<ElementoProyectoDTO> findByElementoProyectoProyectoId(Long idProyecto, Long idFase) throws Exception;
 
-}
+
+    }

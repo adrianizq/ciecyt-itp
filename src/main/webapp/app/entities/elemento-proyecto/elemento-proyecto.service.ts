@@ -47,9 +47,10 @@ export default class ElementoProyectoService {
     });
   }
 
-  public retrieveElementoProyecto(id?: number, paginationQuery?: any): Promise<any> {
+  //quitar paginacion
+  public retrieveElementoProyecto(idProyecto?: number, idFase?: number): Promise<any> {
     return new Promise<any>(resolve => {
-      axios.get('api/elemento-proyecto-proyecto' + `/${id}` + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function (res) {
+      axios.get('api/elemento-proyecto-proyecto' + `/${idProyecto}` + `/${idFase}`).then(function (res) {
         resolve(res);
       });
     });
