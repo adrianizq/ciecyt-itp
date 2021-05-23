@@ -86,19 +86,35 @@ export default class ProyectoService {
     });
   }
 
+  //este create modifica el integrante proyecto
   public create(entity: IProyecto): Promise<IProyecto> {
     return new Promise<IProyecto>(resolve => {
       axios.post(`${baseApiUrl}`, entity).then(function (res) {
         resolve(res.data);
-        //this.proyectoId = entity.id;
-        //this.proyectoId = 20;
+      });
+    });
+  }
+  //este update modifica el integrante proyecto
+  public update(entity: IProyecto): Promise<IProyecto> {
+    return new Promise<IProyecto>(resolve => {
+      axios.put(`${baseApiUrl}`, entity).then(function (res) {
+        resolve(res.data);
       });
     });
   }
 
-  public update(entity: IProyecto): Promise<IProyecto> {
+  //este crea el proyecto solo
+  public createProyecto(entity: IProyecto): Promise<IProyecto> {
     return new Promise<IProyecto>(resolve => {
-      axios.put(`${baseApiUrl}`, entity).then(function (res) {
+      axios.post(`api/proyects`, entity).then(function (res) {
+        resolve(res.data);
+      });
+    });
+  }
+  //este update el proyecto solo
+  public updateProyecto(entity: IProyecto): Promise<IProyecto> {
+    return new Promise<IProyecto>(resolve => {
+      axios.put(`api/proyects`, entity).then(function (res) {
         resolve(res.data);
       });
     });

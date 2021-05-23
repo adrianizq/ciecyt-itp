@@ -89,10 +89,7 @@
         </div>
       </form>
     </div> 
-    <!--<div class="col-sm-8"  v-if="proyecto.preEnviado">
-     <h2>Enviar la Propuesta</h2><br />
-    La Propuesta ya ha sido enviada al Asesor para su revisión
-    </div>-->
+   
   </div>
 </template>
 

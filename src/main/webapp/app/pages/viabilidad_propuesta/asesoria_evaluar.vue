@@ -199,16 +199,16 @@
                            
                <br>Marque <strong>Enviar </strong> si la propuesta cumple con los requisitos establecidos por el Ciecyt.
                 <br>Si la propuesta no cumple o está icompleta, marque <strong>No Enviar</strong> <br>
-                <div  class="p-3 mb-2 bg-danger text-white container-fluid">
-                <input type="radio" value="true" v-model="proyecto.enviado">
+                <!--<div  class="p-3 mb-2 bg-danger text-white container-fluid">-->
+                <input type="radio" :value="true" v-model="proyecto.enviado">
                 <label for="uno">Enviar la Propuesta</label>
                 <br>
-                <input type="radio"  value="false" v-model="proyecto.enviado">
+                <input type="radio" :value="false" v-model="proyecto.enviado">
                 <label for="Dos">No Enviar la Propuesta</label>
                 <br>
                 
                 <br>
-                </div>
+                <!--</div> -->
                  </div>
                 </b-card>
 
@@ -290,6 +290,9 @@ import JhiDataUtils from '@/shared/data/data-utils.service';
     fechaFin: {},
     file: {},
   },
+   proyecto:{
+     enviado: {},
+   },
     };
 
    @Component({
@@ -446,7 +449,7 @@ export default class PropuestaEvaluar extends mixins(JhiDataUtils){
 
             //actualizar el proyecto para que se guarde la viabilidad
              try {
-                this.proyectoService().update(this.proyecto);
+                this.proyectoService().updateProyecto(this.proyecto);
 
                   } catch (e) {
                 //TODO: mostrar mensajes de error
@@ -459,13 +462,15 @@ export default class PropuestaEvaluar extends mixins(JhiDataUtils){
                this.proyecto = await this.proyectoService().find(this.proyId);
                this.modalidadId = this.proyecto.proyectoModalidadId;
 
-                let res= await this.elementoProyectoService()
-                .retrieveElementoProyecto(this.proyId)   //recup los ElementosProyecto con un idproy
-                 this.elementoProyects = res.data;
-
-                 res= await this.fasesService()
+                let res= await this.fasesService()
                 .retrieveFase(this.nombreFase)   
                  this.fase = res.data;
+               
+                res= await this.elementoProyectoService()
+                .retrieveElementoProyecto(this.proyId, this.fase.id)   //recup los ElementosProyecto con un idproy
+                 this.elementoProyects = res.data;
+
+               
 
                 res= await this.proyectoRespuestasService()
                 .retrieveProyectoRespuestas(this.proyId, this.fase.id, this.authority)   //recup los proyresp con un idproy

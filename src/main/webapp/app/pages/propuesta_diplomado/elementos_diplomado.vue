@@ -8,11 +8,12 @@
         <div class="col-sm-8">
            <form @submit.prevent="save()">
                 <div class="row">
-                  <div class="form-group">
+
+                <div class="form-group">
               <label class="form-control-label" for="encabezado">
-               <h2>Elementos del Diplomado</h2>
+               <h2>Elementos</h2>
                </label>
-           </div>
+              </div>
                      <div class="col-12" v-for="(ep, e) in elementosProyecto" :key="e">
                        
 
@@ -82,6 +83,10 @@ import ElementoProyectoService from '@/entities/elemento-proyecto/elemento-proye
 import { IElementoProyecto, ElementoProyecto } from '@/shared/model/elemento-proyecto.model';
 import { IProyecto, Proyecto } from '@/shared/model/proyecto.model';
 import ProyectoService from '@/entities/proyecto/proyecto.service';
+import { IFases, Fases } from '@/shared/model/fases.model';
+import FasesService from '@/entities/fases/fases.service';
+import { IFormato, Formato } from '@/shared/model/formato.model';
+import FormatoService from '@/entities/formato/formato.service';
 
 
     const validations: any = {};
@@ -92,12 +97,14 @@ import ProyectoService from '@/entities/proyecto/proyecto.service';
     })
 
 
-export default class ElementosDiplomado extends Vue {
+export default class Elementos extends Vue {
 
 
    @Inject('proyectoService') private proyectoService: () => ProyectoService;
    @Inject('elementoService') private elementoService: () => ElementoService;
    @Inject('elementoProyectoService') private elementoProyectoService: () => ElementoProyectoService;
+   @Inject('fasesService') private fasesService: () => FasesService;
+   @Inject('formatoService') private formatoService: () => FormatoService;
    @Inject('alertService') private alertService: () => AlertService;
 
 
@@ -107,6 +114,9 @@ export default class ElementosDiplomado extends Vue {
     public proyecto: IProyecto = new Proyecto();
     public proyId: any = null;
     public modalidadId: number = 0;
+    public fase: IFases = new Fases();
+    public formato: IFormato = new Formato();
+    public codigoFormato ="F-INV-008";
 
     public isSaving = false;
 
@@ -124,14 +134,15 @@ export default class ElementosDiplomado extends Vue {
 
                 for (let e of this.elementosProyecto) {
                     //Actualizando el integrante
-
+                    e.elementoFasesId = this.fase.id;
                     if (e.id) {
                         this.elementoProyectoService().update(e); //envio un elemento
+                        this.$router.push({ name: 'PropuestaPresupuestoView',params:{ proyectoId: this.proyId}});
                     } else {
                         //Creando un nuevo integrante
                         this.elementoProyectoService().create(e)
                         .then(param => {
-                            this.$router.push({ name: 'PropuestaDiplomadoCronogramaView',params:{ proyectoId: this.proyId}});
+                            this.$router.push({ name: 'PropuestaPresupuestoView',params:{ proyectoId: this.proyId}});
                         });
                     }
                 }
@@ -158,42 +169,60 @@ export default class ElementosDiplomado extends Vue {
                 this.modalidadId = this.proyecto.proyectoModalidadId;
 
  
-              //recuperar las elementosProyecto enviando un idProyecto (api)
-            //
-            
-              this.elementoProyectoService()
-                .retrieveElementoProyecto(this.proyId)
+                await this.fasesService()
+                    .findByFase("Propuesta")
+                    .then(res=> {
+                        this.fase = res;
+                    });
+
+                     await this.formatoService()
+                    .findByCodigo(this.codigoFormato)
+                    .then(res=> {
+                        this.formato = res;
+                    });
+
+            ///////////////////////////////////////////////////////7
+                var  elementosProyectoTemp: IElementoProyecto[] =[];
+                await this.elementoProyectoService()
+                .retrieveElementoProyecto(this.proyId, this.fase.id)
                 .then(res=> {
-
-                    this.elementosProyecto = res.data;
-
-                   
-               
+                     //this.elementosProyecto = res.data;
+                     elementosProyectoTemp = res.data;
                 });
             ////////////////////////////////////////////////////77    
 
-                       //Obtenienedo los elementos de acuerdo a la modalidad
-           
-              this.elementoService()
-                .retrieveElementosModalidad( this.modalidadId)
+                await this.elementoService()
+                //.retrieveElementosModalidad( this.modalidadId)
+                //.retrieveElementosFase(this.fase.id)
+                .retrieveElementosFaseFormato(this.fase.id, this.formato.id)
                 .then(res => {
                     this.elements = res.data;
                   //copiar los datos de elementos a elemento-proyecto
                   this.elements.forEach(e => {
-                  var elemProy: IElementoProyecto = new ElementoProyecto();
-                  elemProy.elementoProyectoElementoElemento= e.elemento;
-                  elemProy.elementoProyectoProyectoDescripcion = e.descripcion;
-                  elemProy.elementoProyectoElementoId = e.id;
-                  elemProy.elementoProyectoProyectoId = this.proyId;
-                  this.elementosProyecto.push(elemProy);
+                       var existe= false;
+                         elementosProyectoTemp.forEach(ep => {
+                             if(e.id==ep.elementoProyectoElementoId){
+                               
+                                this.elementosProyecto.push(ep);
+                    
+                                 existe=true;
+                             }
+                         });
+                  
+                    if(existe==false){
+                    var elemProy: IElementoProyecto = new ElementoProyecto();
+                    elemProy.elementoProyectoElementoElemento= e.elemento;
+                    elemProy.elementoProyectoProyectoDescripcion = e.descripcion;
+                    elemProy.elementoProyectoElementoId = e.id;
+                    elemProy.elementoProyectoProyectoId = this.proyId;
+                    this.elementosProyecto.push(elemProy);
+                    }
+                     
 
                   }); 
-                   console.log("elements");
-                 });
-            
-            ///////////////////////////////////////////////////////7
-
-              
+         
+                });
+           
 
             }
             catch(e){
@@ -201,6 +230,8 @@ export default class ElementosDiplomado extends Vue {
             }
 
         }
+
+       
 
 }
 </script>

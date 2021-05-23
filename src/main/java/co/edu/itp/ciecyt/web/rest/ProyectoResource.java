@@ -260,4 +260,47 @@ public class ProyectoResource {
 
     }
 
+
+    @PostMapping("/proyects")
+    //public ResponseEntity<ProyectoDTO> createProyecto(@RequestBody ProyectoDTO proyectoDTO, @RequestBody IntegranteProyectoDTO integranteProyectoDTO) throws URISyntaxException {
+    public ResponseEntity<ProyectoDTO> createProyect(@RequestBody ProyectoDTO proyectoDTO) throws URISyntaxException {
+        //necesito
+        //idIntegranteProyecto
+        //idProyecto
+
+        log.debug("REST request to save Proyecto : {}", proyectoDTO);
+        if (proyectoDTO.getId() != null) {
+            throw new BadRequestAlertException("A new proyecto cannot already have an ID", ENTITY_NAME, "idexists");
+        }
+
+        ProyectoDTO result = proyectoService.save(proyectoDTO);
+
+
+        return ResponseEntity.created(new URI("/api/proyects/" + result.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
+            .body(result);
+    }
+
+    /**
+     * {@code PUT  /proyects} : Updates an existing proyecto.
+     *
+     * @param proyectoDTO the proyectoDTO to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated proyectoDTO,
+     * or with status {@code 400 (Bad Request)} if the proyectoDTO is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the proyectoDTO couldn't be updated.
+     * @throws URISyntaxException if the Location URI syntax is incorrect.
+     */
+    @PutMapping("/proyects")
+    public ResponseEntity<ProyectoDTO> updateProyect(@RequestBody ProyectoDTO proyectoDTO) throws URISyntaxException {
+        log.debug("REST request to update Proyecto : {}", proyectoDTO);
+        if (proyectoDTO.getId() == null) {
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+        }
+        ProyectoDTO result = proyectoService.save(proyectoDTO);
+        return ResponseEntity.ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, proyectoDTO.getId().toString()))
+            .body(result);
+    }
+
+
 }

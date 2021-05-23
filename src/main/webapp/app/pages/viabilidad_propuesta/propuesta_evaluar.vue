@@ -447,7 +447,7 @@ export default class PropuestaEvaluar extends mixins(JhiDataUtils){
 
             //actualizar el proyecto para que se guarde la viabilidad
              try {
-                this.proyectoService().update(this.proyecto);
+                this.proyectoService().updateProyecto(this.proyecto);
 
                   } catch (e) {
                 //TODO: mostrar mensajes de error
@@ -460,13 +460,15 @@ export default class PropuestaEvaluar extends mixins(JhiDataUtils){
                this.proyecto = await this.proyectoService().find(this.proyId);
                this.modalidadId = this.proyecto.proyectoModalidadId;
 
-                let res= await this.elementoProyectoService()
-                .retrieveElementoProyecto(this.proyId)   //recup los ElementosProyecto con un idproy
-                 this.elementoProyects = res.data;
-
-                 res= await this.fasesService()
+                let res= await this.fasesService()
                 .retrieveFase(this.nombreFase)   
                  this.fase = res.data;
+               
+                res= await this.elementoProyectoService()
+                .retrieveElementoProyecto(this.proyId, this.fase.id)   //recup los ElementosProyecto con un idproy
+                 this.elementoProyects = res.data;
+
+               
 
                 res= await this.proyectoRespuestasService()
                 .retrieveProyectoRespuestas(this.proyId, this.fase.id, this.authority)   //recup los proyresp con un idproy
