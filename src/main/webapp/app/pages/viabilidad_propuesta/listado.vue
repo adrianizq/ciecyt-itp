@@ -125,7 +125,7 @@ export default class Listado extends Vue {
   public propOrder = 'id';
   public reverse = false;
   public totalItems = 0;
-  public rol: any="Viabilidad";
+  public rol: any="Viabilidad"; //es de roles_modalidad
   public role: any = "ROLE_VIABILIDAD";
 
   public isFetching = false;

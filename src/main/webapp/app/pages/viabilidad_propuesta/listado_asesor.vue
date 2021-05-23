@@ -39,7 +39,7 @@
                 <tr v-for="proyecto in proyects"
                     :key="proyecto.id">
                     <td>
-                        <router-link :to="{name: 'ProyectoEvaluarView', params: {proyectoId: proyecto.id}}">{{proyecto.id}}</router-link>
+                        <router-link :to="{name: 'AsesoriaEvaluarView', params: {proyectoId: proyecto.id}}">{{proyecto.id}}</router-link>
                     </td>
 
                     <td>{{proyecto.titulo}}</td>
@@ -79,46 +79,33 @@
 </template>
 
 <script lang="ts">
-
-
 import { mixins } from 'vue-class-component';
-
 
 import Vue2Filters from 'vue2-filters';
 
 import AlertService from '@/shared/alert/alert.service';
 
-
-
 import { Component, Inject, Vue } from 'vue-property-decorator';
 import MenuLateralListado from '@/components/propuesta_listado/menu_lateral_listado.vue';
-
-
-
 
 import { IProyecto, Proyecto } from '@/shared/model/proyecto.model';
 import ProyectoService from '@/entities/proyecto/proyecto.service';
 
+const validations: any = {};
 
-    const validations: any = {};
-
-   @Component({
-        components: { MenuLateralListado },
-        validations
-    })
-
+@Component({
+  components: { MenuLateralListado },
+  validations
+})
 export default class Listado extends Vue {
-   @Inject('proyectoService') private proyectoService: () => ProyectoService;
- 
-   @Inject('alertService') private alertService: () => AlertService;
+  @Inject('proyectoService') private proyectoService: () => ProyectoService;
 
+  @Inject('alertService') private alertService: () => AlertService;
 
-    
-   //  public elementosProyecto: IElementoProyecto[] =[];
-    public proyects: IProyecto[] = [];
-   
-    public proyId: any = null;
-   
+  //  public elementosProyecto: IElementoProyecto[] =[];
+  public proyects: IProyecto[] = [];
+
+  public proyId: any = null;
 
   private removeId: number = null;
   public itemsPerPage = 20;
@@ -128,16 +115,17 @@ export default class Listado extends Vue {
   public propOrder = 'id';
   public reverse = false;
   public totalItems = 0;
+  public rol: any="Asesor"; //es de roles_modalidad
+  public role: any = "ROLE_ASESOR";
 
   public isFetching = false;
   public dismissCountDown: number = this.$store.getters.dismissCountDown;
   public dismissSecs: number = this.$store.getters.dismissSecs;
   public alertType: string = this.$store.getters.alertType;
   public alertMessage: any = this.$store.getters.alertMessage;
-  public autoridades: any =  this.$store.getters.account.authorities;
+  public autoridades: any = this.$store.getters.account.authorities;
 
-
-public getAlertFromStore() {
+  public getAlertFromStore() {
     this.dismissCountDown = this.$store.getters.dismissCountDown;
     this.dismissSecs = this.$store.getters.dismissSecs;
     this.alertType = this.$store.getters.alertType;
@@ -166,31 +154,39 @@ public getAlertFromStore() {
       size: this.itemsPerPage,
       sort: this.sort()
     };
-    if (this.autoridades.includes("ROLE_ASESOR")){
-    this.proyectoService()
-      //.retrieveProyectoIntegrante(this.userid,paginationQuery) //todos los roles no borrar
-      .retrieveProyectoIntegranteAuthority(this.userid,"ROLE_ASESOR",paginationQuery)
-      .then(
-        res => {
-          this.proyects = res.data;
-          this.totalItems = Number(res.headers['x-total-count']);
-          this.queryCount = this.totalItems;
-          this.isFetching = false;
-        },
-        err => {
-          this.isFetching = false;
-        }
-      );
-      }//del if ROLE_ASESOR
-
-      
-
-
-
-      
-    }
-
-    
+    if (this.autoridades.includes(this.role)) {
+      this.proyectoService()
+        //.retrieveProyectoIntegranteAuthority(this.userid, 'ROLE_JURADO', paginationQuery)
+        .retrieveProyectoIntegranteRol(this.userid, this.rol, paginationQuery)
+        .then(
+          res => {
+            this.proyects = res.data;
+            this.totalItems = Number(res.headers['x-total-count']);
+            this.queryCount = this.totalItems;
+            this.isFetching = false;
+          },
+          err => {
+            this.isFetching = false;
+          }
+        );
+    } 
+    if (this.autoridades.includes('ROLE_ESTUDIANTE')) {
+      this.proyectoService()
+        //.retrieveProyectoIntegrante(this.userid,paginationQuery) //todos los roles no borrar
+        .retrieveProyectoIntegranteAuthority(this.userid, 'ROLE_ESTUDIANTE', paginationQuery)
+        .then(
+          res => {
+            this.proyects = res.data;
+            this.totalItems = Number(res.headers['x-total-count']);
+            this.queryCount = this.totalItems;
+            this.isFetching = false;
+          },
+          err => {
+            this.isFetching = false;
+          }
+        );
+    } 
+  }
 
   public prepareRemove(instance: IProyecto): void {
     this.removeId = instance.id;
@@ -208,9 +204,9 @@ public getAlertFromStore() {
         this.retrieveAllProyectos();
         this.closeDialog();
       });
-    }
+  }
 
-    public sort(): Array<any> {
+  public sort(): Array<any> {
     const result = [this.propOrder + ',' + (this.reverse ? 'asc' : 'desc')];
     if (this.propOrder !== 'id') {
       result.push('id');
@@ -239,19 +235,16 @@ public getAlertFromStore() {
     (<any>this.$refs.removeEntity).hide();
   }
 
+  public isSaving = false;
 
+  /*
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      vm.initRelationships();
+    });
+  }*/
 
-    public isSaving = false;
-
-
-        beforeRouteEnter(to, from, next) {
-            next(vm => {
-
-                    vm.initRelationships();
-            });
-        }
-
-public get username(): string {
+  public get username(): string {
     return this.$store.getters.account ? this.$store.getters.account.login : '';
   }
 
@@ -259,13 +252,10 @@ public get username(): string {
     return this.$store.getters.account ? this.$store.getters.account.id : '';
   }
 
-public get authorities(): string {
+  public get authorities(): string {
     console.log(this.$store.getters.account);
     return this.$store.getters.account ? this.$store.getters.account.authorities : '';
   }
-
-
-
 }
 </script>
 
