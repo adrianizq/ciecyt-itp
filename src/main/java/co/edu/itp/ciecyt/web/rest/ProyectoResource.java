@@ -217,13 +217,28 @@ public class ProyectoResource {
     //////////////////////////////////////////////////////////////////777777777777777777777
 
     @GetMapping("/proyectos-integrante/{idUsuario}/{authority}")
-    public ResponseEntity<?> findByIntegranteProyectoAuthority(@PathVariable Long idUsuario, @PathVariable String authority) {
+    public ResponseEntity<?> findByIntegranteProyectoAuthority(@PathVariable Long idUsuario, @PathVariable String authority, Pageable pageable) {
         log.debug("REST request to get Proyecto : {}", idUsuario, authority);
 
         try {
             final List<ProyectoDTO> proyectoDTO = proyectoService.findByIntegranteProyectoAuthority(idUsuario, authority);
-            ResponseEntity<ProyectoDTO> responseEntity = new ResponseEntity(proyectoDTO, HttpStatus.OK);
-            return responseEntity;
+            //ResponseEntity<ProyectoDTO> responseEntity = new ResponseEntity(proyectoDTO, HttpStatus.OK);
+            //return responseEntity;
+            int totalElements = proyectoDTO.size();
+            if (pageable == null) {
+                pageable = PageRequest.of(0, 20);
+            }
+            int fromIndex = pageable.getPageSize() * pageable.getPageNumber();
+            int toIndex = pageable.getPageSize() * (pageable.getPageNumber() + 1);
+            if (toIndex > totalElements) {
+                toIndex = totalElements;
+            }
+            List<ProyectoDTO> indexObjects = proyectoDTO.subList(fromIndex, toIndex);
+            Page<ProyectoDTO> page = new PageImpl<>(indexObjects, pageable, totalElements);
+
+            HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+            return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
@@ -254,8 +269,7 @@ public class ProyectoResource {
             return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
 
         } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
 
     }

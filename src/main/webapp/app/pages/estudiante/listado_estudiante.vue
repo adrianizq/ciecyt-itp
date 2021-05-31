@@ -204,6 +204,8 @@ export default class Listado extends Vue {
       this.proyectoService()
         //.retrieveProyectoIntegrante(this.userid,paginationQuery) //todos los roles no borrar
         .retrieveProyectoIntegranteAuthority(this.userid, 'ROLE_ESTUDIANTE', paginationQuery)
+        //.retrieveProyectoIntegranteRol(this.userid, 'ROLE_ESTUDIANTE', paginationQuery)
+
         .then(
           res => {
             this.proyects = res.data;
