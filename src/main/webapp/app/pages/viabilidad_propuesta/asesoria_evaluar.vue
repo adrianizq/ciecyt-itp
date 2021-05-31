@@ -46,14 +46,7 @@
                            <!-- <input v-if="adjuntoProyectoFase.file==null" type="file" ref="file_archivo" id="file_archivo" v-on:change="asignarData($event, adjuntoProyectoFase, 'archivo', false)" v-text="$t('entity.action.addblob')"/>-->
                             
                         </div>
-                         <!--
-                        <input type="hidden" class="form-control" name="archivo" id="adjunto-proyecto-fase-archivo"
-                            :class="{'valid': !$v.adjuntoProyectoFase.archivo.$invalid, 'invalid': $v.adjuntoProyectoFase.archivo.$invalid }" v-model="$v.adjuntoProyectoFase.archivo.$model" />
-                        <input type="hidden" class="form-control" name="archivoContentType" id="adjunto-proyecto-fase-archivoContentType"
-                            v-model="adjuntoProyectoFase.archivoContentType" />
-                         <input type="hidden" class="form-control" name="fileName" id="adjunto-proyecto-fase-fileName"
-                            v-model="adjuntoProyectoFase.nombreArchivoOriginal" />
-                            -->
+                        
                     </div> 
                    </b-card>
                   <hr></hr>
@@ -149,7 +142,7 @@
                        
                      <div class="form-group" >
                        <b-form-textarea  class="form-control" name="proyecto-recomendaciones"
-                                   v-model="proyecto.recomendacionesJuradoProyecto"  />
+                                   v-model="proyecto.recomendacionesAsesorPropuesta"  />
                         </div>
                        </b-form-group>
                        </b-card>

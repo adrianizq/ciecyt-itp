@@ -13,13 +13,111 @@
             <div class="form-group">
               <label class="form-control-label" for="proyecto-titulo"></label>
                <h2>Retroalimentación</h2>
+<!--------------------------------------------------------->
 
-              <!-- <ul>
-               <li>Título {{proyecto.titulo}} </li>
-                 <li v-for="l in integrants" v-bind:key="l">{{l.integranteProyectoRolesModalidadRol}}: {{l.integranteProyectoUserLogin}}</li>
-                 <ol></ol>
+                    <div class="col-12" v-for="(ep, i) in proyectoRespuestsAsesor" :key="i">
+                    <b-card  
+                      border-variant="primary"
+                      header-bg-variant="light"
+                      body-bg-variant="light"
+                     header-text-variant="info">
+                     <div class="text-secondary"> Tipo de pregunta {{ep.preguntaTipoPreguntaTipoPregunta}} </div>
+                     <label  class="p-3 mb-2 bg-info text-white container-fluid">{{ep.encabezado}} </label>
+                     
+                     <b-form-group
+                            :label="ep.elemento"
+                            :label-for="`ep-${i}`" 
+                            :description="ep.proyectoRespuestasPreguntaPregunta"
+                                                   
+                       >
+                       <div class="form-group" >
+                           
+
+                            
+                            <b-form-textarea rows="2"  max-rows="10" class="form-control" :name="`ep-${i}`"
+                            :id="`ep-${i}`" v-if="ep.elemento"
+                                   v-model="ep.elemento"  disabled="true"  />
+                       </div>
+                       </b-form-group>
+
+                        
+                       <!--- dato  -->
+                          <b-form-group>
+                       <div class="form-group" >
+
+                            <b-form-textarea rows="2"  max-rows="10" class="form-control" :name="`ep-${i}`"
+                            :id="`ep-${i}` " 
+                                   v-model="ep.dato"  v-if="ep.dato!=null" readonly="true" />
+                            </div>
+                       </b-form-group>
+
+                        <!-- TIPOS Pregunta--------------------------------------------->
+                        <div class="form-group">
+                        <label class="form-control-label" v-text="$t('ciecytApp.proyectoRespuestas.respuesta')" for="proyecto-respuestas-respuesta">Respuesta</label>
+                        <select class="form-control" c  v-model="ep.respuesta" 
+                          id="proyecto-respuestas-respuesta"
+                          v-if="ep.preguntaTipoPreguntaTipoPregunta==`Cumple NoCumple NoAplica`" >
+                            <option value="CUMPLE" v-bind:label="$t('ciecytApp.EnumRespuestas.CUMPLE')">CUMPLE</option>
+                            <option value="NO_CUMPLE" v-bind:label="$t('ciecytApp.EnumRespuestas.NO_CUMPLE')">NO_CUMPLE</option>
+                            <option value="NO_APLICA" v-bind:label="$t('ciecytApp.EnumRespuestas.NO_APLICA')">NO_APLICA</option>
+                        </select>
+                        
+                        <select class="form-control" name="respuesta"  v-model.bool="ep.siNo" 
+                          id="proyecto-respuestas-respuesta"
+                          v-if="ep.preguntaTipoPreguntaTipoPregunta==`Si o No`" >
+                            <option value="true" v-bind:label="$t('ciecytApp.EnumRespuestas.SI')">SI</option>
+                            <option value="false" v-bind:label="$t('ciecytApp.EnumRespuestas.NO')">NO</option>
+                        </select>
+
+                        <b-form-input  type="range" min="0" v-bind:max="ep.puntajeMaximo" :step="0.1"
+                         v-if="ep.preguntaTipoPreguntaTipoPregunta==`Nota (con puntaje)`" 
+                         v-model="ep.respuestaNumero">
+                         </b-form-input>
+                          <div class="mt-2">Nota: {{ ep.respuestaNumero }}</div>
+                        
+                         
+
+                        <b-form-textarea  
+                         v-if="ep.preguntaTipoPreguntaTipoPregunta==`Libre (sin puntaje ni viabilidad)`" 
+                         v-model="ep.respuestaTexto">
+                        </b-form-textarea>
+                  
+                        </div>
+
+                     </b-card>
+                     <hr>
+                          
+    
+                     <!-- fin del for each -->
+                    <!-- ------------------------------------------->
+                    <div class="col-12" >
+                    <b-card  
+                      border-variant="primary"
+                      header-bg-variant="light"
+                      body-bg-variant="light"
+                     header-text-variant="info">
+                    <b-form-group 
+                    description="Si tiene comentarios o sugerencias adicionales sobre el proyecto, diligencie este apartado">
+                    <label class="form-control-label" 
+                    v-text="$t('ciecytApp.proyecto.recomendaciones')" for="proyecto-recomendaciones">Recomendaciones</label>
+                       
+                     <div class="form-group" >
+                       <b-form-textarea  class="form-control" name="proyecto-recomendaciones"
+                                   v-model="proyecto.recomendacionesAsesorPropuesta"  />
+                        </div>
+                       </b-form-group>
+                       </b-card>
+                       </div>
             
-              </ul> -->
+                    <!-- ------------------------------------------->
+                    
+                     
+                </div>
+              
+   <hr></hr>
+
+<!--------------------------------------------------------->
+             
              </div>
           </div>
 
@@ -114,6 +212,10 @@ import { IFases, Fases } from '@/shared/model/fases.model';
 import { IAdjuntoRetroalimentacion, AdjuntoRetroalimentacion } from '@/shared/model/adjunto-retroalimentacion.model';
 import AdjuntoRetroalimentacionService from '@/entities/adjunto-retroalimentacion/adjunto-retroalimentacion.service';
 
+import ProyectoRespuestasService from '@/entities/proyecto-respuestas/proyecto-respuestas.service';
+import { EnumRespuestas, IProyectoRespuestas, ProyectoRespuestas } from '@/shared/model/proyecto-respuestas.model';
+
+
 import JhiDataUtils from '@/shared/data/data-utils.service';
 
 const validations: any = {
@@ -153,15 +255,19 @@ export default class Retroalimentacion extends mixins(JhiDataUtils){
   @Inject('proyectoService') private proyectoService: () => ProyectoService;
   @Inject('adjuntoProyectoFaseService') private adjuntoProyectoFaseService: () => AdjuntoProyectoFaseService;
   @Inject('adjuntoRetroalimentacionService') private adjuntoRetroalimentacionService: () => AdjuntoRetroalimentacionService;
-   @Inject('fasesService') private fasesService: () => FasesService;
+  @Inject('fasesService') private fasesService: () => FasesService;
+  @Inject('proyectoRespuestasService') private proyectoRespuestasService: () => ProyectoRespuestasService;
+
 
   @Inject('alertService') private alertService: () => AlertService;
+
+ 
 
   public integrants:IIntegranteProyecto[]= [];
   public terms:Boolean=false;
   
   public proyecto: IProyecto = new Proyecto();
-  public proyId: string = null;
+  public proyId: any = null;
   public isSaving = false;
 
     //public adjuntoProyectoFass:IAdjuntoProyectoFase[] =[];
@@ -176,6 +282,8 @@ export default class Retroalimentacion extends mixins(JhiDataUtils){
     public  authority: any="ROLE_VIABILIDAD";
     public nombreFase: any = "Propuesta";
     public  authorityAsesor: any="ROLE_ASESOR";
+    public proyectoRespuestsAsesor: IProyectoRespuestas[] =[];
+    
   //public fasePropuesta: IFases = new Fases();
   //public faseProyecto: IFases = new Fases();
 
@@ -313,19 +421,11 @@ export default class Retroalimentacion extends mixins(JhiDataUtils){
                  this.fase = res.data;
            
           
-      /* res=  await this.adjuntoProyectoFaseService()
-      .findAdjuntoProyectoFase(this.proyId,  this.fase.id)
-      .then(res => {
-        this.adjuntoProyectoFass = res.data;
-        if(this.adjuntoProyectoFass.length==0){
-         this.adjuntoProyectoFase =  new AdjuntoProyectoFase();
-        }
-        else{
-          this.adjuntoProyectoFase = this.adjuntoProyectoFass[0];
-        }
-         console.log(this.adjuntoProyectoFass);
-        
-      }); */
+     /////////////////// Respuestas Asesor
+      res= await this.proyectoRespuestasService()
+                .retrieveProyectoRespuestas(this.proyId, this.fase.id, this.authorityAsesor)   //recup los proyresp con un idproy
+                this.proyectoRespuestsAsesor = res.data;
+
 
       res=  await this.adjuntoRetroalimentacionService()
       .findAdjuntoRetroalimentacionProyectoFaseAuthority(this.proyId,  this.fase.id, this.authority)
