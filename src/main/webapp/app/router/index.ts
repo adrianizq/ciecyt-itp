@@ -289,7 +289,9 @@ const PropuestaPasantiaElementos = () => import('../pages/propuesta_pasantia/ele
 const PropuestaPasantiaCronograma = () => import('../pages/propuesta_pasantia/cronograma_pasantia.vue');
 const PropuestaEnviarPropuestaPasantia = () => import('../pages/propuesta_pasantia/enviar_propuesta_pasantia.vue');
 const PropuestaAdjuntarPropuestaPasantia = () => import('../pages/propuesta_pasantia/adjuntar_propuesta_pasantia.vue');
-const PropuestaRetroalimentacionPasantia = () => import('../pages/propuesta_pasantia/retroalimentacion_pasantia.vue');
+//const PropuestaRetroalimentacionPasantia = () => import('../pages/propuesta_pasantia/retroalimentacion_pasantia.vue');
+const PropuestaRetroalimentacionPasantia = () => import('../pages/propuesta_pasantia/retroalimentacion.vue');
+const PropuestaRetroalimentacionViabilidadPasantia = () => import('../pages/propuesta_pasantia/retroalimentacion_viabilidad.vue');
 
 const PropuestaDiplomadoInformacionGeneral = () => import('../pages/propuesta_diplomado/informacion_general_diplomado.vue');
 const PropuestaDiplomadoIntegrantes = () => import('../pages/propuesta_diplomado/integrantes_diplomado.vue');
@@ -297,8 +299,11 @@ const PropuestaDiplomadoElementos = () => import('../pages/propuesta_diplomado/e
 const PropuestaDiplomadoCronograma = () => import('../pages/propuesta_diplomado/cronograma_diplomado.vue');
 const PropuestaEnviarPropuestaDiplomado = () => import('../pages/propuesta_diplomado/enviar_propuesta_diplomado.vue');
 const PropuestaAdjuntarPropuestaDiplomado = () => import('../pages/propuesta_diplomado/adjuntar_propuesta_diplomado.vue');
-const PropuestaRetroalimentacionDiplomado = () => import('../pages/propuesta_diplomado/retroalimentacion_diplomado.vue');
+const PropuestaRetroalimentacionDiplomado = () => import('../pages/propuesta_diplomado/retroalimentacion.vue');
+const PropuestaRetroalimentacionViabilidadDiplomado = () => import('../pages/propuesta_diplomado/retroalimentacion_viabilidad.vue');
 
+////7
+const PropuestaRetroalimentacionViabilidadDiplomado = () => import('../pages/propuesta_diplomado/retroalimentacion_viabilidad.vue');
 const PropuestaIntegrantes = () => import('../pages/propuesta/integrantes.vue');
 const PropuestaElementos = () => import('../pages/propuesta/elementos.vue');
 const PropuestaPresupuesto = () => import('../pages/propuesta/presupuesto.vue');
@@ -322,7 +327,9 @@ const PropuestaLineaEntidades = () => import('../pages/propuesta_linea/entidades
 const PropuestaLineaCronograma = () => import('../pages/propuesta_linea/cronograma_linea.vue');
 const PropuestaLineaEstadoPropuestas = () => import('../pages/propuesta_linea/estado_propuestas_linea.vue');
 const PropuestaAdjuntarPropuestaLinea = () => import('../pages/propuesta_linea/adjuntar_propuesta_linea.vue');
-const PropuestaRetroalimentacionLinea = () => import('../pages/propuesta_linea/retroalimentacion_linea.vue');
+const PropuestaRetroalimentacionLinea = () => import('../pages/propuesta_linea/retroalimentacion.vue');
+const PropuestaRetroalimentacionViabilidadLinea = () => import('../pages/propuesta_linea/retroalimentacion_viabilidad.vue');
+
 const PropuestaEnviarPropuestaLinea = () => import('../pages/propuesta_linea/enviar_propuesta_linea.vue');
 
 const PropuestaListado = () => import('../pages/viabilidad_propuesta/listado.vue');
@@ -1683,6 +1690,21 @@ export default new Router({
       component: PropuestaRetroalimentacionPasantia,
       meta: { authorities: ['ROLE_USER'] }
     },
+
+    ///////////////////77
+    {
+      path: '/propuesta-pasantia/retroalimentacion/:proyectoId',
+      name: 'RetroalimentacionPasantiaView',
+      component: PropuestaRetroalimentacionPasantia,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    {
+      path: '/propuesta-pasantia/retroalimentacion-viabilidad/:proyectoId',
+      name: 'RetroalimentacionPasantiaViabilidadView',
+      component: PropuestaRetroalimentacionViabilidadPasantia,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    /////////////////////////////
     {
       path: '/propuesta-pasantia/adjuntar-propuesta-pasantia/:proyectoId',
       name: 'PropuestaAdjuntarPropuestaPasantiaView',
@@ -1742,9 +1764,15 @@ export default new Router({
     ////////////////////////////////////////////////77
   
     {
-      path: '/propuesta-diplomado/retroalimentacion-diplomado/:proyectoId',
-      name: 'PropuestaRetroalimentacionDiplomadoView',
+      path: '/propuesta-diplomado/retroalimentacion/:proyectoId',
+      name: 'RetroalimentacionDiplomadoView',
       component: PropuestaRetroalimentacionDiplomado,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    {
+      path: '/propuesta-diplomado/retroalimentacion-viabilidad/:proyectoId',
+      name: 'RetroalimentacionDiplomadoViabilidadView',
+      component: PropuestaRetroalimentacionViabilidadDiplomado,
       meta: { authorities: ['ROLE_USER'] }
     },
     {
@@ -1913,12 +1941,18 @@ export default new Router({
       meta: { authorities: ['ROLE_USER'] }
     },
 
-     ////////////////////////////////////////////////77
-  
+     
      {
-      path: '/propuesta-linea/retroalimentacion-linea/:proyectoId',
+      path: '/propuesta-linea/retroalimentacion/:proyectoId',
       name: 'PropuestaRetroalimentacionLineaView',
       component: PropuestaRetroalimentacionLinea,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+   
+    {
+      path: '/propuesta-linea/retroalimentacion-viabilidad/:proyectoId',
+      name: 'RetroalimentacionViabilidadLineaView',
+      component: PropuestaRetroalimentacionViabilidadLinea,
       meta: { authorities: ['ROLE_USER'] }
     },
     {

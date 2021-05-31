@@ -265,11 +265,7 @@ export default class Retroalimentacion extends mixins(JhiDataUtils){
     });
   }
 
-  /* descargar() {
-        //console.log('se hizo clic');
-        this.adjuntoProyectoFaseService().downloadFile(this.adjuntoProyectoFase.id, this.adjuntoProyectoFase.nombreArchivoOriginal);
-     } */
-
+  
      descargarRetro() {
         //console.log('se hizo clic');
         this.adjuntoRetroalimentacionService().downloadFile(this.adjuntoRetroalimentacion.id, this.adjuntoRetroalimentacion.nombreArchivoOriginal);
@@ -287,14 +283,7 @@ export default class Retroalimentacion extends mixins(JhiDataUtils){
   }
 
 
-   /* asignarData(event, entity, field, isImage){
-     var fileData =  event.target.files[0];
-    this.adjuntoProyectoFase.nombreArchivoOriginal= fileData.name;
-    console.log(this.adjuntoProyectoFase.nombreArchivoOriginal);
-
-    this.setFileData(event, entity, field, isImage)
-    
-  } */
+  
 
   asignarDataRetro(event, entity, field, isImage){
      var fileData =  event.target.files[0];

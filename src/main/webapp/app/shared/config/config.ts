@@ -224,13 +224,7 @@ export function initVueXStore(vue) {
           description: 'Cronograma de Actividades',
           to: '/propuesta-linea/cronograma-linea',
         },
-        /*{
-          title: 'Estado de Propuestas',
-          description: 'Muestra el estado de sus propuestas',
-          to: '/propuesta-linea/estado_propuestas-linea',
-        }, */
 
-        /////////////////////////7
         {
           title: 'Adjuntar la Propuesta',
           description: 'Envíe el archivo con su propuesta',
@@ -243,8 +237,14 @@ export function initVueXStore(vue) {
         },
         {
           title: 'Retroalimentación Asesor',
-          description: 'Encuentre las correcciones del Aseso',
-          to: '/propuesta-linea/retroalimentacion-linea',
+          description: 'Encuentre las correcciones del Asesor',
+          to: '/propuesta-linea/retroalimentacion',
+        },
+
+        {
+          title: 'Retroalimentación Viabilidad',
+          description: 'Encuentre las correcciones de Viabilidad',
+          to: '/propuesta-linea/retroalimentacion-viabilidad',
         },
       ],
 
@@ -275,7 +275,6 @@ export function initVueXStore(vue) {
           description: 'En el cronograma se deben crear items para: avance del 50%, informe final 100% y sustentacion',
           to: '/propuesta-pasantia/cronograma-pasantia',
         },
-        /////////////////////////7
         {
           title: 'Adjuntar la Propuesta',
           description: 'Envíe el archivo con su propuesta',
@@ -288,8 +287,14 @@ export function initVueXStore(vue) {
         },
         {
           title: 'Retroalimentación Asesor',
-          description: 'Encuentre las correcciones del Aseso',
-          to: '/propuesta-pasantia/retroalimentacion-pasantia',
+          description: 'Encuentre las correcciones del Asesor',
+          to: '/propuesta-pasantia/retroalimentacion',
+        },
+
+        {
+          title: 'Retroalimentación Viabilidad',
+          description: 'Encuentre las correcciones de Viabilidad',
+          to: '/propuesta-pasantia/retroalimentacion-viabilidad',
         },
       ],
       /*Menu Lateral Diplomado*/
@@ -315,7 +320,6 @@ export function initVueXStore(vue) {
           to: '/propuesta-diplomado/cronograma-diplomado',
         },
 
-        /////////////////////////7
         {
           title: 'Adjuntar la Propuesta',
           description: 'Envíe el archivo con su propuesta',
@@ -329,7 +333,12 @@ export function initVueXStore(vue) {
         {
           title: 'Retroalimentación Asesor',
           description: 'Encuentre las correcciones del Asesor',
-          to: '/propuesta-diplomado/retroalimentacion-diplomado',
+          to: '/propuesta-diplomado/retroalimentacion',
+        },
+        {
+          title: 'Retroalimentación Viabilidad',
+          description: 'Encuentre las correcciones de Viabilidad',
+          to: '/propuesta-diplomado/retroalimentacion-viabilidad',
         },
       ],
 

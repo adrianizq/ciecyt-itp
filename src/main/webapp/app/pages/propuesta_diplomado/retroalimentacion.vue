@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="col-sm-4">
-      <menu-lateral :proyectoId="$route.params.proyectoId"></menu-lateral>
+      <menu-lateral-diplomado :proyectoId="$route.params.proyectoId"></menu-lateral-diplomado>
     </div>
     
    <!-- <div class="col-sm-8"  v-if="!proyecto.preEnviado"> -->
@@ -188,7 +188,7 @@
 import { Component, Inject, Vue } from 'vue-property-decorator';
 import { mixins } from 'vue-class-component';
 
-import MenuLateral from '@/components/propuesta/menu_lateral.vue';
+import MenuLateralDiplomado from '@/components/propuesta_diplomado/menu_lateral_diplomado.vue';
 import { IProyecto, Proyecto } from '@/shared/model/proyecto.model';
 import { IUser } from '@/shared/model/user.model';
 
@@ -241,7 +241,7 @@ const validations: any = {
 
 
 @Component({
-  components: { MenuLateral },
+  components: { MenuLateralDiplomado },
   
 })
 export default class Retroalimentacion extends mixins(JhiDataUtils){

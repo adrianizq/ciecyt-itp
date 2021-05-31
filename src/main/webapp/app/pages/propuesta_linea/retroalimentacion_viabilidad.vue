@@ -12,44 +12,116 @@
             
             <div class="form-group">
               <label class="form-control-label" for="proyecto-titulo"></label>
-               <h2>Retroalimentación</h2>
+               <h2>Retroalimentación  de  Viabilidad</h2>
+<!--------------------------------------------------------->
 
-              <!-- <ul>
-               <li>Título {{proyecto.titulo}} </li>
-                 <li v-for="l in integrants" v-bind:key="l">{{l.integranteProyectoRolesModalidadRol}}: {{l.integranteProyectoUserLogin}}</li>
-                 <ol></ol>
-            
-              </ul> -->
-             </div>
-          </div>
-
-         <div class="col-12">    <!-------------------------correcciones asesor ------->
+                    <div class="col-12" v-for="(ep, i) in proyectoRespuests" :key="i">
                     <b-card  
                       border-variant="primary"
                       header-bg-variant="light"
                       body-bg-variant="light"
-                     header-text-variant="info">  
-                
-                 
-                       <div class="form-group">
-                        <label class="form-control-label" v-text="$t('ciecytApp.adjuntoRetroalimentacion.correcionesAsesor')" for="adjunto-proyecto-fase-archivo">Correcciones del Asesor</label>
+                     header-text-variant="info">
+                     <div class="text-secondary"> Tipo de pregunta {{ep.preguntaTipoPreguntaTipoPregunta}} </div>
+                     <label  class="p-3 mb-2 bg-info text-white container-fluid">{{ep.encabezado}} </label>
+                     
+                     <b-form-group
+                            :label="ep.elemento"
+                            :label-for="`ep-${i}`" 
+                            :description="ep.proyectoRespuestasPreguntaPregunta"
+                                                   
+                       >
+                       <div class="form-group" >
+                           
+
+                            
+                            <b-form-textarea rows="2"  max-rows="10" class="form-control" :name="`ep-${i}`"
+                            :id="`ep-${i}`" v-if="ep.elemento"
+                                   v-model="ep.elemento"  disabled="true"  />
+                       </div>
+                       </b-form-group>
+
                         
-                        <div>
-                            <div v-if="adjuntoAsesorRetroalimentacion.id"  class="form-text text-danger clearfix">
-                               <a class="pull-left" v-on:click="this.descargarAsesorRetro" v-text="$t('entity.action.open')">open </a>
-                                <span class="pull-left">{{adjuntoAsesorRetroalimentacion.nombreArchivoOriginal }} <br /> {{adjuntoAsesorRetroalimentacion.archivoContentType}}, {{byteSize(adjuntoAsesorRetroalimentacion.file)}}</span>
-                                
-                            </div> 
-                 
+                       <!--- dato  -->
+                          <b-form-group>
+                       <div class="form-group" >
+
+                            <b-form-textarea rows="2"  max-rows="10" class="form-control" :name="`ep-${i}`"
+                            :id="`ep-${i}` " 
+                                   v-model="ep.dato"  v-if="ep.dato!=null" readonly="true"  disabled="true" />
+                            </div>
+                       </b-form-group>
+
+                        <!-- TIPOS Pregunta--------------------------------------------->
+                        <div class="form-group">
+                        <label class="form-control-label" v-text="$t('ciecytApp.proyectoRespuestas.respuesta')" for="proyecto-respuestas-respuesta">Respuesta</label>
+                        <select class="form-control" c  v-model="ep.respuesta"   disabled="true"
+                          id="proyecto-respuestas-respuesta"
+                          v-if="ep.preguntaTipoPreguntaTipoPregunta==`Cumple NoCumple NoAplica`" >
+                            <option value="CUMPLE" v-bind:label="$t('ciecytApp.EnumRespuestas.CUMPLE')">CUMPLE</option>
+                            <option value="NO_CUMPLE" v-bind:label="$t('ciecytApp.EnumRespuestas.NO_CUMPLE')">NO_CUMPLE</option>
+                            <option value="NO_APLICA" v-bind:label="$t('ciecytApp.EnumRespuestas.NO_APLICA')">NO_APLICA</option>
+                        </select>
+                        
+                        <select class="form-control" name="respuesta"  v-model.bool="ep.siNo"  disabled="true"
+                          id="proyecto-respuestas-respuesta"
+                          v-if="ep.preguntaTipoPreguntaTipoPregunta==`Si o No`" >
+                            <option value="true" v-bind:label="$t('ciecytApp.EnumRespuestas.SI')">SI</option>
+                            <option value="false" v-bind:label="$t('ciecytApp.EnumRespuestas.NO')">NO</option>
+                        </select>
+
+                        <b-form-input  type="range" min="0" v-bind:max="ep.puntajeMaximo" :step="0.1"
+                         v-if="ep.preguntaTipoPreguntaTipoPregunta==`Nota (con puntaje)`" 
+                         v-model="ep.respuestaNumero"  disabled="true">
+                         </b-form-input>
+                          <div class="mt-2">Nota: {{ ep.respuestaNumero }}</div>
+                        
+                         
+
+                        <b-form-textarea  
+                         v-if="ep.preguntaTipoPreguntaTipoPregunta==`Libre (sin puntaje ni viabilidad)`" 
+                         v-model="ep.respuestaTexto"  disabled="true">
+                        </b-form-textarea>
+                  
                         </div>
-                        
-                    </div> 
-                   </b-card>
-                  <hr></hr>
-                </div> 
 
+                     </b-card>
+                     <hr>
+                       </div>    
+    
+                     <!-- fin del for each -->
+                    <!-- ------------------------------------------->
+                    <div class="col-12" >
+                    <b-card  
+                      border-variant="primary"
+                      header-bg-variant="light"
+                      body-bg-variant="light"
+                     header-text-variant="info">
+                    <b-form-group 
+                    description="Si tiene comentarios o sugerencias adicionales sobre el proyecto, diligencie este apartado">
+                    <label class="form-control-label" 
+                    v-text="$t('ciecytApp.proyecto.recomendaciones')" for="proyecto-recomendaciones">Recomendaciones</label>
+                       
+                     <div class="form-group" >
+                       <b-form-textarea  class="form-control" name="proyecto-recomendaciones"
+                                   v-model="proyecto.recomendaciones"  disabled="true"  />
+                        </div>
+                       </b-form-group>
+                       </b-card>
+                       </div>
+            
+                    <!-- ------------------------------------------->
+                    
+                     
+               
+              
+   <hr></hr>
 
-         <div class="col-12">   <!-------------------------correcciones ------->
+<!--------------------------------------------------------->
+             
+             </div>
+          </div>
+  <!---adjunto viabilidad -->
+         <div class="col-12">   
                     <b-card  
                       border-variant="primary"
                       header-bg-variant="light"
@@ -75,24 +147,14 @@
                 </div> 
                
 
-        </div>
+        </div> 
 
         <div>
-        <!--
-          <button type="button" id="cancel-save" class="btn btn-secondary" v-on:click="previousState()">
-            <font-awesome-icon icon="ban"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.cancel')">Cancel</span>
-          </button>
-
-          <button type="submit" id="save-entity" class="btn btn-primary" :disabled='isDisabled'>
-            <font-awesome-icon icon="save"></font-awesome-icon>&nbsp;<span>Enviar</span>
-          </button> -->
+        
         </div>
       </form>
     </div> 
-    <!--<div class="col-sm-8"  v-if="proyecto.preEnviado">
-     <h2>Enviar la Propuesta</h2><br />
-    La Propuesta ya ha sido enviada al Asesor para su revisión
-    </div>-->
+   
   </div>
 </template>
 
@@ -116,6 +178,10 @@ import { IFases, Fases } from '@/shared/model/fases.model';
 
 import { IAdjuntoRetroalimentacion, AdjuntoRetroalimentacion } from '@/shared/model/adjunto-retroalimentacion.model';
 import AdjuntoRetroalimentacionService from '@/entities/adjunto-retroalimentacion/adjunto-retroalimentacion.service';
+
+import ProyectoRespuestasService from '@/entities/proyecto-respuestas/proyecto-respuestas.service';
+import { EnumRespuestas, IProyectoRespuestas, ProyectoRespuestas } from '@/shared/model/proyecto-respuestas.model';
+
 
 import JhiDataUtils from '@/shared/data/data-utils.service';
 
@@ -156,15 +222,19 @@ export default class Retroalimentacion extends mixins(JhiDataUtils){
   @Inject('proyectoService') private proyectoService: () => ProyectoService;
   @Inject('adjuntoProyectoFaseService') private adjuntoProyectoFaseService: () => AdjuntoProyectoFaseService;
   @Inject('adjuntoRetroalimentacionService') private adjuntoRetroalimentacionService: () => AdjuntoRetroalimentacionService;
-   @Inject('fasesService') private fasesService: () => FasesService;
+  @Inject('fasesService') private fasesService: () => FasesService;
+  @Inject('proyectoRespuestasService') private proyectoRespuestasService: () => ProyectoRespuestasService;
+
 
   @Inject('alertService') private alertService: () => AlertService;
+
+ 
 
   public integrants:IIntegranteProyecto[]= [];
   public terms:Boolean=false;
   
   public proyecto: IProyecto = new Proyecto();
-  public proyId: string = null;
+  public proyId: any = null;
   public isSaving = false;
 
     //public adjuntoProyectoFass:IAdjuntoProyectoFase[] =[];
@@ -172,13 +242,12 @@ export default class Retroalimentacion extends mixins(JhiDataUtils){
 
     public adjuntoRetroalimentacions:IAdjuntoRetroalimentacion[] =[];
     public adjuntoRetroalimentacion: IAdjuntoRetroalimentacion = new AdjuntoRetroalimentacion();
-    public adjuntoAsesorRetroalimentacions:IAdjuntoRetroalimentacion[] =[];
-    public adjuntoAsesorRetroalimentacion: IAdjuntoRetroalimentacion = new AdjuntoRetroalimentacion();
     
     public fase: IFases = new Fases();
     public  authority: any="ROLE_VIABILIDAD";
     public nombreFase: any = "Propuesta";
-    public  authorityAsesor: any="ROLE_ASESOR";
+    public proyectoRespuests: IProyectoRespuestas[] =[];
+    
   //public fasePropuesta: IFases = new Fases();
   //public faseProyecto: IFases = new Fases();
 
@@ -196,20 +265,13 @@ export default class Retroalimentacion extends mixins(JhiDataUtils){
     });
   }
 
-  /* descargar() {
-        //console.log('se hizo clic');
-        this.adjuntoProyectoFaseService().downloadFile(this.adjuntoProyectoFase.id, this.adjuntoProyectoFase.nombreArchivoOriginal);
-     } */
-
+  
      descargarRetro() {
         //console.log('se hizo clic');
         this.adjuntoRetroalimentacionService().downloadFile(this.adjuntoRetroalimentacion.id, this.adjuntoRetroalimentacion.nombreArchivoOriginal);
      }
 
-       descargarAsesorRetro() {
-        //console.log('se hizo clic');
-        this.adjuntoRetroalimentacionService().downloadFile(this.adjuntoAsesorRetroalimentacion.id, this.adjuntoAsesorRetroalimentacion.nombreArchivoOriginal);
-     }
+      
 
      eliminarRetro(ob) {
     console.log('entro a eliminar');
@@ -221,14 +283,7 @@ export default class Retroalimentacion extends mixins(JhiDataUtils){
   }
 
 
-   /* asignarData(event, entity, field, isImage){
-     var fileData =  event.target.files[0];
-    this.adjuntoProyectoFase.nombreArchivoOriginal= fileData.name;
-    console.log(this.adjuntoProyectoFase.nombreArchivoOriginal);
-
-    this.setFileData(event, entity, field, isImage)
-    
-  } */
+  
 
   asignarDataRetro(event, entity, field, isImage){
      var fileData =  event.target.files[0];
@@ -239,14 +294,7 @@ export default class Retroalimentacion extends mixins(JhiDataUtils){
     
   }
 
-   asignarDataAsesorRetro(event, entity, field, isImage){
-     var fileData =  event.target.files[0];
-    this.adjuntoAsesorRetroalimentacion.nombreArchivoOriginal= fileData.name;
-    console.log(this.adjuntoAsesorRetroalimentacion.nombreArchivoOriginal);
-
-    this.setFileData(event, entity, field, isImage)
-    
-  }
+   
 
   getNow() {
     const today = new Date();
@@ -254,47 +302,7 @@ export default class Retroalimentacion extends mixins(JhiDataUtils){
     return date;
   }
 
-  public save(): void {
-    this.isSaving = true;
-    //calcular la fecha actual para guardarla en
-    //proyecto.fechaEnvioPropuesta
-
-    this.proyecto.fechaEnvioPropuesta = new Date();
-    this.proyecto.preEnviado = true;
-
-    if (this.proyecto.id) {
-      this.proyectoService()
-        .update(this.proyecto)
-        .then(param => {
-          this.isSaving = false;
-          //this.$router.push({ name: 'PropuestaIntegrantesView', params: { proyectoId: this.proyecto.id.toString() } });
-          (<any>this).$router.go(0);
-          const message = this.$t('ciecytApp.proyecto.updated', { param: param.id });
-          this.alertService().showAlert(message, 'info');
-        });
-    } else {
-      this.proyectoService()
-        .create(this.proyecto)
-        .then(param => {
-          this.isSaving = false;
-
-          this.proyId = String(param.id);
-
-          // this.$router.push({ name: 'PropuestaIntegrantesView', params: { proyectoId: this.proyId } });
-          (<any>this).$router.go(0);
-
-          const message = 'Se ha creado un nuevo proyecto';
-          this.alertService().showAlert(message, 'success');
-        });
-    }
-    //this.submitStatus = 'PENDING';
-    //setTimeout(() => {
-    //  this.submitStatus = 'OK';
-    //}, 500);
-    //}
-    // console.log(this.submitStatus);
-  }
-
+  
   retrieveProyecto() {
     this.proyectoService()
     .findProyectoIntegrantes(parseInt(this.$route.params.proyectoId))
@@ -316,19 +324,11 @@ export default class Retroalimentacion extends mixins(JhiDataUtils){
                  this.fase = res.data;
            
           
-      /* res=  await this.adjuntoProyectoFaseService()
-      .findAdjuntoProyectoFase(this.proyId,  this.fase.id)
-      .then(res => {
-        this.adjuntoProyectoFass = res.data;
-        if(this.adjuntoProyectoFass.length==0){
-         this.adjuntoProyectoFase =  new AdjuntoProyectoFase();
-        }
-        else{
-          this.adjuntoProyectoFase = this.adjuntoProyectoFass[0];
-        }
-         console.log(this.adjuntoProyectoFass);
-        
-      }); */
+     /////////////////// Respuestas Viabilidad
+      res= await this.proyectoRespuestasService()
+                .retrieveProyectoRespuestas(this.proyId, this.fase.id, this.authority)   //recup los proyresp con un idproy
+                this.proyectoRespuests = res.data;
+
 
       res=  await this.adjuntoRetroalimentacionService()
       .findAdjuntoRetroalimentacionProyectoFaseAuthority(this.proyId,  this.fase.id, this.authority)
@@ -343,20 +343,7 @@ export default class Retroalimentacion extends mixins(JhiDataUtils){
        
       });
 /////////////////////////
-         res=  await this.adjuntoRetroalimentacionService()
-      .findAdjuntoRetroalimentacionProyectoFaseAuthority(this.proyId,  this.fase.id, this.authorityAsesor)
-      .then(res => {
-        this.adjuntoAsesorRetroalimentacions = res.data;
-        if(this.adjuntoAsesorRetroalimentacions.length==0){
-         this.adjuntoAsesorRetroalimentacion =  new AdjuntoRetroalimentacion();
-        }
-        else{
-          this.adjuntoAsesorRetroalimentacion = this.adjuntoAsesorRetroalimentacions[0];
-        }
-       
-      });
-     
- 
+        
      
   }
 
