@@ -169,9 +169,14 @@ export function initVueXStore(vue) {
           to: '/propuesta/enviar_propuesta',
         },
         {
-          title: 'Retroalimentacón',
-          description: 'Encuentre las correcciones de Asesores, Viablidad, Jurados',
+          title: 'Retroalimentación Asesor',
+          description: 'Encuentre las correcciones del Asesor',
           to: '/propuesta/retroalimentacion',
+        },
+        {
+          title: 'Retroalimentación Viabilidad',
+          description: 'Encuentre las correcciones de Viabilidad',
+          to: '/propuesta/retroalimentacion-viabilidad',
         },
       ],
 
@@ -237,8 +242,8 @@ export function initVueXStore(vue) {
           to: '/propuesta-linea/enviar-propuesta-linea',
         },
         {
-          title: 'Retroalimentacón',
-          description: 'Encuentre las correcciones de Asesores, Viablidad, Jurados',
+          title: 'Retroalimentación Asesor',
+          description: 'Encuentre las correcciones del Aseso',
           to: '/propuesta-linea/retroalimentacion-linea',
         },
       ],
@@ -282,8 +287,8 @@ export function initVueXStore(vue) {
           to: '/propuesta-pasantia/enviar-propuesta-pasantia',
         },
         {
-          title: 'Retroalimentacón',
-          description: 'Encuentre las correcciones de Asesores, Viablidad, Jurados',
+          title: 'Retroalimentación Asesor',
+          description: 'Encuentre las correcciones del Aseso',
           to: '/propuesta-pasantia/retroalimentacion-pasantia',
         },
       ],
@@ -322,8 +327,8 @@ export function initVueXStore(vue) {
           to: '/propuesta-diplomado/enviar-propuesta-diplomado',
         },
         {
-          title: 'Retroalimentacón',
-          description: 'Encuentre las correcciones de Asesores, Viablidad, Jurados',
+          title: 'Retroalimentación Asesor',
+          description: 'Encuentre las correcciones del Asesor',
           to: '/propuesta-diplomado/retroalimentacion-diplomado',
         },
       ],

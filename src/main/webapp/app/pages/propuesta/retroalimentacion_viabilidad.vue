@@ -12,10 +12,10 @@
             
             <div class="form-group">
               <label class="form-control-label" for="proyecto-titulo"></label>
-               <h2>Retroalimentación  del  Asesor</h2>
+               <h2>Retroalimentación  de  Viabilidad</h2>
 <!--------------------------------------------------------->
 
-                    <div class="col-12" v-for="(ep, i) in proyectoRespuestsAsesor" :key="i">
+                    <div class="col-12" v-for="(ep, i) in proyectoRespuests" :key="i">
                     <b-card  
                       border-variant="primary"
                       header-bg-variant="light"
@@ -103,7 +103,7 @@
                        
                      <div class="form-group" >
                        <b-form-textarea  class="form-control" name="proyecto-recomendaciones"
-                                   v-model="proyecto.recomendacionesAsesorPropuesta"  disabled="true"  />
+                                   v-model="proyecto.recomendaciones"  disabled="true"  />
                         </div>
                        </b-form-group>
                        </b-card>
@@ -120,33 +120,7 @@
              
              </div>
           </div>
-
-         <div class="col-12">    <!-------------------------correcciones asesor ------->
-                    <b-card  
-                      border-variant="primary"
-                      header-bg-variant="light"
-                      body-bg-variant="light"
-                     header-text-variant="info">  
-                
-                 
-                       <div class="form-group">
-                        <label class="form-control-label" v-text="$t('ciecytApp.adjuntoRetroalimentacion.correcionesAsesor')" for="adjunto-proyecto-fase-archivo">Correcciones del Asesor</label>
-                        
-                        <div>
-                            <div v-if="adjuntoAsesorRetroalimentacion.id"  class="form-text text-danger clearfix">
-                               <a class="pull-left" v-on:click="this.descargarAsesorRetro" v-text="$t('entity.action.open')">open </a>
-                                <span class="pull-left">{{adjuntoAsesorRetroalimentacion.nombreArchivoOriginal }} <br /> {{adjuntoAsesorRetroalimentacion.archivoContentType}}, {{byteSize(adjuntoAsesorRetroalimentacion.file)}}</span>
-                                
-                            </div> 
-                 
-                        </div>
-                        
-                    </div> 
-                   </b-card>
-                  <hr></hr>
-                </div> 
-
-<!---Correciones propuesta
+  <!---adjunto viabilidad -->
          <div class="col-12">   
                     <b-card  
                       border-variant="primary"
@@ -170,7 +144,7 @@
                     </div> 
                    </b-card>
                   <hr></hr>
-                </div> -->
+                </div> 
                
 
         </div> 
@@ -268,14 +242,11 @@ export default class Retroalimentacion extends mixins(JhiDataUtils){
 
     public adjuntoRetroalimentacions:IAdjuntoRetroalimentacion[] =[];
     public adjuntoRetroalimentacion: IAdjuntoRetroalimentacion = new AdjuntoRetroalimentacion();
-    public adjuntoAsesorRetroalimentacions:IAdjuntoRetroalimentacion[] =[];
-    public adjuntoAsesorRetroalimentacion: IAdjuntoRetroalimentacion = new AdjuntoRetroalimentacion();
     
     public fase: IFases = new Fases();
     public  authority: any="ROLE_VIABILIDAD";
     public nombreFase: any = "Propuesta";
-    public  authorityAsesor: any="ROLE_ASESOR";
-    public proyectoRespuestsAsesor: IProyectoRespuestas[] =[];
+    public proyectoRespuests: IProyectoRespuestas[] =[];
     
   //public fasePropuesta: IFases = new Fases();
   //public faseProyecto: IFases = new Fases();
@@ -304,10 +275,7 @@ export default class Retroalimentacion extends mixins(JhiDataUtils){
         this.adjuntoRetroalimentacionService().downloadFile(this.adjuntoRetroalimentacion.id, this.adjuntoRetroalimentacion.nombreArchivoOriginal);
      }
 
-       descargarAsesorRetro() {
-        //console.log('se hizo clic');
-        this.adjuntoRetroalimentacionService().downloadFile(this.adjuntoAsesorRetroalimentacion.id, this.adjuntoAsesorRetroalimentacion.nombreArchivoOriginal);
-     }
+      
 
      eliminarRetro(ob) {
     console.log('entro a eliminar');
@@ -337,14 +305,7 @@ export default class Retroalimentacion extends mixins(JhiDataUtils){
     
   }
 
-   asignarDataAsesorRetro(event, entity, field, isImage){
-     var fileData =  event.target.files[0];
-    this.adjuntoAsesorRetroalimentacion.nombreArchivoOriginal= fileData.name;
-    console.log(this.adjuntoAsesorRetroalimentacion.nombreArchivoOriginal);
-
-    this.setFileData(event, entity, field, isImage)
-    
-  }
+   
 
   getNow() {
     const today = new Date();
@@ -374,10 +335,10 @@ export default class Retroalimentacion extends mixins(JhiDataUtils){
                  this.fase = res.data;
            
           
-     /////////////////// Respuestas Asesor
+     /////////////////// Respuestas Viabilidad
       res= await this.proyectoRespuestasService()
-                .retrieveProyectoRespuestas(this.proyId, this.fase.id, this.authorityAsesor)   //recup los proyresp con un idproy
-                this.proyectoRespuestsAsesor = res.data;
+                .retrieveProyectoRespuestas(this.proyId, this.fase.id, this.authority)   //recup los proyresp con un idproy
+                this.proyectoRespuests = res.data;
 
 
       res=  await this.adjuntoRetroalimentacionService()
@@ -393,20 +354,7 @@ export default class Retroalimentacion extends mixins(JhiDataUtils){
        
       });
 /////////////////////////
-         res=  await this.adjuntoRetroalimentacionService()
-      .findAdjuntoRetroalimentacionProyectoFaseAuthority(this.proyId,  this.fase.id, this.authorityAsesor)
-      .then(res => {
-        this.adjuntoAsesorRetroalimentacions = res.data;
-        if(this.adjuntoAsesorRetroalimentacions.length==0){
-         this.adjuntoAsesorRetroalimentacion =  new AdjuntoRetroalimentacion();
-        }
-        else{
-          this.adjuntoAsesorRetroalimentacion = this.adjuntoAsesorRetroalimentacions[0];
-        }
-       
-      });
-     
- 
+        
      
   }
 

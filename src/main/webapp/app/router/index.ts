@@ -308,6 +308,8 @@ const PropuestaEntidades = () => import('../pages/propuesta/entidades.vue');
 const PropuestaCronograma = () => import('../pages/propuesta/cronograma.vue');
 const PropuestaEnviarPropuesta = () => import('../pages/propuesta/enviar_propuesta.vue');
 const PropuestaRetroalimentacion = () => import('../pages/propuesta/retroalimentacion.vue');
+const PropuestaRetroalimentacionViabilidad = () => import('../pages/propuesta/retroalimentacion_viabilidad.vue');
+
 const PropuestaAdjuntarPropuesta = () => import('../pages/propuesta/adjuntar_propuesta.vue');
 
 const PropuestaLineaInformacionGeneral = () => import('../pages/propuesta_linea/informacion_general_linea.vue');
@@ -1804,6 +1806,12 @@ export default new Router({
       path: '/propuesta/retroalimentacion/:proyectoId',
       name: 'RetroalimentacionView',
       component: PropuestaRetroalimentacion,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    {
+      path: '/propuesta/retroalimentacion-viabilidad/:proyectoId',
+      name: 'RetroalimentacionViabilidadView',
+      component: PropuestaRetroalimentacionViabilidad,
       meta: { authorities: ['ROLE_USER'] }
     },
     {
