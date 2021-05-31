@@ -1,6 +1,7 @@
+
 <template>
   <div class="row">
-    <!--<menu-lateral-listado :proyectoId="$route.params.proyectoId"></menu-lateral-listado>-->
+    
 
     <div>
       <h2 id="page-heading">
@@ -17,7 +18,7 @@
       </b-alert>
       <br />
       <div class="alert alert-warning" v-if="!isFetching && proyects && proyects.length === 0">
-        <span>No se encontraron proyectos</span>
+        <span>No se encontraron propuestas</span>
       </div>
       <div>{{ username }} con id {{ userid }} {{ autoridades }}</div>
       <div class="table-responsive" v-if="proyects && proyects.length > 0">
@@ -30,64 +31,66 @@
               <th v-on:click="changeOrder('titulo')">
                 <span v-text="$t('ciecytApp.proyecto.titulo')">Titulo</span> <font-awesome-icon icon="sort"></font-awesome-icon>
               </th>
-              <th v-on:click="changeOrder('tipo')">
-                <span v-text="$t('ciecytApp.proyecto.tipo')">Tipo</span> <font-awesome-icon icon="sort"></font-awesome-icon>
+              <th v-on:click="changeOrder('modalidad')">
+                <span v-text="$t('ciecytApp.proyecto.modalidad')">Modalidad</span> <font-awesome-icon icon="sort"></font-awesome-icon>
               </th>
               <th></th>
             </tr>
           </thead>
           <tbody>
-            <!-- JURADO ---------------------------------->
             <tr v-for="proyecto in proyects" :key="proyecto.id">
               <td>
                 <router-link :to="{ name: 'PropuestaEvaluarView', params: { proyectoId: proyecto.id } }">{{ proyecto.id }}</router-link>
               </td>
 
               <td>{{ proyecto.titulo }}</td>
-              <td>{{ proyecto.tipo }}</td>
+              <td>{{ proyecto.proyectoModalidadModalidad }}</td>
               <!-- Tesis-->
               <td class="text-right">
                 <div class="btn-group" v-if="proyecto.proyectoModalidadModalidad=='Tesis'">
                   <router-link
                     :to="{ name: 'PropuestaInformacionGeneraEditlView', params: { proyectoId: proyecto.id } }"
-                    tag="button"
-                    class="btn btn-info btn-sm details"
                   >
-                    <b-icon-check2-square></b-icon-check2-square>&nbsp;
-                    <span class="d-none d-md-inline" v-text="$t('entity.action.editar')">Editar</span>
+                    <!--<button type="submit" id="save-entity"   class="btn btn-info" v-if="proyecto.viabilidad=='null'||proyecto.viabilidad=='PENDIENTE'"> -->
+                    <button type="submit" id="save-entity"   class="btn btn-info" >
+                        <font-awesome-icon icon="pencil-alt"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.edit')">Editar</span>
+   
+                    </button>
                   </router-link>
                 </div>
                 <!-- Pasantia-->
                 <div class="btn-group" v-if="proyecto.proyectoModalidadModalidad=='Pasantía'">
                   <router-link
                     :to="{ name: 'PropuestaPasantiaInformacionGeneraEditlView', params: { proyectoId: proyecto.id } }"
-                    tag="button"
-                    class="btn btn-info btn-sm details"
-                  >
-                    <b-icon-check2-square></b-icon-check2-square>&nbsp;
-                    <span class="d-none d-md-inline" v-text="$t('entity.action.editar')">Editar</span>
+                    >
+                     <!--<button type="submit" id="save-entity"   class="btn btn-info" v-if="proyecto.viabilidad=='null'||proyecto.viabilidad=='PENDIENTE'"> -->
+                    <button type="submit" id="save-entity"   class="btn btn-info" >
+                        <font-awesome-icon icon="pencil-alt"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.edit')">Editar</span>
+   
+                    </button>
                   </router-link>
                 </div>
                  <!-- Diplomado-->
-                <div class="btn-group" v-if="proyecto.proyectoModalidadModalidad=='Diplomadp'">
+                <div class="btn-group" v-if="proyecto.proyectoModalidadModalidad=='Diplomado'">
                   <router-link
                     :to="{ name: 'PropuestaDiplomadoInformacionGeneralEditView', params: { proyectoId: proyecto.id } }"
-                    tag="button"
-                    class="btn btn-info btn-sm details"
+                   
                   >
-                    <b-icon-check2-square></b-icon-check2-square>&nbsp;
-                    <span class="d-none d-md-inline" v-text="$t('entity.action.editar')">Editar</span>
+                     <!--<button type="submit" id="save-entity"   class="btn btn-info" v-if="proyecto.viabilidad=='null'||proyecto.viabilidad=='PENDIENTE'"> -->
+                    <button type="submit" id="save-entity"   class="btn btn-info" >
+                        <font-awesome-icon icon="pencil-alt"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.edit')">Editar</span>
+                       </button>
                   </router-link>
                 </div>
                 <!-- Linea-->
                 <div class="btn-group" v-if="proyecto.proyectoModalidadModalidad=='Línea'">
                   <router-link
                     :to="{ name: 'PropuestaLineaInformacionGeneralEditView', params: { proyectoId: proyecto.id } }"
-                    tag="button"
-                    class="btn btn-info btn-sm details"
-                  >
-                    <b-icon-check2-square></b-icon-check2-square>&nbsp;
-                    <span class="d-none d-md-inline" v-text="$t('entity.action.editar')">Editar</span>
+                   >
+                     <!--<button type="submit" id="save-entity"   class="btn btn-info" v-if="proyecto.viabilidad=='null'||proyecto.viabilidad=='PENDIENTE'"> -->
+                    <button type="submit" id="save-entity"   class="btn btn-info" >
+                        <font-awesome-icon icon="pencil-alt"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.edit')">Editar</span>
+                       </button>
                   </router-link>
                 </div>
               </td>
@@ -186,7 +189,6 @@ export default class Listado extends Vue {
     };
     if (this.autoridades.includes('ROLE_JURADO')) {
       this.proyectoService()
-        //.retrieveProyectoIntegrante(this.userid,paginationQuery) //todos los roles no borrar
         .retrieveProyectoIntegranteAuthority(this.userid, 'ROLE_JURADO', paginationQuery)
         .then(
           res => {
@@ -269,11 +271,11 @@ export default class Listado extends Vue {
 
   public isSaving = false;
 
-  beforeRouteEnter(to, from, next) {
+ /* beforeRouteEnter(to, from, next) {
     next(vm => {
       vm.initRelationships();
     });
-  }
+  }*/
 
   public get username(): string {
     return this.$store.getters.account ? this.$store.getters.account.login : '';
