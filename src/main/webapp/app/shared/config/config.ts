@@ -342,6 +342,51 @@ export function initVueXStore(vue) {
         },
       ],
 
+      ////////////////////////////7
+      /*Menu Lateral*/
+      menu_lateral_proyecto: [
+        /*{
+          title: 'Información General',
+          description: 'Ingrese aquí los datos generales de la propuesta',
+          to: '/propuesta-linea/informacion-general-linea',
+        },
+        {
+          title: 'Integrantes',
+          description: 'En esta sección ingrese los integrantes de la propuesta Nota: Cada modalidad tiene un maximo de integrantes',
+          to: '/propuesta-linea/integrantes-linea',
+        },*/
+        {
+          title: 'Elementos',
+          description:
+            'En este apartado diligencie: Resumen, Problema, Pregunta de Investigación, Objetivos, Marco de Referencia y Metodología esta sección ingrese los integrantes de la propuesta Nota: Cada modalidad tiene un maximo de integrantes',
+          to: '/proyectos/elementos',
+        },
+
+        {
+          title: 'Adjuntar el Proyecto',
+          description: 'Envíe el archivo con su proyecto',
+          to: '/proyectos/adjuntar-proyecto',
+        },
+        {
+          title: 'Enviar el Proyecto',
+          description: 'En esta sección enviará su proyecto al Ciecyt',
+          to: '/proyectos/enviar-proyecto',
+        },
+        {
+          title: 'Retroalimentación Asesor',
+          description: 'Encuentre las correcciones del Asesor',
+          to: '/proyectos/retroalimentacion',
+        },
+
+        {
+          title: 'Retroalimentación Jurados',
+          description: 'Encuentre las correcciones de los Jurados',
+          to: '/proyectos/retroalimentacion-jurados',
+        },
+      ],
+
+      //////////////////////////////////
+
       menu_lateral_listado: [
         {
           title: 'Viabilidad',
@@ -461,6 +506,7 @@ export function initVueXStore(vue) {
       activeProfiles: state => state.activeProfiles,
       ribbonOnProfiles: state => state.ribbonOnProfiles,
       menuLateral: state => state.menu_lateral,
+      menuLateralProyecto: state => state.menu_lateral_proyecto,
       menuLateralPasantia: state => state.menu_lateral_pasantia,
       menuLateralDiplomado: state => state.menu_lateral_diplomado,
       menuLateralLinea: state => state.menu_lateral_linea,

@@ -337,6 +337,7 @@ const ProyectoListadoJurado = () => import('../pages/viabilidad_propuesta/listad
 const PropuestaListadoAsesor = () => import('../pages/viabilidad_propuesta/listado_asesor.vue');
 const PropuestaListadoCiecyt = () => import('../pages/ciecyt/listado_ciecyt.vue');
 const PropuestaEvaluar = () => import('../pages/viabilidad_propuesta/propuesta_evaluar.vue');
+const ProyectoElementos = () => import('../pages/proyectos/elementos.vue');
 const AsesoriaEvaluar = () => import('../pages/viabilidad_propuesta/asesoria_evaluar.vue');
 const ProyectoEvaluar = () => import('../pages/viabilidad_propuesta/proyecto_evaluar.vue');
 
@@ -350,6 +351,7 @@ const PropuestaIntegrantesNueva = () => import('../pages/propuesta_nueva/integra
 const PropuestaJuradoNueva = () => import('../pages/propuesta_nueva/jurado_nueva.vue');
 const PropuestaViabilidadNueva = () => import('../pages/propuesta_nueva/viabilidad_nueva.vue');
 const ListadoEstudiante = () => import('../pages/estudiante/listado_estudiante.vue');
+const ListadoProyecto = () => import('../pages/estudiante/listado_proyecto.vue');
 
 const PropuestasInvestigador = () => import('../pages/propuesta_nueva/propuestas_investigador.vue');
 
@@ -2007,6 +2009,13 @@ export default new Router({
       meta: { authorities: ['ROLE_ESTUDIANTE']['ROLE_ADMIN']  }
     },
 
+    {
+      path: '/estudiante/listado-proyecto',
+      name: 'ListadoProyectoView',
+      component: ListadoProyecto,
+      meta: { authorities: ['ROLE_ESTUDIANTE']['ROLE_ADMIN']  }
+    },
+
 
 
     {
@@ -2014,6 +2023,13 @@ export default new Router({
       name: 'PropuestaEvaluarView',
       component: PropuestaEvaluar,
       meta: { authorities: ['ROLE_JURADO']['ROLE_ADMIN']  }
+    },
+
+    {
+      path: '/proyectos/elementos/:proyectoId',
+      name: 'ProyectoElementosEditlView',
+      component: ProyectoElementos,
+      meta: { authorities: ['ROLE_ESTUDIANTE']['ROLE_ADMIN']  }
     },
 
     {
