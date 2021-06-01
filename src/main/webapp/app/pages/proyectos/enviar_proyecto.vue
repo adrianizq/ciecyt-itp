@@ -3,14 +3,14 @@
     <div class="col-sm-4">
       <menu-lateral-proyecto :proyectoId="$route.params.proyectoId"></menu-lateral-proyecto>
     </div>
-    <div class="col-sm-8"  v-if="!proyecto.preEnviado">
+    <div class="col-sm-8"  v-if="!proyecto.proyectoEnviado">
       <form @submit.prevent="save()">
         <div class="row">
           <div class="col-12">
             
             <div class="form-group">
               <label class="form-control-label" for="proyecto-titulo">
-               <h2>Enviar la Propuesta</h2><br />
+               <h2>Enviar el Proyecto</h2><br />
 
                <ul>
                <li>Título {{proyecto.titulo}} </li>
@@ -18,12 +18,12 @@
              <ol></ol>
             
         </ul>
-                Se va a enviar la Propuesta al Ciecyt, para ser revisada por su Asesor. <br />
-                Para realizar esta operación, debe haber diligenciado correctamente los datos de su propuesta
+                Se va a enviar el Proyecto al Ciecyt, para ser revisada por el Jurado. <br />
+                Para realizar esta operación, debe haber diligenciado correctamente los datos de su proyecto
                 <br /> 
 
                 <br />Si está de acuerdo marque la opcion
-                <strong>Enviar al Asesor </strong>
+                <strong>Enviar al Jurado </strong>
                 y de click en el boton <strong>Enviar </strong></label
               >
 
@@ -35,7 +35,7 @@
               v-model='terms'
         
               >
-                Enviar al Asesor
+                Enviar al Jurado
               </b-form-checkbox>
             </div>
           </div>
@@ -52,9 +52,9 @@
         </div>
       </form>
     </div>
-    <div class="col-sm-8"  v-if="proyecto.preEnviado">
-     <h2>Enviar la Propuesta</h2><br />
-    La Propuesta ya ha sido enviada al Asesor para su revisión
+    <div class="col-sm-8"  v-if="proyecto.proyectoEnviado">
+     <h2>Enviar el Proyecto</h2><br />
+    La Proyecto ya ha sido enviada al Jurado para su revisión
     </div>
   </div>
 </template>
@@ -105,8 +105,8 @@ export default class EnviarProyecto extends Vue {
     //calcular la fecha actual para guardarla en
     //proyecto.fechaEnvioPropuesta
 
-    this.proyecto.fechaEnvioPropuesta = new Date();
-    this.proyecto.preEnviado = true;
+    this.proyecto.fechaEnvioProyecto = new Date();
+    this.proyecto.proyectoEnviado = true;
 
     if (this.proyecto.id) {
       this.proyectoService()

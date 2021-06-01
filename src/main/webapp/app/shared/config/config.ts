@@ -368,14 +368,14 @@ export function initVueXStore(vue) {
           to: '/proyectos/adjuntar-proyecto',
         },
         {
-          title: 'Enviar Proyecto',
-          description: 'En esta sección enviará su proyecto al Ciecyt',
-          to: '/proyectos/enviar-proyecto',
-        },
-        {
           title: 'Retroalimentación Asesor',
           description: 'Encuentre las correcciones del Asesor',
           to: '/proyectos/retroalimentacion',
+        },
+        {
+          title: 'Enviar Proyecto',
+          description: 'En esta sección enviará su proyecto al Ciecyt',
+          to: '/proyectos/enviar-proyecto',
         },
 
         {
@@ -394,13 +394,19 @@ export function initVueXStore(vue) {
           to: '/viabilidad-propuesta/listado',
         },
         {
-          title: 'Asesor',
+          title: 'Asesor Propuestas',
           description: 'Espacio para revisar las propuestas a cargo',
           to: '/viabilidad-propuesta/listado-asesor',
         },
         {
+          title: 'Asesor Proyectos',
+          description: 'Espacio para revisar los proyectos a cargo',
+          to: '/viabilidad-proyecto/listado-asesor-proyecto',
+        },
+
+        {
           title: 'Jurado',
-          description: 'Evaluar los proyectos',
+          description: 'Evaluar los Proyectos',
           to: '/viabilidad-propuesta/listado-jurado',
         },
       ],

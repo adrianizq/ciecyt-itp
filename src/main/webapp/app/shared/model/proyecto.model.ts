@@ -34,6 +34,7 @@ export interface IProyecto {
   tieneAsesor?: boolean;
   enviado?: boolean;
   preEnviado?: boolean;
+  proyectoEnviado?: boolean;
   fechaEnvioPropuesta?: Date;
   fechaEnvioProyecto?: Date;
   recomendaciones?: string;
@@ -79,6 +80,7 @@ export class Proyecto implements IProyecto {
     public tieneAsesor?: boolean,
     public enviado?: boolean,
     public preEnviado?: boolean,
+    public proyectoEnviado?: boolean,
     public fechaEnvioPropuesta?: Date,
     public fechaEnvioProyecto?: Date,
     public recomendaciones?: string,

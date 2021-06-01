@@ -338,6 +338,7 @@ const PropuestaEnviarPropuestaLinea = () => import('../pages/propuesta_linea/env
 const PropuestaListado = () => import('../pages/viabilidad_propuesta/listado.vue');
 const ProyectoListadoJurado = () => import('../pages/viabilidad_propuesta/listado_jurado.vue');
 const PropuestaListadoAsesor = () => import('../pages/viabilidad_propuesta/listado_asesor.vue');
+const ProyectoListadoAsesor = () => import('../pages/viabilidad_propuesta/listado_asesor_proyecto.vue');
 const PropuestaListadoCiecyt = () => import('../pages/ciecyt/listado_ciecyt.vue');
 const PropuestaEvaluar = () => import('../pages/viabilidad_propuesta/propuesta_evaluar.vue');
 const ProyectoElementos = () => import('../pages/proyectos/elementos.vue');
@@ -2012,6 +2013,12 @@ export default new Router({
       path: '/viabilidad-propuesta/listado-asesor',
       name: 'PropuestaListadoAsesorView',
       component: PropuestaListadoAsesor,
+      meta: { authorities: ['ROLE_ASESOR']['ROLE_ADMIN']  }
+    },
+    {
+      path: '/viabilidad-proyecto/listado-asesor-proyecto',
+      name: 'ProyectoListadoAsesorView',
+      component: ProyectoListadoAsesor,
       meta: { authorities: ['ROLE_ASESOR']['ROLE_ADMIN']  }
     },
 
