@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="col-sm-4">
-      <menu-lateral :proyectoId="$route.params.proyectoId"></menu-lateral>
+      <menu-lateral-proyecto :proyectoId="$route.params.proyectoId"></menu-lateral-proyecto>
     </div>
     <!--<div class="col-sm-8"  v-if="!proyecto.enviado"> -->
     <div class="col-sm-8">
@@ -12,7 +12,7 @@
             
             <div class="form-group">
               <label class="form-control-label" for="proyecto-titulo">
-               <h2>Adjuntar Archivo a la Propuesta</h2><br />
+               <h2>Adjuntar Archivo al Proyecto</h2><br />
               </label>
 
              
@@ -69,7 +69,7 @@
 <script lang="ts">
 import { Component, Inject, Vue } from 'vue-property-decorator';
 
-import MenuLateral from '@/components/propuesta/menu_lateral.vue';
+import MenuLateralProyecto from '@/components/proyecto/menu_lateral_proyecto.vue';
 import { IProyecto, Proyecto } from '@/shared/model/proyecto.model';
 import { IUser } from '@/shared/model/user.model';
 import { mixins } from 'vue-class-component';
@@ -101,7 +101,7 @@ const validations: any = {
 };
 
 @Component({
-  validations, components: { MenuLateral },
+  validations, components: { MenuLateralProyecto },
 })
 
 //export default class EnviarPropuesta extends Vue {
@@ -119,7 +119,7 @@ const validations: any = {
    public fase:IFases= new Fases();
    // public fases: IFases = new Fases();
    public faseId:number;
-   public faseFase:string="Propuesta";
+   public faseFase:string="Proyecto";
   public terms:Boolean=false;
 
 

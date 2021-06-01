@@ -129,6 +129,10 @@
     {
       "fieldName": "recomendacionesJuradoSustentacion",
       "fieldType": "String"
+    },
+    {
+      "fieldName": "proyectoEnviado",
+      "fieldType": "Boolean"
     }
   ],
   "relationships": [

@@ -303,7 +303,7 @@ const PropuestaRetroalimentacionDiplomado = () => import('../pages/propuesta_dip
 const PropuestaRetroalimentacionViabilidadDiplomado = () => import('../pages/propuesta_diplomado/retroalimentacion_viabilidad.vue');
 
 ////7
-const PropuestaRetroalimentacionViabilidadDiplomado = () => import('../pages/propuesta_diplomado/retroalimentacion_viabilidad.vue');
+//const PropuestaRetroalimentacionViabilidadDiplomado = () => import('../pages/propuesta_diplomado/retroalimentacion_viabilidad.vue');
 const PropuestaIntegrantes = () => import('../pages/propuesta/integrantes.vue');
 const PropuestaElementos = () => import('../pages/propuesta/elementos.vue');
 const PropuestaPresupuesto = () => import('../pages/propuesta/presupuesto.vue');
@@ -312,10 +312,13 @@ const PropuestaImpactosEsperado = () => import('../pages/propuesta/impactos_espe
 const PropuestaEntidades = () => import('../pages/propuesta/entidades.vue');
 const PropuestaCronograma = () => import('../pages/propuesta/cronograma.vue');
 const PropuestaEnviarPropuesta = () => import('../pages/propuesta/enviar_propuesta.vue');
+const ProyectoEnviarProyecto = () => import('../pages/proyectos/enviar_proyecto.vue');
 const PropuestaRetroalimentacion = () => import('../pages/propuesta/retroalimentacion.vue');
 const PropuestaRetroalimentacionViabilidad = () => import('../pages/propuesta/retroalimentacion_viabilidad.vue');
 
 const PropuestaAdjuntarPropuesta = () => import('../pages/propuesta/adjuntar_propuesta.vue');
+
+const ProyectoAdjuntarProyecto = () => import('../pages/proyectos/adjuntar_proyecto.vue');
 
 const PropuestaLineaInformacionGeneral = () => import('../pages/propuesta_linea/informacion_general_linea.vue');
 const PropuestaLineaIntegrantes = () => import('../pages/propuesta_linea/integrantes_linea.vue');
@@ -1833,6 +1836,14 @@ export default new Router({
       meta: { authorities: ['ROLE_USER'] }
     },
     {
+      path: '/proyectos/enviar-proyecto/:proyectoId',
+      name: 'ProyectoEnviarProyectoView',
+      component: ProyectoEnviarProyecto,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+
+    
+    {
       path: '/propuesta/retroalimentacion/:proyectoId',
       name: 'RetroalimentacionView',
       component: PropuestaRetroalimentacion,
@@ -1850,6 +1861,15 @@ export default new Router({
       component: PropuestaAdjuntarPropuesta,
       meta: { authorities: ['ROLE_USER'] }
     },
+
+    {
+      path: '/proyectos/adjuntar-proyecto/:proyectoId',
+      name: 'ProyectoAdjuntarProyectoView',
+      component: ProyectoAdjuntarProyecto,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+
+    
     {
       path: '/propuesta/entidades/:proyectoId',
       name: 'PropuestaEntidadesView',

@@ -83,6 +83,8 @@ public class ProyectoDTO implements Serializable {
 
     private Boolean preEnviado;
 
+    private Boolean proyectoEnviado;
+
     private Boolean sustentar;
 
     private ZonedDateTime fechaEnvioPropuesta;
@@ -480,6 +482,10 @@ public class ProyectoDTO implements Serializable {
             ", proyectoFaseId=" + getProyectoFaseId() +
             ", viabilidad='" + getViabilidad() + "'" +
             ", viable=" + isViable() +
+            ", enviado='" + isEnviado() + "'" +
+            ", preEnviado='" + isPreEnviado() + "'" +
+            ", proyectoEnviado='" + isProyectoEnviado() + "'" +
+            ", sustentar='" + isSustentar() + "'" +
             ", nota=" + getNota() +
             ", conclusion='" + getConclusion() + "'" +
             ", recomendaciones='" + getRecomendaciones() + "'" +
@@ -543,6 +549,14 @@ public class ProyectoDTO implements Serializable {
 
     public void setPreEnviado(Boolean preEnviado) {
         this.preEnviado = preEnviado;
+    }
+
+    public Boolean isProyectoEnviado() {
+        return proyectoEnviado;
+    }
+
+    public void setProyectoEnviado(Boolean proyectoEnviado) {
+        this.proyectoEnviado = proyectoEnviado;
     }
 
     public ZonedDateTime getFechaEnvioPropuesta() {

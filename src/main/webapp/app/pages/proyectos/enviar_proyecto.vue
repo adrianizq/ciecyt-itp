@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="col-sm-4">
-      <menu-lateral :proyectoId="$route.params.proyectoId"></menu-lateral>
+      <menu-lateral-proyecto :proyectoId="$route.params.proyectoId"></menu-lateral-proyecto>
     </div>
     <div class="col-sm-8"  v-if="!proyecto.preEnviado">
       <form @submit.prevent="save()">
@@ -62,7 +62,7 @@
 <script lang="ts">
 import { Component, Inject, Vue } from 'vue-property-decorator';
 
-import MenuLateral from '@/components/propuesta/menu_lateral.vue';
+import MenuLateralProyecto from '@/components/proyecto/menu_lateral_proyecto.vue';
 import { IProyecto, Proyecto } from '@/shared/model/proyecto.model';
 import { IUser } from '@/shared/model/user.model';
 
@@ -71,7 +71,7 @@ import AlertService from '@/shared/alert/alert.service';
 import { IIntegranteProyecto } from '@/shared/model/integrante-proyecto.model';
 
 @Component({
-  components: { MenuLateral },
+  components: { MenuLateralProyecto },
 })
 export default class EnviarProyecto extends Vue {
   @Inject('proyectoService') private proyectoService: () => ProyectoService;

@@ -159,12 +159,12 @@ export function initVueXStore(vue) {
           to: '/propuesta/cronograma',
         },
         {
-          title: 'Adjuntar la Propuesta',
+          title: 'Adjuntar Propuesta',
           description: 'Envíe el archivo con su propuesta',
           to: '/propuesta/adjuntar_propuesta',
         },
         {
-          title: 'Enviar la Propuesta',
+          title: 'Enviar Propuesta',
           description: 'En esta sección enviará su propuesta al Ciecyt',
           to: '/propuesta/enviar_propuesta',
         },
@@ -226,12 +226,12 @@ export function initVueXStore(vue) {
         },
 
         {
-          title: 'Adjuntar la Propuesta',
+          title: 'Adjuntar  Propuesta',
           description: 'Envíe el archivo con su propuesta',
           to: '/propuesta-linea/adjuntar-propuesta-linea',
         },
         {
-          title: 'Enviar la Propuesta',
+          title: 'Enviar Propuesta',
           description: 'En esta sección enviará su propuesta al Ciecyt',
           to: '/propuesta-linea/enviar-propuesta-linea',
         },
@@ -276,12 +276,12 @@ export function initVueXStore(vue) {
           to: '/propuesta-pasantia/cronograma-pasantia',
         },
         {
-          title: 'Adjuntar la Propuesta',
+          title: 'Adjuntar Propuesta',
           description: 'Envíe el archivo con su propuesta',
           to: '/propuesta-pasantia/adjuntar-propuesta-pasantia',
         },
         {
-          title: 'Enviar la Propuesta',
+          title: 'Enviar Propuesta',
           description: 'En esta sección enviará su propuesta al Ciecyt',
           to: '/propuesta-pasantia/enviar-propuesta-pasantia',
         },
@@ -321,12 +321,12 @@ export function initVueXStore(vue) {
         },
 
         {
-          title: 'Adjuntar la Propuesta',
+          title: 'Adjuntar Propuesta',
           description: 'Envíe el archivo con su propuesta',
           to: '/propuesta-diplomado/adjuntar-propuesta-diplomado',
         },
         {
-          title: 'Enviar la Propuesta',
+          title: 'Enviar Propuesta',
           description: 'En esta sección enviará su propuesta al Ciecyt',
           to: '/propuesta-diplomado/enviar-propuesta-diplomado',
         },
@@ -363,12 +363,12 @@ export function initVueXStore(vue) {
         },
 
         {
-          title: 'Adjuntar el Proyecto',
+          title: 'Adjuntar Proyecto',
           description: 'Envíe el archivo con su proyecto',
           to: '/proyectos/adjuntar-proyecto',
         },
         {
-          title: 'Enviar el Proyecto',
+          title: 'Enviar Proyecto',
           description: 'En esta sección enviará su proyecto al Ciecyt',
           to: '/proyectos/enviar-proyecto',
         },

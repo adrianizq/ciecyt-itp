@@ -111,6 +111,9 @@
             <column name="recomendaciones_jurado_sustentacion" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
+            <column name="proyecto_enviado" type="boolean">
+                <constraints nullable="true" />
+            </column>
             <column name="proyecto_linea_investigacion_id" type="bigint">
                 <constraints nullable="true" />
             </column>
@@ -192,6 +195,7 @@
             <column name="recomendaciones_asesor_propuesta" type="string"/>
             <column name="recomendaciones_asesor_proyecto" type="string"/>
             <column name="recomendaciones_jurado_sustentacion" type="string"/>
+            <column name="proyecto_enviado" type="boolean"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>
