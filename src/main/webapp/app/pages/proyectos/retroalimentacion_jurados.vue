@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="col-sm-4">
-      <menu-lateral :proyectoId="$route.params.proyectoId"></menu-lateral>
+      <menu-lateral-proyecto :proyectoId="$route.params.proyectoId"></menu-lateral-proyecto>
     </div>
     
    <!-- <div class="col-sm-8"  v-if="!proyecto.preEnviado"> -->
@@ -12,7 +12,7 @@
             
             <div class="form-group">
               <label class="form-control-label" for="proyecto-titulo"></label>
-               <h2>Retroalimentación  de  Viabilidad</h2>
+               <h2>Retroalimentación  de  Jurados</h2>
 <!--------------------------------------------------------->
 
                     <div class="col-12" v-for="(ep, i) in proyectoRespuests" :key="i">
@@ -97,13 +97,13 @@
                       body-bg-variant="light"
                      header-text-variant="info">
                     <b-form-group 
-                    description="Si tiene comentarios o sugerencias adicionales sobre el proyecto, diligencie este apartado">
+                    description="Comentarios o sugerencias adicionales sobre el proyecto">
                     <label class="form-control-label" 
                     v-text="$t('ciecytApp.proyecto.recomendaciones')" for="proyecto-recomendaciones">Recomendaciones</label>
                        
                      <div class="form-group" >
                        <b-form-textarea  class="form-control" name="proyecto-recomendaciones"
-                                   v-model="proyecto.recomendaciones"  disabled="true"  />
+                                   v-model="proyecto.recomendacionesJuradoProyecto"  disabled="true"  />
                         </div>
                        </b-form-group>
                        </b-card>
@@ -162,7 +162,7 @@
 import { Component, Inject, Vue } from 'vue-property-decorator';
 import { mixins } from 'vue-class-component';
 
-import MenuLateral from '@/components/propuesta/menu_lateral.vue';
+import MenuLateralProyecto from '@/components/proyecto/menu_lateral_proyecto.vue';
 import { IProyecto, Proyecto } from '@/shared/model/proyecto.model';
 import { IUser } from '@/shared/model/user.model';
 
@@ -215,7 +215,7 @@ const validations: any = {
 
 
 @Component({
-  components: { MenuLateral },
+  components: { MenuLateralProyecto },
   
 })
 export default class RetroalimentacionJurados extends mixins(JhiDataUtils){
@@ -244,17 +244,11 @@ export default class RetroalimentacionJurados extends mixins(JhiDataUtils){
     public adjuntoRetroalimentacion: IAdjuntoRetroalimentacion = new AdjuntoRetroalimentacion();
     
     public fase: IFases = new Fases();
-    public  authority: any="ROLE_VIABILIDAD";
-    public nombreFase: any = "Propuesta";
+    public  authority: any="ROLE_JURADO";
+    public nombreFase: any = "Proyecto";
     public proyectoRespuests: IProyectoRespuestas[] =[];
     
-  //public fasePropuesta: IFases = new Fases();
-  //public faseProyecto: IFases = new Fases();
-
-    //public  authorityJurado: any="ROLE_JURADO";
-     //public  authorityViabilidad: any="ROLE_VIABILIDAD";
-     //public nombreFasePropuesta: any = "Propuesta";
-    //public nombreFaseProyecto: any = "Proyecto";
+  
 
   beforeRouteEnter(to, from, next) {
     next(vm => {

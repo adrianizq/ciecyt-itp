@@ -97,7 +97,7 @@
                       body-bg-variant="light"
                      header-text-variant="info">
                     <b-form-group 
-                    description="Si tiene comentarios o sugerencias adicionales sobre el proyecto, diligencie este apartado">
+                    description="Comentarios o sugerencias adicionales sobre el proyecto">
                     <label class="form-control-label" 
                     v-text="$t('ciecytApp.proyecto.recomendaciones')" for="proyecto-recomendaciones">Recomendaciones</label>
                        

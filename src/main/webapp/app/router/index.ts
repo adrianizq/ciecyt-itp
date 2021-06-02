@@ -315,6 +315,8 @@ const PropuestaEnviarPropuesta = () => import('../pages/propuesta/enviar_propues
 const ProyectoEnviarProyecto = () => import('../pages/proyectos/enviar_proyecto.vue');
 const PropuestaRetroalimentacion = () => import('../pages/propuesta/retroalimentacion.vue');
 const ProyectoRetroalimentacion = () => import('../pages/proyectos/retroalimentacion.vue');
+const ProyectoRetroalimentacionJurados = () => import('../pages/proyectos/retroalimentacion_jurados.vue');
+
 const PropuestaRetroalimentacionViabilidad = () => import('../pages/propuesta/retroalimentacion_viabilidad.vue');
 
 const PropuestaAdjuntarPropuesta = () => import('../pages/propuesta/adjuntar_propuesta.vue');
@@ -1859,6 +1861,14 @@ export default new Router({
       component: ProyectoRetroalimentacion,
       meta: { authorities: ['ROLE_USER'] }
     },
+    {
+      path: '/proyectos/retroalimentacion-jurados/:proyectoId',
+      name: 'ProyectoRetroalimentacionJuradosView',
+      component: ProyectoRetroalimentacionJurados,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+
+    
     {
       path: '/propuesta/retroalimentacion-viabilidad/:proyectoId',
       name: 'RetroalimentacionViabilidadView',
