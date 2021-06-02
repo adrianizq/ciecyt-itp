@@ -78,4 +78,12 @@ export default class ElementoService {
       });
     });
   }
+
+  public retrieveElementosFaseModalidad(idFase: number, idModalidad: number): Promise<any> {
+    return new Promise<any>(resolve => {
+      axios.get('api/elemento-fase-modalidad' + `/${idFase}` + `/${idModalidad}`).then(function (res) {
+        resolve(res);
+      });
+    });
+  }
 }

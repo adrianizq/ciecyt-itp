@@ -92,11 +92,11 @@ public class ElementoModalidadServiceImpl implements ElementoModalidadService {
             .collect(Collectors.toCollection(LinkedList::new));
     }
 
-    /*@Override
+    @Override
     public ElementoModalidadDTO findByElementoIdAndModalidadId(Long idElemento, Long idModalidad) {
         ElementoModalidad elementoModalidad =elementoModalidadRepository.findByElementoIdAndModalidadId(idElemento, idModalidad);
         return elementoModalidadMapper.toDto(elementoModalidad);
-    }*/
+    }
 
     @Override
     @Transactional(readOnly = true)

@@ -1,6 +1,8 @@
 package co.edu.itp.ciecyt.web.rest;
 
+import co.edu.itp.ciecyt.service.ElementoModalidadService;
 import co.edu.itp.ciecyt.service.ElementoService;
+import co.edu.itp.ciecyt.service.dto.ElementoModalidadDTO;
 import co.edu.itp.ciecyt.service.dto.IntegranteProyectoDTO;
 import co.edu.itp.ciecyt.web.rest.errors.BadRequestAlertException;
 import co.edu.itp.ciecyt.service.dto.ElementoDTO;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,8 +44,12 @@ public class ElementoResource {
 
     private final ElementoService elementoService;
 
-    public ElementoResource(ElementoService elementoService) {
+    private final ElementoModalidadService elementoModalidadService;
+
+    public ElementoResource(ElementoService elementoService, ElementoModalidadService elementoModalidadService) {
+
         this.elementoService = elementoService;
+        this.elementoModalidadService = elementoModalidadService;
     }
 
     /**
@@ -137,7 +144,7 @@ public class ElementoResource {
     /**
      * {@code GET  /integrante-proyectos/:id} : get the "id" idProyecto.
      *
-     * @param id the id of the elementoDTO to retrieve.
+     * @param  idProyecto the id of the elementoDTO to retrieve.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the elementooDTO, or with status {@code 404 (Not Found)}.
      */
    /* @GetMapping("/elemento-modalidad/{idModalidad}")
@@ -180,6 +187,29 @@ public class ElementoResource {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body( e.getMessage());
         }
     }
+
+    /////////////////////nuevo
+    @GetMapping("/elemento-fase-modalidad/{idFase}/{idModalidad}")
+    public ResponseEntity<?> getElementoFaseModalidad(@PathVariable Long idFase, @PathVariable Long idModalidad) {
+        log.debug("REST request to get Elemento Modalidad : {}", idFase, idModalidad);
+        try{
+            final List<ElementoDTO> elementoDTO = elementoService.findByElementoFasesId(idFase);
+            final List<ElementoDTO> lElemDTO = new ArrayList<>();
+
+            for(ElementoDTO e: elementoDTO){
+                ElementoModalidadDTO emDTO = elementoModalidadService.findByElementoIdAndModalidadId(e.getId(), idModalidad);
+                if(emDTO!=null) {
+                    lElemDTO.add(e);
+                }
+            }
+            return new ResponseEntity<>(lElemDTO, HttpStatus.OK);
+
+        }catch (Exception e){
+
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body( e.getMessage());
+        }
+    }
+
 
     /**
      * {@code GET  /elementos} : get all the elementos.

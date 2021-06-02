@@ -1,53 +1,32 @@
 <template>
-
     <div class="row">
-
-        <div class="col-sm-4">
+       <div class="col-sm-4">
             <menu-lateral-proyecto :proyectoId='$route.params.proyectoId'></menu-lateral-proyecto>
         </div>
         <div class="col-sm-8">
            <form @submit.prevent="save()">
                 <div class="row">
-
                 <div class="form-group">
-              <label class="form-control-label" for="encabezado">
+               <label class="form-control-label" for="encabezado">
                <h2>Elementos</h2>
                </label>
               </div>
                      <div class="col-12" v-for="(ep, e) in elementosProyecto" :key="e">
-                       
-
                          <div class="form-group">
-
-                           <!-- <b-form-textarea rows="5"  max-rows="10" class="form-control" 
-                            
-                                   v-model="ep.elementoProyectoProyectoDescripcion" />
-                            -->
-
                         </div>
-
                        <b-form-group
                             :label="ep.elementoProyectoElementoElemento"
                             :label-for="`ep-${i}`" 
                             :description="ep.elementoProyectoProyectoDescripcion"
                        >
-
-                        
                        <div class="form-group" >
-
                             <b-form-textarea rows="5"  max-rows="10" class="form-control" :name="`ep-${i}`"
                             :id="`ep-${i}`" 
                                    v-model="ep.dato"   />
-                             
-
-
                         </div>
-
                         </b-form-group>
                     </div>
                 </div>
-
-
                 <div>
 
                     <button type="button" id="cancel-save" class="btn btn-secondary" v-on:click="previousState()">
@@ -149,12 +128,8 @@ export default class Elementos extends Vue {
 
         async initRelationships() {
            try {
-
-
+               
                this.proyId = parseInt(this.$route.params.proyectoId);
-
-
-                //this.proyecto = await this.proyectoService().find(this.proyId);
                await this.proyectoService()
                     .find(this.proyId)
                     .then(res=> {
@@ -163,14 +138,13 @@ export default class Elementos extends Vue {
 
                 this.modalidadId = this.proyecto.proyectoModalidadId;
 
- 
                 await this.fasesService()
                     .findByFase("Proyecto")
                     .then(res=> {
                         this.fase = res;
                     });
 
-                     await this.formatoService()
+                await this.formatoService()
                     .findByCodigo(this.codigoFormato)
                     .then(res=> {
                         this.formato = res;
@@ -189,7 +163,8 @@ export default class Elementos extends Vue {
                 await this.elementoService()
                 //.retrieveElementosModalidad( this.modalidadId)
                 //.retrieveElementosFase(this.fase.id)
-                .retrieveElementosFaseFormato(this.fase.id, this.formato.id)
+                //.retrieveElementosFaseFormato(this.fase.id, this.formato.id)
+                .retrieveElementosFaseModalidad(this.fase.id, this.modalidadId)
                 .then(res => {
                     this.elements = res.data;
                   //copiar los datos de elementos a elemento-proyecto
@@ -212,22 +187,13 @@ export default class Elementos extends Vue {
                     elemProy.elementoProyectoProyectoId = this.proyId;
                     this.elementosProyecto.push(elemProy);
                     }
-                     
-
-                  }); 
-         
-                });
-           
-
+                   }); 
+                 });
             }
             catch(e){
               console.log("error al recuperar la informacion de elemento ");
             }
-
         }
-
-       
-
 }
 </script>
 

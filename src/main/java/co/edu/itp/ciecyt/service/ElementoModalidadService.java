@@ -46,6 +46,8 @@ public interface ElementoModalidadService {
     @Transactional(readOnly = true)
     List<ElementoModalidadDTO> findByModalidadId(Long idModalidad);
 
+    ElementoModalidadDTO findByElementoIdAndModalidadId(Long idElemento, Long idModalidad);
+
     @Transactional(readOnly = true)
     List<ModalidadDTO> findByElementoId(Long idElemento);
 }
