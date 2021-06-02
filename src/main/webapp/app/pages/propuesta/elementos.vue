@@ -194,7 +194,9 @@ export default class Elementos extends Vue {
                 await this.elementoService()
                 //.retrieveElementosModalidad( this.modalidadId)
                 //.retrieveElementosFase(this.fase.id)
-                .retrieveElementosFaseFormato(this.fase.id, this.formato.id)
+                //.retrieveElementosFaseFormato(this.fase.id, this.formato.id)
+               .retrieveElementosFaseModalidad(this.fase.id, this.modalidadId)
+
                 .then(res => {
                     this.elements = res.data;
                   //copiar los datos de elementos a elemento-proyecto
