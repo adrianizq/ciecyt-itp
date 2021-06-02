@@ -39,7 +39,7 @@
                 <tr v-for="proyecto in proyects"
                     :key="proyecto.id">
                     <td>
-                        <router-link :to="{name: 'AsesoriaEvaluarView', params: {proyectoId: proyecto.id}}">{{proyecto.id}}</router-link>
+                        <router-link :to="{name: 'AsesoriaEvaluarProyectoView', params: {proyectoId: proyecto.id}}">{{proyecto.id}}</router-link>
                     </td>
 
                     <td>{{proyecto.titulo}}</td>
@@ -49,7 +49,7 @@
                     
                     <td class="text-right">
                         <div class="btn-group" >
-                            <router-link :to="{name: 'AsesoriaEvaluarView', params: {proyectoId: proyecto.id}}" tag="button" class="btn btn-info btn-sm details">
+                            <router-link :to="{name: 'AsesoriaEvaluarProyectoView', params: {proyectoId: proyecto.id}}" tag="button" class="btn btn-info btn-sm details">
                                <b-icon-eye-fill  ></b-icon-eye-fill>&nbsp;
                                 <span class="d-none d-md-inline" v-text="$t('entity.action.revisar')">Revisar</span>
                             </router-link>

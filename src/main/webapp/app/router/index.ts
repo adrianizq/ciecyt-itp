@@ -314,6 +314,7 @@ const PropuestaCronograma = () => import('../pages/propuesta/cronograma.vue');
 const PropuestaEnviarPropuesta = () => import('../pages/propuesta/enviar_propuesta.vue');
 const ProyectoEnviarProyecto = () => import('../pages/proyectos/enviar_proyecto.vue');
 const PropuestaRetroalimentacion = () => import('../pages/propuesta/retroalimentacion.vue');
+const ProyectoRetroalimentacion = () => import('../pages/proyectos/retroalimentacion.vue');
 const PropuestaRetroalimentacionViabilidad = () => import('../pages/propuesta/retroalimentacion_viabilidad.vue');
 
 const PropuestaAdjuntarPropuesta = () => import('../pages/propuesta/adjuntar_propuesta.vue');
@@ -343,6 +344,7 @@ const PropuestaListadoCiecyt = () => import('../pages/ciecyt/listado_ciecyt.vue'
 const PropuestaEvaluar = () => import('../pages/viabilidad_propuesta/propuesta_evaluar.vue');
 const ProyectoElementos = () => import('../pages/proyectos/elementos.vue');
 const AsesoriaEvaluar = () => import('../pages/viabilidad_propuesta/asesoria_evaluar.vue');
+const AsesoriaEvaluarProyecto = () => import('../pages/viabilidad_propuesta/asesoria_evaluar_proyecto.vue');
 const ProyectoEvaluar = () => import('../pages/viabilidad_propuesta/proyecto_evaluar.vue');
 
 const AsignarJurado = () => import('../pages/ciecyt/asignar_jurado.vue');
@@ -1850,6 +1852,13 @@ export default new Router({
       component: PropuestaRetroalimentacion,
       meta: { authorities: ['ROLE_USER'] }
     },
+
+    {
+      path: '/proyectos/retroalimentacion/:proyectoId',
+      name: 'ProyectoRetroalimentacionView',
+      component: ProyectoRetroalimentacion,
+      meta: { authorities: ['ROLE_USER'] }
+    },
     {
       path: '/propuesta/retroalimentacion-viabilidad/:proyectoId',
       name: 'RetroalimentacionViabilidadView',
@@ -2063,7 +2072,14 @@ export default new Router({
       path: '/viabilidad-propuesta/asesoria-evaluar/:proyectoId',
       name: 'AsesoriaEvaluarView',
       component: AsesoriaEvaluar,
-      meta: { authorities: ['ROLE_JURADO']['ROLE_ADMIN']  }
+      meta: { authorities: ['ROLE_ASESOR']['ROLE_ADMIN']  }
+    },
+
+    {
+      path: '/viabilidad-propuesta/asesoria-evaluar-proyecto/:proyectoId',
+      name: 'AsesoriaEvaluarProyectoView',
+      component: AsesoriaEvaluarProyecto,
+      meta: { authorities: ['ROLE_ASESOR']['ROLE_ADMIN']  }
     },
 
 
