@@ -9,16 +9,13 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity {@link Elemento} and its DTO {@link ElementoDTO}.
  */
-@Mapper(componentModel = "spring", uses = {FormatoMapper.class, FasesMapper.class})
+@Mapper(componentModel = "spring", uses = {FasesMapper.class})
 public interface ElementoMapper extends EntityMapper<ElementoDTO, Elemento> {
 
-    @Mapping(source = "elementoFormato.id", target = "elementoFormatoId")
-    @Mapping(source = "elementoFormato.formato", target = "elementoFormatoFormato")
     @Mapping(source = "elementoFases.id", target = "elementoFasesId")
     @Mapping(source = "elementoFases.fase", target = "elementoFasesFase")
     ElementoDTO toDto(Elemento elemento);
 
-    @Mapping(source = "elementoFormatoId", target = "elementoFormato")
     @Mapping(source = "elementoFasesId", target = "elementoFases")
     Elemento toEntity(ElementoDTO elementoDTO);
 

@@ -71,13 +71,13 @@ export default class ElementoService {
     });
   }
 
-  public retrieveElementosFaseFormato(idFase: number, idFormato: number): Promise<any> {
+  /*public retrieveElementosFaseFormato(idFase: number, idFormato: number): Promise<any> {
     return new Promise<any>(resolve => {
       axios.get('api/elemento-fase-formato' + `/${idFase}` + `/${idFormato}`).then(function (res) {
         resolve(res);
       });
     });
-  }
+  }*/
 
   public retrieveElementosFaseModalidad(idFase: number, idModalidad: number): Promise<any> {
     return new Promise<any>(resolve => {

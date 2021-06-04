@@ -21,9 +21,6 @@
             <column name="descripcion" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="elemento_formato_id" type="bigint">
-                <constraints nullable="true" />
-            </column>
             <column name="elemento_fases_id" type="bigint">
                 <constraints nullable="true" />
             </column>

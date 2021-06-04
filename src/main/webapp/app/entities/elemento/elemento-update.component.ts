@@ -2,8 +2,8 @@ import { Component, Vue, Inject } from 'vue-property-decorator';
 
 import { numeric, required, minLength, maxLength } from 'vuelidate/lib/validators';
 
-import FormatoService from '../formato/formato.service';
-import { IFormato } from '@/shared/model/formato.model';
+//import FormatoService from '../formato/formato.service';
+//import { IFormato } from '@/shared/model/formato.model';
 
 //import ModalidadService from '../modalidad/modalidad.service';
 //import { IModalidad } from '@/shared/model/modalidad.model';
@@ -43,9 +43,9 @@ export default class ElementoUpdate extends Vue {
 
   public elementoId: any = null;
 
-  @Inject('formatoService') private formatoService: () => FormatoService;
+  //@Inject('formatoService') private formatoService: () => FormatoService;
 
-  public formatoes: IFormato[] = [];
+  //public formatoes: IFormato[] = [];
 
   @Inject('fasesService') private fasesService: () => FasesService;
   // @Inject('modalidadService') private modalidadService: () => ModalidadService;
@@ -131,11 +131,11 @@ export default class ElementoUpdate extends Vue {
         });
     }
 
-    let res = await this.formatoService()
+    /*let res = await this.formatoService()
       .retrieve()
       .then(res => {
         this.formatoes = res.data;
-      });
+      });*/
     this.fasesService()
       .retrieve()
       .then(res => {

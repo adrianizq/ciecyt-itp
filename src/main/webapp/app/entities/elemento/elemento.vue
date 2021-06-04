@@ -27,7 +27,7 @@
                     <th v-on:click="changeOrder('id')"><span v-text="$t('global.field.id')">ID</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th v-on:click="changeOrder('elemento')"><span v-text="$t('ciecytApp.elemento.elemento')">Elemento</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th v-on:click="changeOrder('descripcion')"><span v-text="$t('ciecytApp.elemento.descripcion')">Descripcion</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
-                    <th v-on:click="changeOrder('elementoFormatoFormato')"><span v-text="$t('ciecytApp.elemento.elementoFormato')">Elemento Formato</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
+                   <!-- <th v-on:click="changeOrder('elementoFormatoFormato')"><span v-text="$t('ciecytApp.elemento.elementoFormato')">Elemento Formato</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>-->
                     <th v-on:click="changeOrder('elementoFasesFase')"><span v-text="$t('ciecytApp.elemento.elementoFase')">Fase</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <!--<th v-on:click="changeOrder('modalidad')"><span v-text="$t('ciecytApp.elemento.modalidad')">Fase</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>-->
                     <th></th>
@@ -41,11 +41,11 @@
                     </td>
                     <td>{{elemento.elemento}}</td>
                     <td>{{elemento.descripcion}}</td>
-                    <td>
+                    <!--<td>
                         <div v-if="elemento.elementoFormatoId">
                             <router-link :to="{name: 'FormatoView', params: {elementoFormatoId: elemento.elementoFormatoId}}">{{elemento.elementoFormatoFormato}}</router-link>
                         </div>
-                    </td>
+                    </td> -->
                     <td>{{elemento.elementoFasesFase}}</td>
                     <!--<td>
                         <div v-if="elemento.modalidadId">

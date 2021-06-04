@@ -16,6 +16,7 @@
                     <dd>
                         <span>{{elemento.descripcion}}</span>
                     </dd>
+                    <!--
                     <dt>
                         <span v-text="$t('ciecytApp.elemento.elementoFormato')">Elemento Formato</span>
                     </dt>
@@ -24,7 +25,7 @@
                             <router-link :to="{name: 'FormatoView', params: {elementoFormatoId: elemento.elementoFormatoId}}">{{elemento.elementoFormatoFormato}}</router-link>
                         </div>
                     </dd>
-
+                    -->
                     <!--<dt>
                         <span v-text="$t('ciecytApp.elemento.modalidad')">Elemento Modalidad</span>
                     </dt>

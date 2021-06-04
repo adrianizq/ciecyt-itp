@@ -31,10 +31,6 @@ public class Elemento implements Serializable {
 
     @ManyToOne
     @JsonIgnoreProperties(value = "elementos", allowSetters = true)
-    private Formato elementoFormato;
-
-    @ManyToOne
-    @JsonIgnoreProperties(value = "elementos", allowSetters = true)
     private Fases elementoFases;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -72,18 +68,7 @@ public class Elemento implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public Formato getElementoFormato() {
-        return elementoFormato;
-    }
 
-    public Elemento elementoFormato(Formato formato) {
-        this.elementoFormato = formato;
-        return this;
-    }
-
-    public void setElementoFormato(Formato formato) {
-        this.elementoFormato = formato;
-    }
 
     public Fases getElementoFases() {
         return elementoFases;

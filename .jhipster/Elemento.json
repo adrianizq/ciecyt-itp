@@ -12,13 +12,6 @@
   ],
   "relationships": [
     {
-      "relationshipType": "many-to-one",
-      "otherEntityName": "formato",
-      "otherEntityRelationshipName": "elemento",
-      "relationshipName": "elementoFormato",
-      "otherEntityField": "formato"
-    },
-    {
       "relationshipName": "elementoFases",
       "otherEntityName": "fases",
       "relationshipType": "many-to-one",

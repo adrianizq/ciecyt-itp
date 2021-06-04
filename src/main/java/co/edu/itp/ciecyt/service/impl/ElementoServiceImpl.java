@@ -2,22 +2,20 @@ package co.edu.itp.ciecyt.service.impl;
 
 import co.edu.itp.ciecyt.domain.*;
 import co.edu.itp.ciecyt.repository.ElementoModalidadRepository;
-import co.edu.itp.ciecyt.service.ElementoService;
 import co.edu.itp.ciecyt.repository.ElementoRepository;
+import co.edu.itp.ciecyt.service.ElementoService;
 import co.edu.itp.ciecyt.service.dto.*;
 import co.edu.itp.ciecyt.service.mapper.ElementoMapper;
 import co.edu.itp.ciecyt.service.mapper.ElementoModalidadMapper;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 /**
  * Service Implementation for managing {@link Elemento}.
@@ -34,7 +32,12 @@ public class ElementoServiceImpl implements ElementoService {
     private final ElementoMapper elementoMapper;
     private final ElementoModalidadMapper elementoModalidadMapper;
 
-    public ElementoServiceImpl(ElementoRepository elementoRepository, ElementoModalidadRepository elementoModalidadRepository, ElementoMapper elementoMapper, ElementoModalidadMapper elementoModalidadMapper) {
+    public ElementoServiceImpl(
+        ElementoRepository elementoRepository,
+        ElementoModalidadRepository elementoModalidadRepository,
+        ElementoMapper elementoMapper,
+        ElementoModalidadMapper elementoModalidadMapper
+    ) {
         this.elementoRepository = elementoRepository;
         this.elementoModalidadRepository = elementoModalidadRepository;
         this.elementoMapper = elementoMapper;
@@ -64,20 +67,19 @@ public class ElementoServiceImpl implements ElementoService {
         elementoRepository.save(elemento);
 
         //Guardar las modalidades
-        List <ElementoModalidad> pmL = elementoModalidadRepository.findByElementoId(elemento.getId());
-        List <ElementoModalidadDTO> lpmDto= new ArrayList<>();
+        List<ElementoModalidad> pmL = elementoModalidadRepository.findByElementoId(elemento.getId());
+        List<ElementoModalidadDTO> lpmDto = new ArrayList<>();
         //lpmDto = preguntaDTO.getPreguntaModalidads();
         lpmDto = elementoDTO.getElementoModalidads();
-        for(ElementoModalidad pm: pmL){
+        for (ElementoModalidad pm : pmL) {
             elementoModalidadRepository.delete(pm);
         }
         pmL = elementoModalidadRepository.findByElementoId(elemento.getId());
-        for (ElementoModalidadDTO pmDto: lpmDto){
+        for (ElementoModalidadDTO pmDto : lpmDto) {
             pmDto.setElementoId(elemento.getId());
             ElementoModalidad pm = elementoModalidadMapper.toEntity(pmDto);
             elementoModalidadRepository.save(pm);
         }
-
 
         return elementoMapper.toDto(elemento);
     }
@@ -94,8 +96,7 @@ public class ElementoServiceImpl implements ElementoService {
     @Transactional(readOnly = true)
     public Page<ElementoDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Elementos");
-        return elementoRepository.findAll(pageable)
-            .map(elementoMapper::toDto);
+        return elementoRepository.findAll(pageable).map(elementoMapper::toDto);
     }
 
     //   public List<ElementoDTO> findAllByOrderByIdAsc() throws Exception;
@@ -112,16 +113,13 @@ public class ElementoServiceImpl implements ElementoService {
         List<ElementoDTO> elementoDTOS = new ArrayList<>();
         List<Elemento> elementoList;
         elementoList = elementoRepository.findAllByOrderByIdAsc();
-        for (Elemento e: elementoList
-             ) {
+        for (Elemento e : elementoList) {
             ElementoDTO elementoDTO;
             elementoDTO = elementoMapper.toDto(e);
             elementoDTOS.add(elementoDTO);
-
         }
-        return  elementoDTOS;
+        return elementoDTOS;
     }
-
 
     /**
      * Get one elemento by id.
@@ -133,8 +131,7 @@ public class ElementoServiceImpl implements ElementoService {
     @Transactional(readOnly = true)
     public Optional<ElementoDTO> findOne(Long id) {
         log.debug("Request to get Elemento : {}", id);
-        return elementoRepository.findById(id)
-            .map(elementoMapper::toDto);
+        return elementoRepository.findById(id).map(elementoMapper::toDto);
     }
 
     /**
@@ -146,17 +143,15 @@ public class ElementoServiceImpl implements ElementoService {
     public void delete(Long id) {
         log.debug("Request to delete Elemento : {}", id);
         //borrar las Modalidades asociadas al elemento
-        List <ElementoModalidad> pmL = elementoModalidadRepository.findByElementoId(id);
-        for(ElementoModalidad pm: pmL){
+        List<ElementoModalidad> pmL = elementoModalidadRepository.findByElementoId(id);
+        for (ElementoModalidad pm : pmL) {
             elementoModalidadRepository.delete(pm);
         }
         //borrar el elemento
         elementoRepository.deleteById(id);
     }
 
-
-
-  /*  @Override
+    /*  @Override
     @Transactional(readOnly = true)
     public List<ElementoDTO> findByElementoModalidadId(Long idModalidad) throws Exception {
         log.debug("Request to get all Elementos de una modalidad con una idModalidad");
@@ -183,10 +178,9 @@ public class ElementoServiceImpl implements ElementoService {
         }
         return listDTO;
     }
-
     //    List<Elemento> findByElementoFasesIdAndElementoFormatoId(Long idFase, Long idFormato);
 
-    @Override
+    /* @Override
     @Transactional(readOnly = true)
     public List<ElementoDTO> findByElementoFasesIdAndElementoFormatoId(Long idFase, Long idFormato) throws Exception {
         log.debug("Request to get all Elementos de una modalidad con una idModalidad");
@@ -198,5 +192,5 @@ public class ElementoServiceImpl implements ElementoService {
             listDTO.add(elementoMapper.toDto(elemento));
         }
         return listDTO;
-    }
+    } */
 }
