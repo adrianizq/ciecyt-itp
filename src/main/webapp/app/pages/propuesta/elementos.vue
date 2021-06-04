@@ -85,8 +85,6 @@ import { IProyecto, Proyecto } from '@/shared/model/proyecto.model';
 import ProyectoService from '@/entities/proyecto/proyecto.service';
 import { IFases, Fases } from '@/shared/model/fases.model';
 import FasesService from '@/entities/fases/fases.service';
-import { IFormato, Formato } from '@/shared/model/formato.model';
-import FormatoService from '@/entities/formato/formato.service';
 
 
     const validations: any = {};
@@ -104,8 +102,7 @@ export default class Elementos extends Vue {
    @Inject('elementoService') private elementoService: () => ElementoService;
    @Inject('elementoProyectoService') private elementoProyectoService: () => ElementoProyectoService;
    @Inject('fasesService') private fasesService: () => FasesService;
-   @Inject('formatoService') private formatoService: () => FormatoService;
-   @Inject('alertService') private alertService: () => AlertService;
+    @Inject('alertService') private alertService: () => AlertService;
 
 
     public elements: IElemento[] = [];
@@ -115,8 +112,7 @@ export default class Elementos extends Vue {
     public proyId: any = null;
     public modalidadId: number = 0;
     public fase: IFases = new Fases();
-    public formato: IFormato = new Formato();
-    public codigoFormato ="F-INV-008";
+    
 
     public isSaving = false;
 
@@ -175,11 +171,7 @@ export default class Elementos extends Vue {
                         this.fase = res;
                     });
 
-                     await this.formatoService()
-                    .findByCodigo(this.codigoFormato)
-                    .then(res=> {
-                        this.formato = res;
-                    });
+                    
 
             ///////////////////////////////////////////////////////7
                 var  elementosProyectoTemp: IElementoProyecto[] =[];

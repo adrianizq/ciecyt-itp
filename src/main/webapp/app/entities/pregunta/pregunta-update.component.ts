@@ -64,6 +64,8 @@ export default class PreguntaUpdate extends Vue {
   //public elementoModalidads: IElementoModalidad[] = [];
 
   public authorities: any[] = [];
+  public tmpAuthorities: any[] = [];
+
   public existeElemento: boolean = false;
 
   @Inject('fasesService') private fasesService: () => FasesService;
@@ -275,7 +277,18 @@ export default class PreguntaUpdate extends Vue {
     res = await this.userManagementService()
       .retrieveAuthorities()
       .then(_res => {
-        this.authorities = _res.data;
+        this.tmpAuthorities = _res.data;
+        this.tmpAuthorities.forEach(a => {
+          if (
+            a != 'ROLE_USER' &&
+            a != 'ROLE_ADMIN' &&
+            a != 'ROLE_ANONYMOUS' &&
+            a != 'ROLE_ESTUDIANTE' &&
+            a != 'ROLE_DOCENTE' &&
+            a != 'ROLE_CIECYT'
+          )
+            this.authorities.push(a);
+        });
       });
 
     if (this.preguntaId) {
