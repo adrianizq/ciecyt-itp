@@ -49,11 +49,37 @@
                     
                     <td class="text-right">
                         <div class="btn-group" >
-                            <router-link :to="{name: 'AsesoriaEvaluarView', params: {proyectoId: proyecto.id}}" tag="button" class="btn btn-info btn-sm details">
+                  <!---------------------------------------------------->
+                        <router-link v-if="proyecto.preEnviado==true"
+                    :to="{ name: 'AsesoriaEvaluarView', params: { proyectoId: proyecto.id } }"
+                  
+                  >
+                    <button type="submit" id="save-entity"   class="btn btn-info" v-if="proyecto.enviado==false||proyecto.enviado==null">
+                        <font-awesome-icon icon="pencil-alt"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.revisar')">Evaluar</span>
+   
+                    </button>
+                    
+                    <button type="submit" id="save-entity"   class="btn btn-link" v-if="proyecto.enviado==true">
+                        <font-awesome-icon icon="pencil-alt"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.revisar')">Evaluar</span>
+   
+                    </button>
+                  
+                  </router-link>
+                  <!-------------------------------------------->
+                        <!--
+                            <router-link :to="{name: 'AsesoriaEvaluarView', params: {proyectoId: proyecto.id}}" 
+                            tag="button" class="btn btn-info btn-sm details"
+                            v-if="proyecto.enviado==false">
                                <b-icon-eye-fill  ></b-icon-eye-fill>&nbsp;
                                 <span class="d-none d-md-inline" v-text="$t('entity.action.revisar')">Revisar</span>
                             </router-link>
-  
+                             <router-link :to="{name: 'AsesoriaEvaluarView', params: {proyectoId: proyecto.id}}" 
+                            tag="button" class="btn btn-info"
+                            v-if="proyecto.enviado==true">
+                               <b-icon-eye-fill  ></b-icon-eye-fill>&nbsp;
+                                <span class="d-none d-md-inline" v-text="$t('entity.action.revisar')">Revisar</span>
+                            </router-link>
+                        -->
                         </div>
 
                         
