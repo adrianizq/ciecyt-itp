@@ -39,7 +39,7 @@
                 <tr v-for="proyecto in proyects"
                     :key="proyecto.id">
                     <td>
-                        <router-link :to="{name: 'AsesoriaEvaluarView', params: {proyectoId: proyecto.id}}">{{proyecto.id}}</router-link>
+                        {{proyecto.id}}
                     </td>
 
                     <td>{{proyecto.titulo}}</td>
