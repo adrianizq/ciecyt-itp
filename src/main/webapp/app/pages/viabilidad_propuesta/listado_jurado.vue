@@ -48,20 +48,20 @@
 
               <td class="text-right">
                 <div class="btn-group">
-                  <router-link v-if="proyecto.viabilidad==`VIABLE`"
+                  <router-link v-if="proyecto.proyectoEnviado==true"
                     :to="{ name: 'ProyectoEvaluarView', params: { proyectoId: proyecto.id } }"
                   
                   >
-                    <button type="submit" id="save-entity"   class="btn btn-info" v-if="proyecto.viabilidad==null">
+                    <button type="submit" id="save-entity"   class="btn btn-info" v-if="proyecto.sustentar==null">
                         <font-awesome-icon icon="pencil-alt"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.eval')">Evaluar</span>
    
                     </button>
                     
-                    <button type="submit" id="save-entity"   class="btn btn-secondary" v-if="proyecto.viabilidad==`VIABLE`">
+                    <button type="submit" id="save-entity"   class="btn btn-secondary" v-if="proyecto.sustentar==true">
                         <font-awesome-icon icon="pencil-alt"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.eval')">Evaluar</span>
    
                     </button>
-                    <button type="submit" id="save-entity"   class="btn btn-link" v-if="proyecto.viabilidad==`PENDIENTE`">
+                    <button type="submit" id="save-entity"   class="btn btn-link" v-if="proyecto.sustentar==false">
                         <font-awesome-icon icon="pencil-alt"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.eval')">Evaluar</span>
    
                     </button>
