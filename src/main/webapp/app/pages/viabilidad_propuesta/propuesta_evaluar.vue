@@ -136,6 +136,28 @@
     
                     </div> <!-- fin del for each -->
                     <!-- ------------------------------------------->
+                    <!------------CRONOGRAMA-------------------------------->
+                    <div class="col-12">
+                    <b-card  
+                      border-variant="primary"
+                      header-bg-variant="light"
+                      body-bg-variant="light"
+                     header-text-variant="info">
+                       <div class="text-secondary"> Cronograma de Actividades </div>
+                        <table>
+                        <tr>
+                        <th>Actividad</th><th>Duración</th><th>Incio</th><th>Fin</th>
+                        </tr>
+                         <tr v-for="(cr, c) in cronograms" :key="c">
+                          <td>{{cr.actividad}}</td><td>{{cr.duracion}}</td>
+                          <td>{{cr.fechaInicio}}</td><td>{{cr.fechaFin}}</td>
+                         </tr>
+                        </table>
+                    </b-card>
+                    <hr></hr>
+                    </div>
+                    
+                    <!-------------------------------------------------------->
                     <div class="col-12" >
                     <b-card  
                       border-variant="primary"
@@ -254,6 +276,8 @@ import { IElementoProyecto, ElementoProyecto } from '@/shared/model/elemento-pro
 import ElementoProyectoService from '@/entities/elemento-proyecto/elemento-proyecto.service';
 import FasesService from '@/entities/fases/fases.service';
 import { IFases, Fases } from '@/shared/model/fases.model';
+import CronogramaService from '@/entities/cronograma/cronograma.service';
+import { ICronograma } from '@/shared/model/cronograma.model';
 import { IAdjuntoProyectoFase, AdjuntoProyectoFase } from '@/shared/model/adjunto-proyecto-fase.model';
 import AdjuntoProyectoFaseService from '@/entities/adjunto-proyecto-fase/adjunto-proyecto-fase.service';
 
@@ -306,6 +330,7 @@ export default class PropuestaEvaluar extends mixins(JhiDataUtils){
    @Inject('proyectoRespuestasService') private proyectoRespuestasService: () => ProyectoRespuestasService;
    @Inject('preguntaService') private preguntaService: () => PreguntaService;
    @Inject('fasesService') private fasesService: () => FasesService;
+   @Inject('cronogramaService') private cronogramaService: () => CronogramaService;
    @Inject('elementoProyectoService') private elementoProyectoService: () => ElementoProyectoService;
    @Inject('adjuntoProyectoFaseService') private adjuntoProyectoFaseService: () => AdjuntoProyectoFaseService;
    @Inject('adjuntoRetroalimentacionService') private adjuntoRetroalimentacionService: () => AdjuntoRetroalimentacionService;
@@ -329,6 +354,7 @@ export default class PropuestaEvaluar extends mixins(JhiDataUtils){
   
     public modalidadId: number = 0;
     public enumRespuestas: EnumRespuestas;
+    public cronograms: ICronograma[]=[];
 
     public isSaving = false;
     public proyectoRespuestasDatos: boolean = false;
@@ -539,6 +565,10 @@ export default class PropuestaEvaluar extends mixins(JhiDataUtils){
          console.log(this.adjuntoRetroalimentacions);
          console.log(this.adjuntoRetroalimentacion);
       });
+
+       res= await this.cronogramaService()
+       .retrieveCronograma(this.proyId)   //recup los ElementosProyecto con un idproy
+        this.cronograms = res.data;
      
             }
             catch(e){
