@@ -4,7 +4,7 @@
 
     <div>
       <h2 id="page-heading">
-        <span id="proyecto-heading">Mis proyectos - Jurado </span>
+        <span id="proyecto-heading">Mis Sustentaciones - Jurado </span>
       </h2>
       <b-alert
         :show="dismissCountDown"
@@ -48,20 +48,20 @@
 
               <td class="text-right">
                 <div class="btn-group">
-                  <router-link v-if="proyecto.proyectoEnviado==true"
-                    :to="{ name: 'ProyectoEvaluarView', params: { proyectoId: proyecto.id } }"
+                  <router-link v-if="proyecto.sustentar==true"
+                    :to="{ name: 'ProyectoEvaluarSustentacionView', params: { proyectoId: proyecto.id } }"
                   
                   >
-                    <button type="submit" id="save-entity"   class="btn btn-info" v-if="proyecto.sustentar==null">
+                    <button type="submit" id="save-entity"   class="btn btn-info" v-if="proyecto.nota==null">
                         <font-awesome-icon icon="pencil-alt"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.eval')">Evaluar</span>
    
                     </button>
                     
-                    <button type="submit" id="save-entity"   class="btn btn-secondary" v-if="proyecto.sustentar==true">
+                    <button type="submit" id="save-entity"   class="btn btn-secondary" v-if="proyecto.nota>=70">
                         <font-awesome-icon icon="pencil-alt"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.eval')">Evaluar</span>
    
                     </button>
-                    <button type="submit" id="save-entity"   class="btn btn-link" v-if="proyecto.sustentar==false">
+                    <button type="submit" id="save-entity"   class="btn btn-link" v-if="proyecto.nota>0&&proyecto.nota<70">
                         <font-awesome-icon icon="pencil-alt"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.eval')">Evaluar</span>
    
                     </button>
@@ -166,7 +166,6 @@ export default class Listado extends Vue {
     };
     if (this.autoridades.includes(this.role)) {
       this.proyectoService()
-        //.retrieveProyectoIntegranteAuthority(this.userid, 'ROLE_JURADO', paginationQuery)
         .retrieveProyectoIntegranteRol(this.userid, this.rol, paginationQuery)
         .then(
           res => {
@@ -247,7 +246,7 @@ export default class Listado extends Vue {
 
   public isSaving = false;
 
-/*  beforeRouteEnter(to, from, next) {
+  /*beforeRouteEnter(to, from, next) {
     next(vm => {
       vm.initRelationships();
     });

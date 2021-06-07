@@ -28,6 +28,7 @@ export interface IProyecto {
   tipo?: string;
   referencias?: string;
   asesorId?: number;
+  nota?: number;
   listaIntegrantesProyecto?: IIntegranteProyecto[];
   tieneJurado?: boolean;
   tieneJuradoViabilidad?: boolean;
@@ -72,6 +73,7 @@ export class Proyecto implements IProyecto {
     public tipo?: string,
     public referencias?: string,
     public asesorId?: number,
+    public nota?: number,
     public proyectoProgramaId?: number,
     public programa?: string,
     public listaIntegrantesProyecto?: IIntegranteProyecto[],

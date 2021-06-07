@@ -340,14 +340,17 @@ const PropuestaEnviarPropuestaLinea = () => import('../pages/propuesta_linea/env
 
 const PropuestaListado = () => import('../pages/viabilidad_propuesta/listado.vue');
 const ProyectoListadoJurado = () => import('../pages/viabilidad_propuesta/listado_jurado.vue');
+const ProyectoListadoSustentacion = () => import('../pages/viabilidad_propuesta/listado_sustentacion.vue');
 const PropuestaListadoAsesor = () => import('../pages/viabilidad_propuesta/listado_asesor.vue');
 const ProyectoListadoAsesor = () => import('../pages/viabilidad_propuesta/listado_asesor_proyecto.vue');
 const PropuestaListadoCiecyt = () => import('../pages/ciecyt/listado_ciecyt.vue');
 const PropuestaEvaluar = () => import('../pages/viabilidad_propuesta/propuesta_evaluar.vue');
 const ProyectoElementos = () => import('../pages/proyectos/elementos.vue');
+//const ElementosSusentacion = () => import('../pages/proyectos/elementos_sustentacion.vue');
 const AsesoriaEvaluar = () => import('../pages/viabilidad_propuesta/asesoria_evaluar.vue');
 const AsesoriaEvaluarProyecto = () => import('../pages/viabilidad_propuesta/asesoria_evaluar_proyecto.vue');
 const ProyectoEvaluar = () => import('../pages/viabilidad_propuesta/proyecto_evaluar.vue');
+const ProyectoEvaluarSustentacion = () => import('../pages/viabilidad_propuesta/proyecto_evaluar_sustentacion.vue');
 
 const AsignarJurado = () => import('../pages/ciecyt/asignar_jurado.vue');
 const AsignarJuradoViabilidad = () => import('../pages/ciecyt/asignar_jurado_viabilidad.vue');
@@ -2027,6 +2030,12 @@ export default new Router({
       component: ProyectoListadoJurado,
       meta: { authorities: ['ROLE_JURADO']['ROLE_ADMIN'] }
     },
+    {
+      path: '/viabilidad-propuesta/listado-sustentacion',
+      name: 'PropuestaListadoSustentacionView',
+      component: ProyectoListadoSustentacion,
+      meta: { authorities: ['ROLE_JURADO']['ROLE_ADMIN'] }
+    },
 
     {
       path: '/viabilidad-propuesta/listado-asesor',
@@ -2071,13 +2080,20 @@ export default new Router({
       meta: { authorities: ['ROLE_JURADO']['ROLE_ADMIN']  }
     },
 
-    {
+   {
       path: '/proyectos/elementos/:proyectoId',
       name: 'ProyectoElementosEditlView',
       component: ProyectoElementos,
       meta: { authorities: ['ROLE_ESTUDIANTE']['ROLE_ADMIN']  }
     },
-
+/*
+    {
+      path: '/proyectos/elementos-sustentacion/:proyectoId',
+      name: 'ElementosSustentacionEditlView',
+      component: ElementosSustentacion,
+      meta: { authorities: ['ROLE_ESTUDIANTE']['ROLE_ADMIN']  }
+    },
+*/
     {
       path: '/viabilidad-propuesta/asesoria-evaluar/:proyectoId',
       name: 'AsesoriaEvaluarView',
@@ -2097,6 +2113,13 @@ export default new Router({
       path: '/viabilidad-propuesta/proyecto-evaluar/:proyectoId',
       name: 'ProyectoEvaluarView',
       component: ProyectoEvaluar,
+      meta: { authorities: ['ROLE_JURADO']['ROLE_ADMIN']  }
+    },
+    
+    {
+      path: '/viabilidad-propuesta/proyecto-evaluar-sustentacion/:proyectoId',
+      name: 'ProyectoEvaluarSustentacionView',
+      component: ProyectoEvaluarSustentacion,
       meta: { authorities: ['ROLE_JURADO']['ROLE_ADMIN']  }
     },
     
