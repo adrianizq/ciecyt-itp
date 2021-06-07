@@ -409,6 +409,11 @@ export function initVueXStore(vue) {
           description: 'Evaluar los Proyectos',
           to: '/viabilidad-propuesta/listado-jurado',
         },
+        {
+          title: 'Sustentaciones',
+          description: 'Evaluar la Sustentación de los Proyectos',
+          to: '/viabilidad-propuesta/listado-sustentacion',
+        },
       ],
       menu_lateral_ciecyt: [
         {
