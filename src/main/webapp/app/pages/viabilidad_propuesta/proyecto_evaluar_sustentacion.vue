@@ -464,13 +464,11 @@ export default class PropuestaEvaluar extends mixins(JhiDataUtils){
 
         async initRelationships() {
            try {
-               this.proyId = parseInt(this.$route.params.proyectoId);
-               let res= await this.proyectoService().
-                   find(this.proyId)
-                   this.proyecto = res;
+              this.proyId = parseInt(this.$route.params.proyectoId);
+               this.proyecto = await this.proyectoService().find(this.proyId);
                this.modalidadId = this.proyecto.proyectoModalidadId;
 
-                 res= await this.fasesService()
+                let res= await this.fasesService()
                 .retrieveFase(this.nombreFase)   
                  this.fase = res;
                
@@ -480,7 +478,7 @@ export default class PropuestaEvaluar extends mixins(JhiDataUtils){
 
                
 
-                res= await this.proyectoRespuestasService()
+                 res= await this.proyectoRespuestasService()
                 .retrieveProyectoRespuestas(this.proyId, this.fase.id, this.authority)   //recup los proyresp con un idproy
                 this.proyectoRespuests = res.data;
                 if (this.proyectoRespuests.length>0){
@@ -522,7 +520,7 @@ export default class PropuestaEvaluar extends mixins(JhiDataUtils){
                 }); //fin del foreach pregunts
     
           
-       res=  await this.adjuntoProyectoFaseService()
+        res=  await this.adjuntoProyectoFaseService()
       .findAdjuntoProyectoFase(this.proyId,  this.fase.id)
       .then(res => {
         this.adjuntoProyectoFass = res.data;

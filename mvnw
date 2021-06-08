@@ -35,6 +35,7 @@
 # ----------------------------------------------------------------------------
 
 if [ -z "$MAVEN_SKIP_RC" ] ; then
+#if [ -z "-Xmx4G" ] ; then
 
   if [ -f /etc/mavenrc ] ; then
     . /etc/mavenrc

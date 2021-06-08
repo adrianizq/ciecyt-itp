@@ -142,14 +142,14 @@ export default class ElementoUpdate extends Vue {
         this.fases = res.data;
       });
 
-    res = await this.modalidadService()
+    let res = await this.modalidadService()
       .retrieve()
       .then(res => {
         this.modalidads = res.data;
       });
 
     if (this.elementoId) {
-      res = await this.elementoModalidadService()
+      let res = await this.elementoModalidadService()
         .retrieveModalidadElemento(parseInt(this.elementoId))
         .then(res => {
           this.modalidadesAsignadas = res.data;

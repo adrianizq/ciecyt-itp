@@ -33,7 +33,22 @@ describe('Service Tests', () => {
       service = new AdjuntoRetroalimentacionService();
       currentDate = new Date();
 
-      elemDefault = new AdjuntoRetroalimentacion(0, 'AAAAAAA', currentDate, currentDate, 0, 'AAAAAAA', 'AAAAAAA', currentDate, currentDate);
+      elemDefault = new AdjuntoRetroalimentacion(
+        0,
+        'AAAAAAA',
+        currentDate,
+        currentDate,
+        0,
+        'AAAAAAA',
+        'AAAAAAA',
+        currentDate,
+        currentDate,
+        0,
+        'AAAAAAA',
+        'AAAAAAA',
+        'AAAAAAA',
+        0
+      );
     });
 
     describe('Service methods', () => {

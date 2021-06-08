@@ -6,14 +6,14 @@ export interface IAdjuntoRetroalimentacion {
   estadoAdjunto?: number;
   adjuntoRetroalimentacion?: string;
   nombreArchivoOriginal?: string;
-  authority?: string;
   fechaInicio?: Date;
   fechaFin?: Date;
-  archivo?: any;
-  file?: any;
-  archivoContentType?: string;
-  adjuntoRetroalimentacionFaseId?: number;
   adjuntoRetroalimentacionProyectoId?: number;
+  archivoContentType?: string;
+  authority?: string;
+  archivo?: any;
+  adjuntoRetroalimentacionFaseId?: number;
+  file?: any;
 }
 
 export class AdjuntoRetroalimentacion implements IAdjuntoRetroalimentacion {
@@ -25,13 +25,13 @@ export class AdjuntoRetroalimentacion implements IAdjuntoRetroalimentacion {
     public estadoAdjunto?: number,
     public adjuntoRetroalimentacion?: string,
     public nombreArchivoOriginal?: string,
-    public authority?: string,
     public fechaInicio?: Date,
     public fechaFin?: Date,
-    public archivo?: any,
-    public file?: any,
+    public adjuntoRetroalimentacionProyectoId?: number,
     public archivoContentType?: string,
+    public authority?: string,
+    public archivo?: any,
     public adjuntoRetroalimentacionFaseId?: number,
-    public adjuntoRetroalimentacionProyectoId?: number
+    public file?: any
   ) {}
 }
