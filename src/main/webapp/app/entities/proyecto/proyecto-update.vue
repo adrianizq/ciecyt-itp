@@ -43,26 +43,30 @@
                             v-model="$v.proyecto.fechaFin.$model"  />
                         </div>
                     </div>
-                    <div class="form-group">
+                   <!-- <div class="form-group">
                         <label class="form-control-label" v-text="$t('ciecytApp.proyecto.contrapartidaPesos')" for="proyecto-contrapartidaPesos">Contrapartida Pesos</label>
                         <input type="number" class="form-control" name="contrapartidaPesos" id="proyecto-contrapartidaPesos"
                             :class="{'valid': !$v.proyecto.contrapartidaPesos.$invalid, 'invalid': $v.proyecto.contrapartidaPesos.$invalid }" v-model.number="$v.proyecto.contrapartidaPesos.$model" />
                     </div>
+                    -->
+                    <!--
                     <div class="form-group">
                         <label class="form-control-label" v-text="$t('ciecytApp.proyecto.contrapartidaEspecie')" for="proyecto-contrapartidaEspecie">Contrapartida Especie</label>
                         <input type="number" class="form-control" name="contrapartidaEspecie" id="proyecto-contrapartidaEspecie"
                             :class="{'valid': !$v.proyecto.contrapartidaEspecie.$invalid, 'invalid': $v.proyecto.contrapartidaEspecie.$invalid }" v-model.number="$v.proyecto.contrapartidaEspecie.$model" />
-                    </div>
+                    </div>-->
                     <div class="form-group">
                         <label class="form-control-label" v-text="$t('ciecytApp.proyecto.palabrasClave')" for="proyecto-palabrasClave">Palabras Clave</label>
                         <input type="text" class="form-control" name="palabrasClave" id="proyecto-palabrasClave"
                             :class="{'valid': !$v.proyecto.palabrasClave.$invalid, 'invalid': $v.proyecto.palabrasClave.$invalid }" v-model="$v.proyecto.palabrasClave.$model" />
                     </div>
+                    <!--
                     <div class="form-group">
                         <label class="form-control-label" v-text="$t('ciecytApp.proyecto.convocatoria')" for="proyecto-convocatoria">Convocatoria</label>
                         <input type="text" class="form-control" name="convocatoria" id="proyecto-convocatoria"
                             :class="{'valid': !$v.proyecto.convocatoria.$invalid, 'invalid': $v.proyecto.convocatoria.$invalid }" v-model="$v.proyecto.convocatoria.$model" />
                     </div>
+                    -->
                     <div class="form-group">
                         <label class="form-control-label" v-bind:value="$t('ciecytApp.proyecto.proyectoLineaInvestigacion')" for="proyecto-proyectoLineaInvestigacion">Proyecto Linea Investigacion</label>
                         <select class="form-control" id="proyecto-proyectoLineaInvestigacion" name="proyectoLineaInvestigacion" v-model="proyecto.proyectoLineaInvestigacionId">

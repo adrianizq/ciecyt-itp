@@ -374,7 +374,7 @@
             <font-awesome-icon icon="save"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.save')">Save</span>
           </button>
 
-          <p class="typo__p" v-if="this.submitStatus === 'ERROR'">¡Existen campos sin llenar!.</p>
+          <!--<p class="typo__p" v-if="this.submitStatus === 'ERROR'">¡Existen campos sin llenar!.</p>-->
         </div>
       </form>
     </div>
@@ -527,7 +527,7 @@ export default class DiplomadoInformacionGeneral extends Vue {
     } else {*/
       if (this.proyecto.id) {
         this.proyectoService()
-          .update(this.proyecto)
+          .updateProyecto(this.proyecto)
           .then(param => {
             this.isSaving = false;
             this.$router.push({ name: 'PropuestaDiplomadoElementosView', params: { proyectoId: this.proyecto.id.toString() } });
@@ -536,7 +536,7 @@ export default class DiplomadoInformacionGeneral extends Vue {
           });
       } else {
         this.proyectoService()
-          .create(this.proyecto)
+          .createProyecto(this.proyecto)
           .then(param => {
             this.isSaving = false;
 

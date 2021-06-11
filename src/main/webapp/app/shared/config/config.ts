@@ -207,7 +207,7 @@ export function initVueXStore(vue) {
         {
           title: 'Resultados Esperados',
           description: 'Resultados o Productos Esperados del Proyecto',
-          to: '/propuesta-linea/resultados_esperados-linea',
+          to: '/propuesta-linea/resultados-esperados-linea',
         },
         {
           title: 'Impactos Esperados',

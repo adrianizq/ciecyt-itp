@@ -136,7 +136,7 @@
             </div>
          
 
-            <!-- ////////////7777777777777 -->
+            <!-- ////////////Programa -->
          
             <div class="form-group">
               <label class="form-control-label" v-text="$t('ciecytApp.programa.programa')" for="proyecto-programa">Programa</label>
@@ -231,6 +231,14 @@
               </b-form-select>
               <div class="text-danger" v-if="!$v.proyecto.asesorId.required">Este campo es requerido</div>
             </div>
+
+            <div class="form-group">
+                        <label class="form-control-label" v-bind:value="$t('ciecytApp.proyecto.proyectoGrupoSemillero')" for="proyecto-proyectoGrupoSemillero">Proyecto Grupo Semillero</label>
+                        <select class="form-control" id="proyecto-proyectoGrupoSemillero" name="proyectoGrupoSemillero" v-model="proyecto.proyectoGrupoSemilleroId">
+                            <option v-bind:value="null"></option>
+                            <option v-bind:value="grupoSemilleroOption.id" v-for="grupoSemilleroOption in grupoSemilleros" :key="grupoSemilleroOption.id">{{grupoSemilleroOption.nombre}}</option>
+                        </select>
+                    </div>
       
 
             <div class="form-group" :class="{ 'form-group--error': $v.proyecto.url.$error }">
@@ -385,6 +393,9 @@ import { ILineaInvestigacion } from '@/shared/model/linea-investigacion.model';
 import UsuarioService from '@/entities/usuario/usuario.service';
 import { IUsuario } from '@/shared/model/usuario.model';
 import { IUser } from '@/shared/model/user.model';
+
+import GrupoSemilleroService from '../grupo-semillero/grupo-semillero.service';
+import { IGrupoSemillero } from '@/shared/model/grupo-semillero.model';
 //ADR
 import { IProyecto, Proyecto } from '@/shared/model/proyecto.model';
 import ProyectoService from '@/entities/proyecto/proyecto.service';
@@ -446,6 +457,9 @@ export default class PropuestaInformacionGeneral extends Vue {
   @Inject('programaService') private programaService: () => ProgramaService;
     @Inject('investigacionTipoService') private investigacionTipoService: () => InvestigacionTipoService;
 
+@Inject('grupoSemilleroService') private grupoSemilleroService: () => GrupoSemilleroService;
+  public grupoSemilleros: IGrupoSemillero[] = [];
+
 
   @Inject('alertService') private alertService: () => AlertService;
 
@@ -490,7 +504,7 @@ export default class PropuestaInformacionGeneral extends Vue {
     //} else {
       if (this.proyecto.id) {
         this.proyectoService()
-          .update(this.proyecto)
+          .updateProyecto(this.proyecto)
           .then(param => {
             this.isSaving = false;
             this.$router.push({ name: 'PropuestaIntegrantesView', params: { proyectoId: this.proyecto.id.toString() } });
@@ -499,7 +513,7 @@ export default class PropuestaInformacionGeneral extends Vue {
           });
       } else {
         this.proyectoService()
-          .create(this.proyecto)
+          .createProyecto(this.proyecto)
           .then(param => {
             this.isSaving = false;
 
@@ -605,6 +619,13 @@ export default class PropuestaInformacionGeneral extends Vue {
           item.nombresApellidos = item.firstName + ' ' + item.lastName;
           this.users.push(item);
         });
+      });
+
+
+       this.grupoSemilleroService()
+      .retrieve()
+      .then(res => {
+        this.grupoSemilleros = res.data;
       });
   }
   
