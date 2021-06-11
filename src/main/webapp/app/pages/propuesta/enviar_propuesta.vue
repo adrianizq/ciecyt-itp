@@ -110,7 +110,7 @@ export default class EnviarPropuesta extends Vue {
 
     if (this.proyecto.id) {
       this.proyectoService()
-        .update(this.proyecto)
+        .updateProyecto(this.proyecto)
         .then(param => {
           this.isSaving = false;
           //this.$router.push({ name: 'PropuestaIntegrantesView', params: { proyectoId: this.proyecto.id.toString() } });
@@ -120,7 +120,7 @@ export default class EnviarPropuesta extends Vue {
         });
     } else {
       this.proyectoService()
-        .create(this.proyecto)
+        .createProyecto(this.proyecto)
         .then(param => {
           this.isSaving = false;
 

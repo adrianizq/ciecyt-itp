@@ -142,7 +142,7 @@
                        
                      <div class="form-group" >
                        <b-form-textarea  class="form-control" name="proyecto-recomendaciones"
-                                   v-model="proyecto.recomendacionesAsesorPropuesta"  />
+                                   v-model="proyecto.recomendacionesAsesorProyecto"  />
                         </div>
                        </b-form-group>
                        </b-card>
