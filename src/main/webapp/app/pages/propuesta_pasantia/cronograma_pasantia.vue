@@ -4,11 +4,11 @@
       <menu-lateral-pasantia :proyectoId='$route.params.proyectoId'></menu-lateral-pasantia>
     </div>
     <div class="col-sm-8">
-      <div class="form-group">
+    <div class="form-group">
               <label class="form-control-label" for="encabezado">
                <h2>Cronograma</h2>
                </label>
-           </div>
+              </div>
       <div :key="key" v-for="(item, key) in cronograms">
         <b-card  :header="`Actividad Número ${key+1}`" 
        
@@ -30,15 +30,15 @@
               </div>
             </div>
             
-            <div class="col-3">
+            <!--<div class="col-3">
               <div class="form-group">
                 <label class="form-control-label" for="proyecto-apellido">Duración</label>
                 <input type="text" class="form-control" 
                 name="duracion" id="duracion" v-model="item.duracion" />
               </div>
-            </div>
+            </div>-->
             
-            <div class="col-4">
+            <div class="col-12">
               <div class="form-group">
                 <label class="form-control-label" for="proyecto-apellido">Fecha</label>
                 <label for="datepicker-sm">Fecha de Inicio</label>
@@ -156,11 +156,12 @@ public cronograms: ICronograma[] = [];
             
                     if (e.id) {
                         this.cronogramaService().update(e); //envio un elemento
+                        this.$router.push({ name: 'PropuestaAdjuntarPropuestaPasantiaView',params:{ proyectoId: this.proyId}});
                     } else {
                         
                         this.cronogramaService().create(e)
                         .then(param => {
-                            this.$router.push({ name: 'PropuestaPasantiaCronogramaView',params:{ proyectoId: this.proyId}});
+                            this.$router.push({ name: 'PropuestaAdjuntarPropuestaPasantiaView',params:{ proyectoId: this.proyId}});
                             //const message = this.$t('ciecytApp.cronograma.created', { param: param.id });
                             const message = "Se ha creado un nuevo cronograma" + { param: param.id };
                             this.alertService().showAlert(message, 'success');

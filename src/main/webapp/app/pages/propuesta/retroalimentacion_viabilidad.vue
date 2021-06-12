@@ -140,17 +140,24 @@
                             </div> 
                  
                         </div>
-                        
                     </div> 
                    </b-card>
                   <hr></hr>
                 </div> 
-               
-
+         
         </div> 
 
-        <div>
-        
+         <div class="col-12">   
+           <b-card  
+                      border-variant="primary"
+                      header-bg-variant="light"
+                      body-bg-variant="light"
+                     header-text-variant="info">  
+            <br>La propuesta fue evaluada como:</strong> <br>
+                <div  >
+                <input type="text"  v-model="proyecto.viabilidad" disabled>
+                </div>
+                </b-card>
         </div>
       </form>
     </div> 

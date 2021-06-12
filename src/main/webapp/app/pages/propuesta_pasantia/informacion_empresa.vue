@@ -769,8 +769,8 @@ export default class PasantiaInformacionEmpresa extends Vue {
           .then(param => {
             this.isSaving = false;
 
-            //this.$router.push({ name: 'PropuestaPasantiaInformacionEmpresaView', params: { proyectoId: this.proyId } });
-             (<any>this).$router.go(0);
+            this.$router.push({ name: 'PropuestaPasantiaElementosView', params: { proyectoId: this.proyId } });
+           //  (<any>this).$router.go(0);
             const message = this.$t('ciecytApp.proyecto.updated', { param: param.id });
             this.alertService().showAlert(message, 'info');
           });
@@ -781,8 +781,8 @@ export default class PasantiaInformacionEmpresa extends Vue {
           .then(param => {
             this.isSaving = false;
 
-           // this.$router.push({ name: 'PropuestaPasantiaInformacionEmpresaView', params: { proyectoId: this.proyId } });
-              (<any>this).$router.go(0);
+           this.$router.push({ name: 'PropuestaPasantiaElementosView', params: { proyectoId: this.proyId } });
+             // (<any>this).$router.go(0);
 
             const message = 'Se ha creado un nuevo elemento de pasantia';
             this.alertService().showAlert(message, 'success');
