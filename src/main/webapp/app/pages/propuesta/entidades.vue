@@ -20,7 +20,7 @@
         >
           <div class="row">
             
-            <div class="col-md-3 col-3">
+             <div class="col-12">
                   <b-form-group label="Entidad Financiadora" label-for="entidad">
                     <b-form-select :options="entidads"
                       text-field="entidad"
@@ -57,7 +57,7 @@
               class="btn btn-primary float-right"
                @click="save()" >
               <font-awesome-icon icon="save"></font-awesome-icon>&nbsp;
-              <span>Nueva Entidad</span>
+              <span>Guardar</span>
             </button>
             <button type="submit" id="save-entity" class="btn btn-primary float-right" @click="nuevo_entidad()">
               <font-awesome-icon :icon="['fas', 'plus']"></font-awesome-icon>&nbsp;

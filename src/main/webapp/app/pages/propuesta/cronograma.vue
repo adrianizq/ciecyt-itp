@@ -30,15 +30,15 @@
               </div>
             </div>
             
-            <div class="col-3">
+            <!--<div class="col-3">
               <div class="form-group">
                 <label class="form-control-label" for="proyecto-apellido">Duración</label>
                 <input type="text" class="form-control" 
                 name="duracion" id="duracion" v-model="item.duracion" />
               </div>
-            </div>
+            </div>-->
             
-            <div class="col-4">
+            <div class="col-12">
               <div class="form-group">
                 <label class="form-control-label" for="proyecto-apellido">Fecha</label>
                 <label for="datepicker-sm">Fecha de Inicio</label>

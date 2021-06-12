@@ -30,7 +30,7 @@
             </div>
             <div class="col-3">
               <div class="form-group">
-                <label class="form-control-label" for="proyecto-apellido">Plazo</label>
+                <label class="form-control-label" for="proyecto-apellido">Plazo en  Meses</label>
                 <input type="text" class="form-control" name="plazo" id="plazo"
                  v-model="item.plazo" />
               </div>
@@ -57,7 +57,7 @@
           class="btn btn-primary float-right"
           @click="save()">
         <font-awesome-icon :icon="['fas', 'save']"></font-awesome-icon>&nbsp;
-        <span>Nuevo Impacto</span>
+        <span>Guardar</span>
       </button>
       <button
         type="submit"

@@ -55,7 +55,7 @@
          class="btn btn-primary float-right"
          @click="save()">
           <font-awesome-icon :icon="['fas', 'save']"></font-awesome-icon>&nbsp;
-          <span>Nuevo Resultado o Producto</span>
+          <span>Guardar</span>
         </button>
         <button
           type="submit"
