@@ -155,12 +155,18 @@ public cronograms: ICronograma[] = [];
                        
             
                     if (e.id) {
-                        this.cronogramaService().update(e); //envio un elemento
+                        this.cronogramaService().update(e)
+                        .then(param => {
+                            this.$router.push({ name: 'PropuestaAdjuntarPropuestaLineaView',params:{ proyectoId: this.proyId}});
+                            //const message = this.$t('ciecytApp.cronograma.created', { param: param.id });
+                            const message = "Se ha creado un nuevo cronograma" + { param: param.id };
+                            this.alertService().showAlert(message, 'success');
+                        });
                     } else {
                         
                         this.cronogramaService().create(e)
                         .then(param => {
-                            this.$router.push({ name: 'PropuestaLineaEstadoPropuestasView',params:{ proyectoId: this.proyId}});
+                            this.$router.push({ name: 'PropuestaAdjuntarPropuestaLineaView',params:{ proyectoId: this.proyId}});
                             //const message = this.$t('ciecytApp.cronograma.created', { param: param.id });
                             const message = "Se ha creado un nuevo cronograma" + { param: param.id };
                             this.alertService().showAlert(message, 'success');
