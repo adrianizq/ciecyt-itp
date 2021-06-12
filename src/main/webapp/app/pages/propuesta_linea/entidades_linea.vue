@@ -4,6 +4,11 @@
       <menu-lateral-linea :proyectoId='$route.params.proyectoId'></menu-lateral-linea>
     </div>
     <div class="col-sm-8">
+    <div class="form-group">
+              <label class="form-control-label" for="encabezado">
+               <h2>Entidades Financiadoras</h2>
+               </label>
+              </div>
       <div :key="key" v-for="(item, key) in entidadesFinanciadors">
         <b-card
         :header="`Entidad numero ${key+1}`" 
@@ -15,7 +20,7 @@
         >
           <div class="row">
             
-            <div class="col-md-3 col-3">
+             <div class="col-12">
                   <b-form-group label="Entidad Financiadora" label-for="entidad">
                     <b-form-select :options="entidads"
                       text-field="entidad"
@@ -52,7 +57,7 @@
               class="btn btn-primary float-right"
                @click="save()" >
               <font-awesome-icon icon="save"></font-awesome-icon>&nbsp;
-              <span>Nueva Entidad</span>
+              <span>Guardar</span>
             </button>
             <button type="submit" id="save-entity" class="btn btn-primary float-right" @click="nuevo_entidad()">
               <font-awesome-icon :icon="['fas', 'plus']"></font-awesome-icon>&nbsp;
@@ -122,7 +127,10 @@ export default class EntidadesLinea extends Vue {
                        
             
                     if (e.id) {
-                        this.entidadFinanciadoraService().update(e); //envio un elemento
+                        this.entidadFinanciadoraService().update(e)
+                        .then(param => {
+                            this.$router.push({ name: 'PropuestaLineaCronogramaView',params:{ proyectoId: this.proyId}});
+                        });
                     } else {
                         
                         this.entidadFinanciadoraService().create(e)

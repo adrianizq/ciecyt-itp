@@ -4,6 +4,11 @@
       <menu-lateral-linea :proyectoId='$route.params.proyectoId'></menu-lateral-linea>
     </div>
     <div class="col-sm-8">
+    <div class="form-group">
+              <label class="form-control-label" for="encabezado">
+               <h2>Resultados Esperados</h2>
+               </label>
+              </div>
       <div :key="key" v-for="(item, key) in resultadosEsperads">
         <b-card :header="`Resultado ${key+1}`" 
          
@@ -50,7 +55,7 @@
          class="btn btn-primary float-right"
          @click="save()">
           <font-awesome-icon :icon="['fas', 'save']"></font-awesome-icon>&nbsp;
-          <span>Nuevo Resultado o Producto</span>
+          <span>Guardar</span>
         </button>
         <button
           type="submit"
@@ -122,7 +127,10 @@ export default class Resultados_esperados extends Vue {
                           e.ordenVista = i++; 
             
                     if (e.id) {
-                        this.resultadosEsperadosService().update(e); //envio un elemento
+                        this.resultadosEsperadosService().update(e)
+                        .then(param => {
+                            this.$router.push({ name: 'PropuestaLineaImpactosEsperadoView',params:{ proyectoId: this.proyId}});
+                        });
                     } else {
                         
                         this.resultadosEsperadosService().create(e)

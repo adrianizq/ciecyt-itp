@@ -4,6 +4,11 @@
       <menu-lateral-linea :proyectoId='$route.params.proyectoId'></menu-lateral-linea>
     </div>
     <div class="col-sm-8">
+    <div class="form-group">
+              <label class="form-control-label" for="encabezado">
+               <h2>Cronograma</h2>
+               </label>
+              </div>
       <div :key="key" v-for="(item, key) in cronograms">
         <b-card  :header="`Actividad Número ${key+1}`" 
        
@@ -25,15 +30,15 @@
               </div>
             </div>
             
-            <div class="col-3">
+            <!--<div class="col-3">
               <div class="form-group">
                 <label class="form-control-label" for="proyecto-apellido">Duración</label>
                 <input type="text" class="form-control" 
                 name="duracion" id="duracion" v-model="item.duracion" />
               </div>
-            </div>
+            </div>-->
             
-            <div class="col-4">
+            <div class="col-12">
               <div class="form-group">
                 <label class="form-control-label" for="proyecto-apellido">Fecha</label>
                 <label for="datepicker-sm">Fecha de Inicio</label>

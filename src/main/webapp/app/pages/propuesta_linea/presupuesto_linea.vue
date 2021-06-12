@@ -4,6 +4,12 @@
       <menu-lateral-linea :proyectoId='$route.params.proyectoId'></menu-lateral-linea>
     </div>
     <div class="col-sm-8">
+
+    <div class="form-group">
+              <label class="form-control-label" for="encabezado">
+               <h2>Presupuesto</h2>
+               </label>
+              </div>
       <div :key="key" v-for="(item, key) in presupuestoValors">
         <b-card :header="`Presupuesto Item ${key+1}`" 
          border-variant="primary"
@@ -20,10 +26,8 @@
                 <b-form-textarea id="descripcion" placeholder="Descripción" rows="2" v-model="item.descripcion">
                 </b-form-textarea>
               </div>
-            </div>
 
-
-                <div class="col-md-3 col-3">
+             <div class="form-group">
                   <b-form-group label="Rubro" label-for="rubro">
                     <b-form-select :options="rubros"
                       text-field="rubro"
@@ -34,39 +38,29 @@
                   </b-form-group>
                 </div>
 
-
-            <div class="col-12">
+                
               <div class="form-group">
                 <label class="form-control-label" for="justificacion">Justificación</label>
                 <b-form-textarea id="justificacion" 
                 placeholder="Justificación" rows="4"  v-model="item.justificacion">
                 </b-form-textarea>
               </div>
-            </div>
-            <div class="col-12 justify-content-center align-items-center">
-              <div class="row">
-                <div class="col-sm-3 col-3 align-items-center">
+              
+              <div class="form-group">
                   <b-form-group label="Cantidad" label-for="cantidad">
                     <input type="text" class="form-control" 
                     id="cantidad" name="cantidad"  v-model="item.cantidad" />
                   </b-form-group>
                 </div>
 
-                <div class="col-sm-3 col-3">
+               <div class="form-group">
                   <b-form-group label="Valor Unitario" label-for="valor-unitario">
                     <input type="text" class="form-control" id="valor-unitario"
                      name="valor-unitario"  v-model="item.valorUnitario" />
                   </b-form-group>
                 </div>
-                <!--
-                <div class="col-sm-3 col-3">
-                  <b-form-group label="Valor Total" label-for="valor-total">
-                    <input type="text" class="form-control" 
-                    id="valor-total" name="valor-total"  v-model="item.presupuestoValorRubroId" />
-                  </b-form-group>
-                </div>
-                -->
-                <div class="col-md-3 col-3">
+
+                  <div class="form-group">
                   <b-form-group label="Entidad Financiadora" label-for="entidad">
                     <b-form-select :options="entidads"
                       text-field="entidad"
@@ -76,6 +70,41 @@
                     ></b-form-select>
                   </b-form-group>
                 </div>
+
+                 <div class="form-group">
+                  <b-form-group label="Contrapartida en Especie" label-for="especie">
+                    <input type="text" class="form-control" id="especie"
+                     name="especie"  v-model="item.especie" />
+                  </b-form-group>
+                 </div>
+                 
+               <div class="form-group">
+                  <b-form-group label="Contrapartida en Dinero" label-for="dinero">
+                    <input type="text" class="form-control" id="dinero"
+                     name="dinero"  v-model="item.dinero" />
+                  </b-form-group>
+                </div>
+            </div> <!-- no quitar contiene -->
+
+
+                
+
+
+          
+            <div class="col-12 justify-content-center align-items-center">
+              <div class="row">
+                
+
+               
+                <!--
+                <div class="col-sm-3 col-3">
+                  <b-form-group label="Valor Total" label-for="valor-total">
+                    <input type="text" class="form-control" 
+                    id="valor-total" name="valor-total"  v-model="item.presupuestoValorRubroId" />
+                  </b-form-group>
+                </div>
+                -->
+               
               </div>
             </div>
             <div class="col-12 justify-content-center align-items-center">
@@ -98,18 +127,7 @@
                   </b-form-radio-group>
                 </div>
                 -->
-                 <div class="col-sm-3 col-3">
-                  <b-form-group label="Contrapartida en Especie" label-for="especie">
-                    <input type="text" class="form-control" id="especie"
-                     name="especie"  v-model="item.especie" />
-                  </b-form-group>
-                 </div>
-                  <div class="col-sm-3 col-3">
-                  <b-form-group label="Contrapartida en Dinero" label-for="dinero">
-                    <input type="text" class="form-control" id="dinero"
-                     name="dinero"  v-model="item.dinero" />
-                  </b-form-group>
-                </div>
+                 
               </div>
             </div>
           </div>
@@ -121,7 +139,7 @@
         class="btn btn-primary float-right"
         @click="save()">
           <font-awesome-icon :icon="['fas', 'save']"></font-awesome-icon>&nbsp;
-          <span>Nuevo Rubro</span>
+          <span>Guardar</span>
         </button>
         <button
           type="submit"
@@ -165,7 +183,7 @@ const validations: any = {};
 @Component({
   components: { MenuLateralLinea }
 })
-export default class PresupuestoLinea extends Vue {
+export default class Presupuesto extends Vue {
 
   @Inject('presupuestoValorService') private presupuestoValorService: () => PresupuestoValorService;
   @Inject('entidadService') private entidadService: () => EntidadService;
@@ -224,6 +242,8 @@ export default class PresupuestoLinea extends Vue {
             
                     if (e.id) {
                         this.presupuestoValorService().update(e); //envio un elemento
+                        this.$router.push({ name: 'PropuestaLineaResultadosEsperadosView',params:{ proyectoId: this.proyId}});
+
                     } else {
                         
                         this.presupuestoValorService().create(e)

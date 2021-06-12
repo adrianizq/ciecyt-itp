@@ -4,6 +4,11 @@
       <menu-lateral-linea :proyectoId='$route.params.proyectoId'></menu-lateral-linea>
     </div>
     <div class="col-sm-8">
+    <div class="form-group">
+              <label class="form-control-label" for="encabezado">
+               <h2>Impactos Esperados</h2>
+               </label>
+              </div>
       <div :key="key" v-for="(item, key) in impactosEsperads">
         <b-card :header="`Impacto ${key+1}`" 
        
@@ -25,7 +30,7 @@
             </div>
             <div class="col-3">
               <div class="form-group">
-                <label class="form-control-label" for="proyecto-apellido">Plazo en Meses</label>
+                <label class="form-control-label" for="proyecto-apellido">Plazo en  Meses</label>
                 <input type="text" class="form-control" name="plazo" id="plazo"
                  v-model="item.plazo" />
               </div>
@@ -52,7 +57,7 @@
           class="btn btn-primary float-right"
           @click="save()">
         <font-awesome-icon :icon="['fas', 'save']"></font-awesome-icon>&nbsp;
-        <span>Nuevo Impacto</span>
+        <span>Guardar</span>
       </button>
       <button
         type="submit"
@@ -120,7 +125,10 @@ export default class ImpactosEsperadosLinea extends Vue {
                        
             
                     if (e.id) {
-                        this.impactosEsperadosService().update(e); //envio un elemento
+                        this.impactosEsperadosService().update(e)
+                        .then(param => {
+                            this.$router.push({ name: 'PropuestaLineaEntidadesView',params:{ proyectoId: this.proyId}});
+                        });
                     } else {
                         
                         this.impactosEsperadosService().create(e)
