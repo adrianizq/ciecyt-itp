@@ -20,8 +20,9 @@
                     <span v-text="$t('global.messages.info.register.noaccount')">You don't have an account yet?</span>&nbsp;
                     <router-link class="alert-link" to="/register" v-text="$t('global.messages.info.register.link')">Register a new account</router-link>
                 </div>
-                <div class="alert alert-success" v-if="authenticated">
-                    <!--<span v-if="authorities" v-text="$t('home.logged.message', { 'authorities': authorities})">You are logged in as user "{{authorities}}"</span> -->
+                <!--
+                <div class="alert alert-success" v-if="authenticated"> 
+                    <span v-if="authorities" v-text="$t('home.logged.message', { 'authorities': authorities})">You are logged in as user "{{authorities}}"</span> 
                    Ingrese el Rol de Usuario que va a trabajar
 
                     
@@ -38,9 +39,9 @@
 
                            
                        
-                </div>
+                </div> -->
 
-                <div v-if="authenticated">
+        <!--               <div v-if="authenticated">
                  <button  v-on:click="entrar" type="submit" id="save-entity" 
                     class="btn btn-primary"
                     :disabled="this.submitStatus === 'PENDING'"
@@ -49,7 +50,7 @@
                     </button>
                 </div>
 
-
+ -->
  
 
 

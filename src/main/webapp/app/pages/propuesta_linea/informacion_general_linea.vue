@@ -394,7 +394,7 @@ import UsuarioService from '@/entities/usuario/usuario.service';
 import { IUsuario } from '@/shared/model/usuario.model';
 import { IUser } from '@/shared/model/user.model';
 
-import GrupoSemilleroService from '../grupo-semillero/grupo-semillero.service';
+import GrupoSemilleroService from '@/entities/grupo-semillero/grupo-semillero.service';
 import { IGrupoSemillero } from '@/shared/model/grupo-semillero.model';
 //ADR
 import { IProyecto, Proyecto } from '@/shared/model/proyecto.model';

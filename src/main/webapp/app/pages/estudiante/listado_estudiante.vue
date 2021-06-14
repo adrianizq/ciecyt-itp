@@ -20,7 +20,7 @@
       <div class="alert alert-warning" v-if="!isFetching && proyects && proyects.length === 0">
         <span>No se encontraron propuestas</span>
       </div>
-      <div>{{ username }} con id {{ userid }} {{ autoridades }}</div>
+      <!--<div>{{ username }} con id {{ userid }}</div> -->
       <div class="table-responsive" v-if="proyects && proyects.length > 0">
         <table class="table table-striped">
           <thead>
