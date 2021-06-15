@@ -158,6 +158,32 @@
                     </div>
                     
                     <!-------------------------------------------------------->
+
+
+<!------------IMPACTOS-------------------------------->
+                    <div class="col-12">
+                    <b-card  
+                      border-variant="primary"
+                      header-bg-variant="light"
+                      body-bg-variant="light"
+                     header-text-variant="info">
+                       <div class="text-secondary"> Impactos Esperados </div>
+                        <table>
+                        <tr>
+                        <th>Impacto</th><th>Plazo en Meses</th><th>Indicador</th><th>Supuestos</th>
+                        </tr>
+                         <tr v-for="(el, e) in impacts" :key="e">
+                          <td>{{el.impacto}}</td><td>{{el.plazo}}</td>
+                          <td>{{el.indicador}}</td><td>{{el.supuestos}}</td>
+                         </tr>
+                        </table>
+                    </b-card>
+                    <hr></hr>
+                    </div>
+                    
+                    <!-------------------------------------------------------->
+
+
                     <div class="col-12" >
                     <b-card  
                       border-variant="primary"
@@ -284,6 +310,10 @@ import AdjuntoProyectoFaseService from '@/entities/adjunto-proyecto-fase/adjunto
 import { IAdjuntoRetroalimentacion, AdjuntoRetroalimentacion } from '@/shared/model/adjunto-retroalimentacion.model';
 import AdjuntoRetroalimentacionService from '@/entities/adjunto-retroalimentacion/adjunto-retroalimentacion.service';
 
+import { IImpactosEsperados, ImpactosEsperados } from '@/shared/model/impactos-esperados.model';
+import ImpactosEsperadosService from '@/entities/impactos-esperados/impactos-esperados.service';
+
+
 import JhiDataUtils from '@/shared/data/data-utils.service';
 
 
@@ -334,6 +364,7 @@ export default class PropuestaEvaluar extends mixins(JhiDataUtils){
    @Inject('elementoProyectoService') private elementoProyectoService: () => ElementoProyectoService;
    @Inject('adjuntoProyectoFaseService') private adjuntoProyectoFaseService: () => AdjuntoProyectoFaseService;
    @Inject('adjuntoRetroalimentacionService') private adjuntoRetroalimentacionService: () => AdjuntoRetroalimentacionService;
+   @Inject('impactosEsperadosService') private impactosEsperadosService: () => ImpactosEsperadosService;
 
    @Inject('alertService') private alertService: () => AlertService;
 
@@ -355,6 +386,9 @@ export default class PropuestaEvaluar extends mixins(JhiDataUtils){
     public modalidadId: number = 0;
     public enumRespuestas: EnumRespuestas;
     public cronograms: ICronograma[]=[];
+    public impacts: IImpactosEsperados[]=[];
+
+    
 
     public isSaving = false;
     public proyectoRespuestasDatos: boolean = false;
@@ -569,12 +603,18 @@ export default class PropuestaEvaluar extends mixins(JhiDataUtils){
        res= await this.cronogramaService()
        .retrieveCronograma(this.proyId)   //recup los ElementosProyecto con un idproy
         this.cronograms = res.data;
+
+         res= await this.impactosEsperadosService()
+       .retrieveImpactosEsperados(this.proyId)   //recup los ElementosProyecto con un idproy
+        this.impacts = res.data;
      
             }
             catch(e){
               console.log("error al recuperar la informacion de elemento ");
             }
         }
+
+        
 public previousState() {
     this.$router.go(-1);
   }
