@@ -108,12 +108,17 @@
                             <option value="false" v-bind:label="$t('ciecytApp.EnumRespuestas.NO')">NO</option>
                         </select>
 
-                        <b-form-input  type="range" min="0" v-bind:max="ep.puntajeMaximo" :step="0.1"
+                       <!-- <b-form-input  type="range" min="0" v-bind:max="ep.puntajeMaximo" :step="0.1"
                          v-if="ep.preguntaTipoPreguntaTipoPregunta==`Nota (con puntaje)`" 
                          v-model="ep.respuestaNumero">
                          </b-form-input>
                           <div class="mt-2">Nota: {{ ep.respuestaNumero }}</div>
-                        
+                        -->
+                         <div class="mt-2">
+                            <input type="number" min="0" v-bind:max="ep.puntajeMaximo" :step="0.1"
+                            v-if="ep.preguntaTipoPreguntaTipoPregunta==`Nota (con puntaje)`" 
+                            v-model="ep.respuestaNumero">
+                         </div>     
                          
 
                         <b-form-textarea  

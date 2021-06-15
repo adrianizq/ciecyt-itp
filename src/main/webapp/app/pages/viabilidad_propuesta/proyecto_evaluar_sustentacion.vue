@@ -115,12 +115,18 @@
                             <option value="false" v-bind:label="$t('ciecytApp.EnumRespuestas.NO')">NO</option>
                         </select>
 
-                        <b-form-input  type="range" min="0" v-bind:max="ep.puntajeMaximo" :step="0.1"
+                        <!--<b-form-input  type="range" min="0" v-bind:max="ep.puntajeMaximo" :step="0.1"
                          v-if="ep.preguntaTipoPreguntaTipoPregunta==`Nota (con puntaje)`" 
                          v-model="ep.respuestaNumero">
                          </b-form-input>
                           <div  class="mt-2">Nota: {{ ep.respuestaNumero }}</div>
-                           
+                           -->
+
+                        <div class="mt-2">
+                            <input type="number" min="0" v-bind:max="ep.puntajeMaximo" :step="0.1"
+                            v-if="ep.preguntaTipoPreguntaTipoPregunta==`Nota (con puntaje)`" 
+                            v-model="ep.respuestaNumero">
+                         </div>     
 
                         
                          
@@ -202,13 +208,14 @@
                  Asigne la <strong>Nota </strong> final de la sustentación del proyecto
                 *Entre 90 y 100 puntos el proyecto se considera de muy bueno a excelente; entre 70 y menos de 90 de aceptable a bueno. Con menos de 70 puntos el proyecto es rechazado.
 
-                <b-form-input  type="range" min="0" max="100" :step="1"
+                <!--<b-form-input  type="range" min="0" max="100" :step="1"
                          
-                         v-model.number="proyecto.nota" >
-                  </b-form-input>
-                       <div  class="mt-2">Nota: {{ proyecto.nota }}</div>
-                        
-                          
+                         v-model="proyecto.nota" >
+                  </b-form-input> 
+                       <div  class="mt-2">Nota: {{ proyecto.nota }}</div> -->
+                <div class="mt-2">
+                <input v-model="proyecto.nota" type="number"  :min="1" :max="100">
+                 </div>       
                 
             </div>
           </b-card>
@@ -262,6 +269,8 @@ import AdjuntoProyectoFaseService from '@/entities/adjunto-proyecto-fase/adjunto
 
 import { IAdjuntoRetroalimentacion, AdjuntoRetroalimentacion } from '@/shared/model/adjunto-retroalimentacion.model';
 import AdjuntoRetroalimentacionService from '@/entities/adjunto-retroalimentacion/adjunto-retroalimentacion.service';
+import { numeric, required, minLength, maxLength, between, url } from 'vuelidate/lib/validators';
+
 
 import JhiDataUtils from '@/shared/data/data-utils.service';
 
@@ -296,7 +305,7 @@ import JhiDataUtils from '@/shared/data/data-utils.service';
   },
   proyecto: {
     titulo: {},
-    nota: {},
+    nota: { required }
     },
     };
 
@@ -470,7 +479,7 @@ export default class PropuestaEvaluar extends mixins(JhiDataUtils){
 
                 let res= await this.fasesService()
                 .retrieveFase(this.nombreFase)   
-                 this.fase = res;
+                 this.fase = res.data;
                
                 res= await this.elementoProyectoService()
                 .retrieveElementoProyecto(this.proyId, this.fase.id)   //recup los ElementosProyecto con un idproy
@@ -544,8 +553,8 @@ export default class PropuestaEvaluar extends mixins(JhiDataUtils){
         else{
           this.adjuntoRetroalimentacion = this.adjuntoRetroalimentacions[0];
         }
-         console.log(this.adjuntoRetroalimentacions);
-         console.log(this.adjuntoRetroalimentacion);
+         //console.log(this.adjuntoRetroalimentacions);
+         //console.log(this.adjuntoRetroalimentacion);
       });
      
             }
