@@ -194,7 +194,7 @@ To configure CI for your project, run the ci-cd sub-generator (`jhipster ci-cd`)
 ## SUBIR ARCHIVO AL SERVIDOR
 
 //scp -i target/ciecyt-0.3.0.war adrian@10.10.13.7:/home/adrian/ciecytapp
-scp -P 2225 target/ciecyt-0.3.0.war adrian@10.10.13.7:/home/adrian/ciecytapp
+scp -P 2225 target/ciecyt-0.3.0.war adrian@190.217.113.105:/home/adrian/ciecytapp
 
 ## EJECUTAR APP
 

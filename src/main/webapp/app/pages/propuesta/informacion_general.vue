@@ -535,7 +535,8 @@ export default class PropuestaInformacionGeneral extends Vue {
 
   get LineasInvestigacion() {
     return this.lineas_investigacion.filter(linea => {
-      return !linea.lineaPadreId && linea.lineaInvestigacionProgramaId == this.proyecto.proyectoProgramaId;
+      //return !linea.lineaPadreId && linea.lineaInvestigacionProgramaId == this.proyecto.proyectoProgramaId;
+      return !linea.lineaPadreId ;
     });
   }
 

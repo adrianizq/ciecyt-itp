@@ -21,7 +21,7 @@
                       header-bg-variant="light"
                       body-bg-variant="light"
                      header-text-variant="info">
-                     <div class="text-secondary"> Tipo de pregunta {{ep.preguntaTipoPreguntaTipoPregunta}} </div>
+                  <!-- <div class="text-secondary"> Tipo de pregunta {{ep.preguntaTipoPreguntaTipoPregunta}} </div>-->
                      <label  class="p-3 mb-2 bg-info text-white container-fluid">{{ep.encabezado}} </label>
                      
                      <b-form-group
@@ -83,7 +83,15 @@
                         </b-form-textarea>
                   
                         </div>
-
+                               <!-------------observaciones ------------->
+                     <div class="form-group">
+                        <label class="form-control-label" v-text="$t('ciecytApp.proyectoRespuestas.observaciones')" for="proyecto-respuestas-respuesta">observaciones</label>
+                     <b-form-textarea  
+                         
+                         v-model="ep.observaciones" readonly="true">
+                        </b-form-textarea>
+                     </div>
+                     <!---------------------------        ---->
                      </b-card>
                      <hr>
                        </div>    
