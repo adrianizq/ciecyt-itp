@@ -46,14 +46,7 @@
                            <!-- <input v-if="adjuntoProyectoFase.file==null" type="file" ref="file_archivo" id="file_archivo" v-on:change="asignarData($event, adjuntoProyectoFase, 'archivo', false)" v-text="$t('entity.action.addblob')"/>-->
                             
                         </div>
-                         <!--
-                        <input type="hidden" class="form-control" name="archivo" id="adjunto-proyecto-fase-archivo"
-                            :class="{'valid': !$v.adjuntoProyectoFase.archivo.$invalid, 'invalid': $v.adjuntoProyectoFase.archivo.$invalid }" v-model="$v.adjuntoProyectoFase.archivo.$model" />
-                        <input type="hidden" class="form-control" name="archivoContentType" id="adjunto-proyecto-fase-archivoContentType"
-                            v-model="adjuntoProyectoFase.archivoContentType" />
-                         <input type="hidden" class="form-control" name="fileName" id="adjunto-proyecto-fase-fileName"
-                            v-model="adjuntoProyectoFase.nombreArchivoOriginal" />
-                            -->
+                         
                     </div> 
                    </b-card>
                   <hr></hr>
@@ -115,12 +108,7 @@
                             <option value="false" v-bind:label="$t('ciecytApp.EnumRespuestas.NO')">NO</option>
                         </select>
 
-                       <!-- <b-form-input  type="range" min="0" v-bind:max="ep.puntajeMaximo" :step="0.1"
-                         v-if="ep.preguntaTipoPreguntaTipoPregunta==`Nota (con puntaje)`" 
-                         v-model="ep.respuestaNumero">
-                         </b-form-input>
-                          <div class="mt-2">Nota: {{ ep.respuestaNumero }}</div>
-                        -->
+                       
                          <div class="mt-2">
                             <input type="number" min="0" v-bind:max="ep.puntajeMaximo" :step="0.1"
                             v-if="ep.preguntaTipoPreguntaTipoPregunta==`Nota (con puntaje)`" 
@@ -161,8 +149,8 @@
                       body-bg-variant="light"
                      header-text-variant="info">
                        <div class="text-secondary"> Cronograma de Actividades </div>
-                        <table>
-                        <tr>
+                        <table class="table table-bordered">
+                        <tr class="table-active">
                         <th>Actividad</th><th>Duración</th><th>Incio</th><th>Fin</th>
                         </tr>
                          <tr v-for="(cr, c) in cronograms" :key="c">
@@ -185,8 +173,8 @@
                       body-bg-variant="light"
                      header-text-variant="info">
                        <div class="text-secondary"> Impactos Esperados </div>
-                        <table>
-                        <tr>
+                        <table class="table table-bordered">
+                        <tr class="table-active">
                         <th>Impacto</th><th>Plazo en Meses</th><th>Indicador</th><th>Supuestos</th>
                         </tr>
                          <tr v-for="(el, e) in impacts" :key="e">
@@ -199,6 +187,29 @@
                     </div>
                     
                     <!-------------------------------------------------------->
+<!------------RESULTADOS-------------------------------->
+                    <div class="col-12">
+                    <b-card  
+                      border-variant="primary"
+                      header-bg-variant="light"
+                      body-bg-variant="light"
+                     header-text-variant="info">
+                       <div class="text-secondary"> Resultados Esperados </div>
+                        <table class="table table-bordered">
+                        <tr class="table-active">
+                        <th>Resultado</th><th>Indicador</th><th>Beneficiario</th>
+                        </tr>
+                         <tr v-for="(el, e) in results" :key="e">
+                          <td>{{el.resultado}}</td><td>{{el.indicador}}</td>
+                          <td>{{el.beneficiario}}</td>
+                         </tr>
+                        </table>
+                    </b-card>
+                    <hr></hr>
+                    </div>
+                    
+                    <!-------------------------------------------------------->
+
 
 
                     <div class="col-12" >
@@ -330,6 +341,9 @@ import AdjuntoRetroalimentacionService from '@/entities/adjunto-retroalimentacio
 import { IImpactosEsperados, ImpactosEsperados } from '@/shared/model/impactos-esperados.model';
 import ImpactosEsperadosService from '@/entities/impactos-esperados/impactos-esperados.service';
 
+import { IResultadosEsperados, ResultadosEsperados } from '@/shared/model/resultados-esperados.model';
+import ResultadosEsperadosService from '@/entities/resultados-esperados/resultados-esperados.service';
+
 
 import JhiDataUtils from '@/shared/data/data-utils.service';
 
@@ -382,6 +396,8 @@ export default class PropuestaEvaluar extends mixins(JhiDataUtils){
    @Inject('adjuntoProyectoFaseService') private adjuntoProyectoFaseService: () => AdjuntoProyectoFaseService;
    @Inject('adjuntoRetroalimentacionService') private adjuntoRetroalimentacionService: () => AdjuntoRetroalimentacionService;
    @Inject('impactosEsperadosService') private impactosEsperadosService: () => ImpactosEsperadosService;
+   @Inject('resultadosEsperadosService') private resultadosEsperadosService: () => ResultadosEsperadosService;
+
 
    @Inject('alertService') private alertService: () => AlertService;
 
@@ -404,6 +420,7 @@ export default class PropuestaEvaluar extends mixins(JhiDataUtils){
     public enumRespuestas: EnumRespuestas;
     public cronograms: ICronograma[]=[];
     public impacts: IImpactosEsperados[]=[];
+    public results: IResultadosEsperados[]=[];
 
     
 
@@ -624,8 +641,12 @@ export default class PropuestaEvaluar extends mixins(JhiDataUtils){
          res= await this.impactosEsperadosService()
        .retrieveImpactosEsperados(this.proyId)   //recup los ElementosProyecto con un idproy
         this.impacts = res.data;
+
+         res= await this.resultadosEsperadosService()
+       .retrieveResultadosEsperados(this.proyId)   //recup los ElementosProyecto con un idproy
+        this.results = res.data;
      
-            }
+     }
             catch(e){
               console.log("error al recuperar la informacion de elemento ");
             }
