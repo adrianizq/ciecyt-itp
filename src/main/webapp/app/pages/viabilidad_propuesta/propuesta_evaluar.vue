@@ -166,7 +166,7 @@
 
 
 <!------------IMPACTOS-------------------------------->
-                    <div class="col-12">
+                    <div class="col-12" v-if="proyecto.proyectoModalidadModalidad==`Tesis`||proyecto.proyectoModalidadModalidad==`Línea`">
                     <b-card  
                       border-variant="primary"
                       header-bg-variant="light"
@@ -188,7 +188,7 @@
                     
                     <!-------------------------------------------------------->
 <!------------RESULTADOS-------------------------------->
-                    <div class="col-12">
+                    <div class="col-12" v-if="proyecto.proyectoModalidadModalidad==`Tesis`||proyecto.proyectoModalidadModalidad==`Línea`">
                     <b-card  
                       border-variant="primary"
                       header-bg-variant="light"
