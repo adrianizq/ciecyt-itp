@@ -115,16 +115,13 @@
                             <option value="false" v-bind:label="$t('ciecytApp.EnumRespuestas.NO')">NO</option>
                         </select>
 
-                        <!--<b-form-input  type="range" min="0" v-bind:max="ep.puntajeMaximo" :step="0.1"
-                         v-if="ep.preguntaTipoPreguntaTipoPregunta==`Nota (con puntaje)`" 
-                         v-model="ep.respuestaNumero">
-                         </b-form-input>
-                          <div class="mt-2">Nota: {{ ep.respuestaNumero }}</div>
-                        -->
+                       
                          <div class="mt-2">
                             <input type="number" min="0" v-bind:max="ep.puntajeMaximo" :step="0.1"
                             v-if="ep.preguntaTipoPreguntaTipoPregunta==`Nota (con puntaje)`" 
-                            v-model="ep.respuestaNumero">
+                             
+                            v-model.lazy="ep.respuestaNumero" >
+                            
                          </div>     
                          
 
@@ -185,7 +182,7 @@
                             
                                 <!--<a class="pull-left" v-on:click="openFile(adjuntoProyectoFase.archivoContentType, adjuntoProyectoFase.file)" v-text="$t('entity.action.open')">open</a><br> -->
                                 <a class="pull-left" v-on:click="this.descargarRetro" v-text="$t('entity.action.open')">open</a>
-                                <span class="pull-left">{{adjuntoRetroalimentacion.nombreArchivoOriginal }} <br /> {{adjuntoRetroalimentacion.archivoContentType}}, {{byteSize(adjuntoRetroalimentacion.file)}}</span>
+                                <span class="pull-left" >{{adjuntoRetroalimentacion.nombreArchivoOriginal }} <br /> {{adjuntoRetroalimentacion.archivoContentType}}, {{byteSize(adjuntoRetroalimentacion.file)}}</span>
                                 <button type="button" v-on:click="this.eliminarRetro" v-text="$t('entity.action.delete')">
                                         class="btn btn-secondary btn-xs pull-right">
                                     <font-awesome-icon icon="times"></font-awesome-icon>
@@ -397,6 +394,8 @@ export default class PropuestaEvaluar extends mixins(JhiDataUtils){
     this.setFileData(event, entity, field, isImage)
     
   }
+
+ 
         public save(): void {//debo guardar un elemento proyecto
             try {
                 //this.pregunts[0].preguntaTipoPreguntaTipoPregunta
@@ -569,6 +568,12 @@ public saveAndPreviousState() {
     //this.save();
     this.$router.go(-1);
   }
+
+   
+
+   calcularNota(){
+     console.log("calculando nota");
+   }
         
 }
 

@@ -125,7 +125,7 @@
                         <div class="mt-2">
                             <input type="number" min="0" v-bind:max="ep.puntajeMaximo" :step="0.1"
                             v-if="ep.preguntaTipoPreguntaTipoPregunta==`Nota (con puntaje)`" 
-                            v-model="ep.respuestaNumero">
+                            v-model="ep.respuestaNumero" @input="calcularNota" class="nota">
                          </div>     
 
                         
@@ -215,16 +215,13 @@
                        Evaluación
             <div  class="p-3 mb-2 bg-white container-fluid">
                            
-                 Asigne la <strong>Nota </strong> final de la sustentación del proyecto
+                 La <strong>Nota </strong> final de la sustentación del proyecto:
                 *Entre 90 y 100 puntos el proyecto se considera de muy bueno a excelente; entre 70 y menos de 90 de aceptable a bueno. Con menos de 70 puntos el proyecto es rechazado.
 
-                <!--<b-form-input  type="range" min="0" max="100" :step="1"
-                         
-                         v-model="proyecto.nota" >
-                  </b-form-input> 
-                       <div  class="mt-2">Nota: {{ proyecto.nota }}</div> -->
+               
                 <div class="mt-2">
-                <input v-model="proyecto.nota" type="number"  :min="1" :max="100">
+                    <input  id="definitiva" v-if="nota" disabled="true">
+                     <input  id="definitiva" v-if="!nota" v-model="proyecto.nota" disabled="true" ></input>
                  </div>       
                 
             </div>
@@ -360,7 +357,13 @@ export default class PropuestaEvaluar extends mixins(JhiDataUtils){
     public proyectoRespuestasDatos: boolean = false;
     public  authority: any="ROLE_JURADO";
      public nombreFase: any = "Sustentacion";
+     public nota: number;
+
     public mounted(): void {
+    }
+
+     get getNota(){
+    	return this.nota;
     }
 
         beforeRouteEnter(to, from, next) {
@@ -382,7 +385,7 @@ export default class PropuestaEvaluar extends mixins(JhiDataUtils){
      }
 
      eliminarRetro(ob) {
-    console.log('entro a eliminar');
+    //console.log('entro a eliminar');
     this.adjuntoRetroalimentacionService().delete(this.adjuntoRetroalimentacion.id);
     //this.adjuntoProyectoFass=null;
     this.adjuntoRetroalimentacions = null;
@@ -394,7 +397,7 @@ export default class PropuestaEvaluar extends mixins(JhiDataUtils){
      asignarData(event, entity, field, isImage){
      var fileData =  event.target.files[0];
     this.adjuntoProyectoFase.nombreArchivoOriginal= fileData.name;
-    console.log(this.adjuntoProyectoFase.nombreArchivoOriginal);
+    //console.log(this.adjuntoProyectoFase.nombreArchivoOriginal);
 
     this.setFileData(event, entity, field, isImage)
     
@@ -403,7 +406,7 @@ export default class PropuestaEvaluar extends mixins(JhiDataUtils){
   asignarDataRetro(event, entity, field, isImage){
      var fileData =  event.target.files[0];
     this.adjuntoRetroalimentacion.nombreArchivoOriginal= fileData.name;
-    console.log(this.adjuntoRetroalimentacion.nombreArchivoOriginal);
+    //console.log(this.adjuntoRetroalimentacion.nombreArchivoOriginal);
 
     this.setFileData(event, entity, field, isImage)
     
@@ -415,6 +418,7 @@ export default class PropuestaEvaluar extends mixins(JhiDataUtils){
                 this.isSaving = true;
 
                 /////////////////////////////////////////////////
+                this.proyecto.nota=this.nota;
                 this.adjuntoRetroalimentacion.adjuntoRetroalimentacionProyectoId = this.proyecto.id;
     this.adjuntoRetroalimentacion.adjuntoRetroalimentacionFaseId = this.fase.id;
     this.adjuntoRetroalimentacion.authority = this.authority;
@@ -424,7 +428,7 @@ export default class PropuestaEvaluar extends mixins(JhiDataUtils){
 
     
     if(this.adjuntoRetroalimentacion.id) {
-     console.log("Existe el adjunto");
+     //console.log("Existe el adjunto");
       this.adjuntoRetroalimentacionService()
         .update(this.adjuntoRetroalimentacion)
         .then(param => {
@@ -434,7 +438,7 @@ export default class PropuestaEvaluar extends mixins(JhiDataUtils){
           this.alertService().showAlert(message, 'info');
         });
     } else {
-      console.log("NO Existe el adjunto");
+      //console.log("NO Existe el adjunto");
       this.adjuntoRetroalimentacionService()
         .create(this.adjuntoRetroalimentacion)
         .then(param => {
@@ -527,7 +531,7 @@ export default class PropuestaEvaluar extends mixins(JhiDataUtils){
                   proyResp.encabezado = e.encabezado;
                   proyResp.puntajeMaximo = e.puntajeMaximo;
                   this.elementoProyects.forEach(x => {
-                      console.log("Entra al ciclo elementoProyecto");
+                      //console.log("Entra al ciclo elementoProyecto");
                     if (x.elementoProyectoElementoId == e.preguntaElementoId){
                          proyResp.dato = x.dato;    
                     }
@@ -549,7 +553,7 @@ export default class PropuestaEvaluar extends mixins(JhiDataUtils){
         else{
           this.adjuntoProyectoFase = this.adjuntoProyectoFass[0];
         }
-         console.log(this.adjuntoProyectoFass);
+         //console.log(this.adjuntoProyectoFass);
         
       });
 
@@ -581,6 +585,21 @@ public saveAndPreviousState() {
     //this.save();
     this.$router.go(-1);
   }
+
+   calcularNota(){
+     console.log("calculando nota");
+     var d =document.getElementsByTagName("input");
+     var n=0.0;
+     for(var i=0;i<d.length;i++){
+       if(d[i].type=="number" && d[i].className=="nota"){
+         n+=parseFloat(d[i].value);
+         this.nota=n;
+       
+       }
+        var f =document.getElementById("definitiva");
+       f.value=this.nota.toFixed(1);
+     }
+   }
         
 }
 

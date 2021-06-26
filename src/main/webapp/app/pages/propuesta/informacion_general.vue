@@ -42,26 +42,6 @@
                 Este campo no debe tener más de {{ $v.proyecto.titulo.$params.maxLength.max }} caracteres.
               </div>
             </div>
-<!--
-            <div class="form-group" :class="{ 'form-group--error': $v.proyecto.lugarEjecucion.$error }">            
-              <label class="form-control-label" v-text="$t('ciecytApp.proyecto.lugarEjecucion')" for="proyecto-url"
-                >Lugar de Ejecución</label
-              >
-              <input disabled="true"
-                type="text"
-                class="form-control"
-                name="lugar-ejecucion"
-                id="proyecto-lugar-ejecucion"
-                v-model="proyecto.lugarEjecucion"
-                :class="{
-                  'is-invalid': $v.proyecto.lugarEjecucion.$error,
-                  'is-valid': !$v.proyecto.lugarEjecucion.$invalid,
-                }"
-                placeholder="Ingrese el lugar (ciudad, ubicación) donde se ejecutará el proyecto"
-              />
-              <div class="text-danger" v-if="!$v.proyecto.lugarEjecucion.required">Este campo es requerido</div>
-            </div>
--->
            <div class="form-group" :class="{ 'form-group--error': $v.proyecto.fechaIni.$error }">  
               <label for="datepicker-sm">Fecha de Inicio</label>
               <b-form-datepicker size="sm-6" local="ESP" id="fecha-inicio" name="fecha-inicio" value="value" v-model="proyecto.fechaIni"
@@ -258,48 +238,7 @@
               <div class="text-danger" v-if="!$v.proyecto.url.url">La URL no es válida, ej: http://www.itp.edu.co</div>              
             </div>
 
- <!--           
-            <div class="form-group" :class="{ 'form-group--error': $v.proyecto.duracion.$error }">  
-              <label class="form-control-label" v-text="$t('ciecytApp.proyecto.duracion')" for="proyecto-duracion">Duración en meses</label>
-              <input
-                type="text"
-                class="form-control"
-                name="duracion"
-                id="proyecto-duracion"
-                v-model="proyecto.duracion"
-                placeholder="Duración en meses"
-                 :class="{
-                  'is-invalid': $v.proyecto.duracion.$error,
-                  'is-valid': !$v.proyecto.duracion.$invalid
-                }"
-              />
-              <div class="valid-feedback"></div>
-              <div class="text-danger" v-if="!$v.proyecto.duracion.required">Este campo es requerido</div>
-              <div class="text-danger" v-if="!$v.proyecto.duracion.between">
-                Se espera un valor numerico entre {{ $v.proyecto.duracion.$params.between.min }} y
-                {{ $v.proyecto.duracion.$params.between.max }} .
-              </div>
-            </div>
--->
-<!--
-            <div class="form-group" :class="{ 'form-group--error': $v.proyecto.tipo.$error }">  
-              <label class="form-control-label" v-text="$t('ciecytApp.proyecto.tipo')" for="proyecto-tipo">Tipo de Investigación</label>
-              <input
-                type="text"
-                class="form-control"
-                name="tipo"
-                id="proyecto-tipo"
-                v-model="proyecto.tipo"  
-                :class="{
-                  'is-invalid': $v.proyecto.tipo.$error,
-                  'is-valid': !$v.proyecto.tipo.$invalid,
-                }"              
-                placeholder="Investigación Básica, Investigación Aplicada, Desarrollo Tecnológico o Experimental, etc"
-                
-              />
-              <div class="text-danger" v-if="!$v.proyecto.tipo.required">Este campo es requerido</div>
-            </div>
--->
+ 
       <!--/tipo investigacion//////////////////////////////////////7 ///////////////////7-->
         
               <div class="form-group">
