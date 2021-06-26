@@ -590,8 +590,10 @@ public saveAndPreviousState() {
          this.nota=n;
        
        }
-        var f =document.getElementById("definitiva");
-       f.value=this.nota.toFixed(1);
+       var f = (<HTMLInputElement>document.getElementById("definitiva"));
+      
+          f.value=this.nota.toFixed(1).toString();
+      
      }
    }
         
