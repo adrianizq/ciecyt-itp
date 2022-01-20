@@ -1,26 +1,26 @@
 package co.edu.itp.ciecyt.service.impl;
 
-import co.edu.itp.ciecyt.domain.*;
-import co.edu.itp.ciecyt.repository.IntegranteProyectoRepository;
+import co.edu.itp.ciecyt.domain.IntegranteProyecto;
+import co.edu.itp.ciecyt.domain.Modalidad;
+import co.edu.itp.ciecyt.domain.Proyecto;
 import co.edu.itp.ciecyt.repository.ProyectoRepository;
 import co.edu.itp.ciecyt.service.IntegranteProyectoService;
 import co.edu.itp.ciecyt.service.ProyectoService;
 import co.edu.itp.ciecyt.service.RolesModalidadService;
-import co.edu.itp.ciecyt.service.dto.ElementoDTO;
 import co.edu.itp.ciecyt.service.dto.IntegranteProyectoDTO;
 import co.edu.itp.ciecyt.service.dto.ProyectoDTO;
 import co.edu.itp.ciecyt.service.dto.RolesModalidadDTO;
 import co.edu.itp.ciecyt.service.mapper.ProyectoMapper;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import javax.management.relation.Role;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * Service Implementation for managing {@link Proyecto}.
