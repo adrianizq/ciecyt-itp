@@ -106,7 +106,8 @@ ArrayList<Attribute> atts = new ArrayList<Attribute>(2);
         classVal.add("C");
         
         atts.add(new Attribute("content",(ArrayList<String>)null));
-        atts.add(new Attribute("content2",(ArrayList<String>)null));
+        //atts.add(new Attribute("content2",(ArrayList<String>)null));
+        atts.add( new Attribute("id"));
         atts.add(new Attribute("@@class@@",classVal));
         Instances dataRaw = new Instances("TestInstances",atts,0);
 
@@ -120,7 +121,8 @@ ArrayList<Attribute> atts = new ArrayList<Attribute>(2);
 
             //instanceValue[0] = dataRaw.attribute(0).addStringValue("This is second string!");
             instanceValue[0] = dataRaw.attribute(0).addStringValue(p.getPrograma());
-            instanceValue[1] = dataRaw.attribute(1).addStringValue(p.getTitulo());
+            ///instanceValue[1] = dataRaw.attribute(1).addStringValue(p.getTitulo());
+            instanceValue[1] = p.getId();
             
             //instanceValue[1] = p.getProyectoModalidad().getId();
             instanceValue[2] = 0;
