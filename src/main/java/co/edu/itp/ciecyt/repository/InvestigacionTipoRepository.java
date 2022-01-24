@@ -1,8 +1,7 @@
 package co.edu.itp.ciecyt.repository;
 
 import co.edu.itp.ciecyt.domain.InvestigacionTipo;
-
-import org.springframework.data.jpa.repository.*;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -11,4 +10,5 @@ import org.springframework.stereotype.Repository;
 @SuppressWarnings("unused")
 @Repository
 public interface InvestigacionTipoRepository extends JpaRepository<InvestigacionTipo, Long> {
+     InvestigacionTipo findByInvestigacionTipo(String tipo);
 }

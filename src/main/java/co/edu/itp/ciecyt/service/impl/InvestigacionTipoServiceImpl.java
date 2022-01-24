@@ -1,13 +1,12 @@
 package co.edu.itp.ciecyt.service.impl;
 
-import co.edu.itp.ciecyt.service.InvestigacionTipoService;
 import co.edu.itp.ciecyt.domain.InvestigacionTipo;
 import co.edu.itp.ciecyt.repository.InvestigacionTipoRepository;
+import co.edu.itp.ciecyt.service.InvestigacionTipoService;
 import co.edu.itp.ciecyt.service.dto.InvestigacionTipoDTO;
 import co.edu.itp.ciecyt.service.mapper.InvestigacionTipoMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,7 +28,10 @@ public class InvestigacionTipoServiceImpl implements InvestigacionTipoService {
 
     private final InvestigacionTipoMapper investigacionTipoMapper;
 
-    public InvestigacionTipoServiceImpl(InvestigacionTipoRepository investigacionTipoRepository, InvestigacionTipoMapper investigacionTipoMapper) {
+    public InvestigacionTipoServiceImpl(
+        InvestigacionTipoRepository investigacionTipoRepository,
+        InvestigacionTipoMapper investigacionTipoMapper
+    ) {
         this.investigacionTipoRepository = investigacionTipoRepository;
         this.investigacionTipoMapper = investigacionTipoMapper;
     }
@@ -46,23 +48,28 @@ public class InvestigacionTipoServiceImpl implements InvestigacionTipoService {
     @Transactional(readOnly = true)
     public List<InvestigacionTipoDTO> findAll() {
         log.debug("Request to get all InvestigacionTipos");
-        return investigacionTipoRepository.findAll().stream()
+        return investigacionTipoRepository
+            .findAll()
+            .stream()
             .map(investigacionTipoMapper::toDto)
             .collect(Collectors.toCollection(LinkedList::new));
     }
-
 
     @Override
     @Transactional(readOnly = true)
     public Optional<InvestigacionTipoDTO> findOne(Long id) {
         log.debug("Request to get InvestigacionTipo : {}", id);
-        return investigacionTipoRepository.findById(id)
-            .map(investigacionTipoMapper::toDto);
+        return investigacionTipoRepository.findById(id).map(investigacionTipoMapper::toDto);
     }
 
     @Override
     public void delete(Long id) {
         log.debug("Request to delete InvestigacionTipo : {}", id);
         investigacionTipoRepository.deleteById(id);
+    }
+
+    public InvestigacionTipo findByInvestigacionTipo(String tipo) {
+
+        return investigacionTipoRepository.findByInvestigacionTipo(tipo);
     }
 }
