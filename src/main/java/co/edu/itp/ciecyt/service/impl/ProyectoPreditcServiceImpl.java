@@ -1,9 +1,11 @@
 package co.edu.itp.ciecyt.service.impl;
 
+import co.edu.itp.ciecyt.domain.Facultad;
 import co.edu.itp.ciecyt.domain.InvestigacionTipo;
 import co.edu.itp.ciecyt.domain.Modalidad;
 import co.edu.itp.ciecyt.domain.Proyecto;
 import co.edu.itp.ciecyt.repository.ProyectoRepository;
+import co.edu.itp.ciecyt.service.FacultadService;
 import co.edu.itp.ciecyt.service.IntegranteProyectoService;
 import co.edu.itp.ciecyt.service.InvestigacionTipoService;
 import co.edu.itp.ciecyt.service.ModalidadService;
@@ -65,6 +67,7 @@ public class ProyectoPreditcServiceImpl implements ProyectoPredictService {
     private DataSourceProperties dataSourceProperties;
 
     private InvestigacionTipoService investigacionTipoService;
+    private FacultadService facultadService;
 
     private ProgramaService programaService;
 
@@ -76,7 +79,8 @@ public class ProyectoPreditcServiceImpl implements ProyectoPredictService {
         DataSourceProperties dataSourceProperties,
         InvestigacionTipoService investigacionTipoService,
         ProgramaService programaService,
-        ModalidadService modalidadService
+        ModalidadService modalidadService,
+        FacultadService facultadService
     ) {
         this.proyectoRepository = proyectoRepository;
         this.proyectoMapper = proyectoMapper;
@@ -86,6 +90,7 @@ public class ProyectoPreditcServiceImpl implements ProyectoPredictService {
         this.investigacionTipoService = investigacionTipoService;
         this.programaService = programaService;
         this.modalidadService = modalidadService;
+        this.facultadService = facultadService;
     }
 
     public Optional<ProyectoDTO> predicePlay(Long facultad, Long modalidad) throws Exception {
@@ -125,6 +130,18 @@ public class ProyectoPreditcServiceImpl implements ProyectoPredictService {
         }
         modalidadCad = modalidadCad.substring(0, modalidadCad.length() - 1);
 
+        //traer todos los registros de facultad
+        List<Facultad> facultads;
+        String facultadCad = "";
+        facultads = facultadService.buscarAll();
+        List<String> facultades = new ArrayList<String>();
+        for (Facultad fa : facultads) {
+            facultades.add(fa.getFacultad());
+            facultadCad += "'" + fa.getFacultad() + "',";
+            System.out.println(fa.getFacultad());
+        }
+        facultadCad = facultadCad.substring(0, facultadCad.length() - 1);
+
         //////////////////////////
         Proyecto dataProyecto = new Proyecto();
         //List<Proyecto> lDataProyecto = proyectoRepository.findByFacultadIdAndProyectoModalidadId(facultad, modalidad);
@@ -137,6 +154,10 @@ public class ProyectoPreditcServiceImpl implements ProyectoPredictService {
             info += ",";
             info += "'";
             info += p.getProyectoModalidad().getModalidad();
+            info += "'";
+            info += ",";
+            info += "'";
+            info += p.getFacultad().getFacultad();
             info += "'";
             info += ",";
             info += "'";
@@ -160,7 +181,10 @@ public class ProyectoPreditcServiceImpl implements ProyectoPredictService {
             modalidadCad +
             "}" +
             "\n" +
-            //"@attribute tipo {Teorica,aplicada}" +
+            "@attribute facultad {" +
+            facultadCad +
+            "}" +
+            "\n" +
             "@attribute tipo {" +
             tipoCad +
             "}" +
@@ -316,6 +340,7 @@ public class ProyectoPreditcServiceImpl implements ProyectoPredictService {
         System.out.println("FPR=" + eval.falsePositiveRate(1));
 
         System.out.println("\n\n" + tree.graph());
+        //System.out.println(eval.confusionMatrix().toString());
         //eval.evaluateModel(tree, train_data);
         //System.out.println("evaluacion de evaluateMode");
         //System.out.println(eval.toMatrixString());

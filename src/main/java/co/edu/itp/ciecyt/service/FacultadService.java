@@ -1,17 +1,16 @@
 package co.edu.itp.ciecyt.service;
 
+import co.edu.itp.ciecyt.domain.Facultad;
 import co.edu.itp.ciecyt.service.dto.FacultadDTO;
-
+import java.util.List;
+import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-
-import java.util.Optional;
 
 /**
  * Service Interface for managing {@link co.edu.itp.ciecyt.domain.Facultad}.
  */
 public interface FacultadService {
-
     /**
      * Save a facultad.
      *
@@ -28,7 +27,6 @@ public interface FacultadService {
      */
     Page<FacultadDTO> findAll(Pageable pageable);
 
-
     /**
      * Get the "id" facultad.
      *
@@ -43,4 +41,6 @@ public interface FacultadService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+    public List<Facultad> buscarAll();
 }

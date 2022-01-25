@@ -1,16 +1,17 @@
 @relation Proyectos
 @attribute programa {'Ingeniería de Sistemas','Tecnología en Gestión Empresarial y de la innovación','Administración de Empresas','Desarrollo de Software','Tecnología en Saneamiento Ambiental'}
 @attribute modalidad {'Pasantía','Tesis','Diplomado','Línea'}
+@attribute facultad {'Ingeniería y Ciencias Básicas','Administración y Ciencias Contables'}
 @attribute tipo {'Teorica','aplicada'}
 @data
-'Ingeniería de Sistemas','Tesis','Teorica'
-'Ingeniería de Sistemas','Pasantía','aplicada'
-'Ingeniería de Sistemas','Tesis','Teorica'
-'Ingeniería de Sistemas','Tesis','aplicada'
-'Tecnología en Saneamiento Ambiental','Pasantía','aplicada'
-'Ingeniería de Sistemas','Tesis','aplicada'
-'Administración de Empresas','Línea','aplicada'
-'Administración de Empresas','Pasantía','Teorica'
-'Ingeniería de Sistemas','Tesis','Teorica'
-'Ingeniería de Sistemas','Tesis','Teorica'
-'Ingeniería de Sistemas','Tesis','Teorica'
+'Ingeniería de Sistemas','Tesis','Ingeniería y Ciencias Básicas','Teorica'
+'Ingeniería de Sistemas','Pasantía','Ingeniería y Ciencias Básicas','aplicada'
+'Ingeniería de Sistemas','Tesis','Ingeniería y Ciencias Básicas','Teorica'
+'Ingeniería de Sistemas','Tesis','Ingeniería y Ciencias Básicas','aplicada'
+'Tecnología en Saneamiento Ambiental','Pasantía','Ingeniería y Ciencias Básicas','aplicada'
+'Ingeniería de Sistemas','Tesis','Ingeniería y Ciencias Básicas','aplicada'
+'Administración de Empresas','Línea','Ingeniería y Ciencias Básicas','aplicada'
+'Administración de Empresas','Pasantía','Administración y Ciencias Contables','Teorica'
+'Ingeniería de Sistemas','Tesis','Ingeniería y Ciencias Básicas','Teorica'
+'Ingeniería de Sistemas','Tesis','Ingeniería y Ciencias Básicas','Teorica'
+'Ingeniería de Sistemas','Tesis','Ingeniería y Ciencias Básicas','Teorica'
