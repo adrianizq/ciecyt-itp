@@ -25,6 +25,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import org.hibernate.criterion.AggregateProjection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
@@ -48,6 +49,7 @@ import weka.core.ProtectedProperties;
 import weka.core.converters.ArffSaver;
 import weka.core.converters.ConverterUtils;
 import weka.filters.Filter;
+import weka.filters.supervised.attribute.NominalToBinary;
 import weka.filters.unsupervised.attribute.NominalToString;
 
 @Service
@@ -220,9 +222,9 @@ public class ProyectoPreditcServiceImpl implements ProyectoPredictService {
 
         // Create dataset instances //
         Instances datasetInstances = new Instances(bufferedReader);
-        //addStatistisNaiveBayes(datasetInstances);
+        addStatistisNaiveBayes(datasetInstances);
         //addStatistisLinearRegretion(datasetInstances); //solo numeros
-        addStatistisJ48(datasetInstances);
+        //addStatistisJ48(datasetInstances);
         ///////////////////////////////////////////7
 
         //////////////////////////////////////////////
@@ -235,6 +237,7 @@ public class ProyectoPreditcServiceImpl implements ProyectoPredictService {
 
     private void addStatistisNaiveBayes(Instances instances) throws Exception {
         // Create naivebayes classifier //
+        /*
         NaiveBayes naivebayes = new NaiveBayes();
 
         // Divide dataset into training and test data //
@@ -244,7 +247,7 @@ public class ProyectoPreditcServiceImpl implements ProyectoPredictService {
         Instances trainingInstances = new Instances(instances, 0, trainingDataSize);
         // Create test data //
         Instances testInstances = new Instances(instances, trainingDataSize, testDataSize);
-        // Set Target class //
+        // Set Target class // es el ultimo atributo en este caso tipo
         trainingInstances.setClassIndex(trainingInstances.numAttributes() - 1);
         testInstances.setClassIndex(testInstances.numAttributes() - 1);
         // Build Classifier //
@@ -261,7 +264,36 @@ public class ProyectoPreditcServiceImpl implements ProyectoPredictService {
         System.out.println(naivebayes);
         System.out.println(evaluation.toMatrixString());
         //System.out.println(testInstances.instance(0).stringValue(1));
+*/
+        //https://www.youtube.com/watch?v=fh4ouoKs8H0&t=338s
+        /*Instances trainDataset = instances;
+        trainDataset.setClassIndex(trainDataset.numAttributes() - 1);
+        int numClasses = trainDataset.numClasses();
+        for (int i = 0; i < numClasses; i++) {
+            String classValue = trainDataset.classAttribute().value(i);
+            System.out.println("Class Value " + i + " is" + classValue);
+        }
+        NaiveBayes nb = new NaiveBayes();
+        nb.buildClassifier(trainDataset);
+        //DataSource sourcel = new DataSource("/home/likewise-open/ACADEMIC/csstnns/Desktop/iris.arff");
+        // Divide dataset into training and test data //
+        int trainingDataSize = (int) Math.round(instances.numInstances() * 0.66);
+        int testDataSize = (int) instances.numInstances() - trainingDataSize;
+        Instances testDataset = new Instances(instances, trainingDataSize, testDataSize);
+        //Instances testDataset = source.getDataSet();
+        testDataset.setClassIndex(testDataset.numAttributes() - 1);
 
+        System.out.println("===================");
+        System.out.println("Actual Class, NB predicted");
+        for (int i = 0; i < testDataset.numInstances(); i++) {
+            double actualClass = testDataset.instance(i).classValue();
+            String actual = testDataset.classAttribute().value((int) actualClass);
+            Instance newInst = testDataset.instance(i);
+            double predNB = nb.classifyInstance(newInst);
+            String predString = testDataset.classAttribute().value((int) predNB);
+            System.out.println(actual + ", " + predString);
+        }
+        */
         //System.out.println(evaluation.toSummaryString("\nResults", false));
         /*
         //https://www.geeksforgeeks.org/building-naive-bayesian-classifier-with-weka/
@@ -297,6 +329,36 @@ public class ProyectoPreditcServiceImpl implements ProyectoPredictService {
         System.out.println(naivebayes);
         System.out.println(evaluation.toMatrixString());
         */
+        //https://pocketstudyblog.wordpress.com/2018/10/30/simple-naive-bayes-classification-using-weka-api-in-java/
+
+        //BufferedReader br = new BufferedReader(new FileReader(“C:\\Program Files (x86)\\Weka-3-6\\data\\iris.arff”));
+        //Load the instances
+        Instances train_data = instances;
+        //Set the class index to the last attribute – i.e. Class value
+        train_data.setClassIndex(train_data.numAttributes() - 1);
+
+        //Load the Naive Bayes classifier
+        NaiveBayes nb = new NaiveBayes();
+        //Build the classifier with the training data
+        nb.buildClassifier(train_data);
+
+        //Perform 10 fold Cross-validation of the model
+        Evaluation eval = new Evaluation(train_data);
+        eval.crossValidateModel(nb, train_data, 10, new Random(1));
+
+        //Print the summary of the evaluation
+        System.out.println(eval.toSummaryString("\n\n Results \n\n", true));
+
+        //Print the other performance parameters
+        System.out.println("F1 Measure = " + eval.fMeasure(0));
+        System.out.println("Precision=" + eval.precision(0));
+        System.out.println("Recall=" + eval.recall(0));
+        System.out.println("TNR=" + eval.trueNegativeRate(0));
+        System.out.println("TPR=" + eval.truePositiveRate(0));
+        System.out.println("FNR=" + eval.falseNegativeRate(0));
+        System.out.println("FPR=" + eval.falsePositiveRate(0));
+        System.out.println("Matrix=" + eval.toMatrixString());
+        //System.out.println(eval.confusionMatrix().toString());
     }
 
     private void addStatistisLinearRegretion(Instances instances) throws Exception {
@@ -338,8 +400,15 @@ public class ProyectoPreditcServiceImpl implements ProyectoPredictService {
         System.out.println("TPR=" + eval.truePositiveRate(1));
         System.out.println("FNR=" + eval.falseNegativeRate(1));
         System.out.println("FPR=" + eval.falsePositiveRate(1));
+        System.out.println("Matrix=" + eval.toMatrixString());
 
         System.out.println("\n\n" + tree.graph());
+        //predecir
+        // DenseInstance instance = new DenseInstance(4);
+        //'Ingeniería de Sistemas','Tesis','Ingeniería y Ciencias Básicas','Teorica'
+
+        //int result = (int) tree.classifyInstance(getInstance(instances));
+        //System.out.println("Resultado de clasificar la nueva instancia: " + result);
         //System.out.println(eval.confusionMatrix().toString());
         //eval.evaluateModel(tree, train_data);
         //System.out.println("evaluacion de evaluateMode");
@@ -372,21 +441,22 @@ public class ProyectoPreditcServiceImpl implements ProyectoPredictService {
 */
     }
 
+    // private Instance getInstance(Instances instances, Weather dataWeather) throws Exception {
     private Instance getInstance(Instances instances) throws Exception {
         NominalToString nominalToBinary = new NominalToString();
         nominalToBinary.setInputFormat(instances);
-        // String[] options = { "-C", "1-2-3" };
+        //String[] options = { "-C", "1-2-3" };
         //String[] options = { "-C", "0.1", "-M", "2" };
-
-        //nominalToBinary.setOptions(options);
+        String[] options = { "-C", "1-2-3" };
+        nominalToBinary.setOptions(options);
         Instances newInstances = Filter.useFilter(instances, nominalToBinary);
-        Instance instance = new DenseInstance(2);
+        Instance instance = new DenseInstance(4);
         instance.setDataset(newInstances);
-        //instance.setDataset(instances);
         instance.setValue(0, "Ingeniería de Sistemas");
-        instance.setValue(1, "aplicada");
-
-        return instances.get(0);
+        instance.setValue(1, "Tesis");
+        instance.setValue(2, "Ingeniería y Ciencias Básicas");
+        instance.setValue(3, "Teorica");
+        return instance;
     }
 
     private String getTime(LocalDateTime fecha) {
