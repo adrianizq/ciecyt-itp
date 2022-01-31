@@ -223,115 +223,15 @@ public class ProyectoPreditcServiceImpl implements ProyectoPredictService {
         // Create dataset instances //
         Instances datasetInstances = new Instances(bufferedReader);
         addStatistisNaiveBayes(datasetInstances);
-        //addStatistisLinearRegretion(datasetInstances); //solo numeros
-        //addStatistisJ48(datasetInstances);
-        ///////////////////////////////////////////7
-
-        //////////////////////////////////////////////
 
         Optional<Proyecto> op = Optional.of(dataProyecto);
         return op.map(proyectoMapper::toDto);
-        //////////////////////////////////////77
-
     }
 
     private void addStatistisNaiveBayes(Instances instances) throws Exception {
         // Create naivebayes classifier //
-        /*
-        NaiveBayes naivebayes = new NaiveBayes();
-
-        // Divide dataset into training and test data //
-        int trainingDataSize = (int) Math.round(instances.numInstances() * 0.66);
-        int testDataSize = (int) instances.numInstances() - trainingDataSize;
-        // Create training data //
-        Instances trainingInstances = new Instances(instances, 0, trainingDataSize);
-        // Create test data //
-        Instances testInstances = new Instances(instances, trainingDataSize, testDataSize);
-        // Set Target class // es el ultimo atributo en este caso tipo
-        trainingInstances.setClassIndex(trainingInstances.numAttributes() - 1);
-        testInstances.setClassIndex(testInstances.numAttributes() - 1);
-        // Build Classifier //
-        naivebayes.buildClassifier(trainingInstances);
-        // Evaluation //
-        Evaluation evaluation = new Evaluation(trainingInstances);
-        evaluation.evaluateModel(naivebayes, testInstances);
-
-        double label = naivebayes.classifyInstance(testInstances.instance(0));
-        testInstances.instance(0).setClassValue(label);
-
-        System.out.println(evaluation.toSummaryString("\nResults", false));
-        //System.out.println(evaluation.KBInformation());
-        System.out.println(naivebayes);
-        System.out.println(evaluation.toMatrixString());
-        //System.out.println(testInstances.instance(0).stringValue(1));
-*/
-        //https://www.youtube.com/watch?v=fh4ouoKs8H0&t=338s
-        /*Instances trainDataset = instances;
-        trainDataset.setClassIndex(trainDataset.numAttributes() - 1);
-        int numClasses = trainDataset.numClasses();
-        for (int i = 0; i < numClasses; i++) {
-            String classValue = trainDataset.classAttribute().value(i);
-            System.out.println("Class Value " + i + " is" + classValue);
-        }
-        NaiveBayes nb = new NaiveBayes();
-        nb.buildClassifier(trainDataset);
-        //DataSource sourcel = new DataSource("/home/likewise-open/ACADEMIC/csstnns/Desktop/iris.arff");
-        // Divide dataset into training and test data //
-        int trainingDataSize = (int) Math.round(instances.numInstances() * 0.66);
-        int testDataSize = (int) instances.numInstances() - trainingDataSize;
-        Instances testDataset = new Instances(instances, trainingDataSize, testDataSize);
-        //Instances testDataset = source.getDataSet();
-        testDataset.setClassIndex(testDataset.numAttributes() - 1);
-
-        System.out.println("===================");
-        System.out.println("Actual Class, NB predicted");
-        for (int i = 0; i < testDataset.numInstances(); i++) {
-            double actualClass = testDataset.instance(i).classValue();
-            String actual = testDataset.classAttribute().value((int) actualClass);
-            Instance newInst = testDataset.instance(i);
-            double predNB = nb.classifyInstance(newInst);
-            String predString = testDataset.classAttribute().value((int) predNB);
-            System.out.println(actual + ", " + predString);
-        }
-        */
-        //System.out.println(evaluation.toSummaryString("\nResults", false));
-        /*
-        //https://www.geeksforgeeks.org/building-naive-bayesian-classifier-with-weka/
-        // Create naivebayes classifier //
-        NaiveBayes naivebayes = new NaiveBayes();
-        String weatherNominalDataset = "wkfile.arff";
-        // Create bufferedreader to read the dataset //
-        BufferedReader bufferedReader = new BufferedReader(new FileReader(weatherNominalDataset));
-        // Create dataset instances //
-        Instances datasetInstances = new Instances(bufferedReader);
-        // Randomize the dataset //
-        datasetInstances.randomize(new java.util.Random(0));
-        // Divide dataset into training and test data //
-        int trainingDataSize = (int) Math.round(datasetInstances.numInstances() * 0.66);
-        int testDataSize = (int) datasetInstances.numInstances() - trainingDataSize;
-        // Create training data //
-        Instances trainingInstances = new Instances(datasetInstances, 0, trainingDataSize);
-        // Create test data //
-        Instances testInstances = new Instances(datasetInstances, trainingDataSize, testDataSize);
-        // Set Target class //
-        trainingInstances.setClassIndex(trainingInstances.numAttributes() - 1);
-        testInstances.setClassIndex(testInstances.numAttributes() - 1);
-        // Close BufferedReader //
-        bufferedReader.close();
-        // Build Classifier //
-        naivebayes.buildClassifier(trainingInstances);
-
-        // Evaluation //
-        Evaluation evaluation = new Evaluation(trainingInstances);
-        evaluation.evaluateModel(naivebayes, testInstances);
-        System.out.println(evaluation.toSummaryString("\nResults", false));
-        //System.out.println(evaluation.KBInformation());
-        System.out.println(naivebayes);
-        System.out.println(evaluation.toMatrixString());
-        */
         //https://pocketstudyblog.wordpress.com/2018/10/30/simple-naive-bayes-classification-using-weka-api-in-java/
 
-        //BufferedReader br = new BufferedReader(new FileReader(“C:\\Program Files (x86)\\Weka-3-6\\data\\iris.arff”));
         //Load the instances
         Instances train_data = instances;
         //Set the class index to the last attribute – i.e. Class value
@@ -358,7 +258,6 @@ public class ProyectoPreditcServiceImpl implements ProyectoPredictService {
         System.out.println("FNR=" + eval.falseNegativeRate(0));
         System.out.println("FPR=" + eval.falsePositiveRate(0));
         System.out.println("Matrix=" + eval.toMatrixString());
-        //System.out.println(eval.confusionMatrix().toString());
     }
 
     private void addStatistisLinearRegretion(Instances instances) throws Exception {
@@ -403,50 +302,12 @@ public class ProyectoPreditcServiceImpl implements ProyectoPredictService {
         System.out.println("Matrix=" + eval.toMatrixString());
 
         System.out.println("\n\n" + tree.graph());
-        //predecir
-        // DenseInstance instance = new DenseInstance(4);
-        //'Ingeniería de Sistemas','Tesis','Ingeniería y Ciencias Básicas','Teorica'
-
-        //int result = (int) tree.classifyInstance(getInstance(instances));
-        //System.out.println("Resultado de clasificar la nueva instancia: " + result);
-        //System.out.println(eval.confusionMatrix().toString());
-        //eval.evaluateModel(tree, train_data);
-        //System.out.println("evaluacion de evaluateMode");
-        //System.out.println(eval.toMatrixString());
-        //System.out.println(eval.predictions());
-        //Classifier cls = new J48();
-        //cls.buildClassifier(train_data);
-        //Evaluation eval = new Evaluation(train_data);
-        /*
-        Instances train_data = new Instances(instances);
-        //Set the class index to the last attribute – i.e. Class value
-        train_data.setClassIndex(train_data.numAttributes() - 1);
-        String[] options = { "-C", "0.1", "-M", "2" };
-
-        //Build the classifier with the specified options and training data
-        J48 tree = new J48();
-        tree.setOptions(options);
-        tree.buildClassifier(train_data);
-        //Perform 10 fold Cross-validation of the model
-        Evaluation eval = new Evaluation(train_data);
-        eval.crossValidateModel(tree, train_data, 5, new Random(1));
-        log.debug(instances.toString());
-        log.info(tree.toString());
-        //int result = (int) tree.classifyInstance(getInstance(instances));
-
-        //log.info("Resultado de clasificar la nueva instancia: " + result);
-        //dataWeather.setAction(result != 0);
-
-        //addStatistis(instances);
-*/
     }
 
     // private Instance getInstance(Instances instances, Weather dataWeather) throws Exception {
     private Instance getInstance(Instances instances) throws Exception {
         NominalToString nominalToBinary = new NominalToString();
         nominalToBinary.setInputFormat(instances);
-        //String[] options = { "-C", "1-2-3" };
-        //String[] options = { "-C", "0.1", "-M", "2" };
         String[] options = { "-C", "1-2-3" };
         nominalToBinary.setOptions(options);
         Instances newInstances = Filter.useFilter(instances, nominalToBinary);
