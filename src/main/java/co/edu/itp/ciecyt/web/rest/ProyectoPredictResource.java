@@ -52,11 +52,18 @@ public class ProyectoPredictResource {
     }
 
 
-    @GetMapping("/proyectopredict/{facultad}/{modalidad}")
+    /*@GetMapping("/proyectopredict/{facultad}/{modalidad}")
     public ResponseEntity<ProyectoDTO> getPredictProyecto(@PathVariable Long facultad, @PathVariable Long modalidad) throws Exception  {
         log.debug("REST request to get Proyecto : {}", facultad, modalidad);
         Optional<ProyectoDTO> proyectoDTO = proyectoPredictService.predicePlay(facultad,modalidad);
         return ResponseUtil.wrapOrNotFound(proyectoDTO);
+
+    }*/
+    @GetMapping("/proyectopredict/{facultad}/{modalidad}")
+    public ResponseEntity<String> getPredictProyecto(@PathVariable Long facultad, @PathVariable Long modalidad) throws Exception  {
+        log.debug("REST request to get Proyecto : {}", facultad, modalidad);
+        Optional<String> estadisticas = proyectoPredictService.predicePlay(facultad,modalidad);
+        return ResponseUtil.wrapOrNotFound(estadisticas);
 
     }
 

@@ -1,22 +1,33 @@
 package co.edu.itp.ciecyt.service.impl;
 
 import co.edu.itp.ciecyt.domain.Facultad;
-import co.edu.itp.ciecyt.domain.InvestigacionTipo;
 import co.edu.itp.ciecyt.domain.Modalidad;
 import co.edu.itp.ciecyt.domain.Proyecto;
 import co.edu.itp.ciecyt.repository.ProyectoRepository;
-import co.edu.itp.ciecyt.service.FacultadService;
-import co.edu.itp.ciecyt.service.IntegranteProyectoService;
-import co.edu.itp.ciecyt.service.InvestigacionTipoService;
-import co.edu.itp.ciecyt.service.ModalidadService;
-import co.edu.itp.ciecyt.service.ProgramaService;
-import co.edu.itp.ciecyt.service.ProyectoPredictService;
-import co.edu.itp.ciecyt.service.RolesModalidadService;
+import co.edu.itp.ciecyt.service.*;
 import co.edu.itp.ciecyt.service.dto.InvestigacionTipoDTO;
-import co.edu.itp.ciecyt.service.dto.ModalidadDTO;
 import co.edu.itp.ciecyt.service.dto.ProgramaDTO;
 import co.edu.itp.ciecyt.service.dto.ProyectoDTO;
 import co.edu.itp.ciecyt.service.mapper.ProyectoMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import weka.classifiers.bayes.NaiveBayes;
+import weka.classifiers.evaluation.Evaluation;
+import weka.classifiers.functions.LinearRegression;
+import weka.classifiers.functions.SMOreg;
+import weka.classifiers.trees.J48;
+import weka.core.Debug.Random;
+import weka.core.DenseInstance;
+import weka.core.Instance;
+import weka.core.Instances;
+import weka.filters.Filter;
+import weka.filters.unsupervised.attribute.NominalToString;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -25,32 +36,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import org.hibernate.criterion.AggregateProjection;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import weka.classifiers.Classifier;
-import weka.classifiers.bayes.NaiveBayes;
-import weka.classifiers.evaluation.Evaluation;
-import weka.classifiers.functions.LinearRegression;
-import weka.classifiers.functions.SMOreg;
-import weka.classifiers.trees.J48;
-import weka.core.Attribute;
-import weka.core.Debug;
-import weka.core.Debug.Random;
-import weka.core.DenseInstance;
-import weka.core.Instance;
-import weka.core.Instances;
-import weka.core.ProtectedProperties;
-import weka.core.converters.ArffSaver;
-import weka.core.converters.ConverterUtils;
-import weka.filters.Filter;
-import weka.filters.supervised.attribute.NominalToBinary;
-import weka.filters.unsupervised.attribute.NominalToString;
 
 @Service
 @Transactional
@@ -95,8 +80,9 @@ public class ProyectoPreditcServiceImpl implements ProyectoPredictService {
         this.facultadService = facultadService;
     }
 
-    public Optional<ProyectoDTO> predicePlay(Long facultad, Long modalidad) throws Exception {
+    public Optional<String> predicePlay(Long facultad, Long modalidad) throws Exception {
         //traer todos los registros de programa
+        String estadisticas = new String();
         List<ProgramaDTO> programaDTOs;
         String programaCad = "";
         programaDTOs = programaService.findAll();
@@ -222,13 +208,17 @@ public class ProyectoPreditcServiceImpl implements ProyectoPredictService {
 
         // Create dataset instances //
         Instances datasetInstances = new Instances(bufferedReader);
-        addStatistisNaiveBayes(datasetInstances);
+        estadisticas = addStatistisNaiveBayes(datasetInstances);
 
-        Optional<Proyecto> op = Optional.of(dataProyecto);
-        return op.map(proyectoMapper::toDto);
+        //Optional<String> op = Optional.of(dataProyecto);
+        //return op.map(proyectoMapper::toDto);
+         Optional<String> op = Optional.of(estadisticas);
+        return op;
+
     }
 
-    private void addStatistisNaiveBayes(Instances instances) throws Exception {
+    private String addStatistisNaiveBayes(Instances instances) throws Exception {
+        String estadisticas= new String();
         // Create naivebayes classifier //
         //https://pocketstudyblog.wordpress.com/2018/10/30/simple-naive-bayes-classification-using-weka-api-in-java/
 
@@ -258,6 +248,16 @@ public class ProyectoPreditcServiceImpl implements ProyectoPredictService {
         System.out.println("FNR=" + eval.falseNegativeRate(0));
         System.out.println("FPR=" + eval.falsePositiveRate(0));
         System.out.println("Matrix=" + eval.toMatrixString());
+
+        estadisticas+= "F1 Measure = " + eval.fMeasure(0) + "\n";
+        estadisticas+= "Precision=" + eval.precision(0)+ "\n";
+        estadisticas+= "Recall=" + eval.recall(0)+ "\n";
+        estadisticas+= "TNR=" + eval.trueNegativeRate(0)+ "\n";
+        estadisticas+= "TPR=" + eval.truePositiveRate(0)+ "\n";
+        estadisticas+= "FNR=" + eval.falseNegativeRate(0)+ "\n";
+        estadisticas+= "FPR=" + eval.falsePositiveRate(0)+ "\n";
+        estadisticas+= "Matrix=" + eval.toMatrixString()+ "\n";
+        return estadisticas;
     }
 
     private void addStatistisLinearRegretion(Instances instances) throws Exception {
