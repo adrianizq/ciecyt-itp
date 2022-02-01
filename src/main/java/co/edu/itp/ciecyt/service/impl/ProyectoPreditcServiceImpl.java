@@ -80,7 +80,8 @@ public class ProyectoPreditcServiceImpl implements ProyectoPredictService {
         this.facultadService = facultadService;
     }
 
-    public Optional<String> predicePlay(Long facultad, Long modalidad) throws Exception {
+   // public Optional<String> predicePlay(Long facultad, Long modalidad) throws Exception {
+   public Optional<String> predicePlay() throws Exception {
         //traer todos los registros de programa
         String estadisticas = new String();
         List<ProgramaDTO> programaDTOs;
