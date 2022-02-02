@@ -1,13 +1,18 @@
 <template>
    <div> Hola esta es la pagina de predicciones cambio!!!
    <br />
-   {{ prediccions }}
-   </div>
+  
+
+     <div v-html=prediccions></div>
+     </div>
 </template>
 
 <script lang="ts">
 import { Component, Inject, Vue } from 'vue-property-decorator';
 import AlertService from '@/shared/alert/alert.service';
+
+//import HtmlCodeViewer from 'vue-html-code-viewer'
+//Vue.use(HtmlCodeViewer)
 
 //import MenuLateral from '@/components/propuesta/menu_lateral.vue';
 import PrediccionesService from '@/entities/predicciones/predicciones.service';
@@ -62,7 +67,9 @@ export default class Predicciones1 extends Vue {
                  await this.prediccionesService()
                     .retrieve()
                     .then(res => {
-                        this.prediccions = res;
+                        this.prediccions = res.data;
+                        this.prediccions= JSON.stringify(this.prediccions);
+                        this.prediccions = this.prediccions.replace(/\\n/g,"<br />");
                       
                     });
             } catch (e) {
