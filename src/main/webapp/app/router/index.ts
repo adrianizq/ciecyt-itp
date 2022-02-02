@@ -280,8 +280,8 @@ const ProgramaDetails = () => import('../entities/programa/programa-details.vue'
 
 const Rol = () => import('../pages/rol/rol.vue');
 const RolMenuPermisos = () => import('../pages/rol/rol_menu.vue');
+const Predicciones = () => import('../pages/weka/predicciones1.vue');
 const PropuestaInformacionGeneral = () => import('../pages/propuesta/informacion_general.vue');
-
 const PropuestaPasantiaIntegrantes = () => import('../pages/propuesta_pasantia/integrantes_pasantia.vue');
 const PropuestaPasantiaInformacionGeneral = () => import('../pages/propuesta_pasantia/informacion_general_pasantia.vue');
 const PropuestaPasantiaInformacionEmpresa = () => import('../pages/propuesta_pasantia/informacion_empresa.vue');
@@ -1802,8 +1802,15 @@ export default new Router({
       meta: { authorities: ['ROLE_USER'] }
     },
     //////////////
-     ////////////////////////////////////////////////////////7777777
+    ////////////////////////////////////////////////////////7777777
      /////Tesis
+
+     {
+      path: '/predicciones/prediccion1',
+      name: 'PrediccionesView',
+      component: Predicciones,
+      meta: { authorities: ['ROLE_ADMIN'] }
+    },
     {
       path: '/propuesta/informacion-general',
       name: 'PropuestaInformacionGeneralView',

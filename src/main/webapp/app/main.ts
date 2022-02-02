@@ -32,6 +32,7 @@ import TranslationService from '@/locale/translation.service';
 import ConfigurationService from '@/admin/configuration/configuration.service';
 
 import ProyectoService from '@/entities/proyecto/proyecto.service';
+import PrediccionesService from '@/entities/predicciones/predicciones.service';
 import LineaInvestigacionService from '@/entities/linea-investigacion/linea-investigacion.service';
 import GrupoSemilleroService from '@/entities/grupo-semillero/grupo-semillero.service';
 import FacultadService from '@/entities/facultad/facultad.service';
@@ -140,6 +141,7 @@ new Vue({
     alertService: () => alertService,
     translationService: () => translationService,
     proyectoService: () => new ProyectoService(),
+    prediccionesService: () => new PrediccionesService(),
     lineaInvestigacionService: () => new LineaInvestigacionService(),
 
     grupoSemilleroService: () => new GrupoSemilleroService(),
