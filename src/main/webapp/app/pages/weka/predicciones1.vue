@@ -8,25 +8,14 @@
     <b-tabs content-class="mt-3" >
     <div :key="key" v-for="(item, key) in investigacionTips">
       <b-tab :title="item.investigacionTipo" active><p>
-      <div v-html="prediccions[key]">
-      
-      </div>
+      <!--<div v-html="prediccions[key]">-->
+      {{ prediccions[key]}}
+      <!--</div>-->
       </b-tab>
     </div>
     </b-tabs>
 
-    <!--<div :key="key" v-for="(item, key) in investigacionTips">
-      <div class="row">
-        <span>{{ key }}</span>
-        <div class="col-12">
-          <div class="form-group">
-            <button type="submit" id="save-entity" class="btn btn-primary float-right" @click="save()">
-              <font-awesome-icon :icon="['fas', 'save']"></font-awesome-icon>&nbsp;
-              <span>{{ item.investigacionTipo }}</span>
-            </button>
-          </div>
-        </div>
-      </div>-->
+   
 
     <div></div>
   </div>
@@ -95,16 +84,18 @@ export default class Predicciones1 extends Vue {
         .retrieve()
         .then(res => {
           this.prediccions = res.data;
-          //this.prediccions = JSON.stringify(this.prediccions);
-          //this.prediccions = this.prediccions.replace(/\\n/g, '<br />');
+          this.prediccions.forEach(p => {
+            p = JSON.stringify(p);
+            p = p.replace(/\\n/g, '<br />');
+          });
+          
         });
 
       await this.investigacionTipoService()
         .retrieve()
         .then(res => {
           this.investigacionTips = res.data;
-          //this.prediccions= JSON.stringify(this.prediccions);
-          //this.prediccions = this.prediccions.replace(/\\n/g,"<br />");
+          
         });
     } catch (e) {}
   }
