@@ -3,11 +3,15 @@
     Hola esta es la pagina de predicciones cambio!!!
     <br />
 
-    <div v-html="prediccions"></div>
+    
 
     <b-tabs content-class="mt-3" >
     <div :key="key" v-for="(item, key) in investigacionTips">
-      <b-tab :title="item.investigacionTipo" active><p>I'm the first tab</p></b-tab>
+      <b-tab :title="item.investigacionTipo" active><p>
+      <div v-html="prediccions[key]">
+      
+      </div>
+      </b-tab>
     </div>
     </b-tabs>
 
@@ -73,7 +77,7 @@ export default class Predicciones1 extends Vue {
 
   // public investTipos: String[] = [];
 
-  public prediccions: string = null;
+  public prediccions: String[] = [];
   //public isSaving = false;
 
   //public submitStatus: string = 'PENDING';
@@ -91,8 +95,8 @@ export default class Predicciones1 extends Vue {
         .retrieve()
         .then(res => {
           this.prediccions = res.data;
-          this.prediccions = JSON.stringify(this.prediccions);
-          this.prediccions = this.prediccions.replace(/\\n/g, '<br />');
+          //this.prediccions = JSON.stringify(this.prediccions);
+          //this.prediccions = this.prediccions.replace(/\\n/g, '<br />');
         });
 
       await this.investigacionTipoService()

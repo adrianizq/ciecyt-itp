@@ -9,6 +9,14 @@ import co.edu.itp.ciecyt.service.dto.InvestigacionTipoDTO;
 import co.edu.itp.ciecyt.service.dto.ProgramaDTO;
 import co.edu.itp.ciecyt.service.dto.ProyectoDTO;
 import co.edu.itp.ciecyt.service.mapper.ProyectoMapper;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
@@ -27,15 +35,6 @@ import weka.core.Instance;
 import weka.core.Instances;
 import weka.filters.Filter;
 import weka.filters.unsupervised.attribute.NominalToString;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional
@@ -57,6 +56,8 @@ public class ProyectoPreditcServiceImpl implements ProyectoPredictService {
     private FacultadService facultadService;
 
     private ProgramaService programaService;
+
+    private boolean add;
 
     public ProyectoPreditcServiceImpl(
         ProyectoRepository proyectoRepository,
@@ -80,10 +81,10 @@ public class ProyectoPreditcServiceImpl implements ProyectoPredictService {
         this.facultadService = facultadService;
     }
 
-   // public Optional<String> predicePlay(Long facultad, Long modalidad) throws Exception {
-   public Optional<String> predicePlay() throws Exception {
+    // public Optional<String> predicePlay(Long facultad, Long modalidad) throws Exception {
+    public List<String> predicePlay() throws Exception {
         //traer todos los registros de programa
-        String estadisticas = new String();
+        List<String> estadisticas = new ArrayList<String>();
         List<ProgramaDTO> programaDTOs;
         String programaCad = "";
         programaDTOs = programaService.findAll();
@@ -94,9 +95,9 @@ public class ProyectoPreditcServiceImpl implements ProyectoPredictService {
             System.out.println(pDto.getPrograma());
         }
         programaCad = programaCad.substring(0, programaCad.length() - 1);
-
         //traer todos los registros de tipo
         List<InvestigacionTipoDTO> investigacionTipoDTOs;
+
         investigacionTipoDTOs = investigacionTipoService.findAll();
         String tipoCad = "";
         List<String> tipos = new ArrayList<String>();
@@ -118,9 +119,9 @@ public class ProyectoPreditcServiceImpl implements ProyectoPredictService {
             System.out.println(mo.getModalidad());
         }
         modalidadCad = modalidadCad.substring(0, modalidadCad.length() - 1);
-
         //traer todos los registros de facultad
         List<Facultad> facultads;
+
         String facultadCad = "";
         facultads = facultadService.buscarAll();
         List<String> facultades = new ArrayList<String>();
@@ -130,9 +131,9 @@ public class ProyectoPreditcServiceImpl implements ProyectoPredictService {
             System.out.println(fa.getFacultad());
         }
         facultadCad = facultadCad.substring(0, facultadCad.length() - 1);
-
         //////////////////////////
         Proyecto dataProyecto = new Proyecto();
+
         //List<Proyecto> lDataProyecto = proyectoRepository.findByFacultadIdAndProyectoModalidadId(facultad, modalidad);
         List<Proyecto> lDataProyecto = proyectoRepository.findAll();
         String info = "";
@@ -154,9 +155,9 @@ public class ProyectoPreditcServiceImpl implements ProyectoPredictService {
             info += "'";
             info += "\n";
         }
-
         //Declaring reference of File class
         File file = null;
+
         //Declaring reference of FileWriter class
         FileWriter filewriter = null;
         String data =
@@ -201,25 +202,24 @@ public class ProyectoPreditcServiceImpl implements ProyectoPredictService {
                 e.printStackTrace();
             }
         }
-
         // Dataset path //
         String proyectoNominalDataset = "wkfile.arff";
+
         // Create bufferedreader to read the dataset //
         BufferedReader bufferedReader = new BufferedReader(new FileReader(proyectoNominalDataset));
-
         // Create dataset instances //
         Instances datasetInstances = new Instances(bufferedReader);
-        estadisticas = addStatistisNaiveBayes(datasetInstances);
 
+        estadisticas = addStatistisNaiveBayes(datasetInstances, tipos.size());
         //Optional<String> op = Optional.of(dataProyecto);
         //return op.map(proyectoMapper::toDto);
-         Optional<String> op = Optional.of(estadisticas);
-        return op;
-
+        //Optional<String> op = Optional.of(estadisticas);
+        return estadisticas;
     }
 
-    private String addStatistisNaiveBayes(Instances instances) throws Exception {
-        String estadisticas= new String();
+    private List<String> addStatistisNaiveBayes(Instances instances, int size) throws Exception {
+        List<String> estadisticas = new ArrayList<String>(size);
+        String resultado = new String();
         // Create naivebayes classifier //
         //https://pocketstudyblog.wordpress.com/2018/10/30/simple-naive-bayes-classification-using-weka-api-in-java/
 
@@ -227,21 +227,21 @@ public class ProyectoPreditcServiceImpl implements ProyectoPredictService {
         Instances train_data = instances;
         //Set the class index to the last attribute – i.e. Class value
         train_data.setClassIndex(train_data.numAttributes() - 1);
-
         //Load the Naive Bayes classifier
         NaiveBayes nb = new NaiveBayes();
+
         //Build the classifier with the training data
         nb.buildClassifier(train_data);
-
         //Perform 10 fold Cross-validation of the model
         Evaluation eval = new Evaluation(train_data);
-        eval.crossValidateModel(nb, train_data, 10, new Random(1));
 
+        eval.crossValidateModel(nb, train_data, 10, new Random(1));
         //Print the summary of the evaluation
         System.out.println(eval.toSummaryString("\n\n Results \n\n", true));
 
         //Print the other performance parameters
         System.out.println("F1 Measure = " + eval.fMeasure(0));
+
         System.out.println("Precision=" + eval.precision(0));
         System.out.println("Recall=" + eval.recall(0));
         System.out.println("TNR=" + eval.trueNegativeRate(0));
@@ -249,15 +249,19 @@ public class ProyectoPreditcServiceImpl implements ProyectoPredictService {
         System.out.println("FNR=" + eval.falseNegativeRate(0));
         System.out.println("FPR=" + eval.falsePositiveRate(0));
         System.out.println("Matrix=" + eval.toMatrixString());
+        for (int i = 0; i < size; i++) {
+            resultado += "F1 Measure = " + eval.fMeasure(i) + "\n";
+            resultado += "Precision=" + eval.precision(i) + "\n";
+            resultado += "Recall=" + eval.recall(i) + "\n";
+            resultado += "TNR=" + eval.trueNegativeRate(i) + "\n";
+            resultado += "TPR=" + eval.truePositiveRate(i) + "\n";
+            resultado += "FNR=" + eval.falseNegativeRate(i) + "\n";
+            resultado += "FPR=" + eval.falsePositiveRate(i) + "\n";
+            resultado += "Matrix=" + eval.toMatrixString() + "\n";
+            estadisticas.add(resultado);
+            resultado = new String();
+        }
 
-        estadisticas+= "F1 Measure = " + eval.fMeasure(0) + "\n";
-        estadisticas+= "Precision=" + eval.precision(0)+ "\n";
-        estadisticas+= "Recall=" + eval.recall(0)+ "\n";
-        estadisticas+= "TNR=" + eval.trueNegativeRate(0)+ "\n";
-        estadisticas+= "TPR=" + eval.truePositiveRate(0)+ "\n";
-        estadisticas+= "FNR=" + eval.falseNegativeRate(0)+ "\n";
-        estadisticas+= "FPR=" + eval.falsePositiveRate(0)+ "\n";
-        estadisticas+= "Matrix=" + eval.toMatrixString()+ "\n";
         return estadisticas;
     }
 
