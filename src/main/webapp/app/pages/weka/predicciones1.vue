@@ -1,10 +1,31 @@
 <template>
-   <div> Hola esta es la pagina de predicciones cambio!!!
-   <br />
-  
+  <div>
+    Hola esta es la pagina de predicciones cambio!!!
+    <br />
 
-     <div v-html=prediccions></div>
-     </div>
+    <div v-html="prediccions"></div>
+
+    <b-tabs content-class="mt-3" >
+    <div :key="key" v-for="(item, key) in investigacionTips">
+      <b-tab :title="item.investigacionTipo" active><p>I'm the first tab</p></b-tab>
+    </div>
+    </b-tabs>
+
+    <!--<div :key="key" v-for="(item, key) in investigacionTips">
+      <div class="row">
+        <span>{{ key }}</span>
+        <div class="col-12">
+          <div class="form-group">
+            <button type="submit" id="save-entity" class="btn btn-primary float-right" @click="save()">
+              <font-awesome-icon :icon="['fas', 'save']"></font-awesome-icon>&nbsp;
+              <span>{{ item.investigacionTipo }}</span>
+            </button>
+          </div>
+        </div>
+      </div>-->
+
+    <div></div>
+  </div>
 </template>
 
 <script lang="ts">
@@ -16,6 +37,8 @@ import AlertService from '@/shared/alert/alert.service';
 
 //import MenuLateral from '@/components/propuesta/menu_lateral.vue';
 import PrediccionesService from '@/entities/predicciones/predicciones.service';
+import { IInvestigacionTipo, InvestigacionTipo } from '@/shared/model/investigacion-tipo.model';
+import InvestigacionTipoService from '@/entities/investigacion-tipo/investigacion-tipo.service';
 //import { IModalidad } from '@/shared/model/modalidad.model';
 //import FacultadService from '@/entities/facultad/facultad.service';
 //import { IFacultad } from '@/shared/model/facultad.model';
@@ -27,14 +50,14 @@ import PrediccionesService from '@/entities/predicciones/predicciones.service';
 
 //import { id } from 'date-fns/locale';
 
- const validations: any = {};
+const validations: any = {};
 
-    @Component({
-        validations
-    })
+@Component({
+  validations,
+})
 export default class Predicciones1 extends Vue {
   @Inject('prediccionesService') private prediccionesService: () => PrediccionesService;
-  //@Inject('facultadService') private facultadService: () => FacultadService;
+  @Inject('investigacionTipoService') private investigacionTipoService: () => InvestigacionTipoService;
   //@Inject('lineaInvestigacionService') private lineaInvestigacionService: () => LineaInvestigacionService;
 
   //@Inject('investigacionTipoService') private investigacionTipoService: () => InvestigacionTipoService;
@@ -44,6 +67,7 @@ export default class Predicciones1 extends Vue {
   //public modalidads: IModalidad[] = [];
   //public facultades: IFacultad[] = [];
   //public programs: IPrograma[] = [];
+  public investigacionTips: InvestigacionTipo[] = [];
 
   //public linea_investigacion: number = null;
 
@@ -54,28 +78,32 @@ export default class Predicciones1 extends Vue {
 
   //public submitStatus: string = 'PENDING';
   //console.log("entrando a initrelation");
-   
+
   beforeRouteEnter(to, from, next) {
-            next(async vm => {
-                vm.initRelationships();
-            });
+    next(async vm => {
+      vm.initRelationships();
+    });
   }
   ////////////////////////////////////////
   async initRelationships() {
-            try {
-                
-                 await this.prediccionesService()
-                    .retrieve()
-                    .then(res => {
-                        this.prediccions = res.data;
-                        this.prediccions= JSON.stringify(this.prediccions);
-                        this.prediccions = this.prediccions.replace(/\\n/g,"<br />");
-                      
-                    });
-            } catch (e) {
+    try {
+      await this.prediccionesService()
+        .retrieve()
+        .then(res => {
+          this.prediccions = res.data;
+          this.prediccions = JSON.stringify(this.prediccions);
+          this.prediccions = this.prediccions.replace(/\\n/g, '<br />');
+        });
 
-            }
-        }
+      await this.investigacionTipoService()
+        .retrieve()
+        .then(res => {
+          this.investigacionTips = res.data;
+          //this.prediccions= JSON.stringify(this.prediccions);
+          //this.prediccions = this.prediccions.replace(/\\n/g,"<br />");
+        });
+    } catch (e) {}
+  }
 
   //////////////////////////////////////
 }
