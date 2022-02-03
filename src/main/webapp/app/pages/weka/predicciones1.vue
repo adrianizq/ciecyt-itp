@@ -1,18 +1,21 @@
 <template>
   <div>
-    Hola esta es la pagina de predicciones cambio!!!
+    Predicciones con base en el Tipo de Investigación
     <br />
 
     
 
     <b-tabs content-class="mt-3" >
     <div :key="key" v-for="(item, key) in investigacionTips">
-      <b-tab :title="item.investigacionTipo" active><p>
-      <!--<div v-html="prediccions[key]">-->
-      {{ prediccions[key]}}
-      <!--</div>-->
+      <b-tab :title="item.investigacionTipo" active>
+       <div v-html="prediccions[key]"></div>
       </b-tab>
+      
     </div>
+    <b-tab title="Summary"  active>
+      <div v-html="prediccions[investigacionTips.length]"></div>
+      </b-tab>
+     
     </b-tabs>
 
    
@@ -84,10 +87,10 @@ export default class Predicciones1 extends Vue {
         .retrieve()
         .then(res => {
           this.prediccions = res.data;
-          this.prediccions.forEach(p => {
-            p = JSON.stringify(p);
-            p = p.replace(/\\n/g, '<br />');
-          });
+          for(var i=0; i<this.prediccions.length; i++){
+            this.prediccions[i] = JSON.stringify(this.prediccions[i]);
+            this.prediccions[i] = this.prediccions[i].replace(/\\n/g, '<br />');
+          };
           
         });
 

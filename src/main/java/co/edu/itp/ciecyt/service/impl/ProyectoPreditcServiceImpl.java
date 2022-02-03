@@ -242,13 +242,13 @@ public class ProyectoPreditcServiceImpl implements ProyectoPredictService {
         //Print the other performance parameters
         System.out.println("F1 Measure = " + eval.fMeasure(0));
 
-        System.out.println("Precision=" + eval.precision(0));
+        /*System.out.println("Precision=" + eval.precision(0));
         System.out.println("Recall=" + eval.recall(0));
         System.out.println("TNR=" + eval.trueNegativeRate(0));
         System.out.println("TPR=" + eval.truePositiveRate(0));
         System.out.println("FNR=" + eval.falseNegativeRate(0));
         System.out.println("FPR=" + eval.falsePositiveRate(0));
-        System.out.println("Matrix=" + eval.toMatrixString());
+        System.out.println("Matrix=" + eval.toMatrixString());*/
         for (int i = 0; i < size; i++) {
             resultado += "F1 Measure = " + eval.fMeasure(i) + "\n";
             resultado += "Precision=" + eval.precision(i) + "\n";
@@ -261,7 +261,8 @@ public class ProyectoPreditcServiceImpl implements ProyectoPredictService {
             estadisticas.add(resultado);
             resultado = new String();
         }
-
+        resultado = eval.toSummaryString("\n\n Results \n\n", true);
+        estadisticas.add(resultado);
         return estadisticas;
     }
 
