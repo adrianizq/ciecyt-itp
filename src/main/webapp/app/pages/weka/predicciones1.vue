@@ -1,6 +1,6 @@
 <template>
   <div>
-    Predicciones con base en el Tipo de Investigación
+    Predicciones con base en el Tipo de Investigación - Método Naive Bayes
     <br />
 
     
@@ -28,23 +28,17 @@
 import { Component, Inject, Vue } from 'vue-property-decorator';
 import AlertService from '@/shared/alert/alert.service';
 
-//import HtmlCodeViewer from 'vue-html-code-viewer'
-//Vue.use(HtmlCodeViewer)
+//programa, modalidad, facultad, tipo
 
 //import MenuLateral from '@/components/propuesta/menu_lateral.vue';
 import PrediccionesService from '@/entities/predicciones/predicciones.service';
 import { IInvestigacionTipo, InvestigacionTipo } from '@/shared/model/investigacion-tipo.model';
 import InvestigacionTipoService from '@/entities/investigacion-tipo/investigacion-tipo.service';
+//import { IPrograma, Programa } from '@/shared/model/programa.model';
+//import ProgramaService from '@/entities/programa/programa.service';
 //import { IModalidad } from '@/shared/model/modalidad.model';
 //import FacultadService from '@/entities/facultad/facultad.service';
 //import { IFacultad } from '@/shared/model/facultad.model';
-//import LineaInvestigacionService from '@/entities/linea-investigacion/linea-investigacion.service';
-//import { ILineaInvestigacion } from '@/shared/model/linea-investigacion.model';
-//import UsuarioService from '@/entities/usuario/usuario.service';
-//import { IUsuario } from '@/shared/model/usuario.model';
-//import { IUser } from '@/shared/model/user.model';
-
-//import { id } from 'date-fns/locale';
 
 const validations: any = {};
 
@@ -70,17 +64,12 @@ export default class Predicciones1 extends Vue {
   // public investTipos: String[] = [];
 
   public prediccions: String[] = [];
-  //public isSaving = false;
-
-  //public submitStatus: string = 'PENDING';
-  //console.log("entrando a initrelation");
 
   beforeRouteEnter(to, from, next) {
     next(async vm => {
       vm.initRelationships();
     });
   }
-  ////////////////////////////////////////
   async initRelationships() {
     try {
       await this.prediccionesService()
@@ -102,8 +91,6 @@ export default class Predicciones1 extends Vue {
         });
     } catch (e) {}
   }
-
-  //////////////////////////////////////
 }
 </script>
 

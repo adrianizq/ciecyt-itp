@@ -29,6 +29,7 @@ import weka.classifiers.evaluation.Evaluation;
 import weka.classifiers.functions.LinearRegression;
 import weka.classifiers.functions.SMOreg;
 import weka.classifiers.trees.J48;
+import weka.core.AttributeStats;
 import weka.core.Debug.Random;
 import weka.core.DenseInstance;
 import weka.core.Instance;
@@ -209,15 +210,19 @@ public class ProyectoPreditcServiceImpl implements ProyectoPredictService {
         BufferedReader bufferedReader = new BufferedReader(new FileReader(proyectoNominalDataset));
         // Create dataset instances //
         Instances datasetInstances = new Instances(bufferedReader);
+        String encabezado = new String();
+        encabezado = "Programas: " + programaCad + "\n";
+        encabezado += "Modalidades: " + modalidadCad + "\n";
+        encabezado += "Facultades: " + facultadCad + "\n";
+        encabezado += "Tipos de Investigacion: " + tipoCad + "\n";
 
-        estadisticas = addStatistisNaiveBayes(datasetInstances, tipos.size());
-        //Optional<String> op = Optional.of(dataProyecto);
-        //return op.map(proyectoMapper::toDto);
-        //Optional<String> op = Optional.of(estadisticas);
+        estadisticas = addStatistisNaiveBayes(datasetInstances, tipos.size(), encabezado, programas);
+        //System.out.println("agregado al final!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! " + estadisticas.get(estadisticas.size() - 1));
+        //estadisticas.add(estadisticas.size() - 1, "Programas: " + programaCad);
         return estadisticas;
     }
 
-    private List<String> addStatistisNaiveBayes(Instances instances, int size) throws Exception {
+    private List<String> addStatistisNaiveBayes(Instances instances, int size, String encabezado, List<String> programas) throws Exception {
         List<String> estadisticas = new ArrayList<String>(size);
         String resultado = new String();
         // Create naivebayes classifier //
@@ -242,13 +247,6 @@ public class ProyectoPreditcServiceImpl implements ProyectoPredictService {
         //Print the other performance parameters
         System.out.println("F1 Measure = " + eval.fMeasure(0));
 
-        /*System.out.println("Precision=" + eval.precision(0));
-        System.out.println("Recall=" + eval.recall(0));
-        System.out.println("TNR=" + eval.trueNegativeRate(0));
-        System.out.println("TPR=" + eval.truePositiveRate(0));
-        System.out.println("FNR=" + eval.falseNegativeRate(0));
-        System.out.println("FPR=" + eval.falsePositiveRate(0));
-        System.out.println("Matrix=" + eval.toMatrixString());*/
         for (int i = 0; i < size; i++) {
             resultado += "F1 Measure = " + eval.fMeasure(i) + "\n";
             resultado += "Precision=" + eval.precision(i) + "\n";
@@ -261,7 +259,28 @@ public class ProyectoPreditcServiceImpl implements ProyectoPredictService {
             estadisticas.add(resultado);
             resultado = new String();
         }
-        resultado = eval.toSummaryString("\n\n Results \n\n", true);
+        //https://stackoverflow.com/questions/41436906/weka-how-to-find-distince-values-of-an-attribute
+        /*for (int i=0;i<data.classAttribute().numValues();i++) {
+        System.out.println(data.classAttribute().value(i));
+        }
+       */
+        for (int i = 0; i < instances.numAttributes(); i++) {
+            AttributeStats as = instances.attributeStats(i);
+            resultado += as.toString();
+            resultado += "num attributos: ";
+            resultado += as.nominalCounts.length;
+
+            for (int j = 0; j < as.nominalCounts.length; j++) {
+                resultado += as.nominalCounts[j] + " ";
+                resultado += as.nominalWeights[j] + "\n";
+            }
+            //resultado += programas.get(i);
+            //resultado += as.nominalCounts[0] + " ";
+            //resultado += as.nominalWeights[0] + " ";
+            //System.out.println("valor de i " + i);
+        }
+        resultado += encabezado;
+        resultado += eval.toSummaryString("\n\n Results \n\n", true);
         estadisticas.add(resultado);
         return estadisticas;
     }
