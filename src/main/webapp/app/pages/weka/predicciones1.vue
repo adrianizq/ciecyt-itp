@@ -12,7 +12,7 @@
       </b-tab>
       
     </div>
-    <b-tab title="Summary"  active>
+    <b-tab title="Resumen"  active>
       <div v-html="prediccions[investigacionTips.length]"></div>
       </b-tab>
      

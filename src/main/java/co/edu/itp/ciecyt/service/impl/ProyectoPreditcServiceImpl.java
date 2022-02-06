@@ -210,19 +210,19 @@ public class ProyectoPreditcServiceImpl implements ProyectoPredictService {
         BufferedReader bufferedReader = new BufferedReader(new FileReader(proyectoNominalDataset));
         // Create dataset instances //
         Instances datasetInstances = new Instances(bufferedReader);
-        String encabezado = new String();
-        encabezado = "Programas: " + programaCad + "\n";
-        encabezado += "Modalidades: " + modalidadCad + "\n";
-        encabezado += "Facultades: " + facultadCad + "\n";
-        encabezado += "Tipos de Investigacion: " + tipoCad + "\n";
+        //String encabezado = new String();
+        //encabezado = "Programas: " + programaCad + "\n";
+        //encabezado += "Modalidades: " + modalidadCad + "\n";
+        //encabezado += "Facultades: " + facultadCad + "\n";
+        //encabezado += "Tipos de Investigacion: " + tipoCad + "\n";
 
-        estadisticas = addStatistisNaiveBayes(datasetInstances, tipos.size(), encabezado, programas);
+        estadisticas = addStatistisNaiveBayes(datasetInstances, tipos.size(), programas);
         //System.out.println("agregado al final!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! " + estadisticas.get(estadisticas.size() - 1));
         //estadisticas.add(estadisticas.size() - 1, "Programas: " + programaCad);
         return estadisticas;
     }
 
-    private List<String> addStatistisNaiveBayes(Instances instances, int size, String encabezado, List<String> programas) throws Exception {
+    private List<String> addStatistisNaiveBayes(Instances instances, int size, List<String> programas) throws Exception {
         List<String> estadisticas = new ArrayList<String>(size);
         String resultado = new String();
         // Create naivebayes classifier //
@@ -266,20 +266,34 @@ public class ProyectoPreditcServiceImpl implements ProyectoPredictService {
        */
         for (int i = 0; i < instances.numAttributes(); i++) {
             AttributeStats as = instances.attributeStats(i);
-            resultado += as.toString();
-            resultado += "num attributos: ";
-            resultado += as.nominalCounts.length;
-
+            String cad = new String();
+            cad = instances.attribute(i).toString();
+            int keyOn = cad.indexOf('{');
+            cad = cad.substring(keyOn + 1, cad.length() - 3);
+            String[] attrs = cad.split(",");
+            //resultado += as.toString();
+            resultado += instances.attribute(i);
+            resultado += "instancias: " + as.nominalCounts.length + "\n";
+            resultado += "<table border>";
+            resultado += "<tr><th>Etiqueta</th><th>Cantidad</th><th>Peso</th></tr>";
             for (int j = 0; j < as.nominalCounts.length; j++) {
-                resultado += as.nominalCounts[j] + " ";
-                resultado += as.nominalWeights[j] + "\n";
+                resultado += "<tr><td>";
+                resultado += attrs[j];
+                resultado += "</td>";
+                resultado += "<td>";
+                resultado += as.nominalCounts[j];
+                resultado += "</td>";
+                resultado += "<td>";
+                resultado += as.nominalWeights[j];
+                resultado += "</td></tr>";
             }
+            resultado += "</table>";
             //resultado += programas.get(i);
             //resultado += as.nominalCounts[0] + " ";
             //resultado += as.nominalWeights[0] + " ";
             //System.out.println("valor de i " + i);
         }
-        resultado += encabezado;
+        //resultado += encabezado;
         resultado += eval.toSummaryString("\n\n Results \n\n", true);
         estadisticas.add(resultado);
         return estadisticas;
