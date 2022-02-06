@@ -12,7 +12,8 @@ import org.springframework.data.domain.Pageable;
  */
 public interface ProyectoPredictService {
     //public Optional<String> predicePlay(Long facultad, Long modalidad) throws Exception ;
-    public List<String> predicePlay() throws Exception;
+    //public List<String> predicePlay() throws Exception;
+    public List<String> predicePlay(Long tipo) throws Exception;
 
     Page<ProyectoDTO> findAll(Pageable pageable);
 }

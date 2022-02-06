@@ -1,9 +1,15 @@
 <template>
   <div>
-    Predicciones con base en el Tipo de Investigación - Método Naive Bayes
+    Predicciones con base en el Tipo de Investigación 
     <br />
 
-    
+     <div class="form-group">
+                <input type="radio" v-model="tipo" id="tipo" class="form-radio-input" name="tipo" value=0 v-on:change="cambiarTipo()">
+                <label class="form-radio-label" for="tipo">Naive Bayes</label>
+<br />
+                <input type="radio" v-model="tipo" id="tipo" class="form-radio-input" name="tipo" value=1 v-on:change="cambiarTipo()">
+                <label class="form-radio-label" for="tipo">J48 Tree</label>
+      </div>
 
     <b-tabs content-class="mt-3" >
     <div :key="key" v-for="(item, key) in investigacionTips">
@@ -59,7 +65,7 @@ export default class Predicciones1 extends Vue {
   //public programs: IPrograma[] = [];
   public investigacionTips: InvestigacionTipo[] = [];
 
-  //public linea_investigacion: number = null;
+  public tipo: number =0; 
 
   // public investTipos: String[] = [];
 
@@ -73,7 +79,7 @@ export default class Predicciones1 extends Vue {
   async initRelationships() {
     try {
       await this.prediccionesService()
-        .retrieve()
+        .retrieve(this.tipo)
         .then(res => {
           this.prediccions = res.data;
           for(var i=0; i<this.prediccions.length; i++){
@@ -90,6 +96,9 @@ export default class Predicciones1 extends Vue {
           
         });
     } catch (e) {}
+  }
+  public cambiarTipo(): void{
+    this.initRelationships();
   }
 }
 </script>

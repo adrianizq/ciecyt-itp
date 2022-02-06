@@ -83,7 +83,7 @@ public class ProyectoPreditcServiceImpl implements ProyectoPredictService {
     }
 
     // public Optional<String> predicePlay(Long facultad, Long modalidad) throws Exception {
-    public List<String> predicePlay() throws Exception {
+    public List<String> predicePlay(Long tipo) throws Exception {
         //traer todos los registros de programa
         List<String> estadisticas = new ArrayList<String>();
         List<ProgramaDTO> programaDTOs;
@@ -210,15 +210,11 @@ public class ProyectoPreditcServiceImpl implements ProyectoPredictService {
         BufferedReader bufferedReader = new BufferedReader(new FileReader(proyectoNominalDataset));
         // Create dataset instances //
         Instances datasetInstances = new Instances(bufferedReader);
-        //String encabezado = new String();
-        //encabezado = "Programas: " + programaCad + "\n";
-        //encabezado += "Modalidades: " + modalidadCad + "\n";
-        //encabezado += "Facultades: " + facultadCad + "\n";
-        //encabezado += "Tipos de Investigacion: " + tipoCad + "\n";
-
-        estadisticas = addStatistisNaiveBayes(datasetInstances, tipos.size(), programas);
-        //System.out.println("agregado al final!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! " + estadisticas.get(estadisticas.size() - 1));
-        //estadisticas.add(estadisticas.size() - 1, "Programas: " + programaCad);
+        if (tipo == 0) {
+            estadisticas = addStatistisNaiveBayes(datasetInstances, tipos.size(), programas);
+        } else {
+            estadisticas = addStatistisJ48(datasetInstances, tipos.size(), programas);
+        }
         return estadisticas;
     }
 
@@ -227,25 +223,17 @@ public class ProyectoPreditcServiceImpl implements ProyectoPredictService {
         String resultado = new String();
         // Create naivebayes classifier //
         //https://pocketstudyblog.wordpress.com/2018/10/30/simple-naive-bayes-classification-using-weka-api-in-java/
-
         //Load the instances
         Instances train_data = instances;
         //Set the class index to the last attribute – i.e. Class value
         train_data.setClassIndex(train_data.numAttributes() - 1);
         //Load the Naive Bayes classifier
         NaiveBayes nb = new NaiveBayes();
-
         //Build the classifier with the training data
         nb.buildClassifier(train_data);
         //Perform 10 fold Cross-validation of the model
         Evaluation eval = new Evaluation(train_data);
-
         eval.crossValidateModel(nb, train_data, 10, new Random(1));
-        //Print the summary of the evaluation
-        System.out.println(eval.toSummaryString("\n\n Results \n\n", true));
-
-        //Print the other performance parameters
-        System.out.println("F1 Measure = " + eval.fMeasure(0));
 
         for (int i = 0; i < size; i++) {
             resultado += "F1 Measure = " + eval.fMeasure(i) + "\n";
@@ -260,10 +248,7 @@ public class ProyectoPreditcServiceImpl implements ProyectoPredictService {
             resultado = new String();
         }
         //https://stackoverflow.com/questions/41436906/weka-how-to-find-distince-values-of-an-attribute
-        /*for (int i=0;i<data.classAttribute().numValues();i++) {
-        System.out.println(data.classAttribute().value(i));
-        }
-       */
+        resultado += "Método Naive Bayes\n";
         for (int i = 0; i < instances.numAttributes(); i++) {
             AttributeStats as = instances.attributeStats(i);
             String cad = new String();
@@ -272,6 +257,7 @@ public class ProyectoPreditcServiceImpl implements ProyectoPredictService {
             cad = cad.substring(keyOn + 1, cad.length() - 3);
             String[] attrs = cad.split(",");
             //resultado += as.toString();
+
             resultado += instances.attribute(i);
             resultado += "instancias: " + as.nominalCounts.length + "\n";
             resultado += "<table border>";
@@ -288,39 +274,20 @@ public class ProyectoPreditcServiceImpl implements ProyectoPredictService {
                 resultado += "</td></tr>";
             }
             resultado += "</table>";
-            //resultado += programas.get(i);
-            //resultado += as.nominalCounts[0] + " ";
-            //resultado += as.nominalWeights[0] + " ";
-            //System.out.println("valor de i " + i);
         }
-        //resultado += encabezado;
         resultado += eval.toSummaryString("\n\n Results \n\n", true);
         estadisticas.add(resultado);
         return estadisticas;
     }
 
-    private void addStatistisLinearRegretion(Instances instances) throws Exception {
-        LinearRegression lr = new LinearRegression();
-        lr.buildClassifier(instances);
-        //System.out.println(lr);
-        Evaluation lreval = new Evaluation(instances);
-        lreval.evaluateModel(lr, instances);
-        System.out.println(lreval.toSummaryString());
-
-        SMOreg smoreg = new SMOreg();
-        smoreg.buildClassifier(instances);
-        Evaluation svmregeval = new Evaluation(instances);
-        svmregeval.evaluateModel(smoreg, instances);
-        System.out.println(svmregeval.toSummaryString());
-    }
-
     //https://pocketstudyblog.wordpress.com/2018/10/30/simple-naive-bayes-classification-using-weka-api-in-java-j48-example/
-    private void addStatistisJ48(Instances instances) throws Exception {
+    private List<String> addStatistisJ48(Instances instances, int size, List<String> programas) throws Exception {
+        List<String> estadisticas = new ArrayList<String>(size);
+        String resultado = new String();
         Instances train_data = new Instances(instances);
         //Set the class index to the last attribute – i.e. Class value
         train_data.setClassIndex(train_data.numAttributes() - 1);
         String[] options = { "-C", "0.1", "-M", "5" };
-
         //Build the classifier with the specified options and training data
         J48 tree = new J48();
         tree.setOptions(options);
@@ -328,39 +295,48 @@ public class ProyectoPreditcServiceImpl implements ProyectoPredictService {
         //Perform 5 fold Cross-validation of the model
         Evaluation eval = new Evaluation(train_data);
         eval.crossValidateModel(tree, train_data, 7, new Random(1));
-        //Print the summary of the evaluation
-        System.out.println(eval.toSummaryString("\n\n Results-J48 DT Algorithm —\n\n", true));
-        //Print the other performance parameters
-        System.out.println("F1 Measure = " + eval.fMeasure(1));
-        System.out.println("Precision=" + eval.precision(1));
-        System.out.println("Recall=" + eval.recall(1));
-        System.out.println("TNR=" + eval.trueNegativeRate(1));
-        System.out.println("TPR=" + eval.truePositiveRate(1));
-        System.out.println("FNR=" + eval.falseNegativeRate(1));
-        System.out.println("FPR=" + eval.falsePositiveRate(1));
-        System.out.println("Matrix=" + eval.toMatrixString());
+        for (int i = 0; i < size; i++) {
+            resultado += "F1 Measure = " + eval.fMeasure(i) + "\n";
+            resultado += "Precision=" + eval.precision(i) + "\n";
+            resultado += "Recall=" + eval.recall(i) + "\n";
+            resultado += "TNR=" + eval.trueNegativeRate(i) + "\n";
+            resultado += "TPR=" + eval.truePositiveRate(i) + "\n";
+            resultado += "FNR=" + eval.falseNegativeRate(i) + "\n";
+            resultado += "FPR=" + eval.falsePositiveRate(i) + "\n";
+            resultado += "Matrix=" + eval.toMatrixString() + "\n";
+            estadisticas.add(resultado);
+            resultado = new String();
+        }
+        //https://stackoverflow.com/questions/41436906/weka-how-to-find-distince-values-of-an-attribute
+        resultado += "Método J48\n";
+        for (int i = 0; i < instances.numAttributes(); i++) {
+            AttributeStats as = instances.attributeStats(i);
+            String cad = new String();
+            cad = instances.attribute(i).toString();
+            int keyOn = cad.indexOf('{');
+            cad = cad.substring(keyOn + 1, cad.length() - 3);
+            String[] attrs = cad.split(",");
 
-        System.out.println("\n\n" + tree.graph());
-    }
-
-    // private Instance getInstance(Instances instances, Weather dataWeather) throws Exception {
-    private Instance getInstance(Instances instances) throws Exception {
-        NominalToString nominalToBinary = new NominalToString();
-        nominalToBinary.setInputFormat(instances);
-        String[] options = { "-C", "1-2-3" };
-        nominalToBinary.setOptions(options);
-        Instances newInstances = Filter.useFilter(instances, nominalToBinary);
-        Instance instance = new DenseInstance(4);
-        instance.setDataset(newInstances);
-        instance.setValue(0, "Ingeniería de Sistemas");
-        instance.setValue(1, "Tesis");
-        instance.setValue(2, "Ingeniería y Ciencias Básicas");
-        instance.setValue(3, "Teorica");
-        return instance;
-    }
-
-    private String getTime(LocalDateTime fecha) {
-        return fecha.getHour() + ":" + fecha.getMinute();
+            resultado += instances.attribute(i);
+            resultado += "instancias: " + as.nominalCounts.length + "\n";
+            resultado += "<table border>";
+            resultado += "<tr><th>Etiqueta</th><th>Cantidad</th><th>Peso</th></tr>";
+            for (int j = 0; j < as.nominalCounts.length; j++) {
+                resultado += "<tr><td>";
+                resultado += attrs[j];
+                resultado += "</td>";
+                resultado += "<td>";
+                resultado += as.nominalCounts[j];
+                resultado += "</td>";
+                resultado += "<td>";
+                resultado += as.nominalWeights[j];
+                resultado += "</td></tr>";
+            }
+            resultado += "</table>";
+        }
+        resultado += eval.toSummaryString("\n\n Results \n\n", true);
+        estadisticas.add(resultado);
+        return estadisticas;
     }
 
     @Override
