@@ -9,14 +9,6 @@ import co.edu.itp.ciecyt.service.dto.InvestigacionTipoDTO;
 import co.edu.itp.ciecyt.service.dto.ProgramaDTO;
 import co.edu.itp.ciecyt.service.dto.ProyectoDTO;
 import co.edu.itp.ciecyt.service.mapper.ProyectoMapper;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
@@ -26,16 +18,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import weka.classifiers.bayes.NaiveBayes;
 import weka.classifiers.evaluation.Evaluation;
-import weka.classifiers.functions.LinearRegression;
-import weka.classifiers.functions.SMOreg;
 import weka.classifiers.trees.J48;
 import weka.core.AttributeStats;
 import weka.core.Debug.Random;
-import weka.core.DenseInstance;
-import weka.core.Instance;
 import weka.core.Instances;
-import weka.filters.Filter;
-import weka.filters.unsupervised.attribute.NominalToString;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Transactional
@@ -82,9 +75,8 @@ public class ProyectoPreditcServiceImpl implements ProyectoPredictService {
         this.facultadService = facultadService;
     }
 
-    // public Optional<String> predicePlay(Long facultad, Long modalidad) throws Exception {
+
     public List<String> predicePlay(Long tipo) throws Exception {
-        //traer todos los registros de programa
         List<String> estadisticas = new ArrayList<String>();
         List<ProgramaDTO> programaDTOs;
         String programaCad = "";
@@ -108,7 +100,6 @@ public class ProyectoPreditcServiceImpl implements ProyectoPredictService {
             System.out.println(iDto.getInvestigacionTipo());
         }
         tipoCad = tipoCad.substring(0, tipoCad.length() - 1);
-        //////////////////////
         //traer todos los registros de modalidad
         List<Modalidad> modalidads;
         String modalidadCad = "";
@@ -132,11 +123,11 @@ public class ProyectoPreditcServiceImpl implements ProyectoPredictService {
             System.out.println(fa.getFacultad());
         }
         facultadCad = facultadCad.substring(0, facultadCad.length() - 1);
-        //////////////////////////
-        Proyecto dataProyecto = new Proyecto();
 
-        //List<Proyecto> lDataProyecto = proyectoRepository.findByFacultadIdAndProyectoModalidadId(facultad, modalidad);
+        Proyecto dataProyecto = new Proyecto();
+        //Recuperar todos los proyectos
         List<Proyecto> lDataProyecto = proyectoRepository.findAll();
+        //Construir la informacion que va ir en el archivo ARFF
         String info = "";
         for (Proyecto p : lDataProyecto) {
             info += "'";
@@ -156,14 +147,12 @@ public class ProyectoPreditcServiceImpl implements ProyectoPredictService {
             info += "'";
             info += "\n";
         }
-        //Declaring reference of File class
+        //Declarando un archivo
         File file = null;
-
-        //Declaring reference of FileWriter class
         FileWriter filewriter = null;
+        //Construyendo la Data del archivo ARFF
         String data =
             "@relation Proyectos\n" +
-            //"@attribute programa {"+//'Ingenieria de Sistemas','Tecnologia en Gestion Empresarial y de la innovacion','Administracion de Empresas','Desarrollo de Software','Tecnologia en Saneamiento Ambiental'}" +
             "@attribute programa {" +
             programaCad +
             "}" +
@@ -185,14 +174,13 @@ public class ProyectoPreditcServiceImpl implements ProyectoPredictService {
             info;
         try {
             file = new File("wkfile.arff");
-            //Creating Object of FileWriter class
             filewriter = new FileWriter(file);
-            //Writing to the file
+            //Escribiendo en el archivo
             filewriter.write(data);
-            //Closing the stream
+            //Cerrando el stream
             filewriter.close();
             System.out.println("File writing done.");
-        } catch (Exception e) { //Handing Exception
+        } catch (Exception e) { //Manejo de Exception
             e.printStackTrace();
         } finally {
             try {
@@ -203,18 +191,20 @@ public class ProyectoPreditcServiceImpl implements ProyectoPredictService {
                 e.printStackTrace();
             }
         }
-        // Dataset path //
+        //Abriendo el archivo creado
         String proyectoNominalDataset = "wkfile.arff";
-
-        // Create bufferedreader to read the dataset //
+        // Creando bufferedreader para leer el dataset
         BufferedReader bufferedReader = new BufferedReader(new FileReader(proyectoNominalDataset));
-        // Create dataset instances //
+        // Crargando las instancias del archivo ARFF
         Instances datasetInstances = new Instances(bufferedReader);
+        //Si el tipo del parámetro es 0 se calculan las predicciones con el metodo naive bayes
         if (tipo == 0) {
             estadisticas = addStatistisNaiveBayes(datasetInstances, tipos.size(), programas);
-        } else {
+        }//Si el tipo del parámetro es 1 se calculan las predicciones con el metodo J48
+        else {
             estadisticas = addStatistisJ48(datasetInstances, tipos.size(), programas);
         }
+        //devuelve las estadísticas calculadas
         return estadisticas;
     }
 

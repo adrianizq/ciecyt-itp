@@ -1,9 +1,6 @@
 package co.edu.itp.ciecyt.web.rest;
 
 import co.edu.itp.ciecyt.service.ProyectoPredictService;
-import io.github.jhipster.web.util.ResponseUtil;
-import java.util.List;
-import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * REST controller for managing {@link co.edu.itp.ciecyt.domain.Proyecto}.
@@ -38,7 +37,6 @@ public class ProyectoPredictResource {
     public ResponseEntity<?> getPredictProyecto(@PathVariable Long tipo) throws Exception {
         log.debug("REST request to get Proyecto : {}");
         try {
-            //Optional<String> estadisticas = proyectoPredictService.predicePlay(facultad,modalidad);
             List<String> estadisticas = proyectoPredictService.predicePlay(tipo);
             return new ResponseEntity<>(estadisticas, HttpStatus.OK);
         } catch (Exception e) {
