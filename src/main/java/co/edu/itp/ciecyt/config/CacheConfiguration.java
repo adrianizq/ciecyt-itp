@@ -95,6 +95,7 @@ public class CacheConfiguration {
             createCache(cm, co.edu.itp.ciecyt.domain.PreguntaAuthority.class.getName());
             createCache(cm, co.edu.itp.ciecyt.domain.ElementoModalidad.class.getName());
             createCache(cm, co.edu.itp.ciecyt.domain.AdjuntoRetroalimentacion.class.getName());
+            createCache(cm, co.edu.itp.ciecyt.domain.Municipio.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }
