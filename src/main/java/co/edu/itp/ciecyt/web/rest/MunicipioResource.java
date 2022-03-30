@@ -97,6 +97,24 @@ public class MunicipioResource {
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
+    ///////////////////7777
+    @GetMapping("/municipios-no-page")
+    public  ResponseEntity<?>  getAllMunicipioNoPage() throws Exception {
+        log.debug("REST request to get a page of Municipio");
+
+
+        try {
+            List<MunicipioDTO> mDTOS = municipioService.findAllNoPage();
+
+            ResponseEntity<MunicipioDTO> responseEntity = new ResponseEntity(mDTOS, HttpStatus.OK);
+            return responseEntity;
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
+
+    /////////////////////77
+
     /**
      * {@code GET  /municipios/:id} : get the "id" municipio.
      *

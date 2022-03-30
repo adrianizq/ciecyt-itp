@@ -5,6 +5,7 @@ import co.edu.itp.ciecyt.service.dto.MunicipioDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -27,6 +28,8 @@ public interface MunicipioService {
      * @return the list of entities.
      */
     Page<MunicipioDTO> findAll(Pageable pageable);
+
+    List<MunicipioDTO> findAllNoPage() throws Exception;
 
 
     /**

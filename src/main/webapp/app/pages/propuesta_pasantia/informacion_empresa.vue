@@ -654,6 +654,8 @@ import AlertService from '@/shared/alert/alert.service';
 import MenuLateralPasantia from '@/components/propuesta_pasantia/menu_lateral_pasantia.vue';
 import InformacionPasantiaService from '@/entities/informacion-pasantia/informacion-pasantia.service';
 import { IInformacionPasantia, InformacionPasantia } from '@/shared/model/informacion-pasantia.model';
+import { IMunicipio, Municipio } from '@/shared/model/municipio.model';
+import MunicipioService from '@/entities/municipio/municipio.service';
 
 import { numeric, required, minLength, maxLength, between, url, email, alpha, helpers } from 'vuelidate/lib/validators';
 const alphaAndSpaceValidator = helpers.regex('alphaAndSpace', /^[A-Za-z\u00C0-\u017F- ]+$/i);
@@ -695,6 +697,7 @@ const validations: any = {
 })
 export default class PasantiaInformacionEmpresa extends Vue {
   @Inject('informacionPasantiaService') private informacionPasantiaService: () => InformacionPasantiaService;
+  @Inject('municipioService') private municipioService: () => MunicipioService;
 
   @Inject('alertService') private alertService: () => AlertService;
 
@@ -716,10 +719,10 @@ export default class PasantiaInformacionEmpresa extends Vue {
   async mounted() {
     this.proyId = this.$route.params.proyectoId;
     await this.retrieveInformacionPasantia();
-    this.readJson('../content/json/xdk5-pm3f.json');
-  }
+    //this.readJson('../content/json/xdk5-pm3f.json');
+  
 
-  readJson(filePath) {
+  /*readJson(filePath) {
     var request = new XMLHttpRequest();
     request.open('GET', filePath, false);
     request.send(null);
@@ -729,6 +732,17 @@ export default class PasantiaInformacionEmpresa extends Vue {
       this.departamentosEmpresa.push(element.departamento);
     });
     this.departamentosEmpresa.sort();
+  }*/
+ await this.municipioService()
+      .retrieveNoPage()
+      .then(res => {
+        this.departamentosMunicipios = res.data;
+        this.departamentosMunicipios.forEach(element => {
+      if (this.departamentosEmpresa.some(e => e == element.departamento)) return;
+      this.departamentosEmpresa.push(element.departamento);
+    });
+    this.departamentosEmpresa.sort();
+      });
   }
 
   retrieveInformacionPasantia() {

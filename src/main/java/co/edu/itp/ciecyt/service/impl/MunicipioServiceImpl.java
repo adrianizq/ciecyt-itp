@@ -13,6 +13,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -47,6 +49,17 @@ public class MunicipioServiceImpl implements MunicipioService {
         log.debug("Request to get all Municipios");
         return municipioRepository.findAll(pageable)
             .map(municipioMapper::toDto);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<MunicipioDTO> findAllNoPage() throws Exception {
+       List<MunicipioDTO> listDto = new ArrayList<>();
+        List<Municipio> list = municipioRepository.findAll();
+        for (Municipio menu : list) {
+            listDto.add( municipioMapper.toDto(menu));
+        }
+        return listDto;
     }
 
 
