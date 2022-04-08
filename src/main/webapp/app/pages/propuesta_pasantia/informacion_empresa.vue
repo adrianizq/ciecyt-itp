@@ -718,6 +718,19 @@ export default class PasantiaInformacionEmpresa extends Vue {
 
   async mounted() {
     this.proyId = this.$route.params.proyectoId;
+    
+    await this.municipioService()
+      .retrieveNoPage()
+      .then(res => {
+        this.departamentosMunicipios = res.data;
+        this.departamentosMunicipios.forEach(element => {
+      if (this.departamentosEmpresa.some(e => e == element.departamento)) return;
+      this.departamentosEmpresa.push(element.departamento);
+    });
+    this.departamentosEmpresa.sort();
+      });
+  }
+
     await this.retrieveInformacionPasantia();
     //this.readJson('../content/json/xdk5-pm3f.json');
   
@@ -733,18 +746,7 @@ export default class PasantiaInformacionEmpresa extends Vue {
     });
     this.departamentosEmpresa.sort();
   }*/
- this.municipioService()
-      .retrieveNoPage()
-      .then(res => {
-        this.departamentosMunicipios = res.data;
-        this.departamentosMunicipios.forEach(element => {
-      if (this.departamentosEmpresa.some(e => e == element.departamento)) return;
-      this.departamentosEmpresa.push(element.departamento);
-    });
-    this.departamentosEmpresa.sort();
-      });
-  }
-
+ 
   retrieveInformacionPasantia() {
      this.isFetching = true;
     this.informacionPasantiaService()
