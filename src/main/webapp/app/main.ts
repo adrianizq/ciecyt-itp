@@ -39,6 +39,7 @@ import FacultadService from '@/entities/facultad/facultad.service';
 import ModalidadService from '@/entities/modalidad/modalidad.service';
 import AcuerdoService from '@/entities/acuerdo/acuerdo.service';
 import MunicipioService from '@/entities/municipio/municipio.service';
+import DepartamentoService from '@/entities/departamento/departamento.service';
 import CicloPropedeuticoService from '@/entities/ciclo-propedeutico/ciclo-propedeutico.service';
 import ResultadosEsperadosService from '@/entities/resultados-esperados/resultados-esperados.service';
 import ProductoService from '@/entities/producto/producto.service';
@@ -150,6 +151,7 @@ new Vue({
     modalidadService: () => new ModalidadService(),
     acuerdoService: () => new AcuerdoService(),
     municipioService: () => new MunicipioService(),
+    departamentoService: () => new DepartamentoService(),
     cicloPropedeuticoService: () => new CicloPropedeuticoService(),
     resultadosEsperadosService: () => new ResultadosEsperadosService(),
     productoService: () => new ProductoService(),
