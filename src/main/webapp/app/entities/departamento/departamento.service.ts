@@ -15,14 +15,21 @@ export default class DepartamentoService {
     });
   }
 
-  public retrieve(paginationQuery?: any): Promise<any> {
+  /*public retrieve(paginationQuery?: any): Promise<any> {
     return new Promise<any>(resolve => {
       axios.get(baseApiUrl + `?${buildPaginationQueryOpts(paginationQuery)}`).then(function (res) {
         resolve(res);
       });
     });
-  }
+  }*/
 
+  public retrieve(): Promise<any> {
+    return new Promise<any>(resolve => {
+      axios.get(baseApiUrl).then(function (res) {
+        resolve(res);
+      });
+    });
+  }
   public delete(id: number): Promise<any> {
     return new Promise<any>(resolve => {
       axios.delete(`${baseApiUrl}/${id}`).then(function (res) {

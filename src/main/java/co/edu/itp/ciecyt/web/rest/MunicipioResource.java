@@ -113,6 +113,24 @@ public class MunicipioResource {
         }
     }
 
+
+
+    ///////////////////7777
+    @GetMapping("/municipios-departamento/{codDpto}")
+    public  ResponseEntity<?>  getMunicipioDpto(@PathVariable String codDpto) throws Exception {
+        log.debug("REST request to get a page of Municipio");
+
+
+        try {
+            List<MunicipioDTO> mDTOS = municipioService.findByCodigoDaneDepartamento(codDpto);
+
+            ResponseEntity<MunicipioDTO> responseEntity = new ResponseEntity(mDTOS, HttpStatus.OK);
+            return responseEntity;
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
+
     /////////////////////77
 
     /**

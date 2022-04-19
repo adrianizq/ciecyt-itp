@@ -31,6 +31,9 @@ public interface MunicipioService {
 
     List<MunicipioDTO> findAllNoPage() throws Exception;
 
+    List<MunicipioDTO> findByCodigoDaneDepartamento(String codDaneDpto) throws Exception;
+
+
 
     /**
      * Get the "id" municipio.

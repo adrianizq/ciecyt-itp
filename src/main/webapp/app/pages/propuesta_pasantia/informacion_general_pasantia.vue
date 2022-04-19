@@ -214,9 +214,9 @@
               <label class="form-control-label " for="proyecto-facultad">Departamento</label>
               <b-form-select
                 :options="departamentos"
-                text-field="facultad"
-                value-field="id"
-                id="facultad"
+                text-field="departamento"
+                value-field="codigoDane"
+                id="departamento"
                 v-model="proyecto.departamento"
                 @input="setMunicipios"
               >
@@ -229,7 +229,12 @@
           
             <div class="form-group">
               <label class="form-control-label " for="proyecto-facultad">Municipio</label>
-              <b-form-select :options="municipios" text-field="facultad" value-field="id" id="facultad" v-model="proyecto.municipio">
+              <b-form-select 
+              :options="municipios" 
+              text-field="municipio" 
+              value-field="codigoDaneMunicipio" 
+              id="municipio" 
+              v-model="proyecto.municipio">
               </b-form-select>
             </div>
           
@@ -308,6 +313,13 @@ import UsuarioService from '@/entities/usuario/usuario.service';
 import { IUsuario } from '@/shared/model/usuario.model';
 import { IUser } from '@/shared/model/user.model';
 //ADR
+
+import { IMunicipio, Municipio } from '@/shared/model/municipio.model';
+import MunicipioService from '@/entities/municipio/municipio.service';
+
+import { IDepartamento, Departamento } from '@/shared/model/departamento.model';
+import DepartamentoService from '@/entities/departamento/departamento.service';
+
 import { IProyecto, Proyecto } from '@/shared/model/proyecto.model';
 import ProyectoService from '@/entities/proyecto/proyecto.service';
 
@@ -347,7 +359,8 @@ export default class PasantiaInformacionGeneral extends Vue {
   @Inject('proyectoService') private proyectoService: () => ProyectoService;
   @Inject('investigacionTipoService') private investigacionTipoService: () => InvestigacionTipoService;
    @Inject('programaService') private programaService: () => ProgramaService;
-
+  @Inject('municipioService') private municipioService: () => MunicipioService;
+  @Inject('departamentoService') private departamentoService: () => DepartamentoService;
   @Inject('alertService') private alertService: () => AlertService;
 
   public modalidads: IModalidad[] = [];
@@ -386,22 +399,6 @@ export default class PasantiaInformacionGeneral extends Vue {
     });
   }
 
-  public mounted(): void {
-    this.readJson('../content/json/xdk5-pm3f.json');
-  }
-
-  readJson(filePath) {
-    var request = new XMLHttpRequest();
-    request.open('GET', filePath, false);
-    request.send(null);
-    this.departamentosMunicipios = JSON.parse(request.responseText);
-    this.departamentosMunicipios.forEach(element => {
-      if (this.departamentos.some(e => e == element.departamento)) return;
-      this.departamentos.push(element.departamento);
-    });
-    this.departamentos.sort();
-    //console.log (this.departamentos);
-  }
 
   public save(): void {
     this.isSaving = true;
@@ -474,6 +471,21 @@ export default class PasantiaInformacionGeneral extends Vue {
 
   initRelationships() {
     this.proyId = this.$route.params.proyectoId;
+
+this.departamentoService()
+      .retrieve()
+      .then(res => {
+        this.departamentos = res.data;
+        this.departamentos.sort((d) => d.departamento);
+          this.departamentos = this.departamentos.sort((a,b) => {
+			    let fa = a.departamento.toLowerCase(), fb = b.departamento.toLowerCase();
+			    if (fa < fb) {return -1}
+			    if (fa > fb) {return 1}
+			    return 0
+		    })
+      });
+  
+
 
     this.modalidadService()
       .retrieve()
@@ -552,16 +564,24 @@ export default class PasantiaInformacionGeneral extends Vue {
     this.submitStatus = 'ERROR';
   }
 
-  setMunicipios(value) {
-    this.municipios = [];
-    let munic = this.departamentosMunicipios.filter(function(e) {
-      return e.departamento == value;
-    });
-    munic.forEach(element => {
-      this.municipios.push(element.municipio);
-    });
-    this.municipios.sort();
+  
+    setMunicipios(value) {
+     this.municipios = [];
+     this.municipioService()
+      .retrieveMunicipiosPorDepartamento(value)
+      .then(res => {
+        this.municipios=res.data;
+        this.municipios = this.municipios.sort((a,b) => {
+			  let fa = a.municipio.toLowerCase(), fb = b.municipio.toLowerCase();
+			  if (fa < fb) {return -1}
+			  if (fa > fb) {return 1}
+			  return 0
+		    })
+     });
+
+    
   }
+
 }
 </script>
 

@@ -31,6 +31,14 @@ export default class MunicipioService {
     });
   }
 
+  public retrieveMunicipiosPorDepartamento(cod: any): Promise<any> {
+    return new Promise<any>(resolve => {
+      axios.get('api/municipios-departamento' + `/${cod}`).then(function (res) {
+        resolve(res);
+      });
+    });
+  }
+
   public delete(id: number): Promise<any> {
     return new Promise<any>(resolve => {
       axios.delete(`${baseApiUrl}/${id}`).then(function (res) {

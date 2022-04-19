@@ -330,12 +330,12 @@
             <!--/DEPARTAMENTO//////////////////////////////////////7 ///////////////////7-->
             <div class="col-md-6 col-12">
               <div class="form-group">
-                <label class="form-control-label " for="proyecto-facultad">Departamento de la empresa</label>
+                <label class="form-control-label " for="informacion-empresa-departamento">Departamento de la empresa</label>
                 <b-form-select
-                  :options="departamentosEmpresa"
-                  text-field="facultad"
-                  value-field="id"
-                  id="facultad"
+                  :options="departamentos"
+                  text-field="departamento"
+                  value-field="codigoDane"
+                  id="departamento"
                   v-model="informacionPasantia.departamentoEmpresa"
                   @input="setMunicipios"
                   :class="{
@@ -355,9 +355,9 @@
                 <label class="form-control-label " for="proyecto-facultad">Municipio de la Empresa</label>
                 <b-form-select
                   :options="municipiosEmpresa"
-                  text-field="facultad"
-                  value-field="id"
-                  id="facultad"
+                  text-field="municipio"
+                  value-field="codigoDaneMunicipio"
+                  id="municipio"
                   v-model="informacionPasantia.municipioEmpresa"
                   :class="{
                     'is-invalid': $v.informacionPasantia.municipioEmpresa.$error,
@@ -657,6 +657,9 @@ import { IInformacionPasantia, InformacionPasantia } from '@/shared/model/inform
 import { IMunicipio, Municipio } from '@/shared/model/municipio.model';
 import MunicipioService from '@/entities/municipio/municipio.service';
 
+import { IDepartamento, Departamento } from '@/shared/model/departamento.model';
+import DepartamentoService from '@/entities/departamento/departamento.service';
+
 import { numeric, required, minLength, maxLength, between, url, email, alpha, helpers } from 'vuelidate/lib/validators';
 const alphaAndSpaceValidator = helpers.regex('alphaAndSpace', /^[A-Za-z\u00C0-\u017F- ]+$/i);
 const digitsQuoteAndDotValidator = helpers.regex('digitsQuoteAndDot', /^[0-9\/.//'/]+$/i);
@@ -698,6 +701,7 @@ const validations: any = {
 export default class PasantiaInformacionEmpresa extends Vue {
   @Inject('informacionPasantiaService') private informacionPasantiaService: () => InformacionPasantiaService;
   @Inject('municipioService') private municipioService: () => MunicipioService;
+  @Inject('departamentoService') private departamentoService: () => DepartamentoService;
 
   @Inject('alertService') private alertService: () => AlertService;
 
@@ -712,7 +716,7 @@ export default class PasantiaInformacionEmpresa extends Vue {
   public iniciandoDireccion: boolean = true;
 
   public departamentosMunicipios: any;
-  public departamentosEmpresa = [];
+  public departamentos = [];
   public municipiosEmpresa = [];
    public isFetching = false;
 
@@ -735,24 +739,14 @@ export default class PasantiaInformacionEmpresa extends Vue {
       );
   }
 
-  /*beforeRouteEnter(to, from, next) {
+   beforeRouteEnter(to, from, next) {
     next(vm => {
       if (to.params.proyectoId) {
-        this.proyId = this.$route.params.proyectoId;
+        vm.retrieveInformacionPasantia(to.params.proyectoId);
       }
       vm.initRelationships();
     });
-  }*/
-  beforeRouteEnter(to, from, next) {
-    next(vm => {
-      if (to.params.elementoId) {
-        this.proyId = this.$route.params.proyectoId;
-      }
-      vm.initRelationships(to.params.elementoId);
-     
-    });
   }
-
   public save(): void {
     this.isSaving = true;
 
@@ -795,31 +789,41 @@ export default class PasantiaInformacionEmpresa extends Vue {
     }
   }
 
- async initRelationships() {
-   console.log("Iniciando initRelationships")
-   let res = await this.municipioService()
-      .retrieveNoPage()
+ initRelationships() {
+
+    this.proyId = this.$route.params.proyectoId;
+ 
+    this.departamentoService()
+      .retrieve()
       .then(res => {
-        this.departamentosMunicipios = res.data;
-        this.departamentosMunicipios.forEach(element => {
-      if (this.departamentosEmpresa.some(e => e == element.departamento)) return;
-      this.departamentosEmpresa.push(element.departamento);
-    });
-    this.departamentosEmpresa.sort();
+        this.departamentos = res.data;
+        this.departamentos.sort((d) => d.departamento);
+          this.departamentos = this.departamentos.sort((a,b) => {
+			    let fa = a.departamento.toLowerCase(), fb = b.departamento.toLowerCase();
+			    if (fa < fb) {return -1}
+			    if (fa > fb) {return 1}
+			    return 0
+		    })
       });
-
-   res = await this.retrieveInformacionPasantia();  
-
+  
+ 
   }
   setMunicipios(value) {
-    this.municipiosEmpresa = [];
-    let munic = this.departamentosMunicipios.filter(function(e) {
-      return e.departamento == value;
-    });
-    munic.forEach(element => {
-      this.municipiosEmpresa.push(element.municipio);
-    });
-    this.municipiosEmpresa.sort();
+    console.log(value);
+   this.municipiosEmpresa = [];
+    this.municipioService()
+      .retrieveMunicipiosPorDepartamento(value)
+      .then(res => {
+        this.municipiosEmpresa=res.data;
+        this.municipiosEmpresa = this.municipiosEmpresa.sort((a,b) => {
+			  let fa = a.municipio.toLowerCase(), fb = b.municipio.toLowerCase();
+			  if (fa < fb) {return -1}
+			  if (fa > fb) {return 1}
+			  return 0
+		    })
+     });
+
+    
   }
 }
 </script>

@@ -65,6 +65,17 @@ public class MunicipioServiceImpl implements MunicipioService {
 
     @Override
     @Transactional(readOnly = true)
+    public List<MunicipioDTO> findByCodigoDaneDepartamento(String codDaneDpto) throws Exception {
+        List<MunicipioDTO> listDto = new ArrayList<>();
+        List<Municipio> list = municipioRepository.findByCodigoDaneDepartamento(codDaneDpto);
+        for (Municipio menu : list) {
+            listDto.add( municipioMapper.toDto(menu));
+        }
+        return listDto;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public Optional<MunicipioDTO> findOne(Long id) {
         log.debug("Request to get Municipio : {}", id);
         return municipioRepository.findById(id)
