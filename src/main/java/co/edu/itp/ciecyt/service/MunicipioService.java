@@ -1,18 +1,15 @@
 package co.edu.itp.ciecyt.service;
 
 import co.edu.itp.ciecyt.service.dto.MunicipioDTO;
-
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-
 import java.util.List;
 import java.util.Optional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 /**
  * Service Interface for managing {@link co.edu.itp.ciecyt.domain.Municipio}.
  */
 public interface MunicipioService {
-
     /**
      * Save a municipio.
      *
@@ -33,7 +30,7 @@ public interface MunicipioService {
 
     List<MunicipioDTO> findByCodigoDaneDepartamento(String codDaneDpto) throws Exception;
 
-
+    List<MunicipioDTO> findByDepartamento(String departamento) throws Exception;
 
     /**
      * Get the "id" municipio.

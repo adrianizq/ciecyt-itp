@@ -334,7 +334,7 @@
                 <b-form-select
                   :options="departamentos"
                   text-field="departamento"
-                  value-field="codigoDane"
+                  value-field="departamento"
                   id="departamento"
                   v-model="informacionPasantia.departamentoEmpresa"
                   @input="setMunicipios"

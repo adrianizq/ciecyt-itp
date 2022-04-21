@@ -15,4 +15,5 @@ import java.util.List;
 public interface MunicipioRepository extends JpaRepository<Municipio, Long> {
     public List<Municipio> findAll();
     public List<Municipio> findByCodigoDaneDepartamento(String codDaneDpto);
+    public List<Municipio> findByDepartamento(String departamento);
 }

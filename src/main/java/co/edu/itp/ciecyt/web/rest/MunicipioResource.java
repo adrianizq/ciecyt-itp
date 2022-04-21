@@ -1,12 +1,15 @@
 package co.edu.itp.ciecyt.web.rest;
 
 import co.edu.itp.ciecyt.service.MunicipioService;
-import co.edu.itp.ciecyt.web.rest.errors.BadRequestAlertException;
 import co.edu.itp.ciecyt.service.dto.MunicipioDTO;
-
+import co.edu.itp.ciecyt.web.rest.errors.BadRequestAlertException;
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,14 +17,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.List;
-import java.util.Optional;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 /**
  * REST controller for managing {@link co.edu.itp.ciecyt.domain.Municipio}.
@@ -57,7 +55,8 @@ public class MunicipioResource {
             throw new BadRequestAlertException("A new municipio cannot already have an ID", ENTITY_NAME, "idexists");
         }
         MunicipioDTO result = municipioService.save(municipioDTO);
-        return ResponseEntity.created(new URI("/api/municipios/" + result.getId()))
+        return ResponseEntity
+            .created(new URI("/api/municipios/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
     }
@@ -78,7 +77,8 @@ public class MunicipioResource {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         MunicipioDTO result = municipioService.save(municipioDTO);
-        return ResponseEntity.ok()
+        return ResponseEntity
+            .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, municipioDTO.getId().toString()))
             .body(result);
     }
@@ -99,9 +99,8 @@ public class MunicipioResource {
 
     ///////////////////7777
     @GetMapping("/municipios-no-page")
-    public  ResponseEntity<?>  getAllMunicipioNoPage() throws Exception {
+    public ResponseEntity<?> getAllMunicipioNoPage() throws Exception {
         log.debug("REST request to get a page of Municipio");
-
 
         try {
             List<MunicipioDTO> mDTOS = municipioService.findAllNoPage();
@@ -113,16 +112,16 @@ public class MunicipioResource {
         }
     }
 
-
+    ///////////////////7777
+    /////////////////////77
 
     ///////////////////7777
-    @GetMapping("/municipios-departamento/{codDpto}")
-    public  ResponseEntity<?>  getMunicipioDpto(@PathVariable String codDpto) throws Exception {
+    @GetMapping("/municipios-departamento/{departamento}")
+    public ResponseEntity<?> getMunicipioDpto(@PathVariable String departamento) throws Exception {
         log.debug("REST request to get a page of Municipio");
 
-
         try {
-            List<MunicipioDTO> mDTOS = municipioService.findByCodigoDaneDepartamento(codDpto);
+            List<MunicipioDTO> mDTOS = municipioService.findByDepartamento(departamento);
 
             ResponseEntity<MunicipioDTO> responseEntity = new ResponseEntity(mDTOS, HttpStatus.OK);
             return responseEntity;
@@ -156,6 +155,9 @@ public class MunicipioResource {
     public ResponseEntity<Void> deleteMunicipio(@PathVariable Long id) {
         log.debug("REST request to delete Municipio : {}", id);
         municipioService.delete(id);
-        return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+        return ResponseEntity
+            .noContent()
+            .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
+            .build();
     }
 }
