@@ -211,7 +211,7 @@
          <!--/DEPARTAMENTO//////////////////////////////////////7 ///////////////////7-->
           
             <div class="form-group">
-              <label class="form-control-label " for="proyecto-facultad">Departamento</label>
+              <label class="form-control-label " for="proyecto-departamento">Departamento</label>
               <b-form-select
                 :options="departamentos"
                 text-field="departamento"
@@ -232,7 +232,7 @@
               <b-form-select 
               :options="municipios" 
               text-field="municipio" 
-              value-field="codigoDaneMunicipio" 
+              value-field="municipio" 
               id="municipio" 
               v-model="proyecto.municipio">
               </b-form-select>

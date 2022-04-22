@@ -1,6 +1,7 @@
 package co.edu.itp.ciecyt.web.rest;
 
 import co.edu.itp.ciecyt.service.DepartamentoService;
+import co.edu.itp.ciecyt.service.dto.MunicipioDTO;
 import co.edu.itp.ciecyt.web.rest.errors.BadRequestAlertException;
 import co.edu.itp.ciecyt.service.dto.DepartamentoDTO;
 
@@ -9,6 +10,7 @@ import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -82,12 +84,28 @@ public class DepartamentoResource {
      *
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of departamentos in body.
      */
+    /*
     @GetMapping("/departamentos")
     public List<DepartamentoDTO> getAllDepartamentos() {
         log.debug("REST request to get all Departamentos");
         return departamentoService.findAll();
     }
+*/
 
+    ///////////////////7777
+    @GetMapping("/departamentos")
+    public ResponseEntity<?> getAllDepartamentos() throws Exception {
+        log.debug("REST request to get a page of Departamento");
+
+        try {
+            List<DepartamentoDTO> mDTOS = departamentoService.findAll();
+
+            ResponseEntity<DepartamentoDTO> responseEntity = new ResponseEntity(mDTOS, HttpStatus.OK);
+            return responseEntity;
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
     /**
      * {@code GET  /departamentos/:id} : get the "id" departamento.
      *

@@ -1,9 +1,11 @@
 package co.edu.itp.ciecyt.service.impl;
 
+import co.edu.itp.ciecyt.domain.Municipio;
 import co.edu.itp.ciecyt.service.DepartamentoService;
 import co.edu.itp.ciecyt.domain.Departamento;
 import co.edu.itp.ciecyt.repository.DepartamentoRepository;
 import co.edu.itp.ciecyt.service.dto.DepartamentoDTO;
+import co.edu.itp.ciecyt.service.dto.MunicipioDTO;
 import co.edu.itp.ciecyt.service.mapper.DepartamentoMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -42,13 +45,24 @@ public class DepartamentoServiceImpl implements DepartamentoService {
         return departamentoMapper.toDto(departamento);
     }
 
-    @Override
+    /*@Override
     @Transactional(readOnly = true)
     public List<DepartamentoDTO> findAll() {
         log.debug("Request to get all Departamentos");
         return departamentoRepository.findAll().stream()
             .map(departamentoMapper::toDto)
             .collect(Collectors.toCollection(LinkedList::new));
+    }*/
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<DepartamentoDTO> findAll()  {
+        List<DepartamentoDTO> listDto = new ArrayList<>();
+        List<Departamento> list = departamentoRepository.findAll();
+        for (Departamento departamento : list) {
+            listDto.add(departamentoMapper.toDto(departamento));
+        }
+        return listDto;
     }
 
 
