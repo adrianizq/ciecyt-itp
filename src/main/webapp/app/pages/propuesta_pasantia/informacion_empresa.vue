@@ -356,7 +356,7 @@
                 <b-form-select
                   :options="municipiosEmpresa"
                   text-field="municipio"
-                  value-field="codigoDaneMunicipio"
+                  value-field="municipio"
                   id="municipio"
                   v-model="informacionPasantia.municipioEmpresa"
                   :class="{
