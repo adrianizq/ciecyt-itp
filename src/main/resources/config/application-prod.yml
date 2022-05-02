@@ -48,10 +48,17 @@ spring:
   liquibase:
     contexts: prod
   mail:
-    host: localhost
-    port: 25
-    username:
-    password:
+    host: smtp.gmail.com
+    port: 587
+    from: Ciecyt ITP<noreply@itp.edu.co>
+    username: noreply@itp.edu.co
+    password: R!M^rIDd5ePDBM9PQvs*kQXo9v52g*ugoQN2
+    protocol: smtp
+    tls: true
+    properties.mail.smtp:
+        auth: true
+        starttls.enable: true
+        #ssl.trust: email-smtp.us-east-1.amazonaws.com
   thymeleaf:
     cache: true
 
@@ -107,18 +114,9 @@ jhipster:
         # Token is valid 24 hours
         token-validity-in-seconds: 86400
         token-validity-in-seconds-for-remember-me: 2592000
-    mail:
-      host: smtp.gmail.com
-      port: 587
-      from: Ciecyt ITP<noreply@itp.edu.co>
-      username: noreply@itp.edu.co
-      password: R!M^rIDd5ePDBM9PQvs*kQXo9v52g*ugoQN2
-      protocol: smtp
-      tls: true
-      properties.mail.smtp:
-        auth: true
-        starttls.enable: true
-        #ssl.trust: email-smtp.us-east-1.amazonaws.com
+  mail: # specific JHipster mail property, for standard properties see MailProperties
+    from: Ciecyt ITP<noreply@itp.edu.co>
+    base-url: http://ciecyt.itp.edu.co # Modify according to your server's URL
   metrics:
     logs: # Reports metrics in the logs
       enabled: false

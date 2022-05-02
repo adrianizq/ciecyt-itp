@@ -68,15 +68,16 @@ spring:
   liquibase:
     # Remove 'faker' if you do not want the sample data to be loaded automatically
     contexts: dev, faker
-    mail:
-      host: smtp.gmail.com
-      port: 587
-      from: Ciecyt ITP<noreply@itp.edu.co>
-      username: noreply@itp.edu.co
-      password: R!M^rIDd5ePDBM9PQvs*kQXo9v52g*ugoQN2
-      protocol: smtp
-      tls: true
-      properties.mail.smtp:
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    from: Ciecyt ITP<noreply@itp.edu.co>
+    username: noreply@itp.edu.co
+    password: R!M^rIDd5ePDBM9PQvs*kQXo9v52g*ugoQN2
+    protocol: smtp
+    tls: true
+    properties.mail.smtp:
         auth: true
         starttls.enable: true
         #ssl.trust: email-smtp.us-east-1.amazonaws.com
@@ -121,7 +122,8 @@ jhipster:
         token-validity-in-seconds: 86400
         token-validity-in-seconds-for-remember-me: 2592000
   mail: # specific JHipster mail property, for standard properties see MailProperties
-    base-url: http://127.0.0.1:8080
+    from: Ciecyt ITP<noreply@itp.edu.co>
+    base-url: http://ciecyt.itp.edu.co # Modify according to your server's URL
   metrics:
     logs: # Reports metrics in the logs
       enabled: false
