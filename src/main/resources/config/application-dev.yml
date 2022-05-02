@@ -72,15 +72,15 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    from: Ciecyt ITP<noreply@itp.edu.co>
+    #from: Ciecyt ITP<noreply@itp.edu.co>
     username: noreply@itp.edu.co
     password: R!M^rIDd5ePDBM9PQvs*kQXo9v52g*ugoQN2
     protocol: smtp
     tls: true
     properties.mail.smtp:
-        auth: true
-        starttls.enable: true
-        #ssl.trust: email-smtp.us-east-1.amazonaws.com
+      auth: true
+      starttls.enable: true
+      ssl.trust: smtp.gmail.com
   messages:
     cache-duration: PT1S # 1 second, see the ISO 8601 standard
   thymeleaf:
