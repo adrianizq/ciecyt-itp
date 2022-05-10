@@ -1,23 +1,13 @@
 package co.edu.itp.ciecyt.service.impl;
 
 import co.edu.itp.ciecyt.config.ApplicationProperties;
-import co.edu.itp.ciecyt.service.AdjuntoRetroalimentacionService;
 import co.edu.itp.ciecyt.domain.AdjuntoRetroalimentacion;
 import co.edu.itp.ciecyt.repository.AdjuntoRetroalimentacionRepository;
+import co.edu.itp.ciecyt.service.AdjuntoRetroalimentacionService;
 import co.edu.itp.ciecyt.service.dto.AdjuntoRetroalimentacionDTO;
 import co.edu.itp.ciecyt.service.mapper.AdjuntoRetroalimentacionMapper;
 import co.edu.itp.ciecyt.service.util.FileUtils;
 import co.edu.itp.ciecyt.service.util.MimeTypes;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
@@ -27,6 +17,14 @@ import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Service Implementation for managing {@link AdjuntoRetroalimentacion}.
@@ -43,7 +41,11 @@ public class AdjuntoRetroalimentacionServiceImpl implements AdjuntoRetroalimenta
 
     private final ApplicationProperties appProperties;
 
-    public AdjuntoRetroalimentacionServiceImpl(AdjuntoRetroalimentacionRepository adjuntoRetroalimentacionRepository, AdjuntoRetroalimentacionMapper adjuntoRetroalimentacionMapper, ApplicationProperties appProperties) {
+    public AdjuntoRetroalimentacionServiceImpl(
+        AdjuntoRetroalimentacionRepository adjuntoRetroalimentacionRepository,
+        AdjuntoRetroalimentacionMapper adjuntoRetroalimentacionMapper,
+        ApplicationProperties appProperties
+    ) {
         this.adjuntoRetroalimentacionRepository = adjuntoRetroalimentacionRepository;
         this.adjuntoRetroalimentacionMapper = adjuntoRetroalimentacionMapper;
         this.appProperties = appProperties;
@@ -51,22 +53,21 @@ public class AdjuntoRetroalimentacionServiceImpl implements AdjuntoRetroalimenta
 
     @Override
     public AdjuntoRetroalimentacionDTO save(AdjuntoRetroalimentacionDTO adjuntoRetroalimentacionDTO) {
-       // log.debug("Request to save AdjuntoRetroalimentacion : {}", adjuntoRetroalimentacionDTO);
-       // AdjuntoRetroalimentacion adjuntoRetroalimentacion = adjuntoRetroalimentacionMapper.toEntity(adjuntoRetroalimentacionDTO);
-       // adjuntoRetroalimentacion = adjuntoRetroalimentacionRepository.save(adjuntoRetroalimentacion);
-       // return adjuntoRetroalimentacionMapper.toDto(adjuntoRetroalimentacion);
+        // log.debug("Request to save AdjuntoRetroalimentacion : {}", adjuntoRetroalimentacionDTO);
+        // AdjuntoRetroalimentacion adjuntoRetroalimentacion = adjuntoRetroalimentacionMapper.toEntity(adjuntoRetroalimentacionDTO);
+        // adjuntoRetroalimentacion = adjuntoRetroalimentacionRepository.save(adjuntoRetroalimentacion);
+        // return adjuntoRetroalimentacionMapper.toDto(adjuntoRetroalimentacion);
         log.debug("Request to save AdjuntoProyectoFase : {}", adjuntoRetroalimentacionDTO);
         AdjuntoRetroalimentacion adjuntoRetroalimentacion = adjuntoRetroalimentacionMapper.toEntity(adjuntoRetroalimentacionDTO);
         adjuntoRetroalimentacion = adjuntoRetroalimentacionRepository.save(adjuntoRetroalimentacion);
 
-
-        AdjuntoRetroalimentacionDTO dto  = adjuntoRetroalimentacionMapper.toDto(adjuntoRetroalimentacion);
+        AdjuntoRetroalimentacionDTO dto = adjuntoRetroalimentacionMapper.toDto(adjuntoRetroalimentacion);
 
         if (dto.getArchivo() != null) {
             String fileUrl = FileUtils.buildURLImage(
                 appProperties.getFilesPath(),
                 dto.getFile(),
-                appProperties.getUpload2().getFiles()
+                appProperties.getUpload().getFilesRetro()
             );
             dto.setUrlFile(fileUrl);
         }
@@ -77,17 +78,14 @@ public class AdjuntoRetroalimentacionServiceImpl implements AdjuntoRetroalimenta
     @Transactional(readOnly = true)
     public Page<AdjuntoRetroalimentacionDTO> findAll(Pageable pageable) {
         log.debug("Request to get all AdjuntoRetroalimentacions");
-        return adjuntoRetroalimentacionRepository.findAll(pageable)
-            .map(adjuntoRetroalimentacionMapper::toDto);
+        return adjuntoRetroalimentacionRepository.findAll(pageable).map(adjuntoRetroalimentacionMapper::toDto);
     }
-
 
     @Override
     @Transactional(readOnly = true)
     public Optional<AdjuntoRetroalimentacionDTO> findOne(Long id) {
         log.debug("Request to get AdjuntoRetroalimentacion : {}", id);
-        return adjuntoRetroalimentacionRepository.findById(id)
-            .map(adjuntoRetroalimentacionMapper::toDto);
+        return adjuntoRetroalimentacionRepository.findById(id).map(adjuntoRetroalimentacionMapper::toDto);
     }
 
     @Override
@@ -102,8 +100,8 @@ public class AdjuntoRetroalimentacionServiceImpl implements AdjuntoRetroalimenta
         //Guarda el archivo en el directorio asignado
         //File rootDir = new File("/home/jltovarg/test/dudo");
         try {
-            Path rootDir = Paths.get(appProperties.getUpload2().getRoot().getDir());
-            Path filesDir = rootDir.resolve(appProperties.getUpload2().getFiles().getDir());
+            Path rootDir = Paths.get(appProperties.getUpload().getRoot().getDir());
+            Path filesDir = rootDir.resolve(appProperties.getUpload().getFilesRetro().getDir());
             log.debug("Dir upload: {}, , filesDir: {}, mimetype: {}", rootDir, filesDir, contentType);
             String ext = MimeTypes.getDefaultExt(contentType);
             String nameFile = FileUtils.buildFileName(entity.getId(), ext);
@@ -122,36 +120,36 @@ public class AdjuntoRetroalimentacionServiceImpl implements AdjuntoRetroalimenta
     @Override
     public Resource loadFileAsResource(AdjuntoRetroalimentacionDTO dto) throws Exception {
         try {
-
-            Path rootDir = Paths.get(appProperties.getUpload2().getRoot().getDir());
-            Path filesDir = rootDir.resolve(appProperties.getUpload2().getFiles().getDir());
+            Path rootDir = Paths.get(appProperties.getUpload().getRoot().getDir());
+            Path filesDir = rootDir.resolve(appProperties.getUpload().getFilesRetro().getDir());
             log.debug("Dir upload: {}, , filesDir: {}, file: {}", rootDir, filesDir, dto.getFile());
 
             Path filePath = filesDir.resolve(dto.getFile()).normalize();
 
             Resource resource = new UrlResource(filePath.toUri());
 
-            if(resource.exists()) {
-
+            if (resource.exists()) {
                 return resource;
-
             } else {
-
                 throw new FileNotFoundException("File not found " + dto.getFile());
-
             }
-
         } catch (MalformedURLException ex) {
-
             throw new FileNotFoundException("File not found " + dto.getFile());
-
         }
-
     }
 
     @Override
-    public List<AdjuntoRetroalimentacionDTO> findByAdjuntoRetroalimentacionProyectoIdAndAdjuntoRetroalimentacionFaseIdAndAuthority(Long idProyecto, Long idFase, String authority) throws Exception {
-        List<AdjuntoRetroalimentacion> list = adjuntoRetroalimentacionRepository.findByAdjuntoRetroalimentacionProyectoIdAndAdjuntoRetroalimentacionFaseIdAndAuthority(idProyecto, idFase, authority);
+    public List<AdjuntoRetroalimentacionDTO> findByAdjuntoRetroalimentacionProyectoIdAndAdjuntoRetroalimentacionFaseIdAndAuthority(
+        Long idProyecto,
+        Long idFase,
+        String authority
+    )
+        throws Exception {
+        List<AdjuntoRetroalimentacion> list = adjuntoRetroalimentacionRepository.findByAdjuntoRetroalimentacionProyectoIdAndAdjuntoRetroalimentacionFaseIdAndAuthority(
+            idProyecto,
+            idFase,
+            authority
+        );
 
         List<AdjuntoRetroalimentacionDTO> listDTO = new ArrayList<>();
         for (AdjuntoRetroalimentacion adjunto : list) {
@@ -159,6 +157,4 @@ public class AdjuntoRetroalimentacionServiceImpl implements AdjuntoRetroalimenta
         }
         return listDTO;
     }
-
-
 }

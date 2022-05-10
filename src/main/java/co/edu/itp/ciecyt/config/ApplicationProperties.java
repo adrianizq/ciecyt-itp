@@ -14,8 +14,6 @@ public class ApplicationProperties {
 
     private final Upload upload = new Upload();
 
-    private final Upload upload2 = new Upload();
-
     private String filesPath;
 
     public String getFilesPath() {
@@ -30,17 +28,15 @@ public class ApplicationProperties {
         return this.upload;
     }
 
-    public Upload getUpload2() {
-        return upload2;
-    }
-
     public static class Upload {
 
         private final Root root = new Root();
 
         private final Files files = new Files();
 
-        private final User user = new User() ;
+        private final Files  filesRetro= new Files();
+
+        private final User user = new User();
 
         public Root getRoot() {
             return this.root;
@@ -50,16 +46,17 @@ public class ApplicationProperties {
             return this.files;
         }
 
+        public Files getFilesRetro() {
+            return this.filesRetro;
+        }
 
-        public User getUser(){
+        public User getUser() {
             return this.user;
         }
+
         public static class Root extends DirPath {}
 
         public static class Files extends DirPath {}
-
-
-
     }
 
     public static class DirPath {
