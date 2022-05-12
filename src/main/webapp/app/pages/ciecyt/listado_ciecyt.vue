@@ -232,7 +232,7 @@ public getAlertFromStore() {
       size: this.itemsPerPage,
       sort: this.sort()
     };
-    if (this.autoridades.includes("ROLE_CIECYT")){
+    //if (this.autoridades.includes("ROLE_CIECYT")||this.autoridades.includes("ROLE_ADMIN")){
     this.proyectoService()
   
       .retrieveAllProyectosIntegrantes(paginationQuery)
@@ -281,7 +281,7 @@ public getAlertFromStore() {
 
 
 
-      }//del if ROLE_ASESOR
+      //}//del if ROLE_ASESOR
 
       
 

@@ -473,7 +473,7 @@ export default new Router({
       path: '/admin/jhi-health',
       name: 'JhiHealthComponent',
       component: JhiHealthComponent,
-      meta: { authorities: ['ROLE_ADMIN'] }
+      meta: { authorities: ['_ADMIN'] }
     },
     {
       path: '/admin/logs',
@@ -1254,13 +1254,13 @@ export default new Router({
       path: '/ciecyt/asignar-jurado/:proyectoId/view',
       name: 'AsignarJuradoView',
       component: AsignarJurado,
-      meta: { authorities: ['ROLE_CIECYT']['ROLE_ADMIN'] }
+      meta: { authorities: ['ROLE_ADMIN']['ROLE_CIECYT'] }
     },
     {
       path: '/ciecyt/asignar-jurado-viabilidad/:proyectoId/view',
       name: 'AsignarJuradoViabilidadView',
       component: AsignarJuradoViabilidad,
-      meta: { authorities: ['ROLE_CIECYT']['ROLE_ADMIN'] }
+      meta: { authorities: ['ROLE_ADMIN']['ROLE_CIECYT'] }
     },
 
 
@@ -1268,7 +1268,7 @@ export default new Router({
       path: '/ciecyt/asignar-asesor/:proyectoId/view',
       name: 'AsignarAsesorView',
       component: AsignarAsesor,
-      meta: { authorities: ['ROLE_CIECYT']['ROLE_ADMIN'] }
+      meta: { authorities: ['ROLE_ADMIN']['ROLE_CIECYT'] }
     },
     /////////////////////////////////////////////////////
     {
@@ -2061,7 +2061,7 @@ export default new Router({
       path: '/ciecyt/listado-ciecyt',
       name: 'PropuestaListadoCiecytView',
       component: PropuestaListadoCiecyt,
-      meta: { authorities: ['ROLE_CIECYT']['ROLE_ADMIN']  }
+      meta: { authorities: ['ROLE_ADMIN']['ROLE_CIECYT']  }
     },
 
     {
