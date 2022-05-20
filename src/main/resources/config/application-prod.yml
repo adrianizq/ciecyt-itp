@@ -116,7 +116,7 @@ jhipster:
         token-validity-in-seconds-for-remember-me: 2592000
   mail: # specific JHipster mail property, for standard properties see MailProperties
     from: Ciecyt ITP<noreply@itp.edu.co>
-    base-url: http://ciecyt.itp.edu.co # Modify according to your server's URL
+    base-url: https://ciecyt1.itp.edu.co # Modify according to your server's URL
   metrics:
     logs: # Reports metrics in the logs
       enabled: false
@@ -149,5 +149,5 @@ application:
     files:
       dir: files      
     filesretro:
-      dir: filesretro      
-  files-path: http://localhost/ciecyt
+      dir: filesretro       
+  files-path: https://ciecyt1.itp.edu.co
