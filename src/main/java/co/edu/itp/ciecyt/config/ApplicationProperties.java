@@ -1,5 +1,7 @@
 package co.edu.itp.ciecyt.config;
 
+import co.edu.itp.ciecyt.domain.AdjuntoProyectoFase;
+import co.edu.itp.ciecyt.domain.AdjuntoRetroalimentacion;
 import co.edu.itp.ciecyt.domain.User;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
@@ -32,9 +34,19 @@ public class ApplicationProperties {
 
         private final Root root = new Root();
 
-        private final Files files = new Files();
+        //private final Files files = new Files();
+        private final AdjuntoProyectoFase adjuntoProyectoFase = new AdjuntoProyectoFase();
 
-        private final Files  filesRetro= new Files();
+        public AdjuntoProyectoFase getAdjuntoProyectoFase() {
+            return adjuntoProyectoFase;
+        }
+
+        public AdjuntoRetroalimentacion getAdjuntoRetroalimentacion() {
+            return adjuntoRetroalimentacion;
+        }
+
+        //private final Files  filesRetro= new Files();
+        private final AdjuntoRetroalimentacion adjuntoRetroalimentacion = new AdjuntoRetroalimentacion();
 
         private final User user = new User();
 
@@ -42,13 +54,13 @@ public class ApplicationProperties {
             return this.root;
         }
 
-        public Files getFiles() {
+        /*public Files getFiles() {
             return this.files;
-        }
+        }*/
 
-        public Files getFilesRetro() {
+        /*public Files getFilesRetro() {
             return this.filesRetro;
-        }
+        }*/
 
         public User getUser() {
             return this.user;
@@ -56,7 +68,13 @@ public class ApplicationProperties {
 
         public static class Root extends DirPath {}
 
-        public static class Files extends DirPath {}
+        // public static class Files extends DirPath {}
+
+        public static class AdjuntoProyectoFase extends DirPath {}
+
+        public static class AdjuntoRetroalimentacion extends DirPath {}
+
+        public static class User extends DirPath {}
     }
 
     public static class DirPath {

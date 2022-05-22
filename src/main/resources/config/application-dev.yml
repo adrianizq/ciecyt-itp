@@ -150,12 +150,11 @@ jhipster:
 application:
   upload:
     root:
-      #dir: /home/jltovarg/test/dudo
       dir: C://adr/ciecyt_backend_vue
-    files:
-      dir: files
-    filesretro:
-      dir: filesretro   
+    adjuntoproyectofase:
+      dir: adjuntoproyectofases      
+    adjuntoretroalimentacion:
+      dir: adjuntoretroalimentacions     
   files-path: C://adr/ciecyt_backend_vue
 
 

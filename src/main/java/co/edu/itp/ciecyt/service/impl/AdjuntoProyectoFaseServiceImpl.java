@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import co.edu.itp.ciecyt.domain.AdjuntoRetroalimentacion;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
@@ -53,7 +54,12 @@ public class AdjuntoProyectoFaseServiceImpl implements AdjuntoProyectoFaseServic
     @Override
     public AdjuntoProyectoFaseDTO save(AdjuntoProyectoFaseDTO adjuntoProyectoFaseDTO) {
         log.debug("Request to save AdjuntoProyectoFase : {}", adjuntoProyectoFaseDTO);
+
         AdjuntoProyectoFase adjuntoProyectoFase = adjuntoProyectoFaseMapper.toEntity(adjuntoProyectoFaseDTO);
+        adjuntoProyectoFase = adjuntoProyectoFaseRepository.save(adjuntoProyectoFase);
+        return adjuntoProyectoFaseMapper.toDto(adjuntoProyectoFase);
+
+        /*AdjuntoProyectoFase adjuntoProyectoFase = adjuntoProyectoFaseMapper.toEntity(adjuntoProyectoFaseDTO);
         adjuntoProyectoFase = adjuntoProyectoFaseRepository.save(adjuntoProyectoFase);
 
 
@@ -68,12 +74,17 @@ public class AdjuntoProyectoFaseServiceImpl implements AdjuntoProyectoFaseServic
             dto.setUrlFile(fileUrl);
         }
         return dto;
+
+         */
     }
 
     @Override
     @Transactional(readOnly = true)
     public Page<AdjuntoProyectoFaseDTO> findAll(Pageable pageable) {
-        log.debug("Request to get all AdjuntoProyectoFases");
+        log.debug("Request to get all AdjuntoRetroalimentacions");
+        return adjuntoProyectoFaseRepository.findAll(pageable).map(adjuntoProyectoFaseMapper::toDto);
+
+        /*log.debug("Request to get all AdjuntoProyectoFases");
         return adjuntoProyectoFaseRepository.findAll(pageable)
             .map(adjuntoProyectoFaseMapper::toDto).map(dto -> {
                     if (dto.getArchivo() != null) {
@@ -87,6 +98,8 @@ public class AdjuntoProyectoFaseServiceImpl implements AdjuntoProyectoFaseServic
                     return dto;
                 }
             );
+
+         */
     }
 
 
@@ -94,7 +107,10 @@ public class AdjuntoProyectoFaseServiceImpl implements AdjuntoProyectoFaseServic
     @Transactional(readOnly = true)
     public Optional<AdjuntoProyectoFaseDTO> findOne(Long id) {
         log.debug("Request to get AdjuntoProyectoFase : {}", id);
-        return adjuntoProyectoFaseRepository.findById(id)
+
+        return adjuntoProyectoFaseRepository.findById(id).map(adjuntoProyectoFaseMapper::toDto);
+
+   /*     return adjuntoProyectoFaseRepository.findById(id)
             .map(adjuntoProyectoFaseMapper::toDto).map(dto -> {
                     if (dto.getArchivo() != null) {
                         String urlFile = FileUtils.buildURLImage(
@@ -106,7 +122,7 @@ public class AdjuntoProyectoFaseServiceImpl implements AdjuntoProyectoFaseServic
                     }
                     return dto;
                 }
-            );
+            );*/
     }
 
     @Override
@@ -131,7 +147,7 @@ public class AdjuntoProyectoFaseServiceImpl implements AdjuntoProyectoFaseServic
         //File rootDir = new File("/home/jltovarg/test/dudo");
         try {
             Path rootDir = Paths.get(appProperties.getUpload().getRoot().getDir());
-            Path filesDir = rootDir.resolve(appProperties.getUpload().getFiles().getDir());
+            Path filesDir = rootDir.resolve(appProperties.getUpload().getAdjuntoProyectoFase().getDir());
             log.debug("Dir upload: {}, , filesDir: {}, mimetype: {}", rootDir, filesDir, contentType);
             String ext = MimeTypes.getDefaultExt(contentType);
             String nameFile = FileUtils.buildFileName(entity.getId(), ext);
@@ -158,7 +174,7 @@ public class AdjuntoProyectoFaseServiceImpl implements AdjuntoProyectoFaseServic
         try {
 
             Path rootDir = Paths.get(appProperties.getUpload().getRoot().getDir());
-            Path filesDir = rootDir.resolve(appProperties.getUpload().getFiles().getDir());
+            Path filesDir = rootDir.resolve(appProperties.getUpload().getAdjuntoProyectoFase().getDir());
             log.debug("Dir upload: {}, , filesDir: {}, file: {}", rootDir, filesDir, dto.getFile());
 
             Path filePath = filesDir.resolve(dto.getFile()).normalize();

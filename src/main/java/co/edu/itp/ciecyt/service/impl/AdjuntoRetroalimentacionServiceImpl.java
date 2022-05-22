@@ -53,11 +53,11 @@ public class AdjuntoRetroalimentacionServiceImpl implements AdjuntoRetroalimenta
 
     @Override
     public AdjuntoRetroalimentacionDTO save(AdjuntoRetroalimentacionDTO adjuntoRetroalimentacionDTO) {
-        // log.debug("Request to save AdjuntoRetroalimentacion : {}", adjuntoRetroalimentacionDTO);
-        // AdjuntoRetroalimentacion adjuntoRetroalimentacion = adjuntoRetroalimentacionMapper.toEntity(adjuntoRetroalimentacionDTO);
-        // adjuntoRetroalimentacion = adjuntoRetroalimentacionRepository.save(adjuntoRetroalimentacion);
-        // return adjuntoRetroalimentacionMapper.toDto(adjuntoRetroalimentacion);
-        log.debug("Request to save AdjuntoProyectoFase : {}", adjuntoRetroalimentacionDTO);
+         log.debug("Request to save AdjuntoRetroalimentacion : {}", adjuntoRetroalimentacionDTO);
+         AdjuntoRetroalimentacion adjuntoRetroalimentacion = adjuntoRetroalimentacionMapper.toEntity(adjuntoRetroalimentacionDTO);
+        adjuntoRetroalimentacion = adjuntoRetroalimentacionRepository.save(adjuntoRetroalimentacion);
+        return adjuntoRetroalimentacionMapper.toDto(adjuntoRetroalimentacion);
+        /*log.debug("Request to save AdjuntoProyectoFase : {}", adjuntoRetroalimentacionDTO);
         AdjuntoRetroalimentacion adjuntoRetroalimentacion = adjuntoRetroalimentacionMapper.toEntity(adjuntoRetroalimentacionDTO);
         adjuntoRetroalimentacion = adjuntoRetroalimentacionRepository.save(adjuntoRetroalimentacion);
 
@@ -67,11 +67,12 @@ public class AdjuntoRetroalimentacionServiceImpl implements AdjuntoRetroalimenta
             String fileUrl = FileUtils.buildURLImage(
                 appProperties.getFilesPath(),
                 dto.getFile(),
-                appProperties.getUpload().getFilesRetro()
+                //appProperties.getUpload().getFilesRetro()
+                appProperties.getUpload().getAdjuntoRetroalimentacion()
             );
             dto.setUrlFile(fileUrl);
         }
-        return dto;
+        return dto;*/
     }
 
     @Override
@@ -101,7 +102,7 @@ public class AdjuntoRetroalimentacionServiceImpl implements AdjuntoRetroalimenta
         //File rootDir = new File("/home/jltovarg/test/dudo");
         try {
             Path rootDir = Paths.get(appProperties.getUpload().getRoot().getDir());
-            Path filesDir = rootDir.resolve(appProperties.getUpload().getFilesRetro().getDir());
+            Path filesDir = rootDir.resolve( appProperties.getUpload().getAdjuntoRetroalimentacion().getDir());
             log.debug("Dir upload: {}, , filesDir: {}, mimetype: {}", rootDir, filesDir, contentType);
             String ext = MimeTypes.getDefaultExt(contentType);
             String nameFile = FileUtils.buildFileName(entity.getId(), ext);
@@ -121,7 +122,7 @@ public class AdjuntoRetroalimentacionServiceImpl implements AdjuntoRetroalimenta
     public Resource loadFileAsResource(AdjuntoRetroalimentacionDTO dto) throws Exception {
         try {
             Path rootDir = Paths.get(appProperties.getUpload().getRoot().getDir());
-            Path filesDir = rootDir.resolve(appProperties.getUpload().getFilesRetro().getDir());
+            Path filesDir = rootDir.resolve(appProperties.getUpload().getAdjuntoRetroalimentacion().getDir());
             log.debug("Dir upload: {}, , filesDir: {}, file: {}", rootDir, filesDir, dto.getFile());
 
             Path filePath = filesDir.resolve(dto.getFile()).normalize();
