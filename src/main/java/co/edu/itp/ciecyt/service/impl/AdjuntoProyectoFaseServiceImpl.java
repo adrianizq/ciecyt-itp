@@ -81,7 +81,7 @@ public class AdjuntoProyectoFaseServiceImpl implements AdjuntoProyectoFaseServic
     @Override
     @Transactional(readOnly = true)
     public Page<AdjuntoProyectoFaseDTO> findAll(Pageable pageable) {
-        log.debug("Request to get all AdjuntoRetroalimentacions");
+        log.debug("Request to get all AdjuntoProyectoFases");
         return adjuntoProyectoFaseRepository.findAll(pageable).map(adjuntoProyectoFaseMapper::toDto);
 
         /*log.debug("Request to get all AdjuntoProyectoFases");
