@@ -58,43 +58,7 @@
                     </button>
                   </router-link>
                 </div>
-                <!-- Pasantia-->
-                <!--<div class="btn-group" v-if="proyecto.proyectoModalidadModalidad=='Pasantía'">
-                  <router-link
-                    :to="{ name: 'PropuestaPasantiaInformacionGeneraEditlView', params: { proyectoId: proyecto.id } }"
-                    >
-                     
-                    <button type="submit" id="save-entity"   class="btn btn-info" >
-                        <font-awesome-icon icon="pencil-alt"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.edit')">Editar</span>
-   
-                    </button>
-                  </router-link>
-                </div>
-                 --><!-- Diplomado-->
-                 <!--
-                <div class="btn-group" v-if="proyecto.proyectoModalidadModalidad=='Diplomado'">
-                  <router-link
-                    :to="{ name: 'PropuestaDiplomadoInformacionGeneralEditView', params: { proyectoId: proyecto.id } }"
-                   
-                  >
-                   -->  <!--<button type="submit" id="save-entity"   class="btn btn-info" v-if="proyecto.viabilidad=='null'||proyecto.viabilidad=='PENDIENTE'"> -->
-                    <!--<button type="submit" id="save-entity"   class="btn btn-info" >
-                        <font-awesome-icon icon="pencil-alt"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.edit')">Editar</span>
-                       </button>
-                  </router-link>
-                </div> -->
-                <!-- Linea--><!--
-                <div class="btn-group" v-if="proyecto.proyectoModalidadModalidad=='Línea'">
-                  <router-link
-                    :to="{ name: 'PropuestaLineaInformacionGeneralEditView', params: { proyectoId: proyecto.id } }"
-                   >-->
-                     <!--<button type="submit" id="save-entity"   class="btn btn-info" v-if="proyecto.viabilidad=='null'||proyecto.viabilidad=='PENDIENTE'"> -->
-                     <!--
-                    <button type="submit" id="save-entity"   class="btn btn-info" >
-                        <font-awesome-icon icon="pencil-alt"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.edit')">Editar</span>
-                       </button>
-                  </router-link>
-                </div> -->
+                
               </td>
             </tr>
 

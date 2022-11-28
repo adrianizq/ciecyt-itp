@@ -45,9 +45,9 @@
 
               <td>{{ proyecto.titulo }}</td>
               <td>{{ proyecto.proyectoModalidadModalidad }}</td>
-              <!-- Tesis-->
+              <!-- Tesis  || Monografia-->
               <td class="text-right">
-                <div class="btn-group" v-if="proyecto.proyectoModalidadModalidad=='Tesis'">
+                <div class="btn-group" v-if="proyecto.proyectoModalidadModalidad=='Tesis'||proyecto.proyectoModalidadModalidad=='Monografía'">
                   <router-link
                     :to="{ name: 'PropuestaInformacionGeneraEditlView', params: { proyectoId: proyecto.id } }"
                   >
@@ -70,23 +70,31 @@
                     </button>
                   </router-link>
                 </div>
-                 <!-- Diplomado-->
-                <div class="btn-group" v-if="proyecto.proyectoModalidadModalidad=='Diplomado'">
+                
+                <!-- Linea-->
+                <div class="btn-group" v-if="proyecto.proyectoModalidadModalidad=='Línea'">
                   <router-link
-                    :to="{ name: 'PropuestaDiplomadoInformacionGeneralEditView', params: { proyectoId: proyecto.id } }"
-                   
-                  >
+                    :to="{ name: 'PropuestaLineaInformacionGeneralEditView', params: { proyectoId: proyecto.id } }"
+                   >
                      <!--<button type="submit" id="save-entity"   class="btn btn-info" v-if="proyecto.viabilidad=='null'||proyecto.viabilidad=='PENDIENTE'"> -->
                     <button type="submit" id="save-entity"   class="btn btn-info" >
                         <font-awesome-icon icon="pencil-alt"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.edit')">Editar</span>
                        </button>
                   </router-link>
                 </div>
-                <!-- Linea-->
-                <div class="btn-group" v-if="proyecto.proyectoModalidadModalidad=='Línea'">
+                 <!-- Diplomado||Articulo|,etc  -->
+                 <div class="btn-group" v-if="proyecto.proyectoModalidadModalidad=='Diplomado'
+                 ||proyecto.proyectoModalidadModalidad=='Articulo'
+                 ||(proyecto.proyectoModalidadModalidad!='Línea' 
+                    && proyecto.proyectoModalidadModalidad!='Pasantía'
+                    && proyecto.proyectoModalidadModalidad!='Tesis'
+                    && proyecto.proyectoModalidadModalidad!='Monografía')
+
+                 ">
                   <router-link
-                    :to="{ name: 'PropuestaLineaInformacionGeneralEditView', params: { proyectoId: proyecto.id } }"
-                   >
+                    :to="{ name: 'PropuestaDiplomadoInformacionGeneralEditView', params: { proyectoId: proyecto.id } }"
+                   
+                  >
                      <!--<button type="submit" id="save-entity"   class="btn btn-info" v-if="proyecto.viabilidad=='null'||proyecto.viabilidad=='PENDIENTE'"> -->
                     <button type="submit" id="save-entity"   class="btn btn-info" >
                         <font-awesome-icon icon="pencil-alt"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.edit')">Editar</span>
