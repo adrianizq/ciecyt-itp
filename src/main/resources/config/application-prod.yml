@@ -33,6 +33,9 @@ spring:
       enabled: false
     livereload:
       enabled: false
+  multipart:
+      enabled: false
+      max-file-size: 50MB
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:postgresql://10.10.13.7:5432/ciecyt_db
@@ -141,8 +144,20 @@ jhipster:
 # ===================================================================
 
 # application:
-
-application:
+tomcatAjp:
+    port: 9030
+    remoteauthentication: false
+    enabled: true   
+    protocol: AJP/1.3
+    scheme: http
+application: 
+  jasper:
+    source:
+      dir: /home/adrian/ciecytapp/jasper/src
+    image:
+      dir: /home/adrian/ciecytapp/jasper/images
+    file:
+      dir: /home/adrian/ciecytapp/jasper/files   
   upload:
     root:
       dir: /home/adrian/ciecytapp

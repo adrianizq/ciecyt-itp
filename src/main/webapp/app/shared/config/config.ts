@@ -300,18 +300,18 @@ export function initVueXStore(vue) {
       /*Menu Lateral Diplomado*/
       menu_lateral_diplomado: [
         {
-          title: 'Informacion General Diplomado',
-          description: 'Ingrese aquí los datos generales del diplomado',
+          title: 'Informacion General',
+          description: 'Ingrese aquí los datos generales de la propuesta',
           to: '/propuesta-diplomado/informacion-general-diplomado',
         },
         {
           title: 'Integrante(s)',
-          description: 'En esta sección ingrese los integrantes del Diplomado Nota: Cada modalidad tiene un maximo de integrantes',
+          description: 'En esta sección ingrese los integrantes de la propuesta Nota: Cada modalidad tiene un maximo de integrantes',
           to: '/propuesta-diplomado/integrantes-diplomado',
         },
         {
-          title: 'Elementos del Diplomado',
-          description: 'Elementos de Diplomado, estos elementos son calificables por los jurados',
+          title: 'Elementos de la propuesta',
+          description: 'Elementos de la propuesta, estos elementos son calificables por los jurados',
           to: '/propuesta-diplomado/elementos-diplomado',
         },
         {

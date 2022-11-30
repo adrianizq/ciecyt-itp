@@ -36,6 +36,10 @@ spring:
       - swagger
       # Uncomment to activate TLS for the dev profile
       #- tls
+  servlet:
+    multipart:
+      enabled: false
+      max-file-size: 50MB
   devtools:
     restart:
       enabled: true
@@ -148,13 +152,20 @@ jhipster:
 # application:
 
 application:
+  jasper:
+    source:
+      dir: /home/adrian/ciecytapp/jasper/src
+    image:
+      dir: /home/adrian/ciecytapp/jasper/images
+    file:
+      dir: /home/adrian/ciecytapp/jasper/files
   upload:
     root:
-      dir: C://adr/ciecyt_backend_vue
+      dir: /home/adrian/ciecytapp
     adjuntoproyectofase:
       dir: adjuntoproyectofases      
     adjuntoretroalimentacion:
       dir: adjuntoretroalimentacions     
-  files-path: C://adr/ciecyt_backend_vue
+  files-path: /home/adrian/ciecytapp
 
 

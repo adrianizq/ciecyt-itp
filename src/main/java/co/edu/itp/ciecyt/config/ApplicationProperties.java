@@ -15,6 +15,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class ApplicationProperties {
 
     private final Upload upload = new Upload();
+    private final Jasper jasper = new Jasper() ;
 
     private String filesPath;
 
@@ -29,6 +30,40 @@ public class ApplicationProperties {
     public Upload getUpload() {
         return this.upload;
     }
+
+     public Jasper getJasper() {
+        return this.jasper;
+    }
+
+  public static class Jasper {
+
+        private final Source source = new Source() ;
+        private final Image image = new Image() ;
+        private final File file = new File() ;
+        
+        public Source getSource(){
+            return this.source;
+        }
+
+        public Image getImage(){
+            return this.image;
+        }
+
+        public File getFile(){
+            return this.file;
+        }
+
+        public static class Source extends DirPath{
+            
+        }
+        public static class Image extends DirPath{
+            
+        }
+        public static class File extends DirPath{
+            
+        }
+    }
+
 
     public static class Upload {
 
