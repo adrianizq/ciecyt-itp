@@ -23,6 +23,10 @@ export default class UserManagementService {
     return axios.get(`api/users?${buildPaginationQueryOpts(req)}`);
   }
 
+  public retrieveAll(): Promise<any> {
+    return axios.get(`api/users`);
+  }
+
   public retrieveAuthorities(): Promise<any> {
     return axios.get('api/users/authorities');
   }

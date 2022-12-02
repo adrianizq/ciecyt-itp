@@ -1,11 +1,15 @@
 package co.edu.itp.ciecyt.web.rest;
 
+import co.edu.itp.ciecyt.domain.Proyecto;
+import co.edu.itp.ciecyt.repository.ProyectoRepository;
 import co.edu.itp.ciecyt.service.ProyectoService;
+import co.edu.itp.ciecyt.service.ReportService;
 import co.edu.itp.ciecyt.service.dto.ProyectoDTO;
 import co.edu.itp.ciecyt.web.rest.errors.BadRequestAlertException;
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
+import net.sf.jasperreports.engine.JRException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,6 +23,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.io.FileNotFoundException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -31,6 +36,8 @@ import java.util.Optional;
 @RequestMapping("/api")
 public class ProyectoResource {
 
+
+
     private final Logger log = LoggerFactory.getLogger(ProyectoResource.class);
 
     private static final String ENTITY_NAME = "proyecto";
@@ -39,11 +46,26 @@ public class ProyectoResource {
     private String applicationName;
 
     private final ProyectoService proyectoService;
+    private final ProyectoRepository proyectoRepository;
+    private final ReportService reportService;
 
     //private final IntegranteProyectoService integranteProyectoService;
 
-    public ProyectoResource(ProyectoService proyectoService) {
+    public ProyectoResource(ProyectoService proyectoService,
+                            ReportService reportService,
+                            ProyectoRepository proyectoRepository) {
+
         this.proyectoService = proyectoService;
+        this.reportService = reportService;
+        this.proyectoRepository = proyectoRepository;
+    }
+
+    @GetMapping("/report_proyectos/{format}")
+    public String generateReportProyectos(@PathVariable String format) throws JRException, FileNotFoundException {
+        log.debug("REST request to get a page of Proyectos");
+        List<Proyecto> proyectos = proyectoRepository.findAll();
+
+        return reportService.exportReport(format);
     }
 
     /**

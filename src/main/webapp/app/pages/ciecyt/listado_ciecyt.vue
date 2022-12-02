@@ -125,6 +125,8 @@
 
                 </tbody>
             </table>
+
+            <button  @click="downloadPdf" >Download PDF</button>
         </div>
         
         <div v-show="proyects && proyects.length > 0">
@@ -155,12 +157,14 @@ import { Component, Inject, Vue } from 'vue-property-decorator';
 import MenuLateralCiecyt from '@/components/ciecyt/menu_lateral_ciecyt.vue';
 
 
-
+import UserManagementService from './user-management.service';
+import { IUser, User } from '@/shared/model/user.model';
 
 import { IProyecto, Proyecto } from '@/shared/model/proyecto.model';
 import ProyectoService from '@/entities/proyecto/proyecto.service';
 import { IIntegranteProyecto, IntegranteProyecto } from '@/shared/model/integrante-proyecto.model';
 import IntegranteProyectoService from '@/entities/integrante-proyecto/integrante-proyecto.service';
+import { jsPDF } from "jspdf";
 
 
     const validations: any = {};
@@ -174,13 +178,19 @@ export default class ListadoCiecyt extends Vue {
    @Inject('proyectoService') private proyectoService: () => ProyectoService;
 
     @Inject('integranteProyectoService') private integranteProyectoService: () => IntegranteProyectoService;
+
+    @Inject('userService') private userManagementService: () => UserManagementService;
  
    @Inject('alertService') private alertService: () => AlertService;
+
+   doc = new jsPDF();
 
 
     
    //  public elementosProyecto: IElementoProyecto[] =[];
     public proyects: IProyecto[] = [];
+
+    public users: IUser[] = [];
    
    
     public proyId: any = null;
@@ -217,6 +227,7 @@ public getAlertFromStore() {
 
   public mounted(): void {
     this.retrieveAllProyectos();
+    
   }
 
   public clear(): void {
@@ -272,6 +283,12 @@ public getAlertFromStore() {
         
         
       );
+
+     this.userManagementService()
+      .retrieveAll()
+      .then(res => {
+        this.users = res.data;
+      });
       //this.integrantesProyectoJurados=null;
       //Promise.all(Promise).then((this.proyects)=>{
       //    this.proyects.forEach(p => {
@@ -355,6 +372,27 @@ public get username(): string {
     return this.$store.getters.account ? this.$store.getters.account.login : '';
   }
 
+  public firstName(login): string {
+    var res="";
+       this.users.forEach(u => {
+      if(u.login==login){
+        res=u.firstName.toString();
+       }
+    });
+    return res;
+  }
+
+  public lastName(login): string {
+    var res="";
+       this.users.forEach(u => {
+      if(u.login==login){
+        res=u.lastName.toString();
+     }
+    });
+    return res;
+  }
+
+
   public get userid(): string {
     return this.$store.getters.account ? this.$store.getters.account.id : '';
   }
@@ -364,8 +402,65 @@ public get authorities(): string {
     return this.$store.getters.account ? this.$store.getters.account.authorities : '';
   }
 
+  
+public downloadPdf(){
+  var pageHeight= this.doc.internal.pageSize.height;
+  this.doc.text("Proyectos y propuestas CIECYT", 10, 10);
+  //this.doc.text(pageHeight.toString(), 10, 10);
+   var y = 0;
+  this.doc.setFontSize(10);
+  this.doc.line(10, 12, 200, 12);
+ /* for(var i =0; i < 1000; i++) {  //se comprobo para varias paginas
+    this.doc.text("hola" + " i=" + i + " y=" + y,10,15+(y*5));
+    if (y >= pageHeight-245)
+        {
+        this.doc.addPage();
+        y = 0 // Restart height position
+        } 
+    y++;
+  }*/
+  /*********************************************** */
+ for(var i =0; i < this.proyects.length; i++) {
+  ////verificar nueva pagina
+   if (y >= pageHeight-245)
+        {
+        this.doc.addPage();
+        y = 0 // Restart height position
+        } 
+     this.doc.text(
+      this.proyects[i].id.toString() 
+      + " "  + this.proyects[i].titulo.toString() 
+      + " "  + this.proyects[i].facultadId.toString()  
+      + " "  + this.proyects[i].programa.toString() 
+    , 10,15+(y*5));
+    y++;
+    
+    for(var j =0; j < this.proyects[i].listaIntegrantesProyecto.length; j++) {
+      ////verificar nueva pagina
+       if (y >= pageHeight-245)
+        {
+        this.doc.addPage();
+        y = 0 // Restart height position
+        } 
+      let fn = this.firstName(this.proyects[i].listaIntegrantesProyecto[j].integranteProyectoUserLogin)
+      let ln = this.lastName(this.proyects[i].listaIntegrantesProyecto[j].integranteProyectoUserLogin)
+      this.doc.text(
+      this.proyects[i].listaIntegrantesProyecto[j].integranteProyectoUserLogin.toString()
+      + " " + this.proyects[i].listaIntegrantesProyecto[j].integranteProyectoRolesModalidadRol.toString() 
+      + " " + fn
+      + " " + ln
+
+      
+      ,15,15+(y*5));
+      y++;
+    }
+    this.doc.line(10, 15+(y*5) , 200, 15+(y*5));
+}
 
 
+
+
+this.doc.save("a4.pdf");
 }
 </script>
 

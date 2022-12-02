@@ -17,4 +17,6 @@ public interface ProyectoRepository extends JpaRepository<Proyecto, Long> {
    Proyecto findByIdOrderById(Long idProyecto);
 
     List<Proyecto> findByFacultadIdAndProyectoModalidadId(Long facultad, Long modalidad);
+
+    List<Proyecto> findAll();
 }

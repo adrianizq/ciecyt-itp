@@ -16,6 +16,7 @@
     "bootstrap-vue": "2.14.0",
     "bootswatch": "4.5.0",
     "date-fns": "2.14.0",
+    "jspdf": "^2.5.1",
     "swagger-ui-dist": "3.25.4",
     "typeface-nunito": "^1.1.13",
     "vue": "2.6.11",
@@ -31,7 +32,6 @@
     "vuex": "3.4.0"
   },
   "devDependencies": {
-    "babel-core": "7.0.0-bridge.0",
     "@types/jest": "25.2.3",
     "@types/node": "14.0.4",
     "@types/sinon": "9.0.3",
@@ -40,6 +40,7 @@
     "@vue/cli-service": "4.3.1",
     "@vue/test-utils": "1.0.3",
     "autoprefixer": "9.8.0",
+    "babel-core": "7.0.0-bridge.0",
     "browser-sync": "2.26.7",
     "browser-sync-webpack-plugin": "2.2.2",
     "copy-webpack-plugin": "6.0.1",
