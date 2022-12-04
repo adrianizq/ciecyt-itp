@@ -720,10 +720,10 @@ export default class PasantiaInformacionEmpresa extends Vue {
   public municipiosEmpresa = [];
    public isFetching = false;
 
-  /*mounted() {
+  mounted() {
     this.proyId = this.$route.params.proyectoId;
         
-  }*/
+  }
  retrieveInformacionPasantia() {
      this.isFetching = true;
     this.informacionPasantiaService()
