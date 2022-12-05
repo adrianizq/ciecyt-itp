@@ -131,15 +131,17 @@ public class ProyectoServiceImpl implements ProyectoService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Page<ProyectoDTO> findAllProyectosIntegrantes(Pageable pageable) throws Exception {
+    public List<ProyectoDTO> findAllProyectosIntegrantes() throws Exception {
         log.debug("Request to get all Proyectos");
-        Page<ProyectoDTO> lProyectos = proyectoRepository.findAll(pageable).map(proyectoMapper::toDto);
-
-        for (ProyectoDTO dto : lProyectos) {
+        List<Proyecto> lProyectos = proyectoRepository.findAll();
+        List<ProyectoDTO> proyectoDTOList = new ArrayList<ProyectoDTO>();
+        for (Proyecto proyecto : lProyectos) {
+            ProyectoDTO dto;
+            dto = proyectoMapper.toDto(proyecto);
             dto.setTieneJurado(false);
             dto.setTieneJuradoViabilidad(false);
             dto.setTieneAsesor(false);
-            List<IntegranteProyectoDTO> lIntegrantes = integranteProyectoService.findByIntegranteProyectoProyectoId(dto.getId());
+            List<IntegranteProyectoDTO> lIntegrantes = integranteProyectoService.findByIntegranteProyectoProyectoId(proyecto.getId());
             if (lIntegrantes != null && lIntegrantes.size() > 0) {
                 for (IntegranteProyectoDTO i : lIntegrantes) {
                     if (i.getIntegranteProyectoRolesModalidadRol().contains("Jurado")) {
@@ -155,8 +157,10 @@ public class ProyectoServiceImpl implements ProyectoService {
             }
 
             dto.setListaIntegrantesProyecto(lIntegrantes);
+            proyectoDTOList.add(dto);
         }
-        return lProyectos;
+        //return proyectoMapper.toDto(lProyectos);
+        return proyectoDTOList;
     }
 
     /**

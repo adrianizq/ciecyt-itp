@@ -337,6 +337,23 @@ public class UserService {
 
     }
 
+
+    @Transactional(readOnly = true)
+    public List<UserDTO> getAllManagedUsersNoPage() {
+        //return userRepository.findAllByLoginNot(pageable, Constants.ANONYMOUS_USER).map(UserDTO::new);
+        //.map(UserDTO::new);
+        List <User> users = new ArrayList<User>();
+        users= userRepository.findAll();
+        List<UserDTO> userDTOS = new ArrayList<UserDTO>();
+
+        for(User u:users){
+            UserDTO udto;
+            udto= userMapper.userToUserDTO(u);
+            userDTOS.add(udto);
+        }
+        return userDTOS;
+    }
+
     @Transactional(readOnly = true)
     public Optional<User> getUserWithAuthoritiesByLogin(String login) {
         return userRepository.findOneWithAuthoritiesByLogin(login);

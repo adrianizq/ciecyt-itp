@@ -160,6 +160,12 @@ public class UserResource {
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
+    @GetMapping("/users_nopage")
+    public ResponseEntity<?> getAllUsersNoPage() {
+        final List<UserDTO> userDTOS = userService.getAllManagedUsersNoPage();
+        return new ResponseEntity<>(userDTOS, HttpStatus.OK);
+   }
+
     /**
      * Gets a list of all roles.
      * @return a string list of all roles.

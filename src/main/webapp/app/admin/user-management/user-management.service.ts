@@ -24,7 +24,7 @@ export default class UserManagementService {
   }
 
   public retrieveAll(): Promise<any> {
-    return axios.get(`api/users`);
+    return axios.get(`api/users_nopage`);
   }
 
   public retrieveAuthorities(): Promise<any> {

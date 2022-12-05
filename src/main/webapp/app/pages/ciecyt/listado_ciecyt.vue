@@ -157,7 +157,7 @@ import { Component, Inject, Vue } from 'vue-property-decorator';
 import MenuLateralCiecyt from '@/components/ciecyt/menu_lateral_ciecyt.vue';
 
 
-import UserManagementService from './user-management.service';
+import UserManagementService from '@/admin/user-management/user-management.service';
 import { IUser, User } from '@/shared/model/user.model';
 
 import { IProyecto, Proyecto } from '@/shared/model/proyecto.model';
@@ -246,13 +246,11 @@ public getAlertFromStore() {
     //if (this.autoridades.includes("ROLE_CIECYT")||this.autoridades.includes("ROLE_ADMIN")){
     this.proyectoService()
   
-      .retrieveAllProyectosIntegrantes(paginationQuery)
+      .retrieveAllProyectosIntegrantes()
       .then(
         res => {
           this.proyects = res.data;
-          this.totalItems = Number(res.headers['x-total-count']);
-          this.queryCount = this.totalItems;
-          this.isFetching = false;
+        
 
           /*for (let i = 0; i < this.proyects.length; i++) {
             for (let j=0; j< this.proyects[i].listaIntegrantes.length; j++){
@@ -377,6 +375,7 @@ public get username(): string {
        this.users.forEach(u => {
       if(u.login==login){
         res=u.firstName.toString();
+        //console.log(res);
        }
     });
     return res;
@@ -420,7 +419,7 @@ public downloadPdf(){
     y++;
   }*/
   /*********************************************** */
- for(var i =0; i < this.proyects.length; i++) {
+ for(let i =0; i < this.proyects.length; i++) {
   ////verificar nueva pagina
    if (y >= pageHeight-245)
         {
@@ -434,16 +433,18 @@ public downloadPdf(){
       + " "  + this.proyects[i].programa.toString() 
     , 10,15+(y*5));
     y++;
-    
-    for(var j =0; j < this.proyects[i].listaIntegrantesProyecto.length; j++) {
+    if(this.proyects[i].listaIntegrantesProyecto.length>0){
+    for(let j =0; j < this.proyects[i].listaIntegrantesProyecto.length; j++) {
       ////verificar nueva pagina
        if (y >= pageHeight-245)
         {
         this.doc.addPage();
         y = 0 // Restart height position
         } 
-      let fn = this.firstName(this.proyects[i].listaIntegrantesProyecto[j].integranteProyectoUserLogin)
-      let ln = this.lastName(this.proyects[i].listaIntegrantesProyecto[j].integranteProyectoUserLogin)
+      if (this.proyects[i].listaIntegrantesProyecto[j].integranteProyectoUserLogin!=null){
+        let fn = this.firstName(this.proyects[i].listaIntegrantesProyecto[j].integranteProyectoUserLogin)
+        let ln = this.lastName(this.proyects[i].listaIntegrantesProyecto[j].integranteProyectoUserLogin)
+     
       this.doc.text(
       this.proyects[i].listaIntegrantesProyecto[j].integranteProyectoUserLogin.toString()
       + " " + this.proyects[i].listaIntegrantesProyecto[j].integranteProyectoRolesModalidadRol.toString() 
@@ -452,8 +453,10 @@ public downloadPdf(){
 
       
       ,15,15+(y*5));
+      }
       y++;
     }
+ }
     this.doc.line(10, 15+(y*5) , 200, 15+(y*5));
 }
 

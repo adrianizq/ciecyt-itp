@@ -55,11 +55,11 @@ public class ProyectoResource {
                             ProyectoRepository proyectoRepository) {
 
         this.proyectoService = proyectoService;
-       
+
         this.proyectoRepository = proyectoRepository;
     }
 
-    
+
     /**
      * {@code POST  /proyectos} : Create a new proyecto.
      *
@@ -147,11 +147,10 @@ public class ProyectoResource {
 
     //ADR Retorna todos los protectos con una lista de los intgrantes
     @GetMapping("/proyectosIntegrantes")
-    public ResponseEntity<List<ProyectoDTO>> getAllProyectosIntegrantes(Pageable pageable) throws Exception {
+    public ResponseEntity<List<ProyectoDTO>> getAllProyectosIntegrantes() throws Exception {
         log.debug("REST request to get a page of Proyectos");
-        Page<ProyectoDTO> page = proyectoService.findAllProyectosIntegrantes(pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
-        return ResponseEntity.ok().headers(headers).body(page.getContent());
+        List<ProyectoDTO> listDTO = proyectoService.findAllProyectosIntegrantes();
+        return new ResponseEntity<>(listDTO, HttpStatus.OK);
     }
 
     @GetMapping("/proyectos/{id}")
