@@ -152,13 +152,6 @@ jhipster:
 # application:
 
 application:
-  jasper:
-    source:
-      dir: /home/adrian/ciecytapp/jasper/src
-    image:
-      dir: /home/adrian/ciecytapp/jasper/images
-    file:
-      dir: /home/adrian/ciecytapp/jasper/files
   upload:
     root:
       dir: /home/adrian/ciecytapp

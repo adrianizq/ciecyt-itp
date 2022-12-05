@@ -36,13 +36,9 @@
         <run.addResources>false</run.addResources>
         <!-- These remain empty unless the corresponding profile is active -->
 
-          <!--Jasper reports libs-->
+       
         <itextpdf.version>5.5.12</itextpdf.version>
-		<!--<jasper.version>6.8.0</jasper.version>-->
-        <jasper.version>6.12.2</jasper.version>
-        <guava.version>29.0-jre</guava.version>
-        <poi.version>3.17</poi.version>
-
+		
         <profile.no-liquibase />
         <profile.swagger />
         <profile.tls />
@@ -115,34 +111,6 @@
     </dependencyManagement>
 
     <dependencies>
-
-    
-
-      <!-- https://mvnrepository.com/artifact/net.sf.jasperreports/jasperreports -->
-		<dependency>
-		    <groupId>net.sf.jasperreports</groupId>
-		    <artifactId>jasperreports</artifactId>
-		    <version>${jasper.version}</version>
-            <exclusions>
-                <exclusion>
-                <groupId>com.lowagie</groupId>
-                <artifactId>itext</artifactId>
-            </exclusion>
-            </exclusions>
-		</dependency>
-		
-		<!-- https://mvnrepository.com/artifact/net.sf.jasperreports/jasperreports-fonts -->
-		<dependency>
-		    <groupId>net.sf.jasperreports</groupId>
-		    <artifactId>jasperreports-fonts</artifactId>
-		    <version>${jasper.version}</version>
-		</dependency>
-        <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
-		<dependency>
-		    <groupId>com.google.guava</groupId>
-		    <artifactId>guava</artifactId>
-		    <version>${guava.version}</version>
-		</dependency>
 
         <dependency>
             <groupId>io.github.jhipster</groupId>
@@ -405,7 +373,7 @@
         <dependency>
             <groupId>nz.ac.waikato.cms.weka</groupId>
             <artifactId>weka-stable</artifactId>
-            <version>3.8.5</version>
+            <version>3.8.0</version>
         </dependency>
 
 

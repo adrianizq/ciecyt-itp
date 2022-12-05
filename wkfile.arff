@@ -1,17 +1,22 @@
 @relation Proyectos
-@attribute programa {'Ingenier�a de Sistemas','Tecnolog�a en Gesti�n Empresarial y de la innovaci�n','Administraci�n de Empresas','Desarrollo de Software','Tecnolog�a en Saneamiento Ambiental'}
-@attribute modalidad {'Pasant�a','Tesis','Diplomado','L�nea'}
-@attribute facultad {'Ingenier�a y Ciencias B�sicas','Administraci�n y Ciencias Contables'}
-@attribute tipo {'Teorica','aplicada'}
+@attribute programa {'Tecnología en Gestión Empresarial y de la innovación','Administración de Empresas','Desarrollo de Software','Tecnología en Saneamiento Ambiental','Ingeniería de Sistemas','Ingeniería Civil','Ingeniería Forestal','Contaduría Publica','Gestion Contable','Obras Civiles'}
+@attribute modalidad {'Pasantía','Tesis','Diplomado','Línea','Monografía','Plan de Negocios'}
+@attribute facultad {'Ingeniería y Ciencias Básicas','Administración y Ciencias Contables'}
+@attribute tipo {'Aplicada','Teorica'}
 @data
-'Ingenier�a de Sistemas','Tesis','Ingenier�a y Ciencias B�sicas','Teorica'
-'Ingenier�a de Sistemas','Pasant�a','Ingenier�a y Ciencias B�sicas','aplicada'
-'Ingenier�a de Sistemas','Tesis','Ingenier�a y Ciencias B�sicas','Teorica'
-'Ingenier�a de Sistemas','Tesis','Ingenier�a y Ciencias B�sicas','aplicada'
-'Tecnolog�a en Saneamiento Ambiental','Pasant�a','Ingenier�a y Ciencias B�sicas','aplicada'
-'Ingenier�a de Sistemas','Tesis','Ingenier�a y Ciencias B�sicas','aplicada'
-'Administraci�n de Empresas','L�nea','Ingenier�a y Ciencias B�sicas','aplicada'
-'Administraci�n de Empresas','Pasant�a','Administraci�n y Ciencias Contables','Teorica'
-'Ingenier�a de Sistemas','Tesis','Ingenier�a y Ciencias B�sicas','Teorica'
-'Ingenier�a de Sistemas','Tesis','Ingenier�a y Ciencias B�sicas','Teorica'
-'Ingenier�a de Sistemas','Tesis','Ingenier�a y Ciencias B�sicas','Teorica'
+'Administración de Empresas','Pasantía','Administración y Ciencias Contables','Aplicada'
+'Contaduría Publica','Pasantía','Administración y Ciencias Contables','Aplicada'
+'Tecnología en Gestión Empresarial y de la innovación','Pasantía','Administración y Ciencias Contables','Teorica'
+'Tecnología en Saneamiento Ambiental','Línea','Ingeniería y Ciencias Básicas','Aplicada'
+'Desarrollo de Software','Diplomado','Ingeniería y Ciencias Básicas','Teorica'
+'Ingeniería Civil','Pasantía','Ingeniería y Ciencias Básicas','Aplicada'
+'Administración de Empresas','Tesis','Administración y Ciencias Contables','Teorica'
+'Ingeniería de Sistemas','Tesis','Ingeniería y Ciencias Básicas','Aplicada'
+'Gestion Contable','Pasantía','Administración y Ciencias Contables','Aplicada'
+'Ingeniería Forestal','Pasantía','Ingeniería y Ciencias Básicas','Aplicada'
+'Administración de Empresas','Pasantía','Administración y Ciencias Contables','Aplicada'
+'Obras Civiles','Pasantía','Ingeniería y Ciencias Básicas','Aplicada'
+'Gestion Contable','Pasantía','Administración y Ciencias Contables','Aplicada'
+'Ingeniería de Sistemas','Tesis','Ingeniería y Ciencias Básicas','Aplicada'
+'Administración de Empresas','Monografía','Administración y Ciencias Contables','Aplicada'
+'Administración de Empresas','Tesis','Ingeniería y Ciencias Básicas','Aplicada'
