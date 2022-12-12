@@ -24,6 +24,7 @@ const validations: any = {
   elemento: {
     elemento: {},
     descripcion: {},
+    orden: {},
   },
 };
 

@@ -27,6 +27,7 @@ public class PreguntaDTO implements Serializable {
     private Float puntajeMaximo;
 
 
+    private Long orden;
     private Long preguntaTipoPreguntaId;
 
     private String preguntaTipoPreguntaTipoPregunta;
@@ -61,6 +62,14 @@ public class PreguntaDTO implements Serializable {
         this.preguntaModalidads = preguntaModalidads;
     }
 
+
+    public Long getOrden() {
+        return orden;
+    }
+
+    public void setOrden(Long orden) {
+        this.orden = orden;
+    }
     public Long getId() {
         return id;
     }
@@ -208,6 +217,7 @@ public class PreguntaDTO implements Serializable {
             ", preguntaElementoElemento='" + getPreguntaElementoElemento() + "'" +
             ", preguntaFaseId=" + getPreguntaFaseId() +
             ", preguntaFaseFase='" + getPreguntaFaseFase() + "'" +
+            ", orden='" + getOrden() + "'" +
             "}";
     }
 

@@ -30,6 +30,7 @@
             <column name="puntaje_maximo" type="${floatType}">
                 <constraints nullable="true" />
             </column>
+            <column name="orden" type="bigint"/>
             <column name="pregunta_tipo_pregunta_id" type="bigint">
                 <constraints nullable="true" />
             </column>

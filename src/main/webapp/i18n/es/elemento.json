@@ -18,6 +18,7 @@
       },
       "elemento": "Elemento",
       "descripcion": "Descripcion",
+      "orden": "Orden",
       "elementoFormato": "Formato",
       "elementoFase": "Fase",
       "modalidad": "Modalidad"

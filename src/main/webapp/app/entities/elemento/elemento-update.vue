@@ -48,14 +48,14 @@
                         </select>
                     </div>
 
-                    <!-- <div class="form-group">
-                        <label class="form-control-label" v-bind:value="$t('ciecytApp.elemento.elementoModalidad')" for="elemento-elementoModalidad">Modalidad</label>
-                        <select class="form-control" id="elemento-elementoModalidad" name="elementoModalidad" v-model="elemento.elementoModalidadId"
-                        >
-                            <option v-bind:value="null">Todas las modalidades</option>
-                            <option v-bind:value="modalidadOption.id" v-for="modalidadOption in modalidads" :key="modalidadOption.id">{{modalidadOption.modalidad}}</option>
-                        </select>
-                    </div> -->
+                 
+                    <div class="form-group">
+                        <label class="form-control-label" v-text="$t('ciecytApp.elemento.orden')" for="elemento-orden">Orden</label>
+                        <input type="number" class="form-control" name="orden" id="elemento-orden"
+                            :class="{'valid': !$v.elemento.orden.$invalid, 'invalid': $v.elemento.orden.$invalid }" v-model="$v.elemento.orden.$model" />
+                    </div>
+
+
                 </div>
                 <div>
                     <button type="button" id="cancel-save" class="btn btn-secondary" v-on:click="previousState()">

@@ -29,6 +29,9 @@ public class Elemento implements Serializable {
     @Column(name = "descripcion")
     private String descripcion;
 
+    @Column(name = "orden")
+    private Long orden;
+
     @ManyToOne
     @JsonIgnoreProperties(value = "elementos", allowSetters = true)
     private Fases elementoFases;
@@ -68,7 +71,20 @@ public class Elemento implements Serializable {
         this.descripcion = descripcion;
     }
 
+    public Elemento orden(Long orden) {
+        this.orden = orden;
+        return this;
+    }
 
+
+
+    public Long getOrden() {
+        return orden;
+    }
+
+    public void setOrden(Long orden) {
+        this.orden = orden;
+    }
 
     public Fases getElementoFases() {
         return elementoFases;
@@ -107,6 +123,7 @@ public class Elemento implements Serializable {
             "id=" + getId() +
             ", elemento='" + getElemento() + "'" +
             ", descripcion='" + getDescripcion() + "'" +
+            ", orden='" + getOrden() + "'" +
             "}";
     }
 }

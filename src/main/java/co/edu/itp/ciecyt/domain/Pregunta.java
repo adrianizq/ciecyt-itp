@@ -42,6 +42,10 @@ public class Pregunta implements Serializable {
     @Column(name = "puntaje_maximo")
     private Float puntajeMaximo;
 
+    @Column(name = "orden")
+    private Long orden;
+
+
     @ManyToOne
     @JsonIgnoreProperties(value = "preguntas", allowSetters = true)
     private TipoPregunta preguntaTipoPregunta;
@@ -53,6 +57,20 @@ public class Pregunta implements Serializable {
     @ManyToOne
     @JsonIgnoreProperties(value = "preguntas", allowSetters = true)
     private Fases preguntaFase;
+
+
+    public Pregunta orden(Long orden) {
+        this.orden = orden;
+        return this;
+    }
+
+    public Long getOrden() {
+        return orden;
+    }
+
+    public void setOrden(Long orden) {
+        this.orden = orden;
+    }
 
     public Long getId() {
         return id;
@@ -193,6 +211,7 @@ public class Pregunta implements Serializable {
             ", pregunta='" + getPregunta() + "'" +
             ", puntaje=" + getPuntaje() +
             ", puntajeMaximo=" + getPuntajeMaximo() +
+            ", orden=" + getOrden() +
             "}";
     }
 }

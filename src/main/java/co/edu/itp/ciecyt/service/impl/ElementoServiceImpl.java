@@ -170,7 +170,7 @@ public class ElementoServiceImpl implements ElementoService {
     public List<ElementoDTO> findByElementoFasesId(Long idFase) throws Exception {
         log.debug("Request to get all Elementos de una modalidad con una idModalidad");
         List<ElementoDTO> listDTO = new ArrayList<>();
-        List<Elemento> list = elementoRepository.findByElementoFasesId(idFase);
+        List<Elemento> list = elementoRepository.findByElementoFasesIdOrderByOrden(idFase);
         //listDTO = integranteProyectoMapper.usersToUserDTOs(list);
 
         for (Elemento elemento : list) {

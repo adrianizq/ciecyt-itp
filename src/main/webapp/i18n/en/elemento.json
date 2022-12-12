@@ -14,13 +14,14 @@
         "question": "Are you sure you want to delete Elemento {{ id }}?"
       },
       "detail": {
-        "title": "Elemento"
+        "title": "Element"
       },
-      "elemento": "Elemento",
-      "descripcion": "Descripcion",
-      "elementoFormato": "Formato",
-      "elementoFase": "Fase",
-      "modalidad": "Modalidad"
+      "elemento": "Element",
+      "descripcion": "Description",
+      "orden": "Order",
+      "elementoFormato": "Format",
+      "elementoFase": "Phase",
+      "modalidad": "Modality"
     }
   }
 }

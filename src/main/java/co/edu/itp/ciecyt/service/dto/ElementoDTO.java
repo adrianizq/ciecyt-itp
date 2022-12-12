@@ -14,6 +14,7 @@ public class ElementoDTO implements Serializable {
 
     private String descripcion;
 
+    private Long orden;
 
     private Long elementoFasesId;
 
@@ -54,7 +55,13 @@ public class ElementoDTO implements Serializable {
         this.descripcion = descripcion;
     }
 
+    public Long getOrden() {
+        return orden;
+    }
 
+    public void setOrden(Long orden) {
+        this.orden = orden;
+    }
 
     public Long getElementoFasesId() {
         return elementoFasesId;
@@ -98,6 +105,7 @@ public class ElementoDTO implements Serializable {
             ", descripcion='" + getDescripcion() + "'" +
             ", elementoFasesId=" + getElementoFasesId() +
             ", elementoFasesFase='" + getElementoFasesFase() + "'" +
+            ", orden='" + getOrden() + "'" +
             "}";
     }
 }
