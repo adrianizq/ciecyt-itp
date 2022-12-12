@@ -393,7 +393,7 @@ export default class PropuestaEvaluar extends mixins(JhiDataUtils){
      }
 
      eliminarRetro(ob) {
-    console.log('entro a eliminar');
+    //console.log('entro a eliminar');
     this.adjuntoRetroalimentacionService().delete(this.adjuntoRetroalimentacion.id);
     //this.adjuntoProyectoFass=null;
     this.adjuntoRetroalimentacions = null;
@@ -405,7 +405,7 @@ export default class PropuestaEvaluar extends mixins(JhiDataUtils){
      asignarData(event, entity, field, isImage){
      var fileData =  event.target.files[0];
     this.adjuntoProyectoFase.nombreArchivoOriginal= fileData.name;
-    console.log(this.adjuntoProyectoFase.nombreArchivoOriginal);
+    //console.log(this.adjuntoProyectoFase.nombreArchivoOriginal);
 
     this.setFileData(event, entity, field, isImage)
     
@@ -414,7 +414,7 @@ export default class PropuestaEvaluar extends mixins(JhiDataUtils){
   asignarDataRetro(event, entity, field, isImage){
      var fileData =  event.target.files[0];
     this.adjuntoRetroalimentacion.nombreArchivoOriginal= fileData.name;
-    console.log(this.adjuntoRetroalimentacion.nombreArchivoOriginal);
+    //console.log(this.adjuntoRetroalimentacion.nombreArchivoOriginal);
 
     this.setFileData(event, entity, field, isImage)
     
@@ -434,7 +434,7 @@ export default class PropuestaEvaluar extends mixins(JhiDataUtils){
 
     
     if(this.adjuntoRetroalimentacion.id) {
-     console.log("Existe el adjunto");
+     //console.log("Existe el adjunto");
       this.adjuntoRetroalimentacionService()
         .update(this.adjuntoRetroalimentacion)
         .then(param => {
@@ -444,7 +444,7 @@ export default class PropuestaEvaluar extends mixins(JhiDataUtils){
           this.alertService().showAlert(message, 'info');
         });
     } else {
-      console.log("NO Existe el adjunto");
+      //console.log("NO Existe el adjunto");
       this.adjuntoRetroalimentacionService()
         .create(this.adjuntoRetroalimentacion)
         .then(param => {
@@ -521,11 +521,13 @@ export default class PropuestaEvaluar extends mixins(JhiDataUtils){
                 
 
               //Obtenienedo los elementos de acuerdo a la modalidad
+              console.log("Antes de cargar las preguntas");
                 res = await  this.preguntaService()
                  .retrievePreguntasModalidadyFaseyAuthority(this.modalidadId, this.fase.id, this.authority)
-                
+                 .then(res => {
                     this.pregunts = res.data;
-                this.pregunts.forEach(e => {
+                    
+                  this.pregunts.forEach(e => {
                   var proyResp: IProyectoRespuestas = new ProyectoRespuestas();
                   proyResp.proyectoRespuestasPreguntaPregunta= e.pregunta;
                   proyResp.proyectoRespuestasPreguntaId = e.id;
@@ -547,7 +549,8 @@ export default class PropuestaEvaluar extends mixins(JhiDataUtils){
                   }
                   
                 }); //fin del foreach pregunts
-    
+              });
+
           
        res=  await this.adjuntoProyectoFaseService()
       .findAdjuntoProyectoFase(this.proyId,  this.fase.id)
@@ -559,7 +562,7 @@ export default class PropuestaEvaluar extends mixins(JhiDataUtils){
         else{
           this.adjuntoProyectoFase = this.adjuntoProyectoFass[0];
         }
-         console.log(this.adjuntoProyectoFass);
+         //console.log(this.adjuntoProyectoFass);
         
       });
 
@@ -573,8 +576,8 @@ export default class PropuestaEvaluar extends mixins(JhiDataUtils){
         else{
           this.adjuntoRetroalimentacion = this.adjuntoRetroalimentacions[0];
         }
-         console.log(this.adjuntoRetroalimentacions);
-         console.log(this.adjuntoRetroalimentacion);
+        // console.log(this.adjuntoRetroalimentacions);
+        // console.log(this.adjuntoRetroalimentacion);
       });
 
        res= await this.cronogramaService()
@@ -583,7 +586,7 @@ export default class PropuestaEvaluar extends mixins(JhiDataUtils){
      
             }
             catch(e){
-              console.log("error al recuperar la informacion de elemento ");
+              //console.log("error al recuperar la informacion de elemento ");
             }
         }
 public previousState() {
