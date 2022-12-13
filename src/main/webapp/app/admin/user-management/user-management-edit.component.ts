@@ -79,6 +79,23 @@ export default class JhiUserManagementEdit extends Vue {
       .retrieveAuthorities()
       .then(_res => {
         this.authorities = _res.data;
+
+        var index = this.authorities.indexOf('ROLE_USER');
+        if (index > -1) {
+          this.authorities.splice(index, 1);
+        }
+
+        var index = this.authorities.indexOf('ROLE_ANONYMOUS');
+        if (index > -1) {
+          this.authorities.splice(index, 1);
+        }
+
+        var index = this.authorities.indexOf('ROLE_DOCENTE');
+        if (index > -1) {
+          this.authorities.splice(index, 1);
+        }
+        // array = [2, 9]
+        console.log(this.authorities);
       });
   }
 
@@ -102,6 +119,8 @@ export default class JhiUserManagementEdit extends Vue {
   public save(): void {
     this.isSaving = true;
     this.userAccount.userInfo = this.userInfo;
+    this.userAccount.authorities.push('ROLE_USER');
+
     if (this.userAccount.id) {
       this.userManagementService()
         .update(this.userAccount)
