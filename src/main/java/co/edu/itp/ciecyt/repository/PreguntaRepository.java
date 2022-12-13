@@ -16,7 +16,7 @@ import org.springframework.stereotype.Repository;
 public interface PreguntaRepository extends JpaRepository<Pregunta, Long> {
     //List<Pregunta> findByPreguntaModalidadId(Long idModalidad);
     //List<Pregunta> findByPreguntaModalidadIdAndPreguntaFaseId(Long idModalidad, Long idFase);
-    List<Pregunta> findByPreguntaFaseId(Long idFase);
+    List<Pregunta> findByPreguntaFaseIdOrderByOrden(Long idFase);
 
 
 }

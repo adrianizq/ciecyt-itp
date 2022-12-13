@@ -19,6 +19,7 @@
       "encabezado": "Encabezado",
       "descripcion": "Descripcion",
       "pregunta": "Pregunta",
+      "orden": "Orden",
       "preguntaTipoPregunta": "Tipo Pregunta",
       "preguntaModalidad": "Modalidad",
       "preguntaRolesModalidad": "Rol Modalidad",

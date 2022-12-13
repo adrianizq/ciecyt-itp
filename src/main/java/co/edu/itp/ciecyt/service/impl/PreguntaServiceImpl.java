@@ -188,7 +188,7 @@ public class PreguntaServiceImpl implements PreguntaService {
         log.debug("Request to get all Preguntas de una modalidad con una idModalidad");
         List<PreguntaDTO> listDTO = new ArrayList<>();
         List<Pregunta> list = new ArrayList<>();
-        List<Pregunta> listPregunta = preguntaRepository.findByPreguntaFaseId(idFase);
+        List<Pregunta> listPregunta = preguntaRepository.findByPreguntaFaseIdOrderByOrden(idFase);
         List<PreguntaModalidad> listPreguntaModalidad= preguntaModalidadRepository.findByModalidad2Id(idModalidad);
         if(listPregunta!=null) {
             for (Pregunta pregunta : listPregunta
@@ -215,7 +215,7 @@ public class PreguntaServiceImpl implements PreguntaService {
         List<PreguntaDTO> listDTO = new ArrayList<>();
         List<Pregunta> list = new ArrayList<>();
         List<Pregunta> list2 = new ArrayList<>();
-        List<Pregunta> listPregunta = preguntaRepository.findByPreguntaFaseId(idFase);
+        List<Pregunta> listPregunta = preguntaRepository.findByPreguntaFaseIdOrderByOrden(idFase);
         List<PreguntaModalidad> listPreguntaModalidad= preguntaModalidadRepository.findByModalidad2Id(idModalidad);
         //busca las lista de preguntas de acuerdo a la modalidad
         if(listPregunta!=null) {

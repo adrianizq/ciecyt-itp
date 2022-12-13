@@ -100,7 +100,11 @@
                             </option>
                         </select>
                     </div>
-        
+                    <div class="form-group">
+                        <label class="form-control-label" v-text="$t('ciecytApp.pregunta.orden')" for="pregunta-orden">Orden</label>
+                        <input type="number" class="form-control" name="orden" id="pregunta-orden"
+                            :class="{'valid': !$v.pregunta.orden.$invalid, 'invalid': $v.pregunta.orden.$invalid }" v-model="$v.pregunta.orden.$model" />
+                    </div>
                     
                 </div>
 

@@ -34,6 +34,7 @@ const validations: any = {
   pregunta: {
     encabezado: {},
     descripcion: {},
+    orden: {},
     pregunta: {},
     puntajeMaximo: {},
     preguntaElementoId: {},

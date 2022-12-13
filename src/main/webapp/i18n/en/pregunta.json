@@ -18,6 +18,7 @@
       },
       "encabezado": "Encabezado",
       "descripcion": "Descripcion",
+      "orden": "Order",
       "pregunta": "Pregunta",
       "preguntaTipoPregunta": "Pregunta Tipo Pregunta",
       "preguntaModalidad": "Pregunta Modalidad",
