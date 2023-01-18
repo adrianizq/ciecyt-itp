@@ -43,6 +43,7 @@ export interface IProyecto {
   recomendacionesAsesorPropuesta?: string;
   recomendacionesAsesorProyecto?: string;
   recomendacionesJuradoSustentacion?: string;
+  viable?: boolean;
   //comentario
 }
 
@@ -89,6 +90,7 @@ export class Proyecto implements IProyecto {
     public recomendacionesJuradoProyecto?: string,
     public recomendacionesAsesorPropuesta?: string,
     public recomendacionesAsesorProyecto?: string,
-    public recomendacionesJuradoSustentacion?: string
+    public recomendacionesJuradoSustentacion?: string,
+    public viable?: boolean
   ) {}
 }

@@ -724,7 +724,7 @@ export default class PasantiaInformacionEmpresa extends Vue {
     this.proyId = this.$route.params.proyectoId;
         
   }
- retrieveInformacionPasantia() {
+ /*retrieveInformacionPasantia() {
      this.isFetching = true;
     this.informacionPasantiaService()
       .findInformacionPasantiaProyecto(this.proyId)
@@ -737,14 +737,16 @@ export default class PasantiaInformacionEmpresa extends Vue {
         }
       
       );
-  }
+  }*/
 
    beforeRouteEnter(to, from, next) {
     next(vm => {
       if (to.params.proyectoId) {
-        vm.retrieveInformacionPasantia(to.params.proyectoId);
+        //vm.retrieveInformacionPasantia(to.params.proyectoId);
+
+        vm.initRelationships(to.params.proyectoId);
       }
-      vm.initRelationships();
+      //vm.initRelationships();
     });
   }
   public save(): void {
@@ -779,7 +781,7 @@ export default class PasantiaInformacionEmpresa extends Vue {
             const message = 'Se ha creado un nuevo elemento de pasantia';
             this.alertService().showAlert(message, 'success');
           });
-          this.retrieveInformacionPasantia();
+          //this.retrieveInformacionPasantia(); //estaba activo
       }
       this.submitStatus = 'PENDING';
       setTimeout(() => {
@@ -789,11 +791,25 @@ export default class PasantiaInformacionEmpresa extends Vue {
     }
   }
 
- initRelationships() {
+ async initRelationships() {
 
     this.proyId = this.$route.params.proyectoId;
+
+
+    this.isFetching = true;
+    await this.informacionPasantiaService()
+      .findInformacionPasantiaProyecto(this.proyId)
+      .then(res => {
+        if (res) this.informacionPasantia = res;
+        this.isFetching = false;
+      },
+      err => {
+          this.isFetching = false;
+        }
+      
+      );
  
-    this.departamentoService()
+    await this.departamentoService()
       .retrieve()
       .then(res => {
         this.departamentos = res.data;

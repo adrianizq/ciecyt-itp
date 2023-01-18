@@ -126,7 +126,7 @@
                 </tbody>
             </table>
 
-            <button  @click="downloadPdf" >Download PDF</button>
+            <button  @click="downloadPdf" >Descargar Informe</button>
         </div>
         
         <div v-show="proyects && proyects.length > 0">
@@ -183,7 +183,9 @@ export default class ListadoCiecyt extends Vue {
  
    @Inject('alertService') private alertService: () => AlertService;
 
-   doc = new jsPDF();
+   //doc = new jsPDF();
+   
+
 
 
     
@@ -403,12 +405,30 @@ public get authorities(): string {
 
   
 public downloadPdf(){
-  var pageHeight= this.doc.internal.pageSize.height;
-  this.doc.text("Proyectos y propuestas CIECYT", 10, 10);
+
+  //http://raw.githack.com/MrRio/jsPDF/master/docs/index.html
+
+  //const doc = new jsPDF('p','in','letter')
+  const doc = new jsPDF()
+
+  var sizes = [12, 16, 20]
+, fonts = [['Times','Roman'],['Helvetica',''], ['Times','Italic']]
+, font, size, lines
+, margin = 0.5 // inches on a 8.5 x 11 inch sheet.
+, verticalOffset = margin
+, loremipsum = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus id eros turpis. Vivamus tempor urna vitae sapien mollis molestie. Vestibulum in lectus non enim bibendum laoreet at at libero. Etiam malesuada erat sed sem blandit in varius orci porttitor. Sed at sapien urna. Fusce augue ipsum, molestie et adipiscing at, varius quis enim. Morbi sed magna est, vel vestibulum urna. Sed tempor ipsum vel mi pretium at elementum urna tempor. Nulla faucibus consectetur felis, elementum venenatis mi mollis gravida. Aliquam mi ante, accumsan eu tempus vitae, viverra quis justo.\n\nProin feugiat augue in augue rhoncus eu cursus tellus laoreet. Pellentesque eu sapien at diam porttitor venenatis nec vitae velit. Donec ultrices volutpat lectus eget vehicula. Nam eu erat mi, in pulvinar eros. Mauris viverra porta orci, et vehicula lectus sagittis id. Nullam at magna vitae nunc fringilla posuere. Duis volutpat malesuada ornare. Nulla in eros metus. Vivamus a posuere libero.'
+
+  doc.setDrawColor(0, 255, 0)
+	.setLineWidth(1/72)
+	.line(margin, margin, margin, 11 - margin)
+  .line(8.5 - margin, margin, 8.5-margin, 11-margin)
+
+  var pageHeight= doc.internal.pageSize.height;
+  doc.text("Proyectos y propuestas CIECYT", 10, 10);
   //this.doc.text(pageHeight.toString(), 10, 10);
    var y = 0;
-  this.doc.setFontSize(10);
-  this.doc.line(10, 12, 200, 12);
+  doc.setFontSize(10);
+  doc.line(10, 12, 200, 12);
  /* for(var i =0; i < 1000; i++) {  //se comprobo para varias paginas
     this.doc.text("hola" + " i=" + i + " y=" + y,10,15+(y*5));
     if (y >= pageHeight-245)
@@ -423,14 +443,32 @@ public downloadPdf(){
   ////verificar nueva pagina
    if (y >= pageHeight-245)
         {
-        this.doc.addPage();
+        doc.addPage();
         y = 0 // Restart height position
         } 
-     this.doc.text(
+    doc.text(
       this.proyects[i].id.toString() 
-      + " "  + this.proyects[i].titulo.toString() 
-      + " "  + this.proyects[i].facultadId.toString()  
-      + " "  + this.proyects[i].programa.toString() 
+      , 10,15+(y*5));
+    y++;
+
+   // var longitudTitulo =this.proyects[i].titulo.length;
+   // var lineasTitulo = parseInt(longitudTitulo/100) +1;
+
+    var arrayLinea = this.proyects[i].titulo.match(/.{1,110}/g);
+    
+    arrayLinea.forEach(l => {
+      doc.text(
+       l 
+      
+     // + " "  + this.proyects[i].programa.toString() 
+    , 10,15+(y*5));
+    y++;
+    });
+
+    
+    doc.text(
+       this.proyects[i].programa.toString() 
+       + " "  + this.proyects[i].facultadId.toString()
     , 10,15+(y*5));
     y++;
     if(this.proyects[i].listaIntegrantesProyecto.length>0){
@@ -438,14 +476,14 @@ public downloadPdf(){
       ////verificar nueva pagina
        if (y >= pageHeight-245)
         {
-        this.doc.addPage();
+        doc.addPage();
         y = 0 // Restart height position
         } 
       if (this.proyects[i].listaIntegrantesProyecto[j].integranteProyectoUserLogin!=null){
         let fn = this.firstName(this.proyects[i].listaIntegrantesProyecto[j].integranteProyectoUserLogin)
         let ln = this.lastName(this.proyects[i].listaIntegrantesProyecto[j].integranteProyectoUserLogin)
      
-      this.doc.text(
+      doc.text(
       this.proyects[i].listaIntegrantesProyecto[j].integranteProyectoUserLogin.toString()
       + " " + this.proyects[i].listaIntegrantesProyecto[j].integranteProyectoRolesModalidadRol.toString() 
       + " " + fn
@@ -457,13 +495,67 @@ public downloadPdf(){
       y++;
     }
  }
-    this.doc.line(10, 15+(y*5) , 200, 15+(y*5));
+
+///////////////////////////////
+ if(this.proyects[i].fechaEnvioPropuesta!=null){
+    doc.text(
+      "Fecha de envío de la propuesta: "  + this.proyects[i].fechaEnvioPropuesta
+    , 10,15+(y*5));
+    }
+    else{
+      doc.text(
+      "Fecha de envío de la propuesta: "  + "NO ENVIADA"
+    , 10,15+(y*5));
+    }
+    y++;
+
+    ////////////////////////////////////////////////////////////
+
+///////////////////////////////
+if(this.proyects[i].viable==null){
+    doc.text(
+      "Viablilidad: "  + "Sin asignar Viabilidad"
+    , 10,15+(y*5));
+}
+else if(this.proyects[i].viable==false){
+      doc.text(
+      "Viablilidad: "  + "NO ES VIABLE"
+    , 10,15+(y*5));
+    }
+else{
+  doc.text(
+      "Viablilidad: "  + "VIABLE"
+    , 10,15+(y*5));
+}
+    y++;
+
+    ////////////////////////////////////////////////////////////
+
+
+    //////////////////////////////
+if(this.proyects[i].nota==0 || this.proyects[i].nota==null){
+    doc.text(
+      "Nota: "  + "Sin asignar Nota"
+    , 10,15+(y*5));
+}
+else if(this.proyects[i].nota>0){
+      doc.text(
+      "Nota: "  + this.proyects[i].nota
+    , 10,15+(y*5));
+    }
+
+    y++;
+
+    ////////////////////////////////////////////////////////////
+
+    doc.line(10, 15+(y*5) , 200, 15+(y*5));
+    y++;
 }
 
 
 
 
-this.doc.save("a4.pdf");
+doc.save("a4.pdf");
 }
 </script>
 
