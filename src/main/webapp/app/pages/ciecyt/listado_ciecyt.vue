@@ -457,9 +457,20 @@ public downloadPdf(){
    // var longitudTitulo =this.proyects[i].titulo.length;
    // var lineasTitulo = parseInt(longitudTitulo/100) +1;
 
-    var arrayLinea = this.proyects[i].titulo.match(/.{1,110}/g);
-    
-    arrayLinea.forEach(l => {
+    //var arrayLinea = this.proyects[i].titulo.match(/.{1,110}/g);
+    /* arrayLinea.forEach(l => {
+      doc.text(
+       l 
+      
+     // + " "  + this.proyects[i].programa.toString() 
+    , 10,15+(y*5));
+    y++;
+    });*/
+    var textLines = doc.setFont('Times','Italic')
+    .setFontSize(12)
+    .splitTextToSize(this.proyects[i].titulo,157.25);
+
+    textLines.forEach(l => {
       doc.text(
        l 
       
@@ -467,7 +478,8 @@ public downloadPdf(){
     , 10,15+(y*5));
     y++;
     });
-
+   
+    doc.setFont('Times','Normal')
     
     doc.text(
        this.proyects[i].programa.toString() 
@@ -487,8 +499,8 @@ public downloadPdf(){
         let ln = this.lastName(this.proyects[i].listaIntegrantesProyecto[j].integranteProyectoUserLogin)
      
       doc.text(
-      this.proyects[i].listaIntegrantesProyecto[j].integranteProyectoUserLogin.toString()
-      + " " + this.proyects[i].listaIntegrantesProyecto[j].integranteProyectoRolesModalidadRol.toString() 
+      //this.proyects[i].listaIntegrantesProyecto[j].integranteProyectoUserLogin.toString()
+      this.proyects[i].listaIntegrantesProyecto[j].integranteProyectoRolesModalidadRol.toString() 
       + " " + fn
       + " " + ln
 
