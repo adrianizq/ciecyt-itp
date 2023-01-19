@@ -487,8 +487,8 @@ public downloadPdf(){
     doc.setFont('Times','Normal')
     
     doc.text(
-       this.proyects[i].programa.toString() 
-       + " "  + this.proyects[i].facultadId.toString()
+       "Programa: " + this.proyects[i].programa.toString() 
+       //+ " "  + this.proyects[i].facultadId.toString()
     , 10,15+(y*5));
     y++;
     if(this.proyects[i].listaIntegrantesProyecto.length>0){
@@ -575,7 +575,7 @@ else if(this.proyects[i].nota>0){
 
 
 
-doc.save("a4.pdf");
+doc.save("Proyectos y propuestas.pdf");
 }
 </script>
 
