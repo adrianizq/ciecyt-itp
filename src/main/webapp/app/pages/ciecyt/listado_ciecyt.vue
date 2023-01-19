@@ -450,7 +450,12 @@ public downloadPdf(){
         y = 0 // Restart height position
         } 
     doc.text(
-      this.proyects[i].id.toString() 
+      "Identificador: " + this.proyects[i].id.toString() 
+      , 10,15+(y*5));
+    y++;
+
+    doc.text(
+      "Modalidad: " + this.proyects[i].proyectoModalidadModalidad.toString()
       , 10,15+(y*5));
     y++;
 
