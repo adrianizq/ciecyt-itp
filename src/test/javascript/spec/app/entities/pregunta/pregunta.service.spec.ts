@@ -30,7 +30,8 @@ describe('Service Tests', () => {
     beforeEach(() => {
       service = new PreguntaService();
 
-      elemDefault = new Pregunta(0, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA');
+      //elemDefault = new Pregunta(0, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA');
+      elemDefault = new Pregunta(0, 'AAAAAAA', 'AAAAAAA', 0);
     });
 
     describe('Service methods', () => {
