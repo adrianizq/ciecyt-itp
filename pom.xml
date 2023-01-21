@@ -36,9 +36,9 @@
         <run.addResources>false</run.addResources>
         <!-- These remain empty unless the corresponding profile is active -->
 
-       
+
         <itextpdf.version>5.5.12</itextpdf.version>
-		
+
         <profile.no-liquibase />
         <profile.swagger />
         <profile.tls />
@@ -375,8 +375,11 @@
             <artifactId>weka-stable</artifactId>
             <version>3.8.0</version>
         </dependency>
-
-
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-common</artifactId>
+            <version>1.6.11</version>
+        </dependency>
 
 
         <!-- jhipster-needle-maven-add-dependency -->
@@ -427,6 +430,9 @@
                         <artifactId>checkstyle</artifactId>
                         <version>${checkstyle.version}</version>
                     </dependency>
+
+
+
                     <dependency>
                         <groupId>io.spring.nohttp</groupId>
                         <artifactId>nohttp-checkstyle</artifactId>

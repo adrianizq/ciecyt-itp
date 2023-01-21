@@ -5,6 +5,8 @@ import co.edu.itp.ciecyt.repository.ProyectoRepository;
 import co.edu.itp.ciecyt.service.ProyectoService;
 //import co.edu.itp.ciecyt.service.ReportService;
 import co.edu.itp.ciecyt.service.dto.ProyectoDTO;
+import co.edu.itp.ciecyt.service.mapper.AdjuntoProyectoFaseMapper;
+import co.edu.itp.ciecyt.service.mapper.ProyectoMapper;
 import co.edu.itp.ciecyt.web.rest.errors.BadRequestAlertException;
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
@@ -26,6 +28,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.io.FileNotFoundException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,16 +50,20 @@ public class ProyectoResource {
 
     private final ProyectoService proyectoService;
     private final ProyectoRepository proyectoRepository;
+    private ProyectoMapper proyectoMapper;
     //private final ReportService reportService;
 
     //private final IntegranteProyectoService integranteProyectoService;
 
     public ProyectoResource(ProyectoService proyectoService,
-                            ProyectoRepository proyectoRepository) {
+                            ProyectoRepository proyectoRepository,
+                            ProyectoMapper proyectoMapper) {
 
         this.proyectoService = proyectoService;
 
         this.proyectoRepository = proyectoRepository;
+
+        this.proyectoMapper = proyectoMapper;
     }
 
 
@@ -322,6 +329,45 @@ public class ProyectoResource {
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, proyectoDTO.getId().toString()))
             .body(result);
+    }
+
+
+    @GetMapping("/proyectos/{cadBusq}/searchtitulo")
+    public ResponseEntity<List<ProyectoDTO>> searchProyectosTitulo(@PathVariable String cadBusq,
+                                                               @org.springdoc.api.annotations.ParameterObject Pageable pageable
+    ) {
+        log.debug("REST request to get Licenses by search code: {}", cadBusq);
+
+        //Verifica el Rol de usuario para filtrar la informacion de las licencias
+        List<Proyecto> proyectoList = new ArrayList<>();
+
+
+        try {
+            List<ProyectoDTO> proyectoDTOList = new ArrayList<>();
+            proyectoList = proyectoRepository.findByTituloContainingIgnoreCase (cadBusq);
+            //HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+            //return ResponseEntity.ok().headers(headers).body(page.getContent());
+            for (Proyecto l:proyectoList
+            ) {
+                proyectoDTOList.add(proyectoMapper.toDto(l));
+            }
+
+
+            Page<ProyectoDTO> page = (Page<ProyectoDTO>) toPage(proyectoDTOList,pageable);
+            HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+            return ResponseEntity.ok().headers(headers).body(page.getContent());
+        } catch (Exception e) {
+            log.debug(e.getMessage());
+            return null;
+        }
+    }
+
+    public Page<?> toPage(List<?> list, Pageable pageable) {
+        int start = (int) pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), list.size());
+        if(start > list.size())
+            return new PageImpl<>(new ArrayList<>(), pageable, list.size());
+        return new PageImpl<>(list.subList(start, end), pageable, list.size());
     }
 
 
