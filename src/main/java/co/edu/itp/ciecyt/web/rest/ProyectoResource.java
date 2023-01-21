@@ -336,15 +336,42 @@ public class ProyectoResource {
     public ResponseEntity<List<ProyectoDTO>> searchProyectosTitulo(@PathVariable String cadBusq,
                                                                @org.springdoc.api.annotations.ParameterObject Pageable pageable
     ) {
-        log.debug("REST request to get Licenses by search code: {}", cadBusq);
+        log.debug("REST request to get Proyectos by search titulo: {}", cadBusq);
 
-        //Verifica el Rol de usuario para filtrar la informacion de las licencias
+        List<Proyecto> proyectoList = new ArrayList<>();
+
+        try {
+            List<ProyectoDTO> proyectoDTOList = new ArrayList<>();
+            proyectoList = proyectoRepository.findByTituloContainingIgnoreCase (cadBusq);
+            //HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+            //return ResponseEntity.ok().headers(headers).body(page.getContent());
+            for (Proyecto l:proyectoList
+            ) {
+                proyectoDTOList.add(proyectoMapper.toDto(l));
+            }
+
+
+            Page<ProyectoDTO> page = (Page<ProyectoDTO>) toPage(proyectoDTOList,pageable);
+            HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+            return ResponseEntity.ok().headers(headers).body(page.getContent());
+        } catch (Exception e) {
+            log.debug(e.getMessage());
+            return null;
+        }
+    }
+
+    @GetMapping("/proyectos/{cadBusq}/searchprograma")
+    public ResponseEntity<List<ProyectoDTO>> searchProyectosPrograma(@PathVariable String cadBusq,
+                                                                   @org.springdoc.api.annotations.ParameterObject Pageable pageable
+    ) {
+        log.debug("REST request to get Proyectos by search programa: {}", cadBusq);
+
         List<Proyecto> proyectoList = new ArrayList<>();
 
 
         try {
             List<ProyectoDTO> proyectoDTOList = new ArrayList<>();
-            proyectoList = proyectoRepository.findByTituloContainingIgnoreCase (cadBusq);
+            proyectoList = proyectoRepository.findByProgramaContainingIgnoreCase (cadBusq);
             //HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
             //return ResponseEntity.ok().headers(headers).body(page.getContent());
             for (Proyecto l:proyectoList

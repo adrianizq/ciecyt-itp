@@ -22,4 +22,6 @@ public interface ProyectoRepository extends JpaRepository<Proyecto, Long> {
     List<Proyecto> findAll();
 
     List<Proyecto> findByTituloContainingIgnoreCase(String titulo);
+
+    List<Proyecto> findByProgramaContainingIgnoreCase(String programa);
 }
