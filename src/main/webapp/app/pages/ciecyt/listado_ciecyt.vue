@@ -13,7 +13,7 @@
               <font-awesome-icon icon="search" :spin="isFetching"></font-awesome-icon>
                           
               <input type="text" name="buscarCodigo"  @change="retrieveSearchTitulo" v-model="searchTitulo"
-              placeholder="codigo"/>
+              placeholder="palabras del titulo"/>
 
 
 
