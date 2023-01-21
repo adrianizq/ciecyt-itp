@@ -132,4 +132,17 @@ export default class ProyectoService {
         });
     });
   }
+
+  public retrieveSearchPrograma(cad: any, paginationQuery?: any): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      axios
+        .get(`${baseApiUrl}/${cad}/searchprograma` + `?${buildPaginationQueryOpts(paginationQuery)}`)
+        .then(res => {
+          resolve(res);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
 }

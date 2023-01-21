@@ -12,8 +12,12 @@
         <label  >Buscar: </label>
               <font-awesome-icon icon="search" :spin="isFetching"></font-awesome-icon>
                           
-              <input type="text" name="buscarCodigo"  @change="retrieveSearchTitulo" v-model="searchTitulo"
+              <input type="text" name="buscarTitulo"  @change="retrieveSearchTitulo" v-model="searchTitulo"
               placeholder="palabras del titulo"/>
+
+              <input type="text" name="buscarPrograma"  @change="retrieveSearchPrograma" v-model="searchPrograma"
+              placeholder="palabras del programa"/>
+
 
 
 
@@ -223,10 +227,11 @@ export default class ListadoCiecyt extends Vue {
   public autoridades: any =  this.$store.getters.account.authorities;
 
   public searchTitulo: any;
+  public searchPrograma: any;
 
-  //////////recuperar datos desde la busqueda por codigo de licencia
+  //////////recuperar datos desde la busqueda por titulo del proyecto
 retrieveSearchTitulo(){
-  //si la cadena es vacia recupera todas las licencias
+  //si la cadena es vacia recupera todas los proyectoss
   if(this.searchTitulo==null || this.searchTitulo.length==0){
     this.retrieveAllProyectos()
   }
@@ -238,6 +243,38 @@ retrieveSearchTitulo(){
   };
   this.proyectoService()
       .retrieveSearchTitulo(this.searchTitulo, paginationQuery)
+      .then(
+        res => {
+          this.proyects = res.data;
+          //console.log(this.licenses);
+          this.totalItems = Number(res.headers['x-total-count']);
+          this.queryCount = this.totalItems;
+          this.isFetching = false;
+        },
+        err => {
+          this.isFetching = false;
+          this.alertService().showHttpError(this, err.response);
+        }
+      );
+  }
+}
+
+
+
+  //////////recuperar datos desde la busqueda por programa del proyecto
+  retrieveSearchPrograma(){
+  //si la cadena es vacia recupera todas los proyectoss
+  if(this.searchPrograma==null || this.searchPrograma.length==0){
+    this.retrieveAllProyectos()
+  }
+  else{
+  const paginationQuery = {
+    page: this.page - 1,
+    size: this.itemsPerPage,
+    sort: this.sort(),
+  };
+  this.proyectoService()
+      .retrieveSearchPrograma(this.searchPrograma, paginationQuery)
       .then(
         res => {
           this.proyects = res.data;
