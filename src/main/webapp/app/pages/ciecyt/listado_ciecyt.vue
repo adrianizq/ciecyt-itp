@@ -9,6 +9,14 @@
             <span id="proyecto-heading">Proyectos y propuestas</span>
             
         </h2>
+        <label  >Buscar: </label>
+              <font-awesome-icon icon="search" :spin="isFetching"></font-awesome-icon>
+                          
+              <input type="text" name="buscarCodigo"  @change="retrieveSearchTitulo" v-model="searchTitulo"
+              placeholder="codigo"/>
+
+
+
         <b-alert :show="dismissCountDown"
             dismissible
             :variant="alertType"
@@ -213,6 +221,38 @@ export default class ListadoCiecyt extends Vue {
   public alertType: string = this.$store.getters.alertType;
   public alertMessage: any = this.$store.getters.alertMessage;
   public autoridades: any =  this.$store.getters.account.authorities;
+
+  public searchTitulo: any;
+
+  //////////recuperar datos desde la busqueda por codigo de licencia
+retrieveSearchTitulo(){
+  //si la cadena es vacia recupera todas las licencias
+  if(this.searchTitulo==null || this.searchTitulo.length==0){
+    this.retrieveAllProyectos()
+  }
+  else{
+  const paginationQuery = {
+    page: this.page - 1,
+    size: this.itemsPerPage,
+    sort: this.sort(),
+  };
+  this.proyectoService()
+      .retrieveSearchTitulo(this.searchTitulo, paginationQuery)
+      .then(
+        res => {
+          this.proyects = res.data;
+          //console.log(this.licenses);
+          this.totalItems = Number(res.headers['x-total-count']);
+          this.queryCount = this.totalItems;
+          this.isFetching = false;
+        },
+        err => {
+          this.isFetching = false;
+          this.alertService().showHttpError(this, err.response);
+        }
+      );
+  }
+}
 
 
 public getAlertFromStore() {

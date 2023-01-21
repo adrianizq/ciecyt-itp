@@ -119,4 +119,17 @@ export default class ProyectoService {
       });
     });
   }
+
+  public retrieveSearchTitulo(cad: any, paginationQuery?: any): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      axios
+        .get(`${baseApiUrl}/${cad}/searchtitulo` + `?${buildPaginationQueryOpts(paginationQuery)}`)
+        .then(res => {
+          resolve(res);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
 }
