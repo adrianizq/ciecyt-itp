@@ -5,6 +5,8 @@ import Vue2Filters from 'vue2-filters';
 import { IElemento } from '@/shared/model/elemento.model';
 //import AlertService from '@/shared/alert/alert.service';
 import AlertMixin from '@/shared/alert/alert.mixin';
+import FasesService from '../fases/fases.service';
+import { IFases } from '@/shared/model/fases.model';
 
 import ElementoService from './elemento.service';
 
@@ -14,6 +16,7 @@ import ElementoService from './elemento.service';
 export default class Elemento extends mixins(AlertMixin) {
   //@Inject('alertService') private alertService: () => AlertService;
   @Inject('elementoService') private elementoService: () => ElementoService;
+  @Inject('fasesService') private fasesService: () => FasesService;
   private removeId: number = null;
   public itemsPerPage = 20;
   public queryCount: number = null;
@@ -23,6 +26,7 @@ export default class Elemento extends mixins(AlertMixin) {
   public reverse = false;
   public totalItems = 0;
   public elementos: IElemento[] = [];
+  public fases: IFases[] = [];
 
   public isFetching = false;
   public dismissCountDown: number = this.$store.getters.dismissCountDown;
@@ -103,6 +107,12 @@ export default class Elemento extends mixins(AlertMixin) {
           this.isFetching = false;
         }
       );
+
+    this.fasesService()
+      .retrieve()
+      .then(res => {
+        this.fases = res.data;
+      });
   }
 
   public prepareRemove(instance: IElemento): void {
