@@ -360,18 +360,18 @@ public class ProyectoResource {
         }
     }
 
-    @GetMapping("/proyectos/{cadBusq}/searchprograma")
-    public ResponseEntity<List<ProyectoDTO>> searchProyectosPrograma(@PathVariable String cadBusq,
+    @GetMapping("/proyectos/{idPrograma}/searchprograma")
+    public ResponseEntity<List<ProyectoDTO>> searchProyectosPrograma(@PathVariable Long idPrograma,
                                                                    @org.springdoc.api.annotations.ParameterObject Pageable pageable
     ) {
-        log.debug("REST request to get Proyectos by search programa: {}", cadBusq);
+        log.debug("REST request to get Proyectos by search programa: {}", idPrograma);
 
         List<Proyecto> proyectoList = new ArrayList<>();
 
 
         try {
             List<ProyectoDTO> proyectoDTOList = new ArrayList<>();
-            proyectoList = proyectoRepository.findByProgramaContainingIgnoreCase (cadBusq);
+            proyectoList = proyectoRepository.findByProyectoProgramaId (idPrograma);
             //HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
             //return ResponseEntity.ok().headers(headers).body(page.getContent());
             for (Proyecto l:proyectoList

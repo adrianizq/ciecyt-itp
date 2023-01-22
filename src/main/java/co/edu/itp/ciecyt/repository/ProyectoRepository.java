@@ -1,5 +1,6 @@
 package co.edu.itp.ciecyt.repository;
 
+import co.edu.itp.ciecyt.domain.Elemento;
 import co.edu.itp.ciecyt.domain.Proyecto;
 import co.edu.itp.ciecyt.service.dto.ProyectoDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -23,5 +24,7 @@ public interface ProyectoRepository extends JpaRepository<Proyecto, Long> {
 
     List<Proyecto> findByTituloContainingIgnoreCase(String titulo);
 
-    List<Proyecto> findByProgramaContainingIgnoreCase(String programa);
+    //List<Proyecto> findByProgramaContainingIgnoreCase(String programa);
+
+    List<Proyecto> findByProyectoProgramaId(Long idPrograma);
 }
