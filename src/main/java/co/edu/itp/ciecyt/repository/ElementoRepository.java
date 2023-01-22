@@ -19,5 +19,6 @@ public interface ElementoRepository extends JpaRepository<Elemento, Long> {
     List<Elemento> findAllByOrderByIdAsc();
     //List<Elemento> findByElementoFasesIdAndElementoFormatoId(Long idFase, Long idFormato);
 
+    List<Elemento> findByElementoFasesId(Long id);
 
 }

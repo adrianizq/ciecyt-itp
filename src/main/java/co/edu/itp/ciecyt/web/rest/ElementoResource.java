@@ -1,10 +1,12 @@
 package co.edu.itp.ciecyt.web.rest;
 
+import co.edu.itp.ciecyt.domain.Elemento;
+import co.edu.itp.ciecyt.repository.ElementoRepository;
 import co.edu.itp.ciecyt.service.ElementoModalidadService;
 import co.edu.itp.ciecyt.service.ElementoService;
 import co.edu.itp.ciecyt.service.dto.ElementoDTO;
 import co.edu.itp.ciecyt.service.dto.ElementoModalidadDTO;
-import co.edu.itp.ciecyt.service.dto.IntegranteProyectoDTO;
+import co.edu.itp.ciecyt.service.mapper.ElementoMapper;
 import co.edu.itp.ciecyt.web.rest.errors.BadRequestAlertException;
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
@@ -18,6 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -43,9 +46,15 @@ public class ElementoResource {
 
     private final ElementoModalidadService elementoModalidadService;
 
-    public ElementoResource(ElementoService elementoService, ElementoModalidadService elementoModalidadService) {
+    private final ElementoRepository elementoRepository;
+
+    private final ElementoMapper elementoMapper;
+
+    public ElementoResource(ElementoService elementoService, ElementoModalidadService elementoModalidadService, ElementoRepository elementoRepository, ElementoMapper elementoMapper) {
         this.elementoService = elementoService;
         this.elementoModalidadService = elementoModalidadService;
+        this.elementoRepository = elementoRepository;
+        this.elementoMapper = elementoMapper;
     }
 
     /**
@@ -221,5 +230,41 @@ public class ElementoResource {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
+    }
+    @GetMapping("/elementos/{idFase}/searchfase")
+    public ResponseEntity<List<ElementoDTO>> searchLicensesCode(@PathVariable Long idFase,
+                                                               @org.springdoc.api.annotations.ParameterObject Pageable pageable
+    ) {
+        log.debug("REST request to get Elemento by search idFase: {}", idFase);
+
+        //Verifica el Rol de usuario para filtrar la informacion de las licencias
+        List<Elemento> licenseList = new ArrayList<>();
+
+
+        try {
+            List<ElementoDTO> licenseDTOList = new ArrayList<>();
+            licenseList = elementoRepository.findByElementoFasesId (idFase);
+            //HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+            //return ResponseEntity.ok().headers(headers).body(page.getContent());
+            for (Elemento l:licenseList
+            ) {
+                licenseDTOList.add(elementoMapper.toDto(l));
+            }
+
+            Page<ElementoDTO> page = (Page<ElementoDTO>) toPage(licenseDTOList,pageable);
+            HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+            return ResponseEntity.ok().headers(headers).body(page.getContent());
+        } catch (Exception e) {
+            log.debug(e.getMessage());
+            return null;
+        }
+    }
+
+    public Page<?> toPage(List<?> list, Pageable pageable) {
+        int start = (int) pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), list.size());
+        if(start > list.size())
+            return new PageImpl<>(new ArrayList<>(), pageable, list.size());
+        return new PageImpl<>(list.subList(start, end), pageable, list.size());
     }
 }
