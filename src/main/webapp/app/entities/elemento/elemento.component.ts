@@ -30,6 +30,37 @@ export default class Elemento extends mixins(AlertMixin) {
   public alertType: string = this.$store.getters.alertType;
   public alertMessage: any = this.$store.getters.alertMessage;
 
+  public searchFaseId: any;
+
+  /////////recuperar datos desde la busqueda por codigo de licencia
+  retrieveSearchFaseId() {
+    //si la cadena es vacia recupera todas las licencias
+    if (this.searchFaseId == null || this.searchFaseId.length == 0) {
+      this.retrieveAllElementos();
+    } else {
+      const paginationQuery = {
+        page: this.page - 1,
+        size: this.itemsPerPage,
+        sort: this.sort(),
+      };
+      this.elementoService()
+        .retrieveSearchFase(this.searchFaseId, paginationQuery)
+        .then(
+          res => {
+            this.elementos = res.data;
+            //console.log(this.licenses);
+            this.totalItems = Number(res.headers['x-total-count']);
+            this.queryCount = this.totalItems;
+            this.isFetching = false;
+          },
+          err => {
+            this.isFetching = false;
+            this.alertService().showHttpError(this, err.response);
+          }
+        );
+    }
+  }
+
   public getAlertFromStore() {
     this.dismissCountDown = this.$store.getters.dismissCountDown;
     this.dismissSecs = this.$store.getters.dismissSecs;

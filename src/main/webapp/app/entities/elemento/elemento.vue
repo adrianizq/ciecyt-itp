@@ -9,6 +9,20 @@
                 </span>
             </router-link>
         </h2>
+
+        <div>
+              <label  >Buscar: </label>
+              <font-awesome-icon icon="search" :spin="isFetching"></font-awesome-icon>
+              <input type="number" name="buscarFaseId" min="1" 
+              @change="retrieveSearchFaseId"
+              v-model="searchFaseId"
+              placeholder="id"/>
+
+            
+             
+
+            </div>
+
         <b-alert :show="dismissCountDown"
             dismissible
             :variant="alertType"
