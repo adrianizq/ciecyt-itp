@@ -9,17 +9,24 @@
             <span id="proyecto-heading">Proyectos y propuestas</span>
             
         </h2>
-        <label  >Buscar: </label>
+        <div class="col-md-3">         
+        <label  >Buscar por titulo: </label>
               <font-awesome-icon icon="search" :spin="isFetching"></font-awesome-icon>
-                          
+                     
               <input type="text" name="buscarTitulo"  @change="retrieveSearchTitulo" v-model="searchTitulo"
               placeholder="palabras del titulo"/>
 
-              <input type="text" name="buscarPrograma"  @change="retrieveSearchPrograma" v-model="searchPrograma"
-              placeholder="palabras del programa"/>
-
-
-
+              <label  >por Programa: </label>  
+              <font-awesome-icon icon="search" :spin="isFetching"></font-awesome-icon>
+               <select class="form-control" id="elemento-elementoFase" 
+                  name="buscarFaseId" v-model="searchPrograma"
+                  placeholder="programa"
+                  @change="retrieveSearchPrograma">
+                 <option v-bind:value="null"></option>
+                 <option v-bind:value="programaOption.id" v-for="programaOption in programas" :key="programaOption.id">{{programaOption.programa}}</option>
+                 Programa
+               </select>          
+              </div>
 
         <b-alert :show="dismissCountDown"
             dismissible
@@ -168,6 +175,8 @@ import AlertService from '@/shared/alert/alert.service';
 import { Component, Inject, Vue } from 'vue-property-decorator';
 import MenuLateralCiecyt from '@/components/ciecyt/menu_lateral_ciecyt.vue';
 
+import ProgramaService from '../../entities/programa/programa.service';
+import { IPrograma } from '@/shared/model/programa.model';
 
 import UserManagementService from '@/admin/user-management/user-management.service';
 import { IUser, User } from '@/shared/model/user.model';
@@ -192,6 +201,8 @@ export default class ListadoCiecyt extends Vue {
     @Inject('integranteProyectoService') private integranteProyectoService: () => IntegranteProyectoService;
 
     @Inject('userService') private userManagementService: () => UserManagementService;
+
+    @Inject('programaService') private programaService: () => ProgramaService;
  
    @Inject('alertService') private alertService: () => AlertService;
 
@@ -228,6 +239,8 @@ export default class ListadoCiecyt extends Vue {
 
   public searchTitulo: any;
   public searchPrograma: any;
+
+  public programas: IPrograma[] = [];
 
   //////////recuperar datos desde la busqueda por titulo del proyecto
 retrieveSearchTitulo(){
@@ -378,7 +391,11 @@ public getAlertFromStore() {
       //}//del if ROLE_ASESOR
 
       
-
+      this.programaService()
+      .retrieve()
+      .then(res => {
+        this.programas = res.data;
+      });
 
 
       
