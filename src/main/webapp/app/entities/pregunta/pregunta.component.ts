@@ -5,6 +5,8 @@ import Vue2Filters from 'vue2-filters';
 import { IPregunta } from '@/shared/model/pregunta.model';
 //import AlertService from '@/shared/alert/alert.service';
 import AlertMixin from '@/shared/alert/alert.mixin';
+import FasesService from '../fases/fases.service';
+import { IFases } from '@/shared/model/fases.model';
 import PreguntaService from './pregunta.service';
 
 @Component({
@@ -13,6 +15,7 @@ import PreguntaService from './pregunta.service';
 export default class Pregunta extends mixins(AlertMixin) {
   //@Inject('alertService') private alertService: () => AlertService;
   @Inject('preguntaService') private preguntaService: () => PreguntaService;
+  @Inject('fasesService') private fasesService: () => FasesService;
   private removeId: number = null;
   public itemsPerPage = 20;
   public queryCount: number = null;
@@ -22,12 +25,43 @@ export default class Pregunta extends mixins(AlertMixin) {
   public reverse = false;
   public totalItems = 0;
   public preguntas: IPregunta[] = [];
+  public fases: IFases[] = [];
 
   public isFetching = false;
   public dismissCountDown: number = this.$store.getters.dismissCountDown;
   public dismissSecs: number = this.$store.getters.dismissSecs;
   public alertType: string = this.$store.getters.alertType;
   public alertMessage: any = this.$store.getters.alertMessage;
+  public searchFaseId: any;
+
+  /////////recuperar datos desde la busqueda por codigo de licencia
+  retrieveSearchFaseId() {
+    //si la cadena es vacia recupera todas las licencias
+    if (this.searchFaseId == null || this.searchFaseId.length == 0) {
+      this.retrieveAllPreguntas();
+    } else {
+      const paginationQuery = {
+        page: this.page - 1,
+        size: this.itemsPerPage,
+        sort: this.sort(),
+      };
+      this.preguntaService()
+        .retrieveSearchFase(this.searchFaseId, paginationQuery)
+        .then(
+          res => {
+            this.preguntas = res.data;
+            //console.log(this.licenses);
+            this.totalItems = Number(res.headers['x-total-count']);
+            this.queryCount = this.totalItems;
+            this.isFetching = false;
+          },
+          err => {
+            this.isFetching = false;
+            this.alertService().showHttpError(this, err.response);
+          }
+        );
+    }
+  }
 
   public getAlertFromStore() {
     this.dismissCountDown = this.$store.getters.dismissCountDown;
@@ -71,6 +105,12 @@ export default class Pregunta extends mixins(AlertMixin) {
           this.isFetching = false;
         }
       );
+
+    this.fasesService()
+      .retrieve()
+      .then(res => {
+        this.fases = res.data;
+      });
   }
 
   public prepareRemove(instance: IPregunta): void {

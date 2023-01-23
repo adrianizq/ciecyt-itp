@@ -70,4 +70,17 @@ export default class PreguntaService {
       });
     });
   }
+
+  public retrieveSearchFase(idFase: any, paginationQuery?: any): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      axios
+        .get(`${baseApiUrl}/${idFase}/searchfase` + `?${buildPaginationQueryOpts(paginationQuery)}`)
+        .then(res => {
+          resolve(res);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
 }

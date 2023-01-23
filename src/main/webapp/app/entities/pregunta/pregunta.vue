@@ -9,6 +9,18 @@
                 </span>
             </router-link>
         </h2>
+
+
+        <div class="col-md-3">
+            <label  >Buscar por Fase: </label>
+              <font-awesome-icon icon="search" :spin="isFetching"></font-awesome-icon>
+               <select class="form-control" id="elemento-elementoFase" 
+                  name="buscarFaseId" v-model="searchFaseId"
+                  @change="retrieveSearchFaseId">
+                 <option v-bind:value="null"></option>
+                 <option v-bind:value="faseOption.id" v-for="faseOption in fases" :key="faseOption.id">{{faseOption.fase}}</option>
+               </select>            
+           </div>
         <b-alert :show="dismissCountDown"
             dismissible
             :variant="alertType"
