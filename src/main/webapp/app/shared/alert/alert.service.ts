@@ -1,6 +1,7 @@
 import { Store } from 'vuex';
 
 export default class JhiAlertService {
+  [x: string]: any;
   private store: Store<{}>;
 
   constructor(store: Store<{}>) {
