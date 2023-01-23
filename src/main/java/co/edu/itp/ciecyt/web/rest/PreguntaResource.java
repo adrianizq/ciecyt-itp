@@ -1,9 +1,11 @@
 package co.edu.itp.ciecyt.web.rest;
 
+import co.edu.itp.ciecyt.domain.Pregunta;
+import co.edu.itp.ciecyt.repository.PreguntaRepository;
 import co.edu.itp.ciecyt.service.PreguntaModalidadService;
 import co.edu.itp.ciecyt.service.PreguntaService;
 import co.edu.itp.ciecyt.service.dto.ElementoDTO;
-import co.edu.itp.ciecyt.service.dto.PreguntaModalidadDTO;
+import co.edu.itp.ciecyt.service.mapper.PreguntaMapper;
 import co.edu.itp.ciecyt.web.rest.errors.BadRequestAlertException;
 import co.edu.itp.ciecyt.service.dto.PreguntaDTO;
 
@@ -14,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -42,15 +45,18 @@ public class PreguntaResource {
     private String applicationName;
 
     private final PreguntaService preguntaService;
+
+    private final PreguntaRepository preguntaRepository;
     private final PreguntaModalidadService preguntaModalidadService;
+    private PreguntaMapper preguntaMapper;
 
 
-
-
-    public PreguntaResource(PreguntaService preguntaService, PreguntaModalidadService preguntaModalidadService) {
+    public PreguntaResource(PreguntaService preguntaService, PreguntaRepository preguntaRepository, PreguntaModalidadService preguntaModalidadService, PreguntaMapper preguntaMapper) {
 
         this.preguntaService = preguntaService;
+        this.preguntaRepository = preguntaRepository;
         this.preguntaModalidadService = preguntaModalidadService;
+        this.preguntaMapper = preguntaMapper;
     }
 
     /**
@@ -192,5 +198,43 @@ public class PreguntaResource {
 
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body( e.getMessage());
         }
+    }
+
+
+    @GetMapping("/preguntas/{idFase}/searchfase")
+    public ResponseEntity<List<ElementoDTO>> searchPreguntasFase(@PathVariable Long idFase,
+                                                                @org.springdoc.api.annotations.ParameterObject Pageable pageable
+    ) {
+        log.debug("REST request to get Pregunta by search idFase: {}", idFase);
+
+
+        List<Pregunta> licenseList = new ArrayList<>();
+
+
+        try {
+            List<PreguntaDTO> licenseDTOList = new ArrayList<>();
+            licenseList = preguntaRepository.findByPreguntaFaseId (idFase);
+            //HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+            //return ResponseEntity.ok().headers(headers).body(page.getContent());
+            for (Pregunta l:licenseList
+            ) {
+                licenseDTOList.add(preguntaMapper.toDto(l));
+            }
+
+            Page<ElementoDTO> page = (Page<ElementoDTO>) toPage(licenseDTOList,pageable);
+            HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+            return ResponseEntity.ok().headers(headers).body(page.getContent());
+        } catch (Exception e) {
+            log.debug(e.getMessage());
+            return null;
+        }
+    }
+
+    public Page<?> toPage(List<?> list, Pageable pageable) {
+        int start = (int) pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), list.size());
+        if(start > list.size())
+            return new PageImpl<>(new ArrayList<>(), pageable, list.size());
+        return new PageImpl<>(list.subList(start, end), pageable, list.size());
     }
 }

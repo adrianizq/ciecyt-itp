@@ -18,5 +18,5 @@ public interface PreguntaRepository extends JpaRepository<Pregunta, Long> {
     //List<Pregunta> findByPreguntaModalidadIdAndPreguntaFaseId(Long idModalidad, Long idFase);
     List<Pregunta> findByPreguntaFaseIdOrderByOrden(Long idFase);
 
-
+    List<Pregunta> findByPreguntaFaseId(Long id);
 }

@@ -12,7 +12,7 @@
 
     
           <div class="col-md-3">
-            <label  >Buscar: </label>
+            <label  >Buscar por Fase: </label>
               <font-awesome-icon icon="search" :spin="isFetching"></font-awesome-icon>
                <select class="form-control" id="elemento-elementoFase" 
                   name="buscarFaseId" v-model="searchFaseId"

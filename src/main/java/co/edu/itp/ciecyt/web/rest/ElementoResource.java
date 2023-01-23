@@ -232,7 +232,7 @@ public class ElementoResource {
         }
     }
     @GetMapping("/elementos/{idFase}/searchfase")
-    public ResponseEntity<List<ElementoDTO>> searchLicensesCode(@PathVariable Long idFase,
+    public ResponseEntity<List<ElementoDTO>> searchElementosFases(@PathVariable Long idFase,
                                                                @org.springdoc.api.annotations.ParameterObject Pageable pageable
     ) {
         log.debug("REST request to get Elemento by search idFase: {}", idFase);
