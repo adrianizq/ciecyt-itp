@@ -47,7 +47,10 @@
             >
                 <thead>
                 <tr>
+                  
                     <th  v-on:click="changeOrder('id')"><span v-text="$t('global.field.id')">ID</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
+                
+                  
                     <th  v-on:click="changeOrder('titulo')"><span v-text="$t('ciecytApp.proyecto.titulo')">Titulo</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                      <th  v-on:click="changeOrder('modalidad')"><span >Modalidad</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                      <th ><span>Jurado Viabilidad</span></th>
@@ -70,8 +73,9 @@
                 <!-- JURADO ---------------------------------->
                 <tr v-for="proyecto in proyects"
                     :key="proyecto.id">
-                    
+                    <router-link :to="{name: 'PropuestaInformacionGeneralNuevaEditView', params: {proyectoId: proyecto.id}}" >
                     <td>{{proyecto.id}}</td>
+                  </router-link>
                     <td>{{proyecto.titulo}}</td>
                      <td>{{proyecto.proyectoModalidadModalidad}}</td> 
                    
