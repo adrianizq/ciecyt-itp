@@ -49,7 +49,9 @@
                     
                     <td class="text-right">
                         <div class="btn-group" >
-                            <router-link :to="{name: 'AsesoriaEvaluarProyectoView', params: {proyectoId: proyecto.id}}" tag="button" class="btn btn-info btn-sm details">
+                            <router-link :to="{name: 'AsesoriaEvaluarProyectoView', 
+                            params: {proyectoId: proyecto.id}}" tag="button" class="btn btn-info btn-sm details"
+                            v-if="proyecto.viabilidad=='VIABLE'">
                                <b-icon-eye-fill  ></b-icon-eye-fill>&nbsp;
                                 <span class="d-none d-md-inline" v-text="$t('entity.action.revisar')">Revisar</span>
                             </router-link>
