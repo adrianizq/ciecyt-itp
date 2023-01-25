@@ -14,7 +14,7 @@
 # ===================================================================
 
 logging:
-  path:  C://adr/ciecyt_backend_vue/logs
+  path:  /home/adrian/ciecyt_backend_vue/logs
   file: ${logging.path}/app.log
   level:
     ROOT: DEBUG
@@ -154,11 +154,11 @@ jhipster:
 application:
   upload:
     root:
-      dir: /home/adrian/ciecytapp
+      dir: /home/adrian/ciecyt_backend_vue
     adjuntoproyectofase:
       dir: adjuntoproyectofases      
     adjuntoretroalimentacion:
       dir: adjuntoretroalimentacions     
-  files-path: /home/adrian/ciecytapp
+  files-path: /home/adrian/ciecyt_backend_vue
 
 
