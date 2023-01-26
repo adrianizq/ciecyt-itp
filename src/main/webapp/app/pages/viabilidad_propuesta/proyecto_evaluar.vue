@@ -119,8 +119,10 @@
                          <div class="mt-2">
                             <input type="number" min="0" v-bind:max="ep.puntajeMaximo" :step="0.1"
                             v-if="ep.preguntaTipoPreguntaTipoPregunta==`Nota (con puntaje)`" 
-                             
                             v-model.lazy="ep.respuestaNumero" >
+                            <label v-if="ep.preguntaTipoPreguntaTipoPregunta==`Nota (con puntaje)`">
+                          Máximo {{ ep.puntajeMaximo }}
+                          </label> 
                             
                          </div>     
                          
