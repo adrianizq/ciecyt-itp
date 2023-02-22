@@ -111,13 +111,13 @@ export default class Elementos extends Vue {
                     e.elementoFasesId = this.fase.id;
                     if (e.id) {
                         this.elementoProyectoService().update(e); //envio un elemento
-                        //this.$router.push({ name: 'PropuestaPresupuestoView',params:{ proyectoId: this.proyId}});
+                        this.$router.push({ name: 'ProyectoAdjuntarProyectoView',params:{ proyectoId: this.proyId}});
                     } else {
                         //Creando un nuevo integrante
                         this.elementoProyectoService().create(e)
-                        //.then(param => {
-                        //    this.$router.push({ name: 'PropuestaPresupuestoView',params:{ proyectoId: this.proyId}});
-                        //});
+                        .then(param => {
+                            this.$router.push({ name: 'ProyectoAdjuntarProyectoView',params:{ proyectoId: this.proyId}});
+                        });
                     }
                 }
 

@@ -518,18 +518,18 @@ export default class PropuestaEvaluar extends mixins(JhiDataUtils){
                     if (e.id) {
                         
                         this.proyectoRespuestasService().update(e)
-                        .then(param => {
+                       /* .then(param => {
                            // //this.$router.push({ name: 'PropuestaPresupuestoView',params:{ proyectoId: this.proyId}});
                             (<any>this).$router.go(0);
-                        });
+                        });*/
                       
                     } else {
                         
                         this.proyectoRespuestasService().create(e)
-                        .then(param => {
+                       /* .then(param => {
                            // //this.$router.push({ name: 'PropuestaPresupuestoView',params:{ proyectoId: this.proyId}});
                             (<any>this).$router.go(0);
-                        });
+                        });*/
                         
                     }
                 }
@@ -540,12 +540,12 @@ export default class PropuestaEvaluar extends mixins(JhiDataUtils){
             }
 
             //actualizar el proyecto para que se guarde la viabilidad
-             try {
+            // try {
                 this.proyectoService().updateProyecto(this.proyecto);
 
-                  } catch (e) {
+              //    } catch (e) {
                 //TODO: mostrar mensajes de error
-            }
+           // }
         }
 
         async initRelationships() {
@@ -659,7 +659,7 @@ public previousState() {
         
 
 public saveAndPreviousState() {
-    //this.save();
+    this.save();
     this.$router.go(-1);
   }
         
